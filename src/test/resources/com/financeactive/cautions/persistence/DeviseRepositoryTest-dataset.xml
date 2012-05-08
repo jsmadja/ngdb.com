@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<dataset>
+    <DEVISE ID="1" CODE_ISO="EUR"/>
+    <DEVISE ID="2" CODE_ISO="USD"/>
+    <DEVISE ID="3" CODE_ISO="JPY"/>
+
+</dataset>

@@ -1,6 +1,13 @@
-*.class
-
-# Package Files #
-*.jar
-*.war
-*.ear
+target/
+lib/
+test-output/
+*.prefs
+.classpath
+.project
+.settings
+.DS_Store
+.DS_Store/
+*.db
+*.log
+*.~lock.*
+*.log.lck

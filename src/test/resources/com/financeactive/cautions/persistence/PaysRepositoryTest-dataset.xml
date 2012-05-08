@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<dataset>
+    <PAYS ID="1" CODE="FR"/>
+    <PAYS ID="2" CODE="EN"/>
+    <PAYS ID="3" CODE="DE"/>
+</dataset>

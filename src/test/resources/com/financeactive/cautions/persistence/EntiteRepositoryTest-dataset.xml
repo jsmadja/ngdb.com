@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<dataset>
+    <DEVISE ID="1" CODE_ISO="EUR"/>
+    <PAYS ID="1" CODE="FR"/>
+    <COMPTE ID="1" ACTIF="true" DEVISE_ID="1" LANGUE="FRANCAIS" NOM="MonCompte" OFFRE="Small" PAYS_ID="1"
+            PROPRIETAIRE="sduprey@financeactive.com" TYPE_COMPTE="Demo"/>
+            
+    <ENTITE ID="1" ACTIF="true" NOM="Entite Mère" PAYS_ID="1" DEVISE_ID="1" COMPTE_ID="1" />
+    <ENTITE ID="2" ACTIF="true" NOM="MonEntiteDeTest" PAYS_ID="1" DEVISE_ID="1" ENTITE_MERE_ID="1" COMPTE_ID="1" />
+    
+    <!--
+    Hierarchie:
+                  e10
+                /    \
+  			 e11      e12
+  			 /\      /   \
+  		  e13  e14  e15  e16
+  		  /    /
+  		e17   e18
+    -->
+    <ENTITE ID="10" ACTIF="true" NOM="e10" PAYS_ID="1" DEVISE_ID="1" COMPTE_ID="1" />
+    
+    <ENTITE ID="11" ACTIF="true" NOM="e11" PAYS_ID="1" DEVISE_ID="1" ENTITE_MERE_ID="10" COMPTE_ID="1" />
+    <ENTITE ID="12" ACTIF="true" NOM="e12" PAYS_ID="1" DEVISE_ID="1" ENTITE_MERE_ID="10" COMPTE_ID="1" />
+    
+    <ENTITE ID="13" ACTIF="true" NOM="e13" PAYS_ID="1" DEVISE_ID="1" ENTITE_MERE_ID="11" COMPTE_ID="1" />
+    <ENTITE ID="14" ACTIF="true" NOM="e14" PAYS_ID="1" DEVISE_ID="1" ENTITE_MERE_ID="11" COMPTE_ID="1" />
+    
+    <ENTITE ID="15" ACTIF="true" NOM="e15" PAYS_ID="1" DEVISE_ID="1" ENTITE_MERE_ID="12" COMPTE_ID="1" />
+    <ENTITE ID="16" ACTIF="true" NOM="e16" PAYS_ID="1" DEVISE_ID="1" ENTITE_MERE_ID="12" COMPTE_ID="1" />
+    
+    <ENTITE ID="17" ACTIF="true" NOM="e17" PAYS_ID="1" DEVISE_ID="1" ENTITE_MERE_ID="13" COMPTE_ID="1" />
+    <ENTITE ID="18" ACTIF="true" NOM="e18" PAYS_ID="1" DEVISE_ID="1" ENTITE_MERE_ID="14" COMPTE_ID="1" />
+
+
+    <!-- Test trouver racine -->
+
+    <COMPTE ID="2" ACTIF="true" DEVISE_ID="1" LANGUE="FRANCAIS" NOM="MonCompte2" OFFRE="Small" PAYS_ID="1"
+            PROPRIETAIRE="sduprey@financeactive.com" TYPE_COMPTE="Demo"/>
+
+    <ENTITE ID="20" ACTIF="true" NOM="Entite Mère 2" PAYS_ID="1" DEVISE_ID="1" COMPTE_ID="2" />
+
+
+    <!-- Test trouver utilisateurs -->
+
+    <COMPTE ID="3" ACTIF="true" DEVISE_ID="1" LANGUE="FRANCAIS" NOM="MonCompte3" OFFRE="Small" PAYS_ID="1"
+            PROPRIETAIRE="sduprey@financeactive.com" TYPE_COMPTE="Demo"/>
+
+    <ENTITE ID="21" ACTIF="true" NOM="Entite Mère 3" PAYS_ID="1" DEVISE_ID="1" COMPTE_ID="3" />
+    <ENTITE ID="22" ACTIF="true" NOM="Entite Mère 3" PAYS_ID="1" DEVISE_ID="1" COMPTE_ID="3" ENTITE_MERE_ID="21"/>
+
+    <UTILISATEUR ID="1" ACTIF="TRUE" EMAIL="user1@financeactive.com" COMPTE_ID="3" ENTITE_ID="21" STATUT="ACTIVATED" LANGUE="FRANCAIS" />
+    <UTILISATEUR ID="2" ACTIF="TRUE" EMAIL="user2@financeactive.com" COMPTE_ID="3" ENTITE_ID="21" STATUT="ACTIVATED" LANGUE="FRANCAIS" />
+    <UTILISATEUR ID="3" ACTIF="FALSE" EMAIL="user3@financeactive.com" COMPTE_ID="3" ENTITE_ID="21" STATUT="ACTIVATED" LANGUE="FRANCAIS" />
+    <UTILISATEUR ID="4" ACTIF="FALSE" EMAIL="user4@financeactive.com" COMPTE_ID="3" ENTITE_ID="22" STATUT="ACTIVATED" LANGUE="FRANCAIS" />
+    <UTILISATEUR ID="5" ACTIF="FALSE" EMAIL="user5@financeactive.com" COMPTE_ID="3" ENTITE_ID="22" STATUT="ACTIVATED" LANGUE="FRANCAIS" />
+    
+</dataset>

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<dataset>
+    <DEVISE ID="1" CODE_ISO="EUR"/>
+    <PAYS ID="1" CODE="FR"/>
+
+    <COMPTE ID="1" ACTIF="true" DEVISE_ID="1" LANGUE="FRANCAIS" NOM="MonCompteDeTest" OFFRE="Small" PAYS_ID="1"
+            PROPRIETAIRE="sduprey@financeactive.com" TYPE_COMPTE="Demo"/>
+
+</dataset>

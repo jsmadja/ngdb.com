@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<dataset>
+
+    <UTILISATEUR ID="1" ACTIF="TRUE" EMAIL="sduprey@financeactive.com" STATUT="ACTIVATED" LANGUE="FRANCAIS" />
+    <UTILISATEUR_TOKEN UTILISATEUR_ID="1" VALEUR="azertyuiop123"/>
+
+</dataset>

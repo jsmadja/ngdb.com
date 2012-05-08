@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+        PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+	<display-name>ngdb</display-name>
+
+	<listener>
+		<listener-class>net.bull.javamelody.SessionListener</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>tapestry.app-package</param-name>
+		<param-value>com.ngdb.web</param-value>
+	</context-param>
+	<context-param>
+		<param-name>tapestry.development-modules</param-name>
+		<param-value>
+			com.ngdb.web.services.DevelopmentModule
+        </param-value>
+	</context-param>
+	<context-param>
+		<param-name>tapestry.qa-modules</param-name>
+		<param-value>
+			com.ngdb.web.services.QaModule
+        </param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>monitoring</filter-name>
+		<filter-class>net.bull.javamelody.MonitoringFilter</filter-class>
+		<init-param>
+			<param-name>monitoring-path</param-name>
+			<param-value>/monitoring</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>monitoring</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter>
+		<filter-name>app</filter-name>
+		<filter-class>org.apache.tapestry5.spring.TapestrySpringFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>app</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<resource-ref>
+		<description>DB Connection</description>
+		<res-ref-name>jdbc/ngdb</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+
+</web-app>
