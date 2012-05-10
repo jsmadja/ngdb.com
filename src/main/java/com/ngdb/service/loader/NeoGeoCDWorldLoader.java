@@ -1,7 +1,7 @@
 package com.ngdb.service.loader;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import static com.ngdb.service.loader.Loaders.extract;
+import static com.ngdb.service.loader.Loaders.extractAsLong;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -54,24 +54,6 @@ public class NeoGeoCDWorldLoader {
 
 	private void insertNgcd(String ngcdColumn, Game game) {
 		game.setNgcdJap(extract(ngcdColumn, NGCD_PATTERN).trim());
-	}
-
-	private Long extractAsLong(String html, String pattern) {
-		Matcher matcher = Pattern.compile(pattern).matcher(html);
-		if (matcher.find()) {
-			return Long.valueOf(matcher.group(1));
-		}
-		return null;
-	}
-
-	private String extract(String html, String pattern) {
-		try {
-			Matcher matcher = Pattern.compile(pattern).matcher(html);
-			matcher.find();
-			return matcher.group(1);
-		} catch (IllegalStateException e) {
-			throw new IllegalStateException("Cannot find pattern in " + html, e);
-		}
 	}
 
 	public boolean accept(String s) {

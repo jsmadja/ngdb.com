@@ -1,10 +1,8 @@
 package com.ngdb.service.loader;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
+import static com.ngdb.service.loader.Loaders.extract;
+import static org.apache.commons.lang.StringEscapeUtils.unescapeHtml;
+import static org.apache.commons.lang.StringUtils.remove;
 
 import com.ngdb.domain.Game;
 
@@ -21,43 +19,21 @@ public class NeoGeoMuseumLoader {
 
 	public Game loadGameInfo(String html) {
 		html = clean(html);
-
-		String title = extract(html, TITLE_PATTERN);
-		String publisher = extract(html, PUBLISHER_PATTERN);
-		String genre = extract(html, GENRE_PATTERN);
-		String aesDate = extract(html, AES_DATE_PATTERN);
-		String mvsDate = extract(html, MVS_DATE_PATTERN);
-		String cdDate = extract(html, CD_DATE_PATTERN);
-
 		Game game = new Game();
-		game.setTitle(title);
-		game.setPublisher(publisher);
-		game.setGenre(genre);
-		game.setAesDate(aesDate);
-		game.setMvsDate(mvsDate);
-		game.setCdDate(cdDate);
+		game.setTitle(extract(html, TITLE_PATTERN));
+		game.setPublisher(extract(html, PUBLISHER_PATTERN));
+		game.setGenre(extract(html, GENRE_PATTERN));
+		game.setAesDate(extract(html, AES_DATE_PATTERN));
+		game.setMvsDate(extract(html, MVS_DATE_PATTERN));
+		game.setCdDate(extract(html, CD_DATE_PATTERN));
 		return game;
 	}
 
 	private String clean(String title) {
-		title = StringEscapeUtils.unescapeHtml(title);
-		title = StringUtils.remove(title, "<span class=\"noLink\">");
-		title = StringUtils.remove(title, "</span>");
+		title = unescapeHtml(title);
+		title = remove(title, "<span class=\"noLink\">");
+		title = remove(title, "</span>");
 		return title.trim();
-	}
-
-	private String extract(String html, String pattern) {
-		try {
-			Matcher matcher = Pattern.compile(pattern).matcher(html);
-			matcher.find();
-			return matcher.group(1).trim();
-		} catch (IllegalStateException e) {
-			return "";
-		}
-	}
-
-	public boolean accept(String s) {
-		return s.contains("html");
 	}
 
 }
