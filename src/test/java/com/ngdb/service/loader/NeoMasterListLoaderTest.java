@@ -19,7 +19,7 @@ public class NeoMasterListLoaderTest {
 
 	@Test
 	public void main() throws Exception {
-		InputStream stream = NeoGeoCDWorldLoaderTest.class.getClassLoader().getResourceAsStream("sources/neogeocom.html");
+		InputStream stream = NeoMasterListLoaderTest.class.getClassLoader().getResourceAsStream("sources/neogeocom.html");
 		List<Game> games = new ArrayList<Game>();
 
 		DocumentBuilderFactory newInstance = DocumentBuilderFactory.newInstance();
@@ -29,7 +29,6 @@ public class NeoMasterListLoaderTest {
 		NodeList childNodes = document.getChildNodes();
 		for (int i = 0; i < childNodes.getLength(); i++) {
 			System.err.println(childNodes.item(i).getNodeName());
-
 		}
 
 		System.err.println(games.size());

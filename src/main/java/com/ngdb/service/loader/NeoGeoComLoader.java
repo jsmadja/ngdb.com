@@ -21,7 +21,6 @@ public class NeoGeoComLoader {
 		String titleColumn = clean(splits[3]);
 		String publisherColumn = clean(splits[2]);
 		String megaCountColumn = clean(splits[4]);
-		String aesDateColumn = clean(splits[4]);
 
 		Game game = new Game();
 		insertNgh(nghColumn, game);

@@ -18,6 +18,14 @@ public class Game implements BaseEntity {
 
 	private Long megaCount = 0L;
 
+	private String genre = "";
+
+	private String aesDate = "";
+
+	private String mvsDate = "";
+
+	private String cdDate = "";
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -68,15 +76,27 @@ public class Game implements BaseEntity {
 
 	@Override
 	public String toString() {
-		Objects.ToStringHelper h = Objects.toStringHelper(this).//
-				add("NGH", ngh). //
-				add("Title", title). //
-				add("Publisher", publisher). //
-				add("MegaCount", megaCount); //
+		Objects.ToStringHelper h = Objects.toStringHelper(this);
+		if (!ngh.isEmpty()) {
+			h = h.add("NGH", ngh);
+		}
+		h = h.add("Title", title). //
+				add("Publisher", publisher);
+		if (megaCount != 0) {
+			h = h.add("MegaCount", megaCount);
+		}
 		if (!ngcdJap.isEmpty())
-			h = h.add("NGCD", ngcdJap); //
+			h = h.add("NGCD", ngcdJap);
 		if (!japaneseTitle.isEmpty())
-			h = h.add("Japanese Title", japaneseTitle); //
+			h = h.add("Japanese Title", japaneseTitle);
+		if (!genre.isEmpty())
+			h = h.add("Genre", genre);
+		if (!aesDate.isEmpty())
+			h = h.add("AES", aesDate);
+		if (!mvsDate.isEmpty())
+			h = h.add("MVS", mvsDate);
+		if (!cdDate.isEmpty())
+			h = h.add("CD", cdDate);
 		return h.toString();
 	}
 
@@ -88,4 +108,35 @@ public class Game implements BaseEntity {
 		return title;
 	}
 
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public String getAesDate() {
+		return aesDate;
+	}
+
+	public void setAesDate(String aesDate) {
+		this.aesDate = aesDate;
+	}
+
+	public void setMvsDate(String mvsDate) {
+		this.mvsDate = mvsDate;
+	}
+
+	public String getMvsDate() {
+		return mvsDate;
+	}
+
+	public void setCdDate(String cdDate) {
+		this.cdDate = cdDate;
+	}
+
+	public String getCdDate() {
+		return cdDate;
+	}
 }
