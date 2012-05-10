@@ -2,7 +2,7 @@ package com.ngdb.domain;
 
 import com.google.common.base.Objects;
 
-public class Game implements BaseEntity {
+public class Game implements BaseEntity, Comparable<Game> {
 
 	private Long id;
 
@@ -25,6 +25,10 @@ public class Game implements BaseEntity {
 	private String mvsDate = "";
 
 	private String cdDate = "";
+
+	private boolean fromNgc;
+	private boolean fromNgcd;
+	private boolean fromNgm;
 
 	public void setId(Long id) {
 		this.id = id;
@@ -51,7 +55,7 @@ public class Game implements BaseEntity {
 	}
 
 	public void setPublisher(String publisher) {
-		this.publisher = publisher;
+		this.publisher = publisher.toUpperCase();
 	}
 
 	public String getPublisher() {
@@ -77,14 +81,13 @@ public class Game implements BaseEntity {
 	@Override
 	public String toString() {
 		Objects.ToStringHelper h = Objects.toStringHelper(this);
-		if (!ngh.isEmpty()) {
+		h = h.add("Title", title);
+		if (!ngh.isEmpty())
 			h = h.add("NGH", ngh);
-		}
-		h = h.add("Title", title). //
-				add("Publisher", publisher);
-		if (megaCount != 0) {
+		if (publisher != null)
+			h = h.add("Publisher", publisher);
+		if (megaCount != 0)
 			h = h.add("MegaCount", megaCount);
-		}
 		if (!ngcdJap.isEmpty())
 			h = h.add("NGCD", ngcdJap);
 		if (!japaneseTitle.isEmpty())
@@ -97,11 +100,20 @@ public class Game implements BaseEntity {
 			h = h.add("MVS", mvsDate);
 		if (!cdDate.isEmpty())
 			h = h.add("CD", cdDate);
+		if (fromNgc) {
+			h = h.addValue("neo-geo.com");
+		}
+		if (fromNgcd) {
+			h = h.addValue("neogeocdworld");
+		}
+		if (fromNgm) {
+			h = h.addValue("snk-museum");
+		}
 		return h.toString();
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
+		this.title = title.toUpperCase();
 	}
 
 	public String getTitle() {
@@ -109,7 +121,7 @@ public class Game implements BaseEntity {
 	}
 
 	public void setGenre(String genre) {
-		this.genre = genre;
+		this.genre = genre.toUpperCase();
 	}
 
 	public String getGenre() {
@@ -138,5 +150,24 @@ public class Game implements BaseEntity {
 
 	public String getCdDate() {
 		return cdDate;
+	}
+
+	public void setFromNgc(boolean fromNgc) {
+		this.fromNgc = fromNgc;
+	}
+
+	public void setFromNgcd(boolean fromNgcd) {
+		this.fromNgcd = fromNgcd;
+	}
+
+	public void setFromNgm(boolean fromNgm) {
+		this.fromNgm = fromNgm;
+	}
+
+	@Override
+	public int compareTo(Game g) {
+		String title1 = title.toLowerCase();
+		String title2 = g.title.toLowerCase();
+		return title1.compareTo(title2);
 	}
 }

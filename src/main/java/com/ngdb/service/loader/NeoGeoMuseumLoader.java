@@ -4,6 +4,12 @@ import static com.ngdb.service.loader.Loaders.extract;
 import static org.apache.commons.lang.StringEscapeUtils.unescapeHtml;
 import static org.apache.commons.lang.StringUtils.remove;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.common.io.ByteStreams;
 import com.ngdb.domain.Game;
 
 public class NeoGeoMuseumLoader {
@@ -20,13 +26,29 @@ public class NeoGeoMuseumLoader {
 	public Game loadGameInfo(String html) {
 		html = clean(html);
 		Game game = new Game();
-		game.setTitle(extract(html, TITLE_PATTERN));
+		game.setTitle(extract(html, TITLE_PATTERN).toUpperCase());
 		game.setPublisher(extract(html, PUBLISHER_PATTERN));
 		game.setGenre(extract(html, GENRE_PATTERN));
 		game.setAesDate(extract(html, AES_DATE_PATTERN));
 		game.setMvsDate(extract(html, MVS_DATE_PATTERN));
 		game.setCdDate(extract(html, CD_DATE_PATTERN));
+		game.setFromNgm(true);
 		return game;
+	}
+
+	public List<Game> load(InputStream stream) throws IOException {
+		List<Game> games = new ArrayList<Game>();
+		byte[] bytes = ByteStreams.toByteArray(stream);
+		String html = new String(bytes);
+		String[] splits = html.split("<tr>");
+		for (String split : splits) {
+			Game game = loadGameInfo(split);
+			if (!game.getTitle().isEmpty()) {
+				games.add(game);
+				// System.err.println(game + "\n");
+			}
+		}
+		return games;
 	}
 
 	private String clean(String title) {

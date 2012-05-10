@@ -3,9 +3,15 @@ package com.ngdb.service.loader;
 import static com.ngdb.service.loader.Loaders.extract;
 import static com.ngdb.service.loader.Loaders.extractAsLong;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
+import com.google.common.io.ByteStreams;
 import com.ngdb.domain.Game;
 
 public class NeoGeoComLoader {
@@ -14,6 +20,24 @@ public class NeoGeoComLoader {
 	private String PUBLISHER_PATTERN = ">([A-Za-z/ ]+)<";
 	private String TITLE_PATTERN = ">([ /\\+&'a-zA-Z0-9² :,-?!ōôûūç/\\(\\)\\\"]+)<";
 	private String MEGA_COUNT_PATTERN = ">(\\d+)<";
+
+	public List<Game> load(InputStream stream) throws IOException {
+		List<Game> games = new ArrayList<Game>();
+
+		byte[] bytes = ByteStreams.toByteArray(stream);
+		String html = new String(bytes);
+		String[] splits = html.split("<tr>");
+		for (String split : splits) {
+			if (split.split("</td>").length >= 6 && !split.contains("NGH")) {
+				Game game = loadGameInfo(split);
+				if (!game.getTitle().isEmpty()) {
+					game.setFromNgc(true);
+					games.add(game);
+				}
+			}
+		}
+		return games;
+	}
 
 	public Game loadGameInfo(String html) {
 		String[] splits = html.split("</td>");
@@ -39,8 +63,8 @@ public class NeoGeoComLoader {
 		title = clean(title);
 		title = StringUtils.remove(title, "</font>");
 		title = StringUtils.remove(title, "<font size=\"2\">");
-		title = title.replaceAll("<img .*\">", "");
-		game.setTitle(title);
+		title = title.replaceAll("<img .*\">", "").trim();
+		game.setTitle(title.toUpperCase());
 	}
 
 	private String clean(String title) {
