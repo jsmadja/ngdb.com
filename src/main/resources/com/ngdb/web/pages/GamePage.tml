@@ -4,17 +4,12 @@
 			<table>
 				<tr>
 					<td>
-						<img src="${picture.url}" alt="${game.title}" width="${picture.width}"
+						<img class="thumbnail" src="${picture.url}" alt="${game.title}" width="${picture.width}"
 							height="${picture.height}" />
 					</td>
 					<td>
 						<h1 class="header">
 							${game.title}
-							<span class="nobr">
-								(
-								<a href="#">${game.releaseDate}</a>
-								)
-							</span>
 						</h1>
 						<table>
 							<tr>
@@ -23,6 +18,14 @@
 								</td>
 								<td>
 									<a href="#">${game.id}</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="grey">
+									<b>Release date</b>
+								</td>
+								<td>
+									<a href="#">${game.releaseDate}</a>
 								</td>
 							</tr>
 							<tr>
@@ -115,9 +118,7 @@
 	<div class="row-fluid show-grid">
 		<div class="span3">
 			<p>
-				<t:loop source="game.tags" value="tag">
-					<a href="#" class="badge badge-info">${tag}</a>
-				</t:loop>
+				<img src="http://www.barcoding.com/upc/temp/rad038A1.png" width="150px" style="margin-top:10px"/>
 			</p>
 			<p>
 				<div class="history">
@@ -195,6 +196,8 @@
 			</p>
 		</div>
 		<div class="span9">
+			<h3>Details</h3>
+			
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
 				elementum porttitor turpis mattis tempus. Aliquam sed diam odio,
 				sit amet lacinia ligula. Nunc accumsan mauris vel tortor posuere id
@@ -209,20 +212,21 @@
 				lorem commodo metus, eu sodales odio dui in lectus. Nullam dolor
 				ipsum, consectetur nec suscipit sed, vulputate nec nibh. Quisque
 				varius nibh at leo rhoncus et luctus dui elementum. </p>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-				elementum porttitor turpis mattis tempus. Aliquam sed diam odio,
-				sit amet lacinia ligula. Nunc accumsan mauris vel tortor posuere id
-				pulvinar elit volutpat. Vestibulum in massa quis tortor ultrices
-				gravida. Ut commodo sapien eu enim pulvinar vitae iaculis dolor
-				rhoncus. Mauris elementum iaculis mauris, a dictum orci tincidunt
-				eu. Sed dignissim nunc aliquet risus porta venenatis. Maecenas eu
-				quam ut arcu fermentum interdum ut vel velit. Ut posuere semper
-				lacus, sed iaculis mauris auctor sed. Nam hendrerit egestas magna
-				non tempor. Cras convallis pellentesque purus, sed porttitor lorem
-				sodales at. Duis laoreet, urna vitae imperdiet molestie, purus
-				lorem commodo metus, eu sodales odio dui in lectus. Nullam dolor
-				ipsum, consectetur nec suscipit sed, vulputate nec nibh. Quisque
-				varius nibh at leo rhoncus et luctus dui elementum. </p>
+				
+				<hr/>
+				
+				<h3>Reviews</h3>
+			
+				<table>
+					<tr>
+						<td><a href="#">obsolete-tears</a></td><td><i class="icon-star icon-black" /><i class="icon-star icon-black" /><i class="icon-star icon-black" /><i class="icon-star-empty" /><i class="icon-star-empty"/></td>
+						<td><a href="#">neogeokult</a></td><td><i class="icon-star icon-black" /><i class="icon-star icon-black" /><i class="icon-star-empty"/><i class="icon-star-empty" /><i class="icon-star-empty"/></td>
+					</tr>
+					<tr>
+						<td><a href="#">neogeospirits</a></td><td><i class="icon-star icon-black" /><i class="icon-star icon-black" /><i class="icon-star icon-black" /><i class="icon-star-empty" /><i class="icon-star-empty"/></td>
+						<td></td><td></td>
+					</tr>
+				</table>	
 		</div>
 	</div>
 </t:layout>
