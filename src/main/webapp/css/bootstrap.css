@@ -4995,3 +4995,7 @@ TABLE.t-data-grid THEAD TR TH {
 .nobr {
     white-space: nowrap;
 }
+
+.history {
+	font-size: 10px;	
+}

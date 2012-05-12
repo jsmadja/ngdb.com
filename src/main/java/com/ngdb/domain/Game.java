@@ -34,6 +34,8 @@ public class Game implements BaseEntity {
 
 	private List<Picture> pictures = new ArrayList<Picture>();
 
+	private Box box;
+
 	public Game() {
 		id = ID++;
 	}
@@ -132,6 +134,14 @@ public class Game implements BaseEntity {
 
 	public List<Tag> getTags() {
 		return Collections.unmodifiableList(tags);
+	}
+
+	public void setBox(Box box) {
+		this.box = box;
+	}
+
+	public Box getBox() {
+		return box;
 	}
 
 }

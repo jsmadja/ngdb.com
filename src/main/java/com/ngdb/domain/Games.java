@@ -19,6 +19,7 @@ public class Games {
 		game.setOrigin(Origin.Europe);
 		game.setGenre("Sports");
 		game.setMegaCount(94L);
+		game.setBox(Box.HARD);
 		game.addTag(Tag.MultiPlayers);
 		games.add(game);
 
