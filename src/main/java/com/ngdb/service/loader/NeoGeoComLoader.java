@@ -12,7 +12,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.google.common.io.ByteStreams;
-import com.ngdb.domain.Game;
+import com.ngdb.domain.ExternalGame;
 
 public class NeoGeoComLoader {
 
@@ -21,15 +21,15 @@ public class NeoGeoComLoader {
 	private String TITLE_PATTERN = ">([ /\\+&'a-zA-Z0-9² :,-?!ōôûūç/\\(\\)\\\"]+)<";
 	private String MEGA_COUNT_PATTERN = ">(\\d+)<";
 
-	public List<Game> load(InputStream stream) throws IOException {
-		List<Game> games = new ArrayList<Game>();
+	public List<ExternalGame> load(InputStream stream) throws IOException {
+		List<ExternalGame> games = new ArrayList<ExternalGame>();
 
 		byte[] bytes = ByteStreams.toByteArray(stream);
 		String html = new String(bytes);
 		String[] splits = html.split("<tr>");
 		for (String split : splits) {
 			if (split.split("</td>").length >= 6 && !split.contains("NGH")) {
-				Game game = loadGameInfo(split);
+				ExternalGame game = loadGameInfo(split);
 				if (!game.getTitle().isEmpty()) {
 					game.setFromNgc(true);
 					games.add(game);
@@ -39,14 +39,14 @@ public class NeoGeoComLoader {
 		return games;
 	}
 
-	public Game loadGameInfo(String html) {
+	public ExternalGame loadGameInfo(String html) {
 		String[] splits = html.split("</td>");
 		String nghColumn = clean(splits[1]);
 		String titleColumn = clean(splits[3]);
 		String publisherColumn = clean(splits[2]);
 		String megaCountColumn = clean(splits[4]);
 
-		Game game = new Game();
+		ExternalGame game = new ExternalGame();
 		insertNgh(nghColumn, game);
 		insertPublisher(publisherColumn, game);
 		insertTitle(titleColumn, game);
@@ -54,11 +54,11 @@ public class NeoGeoComLoader {
 		return game;
 	}
 
-	private void insertMegaCount(String megaCountColumn, Game game) {
+	private void insertMegaCount(String megaCountColumn, ExternalGame game) {
 		game.setMegaCount(extractAsLong(megaCountColumn, MEGA_COUNT_PATTERN));
 	}
 
-	private void insertTitle(String titleColumn, Game game) {
+	private void insertTitle(String titleColumn, ExternalGame game) {
 		String title = extract(titleColumn, TITLE_PATTERN);
 		title = clean(title);
 		title = StringUtils.remove(title, "</font>");
@@ -83,11 +83,11 @@ public class NeoGeoComLoader {
 		return title.trim();
 	}
 
-	private void insertPublisher(String publisherColumn, Game game) {
+	private void insertPublisher(String publisherColumn, ExternalGame game) {
 		game.setPublisher(extract(publisherColumn, PUBLISHER_PATTERN));
 	}
 
-	private void insertNgh(String nghColumn, Game game) {
+	private void insertNgh(String nghColumn, ExternalGame game) {
 		game.setNgh(extract(nghColumn, NGH_PATTERN));
 	}
 

@@ -1,0 +1,70 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+	<div class="row-fluid show-grid article">
+		<div class="span4">
+			<img src="${picture.url}" alt="${game.title}" width="${picture.width}"
+				height="${picture.height}" />
+		</div>
+		<div class="span4">
+			<h1 class="header">${game.title} <span class="nobr">(<a href="#">${game.releaseDate}</a>)</span></h1>
+			<table>
+				<tr>
+					<td class="grey"><b>NGH</b></td>
+					<td><a href="#">${game.ngh}</a></td>
+				</tr>
+				<tr>
+					<td class="grey"><b>Platform</b></td>
+					<td><a href="#">${game.platform}</a></td>
+				</tr>
+				<tr>
+					<td class="grey"><b>Origin</b></td>
+					<td><a href="#">${game.origin}</a></td>
+				</tr>
+				<tr>
+					<td class="grey"><b>Genre</b></td>
+					<td><a href="#">${game.genre}</a></td>
+				</tr>
+				<tr>
+					<td class="grey"><b>Mega Count</b></td>
+					<td><a href="#">${game.megaCount}</a></td>
+				</tr>
+				<tr>
+					<td class="grey"><b>Publisher</b></td>
+					<td><a href="#">${game.publisher}</a></td>
+				</tr>
+				<t:loop source="game.properties" value="property">
+				<tr>
+					<td class="grey"><b>${property.key}</b></td>
+					<td>
+						<t:loop source="property.values" value="value">
+							${value}
+							<br />
+						</t:loop>
+					</td>
+				</tr>
+				</t:loop>
+			</table>
+		</div>
+		<div class="span4">
+			<p>
+			<a href="#" class="btn btn-success">
+				<i class="icon-shopping-cart icon-white"></i> Sell
+			</a>
+			</p>
+			<p>
+			<a href="#" class="btn btn-warning">
+				<i class="icon-heart icon-white"></i> Wishlist
+			</a>
+			</p>
+			<p>
+			<a href="#" class="btn btn-primary">
+				<i class="icon-plus icon-white"></i> Collection
+			</a>
+			</p>
+		</div>
+	</div>
+	<p>
+		<t:loop source="game.tags" value="tag">
+			<a href="#" class="badge badge-info">${tag}</a>
+		</t:loop>
+	</p>
+</t:layout>

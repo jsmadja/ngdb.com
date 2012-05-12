@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-import com.ngdb.domain.Game;
+import com.ngdb.domain.ExternalGame;
 
 @Ignore
 public class NeoMasterListLoaderTest {
@@ -20,7 +20,7 @@ public class NeoMasterListLoaderTest {
 	@Test
 	public void main() throws Exception {
 		InputStream stream = NeoMasterListLoaderTest.class.getClassLoader().getResourceAsStream("sources/neogeocom.html");
-		List<Game> games = new ArrayList<Game>();
+		List<ExternalGame> games = new ArrayList<ExternalGame>();
 
 		DocumentBuilderFactory newInstance = DocumentBuilderFactory.newInstance();
 		newInstance.setValidating(false);

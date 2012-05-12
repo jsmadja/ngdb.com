@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.ngdb.domain.Game;
+import com.ngdb.domain.ExternalGame;
 
 public class NeoGeoComLoaderTest {
 
@@ -14,7 +14,7 @@ public class NeoGeoComLoaderTest {
 	@Test
 	public void main() throws Exception {
 		InputStream stream = NeoGeoComLoader.class.getClassLoader().getResourceAsStream("sources/neogeocom.html");
-		List<Game> games = loader.load(stream);
+		List<ExternalGame> games = loader.load(stream);
 		System.err.println(games.size());
 	}
 

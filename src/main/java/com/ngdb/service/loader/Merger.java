@@ -11,22 +11,22 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import com.google.common.io.Closeables;
-import com.ngdb.domain.Game;
+import com.ngdb.domain.ExternalGame;
 
 public class Merger {
 
-	private static List<Game> finalList = new ArrayList<Game>();
+	private static List<ExternalGame> finalList = new ArrayList<ExternalGame>();
 
 	public static void main(String[] args) throws IOException {
 		NeoGeoMuseumLoader neoGeoMuseumLoader = new NeoGeoMuseumLoader();
 		ClassLoader classLoader = Merger.class.getClassLoader();
-		List<Game> ngmGames = neoGeoMuseumLoader.load(classLoader.getResourceAsStream("sources/neogeomuseum.html"));
+		List<ExternalGame> ngmGames = neoGeoMuseumLoader.load(classLoader.getResourceAsStream("sources/neogeomuseum.html"));
 
 		NeoGeoCDWorldLoader neoGeoCDWorldLoader = new NeoGeoCDWorldLoader();
-		List<Game> ngcdwGames = neoGeoCDWorldLoader.load(classLoader.getResourceAsStream("sources/neogeocdworld.html"));
+		List<ExternalGame> ngcdwGames = neoGeoCDWorldLoader.load(classLoader.getResourceAsStream("sources/neogeocdworld.html"));
 
 		NeoGeoComLoader neoGeoComLoader = new NeoGeoComLoader();
-		List<Game> ngcGames = neoGeoComLoader.load(classLoader.getResourceAsStream("sources/neogeocom.html"));
+		List<ExternalGame> ngcGames = neoGeoComLoader.load(classLoader.getResourceAsStream("sources/neogeocom.html"));
 
 		System.err.println("---");
 		System.err.println("ngm:" + ngmGames.size());
@@ -53,7 +53,7 @@ public class Merger {
 		saveLists(ngmGames, ngcdwGames, ngcGames);
 	}
 
-	private static void saveLists(List<Game> ngmGames, List<Game> ngcdwGames, List<Game> ngcGames) throws FileNotFoundException, IOException {
+	private static void saveLists(List<ExternalGame> ngmGames, List<ExternalGame> ngcdwGames, List<ExternalGame> ngcGames) throws FileNotFoundException, IOException {
 		Collections.sort(ngcdwGames);
 		writeTo(ngcdwGames, "/tmp/ngcdwGames.txt");
 
@@ -73,24 +73,24 @@ public class Merger {
 		writeTo(finalList, "/tmp/games.txt");
 	}
 
-	private static void writeTo(List<Game> games, String file) throws FileNotFoundException, IOException {
+	private static void writeTo(List<ExternalGame> games, String file) throws FileNotFoundException, IOException {
 		FileOutputStream fos = new FileOutputStream(file);
-		for (Game game : games) {
+		for (ExternalGame game : games) {
 			fos.write((game.toString() + "\n\n").getBytes());
 		}
 		Closeables.closeQuietly(fos);
 	}
 
-	private static void mergeLists(List<Game> list1, List<Game> list2) {
-		for (Game game : list1.toArray(new Game[] {})) {
+	private static void mergeLists(List<ExternalGame> list1, List<ExternalGame> list2) {
+		for (ExternalGame game : list1.toArray(new ExternalGame[] {})) {
 			String ngh = game.getNgh();
 			String title = game.getTitle();
 			boolean isMerged = false;
 			int index = list1.indexOf(game);
-			Game mergedGame = list1.get(index);
+			ExternalGame mergedGame = list1.get(index);
 			if (!ngh.isEmpty()) {
 				try {
-					Game matchingGame = findGameByNghIn(list2, ngh);
+					ExternalGame matchingGame = findGameByNghIn(list2, ngh);
 					mergedGame = merge(game, matchingGame);
 					isMerged = true;
 				} catch (Exception e) {
@@ -98,7 +98,7 @@ public class Merger {
 			}
 			if (!isMerged && !title.isEmpty()) {
 				try {
-					Game matchingGame = findGameByTitleIn(list2, title);
+					ExternalGame matchingGame = findGameByTitleIn(list2, title);
 					mergedGame = merge(game, matchingGame);
 					isMerged = true;
 				} catch (Exception ex) {
@@ -111,9 +111,9 @@ public class Merger {
 		}
 	}
 
-	private static Game findGameByTitleIn(List<Game> games, String title) throws Exception {
+	private static ExternalGame findGameByTitleIn(List<ExternalGame> games, String title) throws Exception {
 		title = cleanTitle(title);
-		for (Game game : games) {
+		for (ExternalGame game : games) {
 			String gameTitle = cleanTitle(game.getTitle());
 			// System.err.println(gameTitle + ".equals(" + title + ")");
 			if (gameTitle.equals(title)) {
@@ -134,8 +134,8 @@ public class Merger {
 		return title.trim();
 	}
 
-	private static Game merge(Game game1, Game game2) {
-		Game game = new Game();
+	private static ExternalGame merge(ExternalGame game1, ExternalGame game2) {
+		ExternalGame game = new ExternalGame();
 		game.setNgh(value(game1, game2, "ngh"));
 		game.setTitle(value(game1, game2, "title"));
 		game.setPublisher(value(game1, game2, "publisher"));
@@ -183,8 +183,8 @@ public class Merger {
 		return mergeValue;
 	}
 
-	private static Game findGameByNghIn(List<Game> ngcGames, String ngh) throws Exception {
-		for (Game game : ngcGames) {
+	private static ExternalGame findGameByNghIn(List<ExternalGame> ngcGames, String ngh) throws Exception {
+		for (ExternalGame game : ngcGames) {
 			if (game.getNgh().equals(ngh)) {
 				ngcGames.remove(game);
 				return game;

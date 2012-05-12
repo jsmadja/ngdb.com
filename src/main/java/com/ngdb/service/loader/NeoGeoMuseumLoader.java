@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.io.ByteStreams;
-import com.ngdb.domain.Game;
+import com.ngdb.domain.ExternalGame;
 
 public class NeoGeoMuseumLoader {
 
@@ -23,9 +23,9 @@ public class NeoGeoMuseumLoader {
 	private static final String MVS_DATE_PATTERN = ".*MVS Cartridge:(" + DATE + ").*";
 	private static final String CD_DATE_PATTERN = ".*NEOGEO CD:(" + DATE + ").*";
 
-	public Game loadGameInfo(String html) {
+	public ExternalGame loadGameInfo(String html) {
 		html = clean(html);
-		Game game = new Game();
+		ExternalGame game = new ExternalGame();
 		game.setTitle(extract(html, TITLE_PATTERN).toUpperCase());
 		game.setPublisher(extract(html, PUBLISHER_PATTERN));
 		game.setGenre(extract(html, GENRE_PATTERN));
@@ -36,13 +36,13 @@ public class NeoGeoMuseumLoader {
 		return game;
 	}
 
-	public List<Game> load(InputStream stream) throws IOException {
-		List<Game> games = new ArrayList<Game>();
+	public List<ExternalGame> load(InputStream stream) throws IOException {
+		List<ExternalGame> games = new ArrayList<ExternalGame>();
 		byte[] bytes = ByteStreams.toByteArray(stream);
 		String html = new String(bytes);
 		String[] splits = html.split("<tr>");
 		for (String split : splits) {
-			Game game = loadGameInfo(split);
+			ExternalGame game = loadGameInfo(split);
 			if (!game.getTitle().isEmpty()) {
 				games.add(game);
 				// System.err.println(game + "\n");

@@ -37,6 +37,8 @@ html {
   font-size: 100%;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
+  margin:auto;
+  background-color:#E3E2DD;
 }
 
 a:focus {
@@ -152,12 +154,11 @@ textarea {
 }
 
 body {
-  margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
-  line-height: 18px;
   color: #333333;
-  background-color: #ffffff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
+  background:white;
 }
 
 a {
@@ -295,6 +296,7 @@ a:hover {
 .row-fluid {
   width: 100%;
   *zoom: 1;
+  background-color : white;
 }
 
 .row-fluid:before,
@@ -401,9 +403,11 @@ a:hover {
 }
 
 .container-fluid {
+	/*
   padding-right: 20px;
   padding-left: 20px;
   *zoom: 1;
+  */
 }
 
 .container-fluid:before,
@@ -1491,7 +1495,6 @@ legend + .control-group {
 }
 
 table {
-  max-width: 100%;
   background-color: transparent;
   border-collapse: collapse;
   border-spacing: 0;
@@ -3725,6 +3728,8 @@ input[type="submit"].btn.btn-mini {
   left: 0;
   z-index: 1030;
   margin-bottom: 0;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 
 .navbar-fixed-top .navbar-inner,
@@ -4916,12 +4921,17 @@ a.badge:hover {
 }
 
 .hero-unit {
-  padding: 60px;
+  padding: 10px;
   margin-bottom: 30px;
-  background-color: #eeeeee;
   -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
           border-radius: 6px;
+          
+          background-color: black;
+    background-image: -moz-linear-gradient(center top , #000, #333);
+    background-repeat: repeat-x;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 -1px 0 rgba(0, 0, 0, 0.1) inset;
 }
 
 .hero-unit h1 {
@@ -4930,13 +4940,14 @@ a.badge:hover {
   line-height: 1;
   letter-spacing: -1px;
   color: inherit;
+  font-weight: bold;
 }
 
 .hero-unit p {
   font-size: 18px;
   font-weight: 200;
   line-height: 27px;
-  color: inherit;
+  color: white;
 }
 
 .pull-right {
@@ -4957,4 +4968,30 @@ a.badge:hover {
 
 .invisible {
   visibility: hidden;
+}
+
+.orange {
+	color:orange;	
+}
+
+.blue {
+	color:#3399FF;	
+}
+
+TABLE.t-data-grid THEAD TR TH {
+	background-color: black;	
+}
+
+.grey {
+	color:#606060;
+}
+
+.article h1.header span {
+    color: #666666;
+    font-size: 15px;
+    font-weight: normal;
+}
+
+.nobr {
+    white-space: nowrap;
 }

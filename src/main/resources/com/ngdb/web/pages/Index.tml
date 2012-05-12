@@ -1,0 +1,43 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+	<div class="hero-unit">
+		<h1><span class="orange" style="font-family:Times new roman">NEO·GEO</span>&nbsp;<span class="blue">database</span></h1>
+		<p>This is a template for a simple marketing or informational website.
+			It includes a large callout called the hero unit and three supporting
+			pieces of content. Use it as a starting point to create something
+			more unique.</p>
+		<p>
+			<a class="btn btn-primary btn-large">Learn
+				more &raquo;
+			</a>
+		</p>
+	</div>
+	<div class="row-fluid">
+		<div class="span4">
+			<h2>Collection</h2>
+			<p>Use NGDb online anytime to track down your Collection in any available format. Report errors on doubtful titles to warn others. 000,001 games in collections righ now! </p>
+			<p>
+				<a class="btn" href="/collection">View
+					details &raquo;
+				</a>
+			</p>
+		</div><!--/span -->
+		<div class="span4">
+			<h2>WishList</h2>
+			<p>Looking for rare titles? Setup your Wishlist and receive instant notification by Email when one of them is added to a User Shop. Currently 00,000 wishes set. </p>
+			<p>
+				<a class="btn" href="#">View
+					details &raquo;
+				</a>
+			</p>
+		</div><!--/span -->
+		<div class="span4">
+			<h2>Personal Shop</h2>
+			<p>Want to free some shelf space and generate cash from your collection? Start selling at will using all NGDb past sales statistics and best offers from buyers to fine-tune your prices. </p>
+			<p>
+				<a class="btn" href="#">View
+					details &raquo;
+				</a>
+			</p>
+		</div><!--/span -->
+	</div><!--/row -->
+</t:layout>

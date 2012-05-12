@@ -1,0 +1,7 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+	<t:grid source="games" row="game">
+		<p:idCell>
+			<t:pagelink page="gamepage" context="game.id">${game.id}</t:pagelink>
+		</p:idCell>
+	</t:grid>
+</t:layout>

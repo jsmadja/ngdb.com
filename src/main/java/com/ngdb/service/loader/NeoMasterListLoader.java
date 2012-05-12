@@ -1,11 +1,11 @@
 package com.ngdb.service.loader;
 
-import com.ngdb.domain.Game;
+import com.ngdb.domain.ExternalGame;
 
 public class NeoMasterListLoader {
 
-	public Game loadGameInfo(String html) {
-		return new Game();
+	public ExternalGame loadGameInfo(String html) {
+		return new ExternalGame();
 	}
 
 }
