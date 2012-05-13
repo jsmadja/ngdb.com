@@ -9,7 +9,7 @@
 	<div class="row-fluid">
 		<div class="span4">
 			<h2>Collection</h2>
-			<p>Use NGDb online anytime to track down your Collection in any available format. Report errors on doubtful titles to warn others. 000,001 games in collections righ now! </p>
+			<p>Use NGDb online anytime to track down your Collection in any available format. Report errors on doubtful titles to warn others. ${numGames} games in collections righ now! </p>
 			<p>
 				<a class="btn" href="/collection">View
 					details &raquo;
@@ -18,7 +18,7 @@
 		</div>
 		<div class="span4">
 			<h2>WishList</h2>
-			<p>Looking for rare titles? Setup your Wishlist and receive instant notification by Email when one of them is added to a User Shop. Currently 00,000 wishes set. </p>
+			<p>Looking for rare titles? Setup your Wishlist and receive instant notification by Email when one of them is added to a User Shop. Currently ${numWhishes} wishes set. </p>
 			<p>
 				<a class="btn" href="#">View
 					details &raquo;
@@ -39,22 +39,25 @@
 		<div class="span4">
 			<h2>Most owned game</h2>
 			<p>
-				<img class="thumbnail" height="250px" src="http://neogeospirit.pagesperso-orange.fr/images/samuraishodown2_jaquette.jpg" alt="Samurai Spirits 2" />
-				<a class="btn" href="/collection" style="margin-top:10px">Create your own collection &raquo;</a>
+				<t:pagelink page="article" context="${mostOwnedGame.id}">
+					<img class="thumbnail" width="150px" src="${mostOwnedGame.mainPicture.url}" title="${mostOwnedGame.title}" />
+				</t:pagelink>
 			</p>
 		</div>
 		<div class="span4">
 			<h2>Most wanted game</h2>
 			<p>
-				<img class="thumbnail" height="250px" src="http://upload.wikimedia.org/wikipedia/en/thumb/3/3d/Kizuna_Encounter_(cover).jpg/250px-Kizuna_Encounter_(cover).jpg" alt="Kizuna Encounter" />
-				<a class="btn" href="/collection" style="margin-top:10px">Sell yours &raquo;</a>
+				<t:pagelink page="article" context="${mostWantedGame.id}">
+					<img class="thumbnail" width="150px" src="${mostWantedGame.mainPicture.url}" title="${mostWantedGame.title}" />
+				</t:pagelink>
 			</p>
 		</div>
 		<div class="span4">
 			<h2>For sale</h2>
 			<p>
-				<img class="thumbnail" height="250px" src="http://t3.gstatic.com/images?q=tbn:ANd9GcQJbQdNoYycfszrTgyM5QJaLOL-ft4qf5HIy1INn74DCavXDD7u0bUYwZdc" alt="Strikers 1945 Plus" />
-				<a class="btn" href="/collection" style="margin-top:10px" >Buy it &raquo;</a>
+				<t:pagelink page="article" context="${lastForSaleGame.id}">
+					<img class="thumbnail" width="150px" src="${lastForSaleGame.mainPicture.url}" title="${lastForSaleGame.title}" />
+				</t:pagelink>
 			</p>
 		</div>
 		

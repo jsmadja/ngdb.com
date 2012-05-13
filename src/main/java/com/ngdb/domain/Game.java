@@ -2,7 +2,10 @@ package com.ngdb.domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Game implements BaseEntity {
 
@@ -36,8 +39,17 @@ public class Game implements BaseEntity {
 
 	private Box box;
 
+	private Date creationDate;
+
+	private Set<User> owners = new HashSet<User>();
+
+	private Set<User> wishers = new HashSet<User>();
+
+	private String details;
+
 	public Game() {
 		id = ID++;
+		creationDate = new Date();
 	}
 
 	public Long getId() {
@@ -142,6 +154,55 @@ public class Game implements BaseEntity {
 
 	public Box getBox() {
 		return box;
+	}
+
+	@Override
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public Set<User> getOwners() {
+		return owners;
+	}
+
+	public void addOwner(User user) {
+		owners.add(user);
+	}
+
+	public void addWisher(User user) {
+		wishers.add(user);
+	}
+
+	public Set<User> getWishers() {
+		return wishers;
+	}
+
+	public Picture getMainPicture() {
+		return pictures.isEmpty() ? Picture.EMPTY : pictures.get(0);
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
+	}
+
+	public String getDetails() {
+		return details;
+	}
+
+	public String getCollectionRank() {
+		return "1st";
+	}
+
+	public int getNumOwners() {
+		return owners.size();
+	}
+
+	public String getWishRank() {
+		return "2nd";
+	}
+
+	public int getNumWishers() {
+		return wishers.size();
 	}
 
 }

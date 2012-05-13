@@ -4,8 +4,8 @@
 			<table>
 				<tr>
 					<td>
-						<img class="thumbnail" src="${picture.url}" alt="${game.title}"
-							width="${picture.width}" height="${picture.height}" />
+						<img class="thumbnail" src="${game.mainPicture.url}" title="${game.title}"
+							width="${game.mainPicture.width}" height="${game.mainPicture.height}" />
 					</td>
 					<td>
 						<h1 class="header">
@@ -127,8 +127,8 @@
 						<tr>
 							<td>Collection:</td>
 							<td>
-								<b>128th</b>
-								(38)
+								<b>${game.collectionRank}</b>
+								(${game.numOwners})
 							</td>
 							<td>Ask:</td>
 							<td>
@@ -138,8 +138,8 @@
 						<tr>
 							<td>Wishlist:</td>
 							<td>
-								<b>717th</b>
-								(4)
+								<b>${game.wishRank}</b>
+								(${game.numWishers})
 							</td>
 							<td>Bid:</td>
 							<td>
@@ -199,24 +199,9 @@
 		<div class="span9">
 			<h3>Details</h3>
 
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-				elementum porttitor turpis mattis tempus. Aliquam sed diam odio,
-				sit
-				amet lacinia ligula. Nunc accumsan mauris vel tortor posuere id
-				pulvinar elit volutpat. Vestibulum in massa quis tortor ultrices
-				gravida. Ut commodo sapien eu enim pulvinar vitae iaculis dolor
-				rhoncus. Mauris elementum iaculis mauris, a dictum orci tincidunt
-				eu. Sed dignissim nunc aliquet risus porta venenatis. Maecenas eu
-				quam ut arcu fermentum interdum ut vel velit. Ut posuere semper
-				lacus, sed iaculis mauris auctor sed. Nam hendrerit egestas magna
-				non tempor. Cras convallis pellentesque purus, sed porttitor lorem
-				sodales at. Duis laoreet, urna vitae imperdiet molestie, purus
-				lorem
-				commodo metus, eu sodales odio dui in lectus. Nullam dolor
-				ipsum,
-				consectetur nec suscipit sed, vulputate nec nibh. Quisque
-				varius nibh
-				at leo rhoncus et luctus dui elementum. </p>
+			<p>
+				${game.details}
+			</p>
 
 			<hr />
 

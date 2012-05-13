@@ -1,5 +1,7 @@
 package com.ngdb.domain;
 
+import java.util.Date;
+
 import com.google.common.base.Objects;
 
 public class ExternalGame implements BaseEntity, Comparable<ExternalGame> {
@@ -169,5 +171,11 @@ public class ExternalGame implements BaseEntity, Comparable<ExternalGame> {
 		String title1 = title.toLowerCase();
 		String title2 = g.title.toLowerCase();
 		return title1.compareTo(title2);
+	}
+
+	@Override
+	public Date getCreationDate() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -7,7 +7,6 @@ import org.apache.tapestry5.annotations.SetupRender;
 
 import com.ngdb.domain.Game;
 import com.ngdb.domain.Games;
-import com.ngdb.domain.Picture;
 
 public class Collection {
 
@@ -20,13 +19,6 @@ public class Collection {
 	@SetupRender
 	public void setupRender() {
 		games = Games.findAll();
-	}
-
-	public Picture getPicture() {
-		if (game.getPictures().isEmpty()) {
-			return Picture.EMPTY;
-		}
-		return game.getPictures().get(0);
 	}
 
 }
