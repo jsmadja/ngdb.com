@@ -9,7 +9,7 @@ import com.ngdb.domain.Game;
 import com.ngdb.domain.Games;
 import com.ngdb.domain.Picture;
 
-public class Collection {
+public class Shop {
 
 	@Property
 	private Game game;

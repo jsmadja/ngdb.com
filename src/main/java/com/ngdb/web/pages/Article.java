@@ -8,7 +8,7 @@ import com.ngdb.domain.Picture;
 import com.ngdb.domain.Tag;
 import com.ngdb.persistence.ElementNonTrouveException;
 
-public class GamePage {
+public class Article {
 
 	@Property
 	private Game game;

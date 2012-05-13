@@ -5,11 +5,6 @@
 			It includes a large callout called the hero unit and three supporting
 			pieces of content. Use it as a starting point to create something
 			more unique.</p>
-		<p>
-			<a class="btn btn-primary btn-large">Learn
-				more &raquo;
-			</a>
-		</p>
 	</div>
 	<div class="row-fluid">
 		<div class="span4">
@@ -20,7 +15,7 @@
 					details &raquo;
 				</a>
 			</p>
-		</div><!--/span -->
+		</div>
 		<div class="span4">
 			<h2>WishList</h2>
 			<p>Looking for rare titles? Setup your Wishlist and receive instant notification by Email when one of them is added to a User Shop. Currently 00,000 wishes set. </p>
@@ -29,7 +24,7 @@
 					details &raquo;
 				</a>
 			</p>
-		</div><!--/span -->
+		</div>
 		<div class="span4">
 			<h2>Personal Shop</h2>
 			<p>Want to free some shelf space and generate cash from your collection? Start selling at will using all NGDb past sales statistics and best offers from buyers to fine-tune your prices. </p>
@@ -38,6 +33,30 @@
 					details &raquo;
 				</a>
 			</p>
-		</div><!--/span -->
-	</div><!--/row -->
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span4">
+			<h2>Most owned game</h2>
+			<p>
+				<img class="thumbnail" height="250px" src="http://neogeospirit.pagesperso-orange.fr/images/samuraishodown2_jaquette.jpg" alt="Samurai Spirits 2" />
+				<a class="btn" href="/collection" style="margin-top:10px">Create your own collection &raquo;</a>
+			</p>
+		</div>
+		<div class="span4">
+			<h2>Most wanted game</h2>
+			<p>
+				<img class="thumbnail" height="250px" src="http://upload.wikimedia.org/wikipedia/en/thumb/3/3d/Kizuna_Encounter_(cover).jpg/250px-Kizuna_Encounter_(cover).jpg" alt="Kizuna Encounter" />
+				<a class="btn" href="/collection" style="margin-top:10px">Sell yours &raquo;</a>
+			</p>
+		</div>
+		<div class="span4">
+			<h2>For sale</h2>
+			<p>
+				<img class="thumbnail" height="250px" src="http://t3.gstatic.com/images?q=tbn:ANd9GcQJbQdNoYycfszrTgyM5QJaLOL-ft4qf5HIy1INn74DCavXDD7u0bUYwZdc" alt="Strikers 1945 Plus" />
+				<a class="btn" href="/collection" style="margin-top:10px" >Buy it &raquo;</a>
+			</p>
+		</div>
+		
+	</div>
 </t:layout>
