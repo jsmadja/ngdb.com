@@ -5,20 +5,19 @@ import java.util.List;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 
-import com.ngdb.domain.ShopItem;
-import com.ngdb.domain.ShopItems;
+import com.ngdb.domain.Game;
+import com.ngdb.domain.Games;
 
-public class Shop {
-
-	@Property
-	private ShopItem shopItem;
+public class Wishes {
 
 	@Property
-	private List<ShopItem> shopItems;
+	private Game game;
+
+	@Property
+	private List<Game> games;
 
 	@SetupRender
 	public void setupRender() {
-		shopItems = ShopItems.findAll();
+		games = Games.findAll();
 	}
-
 }

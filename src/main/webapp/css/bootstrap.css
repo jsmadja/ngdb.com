@@ -4999,3 +4999,30 @@ TABLE.t-data-grid THEAD TR TH {
 .history {
 	font-size: 10px;	
 }
+
+.collection div.span3 {
+	height:200px;
+	margin-bottom:30px;
+}
+
+.collection a {
+	margin:5px 0px 0px 3px;
+}
+
+.shop div.span3 {
+	height:200px;
+	margin-bottom:30px;
+}
+
+.shop a {
+	margin:5px 0px 0px 3px;
+}
+
+.wishes div.span3 {
+	height:200px;
+	margin-bottom:30px;
+}
+
+.wishes a {
+	margin:5px 0px 0px 3px;
+}

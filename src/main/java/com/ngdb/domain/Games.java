@@ -57,6 +57,7 @@ public class Games {
 		game.setMegaCount(94L);
 		game.addTag(Tag.MultiPlayers);
 		game.addPicture(new Picture("http://img571.imageshack.us/img571/6133/mvsstreethoop.png", 239, 83));
+		game.addWisher(Users.findAll().get(0));
 		games.add(game);
 
 		game = new Game();
