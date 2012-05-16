@@ -1,33 +1,15 @@
 package com.ngdb.domain;
 
-import java.util.Date;
+public class ShopItem extends AbstractEntity {
 
-public class ShopItem implements BaseEntity {
-
-	private Date creationDate;
-	private Long id;
 	private Picture mainPicture;
 	private double price;
-	private Game game;
+	protected Article article;
 
-	private static long ID = 0;
-
-	public ShopItem(Picture mainPicture, Game game, double price) {
-		this.id = ID++;
-		this.creationDate = new Date();
+	public ShopItem(Picture mainPicture, Article article, double price) {
 		this.mainPicture = mainPicture;
-		this.game = game;
+		this.article = article;
 		this.price = price;
-	}
-
-	@Override
-	public Long getId() {
-		return id;
-	}
-
-	@Override
-	public Date getCreationDate() {
-		return creationDate;
 	}
 
 	public double getPrice() {
@@ -35,7 +17,7 @@ public class ShopItem implements BaseEntity {
 	}
 
 	public String getTitle() {
-		return game.getTitle() + " (" + game.getPlatform().name() + " - " + game.getOrigin().getTitle() + ")";
+		return article.getTitle();
 	}
 
 	public Picture getMainPicture() {

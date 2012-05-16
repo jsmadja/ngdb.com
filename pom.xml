@@ -32,6 +32,11 @@
 
 	<dependencies>
 		<dependency>
+        	<groupId>org.got5</groupId>
+            <artifactId>tapestry5-jquery</artifactId>
+            <version>${got5-release-version}</version>
+        </dependency>
+		<dependency>
 			<groupId>org.apache.tapestry</groupId>
 			<artifactId>tapestry-core</artifactId>
 			<version>${tapestry-release-version}</version>

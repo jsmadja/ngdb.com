@@ -1,6 +1,6 @@
 package com.ngdb.web.pages;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.tapestry5.annotations.SetupRender;
@@ -10,14 +10,14 @@ import com.ngdb.domain.Games;
 
 public class Index {
 
-	private List<Game> games;
+	private Collection<Game> games;
 	private Game mostOwnedGame;
 	private Game mostWantedGame;
 	private Game lastForSaleGame;
 
 	@SetupRender
 	public void setUpRender() {
-		games = Games.findAll();
+		games = Games.findAllGames();
 		mostOwnedGame = randomGame();
 		mostWantedGame = randomGame();
 		lastForSaleGame = randomGame();
@@ -29,9 +29,9 @@ public class Index {
 
 	public int getNumWhishes() {
 		int numWishes = 0;
-		List<Game> games = Games.findAll();
+		Collection<Game> games = Games.findAllGames();
 		for (Game game : games) {
-			numWishes += game.getWishers().size();
+			numWishes += game.getWishersCount();
 		}
 		return numWishes;
 	}
@@ -50,7 +50,7 @@ public class Index {
 
 	private Game randomGame() {
 		int nextInt = RandomUtils.nextInt(games.size());
-		return games.get(nextInt);
+		return (Game) games.toArray()[nextInt];
 	}
 
 }

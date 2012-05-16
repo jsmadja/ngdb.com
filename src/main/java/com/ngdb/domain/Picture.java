@@ -1,6 +1,6 @@
 package com.ngdb.domain;
 
-public class Picture {
+public class Picture extends AbstractEntity {
 
 	public static final Picture EMPTY = new Picture("http://cdn1.iconfinder.com/data/icons/realistiK-new/128x128/mimetypes/unknown.png", 128, 128);
 

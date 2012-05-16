@@ -1,6 +1,6 @@
 package com.ngdb.domain;
 
-public class Property {
+public class Property extends AbstractEntity {
 
 	private String key;
 	private String[] values;

@@ -10,6 +10,8 @@ public class Users {
 	static {
 		users.add(new User("anzymus"));
 		users.add(new User("takou"));
+		users.add(new User("chacha"));
+		users.add(new User("neoforever"));
 	}
 
 	public static List<User> findAll() {

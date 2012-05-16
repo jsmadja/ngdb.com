@@ -1,30 +1,41 @@
 package com.ngdb.domain;
 
-import java.util.Date;
+import java.util.List;
 
-public class User implements BaseEntity {
+public class User extends AbstractEntity {
 
-	private Date creationDate;
-	private Long id;
 	private String login;
+	private WishList wishes = new WishList();
+	private Collection collection = new Collection();
+	private Shop shop = new Shop();
 
 	public User(String login) {
-		this.creationDate = new Date();
+		super();
 		this.login = login;
-	}
-
-	@Override
-	public Long getId() {
-		return id;
-	}
-
-	@Override
-	public Date getCreationDate() {
-		return creationDate;
 	}
 
 	public String getLogin() {
 		return login;
+	}
+
+	public List<Article> getWishes() {
+		return wishes.getWishes();
+	}
+
+	public List<ShopItem> getShopItems() {
+		return shop.getShopItems();
+	}
+
+	public void addToCollection(Article article) {
+		collection.add(article);
+	}
+
+	public java.util.Collection<Article> getGamesInCollection() {
+		return collection.getGames();
+	}
+
+	public void addToWishList(Article article) {
+		wishes.add(article);
 	}
 
 }

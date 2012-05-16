@@ -6,18 +6,18 @@
 	<div class="row-fluid">
 		<div class="span4">
 			<h2>Collection</h2>
-			<p>Use NGDb online anytime to track down your collection in any available format. Report errors on doubtful titles to warn others. <b><a href="/collection">${numGames}</a></b> games in collections righ now! </p>
+			<p>Use NGDb online anytime to track down your collection in any available format. Report errors on doubtful titles to warn others. <b><a href="/collectionView">${numGames}</a></b> games in collections righ now! </p>
 			<p>
-				<a class="btn" href="/collection">View
+				<a class="btn" href="/collectionView">View
 					details &raquo;
 				</a>
 			</p>
 		</div>
 		<div class="span4">
 			<h2>WishList</h2>
-			<p>Looking for rare titles? Setup your Wishlist and receive instant notification by Email when one of them is added to a User Shop. Currently <b><a href="/wishes">${numWhishes}</a></b> wishes set. </p>
+			<p>Looking for rare titles? Setup your Wishlist and receive instant notification by Email when one of them is added to a User Shop. Currently <b><a href="/wishListView">${numWhishes}</a></b> wishes set. </p>
 			<p>
-				<a class="btn" href="/wishes">View
+				<a class="btn" href="/wishListView">View
 					details &raquo;
 				</a>
 			</p>
@@ -26,7 +26,7 @@
 			<h2>Personal Shop</h2>
 			<p>Want to free some shelf space and generate cash from your collection? Start selling at will using all NGDb past sales statistics and best offers from buyers to fine-tune your prices. </p>
 			<p>
-				<a class="btn" href="/shop">View all items &raquo;</a>
+				<a class="btn" href="/shopView">View all items &raquo;</a>
 			</p>
 		</div>
 	</div>
@@ -34,25 +34,25 @@
 		<div class="span4">
 			<h2>Most owned game</h2>
 			<p>
-				<t:pagelink page="article" context="${mostOwnedGame.id}">
+				<t:pagelink page="gameView" context="${mostOwnedGame.id}">
 					<img class="thumbnail" width="150px" src="${mostOwnedGame.mainPicture.url}" title="${mostOwnedGame.title}" />
 				</t:pagelink>
-				${mostOwnedGame.title} ${mostOwnedGame.platform} ${mostOwnedGame.origin}
+				${mostOwnedGame.title} ${mostOwnedGame.platform} ${mostOwnedGame.origin.title}
 			</p>
 		</div>
 		<div class="span4">
 			<h2>Most wanted game</h2>
 			<p>
-				<t:pagelink page="article" context="${mostWantedGame.id}">
+				<t:pagelink page="gameView" context="${mostWantedGame.id}">
 					<img class="thumbnail" width="150px" src="${mostWantedGame.mainPicture.url}" title="${mostWantedGame.title}" />
 				</t:pagelink>
-				${mostWantedGame.title} ${mostWantedGame.platform} ${mostWantedGame.origin}
+				${mostWantedGame.title} ${mostWantedGame.platform} ${mostWantedGame.origin.title}
 			</p>
 		</div>
 		<div class="span4">
 			<h2>For sale</h2>
 			<p>
-				<t:pagelink page="article" context="${lastForSaleGame.id}">
+				<t:pagelink page="gameView" context="${lastForSaleGame.id}">
 					<img class="thumbnail" width="150px" src="${lastForSaleGame.mainPicture.url}" title="${lastForSaleGame.title}" />
 				</t:pagelink>
 				${lastForSaleGame.title} ${lastForSaleGame.platform} ${lastForSaleGame.origin.title}
