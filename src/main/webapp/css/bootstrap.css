@@ -4468,6 +4468,8 @@ input[type="submit"].btn.btn-mini {
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
      -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
           box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+   max-height:165px;
+   max-width: 165px;
 }
 
 a.thumbnail:hover {

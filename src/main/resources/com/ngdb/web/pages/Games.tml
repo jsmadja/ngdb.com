@@ -1,0 +1,9 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<div class="games">
+		<h1>Games</h1>
+		<div>
+			<t:grid source="games" row="game" />
+		</div>
+	</div>
+</t:layout>

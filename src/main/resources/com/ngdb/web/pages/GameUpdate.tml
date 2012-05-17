@@ -1,0 +1,83 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<div class="row">
+		<div class="span1">
+			<img class="thumbnail" src="${game.mainPicture.url}" title="${game.title}" />
+		</div>
+		<div class="span1">
+			<t:form t:id="gameForm" class="form-horizontal">
+				<t:errors />
+				<div class="control-group">
+					<fieldset>
+						<div class="control-group">
+							<t:label for="title" class="control-label">Title
+							</t:label>
+							<div class="controls">
+								<t:textfield value="game.title" t:id="title" />
+							</div>
+						</div>
+						<div class="control-group">
+							<t:label for="mainPicture" class="control-label">Upload Picture</t:label>
+							<div class="controls">
+								<input t:type="upload" t:id="mainPicture" t:value="mainPicture" />
+							</div>
+						</div>
+						<div class="control-group">
+							<t:label for="mainPicture" class="control-label">Direct Picture Url</t:label>
+							<div class="controls">
+								<t:textfield value="url" t:id="url" />
+							</div>
+						</div>
+						<div class="control-group">
+							<t:label for="releaseDate" class="control-label">Release Date</t:label>
+							<div class="controls">
+								<t:datefield value="game.releaseDate" t:id="releaseDate" />
+							</div>
+						</div>
+						<div class="control-group">
+							<t:label for="platform" class="control-label">Platform</t:label>
+							<div class="controls">
+								<t:select value="game.platform" model="platforms" t:id="platform" />
+							</div>
+						</div>
+						<div class="control-group">
+							<t:label for="origin" class="control-label">Origin</t:label>
+							<div class="controls">
+								<t:select value="game.origin" model="origins" t:id="origin" />
+							</div>
+						</div>
+<!-- 						<div class="control-group"> -->
+<!-- 							<t:label for="genres" class="control-label">Genres</t:label> -->
+<!-- 							<div class="controls"> -->
+<!-- 								<t:select values="game.genres" model="genres" t:id="genres" /> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+						<div class="control-group">
+							<t:label for="megaCount" class="control-label">Mega Count</t:label>
+							<div class="controls">
+								<t:textfield value="game.megaCount" t:id="megaCount" />
+							</div>
+						</div>
+						<div class="control-group">
+							<t:label for="publisher" class="control-label">Publisher</t:label>
+							<div class="controls">
+								<t:select value="game.publisher" model="publishers"
+									t:id="publisher" />
+							</div>
+						</div>
+						<div class="control-group">
+							<t:label for="details" class="control-label">Details</t:label>
+							<div class="controls">
+								<t:textarea value="game.details" t:id="details" />
+							</div>
+						</div>
+						<div class="form-actions">
+							<button class="btn btn-primary" type="submit">Save changes</button>
+							<button class="btn">Cancel</button>
+						</div>
+					</fieldset>
+				</div>
+			</t:form>
+		</div>
+	</div>
+</t:layout>            

@@ -17,11 +17,7 @@
 		<tapestry-security-version>0.4.4</tapestry-security-version>
 		<got5-release-version>3.2.0</got5-release-version>
 		<mysql-release-version>5.1.17</mysql-release-version>
-		<spring-version>3.1.1.RELEASE</spring-version>
 		<guava-version>12.0</guava-version>
-		<joda-time-version>2.1</joda-time-version>
-		<hibernate-version>3.6.7.Final</hibernate-version>
-		<powermock.version>1.4.12</powermock.version>
 		<javamelody-version>1.37.0</javamelody-version>
 
 		<h2-version>1.3.166</h2-version>
@@ -32,18 +28,18 @@
 
 	<dependencies>
 		<dependency>
-        	<groupId>org.got5</groupId>
-            <artifactId>tapestry5-jquery</artifactId>
-            <version>${got5-release-version}</version>
-        </dependency>
+			<groupId>org.got5</groupId>
+			<artifactId>tapestry5-jquery</artifactId>
+			<version>${got5-release-version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.tapestry</groupId>
-			<artifactId>tapestry-core</artifactId>
+			<artifactId>tapestry-upload</artifactId>
 			<version>${tapestry-release-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tapestry</groupId>
-			<artifactId>tapestry-spring</artifactId>
+			<artifactId>tapestry-core</artifactId>
 			<version>${tapestry-release-version}</version>
 		</dependency>
 		<dependency>
@@ -53,38 +49,13 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tapestry</groupId>
-			<artifactId>tapestry-jpa</artifactId>
+			<artifactId>tapestry-hibernate</artifactId>
 			<version>${tapestry-release-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>${joda-time-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${hibernate-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql-release-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-			<version>${spring-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<version>${spring-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${spring-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -101,12 +72,12 @@
 			<artifactId>mail</artifactId>
 			<version>1.4.5</version>
 		</dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>provided</scope>
-        </dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- Test dependencies -->
 		<dependency>
@@ -140,20 +111,9 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>${spring-version}</version>
-		</dependency>
-		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<version>${h2-version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.sourceforge.htmlunit</groupId>
-			<artifactId>htmlunit</artifactId>
-			<version>2.9</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -190,9 +150,14 @@
 			<version>1.4</version>
 		</dependency>
 		<dependency>
-			<groupId>org.unitils</groupId>
-			<artifactId>unitils</artifactId>
-			<version>2.4</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>3.1.1.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.1</version>
 		</dependency>
 	</dependencies>
 
@@ -216,7 +181,7 @@
 					<path>/</path>
 					<systemProperties>
 						<net.sf.ehcache.skipUpdateCheck>true</net.sf.ehcache.skipUpdateCheck>
-                        			<ngdb.config.file>${ngdb.config.file}</ngdb.config.file>
+						<ngdb.config.file>${ngdb.config.file}</ngdb.config.file>
 					</systemProperties>
 					<contextFile>${basedir}/target/classes/context.xml</contextFile>
 				</configuration>
@@ -289,9 +254,9 @@
 							<cargo.servlet.port>48080</cargo.servlet.port>
 							<cargo.tomcat.ajp.port>48009</cargo.tomcat.ajp.port>
 							<cargo.logging>low</cargo.logging>
-                            				<cargo.jvmargs>-Dngdb.config.file=${ngdb.config.file}</cargo.jvmargs>
-                        			</properties>
-                        			<deployables>
+							<cargo.jvmargs>-Dngdb.config.file=${ngdb.config.file}</cargo.jvmargs>
+						</properties>
+						<deployables>
 							<deployable>
 								<groupId>com.ngdb</groupId>
 								<artifactId>ngdb</artifactId>
@@ -353,10 +318,10 @@
 					<includes>
 						<include>**/*IT.java</include>
 					</includes>
-                    			<parallel>both</parallel>
+					<parallel>both</parallel>
 					<threadCount>4</threadCount>
 					<perCoreThreadCount>false</perCoreThreadCount>
-                		</configuration>
+				</configuration>
 				<executions>
 					<execution>
 						<id>integration-test</id>

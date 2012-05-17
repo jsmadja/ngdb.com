@@ -1,6 +1,6 @@
 package com.ngdb.service.loader;
 
-import com.ngdb.domain.ExternalGame;
+import com.ngdb.entities.ExternalGame;
 
 public class NeoMasterListLoader {
 

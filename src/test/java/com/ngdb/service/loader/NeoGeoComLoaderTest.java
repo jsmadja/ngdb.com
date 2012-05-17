@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.ngdb.domain.ExternalGame;
+import com.ngdb.entities.ExternalGame;
 
 public class NeoGeoComLoaderTest {
 

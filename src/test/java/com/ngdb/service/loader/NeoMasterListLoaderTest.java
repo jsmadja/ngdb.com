@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-import com.ngdb.domain.ExternalGame;
+import com.ngdb.entities.ExternalGame;
 
 @Ignore
 public class NeoMasterListLoaderTest {

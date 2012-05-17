@@ -37,7 +37,7 @@
 				<t:pagelink page="gameView" context="${mostOwnedGame.id}">
 					<img class="thumbnail" width="150px" src="${mostOwnedGame.mainPicture.url}" title="${mostOwnedGame.title}" />
 				</t:pagelink>
-				${mostOwnedGame.title} ${mostOwnedGame.platform} ${mostOwnedGame.origin.title}
+				${mostOwnedGame.title} ${mostOwnedGame.platform.name} ${mostOwnedGame.origin.title}
 			</p>
 		</div>
 		<div class="span4">
@@ -46,7 +46,7 @@
 				<t:pagelink page="gameView" context="${mostWantedGame.id}">
 					<img class="thumbnail" width="150px" src="${mostWantedGame.mainPicture.url}" title="${mostWantedGame.title}" />
 				</t:pagelink>
-				${mostWantedGame.title} ${mostWantedGame.platform} ${mostWantedGame.origin.title}
+				${mostWantedGame.title} ${mostWantedGame.platform.name} ${mostWantedGame.origin.title}
 			</p>
 		</div>
 		<div class="span4">
@@ -55,7 +55,7 @@
 				<t:pagelink page="gameView" context="${lastForSaleGame.id}">
 					<img class="thumbnail" width="150px" src="${lastForSaleGame.mainPicture.url}" title="${lastForSaleGame.title}" />
 				</t:pagelink>
-				${lastForSaleGame.title} ${lastForSaleGame.platform} ${lastForSaleGame.origin.title}
+				${lastForSaleGame.title} ${lastForSaleGame.platform.name} ${lastForSaleGame.origin.title}
 			</p>
 		</div>
 		

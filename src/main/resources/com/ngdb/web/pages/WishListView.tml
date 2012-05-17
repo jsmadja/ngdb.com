@@ -1,0 +1,16 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<div class="wishes">
+		<h1>Wishes</h1>
+		<t:loop source="articles" value="article">
+			<div class="span3">
+				<t:pagelink page="gameView" context="article.id">
+					<img class="thumbnail" src="${article.mainPicture.url}" title="${article.title}" />
+					<a href="/sell-it" title="Sell yours" class="btn btn-success action"><i class="icon-shopping-cart icon-white"></i></a>
+					<a href="/add-to-wishes" title="Wish it" class="btn btn-warning action"><i class="icon-heart icon-white"></i></a>
+					<a href="/add-to-collection" title="Add to your collection" class="btn btn-primary action"><i class="icon-plus icon-white"></i></a>
+				</t:pagelink>
+			</div>
+		</t:loop>
+	</div>
+</t:layout>

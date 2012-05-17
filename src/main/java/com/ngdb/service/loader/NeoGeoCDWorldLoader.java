@@ -11,7 +11,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import com.google.common.io.ByteStreams;
-import com.ngdb.domain.ExternalGame;
+import com.ngdb.entities.ExternalGame;
 
 public class NeoGeoCDWorldLoader {
 
