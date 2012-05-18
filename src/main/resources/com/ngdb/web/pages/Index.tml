@@ -52,10 +52,10 @@
 		<div class="span4">
 			<h2>For sale</h2>
 			<p>
-				<t:pagelink page="gameView" context="${lastForSaleGame.id}">
-					<img class="thumbnail" width="150px" src="${lastForSaleGame.mainPicture.url}" title="${lastForSaleGame.title}" />
+				<t:pagelink page="shopItemView" context="${lastForSaleArticle.id}">
+					<img class="thumbnail" width="150px" src="${lastForSaleArticle.mainPicture.url}" title="${lastForSaleArticle.title}" />
 				</t:pagelink>
-				${lastForSaleGame.title} ${lastForSaleGame.platform.name} ${lastForSaleGame.origin.title}
+				${lastForSaleArticle.title}
 			</p>
 		</div>
 		

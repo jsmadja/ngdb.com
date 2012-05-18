@@ -1,22 +1,19 @@
 package com.ngdb.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class GameShopItem extends ShopItem {
 
 	public GameShopItem() {
 	}
 
-	public GameShopItem(Picture mainPicture, Game game, double price) {
-		super(mainPicture, game, price);
+	public GameShopItem(Picture mainPicture, Game game, double price, State state, String details, User user) {
+		super(mainPicture, game, price, state, details, user);
 	}
 
 	public String getTitle() {
-		Game game = (Game) article;
-		return article.getTitle() + " (" + game.getPlatform().getName() + " - " + game.getOrigin().getTitle() + ")";
+		Game game = (Game) getArticle();
+		return game.getTitle() + " (" + game.getPlatform().getName() + " - " + game.getOrigin().getTitle() + ")";
 	}
 }

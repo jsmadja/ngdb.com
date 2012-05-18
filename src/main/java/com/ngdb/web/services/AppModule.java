@@ -7,6 +7,7 @@ import org.apache.shiro.web.mgt.WebSecurityManager;
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.ioc.Configuration;
 import org.apache.tapestry5.ioc.MappedConfiguration;
+import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 
 public class AppModule {
@@ -24,5 +25,9 @@ public class AppModule {
 
 	public static void contributeHibernateEntityPackageManager(Configuration<String> configuration) {
 		configuration.add("com.ngdb.entities");
+	}
+
+	public static void bind(ServiceBinder binder) {
+		binder.bind(UserService.class);
 	}
 }

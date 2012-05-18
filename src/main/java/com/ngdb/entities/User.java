@@ -13,10 +13,10 @@ public class User extends AbstractEntity {
 	private String login;
 
 	@OneToMany(mappedBy = "user")
-	private Set<WishList> wishList;
+	private Set<Wish> wishList;
 
 	@OneToMany(mappedBy = "user")
-	private Set<Collection> collection;
+	private Set<CollectionObject> collection;
 
 	@OneToMany(mappedBy = "user")
 	private Set<ShopItem> shop;
@@ -30,5 +30,41 @@ public class User extends AbstractEntity {
 
 	public String getLogin() {
 		return login;
+	}
+
+	public boolean canAddInCollection(Article article) {
+		if (collection == null) {
+			return true;
+		}
+		for (CollectionObject collectionObject : collection) {
+			if (article.equals(collectionObject.getArticle())) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public boolean canSell(Article article) {
+		if (collection == null) {
+			return false;
+		}
+		for (CollectionObject collectionObject : collection) {
+			if (article.equals(collectionObject.getArticle())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean canWish(Article article) {
+		if (wishList == null) {
+			return true;
+		}
+		for (Wish wish : wishList) {
+			if (article.equals(wish.getArticle())) {
+				return false;
+			}
+		}
+		return false;
 	}
 }

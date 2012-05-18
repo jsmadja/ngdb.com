@@ -83,4 +83,8 @@ public class Game extends Article {
 		return box;
 	}
 
+	public boolean isBuyable() {
+		return getAvailableCopyCount() > 0;
+	}
+
 }

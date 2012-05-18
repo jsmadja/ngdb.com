@@ -25,10 +25,6 @@ public class GameUpdate extends ArticleUpdate {
 	@Persist("entity")
 	private Game game;
 
-	@Property
-	@Persist
-	private String url;
-
 	@Inject
 	private Session session;
 

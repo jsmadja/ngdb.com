@@ -11,15 +11,16 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
 
+import com.ngdb.entities.Article;
 import com.ngdb.entities.Game;
 import com.ngdb.entities.ShopItem;
-import com.ngdb.entities.WishList;
+import com.ngdb.entities.Wish;
 
 public class Index {
 
 	private Game mostOwnedGame;
 	private Game mostWantedGame;
-	private Game lastForSaleGame;
+	private Article lastForSaleArticle;
 
 	@Inject
 	private Session session;
@@ -29,9 +30,10 @@ public class Index {
 		List games = findGames();
 		mostOwnedGame = (Game) games.get(RandomUtils.nextInt(games.size()));
 		mostWantedGame = (Game) findGames().get(RandomUtils.nextInt(games.size()));
-		lastForSaleGame = (Game) session.createCriteria(ShopItem.class).setMaxResults(1).addOrder(desc("creationDate")).uniqueResult();
-		if (lastForSaleGame == null) {
-			lastForSaleGame = (Game) findGames().get(RandomUtils.nextInt(games.size()));
+		ShopItem lastShopItem = (ShopItem) session.createCriteria(ShopItem.class).setMaxResults(1).addOrder(desc("creationDate")).uniqueResult();
+		lastForSaleArticle = lastShopItem.getArticle();
+		if (lastForSaleArticle == null) {
+			lastForSaleArticle = (Game) findGames().get(RandomUtils.nextInt(games.size()));
 		}
 	}
 
@@ -44,7 +46,7 @@ public class Index {
 	}
 
 	public Long getNumWhishes() {
-		return (Long) session.createCriteria(WishList.class).setProjection(countDistinct("article")).uniqueResult();
+		return (Long) session.createCriteria(Wish.class).setProjection(countDistinct("article")).uniqueResult();
 	}
 
 	public Game getMostOwnedGame() {
@@ -55,8 +57,8 @@ public class Index {
 		return mostWantedGame;
 	}
 
-	public Game getLastForSaleGame() {
-		return lastForSaleGame;
+	public Article getLastForSaleArticle() {
+		return lastForSaleArticle;
 	}
 
 }

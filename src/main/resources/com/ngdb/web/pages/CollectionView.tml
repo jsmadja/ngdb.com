@@ -1,7 +1,7 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 	xmlns:p="tapestry:parameter">
 	<div class="collection">
-		<h1>Wishes</h1>
+		<h1>Collection</h1>
 		<t:loop source="games" value="game">
 			<div class="span3">
 				<t:pagelink page="gameView" context="game.id">

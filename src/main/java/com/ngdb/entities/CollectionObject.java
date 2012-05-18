@@ -10,10 +10,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class WishList {
+public class CollectionObject {
 
 	@EmbeddedId
-	private WishListId id;
+	private CollectionId id;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
@@ -23,8 +23,25 @@ public class WishList {
 	@JoinColumn(name = "article_id", insertable = false, updatable = false)
 	private Article article;
 
+	public CollectionObject() {
+	}
+
+	public CollectionObject(User user, Article article) {
+		this.user = user;
+		this.article = article;
+		this.id = new CollectionId(user, article);
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public Article getArticle() {
+		return article;
+	}
+
 	@Embeddable
-	public static class WishListId implements Serializable {
+	public static class CollectionId implements Serializable {
 
 		@Column(name = "user_id", nullable = false, updatable = false)
 		private Long userId;
@@ -32,14 +49,23 @@ public class WishList {
 		@Column(name = "article_id", nullable = false, updatable = false)
 		private Long articleId;
 
+		public CollectionId() {
+
+		}
+
+		public CollectionId(User user, Article article) {
+			this.userId = user.getId();
+			this.articleId = article.getId();
+		}
+
 		public boolean equals(Object o) {
 			if (o == null)
 				return false;
 
-			if (!(o instanceof WishListId))
+			if (!(o instanceof CollectionId))
 				return false;
 
-			WishListId other = (WishListId) o;
+			CollectionId other = (CollectionId) o;
 			if (!(other.articleId.equals(articleId)))
 				return false;
 

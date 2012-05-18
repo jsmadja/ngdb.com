@@ -19,7 +19,8 @@ public class Comment extends AbstractEntity {
 	public Comment() {
 	}
 
-	public Comment(String text, User user) {
+	public Comment(String text, User user, Article article) {
+		this.article = article;
 		this.text = text;
 		this.user = user;
 	}

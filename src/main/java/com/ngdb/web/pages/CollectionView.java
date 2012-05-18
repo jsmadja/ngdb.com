@@ -22,7 +22,7 @@ public class CollectionView {
 	private Collection<Article> games;
 
 	@SetupRender
-	public void setupRender() {
+	public void init() {
 	}
 
 }

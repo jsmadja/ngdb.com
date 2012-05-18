@@ -1,6 +1,7 @@
 package com.ngdb.web.pages;
 
 import org.apache.tapestry5.SelectModel;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.upload.services.UploadedFile;
@@ -16,6 +17,10 @@ public abstract class ArticleUpdate {
 
 	@Inject
 	protected Session session;
+
+	@Property
+	@Persist
+	protected String url;
 
 	public SelectModel getOrigins() {
 		return new OriginList(session.createCriteria(Origin.class).list());

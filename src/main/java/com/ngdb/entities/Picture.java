@@ -19,7 +19,7 @@ public class Picture {
 	}
 
 	public String getUrl() {
-		return url;
+		return url == null ? EMPTY.getUrl() : url;
 	}
 
 }

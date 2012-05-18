@@ -22,6 +22,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.google.common.base.Objects;
+
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Article {
@@ -64,13 +66,13 @@ public abstract class Article {
 	private Set<Comment> comments;
 
 	@OneToMany(mappedBy = "article")
-	private Set<WishList> wishList;
+	private Set<Wish> wishList;
 
 	@OneToMany(mappedBy = "article")
 	private Set<ShopItem> shopItems;
 
 	@OneToMany(mappedBy = "article")
-	private Set<Collection> owners;
+	private Set<CollectionObject> owners;
 
 	private String details;
 
@@ -81,6 +83,22 @@ public abstract class Article {
 	@PreUpdate
 	public void preUpdate() {
 		modificationDate = new Date();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Article) {
+			Article a = (Article) obj;
+			if (a.id.equals(id)) {
+				return true;
+			}
+		}
+		return super.equals(obj);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(id, title);
 	}
 
 	public void setOrigin(Origin origin) {
@@ -117,15 +135,14 @@ public abstract class Article {
 
 	public Set<User> getOwners() {
 		Set<User> users = new HashSet<User>();
-		for (Collection owner : owners) {
+		for (CollectionObject owner : owners) {
 			users.add(owner.getUser());
 		}
 		return users;
 	}
 
-	public void addOwner(User user) {
-		// user.addToCollection(this);
-		// owners.add(user);
+	public void addOwner(CollectionObject collection) {
+		owners.add(collection);
 	}
 
 	public void addWisher(User user) {
