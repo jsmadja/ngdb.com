@@ -55,7 +55,6 @@ public class Menu {
 	@SetupRender
 	public void init() {
 		this.shopItems = session.createQuery("SELECT si FROM ShopItem si ORDER BY modificationDate DESC").setMaxResults(3).list();
-		this.shopItem = shopItems.get(0);
 		this.gameCount = (Long) session.createCriteria(Game.class).setProjection(count("id")).uniqueResult();
 		this.userCount = (Long) session.createCriteria(User.class).setProjection(count("id")).uniqueResult();
 		this.hardwareCount = (Long) session.createCriteria(Hardware.class).setProjection(count("id")).uniqueResult();
