@@ -1,24 +1,28 @@
 package com.ngdb.web.pages;
 
-import org.apache.tapestry5.annotations.Parameter;
+import java.util.List;
+
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 
-import com.ngdb.entities.Article;
-import com.ngdb.entities.User;
+import com.ngdb.entities.Wish;
 
 public class WishListView {
 
 	@Property
-	private Article article;
+	private Wish wish;
 
 	@Property
-	private java.util.Collection<Article> articles;
+	private List<Wish> wishes;
 
-	@Parameter(allowNull = true)
-	private User user;
+	@Inject
+	private Session session;
 
 	@SetupRender
 	public void setupRender() {
+		wishes = session.createCriteria(Wish.class).addOrder(Order.desc("modificationDate")).list();
 	}
 }

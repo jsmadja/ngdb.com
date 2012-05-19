@@ -15,6 +15,7 @@ import com.ngdb.entities.Note;
 import com.ngdb.entities.Review;
 import com.ngdb.entities.Tag;
 import com.ngdb.entities.User;
+import com.ngdb.entities.Wish;
 
 public class GameView extends ArticleView {
 
@@ -58,15 +59,22 @@ public class GameView extends ArticleView {
 		User currentUser = userService.getCurrentUser();
 		CollectionObject collection = new CollectionObject(currentUser, game);
 		session.merge(collection);
-		game.addOwner(collection);
-		session.merge(game);
+		return GameView.class;
+	}
+
+	@CommitAfter
+	Object onActionFromWishList(Game game) {
+		User currentUser = userService.getCurrentUser();
+		Wish wish = new Wish(currentUser, game);
+		session.merge(wish);
 		return GameView.class;
 	}
 
 	@CommitAfter
 	public Object onSuccess() {
 		User user = userService.getCurrentUser();
-		session.merge(new Comment(commentText, user, getArticle()));
+		Comment comment = new Comment(commentText, user, getArticle());
+		session.merge(comment);
 		return GameView.class;
 	}
 

@@ -74,10 +74,10 @@
 						</t:if>
 						<t:if test="wishable">
 							<p>
-								<t:actionlink class="btn btn-warning" t:id="wishList" context="hardware.id">
+								<t:actionLink class="btn btn-warning" t:id="wishList" context="hardware.id">
 									<i class="icon-heart icon-white"></i>
 									Add to your wishlist
-								</t:actionlink>
+								</t:actionLink>
 							</p>
 						</t:if>
 						<t:if test="addableToCollection">
@@ -129,24 +129,24 @@
 						</tr>
 						<tr>
 							<td><b>Sealed</b></td>
-							<td>${hardware.sealedQuantity}</td>
-							<td>${hardware.sealedAverage}</td>
-							<td>${hardware.sealedMax}</td>
-							<td>${hardware.sealedMin}</td>
+							<td>${hardware.shopItems.sealedQuantity}</td>
+							<td>${hardware.shopItems.sealedAverage}</td>
+							<td>${hardware.shopItems.sealedMax}</td>
+							<td>${hardware.shopItems.sealedMin}</td>
 						</tr>
 						<tr>
 							<td><b>Mint</b></td>
-							<td>${hardware.mintQuantity}</td>
-							<td>${hardware.mintAverage}</td>
-							<td>${hardware.mintMax}</td>
-							<td>${hardware.mintMin}</td>
+							<td>${hardware.shopItems.mintQuantity}</td>
+							<td>${hardware.shopItems.mintAverage}</td>
+							<td>${hardware.shopItems.mintMax}</td>
+							<td>${hardware.shopItems.mintMin}</td>
 						</tr>
 						<tr>
 							<td><b>Used</b></td>
-							<td>${hardware.usedQuantity}</td>
-							<td>${hardware.usedAverage}</td>
-							<td>${hardware.usedMax}</td>
-							<td>${hardware.usedMin}</td>
+							<td>${hardware.shopItems.usedQuantity}</td>
+							<td>${hardware.shopItems.usedAverage}</td>
+							<td>${hardware.shopItems.usedMax}</td>
+							<td>${hardware.shopItems.usedMin}</td>
 						</tr>
 					</table>
 				</div>

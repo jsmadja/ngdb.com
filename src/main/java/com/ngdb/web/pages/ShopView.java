@@ -7,6 +7,7 @@ import static org.hibernate.criterion.Restrictions.eq;
 import java.util.Collection;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
@@ -32,6 +33,9 @@ public class ShopView {
 
 	@Persist
 	private Category category;
+
+	@InjectPage
+	private ShopItemView shopItemView;
 
 	private Long id;
 
@@ -74,5 +78,10 @@ public class ShopView {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	Object onActionFromShopItem(ShopItem shopItem) {
+		shopItemView.setShopItem(shopItem);
+		return shopItemView;
 	}
 }

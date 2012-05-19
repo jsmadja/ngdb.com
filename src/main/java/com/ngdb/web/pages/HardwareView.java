@@ -14,6 +14,7 @@ import com.ngdb.entities.Note;
 import com.ngdb.entities.Review;
 import com.ngdb.entities.Tag;
 import com.ngdb.entities.User;
+import com.ngdb.entities.Wish;
 
 public class HardwareView extends ArticleView {
 
@@ -46,12 +47,18 @@ public class HardwareView extends ArticleView {
 	private String commentText;
 
 	@CommitAfter
-	Object onActionFromCollection(Hardware game) {
+	Object onActionFromCollection(Hardware hardware) {
 		User currentUser = userService.getCurrentUser();
-		CollectionObject collection = new CollectionObject(currentUser, game);
+		CollectionObject collection = new CollectionObject(currentUser, hardware);
 		session.merge(collection);
-		game.addOwner(collection);
-		session.merge(game);
+		return HardwareView.class;
+	}
+
+	@CommitAfter
+	Object onActionFromWishList(Hardware hardware) {
+		User currentUser = userService.getCurrentUser();
+		Wish wish = new Wish(currentUser, hardware);
+		session.merge(wish);
 		return HardwareView.class;
 	}
 
@@ -63,7 +70,7 @@ public class HardwareView extends ArticleView {
 	public Object onSuccess() {
 		User user = userService.getCurrentUser();
 		session.merge(new Comment(commentText, user, getArticle()));
-		return GameView.class;
+		return HardwareView.class;
 	}
 
 	@Override

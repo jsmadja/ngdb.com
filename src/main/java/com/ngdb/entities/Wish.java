@@ -1,6 +1,7 @@
 package com.ngdb.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -8,6 +9,9 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreUpdate;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Wish {
@@ -23,12 +27,50 @@ public class Wish {
 	@JoinColumn(name = "article_id", insertable = false, updatable = false)
 	private Article article;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date creationDate;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date modificationDate;
+
+	public Wish() {
+		creationDate = modificationDate = new Date();
+	}
+
+	public Wish(User wisher, Article article) {
+		this();
+		this.wisher = wisher;
+		this.article = article;
+		this.id = new WishId(wisher.getId(), article.getId());
+	}
+
+	@PreUpdate
+	public void preUpdate() {
+		this.modificationDate = new Date();
+	}
+
 	public Article getArticle() {
 		return article;
 	}
 
 	public User getWisher() {
 		return wisher;
+	}
+
+	public String getTitle() {
+		return article.getTitle();
+	}
+
+	public String getUser() {
+		return wisher.getLogin();
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public Date getModificationDate() {
+		return modificationDate;
 	}
 
 	@Embeddable
@@ -39,6 +81,14 @@ public class Wish {
 
 		@Column(name = "article_id", nullable = false, updatable = false)
 		private Long articleId;
+
+		public WishId() {
+		}
+
+		public WishId(Long userId, Long articleId) {
+			this.userId = userId;
+			this.articleId = articleId;
+		}
 
 		public boolean equals(Object o) {
 			if (o == null)

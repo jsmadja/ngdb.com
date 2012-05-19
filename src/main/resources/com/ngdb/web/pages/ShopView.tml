@@ -4,14 +4,14 @@
 		<h1>Shop</h1>
 		<t:loop source="shopItems" value="shopItem">
 			<div class="span3">
-				<t:pagelink page="shopItemView" context="shopItem.id">
+				<t:actionLink t:id="shopItem" id="shopItem" context="shopItem.id">
 					<img class="thumbnail" width="150px" src="${shopItem.mainPicture.url}" alt="${shopItem.title}" />
 					<b>
 						<p>
 							${shopItem.title}
 						</p>
 					</b>
-				</t:pagelink>
+				</t:actionLink>
 				<a href="#" class="btn btn-success action"><i class="icon-shopping-cart icon-white"></i>&nbsp;${shopItem.currency} ${shopItem.price}</a>
 			</div>
 		</t:loop>

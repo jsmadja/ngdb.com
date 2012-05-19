@@ -65,6 +65,7 @@ public class User extends AbstractEntity {
 				return false;
 			}
 		}
-		return false;
+		return true;
 	}
+
 }
