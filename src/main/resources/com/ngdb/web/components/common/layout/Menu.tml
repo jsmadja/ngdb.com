@@ -1,11 +1,11 @@
 <div class="well sidebar-nav" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<ul class="nav nav-list">
 		<li class="nav-header">Shop</li>
-			<t:loop var="shopItem" source="shopItems">
+			<t:loop value="shopItem" source="shopItems">
 				<li>
-					<t:pageLink page="shopItemView" context="shopItem.id">
-						${shopItem.sellerName} sells ${shopItem.title} (${shopItem.currency} ${shopItem.price})
-					</t:pageLink>
+					<t:actionLink t:id="shopItem" id="shopItem" context="shopItem.id">
+						${shopItem.title} (${shopItem.currency} ${shopItem.price})
+					</t:actionLink>
 				</li>
 			</t:loop>
 		<li>

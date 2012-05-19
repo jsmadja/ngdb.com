@@ -1,28 +1,62 @@
 package com.ngdb.web.pages;
 
-import java.util.Collection;
+import static org.hibernate.criterion.Restrictions.eq;
 
-import org.apache.tapestry5.annotations.Parameter;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.Session;
 
-import com.ngdb.entities.Article;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.ngdb.entities.CollectionObject;
 import com.ngdb.entities.Game;
+import com.ngdb.entities.Hardware;
 import com.ngdb.entities.User;
+import com.ngdb.web.services.UserService;
 
 public class CollectionView {
 
-	@Parameter(allowNull = true)
-	private User user;
+	@Property
+	private CollectionObject game;
 
 	@Property
-	private Game game;
+	private Collection<CollectionObject> games;
 
 	@Property
-	private Collection<Article> games;
+	private CollectionObject hardware;
+
+	@Property
+	private Collection<CollectionObject> hardwares;
+
+	@Inject
+	private Session session;
+
+	@Inject
+	private UserService userService;
 
 	@SetupRender
 	public void init() {
-	}
+		User loggedUser = userService.getCurrentUser();
+		List collectionObjects = session.createCriteria(CollectionObject.class).add(eq("owner", loggedUser)).list();
+		Collections.sort(collectionObjects);
 
+		games = Collections2.filter(collectionObjects, new Predicate<CollectionObject>() {
+			@Override
+			public boolean apply(CollectionObject input) {
+				return input.getArticle() instanceof Game;
+			}
+		});
+
+		hardwares = Collections2.filter(collectionObjects, new Predicate<CollectionObject>() {
+			@Override
+			public boolean apply(CollectionObject input) {
+				return input.getArticle() instanceof Hardware;
+			}
+		});
+	}
 }

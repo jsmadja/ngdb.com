@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class CollectionObject {
+public class CollectionObject implements Comparable<CollectionObject> {
 
 	@EmbeddedId
 	private CollectionId id;
@@ -74,6 +74,11 @@ public class CollectionObject {
 
 			return true;
 		}
+	}
+
+	@Override
+	public int compareTo(CollectionObject collectionObject) {
+		return this.getArticle().getTitle().compareTo(collectionObject.getArticle().getTitle());
 	}
 
 }

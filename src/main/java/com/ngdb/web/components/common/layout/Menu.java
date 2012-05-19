@@ -18,6 +18,7 @@ import com.ngdb.entities.ShopItem;
 import com.ngdb.entities.User;
 import com.ngdb.entities.Wish;
 import com.ngdb.web.Category;
+import com.ngdb.web.pages.ShopItemView;
 import com.ngdb.web.pages.ShopView;
 
 public class Menu {
@@ -52,6 +53,9 @@ public class Menu {
 	@InjectPage
 	private ShopView shopView;
 
+	@InjectPage
+	private ShopItemView shopItemView;
+
 	@SetupRender
 	public void init() {
 		this.shopItems = session.createQuery("SELECT si FROM ShopItem si ORDER BY modificationDate DESC").setMaxResults(3).list();
@@ -80,6 +84,11 @@ public class Menu {
 	Object onActionFromShopSold() {
 		shopView.setCategory(Category.bySoldDate);
 		return shopView;
+	}
+
+	Object onActionFromShopItem(ShopItem shopItem) {
+		shopItemView.setShopItem(shopItem);
+		return shopItemView;
 	}
 
 }

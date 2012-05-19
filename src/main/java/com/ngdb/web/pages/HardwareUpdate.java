@@ -69,7 +69,7 @@ public class HardwareUpdate {
 		}
 		hardware.addPicture(picture);
 		session.merge(hardware);
-		return Games.class;
+		return Hardwares.class;
 	}
 
 	public SelectModel getOrigins() {
