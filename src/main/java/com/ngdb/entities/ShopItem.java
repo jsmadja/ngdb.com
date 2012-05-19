@@ -31,7 +31,7 @@ public abstract class ShopItem {
 	@Embedded
 	private Picture mainPicture;
 
-	@OneToOne(optional = false)
+	@OneToOne
 	private State state;
 
 	private double price;
@@ -40,11 +40,13 @@ public abstract class ShopItem {
 	private Article article;
 
 	@ManyToOne(optional = false)
-	private User user;
+	private User seller;
 
 	private String details;
 
-	private Boolean sold;
+	private Boolean sold = false;
+
+	private String currency = "USD";
 
 	public ShopItem() {
 		this.creationDate = this.modificationDate = new Date();
@@ -55,14 +57,14 @@ public abstract class ShopItem {
 		this.modificationDate = new Date();
 	}
 
-	public ShopItem(Picture mainPicture, Article article, double price, State state, String details, User user) {
+	public ShopItem(Picture mainPicture, Article article, double price, State state, String details, User seller) {
 		this();
 		this.mainPicture = mainPicture;
 		this.article = article;
 		this.price = price;
 		this.state = state;
 		this.details = details;
-		this.user = user;
+		this.seller = seller;
 	}
 
 	public double getPrice() {
@@ -97,12 +99,16 @@ public abstract class ShopItem {
 		mainPicture = picture;
 	}
 
-	public User getUser() {
-		return user;
+	public User getSeller() {
+		return seller;
+	}
+
+	public String getSellerName() {
+		return seller.getLogin();
 	}
 
 	public boolean isSold() {
-		return sold;
+		return sold == null ? false : sold;
 	}
 
 	public Long getId() {
@@ -111,6 +117,10 @@ public abstract class ShopItem {
 
 	public Date getModificationDate() {
 		return modificationDate;
+	}
+
+	public String getCurrency() {
+		return currency;
 	}
 
 }

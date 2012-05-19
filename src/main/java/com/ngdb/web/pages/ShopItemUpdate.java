@@ -1,5 +1,7 @@
 package com.ngdb.web.pages;
 
+import java.util.Arrays;
+
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -10,6 +12,7 @@ import org.hibernate.Session;
 
 import com.ngdb.entities.ShopItem;
 import com.ngdb.entities.State;
+import com.ngdb.web.model.CurrencyList;
 import com.ngdb.web.model.StateList;
 
 public class ShopItemUpdate {
@@ -40,6 +43,10 @@ public class ShopItemUpdate {
 
 	public SelectModel getStates() {
 		return new StateList(session.createCriteria(State.class).list());
+	}
+
+	public SelectModel getCurrencies() {
+		return new CurrencyList(Arrays.asList("USD"));
 	}
 
 }

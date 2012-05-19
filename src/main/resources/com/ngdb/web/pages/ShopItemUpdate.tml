@@ -2,7 +2,7 @@
 	<h1>${shopItem.title}</h1>
 	<div class="row">
 		<div class="span1">
-			<img class="thumbnail" src="${shopItem.article.mainPicture.url}" title="${shopItem.article.title}" />
+			<img class="thumbnail" src="${shopItem.mainPicture.url}" title="${shopItem.title}" />
 		</div>
 		<div class="span1">
 			<t:form t:id="shopItemForm" class="form-horizontal">
@@ -18,7 +18,7 @@
 						<div class="control-group">
 							<t:label for="mainPicture" class="control-label">Direct Picture Url</t:label>
 							<div class="controls">
-								<t:textfield value="shopItem.url" t:id="url" />
+								<t:textfield value="shopItem.mainPicture.url" t:id="url" />
 							</div>
 						</div>
 						<div class="control-group">
@@ -34,9 +34,9 @@
 							</div>
 						</div>
 						<div class="control-group">
-							Currency
+							<t:label for="currency" class="control-label">Currency</t:label>
 							<div class="controls">
- 								USD
+								<t:select value="shopItem.currency" model="currencies" t:id="currency" />
  							</div>
 						</div>
 						<div class="control-group">

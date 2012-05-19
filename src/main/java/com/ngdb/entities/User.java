@@ -12,13 +12,13 @@ public class User extends AbstractEntity {
 	@Column(nullable = false)
 	private String login;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "wisher")
 	private Set<Wish> wishList;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "owner")
 	private Set<CollectionObject> collection;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "seller")
 	private Set<ShopItem> shop;
 
 	public User() {

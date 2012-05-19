@@ -12,7 +12,10 @@ import org.hibernate.Session;
 import com.ngdb.entities.Article;
 import com.ngdb.entities.Game;
 import com.ngdb.entities.GameShopItem;
+import com.ngdb.entities.Hardware;
+import com.ngdb.entities.HardwareShopItem;
 import com.ngdb.entities.Picture;
+import com.ngdb.entities.ShopItem;
 import com.ngdb.entities.State;
 import com.ngdb.entities.User;
 import com.ngdb.web.model.StateList;
@@ -57,8 +60,13 @@ public class SellView {
 			picture = new Picture(url);
 		}
 		User user = userService.getCurrentUser();
-		GameShopItem gameShopItem = new GameShopItem(picture, (Game) article, price, state, details, user);
-		session.merge(gameShopItem);
+		ShopItem shopItem;
+		if (article instanceof Game) {
+			shopItem = new GameShopItem(picture, (Game) article, price, state, details, user);
+		} else {
+			shopItem = new HardwareShopItem(picture, (Hardware) article, price, state, details, user);
+		}
+		session.merge(shopItem);
 		return Index.class;
 	}
 

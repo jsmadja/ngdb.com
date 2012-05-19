@@ -5,11 +5,11 @@
 			<table>
 				<tr>
 					<td>
-						<img class="thumbnail" src="${game.mainPicture.url}" title="${game.title}" />
+						<img class="thumbnail" src="${hardware.mainPicture.url}" title="${hardware.title}" />
 					</td>
 					<td>
 						<h1 class="header">
-							${game.title}
+							${hardware.title}
 						</h1>
 						<table>
 							<tr>
@@ -17,7 +17,7 @@
 									<b>#NGDB</b>
 								</td>
 								<td>
-									${game.id}
+									${hardware.id}
 								</td>
 							</tr>
 							<tr>
@@ -25,28 +25,8 @@
 									<b>Release date</b>
 								</td>
 								<td>
-									<t:pagelink page="games" context="[byreleaseDate,game.releaseDate]">
-										${game.releaseDate}
-									</t:pagelink>
-								</td>
-							</tr>
-							<tr>
-								<td class="grey">
-									<b>NGH</b>
-								</td>
-								<td>
-								<t:pagelink page="games" context="[byngh,game.ngh]">
-										${game.ngh}
-									</t:pagelink>
-								</td>
-							</tr>
-							<tr>
-								<td class="grey">
-									<b>Platform</b>
-								</td>
-								<td>
-									<t:pagelink page="games" context="[byplatform,game.platform.id]">
-										${game.platform.name}
+									<t:pagelink page="hardwares" context="[byreleaseDate,hardware.releaseDate]">
+										${hardware.releaseDate}
 									</t:pagelink>
 								</td>
 							</tr>
@@ -55,42 +35,12 @@
 									<b>Origin</b>
 								</td>
 								<td>
-									<t:pagelink page="games" context="[byorigin,game.origin.id]">
-										${game.origin.title}
+									<t:pagelink page="hardwares" context="[byorigin,hardware.origin.id]">
+										${hardware.origin.title}
 									</t:pagelink>
 								</td>
 							</tr>
-							<tr>
-								<td class="grey">
-									<b>Genres</b>
-								</td>
-								<td>
-									<t:loop value="genre" source="game.genres"> 
-										<t:pagelink page="games" context="[bygenre,genre.id]">
-											${genre.title}
-										</t:pagelink>
-									</t:loop>
-								</td>
-							</tr>
-							<tr>
-								<td class="grey">
-									<b>Mega Count</b>
-								</td>
-								<td>
-									${game.megaCount}
-								</td>
-							</tr>
-							<tr>
-								<td class="grey">
-									<b>Publisher</b>
-								</td>
-								<td>
-									<t:pagelink page="games" context="[bypublisher,game.publisher.id]">
-										${game.publisher.name}
-									</t:pagelink>
-								</td>
-							</tr>
-							<t:loop source="game.notes" value="note">
+							<t:loop source="hardware.notes" value="note">
 								<tr>
 									<td class="grey">
 										<b>${note.name}</b>
@@ -104,11 +54,11 @@
 					</td>
 					<td>
 						<p>
-							<a t:type="pageLink" class="btn btn-inverse" t:page="GameUpdate" t:context="game.id">Edit</a>
+							<a t:type="pageLink" class="btn btn-inverse" t:page="hardwareUpdate" t:context="hardware.id">Edit</a>
 						</p>
 						<t:if test="buyable">
 							<p>
-								<t:pageLink class="btn btn-success" page="shopview" context="[byarticle,game.id]">
+								<t:pageLink class="btn btn-success" page="shopview" context="[byarticle,hardware.id]">
 									<i class="icon-shopping-cart icon-white"></i>
 									Buy it
 								</t:pageLink>
@@ -116,7 +66,7 @@
 						</t:if>
 						<t:if test="sellable">
 							<p>
-								<t:pageLink class="btn btn-danger" page="sellview" context="game.id">
+								<t:pageLink class="btn btn-danger" page="sellview" context="hardware.id">
 									<i class="icon-shopping-cart icon-white"></i>
 									Sell yours
 								</t:pageLink>
@@ -124,7 +74,7 @@
 						</t:if>
 						<t:if test="wishable">
 							<p>
-								<t:actionlink class="btn btn-warning" t:id="wishList" context="game.id">
+								<t:actionlink class="btn btn-warning" t:id="wishList" context="hardware.id">
 									<i class="icon-heart icon-white"></i>
 									Add to your wishlist
 								</t:actionlink>
@@ -132,7 +82,7 @@
 						</t:if>
 						<t:if test="addableToCollection">
 							<p>
-								<t:actionlink class="btn btn-primary" t:id="collection" context="game.id">
+								<t:actionlink class="btn btn-primary" t:id="collection" context="hardware.id">
 									<i class="icon-plus icon-white"></i>
 									Add to your collection
 								</t:actionlink>
@@ -156,19 +106,19 @@
 						<tr>
 							<td>Collection:</td>
 							<td>
-								<b>${game.collectionRank}</b>
-								(${game.ownersCount})
+								<b>${hardware.collectionRank}</b>
+								(${hardware.ownersCount})
 							</td>
 						</tr>
 						<tr>
 							<td>Wishlist:</td>
 							<td>
-								<b>${game.wishRank}</b>
-								(${game.wishersCount})
+								<b>${hardware.wishRank}</b>
+								(${hardware.wishersCount})
 							</td>
 						</tr>
 					</table>
-					<span style="background-color:lime">Shops: ${game.availableCopyCount} copy available</span>
+					<span style="background-color:lime">Shops: ${hardware.availableCopyCount} copy available</span>
 					<table>
 						<tr>
 							<td></td>
@@ -179,24 +129,24 @@
 						</tr>
 						<tr>
 							<td><b>Sealed</b></td>
-							<td>${game.sealedQuantity}</td>
-							<td>${game.sealedAverage}</td>
-							<td>${game.sealedMax}</td>
-							<td>${game.sealedMin}</td>
+							<td>${hardware.sealedQuantity}</td>
+							<td>${hardware.sealedAverage}</td>
+							<td>${hardware.sealedMax}</td>
+							<td>${hardware.sealedMin}</td>
 						</tr>
 						<tr>
 							<td><b>Mint</b></td>
-							<td>${game.mintQuantity}</td>
-							<td>${game.mintAverage}</td>
-							<td>${game.mintMax}</td>
-							<td>${game.mintMin}</td>
+							<td>${hardware.mintQuantity}</td>
+							<td>${hardware.mintAverage}</td>
+							<td>${hardware.mintMax}</td>
+							<td>${hardware.mintMin}</td>
 						</tr>
 						<tr>
 							<td><b>Used</b></td>
-							<td>${game.usedQuantity}</td>
-							<td>${game.usedAverage}</td>
-							<td>${game.usedMax}</td>
-							<td>${game.usedMin}</td>
+							<td>${hardware.usedQuantity}</td>
+							<td>${hardware.usedAverage}</td>
+							<td>${hardware.usedMax}</td>
+							<td>${hardware.usedMin}</td>
 						</tr>
 					</table>
 				</div>
@@ -205,13 +155,13 @@
 		<div class="span9">
 			<h3>Details</h3>
 			<p>
-				${game.details}
+				${hardware.details}
 			</p>
 			<hr />
 
 			<h3>Reviews</h3>
 			<table>
-				<t:loop source="game.reviews" value="review">
+				<t:loop source="hardware.reviews" value="review">
 					<tr>
 						<td>
 							<a href="${review.url}">${review.label}</a>
@@ -225,7 +175,7 @@
 			<hr />
 
 			<h3>Comments</h3>
-			<t:loop source="game.comments" value="comment">
+			<t:loop source="hardware.comments" value="comment">
 				<span>
 					Additional Information by <a href="/userView/${comment.authorId}">${comment.authorName}</a>  - ${comment.creationDate}
 				</span>

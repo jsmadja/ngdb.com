@@ -1,0 +1,8 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+	<div class="users">
+		<h1>Users</h1>
+		<div>
+			<t:grid source="users" row="user" />
+		</div>
+	</div>
+</t:layout>

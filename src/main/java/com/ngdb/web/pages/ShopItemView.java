@@ -4,7 +4,7 @@ import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import com.ngdb.entities.GameShopItem;
+import com.ngdb.entities.ShopItem;
 import com.ngdb.entities.User;
 import com.ngdb.web.services.UserService;
 
@@ -12,23 +12,23 @@ public class ShopItemView {
 
 	@Property
 	@Persist("entity")
-	private GameShopItem gameShopItem;
+	private ShopItem shopItem;
 
 	@Inject
 	private UserService userService;
 
-	public void onActivate(GameShopItem gameShopItem) {
-		this.gameShopItem = gameShopItem;
+	public void onActivate(ShopItem shopItem) {
+		this.shopItem = shopItem;
 	}
 
 	public boolean isEditable() {
-		User author = gameShopItem.getUser();
-		return !gameShopItem.isSold() && userService.isLoggedUser(author);
+		User seller = shopItem.getSeller();
+		return !shopItem.isSold() && userService.isLoggedUser(seller);
 	}
 
 	public boolean isBuyable() {
-		User author = gameShopItem.getUser();
-		return !gameShopItem.isSold() && !userService.isLoggedUser(author);
+		User seller = shopItem.getSeller();
+		return !shopItem.isSold() && !userService.isLoggedUser(seller);
 	}
 
 }

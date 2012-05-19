@@ -11,7 +11,7 @@ public class Comment extends AbstractEntity {
 	private String text;
 
 	@ManyToOne(optional = false)
-	private User user;
+	private User author;
 
 	@ManyToOne(optional = false)
 	private Article article;
@@ -19,10 +19,10 @@ public class Comment extends AbstractEntity {
 	public Comment() {
 	}
 
-	public Comment(String text, User user, Article article) {
+	public Comment(String text, User author, Article article) {
 		this.article = article;
 		this.text = text;
-		this.user = user;
+		this.author = author;
 	}
 
 	public String getText() {
@@ -30,7 +30,15 @@ public class Comment extends AbstractEntity {
 	}
 
 	public User getUser() {
-		return user;
+		return author;
+	}
+
+	public String getAuthorName() {
+		return author.getLogin();
+	}
+
+	public Long getAuthorId() {
+		return author.getId();
 	}
 
 }

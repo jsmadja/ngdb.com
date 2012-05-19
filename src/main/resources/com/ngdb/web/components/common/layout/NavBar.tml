@@ -10,7 +10,7 @@
 			<div class="btn-group pull-right">
 				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 					<i class="icon-user"></i>
-					Username
+					${username}
 					<span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu">
@@ -33,13 +33,13 @@
 			<div class="nav-collapse pull-right">
 				<ul class="nav">
 					<li>
-						<a href="/shop">My Shop</a>
+						<a href="/shopview/byUser/${userId}">My Shop</a>
 					</li>
 					<li>
-						<a href="/collection">My Collection</a>
+						<a href="/collection/byUser/${userId}">My Collection</a>
 					</li>
 					<li>
-						<a href="#contact">Contact</a>
+						<a href="/contact">Contact</a>
 					</li>
 				</ul>
 			</div>

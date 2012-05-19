@@ -18,4 +18,12 @@ public class UserService {
 		return getCurrentUser().equals(user);
 	}
 
+	public Long getUserId() {
+		return getCurrentUser().getId();
+	}
+
+	public String getUsername() {
+		return getCurrentUser().getLogin();
+	}
+
 }

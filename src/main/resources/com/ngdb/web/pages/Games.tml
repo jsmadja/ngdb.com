@@ -2,8 +2,17 @@
 	xmlns:p="tapestry:parameter">
 	<div class="games">
 		<h1>Games</h1>
+		
+		<p>
+			<a t:type="pageLink" class="btn btn-inverse" t:page="GameUpdate">Add a new game</a>
+		</p>
+						
 		<div>
-			<t:grid source="games" row="game" />
+			<t:grid source="games" row="game">
+				<p:titleCell>
+	            	<t:pageLink page="gameview" context="game.id">${game.title}</t:pageLink>
+                </p:titleCell>
+			</t:grid>
 		</div>
 	</div>
 </t:layout>

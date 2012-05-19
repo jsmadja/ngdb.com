@@ -9,21 +9,17 @@ import org.hibernate.Session;
 import com.ngdb.entities.Article;
 import com.ngdb.entities.CollectionObject;
 import com.ngdb.entities.Comment;
-import com.ngdb.entities.Game;
-import com.ngdb.entities.Genre;
+import com.ngdb.entities.Hardware;
 import com.ngdb.entities.Note;
 import com.ngdb.entities.Review;
 import com.ngdb.entities.Tag;
 import com.ngdb.entities.User;
 
-public class GameView extends ArticleView {
+public class HardwareView extends ArticleView {
 
 	@Property
 	@Persist("entity")
-	private Game game;
-
-	@Property
-	private Genre genre;
+	private Hardware hardware;
 
 	@Property
 	private Note property;
@@ -49,18 +45,18 @@ public class GameView extends ArticleView {
 	@Property
 	private String commentText;
 
-	public void onActivate(Game game) {
-		this.game = game;
-	}
-
 	@CommitAfter
-	Object onActionFromCollection(Game game) {
+	Object onActionFromCollection(Hardware game) {
 		User currentUser = userService.getCurrentUser();
 		CollectionObject collection = new CollectionObject(currentUser, game);
 		session.merge(collection);
 		game.addOwner(collection);
 		session.merge(game);
-		return GameView.class;
+		return HardwareView.class;
+	}
+
+	public void onActivate(Hardware hardware) {
+		this.hardware = hardware;
 	}
 
 	@CommitAfter
@@ -70,29 +66,9 @@ public class GameView extends ArticleView {
 		return GameView.class;
 	}
 
-	public Game onPassivate() {
-		return game;
-	}
-
-	public String getByPlatform() {
-		return "byPlatform";
-	}
-
-	public String getByNgh() {
-		return "byNgh";
-	}
-
-	public String getByGenre() {
-		return "byGenre";
-	}
-
-	public String getByPublisher() {
-		return "byPublisher";
-	}
-
 	@Override
 	protected Article getArticle() {
-		return game;
+		return hardware;
 	}
 
 }

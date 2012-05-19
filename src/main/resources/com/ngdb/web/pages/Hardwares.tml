@@ -1,0 +1,13 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+	<div class="hardwares">
+		<h1>Hardware</h1>
+		
+		<p>
+			<a t:type="pageLink" class="btn btn-inverse" t:page="HardwareUpdate">Add a new hardware</a>
+		</p>
+		
+		<div>
+			<t:grid source="hardwares" row="hardware" />
+		</div>
+	</div>
+</t:layout>

@@ -1,30 +1,37 @@
-<div class="well sidebar-nav">
+<div class="well sidebar-nav" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<ul class="nav nav-list">
 		<li class="nav-header">Shop</li>
+			<t:loop var="shopItem" source="shopItems">
+				<li>
+					<t:pageLink page="shopItemView" context="shopItem.id">
+						${shopItem.sellerName} sells ${shopItem.title} (${shopItem.currency} ${shopItem.price})
+					</t:pageLink>
+				</li>
+			</t:loop>
 		<li>
-			<a href="#">xxx sold YYY ($25)</a>
+			<t:pageLink page="shopview">more ...</t:pageLink>
 		</li>
 		<li>
-			<a href="#">aqsze wants ZZZ</a>
+			<hr/>
 		</li>
 		<li>
-			<a href="#">more ...</a>
+			<t:actionLink t:id="shopForSale" id="shopForSale" >For sale = ${forSaleCount}</t:actionLink>
+		</li>
+		<li>
+			<t:actionLink t:id="shopSold" id="shopSold" >Sold = ${soldCount}</t:actionLink>
 		</li>
 		<li class="nav-header">Stats</li>
 		<li>
-			<a href="/games">245 games</a>
+			<t:pageLink page="games">${gameCount} games</t:pageLink>
 		</li>
 		<li>
-			<a href="/hardware">23 hardware</a>
+			<t:pageLink page="hardwares">${hardwareCount} hardware</t:pageLink>
 		</li>
 		<li>
-			<a href="/wishlists">234 wishlists</a>
+			<t:pageLink page="wishlistView">${wishListCount} wishlists</t:pageLink>
 		</li>
 		<li>
-			<a href="/collections">23 collections</a>
-		</li>
-		<li>
-			<a href="/users">376 users</a>
+			<t:pageLink page="users">${userCount} users</t:pageLink>
 		</li>
 	</ul>
 </div>

@@ -17,7 +17,7 @@ public class CollectionObject {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
-	private User user;
+	private User owner;
 
 	@ManyToOne
 	@JoinColumn(name = "article_id", insertable = false, updatable = false)
@@ -26,14 +26,14 @@ public class CollectionObject {
 	public CollectionObject() {
 	}
 
-	public CollectionObject(User user, Article article) {
-		this.user = user;
+	public CollectionObject(User owner, Article article) {
+		this.owner = owner;
 		this.article = article;
-		this.id = new CollectionId(user, article);
+		this.id = new CollectionId(owner, article);
 	}
 
-	public User getUser() {
-		return user;
+	public User getOwner() {
+		return owner;
 	}
 
 	public Article getArticle() {

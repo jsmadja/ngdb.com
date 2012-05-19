@@ -3,13 +3,12 @@
 		<div class="span12">
 			<table>
 				<tr>
-<!-- 
 					<td>
-						<img class="thumbnail" src="${gameShopItem.mainPicture.url}" title="${gameShopItem.title}" />
+						<img class="thumbnail" src="${shopItem.mainPicture.url}" title="${shopItem.title}" />
 					</td>
 					<td>
 						<h1 class="header">
-							${gameShopItem.title}
+							${shopItem.title}
 						</h1>
 						<table>
 							<tr>
@@ -17,7 +16,7 @@
 									<b>Price</b>
 								</td>
 								<td>
-									$${gameShopItem.price}
+									${shopItem.currency} ${shopItem.price}
 								</td>
 							</tr>
 							<tr>
@@ -25,7 +24,7 @@
 									<b>Release date</b>
 								</td>
 								<td>
-									${gameShopItem.modificationDate}
+									${shopItem.modificationDate}
 								</td>
 							</tr>
 							<tr>
@@ -33,7 +32,7 @@
 									<b>State</b>
 								</td>
 								<td>
-									${gameShopItem.state}
+									${shopItem.state.title}
 								</td>
 							</tr>
 							<tr>
@@ -41,16 +40,15 @@
 									<b>Seller</b>
 								</td>
 								<td>
-									${gameShopItem.user.login}
+									${shopItem.sellerName}
 								</td>
 							</tr>
 						</table>
 					</td>
-	 -->
 					<td>
 						<t:if test="editable">
 							<p>
-								<a t:type="pageLink" class="btn btn-inverse" t:page="ShopItemUpdate" t:context="gameShopItem">Edit</a>
+								<a t:type="pageLink" class="btn btn-inverse" t:page="ShopItemUpdate" t:context="shopItem">Edit</a>
 							</p>
 							</t:if>
 						<t:if test="buyable">

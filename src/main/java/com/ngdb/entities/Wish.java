@@ -17,7 +17,7 @@ public class Wish {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
-	private User user;
+	private User wisher;
 
 	@ManyToOne
 	@JoinColumn(name = "article_id", insertable = false, updatable = false)
@@ -27,8 +27,8 @@ public class Wish {
 		return article;
 	}
 
-	public User getUser() {
-		return user;
+	public User getWisher() {
+		return wisher;
 	}
 
 	@Embeddable

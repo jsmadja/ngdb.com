@@ -30,34 +30,4 @@
 			</p>
 		</div>
 	</div>
-	<div class="row-fluid">
-		<div class="span4">
-			<h2>Most owned game</h2>
-			<p>
-				<t:pagelink page="gameView" context="${mostOwnedGame.id}">
-					<img class="thumbnail" width="150px" src="${mostOwnedGame.mainPicture.url}" title="${mostOwnedGame.title}" />
-				</t:pagelink>
-				${mostOwnedGame.title} ${mostOwnedGame.platform.name} ${mostOwnedGame.origin.title}
-			</p>
-		</div>
-		<div class="span4">
-			<h2>Most wanted game</h2>
-			<p>
-				<t:pagelink page="gameView" context="${mostWantedGame.id}">
-					<img class="thumbnail" width="150px" src="${mostWantedGame.mainPicture.url}" title="${mostWantedGame.title}" />
-				</t:pagelink>
-				${mostWantedGame.title} ${mostWantedGame.platform.name} ${mostWantedGame.origin.title}
-			</p>
-		</div>
-		<div class="span4">
-			<h2>For sale</h2>
-			<p>
-				<t:pagelink page="shopItemView" context="${lastForSaleArticle.id}">
-					<img class="thumbnail" width="150px" src="${lastForSaleArticle.mainPicture.url}" title="${lastForSaleArticle.title}" />
-				</t:pagelink>
-				${lastForSaleArticle.title}
-			</p>
-		</div>
-		
-	</div>
 </t:layout>
