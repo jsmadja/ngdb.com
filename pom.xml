@@ -27,11 +27,11 @@
 	</properties>
 
 	<dependencies>
-<dependency>
-	<groupId>commons-lang</groupId>
-	<artifactId>commons-lang</artifactId>
-	<version>2.6</version>
-</dependency>
+		<dependency>
+			<groupId>org.got5</groupId>
+			<artifactId>tapestry5-jquery</artifactId>
+			<version>${got5-release-version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.tapestry</groupId>
 			<artifactId>tapestry-upload</artifactId>
@@ -433,5 +433,24 @@
 			</build>
 		</profile>
 	</profiles>
+
+<repositories>
+    <repository>
+        <id>devlab722-repo</id>
+        <url>http://nexus.devlab722.net/nexus/content/repositories/releases
+        </url>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+    </repository>
+    <repository>
+        <id>devlab722-snapshot-repo</id>
+        <url>http://nexus.devlab722.net/nexus/content/repositories/snapshots
+        </url>
+        <releases>
+            <enabled>false</enabled>
+        </releases>
+    </repository>
+</repositories>
 
 </project>

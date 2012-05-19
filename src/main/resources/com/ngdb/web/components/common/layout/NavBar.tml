@@ -36,7 +36,7 @@
 						<a href="/shopview/byUser/${userId}">My Shop</a>
 					</li>
 					<li>
-						<a href="/collection/byUser/${userId}">My Collection</a>
+						<a href="/collectionView/byUser/${userId}">My Collection</a>
 					</li>
 					<li>
 						<a href="/contact">Contact</a>

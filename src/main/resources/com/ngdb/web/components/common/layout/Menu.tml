@@ -9,7 +9,7 @@
 				</li>
 			</t:loop>
 		<li>
-			<t:pageLink page="shopview">more ...</t:pageLink>
+			<t:actionLink t:id="more" id="more">more ...</t:actionLink>
 		</li>
 		<li>
 			<hr/>

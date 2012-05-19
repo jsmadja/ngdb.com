@@ -72,6 +72,11 @@ public class Menu {
 		return shopView;
 	}
 
+	Object onActionFromMore() {
+		shopView.setCategory(Category.none);
+		return shopView;
+	}
+
 	Object onActionFromShopSold() {
 		shopView.setCategory(Category.bySoldDate);
 		return shopView;

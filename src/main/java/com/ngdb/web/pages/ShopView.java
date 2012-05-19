@@ -60,7 +60,7 @@ public class ShopView {
 			break;
 		case byUser:
 			User user = (User) session.load(User.class, id);
-			criteria = criteria.add(eq("user", user)).add(eq("sold", false));
+			criteria = criteria.add(eq("seller", user)).add(eq("sold", false));
 			break;
 		case bySoldDate:
 			criteria = criteria.add(eq("sold", true));
