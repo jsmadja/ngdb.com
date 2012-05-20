@@ -15,6 +15,9 @@ public class NeoGeoCDWorldLoaderTest {
 	public void main() throws Exception {
 		InputStream stream = NeoGeoCDWorldLoaderTest.class.getClassLoader().getResourceAsStream("sources/neogeocdworld.html");
 		List<ExternalGame> games = loader.load(stream);
+		for (ExternalGame externalGame : games) {
+			System.err.println(externalGame);
+		}
 		System.err.println(games.size());
 	}
 

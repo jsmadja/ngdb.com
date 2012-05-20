@@ -15,6 +15,9 @@ public class NeoGeoComLoaderTest {
 	public void main() throws Exception {
 		InputStream stream = NeoGeoComLoader.class.getClassLoader().getResourceAsStream("sources/neogeocom.html");
 		List<ExternalGame> games = loader.load(stream);
+		for (ExternalGame externalGame : games) {
+			System.err.println(externalGame);
+		}
 		System.err.println(games.size());
 	}
 
