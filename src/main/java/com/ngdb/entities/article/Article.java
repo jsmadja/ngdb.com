@@ -148,15 +148,6 @@ public abstract class Article {
 		return users;
 	}
 
-	public void addOwner(CollectionObject collection) {
-		owners.add(collection);
-	}
-
-	public void addWisher(User user) {
-		// user.addToWishList(this);
-		// wishers.add(user);
-	}
-
 	public Picture getMainPicture() {
 		return (pictures == null || pictures.isEmpty()) ? Picture.EMPTY : pictures.iterator().next();
 	}
@@ -175,14 +166,6 @@ public abstract class Article {
 
 	public int getWishersCount() {
 		return wishList.size();
-	}
-
-	public String getCollectionRank() {
-		return "1st";
-	}
-
-	public String getWishRank() {
-		return "1st";
 	}
 
 	public Set<Review> getReviews() {

@@ -152,14 +152,14 @@
 						<tr>
 							<td>Collection:</td>
 							<td>
-								<b>${game.collectionRank}</b>
+								<b>${collectionRank}</b>
 								(${game.ownersCount})
 							</td>
 						</tr>
 						<tr>
 							<td>Wishlist:</td>
 							<td>
-								<b>${game.wishRank}</b>
+								<b>${wishRank}</b>
 								(${game.wishersCount})
 							</td>
 						</tr>
