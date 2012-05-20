@@ -6,7 +6,6 @@ import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
-import com.ngdb.entities.Article;
 import com.ngdb.entities.CollectionObject;
 import com.ngdb.entities.Comment;
 import com.ngdb.entities.Game;
@@ -19,7 +18,6 @@ import com.ngdb.entities.Wish;
 
 public class GameView extends ArticleView {
 
-	@Property
 	@Persist("entity")
 	private Game game;
 
@@ -99,8 +97,16 @@ public class GameView extends ArticleView {
 	}
 
 	@Override
-	protected Article getArticle() {
+	protected Game getArticle() {
 		return game;
+	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
 	}
 
 }

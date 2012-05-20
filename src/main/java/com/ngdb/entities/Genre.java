@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
-public class Genre extends AbstractEntity {
+public class Genre extends AbstractEntity implements Comparable<Genre> {
 
 	@Column(nullable = false, unique = true)
 	private String title;
@@ -19,6 +19,11 @@ public class Genre extends AbstractEntity {
 
 	public String getTitle() {
 		return title;
+	}
+
+	@Override
+	public int compareTo(Genre genre) {
+		return title.compareTo(genre.title);
 	}
 
 }

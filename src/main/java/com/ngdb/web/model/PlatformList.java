@@ -1,5 +1,6 @@
 package com.ngdb.web.model;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.tapestry5.OptionModel;
@@ -15,6 +16,7 @@ public class PlatformList extends ModelList {
 	private SelectModelImpl selectModel;
 
 	public PlatformList(List<Platform> platforms) {
+		Collections.sort(platforms);
 		List<OptionModel> options = CollectionFactory.newList();
 		for (Platform platform : platforms) {
 			options.add(new OptionModelImpl(platform.getName(), platform));

@@ -1,5 +1,6 @@
 package com.ngdb.web.model;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.tapestry5.OptionModel;
@@ -15,6 +16,7 @@ public class StateList extends ModelList {
 	private SelectModelImpl selectModel;
 
 	public StateList(List<State> states) {
+		Collections.sort(states);
 		List<OptionModel> options = CollectionFactory.newList();
 		for (State state : states) {
 			options.add(new OptionModelImpl(state.getTitle(), state));

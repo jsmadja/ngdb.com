@@ -5,7 +5,7 @@
 			<a t:type="pageLink" class="btn btn-inverse" t:page="HardwareUpdate">Add a new hardware</a>
 		</p>
 		<div>
-			<t:grid source="hardwares" row="hardware">
+			<t:grid source="hardwares" row="hardware" reorder="Title,AvailableCopyCount,OwnersCount,WishersCount" exclude="Details,WishRank,Id,Buyable">
 				<p:titleCell>
 	            	<t:pageLink page="hardwareView" context="hardware.id">${hardware.title}</t:pageLink>
                 </p:titleCell>

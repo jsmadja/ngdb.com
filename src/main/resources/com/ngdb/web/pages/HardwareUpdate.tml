@@ -1,11 +1,20 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 	xmlns:p="tapestry:parameter">
-	<h1>Add new hardware</h1>
+	<h1>
+	<t:if test="editMode">
+			Edit hardware
+			<p:else>
+				Add new hardware
+			</p:else>
+		</t:if>
+	</h1>
 	<div class="row">
 		<div class="span1">
-			<img class="thumbnail" src="${hardware?.mainPicture.url}" title="${hardware?.title}" />
+			<t:if test="editMode">
+				<img class="thumbnail" src="${message:image.host.url}${hardware.mainPicture.url}" title="${hardware.title}" />
+			</t:if>
 		</div>
-		<div class="span1">
+		<div class="span11">
 			<t:form t:id="hardwareForm" class="form-horizontal">
 				<t:errors />
 				<div class="control-group">
@@ -18,15 +27,11 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<t:label for="mainPicture" class="control-label">Upload Picture</t:label>
+							<t:label for="mainPicture" class="control-label">Picture</t:label>
 							<div class="controls">
-								<input t:type="upload" t:id="mainPicture" t:value="mainPicture" />
-							</div>
-						</div>
-						<div class="control-group">
-							<t:label for="mainPicture" class="control-label">Direct Picture Url</t:label>
-							<div class="controls">
-								<t:textfield value="url" t:id="url" />
+								<t:textfield value="url" t:id="url">direct link</t:textfield>
+								or
+								<input t:type="upload" t:id="mainPicture" t:value="mainPicture">upload file</input>
 							</div>
 						</div>
 						<div class="control-group">
@@ -44,7 +49,7 @@
 						<div class="control-group">
 							<t:label for="details" class="control-label">Details</t:label>
 							<div class="controls">
-								<t:textarea value="details" t:id="details" />
+								<t:textarea rows="6" value="details" t:id="details" style="width:60%" />
 							</div>
 						</div>
 						<div class="form-actions">

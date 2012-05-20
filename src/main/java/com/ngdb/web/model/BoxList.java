@@ -1,5 +1,6 @@
 package com.ngdb.web.model;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.tapestry5.OptionModel;
@@ -15,6 +16,7 @@ public class BoxList extends ModelList {
 	private SelectModelImpl selectModel;
 
 	public BoxList(List<Box> boxes) {
+		Collections.sort(boxes);
 		List<OptionModel> options = CollectionFactory.newList();
 		for (Box box : boxes) {
 			options.add(new OptionModelImpl(box.getName(), box));

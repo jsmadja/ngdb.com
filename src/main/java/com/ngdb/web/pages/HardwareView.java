@@ -18,7 +18,6 @@ import com.ngdb.entities.Wish;
 
 public class HardwareView extends ArticleView {
 
-	@Property
 	@Persist("entity")
 	private Hardware hardware;
 
@@ -75,6 +74,14 @@ public class HardwareView extends ArticleView {
 
 	@Override
 	protected Article getArticle() {
+		return hardware;
+	}
+
+	public void setHardware(Hardware hardware) {
+		this.hardware = hardware;
+	}
+
+	public Hardware getHardware() {
 		return hardware;
 	}
 

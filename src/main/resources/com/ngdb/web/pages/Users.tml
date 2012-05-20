@@ -1,8 +1,18 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<div class="users">
 		<h1>Users</h1>
 		<div>
-			<t:grid source="users" row="user" />
+			<t:grid source="users" row="user" reorder="Login,CreationDate" exclude="Id,ModificationDate">
+				<p:CreationDateHeader>
+					Subscription date
+	            </p:CreationDateHeader>
+	            <p:LoginHeader>
+					User
+	            </p:LoginHeader>
+	            <p:LoginCell>
+	            	<a href="#">${user.login}</a>
+	            </p:LoginCell>
+			</t:grid>
 		</div>
 	</div>
 </t:layout>

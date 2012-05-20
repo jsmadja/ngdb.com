@@ -1,5 +1,6 @@
 package com.ngdb.web.model;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.tapestry5.OptionModel;
@@ -15,6 +16,7 @@ public class GenreList extends ModelList {
 	private SelectModelImpl selectModel;
 
 	public GenreList(List<Genre> genres) {
+		Collections.sort(genres);
 		List<OptionModel> options = CollectionFactory.newList();
 		for (Genre genre : genres) {
 			options.add(new OptionModelImpl(genre.getTitle(), genre));

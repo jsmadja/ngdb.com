@@ -6,7 +6,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Picture {
 
-	public static final Picture EMPTY = new Picture("http://cdn1.iconfinder.com/data/icons/realistiK-new/128x128/mimetypes/unknown.png");
+	public static final Picture EMPTY = new Picture("/ngdb/unknown.png");
 
 	@Column(nullable = false)
 	private String url;
