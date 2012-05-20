@@ -9,7 +9,7 @@ import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
-import com.ngdb.entities.User;
+import com.ngdb.entities.user.User;
 
 public class Users {
 

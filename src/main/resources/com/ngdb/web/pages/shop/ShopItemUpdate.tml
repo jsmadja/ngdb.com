@@ -1,0 +1,53 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+	<h1>${shopItem.title}</h1>
+	<div class="row">
+		<div class="span2">
+			<img class="thumbnail" src="${shopItem.mainPicture.url}" title="${shopItem.title}" />
+		</div>
+		<div class="span10">
+			<t:form t:id="shopItemForm" class="form-horizontal">
+				<t:errors />
+				<div class="control-group">
+					<fieldset>
+						<div class="control-group">
+							<t:label for="mainPicture" class="control-label">Picture</t:label>
+							<div class="controls">
+								<t:textfield value="url" t:id="url">direct link</t:textfield>
+								or
+								<input t:type="upload" t:id="mainPicture" t:value="mainPicture">upload file</input>
+							</div>
+						</div>
+						<div class="control-group">
+							<t:label for="state" class="control-label">State</t:label>
+							<div class="controls">
+								<t:select value="shopItem.state" model="states" t:id="state" />
+							</div>
+						</div>
+						<div class="control-group">
+							<t:label for="price" class="control-label">Price</t:label>
+							<div class="controls">
+								<t:textfield value="shopItem.price" t:id="price" />
+							</div>
+						</div>
+						<div class="control-group">
+							<t:label for="currency" class="control-label">Currency</t:label>
+							<div class="controls">
+								<t:select value="shopItem.currency" model="currencies" t:id="currency" />
+ 							</div>
+						</div>
+						<div class="control-group">
+							<t:label for="details" class="control-label">Details</t:label>
+							<div class="controls">
+								<t:textarea value="shopItem.details" t:id="details" />
+							</div>
+						</div>
+						<div class="form-actions">
+							<button class="btn btn-primary" type="submit">Save changes</button>
+							<button class="btn">Cancel</button>
+						</div>
+					</fieldset>
+				</div>
+			</t:form>
+		</div>
+	</div>
+</t:layout>

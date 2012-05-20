@@ -12,14 +12,14 @@ import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
-import com.ngdb.entities.Game;
-import com.ngdb.entities.Hardware;
-import com.ngdb.entities.ShopItem;
-import com.ngdb.entities.User;
-import com.ngdb.entities.Wish;
+import com.ngdb.entities.article.Game;
+import com.ngdb.entities.article.Hardware;
+import com.ngdb.entities.shop.ShopItem;
+import com.ngdb.entities.shop.Wish;
+import com.ngdb.entities.user.User;
 import com.ngdb.web.Category;
-import com.ngdb.web.pages.ShopItemView;
-import com.ngdb.web.pages.ShopView;
+import com.ngdb.web.pages.shop.ShopItemView;
+import com.ngdb.web.pages.shop.ShopView;
 
 public class Menu {
 

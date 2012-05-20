@@ -17,9 +17,9 @@ import org.joda.time.DateTime;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
-import com.ngdb.entities.Hardware;
-import com.ngdb.entities.Origin;
-import com.ngdb.entities.Platform;
+import com.ngdb.entities.article.Hardware;
+import com.ngdb.entities.article.Origin;
+import com.ngdb.entities.article.Platform;
 
 public class Hardwares {
 

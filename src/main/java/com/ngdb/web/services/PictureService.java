@@ -10,8 +10,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.UUID;
 
-import com.ngdb.entities.Article;
-import com.ngdb.entities.Picture;
+import com.ngdb.entities.article.Article;
+import com.ngdb.entities.article.Picture;
 
 public class PictureService {
 

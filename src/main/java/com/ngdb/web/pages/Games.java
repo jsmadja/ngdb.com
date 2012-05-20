@@ -17,11 +17,11 @@ import org.joda.time.DateTime;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
-import com.ngdb.entities.Game;
-import com.ngdb.entities.Genre;
-import com.ngdb.entities.Origin;
-import com.ngdb.entities.Platform;
-import com.ngdb.entities.Publisher;
+import com.ngdb.entities.article.Game;
+import com.ngdb.entities.article.Genre;
+import com.ngdb.entities.article.Origin;
+import com.ngdb.entities.article.Platform;
+import com.ngdb.entities.article.Publisher;
 
 public class Games {
 

@@ -28,7 +28,7 @@
 			<t:pageLink page="hardwares">${hardwareCount} hardware</t:pageLink>
 		</li>
 		<li>
-			<t:pageLink page="wishlistView">${wishListCount} wishlists</t:pageLink>
+			<t:pageLink page="shop/WishListView">${wishListCount} wishlists</t:pageLink>
 		</li>
 		<li>
 			<t:pageLink page="users">${userCount} users</t:pageLink>

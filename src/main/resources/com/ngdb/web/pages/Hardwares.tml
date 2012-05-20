@@ -2,12 +2,12 @@
 	<div class="hardwares">
 		<h1>Hardware</h1>
 		<p>
-			<a t:type="pageLink" class="btn btn-inverse" t:page="HardwareUpdate">Add a new hardware</a>
+			<a t:type="pageLink" class="btn btn-inverse" t:page="article/HardwareUpdate">Add a new hardware</a>
 		</p>
 		<div>
 			<t:grid source="hardwares" row="hardware" reorder="Title,AvailableCopyCount,OwnersCount,WishersCount" exclude="Details,WishRank,Id,Buyable">
 				<p:titleCell>
-	            	<t:pageLink page="hardwareView" context="hardware.id">${hardware.title}</t:pageLink>
+	            	<t:pageLink page="article/hardwareView" context="hardware.id">${hardware.title}</t:pageLink>
                 </p:titleCell>
 			</t:grid>
 		</div>

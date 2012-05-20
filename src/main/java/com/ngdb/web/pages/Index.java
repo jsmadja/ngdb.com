@@ -6,8 +6,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
 
-import com.ngdb.entities.Game;
-import com.ngdb.entities.Wish;
+import com.ngdb.entities.article.Game;
+import com.ngdb.entities.shop.Wish;
 
 public class Index {
 

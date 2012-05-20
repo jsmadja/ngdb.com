@@ -1,0 +1,10 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+	<div class="wishes">
+		<h1>Wishes</h1>
+		<t:grid source="wishes" row="wish" exclude="ModificationDate">
+			<p:CreationDateHeader>
+				Wish Date
+			</p:CreationDateHeader>
+		</t:grid>
+	</div>
+</t:layout>

@@ -33,10 +33,10 @@
 			<div class="nav-collapse pull-right">
 				<ul class="nav">
 					<li>
-						<a href="/shopview/byUser/${userId}">My Shop</a>
+						<a href="/shop/shopview/byUser/${userId}">My Shop</a>
 					</li>
 					<li>
-						<a href="/collectionView/byUser/${userId}">My Collection</a>
+						<a href="/article/collectionView/byUser/${userId}">My Collection</a>
 					</li>
 					<li>
 						<a href="/contact">Contact</a>
