@@ -1,14 +1,11 @@
 package com.ngdb.entities.article;
 
-import java.util.Set;
-
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
+import com.ngdb.entities.article.element.Genres;
 import com.ngdb.entities.article.vo.Box;
 import com.ngdb.entities.article.vo.Genre;
 import com.ngdb.entities.article.vo.Platform;
@@ -27,15 +24,16 @@ public class Game extends Article {
 	@Column(name = "mega_count")
 	private Long megaCount;
 
-	@ManyToMany
-	@JoinTable(name = "GameGenres", inverseJoinColumns = { @JoinColumn(name = "genre_id") }, joinColumns = { @JoinColumn(name = "game_id") })
-	private Set<Genre> genres;
+	@Embedded
+	private Genres genres;
 
 	@OneToOne
 	private Platform platform;
 
 	@OneToOne
 	private Box box;
+
+	private String upc;
 
 	public Game() {
 	}
@@ -64,12 +62,8 @@ public class Game extends Article {
 		this.megaCount = megaCount;
 	}
 
-	public Set<Genre> getGenres() {
+	public Genres getGenres() {
 		return genres;
-	}
-
-	public void setGenres(Set<Genre> genres) {
-		this.genres = genres;
 	}
 
 	public void setPlatform(Platform platform) {
@@ -86,6 +80,18 @@ public class Game extends Article {
 
 	public Box getBox() {
 		return box;
+	}
+
+	public void setUpc(String upc) {
+		this.upc = upc;
+	}
+
+	public String getUpc() {
+		return upc;
+	}
+
+	public boolean isOfGenre(Genre genre) {
+		return genres.contains(genre);
 	}
 
 }

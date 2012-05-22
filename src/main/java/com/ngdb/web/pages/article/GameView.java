@@ -6,11 +6,11 @@ import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
-import com.ngdb.entities.article.Comment;
 import com.ngdb.entities.article.Game;
-import com.ngdb.entities.article.Note;
-import com.ngdb.entities.article.Review;
-import com.ngdb.entities.article.Tag;
+import com.ngdb.entities.article.element.Comment;
+import com.ngdb.entities.article.element.Note;
+import com.ngdb.entities.article.element.Review;
+import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.article.vo.Genre;
 import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.CollectionObject;

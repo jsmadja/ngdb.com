@@ -1,9 +1,10 @@
-package com.ngdb.entities.article;
+package com.ngdb.entities.article.element;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 import com.ngdb.entities.AbstractEntity;
+import com.ngdb.entities.article.Article;
 
 @Entity
 public class Note extends AbstractEntity {
@@ -15,7 +16,7 @@ public class Note extends AbstractEntity {
 	@ManyToOne
 	private Article article;
 
-	public Note() {
+	Note() {
 	}
 
 	public Note(String name, String text) {

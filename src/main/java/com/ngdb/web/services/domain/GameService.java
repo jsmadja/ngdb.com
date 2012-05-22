@@ -57,7 +57,7 @@ public class GameService {
 			additionnalFilter = new Predicate<Game>() {
 				@Override
 				public boolean apply(Game game) {
-					return game.getGenres().contains(genre);
+					return game.isOfGenre(genre);
 				}
 			};
 			break;

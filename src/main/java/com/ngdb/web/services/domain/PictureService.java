@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.UUID;
 
 import com.ngdb.entities.article.Article;
-import com.ngdb.entities.article.Picture;
+import com.ngdb.entities.article.element.Picture;
 
 public class PictureService {
 

@@ -1,4 +1,4 @@
-package com.ngdb.entities.article;
+package com.ngdb.entities.article.element;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +11,7 @@ public class Tag extends AbstractEntity {
 	@Column(nullable = false, unique = true)
 	private String name;
 
-	public Tag() {
+	Tag() {
 	}
 
 	public Tag(String name) {

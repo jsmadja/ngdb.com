@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.PreUpdate;
 
 import com.ngdb.entities.article.Article;
-import com.ngdb.entities.article.Picture;
+import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.article.vo.State;
 import com.ngdb.entities.user.User;
 

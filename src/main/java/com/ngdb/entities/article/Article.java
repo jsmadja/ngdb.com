@@ -1,12 +1,10 @@
 package com.ngdb.entities.article;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,9 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PreUpdate;
@@ -24,6 +19,16 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.google.common.base.Objects;
+import com.ngdb.entities.article.element.Comment;
+import com.ngdb.entities.article.element.Comments;
+import com.ngdb.entities.article.element.Note;
+import com.ngdb.entities.article.element.Notes;
+import com.ngdb.entities.article.element.Picture;
+import com.ngdb.entities.article.element.Pictures;
+import com.ngdb.entities.article.element.Review;
+import com.ngdb.entities.article.element.Reviews;
+import com.ngdb.entities.article.element.Tag;
+import com.ngdb.entities.article.element.Tags;
 import com.ngdb.entities.article.vo.Origin;
 import com.ngdb.entities.shop.ShopItems;
 import com.ngdb.entities.shop.Wish;
@@ -54,22 +59,20 @@ public abstract class Article {
 	@OneToOne
 	private Origin origin;
 
-	@OneToMany(mappedBy = "article")
-	private Set<Note> notes;
+	@Embedded
+	private Notes notes;
 
-	@ManyToMany
-	@JoinTable(name = "ArticleTags", inverseJoinColumns = { @JoinColumn(name = "tag_id") }, joinColumns = { @JoinColumn(name = "article_id") })
-	private Set<Tag> tags = new HashSet<Tag>();
+	@Embedded
+	private Tags tags;
 
-	@ElementCollection
-	@JoinTable(name = "ArticlePictures", joinColumns = { @JoinColumn(name = "article_id") })
-	private Set<Picture> pictures;
+	@Embedded
+	private Pictures pictures;
 
-	@OneToMany(mappedBy = "article")
-	private Set<Review> reviews;
+	@Embedded
+	private Reviews reviews;
 
-	@OneToMany(mappedBy = "article")
-	private Set<Comment> comments;
+	@Embedded
+	private Comments comments;
 
 	@OneToMany(mappedBy = "article")
 	private Set<Wish> wishList;
@@ -115,8 +118,8 @@ public abstract class Article {
 		return origin;
 	}
 
-	public void addProperty(Note property) {
-		notes.add(property);
+	public void addNote(Note note) {
+		notes.add(note);
 	}
 
 	public void addTag(Tag tag) {
@@ -124,22 +127,19 @@ public abstract class Article {
 	}
 
 	public void addPicture(Picture picture) {
-		if (pictures == null) {
-			pictures = new HashSet<Picture>();
-		}
 		pictures.add(picture);
 	}
 
-	public Set<Picture> getPictures() {
-		return Collections.unmodifiableSet(pictures);
+	public Pictures getPictures() {
+		return pictures;
 	}
 
-	public Set<Note> getNotes() {
-		return Collections.unmodifiableSet(notes);
+	public Notes getNotes() {
+		return notes;
 	}
 
-	public Set<Tag> getTags() {
-		return Collections.unmodifiableSet(tags);
+	public Tags getTags() {
+		return tags;
 	}
 
 	public Set<User> getOwners() {
@@ -151,7 +151,7 @@ public abstract class Article {
 	}
 
 	public Picture getMainPicture() {
-		return (pictures == null || pictures.isEmpty()) ? Picture.EMPTY : pictures.iterator().next();
+		return pictures.first();
 	}
 
 	public void setDetails(String details) {
@@ -170,8 +170,8 @@ public abstract class Article {
 		return wishList.size();
 	}
 
-	public Set<Review> getReviews() {
-		return Collections.unmodifiableSet(reviews);
+	public Reviews getReviews() {
+		return reviews;
 	}
 
 	public void addReview(Review review) {
@@ -190,8 +190,8 @@ public abstract class Article {
 		this.title = title;
 	}
 
-	public Set<Comment> getComments() {
-		return Collections.unmodifiableSet(comments);
+	public Comments getComments() {
+		return comments;
 	}
 
 	public void setReleaseDate(Date releaseDate) {

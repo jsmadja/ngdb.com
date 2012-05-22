@@ -12,7 +12,7 @@ import org.hibernate.Session;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.Hardware;
-import com.ngdb.entities.article.Picture;
+import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.article.vo.State;
 import com.ngdb.entities.shop.GameShopItem;
 import com.ngdb.entities.shop.HardwareShopItem;

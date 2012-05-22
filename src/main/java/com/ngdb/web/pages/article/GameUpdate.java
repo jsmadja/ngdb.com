@@ -3,7 +3,6 @@ package com.ngdb.web.pages.article;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 import java.util.Date;
-import java.util.Set;
 
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectPage;
@@ -18,9 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ngdb.entities.article.Game;
-import com.ngdb.entities.article.Picture;
+import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.article.vo.Box;
-import com.ngdb.entities.article.vo.Genre;
 import com.ngdb.entities.article.vo.Origin;
 import com.ngdb.entities.article.vo.Platform;
 import com.ngdb.entities.article.vo.Publisher;
@@ -68,9 +66,6 @@ public class GameUpdate {
 	private Publisher publisher;
 
 	@Property
-	private Set<Genre> genres;
-
-	@Property
 	@Validate("required")
 	private Platform platform;
 
@@ -98,7 +93,6 @@ public class GameUpdate {
 		this.game = game;
 		if (game != null) {
 			this.publisher = game.getPublisher();
-			this.genres = game.getGenres();
 			this.platform = game.getPlatform();
 			this.megaCount = game.getMegaCount();
 			this.box = game.getBox();
@@ -122,7 +116,6 @@ public class GameUpdate {
 		game.setReleaseDate(releaseDate);
 		game.setTitle(title);
 		game.setPublisher(publisher);
-		game.setGenres(genres);
 		game.setPlatform(platform);
 		game.setMegaCount(megaCount);
 		game.setBox(box);

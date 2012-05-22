@@ -62,18 +62,6 @@
 							</tr>
 							<tr>
 								<td class="grey">
-									<b>Genres</b>
-								</td>
-								<td>
-									<t:loop value="genre" source="game.genres"> 
-										<t:pagelink page="games" context="[bygenre,genre.id]">
-											${genre.title}
-										</t:pagelink>
-									</t:loop>
-								</td>
-							</tr>
-							<tr>
-								<td class="grey">
 									<b>Mega Count</b>
 								</td>
 								<td>

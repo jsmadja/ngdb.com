@@ -1,9 +1,10 @@
-package com.ngdb.entities.article;
+package com.ngdb.entities.article.element;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 import com.ngdb.entities.AbstractEntity;
+import com.ngdb.entities.article.Article;
 
 @Entity
 public class Review extends AbstractEntity {
@@ -15,7 +16,7 @@ public class Review extends AbstractEntity {
 	@ManyToOne
 	private Article article;
 
-	public Review() {
+	Review() {
 	}
 
 	public Review(String label, String url, String mark) {

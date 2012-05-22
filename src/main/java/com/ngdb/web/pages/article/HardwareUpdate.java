@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ngdb.entities.article.Hardware;
-import com.ngdb.entities.article.Picture;
+import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.article.vo.Origin;
 import com.ngdb.web.model.OriginList;
 import com.ngdb.web.services.domain.NotCreatedException;

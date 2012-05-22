@@ -3,7 +3,7 @@ package com.ngdb.entities.shop;
 import javax.persistence.Entity;
 
 import com.ngdb.entities.article.Hardware;
-import com.ngdb.entities.article.Picture;
+import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.article.vo.State;
 import com.ngdb.entities.user.User;
 

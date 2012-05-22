@@ -1,4 +1,4 @@
-package com.ngdb.entities.article;
+package com.ngdb.entities.article.element;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -11,7 +11,7 @@ public class Picture {
 	@Column(nullable = false)
 	private String url;
 
-	public Picture() {
+	Picture() {
 	}
 
 	public Picture(String url) {
