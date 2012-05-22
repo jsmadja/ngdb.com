@@ -1,15 +1,13 @@
 package com.ngdb.web.pages;
 
-import static org.hibernate.criterion.Order.asc;
-
 import java.util.Collection;
 
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.hibernate.Session;
 
 import com.ngdb.entities.user.User;
+import com.ngdb.web.services.domain.UserService;
 
 public class Users {
 
@@ -20,10 +18,10 @@ public class Users {
 	private Collection<User> users;
 
 	@Inject
-	private Session session;
+	private UserService userService;
 
 	@SetupRender
 	void init() {
-		this.users = session.createCriteria(User.class).addOrder(asc("login")).list();
+		this.users = userService.findAll();
 	}
 }

@@ -1,4 +1,4 @@
-package com.ngdb.entities.article;
+package com.ngdb.entities.user;
 
 import java.io.Serializable;
 
@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.ngdb.entities.user.User;
+import com.ngdb.entities.article.Article;
 
 @Entity
 public class CollectionObject implements Comparable<CollectionObject> {

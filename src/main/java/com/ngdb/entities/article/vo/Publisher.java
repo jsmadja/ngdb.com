@@ -1,4 +1,4 @@
-package com.ngdb.entities.article;
+package com.ngdb.entities.article.vo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,15 +6,15 @@ import javax.persistence.Entity;
 import com.ngdb.entities.AbstractEntity;
 
 @Entity
-public class Platform extends AbstractEntity implements Comparable<Platform> {
+public class Publisher extends AbstractEntity implements Comparable<Publisher> {
 
 	@Column(nullable = false, unique = true)
 	private String name;
 
-	public Platform() {
+	public Publisher() {
 	}
 
-	public Platform(String name) {
+	public Publisher(String name) {
 		this.name = name;
 	}
 
@@ -23,8 +23,8 @@ public class Platform extends AbstractEntity implements Comparable<Platform> {
 	}
 
 	@Override
-	public int compareTo(Platform platform) {
-		return name.compareTo(platform.name);
+	public int compareTo(Publisher publisher) {
+		return name.compareTo(publisher.name);
 	}
 
 }

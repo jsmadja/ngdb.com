@@ -9,6 +9,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
+import com.ngdb.entities.article.vo.Box;
+import com.ngdb.entities.article.vo.Genre;
+import com.ngdb.entities.article.vo.Platform;
+import com.ngdb.entities.article.vo.Publisher;
+
 @Entity
 public class Game extends Article {
 

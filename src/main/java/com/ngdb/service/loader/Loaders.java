@@ -11,6 +11,10 @@ public class Loaders {
 			matcher.find();
 			return matcher.group(1).trim();
 		} catch (IllegalStateException e) {
+			// System.err.println("error: " + html + ", pattern: " + pattern);
+			return "";
+		} catch (IndexOutOfBoundsException e) {
+			// System.err.println("error: " + html + ", pattern: " + pattern);
 			return "";
 		}
 	}

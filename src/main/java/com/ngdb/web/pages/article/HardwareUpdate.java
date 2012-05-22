@@ -16,11 +16,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ngdb.entities.article.Hardware;
-import com.ngdb.entities.article.Origin;
 import com.ngdb.entities.article.Picture;
+import com.ngdb.entities.article.vo.Origin;
 import com.ngdb.web.model.OriginList;
-import com.ngdb.web.services.NotCreatedException;
-import com.ngdb.web.services.PictureService;
+import com.ngdb.web.services.domain.NotCreatedException;
+import com.ngdb.web.services.domain.PictureService;
+import com.ngdb.web.services.domain.ReferenceService;
 
 public class HardwareUpdate {
 
@@ -57,7 +58,10 @@ public class HardwareUpdate {
 	private HardwareView hardwareView;
 
 	@Inject
-	protected PictureService pictureService;
+	private PictureService pictureService;
+
+	@Inject
+	private ReferenceService referenceService;
 
 	private Logger log = LoggerFactory.getLogger(HardwareUpdate.class);
 
@@ -102,7 +106,7 @@ public class HardwareUpdate {
 	}
 
 	public SelectModel getOrigins() {
-		return new OriginList(session.createCriteria(Origin.class).list());
+		return new OriginList(referenceService.getOrigins());
 	}
 
 }

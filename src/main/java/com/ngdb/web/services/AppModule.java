@@ -14,6 +14,15 @@ import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.services.AssetSource;
 
+import com.ngdb.web.services.domain.CollectionService;
+import com.ngdb.web.services.domain.GameService;
+import com.ngdb.web.services.domain.HardwareService;
+import com.ngdb.web.services.domain.PictureService;
+import com.ngdb.web.services.domain.ReferenceService;
+import com.ngdb.web.services.domain.ShopService;
+import com.ngdb.web.services.domain.UserService;
+import com.ngdb.web.services.domain.WishService;
+
 public class AppModule {
 
 	public static void contributeFactoryDefaults(MappedConfiguration<String, Object> configuration) {
@@ -38,5 +47,11 @@ public class AppModule {
 	public static void bind(ServiceBinder binder) {
 		binder.bind(UserService.class);
 		binder.bind(PictureService.class);
+		binder.bind(GameService.class);
+		binder.bind(HardwareService.class);
+		binder.bind(WishService.class);
+		binder.bind(CollectionService.class);
+		binder.bind(ReferenceService.class);
+		binder.bind(ShopService.class);
 	}
 }

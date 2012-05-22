@@ -1,7 +1,5 @@
 package com.ngdb.web.pages.shop;
 
-import java.util.Arrays;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.Persist;
@@ -15,7 +13,7 @@ import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.Picture;
-import com.ngdb.entities.article.State;
+import com.ngdb.entities.article.vo.State;
 import com.ngdb.entities.shop.GameShopItem;
 import com.ngdb.entities.shop.HardwareShopItem;
 import com.ngdb.entities.shop.ShopItem;
@@ -23,7 +21,8 @@ import com.ngdb.entities.user.User;
 import com.ngdb.web.model.CurrencyList;
 import com.ngdb.web.model.StateList;
 import com.ngdb.web.pages.Index;
-import com.ngdb.web.services.UserService;
+import com.ngdb.web.services.domain.ReferenceService;
+import com.ngdb.web.services.domain.UserService;
 
 public class SellView {
 
@@ -53,6 +52,9 @@ public class SellView {
 	@Inject
 	private UserService userService;
 
+	@Inject
+	private ReferenceService referenceService;
+
 	void onActivate(Article article) {
 		this.article = article;
 	}
@@ -75,11 +77,11 @@ public class SellView {
 	}
 
 	public SelectModel getStates() {
-		return new StateList(session.createCriteria(State.class).list());
+		return new StateList(referenceService.getStates());
 	}
 
 	public SelectModel getCurrencies() {
-		return new CurrencyList(Arrays.asList("USD"));
+		return new CurrencyList(referenceService.getCurrencies());
 	}
 
 }

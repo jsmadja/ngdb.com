@@ -1,4 +1,4 @@
-package com.ngdb.web.services;
+package com.ngdb.web.services.domain;
 
 public class NotCreatedException extends Exception {
 

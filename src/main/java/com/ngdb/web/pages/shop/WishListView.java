@@ -5,10 +5,9 @@ import java.util.List;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.hibernate.Session;
-import org.hibernate.criterion.Order;
 
 import com.ngdb.entities.shop.Wish;
+import com.ngdb.web.services.domain.WishService;
 
 public class WishListView {
 
@@ -19,10 +18,10 @@ public class WishListView {
 	private List<Wish> wishes;
 
 	@Inject
-	private Session session;
+	private WishService wishService;
 
 	@SetupRender
 	public void setupRender() {
-		wishes = session.createCriteria(Wish.class).addOrder(Order.desc("modificationDate")).list();
+		this.wishes = wishService.findAll();
 	}
 }

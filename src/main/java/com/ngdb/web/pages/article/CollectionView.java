@@ -1,23 +1,20 @@
 package com.ngdb.web.pages.article;
 
-import static org.hibernate.criterion.Restrictions.eq;
-
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.hibernate.Session;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
-import com.ngdb.entities.article.CollectionObject;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.Hardware;
+import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.User;
-import com.ngdb.web.services.UserService;
+import com.ngdb.web.services.domain.CollectionService;
+import com.ngdb.web.services.domain.UserService;
 
 public class CollectionView {
 
@@ -34,16 +31,15 @@ public class CollectionView {
 	private Collection<CollectionObject> hardwares;
 
 	@Inject
-	private Session session;
+	private UserService userService;
 
 	@Inject
-	private UserService userService;
+	private CollectionService collectionService;
 
 	@SetupRender
 	public void init() {
 		User loggedUser = userService.getCurrentUser();
-		List collectionObjects = session.createCriteria(CollectionObject.class).add(eq("owner", loggedUser)).list();
-		Collections.sort(collectionObjects);
+		List collectionObjects = collectionService.findCollectionOf(loggedUser);
 
 		games = Collections2.filter(collectionObjects, new Predicate<CollectionObject>() {
 			@Override

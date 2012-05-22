@@ -7,13 +7,13 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
 import com.ngdb.entities.article.Article;
-import com.ngdb.entities.article.CollectionObject;
 import com.ngdb.entities.article.Comment;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.Note;
 import com.ngdb.entities.article.Review;
 import com.ngdb.entities.article.Tag;
 import com.ngdb.entities.shop.Wish;
+import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.User;
 
 public class HardwareView extends ArticleView {

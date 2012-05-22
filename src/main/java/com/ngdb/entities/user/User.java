@@ -1,16 +1,11 @@
 package com.ngdb.entities.user;
 
-import java.util.Set;
-
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 
 import com.ngdb.entities.AbstractEntity;
 import com.ngdb.entities.article.Article;
-import com.ngdb.entities.article.CollectionObject;
-import com.ngdb.entities.shop.ShopItem;
-import com.ngdb.entities.shop.Wish;
 
 @Entity
 public class User extends AbstractEntity {
@@ -18,14 +13,14 @@ public class User extends AbstractEntity {
 	@Column(nullable = false)
 	private String login;
 
-	@OneToMany(mappedBy = "wisher")
-	private Set<Wish> wishList;
+	@Embedded
+	private WishList wishList;
 
-	@OneToMany(mappedBy = "owner")
-	private Set<CollectionObject> collection;
+	@Embedded
+	private ArticleCollection collection;
 
-	@OneToMany(mappedBy = "seller")
-	private Set<ShopItem> shop;
+	@Embedded
+	private Shop shop;
 
 	public User() {
 	}
@@ -42,36 +37,21 @@ public class User extends AbstractEntity {
 		if (collection == null) {
 			return true;
 		}
-		for (CollectionObject collectionObject : collection) {
-			if (article.equals(collectionObject.getArticle())) {
-				return false;
-			}
-		}
-		return true;
+		return !collection.contains(article);
 	}
 
 	public boolean canSell(Article article) {
 		if (collection == null) {
 			return false;
 		}
-		for (CollectionObject collectionObject : collection) {
-			if (article.equals(collectionObject.getArticle())) {
-				return true;
-			}
-		}
-		return false;
+		return collection.contains(article);
 	}
 
 	public boolean canWish(Article article) {
 		if (wishList == null) {
 			return true;
 		}
-		for (Wish wish : wishList) {
-			if (article.equals(wish.getArticle())) {
-				return false;
-			}
-		}
-		return true;
+		return !wishList.contains(article);
 	}
 
 }

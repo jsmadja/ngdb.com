@@ -24,8 +24,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.google.common.base.Objects;
+import com.ngdb.entities.article.vo.Origin;
 import com.ngdb.entities.shop.ShopItems;
 import com.ngdb.entities.shop.Wish;
+import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.User;
 
 @Entity

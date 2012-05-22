@@ -1,4 +1,8 @@
-package com.ngdb.web.services;
+package com.ngdb.web.services.domain;
+
+import static org.hibernate.criterion.Order.asc;
+
+import java.util.Collection;
 
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
@@ -24,6 +28,10 @@ public class UserService {
 
 	public String getUsername() {
 		return getCurrentUser().getLogin();
+	}
+
+	public Collection<User> findAll() {
+		return session.createCriteria(User.class).addOrder(asc("login")).list();
 	}
 
 }

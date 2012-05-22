@@ -4,7 +4,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.user.User;
-import com.ngdb.web.services.UserService;
+import com.ngdb.web.services.domain.UserService;
 
 public abstract class ArticleView {
 

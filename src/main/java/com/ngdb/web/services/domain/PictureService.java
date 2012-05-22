@@ -1,4 +1,4 @@
-package com.ngdb.web.services;
+package com.ngdb.web.services.domain;
 
 import static com.google.common.io.ByteStreams.toByteArray;
 import static com.google.common.io.Files.createParentDirs;

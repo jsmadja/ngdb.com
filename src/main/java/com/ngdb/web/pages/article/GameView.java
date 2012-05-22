@@ -1,23 +1,22 @@
 package com.ngdb.web.pages.article;
 
-import java.math.BigInteger;
-import java.util.List;
-
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
-import com.ngdb.entities.article.CollectionObject;
 import com.ngdb.entities.article.Comment;
 import com.ngdb.entities.article.Game;
-import com.ngdb.entities.article.Genre;
 import com.ngdb.entities.article.Note;
 import com.ngdb.entities.article.Review;
 import com.ngdb.entities.article.Tag;
+import com.ngdb.entities.article.vo.Genre;
 import com.ngdb.entities.shop.Wish;
+import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.User;
+import com.ngdb.web.services.domain.CollectionService;
+import com.ngdb.web.services.domain.WishService;
 
 public class GameView extends ArticleView {
 
@@ -51,6 +50,12 @@ public class GameView extends ArticleView {
 	@Property
 	private String commentText;
 
+	@Inject
+	private CollectionService collectionService;
+
+	@Inject
+	private WishService wishService;
+
 	public void onActivate(Game game) {
 		this.game = game;
 	}
@@ -80,27 +85,11 @@ public class GameView extends ArticleView {
 	}
 
 	public String getCollectionRank() {
-		List<Object[]> list = session.createSQLQuery("SELECT article_id,COUNT(*) FROM CollectionObject GROUP BY article_id ORDER BY COUNT(*) DESC").list();
-		int rank = 1;
-		for (Object[] o : list) {
-			BigInteger articleId = (BigInteger) o[0];
-			if (game.getId().equals(articleId.longValue())) {
-				return Integer.toString(rank);
-			}
-		}
-		return "N/A";
+		return collectionService.getRankOf(game);
 	}
 
 	public String getWishRank() {
-		List<Object[]> list = session.createSQLQuery("SELECT article_id,COUNT(*) FROM Wish GROUP BY article_id ORDER BY COUNT(*) DESC").list();
-		int rank = 1;
-		for (Object[] o : list) {
-			BigInteger articleId = (BigInteger) o[0];
-			if (game.getId().equals(articleId.longValue())) {
-				return Integer.toString(rank);
-			}
-		}
-		return "N/A";
+		return wishService.getRankOf(game);
 	}
 
 	public Game onPassivate() {

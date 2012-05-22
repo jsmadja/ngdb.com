@@ -10,11 +10,11 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.upload.services.UploadedFile;
 import org.hibernate.Session;
 
-import com.ngdb.entities.article.State;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.web.model.CurrencyList;
 import com.ngdb.web.model.StateList;
 import com.ngdb.web.pages.Index;
+import com.ngdb.web.services.domain.ReferenceService;
 
 public class ShopItemUpdate {
 
@@ -32,6 +32,9 @@ public class ShopItemUpdate {
 	@Persist("entity")
 	private ShopItem shopItem;
 
+	@Inject
+	private ReferenceService referenceService;
+
 	void onActivate(ShopItem shopItem) {
 		this.shopItem = shopItem;
 	}
@@ -43,11 +46,11 @@ public class ShopItemUpdate {
 	}
 
 	public SelectModel getStates() {
-		return new StateList(session.createCriteria(State.class).list());
+		return new StateList(referenceService.getStates());
 	}
 
 	public SelectModel getCurrencies() {
-		return new CurrencyList(Arrays.asList("USD"));
+		return new CurrencyList(referenceService.getCurrencies());
 	}
 
 }

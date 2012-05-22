@@ -115,7 +115,7 @@ public class ExternalGame implements Comparable<ExternalGame> {
 	}
 
 	public void setTitle(String title) {
-		this.title = title.toUpperCase();
+		this.title = title;
 	}
 
 	public String getTitle() {

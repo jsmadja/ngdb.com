@@ -17,20 +17,21 @@ import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ngdb.entities.article.Box;
 import com.ngdb.entities.article.Game;
-import com.ngdb.entities.article.Genre;
-import com.ngdb.entities.article.Origin;
 import com.ngdb.entities.article.Picture;
-import com.ngdb.entities.article.Platform;
-import com.ngdb.entities.article.Publisher;
+import com.ngdb.entities.article.vo.Box;
+import com.ngdb.entities.article.vo.Genre;
+import com.ngdb.entities.article.vo.Origin;
+import com.ngdb.entities.article.vo.Platform;
+import com.ngdb.entities.article.vo.Publisher;
 import com.ngdb.web.model.BoxList;
 import com.ngdb.web.model.GenreList;
 import com.ngdb.web.model.OriginList;
 import com.ngdb.web.model.PlatformList;
 import com.ngdb.web.model.PublisherList;
-import com.ngdb.web.services.NotCreatedException;
-import com.ngdb.web.services.PictureService;
+import com.ngdb.web.services.domain.NotCreatedException;
+import com.ngdb.web.services.domain.PictureService;
+import com.ngdb.web.services.domain.ReferenceService;
 
 public class GameUpdate {
 
@@ -42,7 +43,7 @@ public class GameUpdate {
 	protected UploadedFile mainPicture;
 
 	@Inject
-	protected Session session;
+	protected ReferenceService referenceService;
 
 	@Inject
 	protected PictureService pictureService;
@@ -87,6 +88,9 @@ public class GameUpdate {
 
 	@InjectPage
 	private GameView gameView;
+
+	@Inject
+	private Session session;
 
 	private Logger log = LoggerFactory.getLogger(GameUpdate.class);
 
@@ -141,23 +145,23 @@ public class GameUpdate {
 	}
 
 	public SelectModel getPlatforms() {
-		return new PlatformList(session.createCriteria(Platform.class).list());
+		return new PlatformList(referenceService.getPlatforms());
 	}
 
 	public SelectModel getGenres() {
-		return new GenreList(session.createCriteria(Genre.class).list());
+		return new GenreList(referenceService.getGenres());
 	}
 
 	public SelectModel getPublishers() {
-		return new PublisherList(session.createCriteria(Publisher.class).list());
+		return new PublisherList(referenceService.getPublishers());
 	}
 
 	public SelectModel getBoxes() {
-		return new BoxList(session.createCriteria(Box.class).list());
+		return new BoxList(referenceService.getBoxes());
 	}
 
 	public SelectModel getOrigins() {
-		return new OriginList(session.createCriteria(Origin.class).list());
+		return new OriginList(referenceService.getOrigins());
 	}
 
 }

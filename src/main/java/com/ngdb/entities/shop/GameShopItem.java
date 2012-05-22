@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.Picture;
-import com.ngdb.entities.article.State;
+import com.ngdb.entities.article.vo.State;
 import com.ngdb.entities.user.User;
 
 @Entity

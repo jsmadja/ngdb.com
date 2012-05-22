@@ -13,6 +13,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Picture;
+import com.ngdb.web.services.domain.NotCreatedException;
+import com.ngdb.web.services.domain.PictureService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PictureServiceIT {

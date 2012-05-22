@@ -5,7 +5,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.user.User;
-import com.ngdb.web.services.UserService;
+import com.ngdb.web.services.domain.UserService;
 
 public class ShopItemView {
 

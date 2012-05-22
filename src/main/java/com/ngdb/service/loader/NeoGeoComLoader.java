@@ -20,6 +20,7 @@ public class NeoGeoComLoader {
 	private String PUBLISHER_PATTERN = ">([A-Za-z/ ]+)<";
 	private String TITLE_PATTERN = ">([ /\\+&'a-zA-Z0-9² :,-?!ōôûūç/\\(\\)\\\"]+)<";
 	private String MEGA_COUNT_PATTERN = ">(\\d+)<";
+	private String DATE_PATTERN = ">([0-9.]+)<";
 
 	public List<ExternalGame> load(InputStream stream) throws IOException {
 		List<ExternalGame> games = new ArrayList<ExternalGame>();
@@ -28,7 +29,7 @@ public class NeoGeoComLoader {
 		String html = new String(bytes);
 		String[] splits = html.split("<tr>");
 		for (String split : splits) {
-			if (split.split("</td>").length >= 6 && !split.contains("NGH")) {
+			if (split.split("</td>").length >= 9 && !split.contains("NGH")) {
 				ExternalGame game = loadGameInfo(split);
 				if (!game.getTitle().isEmpty()) {
 					game.setFromNgc(true);
@@ -45,13 +46,36 @@ public class NeoGeoComLoader {
 		String titleColumn = clean(splits[3]);
 		String publisherColumn = clean(splits[2]);
 		String megaCountColumn = clean(splits[4]);
+		String aesColumn = clean(splits[6]);
+		String cdColumn = clean(splits[8]);
 
 		ExternalGame game = new ExternalGame();
 		insertNgh(nghColumn, game);
 		insertPublisher(publisherColumn, game);
 		insertTitle(titleColumn, game);
 		insertMegaCount(megaCountColumn, game);
+		insertAES(aesColumn, game);
+		insertCD(cdColumn, game);
 		return game;
+	}
+
+	private void insertAES(String aes, ExternalGame game) {
+		String aesDate = extract(aes, DATE_PATTERN);
+		game.setAesDate(cleanDate(aesDate));
+	}
+
+	private String cleanDate(String date) {
+		date = date.replaceAll("\\.", "/");
+		for (int i = 0; i <= 9; i++) {
+			date = date.replaceAll("\\/9" + i, "/199" + i);
+		}
+		date = date.replaceAll("\\/00", "/2000");
+		return date;
+	}
+
+	private void insertCD(String cd, ExternalGame game) {
+		String cdDate = extract(cd, DATE_PATTERN);
+		game.setCdDate(cleanDate(cdDate));
 	}
 
 	private void insertMegaCount(String megaCountColumn, ExternalGame game) {

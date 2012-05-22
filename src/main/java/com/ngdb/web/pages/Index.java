@@ -1,25 +1,24 @@
 package com.ngdb.web.pages;
 
-import static org.hibernate.criterion.Projections.countDistinct;
-
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.hibernate.Session;
-import org.hibernate.criterion.Projections;
 
-import com.ngdb.entities.article.Game;
-import com.ngdb.entities.shop.Wish;
+import com.ngdb.web.services.domain.GameService;
+import com.ngdb.web.services.domain.WishService;
 
 public class Index {
 
 	@Inject
-	private Session session;
+	private GameService gameService;
+
+	@Inject
+	private WishService wishService;
 
 	public Long getNumGames() {
-		return (Long) session.createCriteria(Game.class).setProjection(Projections.rowCount()).uniqueResult();
+		return gameService.getNumGames();
 	}
 
 	public Long getNumWhishes() {
-		return (Long) session.createCriteria(Wish.class).setProjection(countDistinct("article")).uniqueResult();
+		return wishService.getNumWishes();
 	}
 
 }

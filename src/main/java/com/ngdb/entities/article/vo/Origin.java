@@ -1,4 +1,4 @@
-package com.ngdb.entities.article;
+package com.ngdb.entities.article.vo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -11,11 +11,11 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import com.ngdb.entities.ExternalGame;
-import com.ngdb.entities.article.Box;
 import com.ngdb.entities.article.Game;
-import com.ngdb.entities.article.Origin;
-import com.ngdb.entities.article.Platform;
-import com.ngdb.entities.article.Publisher;
+import com.ngdb.entities.article.vo.Box;
+import com.ngdb.entities.article.vo.Origin;
+import com.ngdb.entities.article.vo.Platform;
+import com.ngdb.entities.article.vo.Publisher;
 import com.ngdb.service.loader.NeoGeoCDWorldLoader;
 
 public class Init {
