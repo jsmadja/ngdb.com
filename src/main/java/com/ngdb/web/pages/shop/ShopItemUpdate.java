@@ -10,11 +10,11 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.upload.services.UploadedFile;
 import org.hibernate.Session;
 
+import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.web.model.CurrencyList;
 import com.ngdb.web.model.StateList;
 import com.ngdb.web.pages.Index;
-import com.ngdb.web.services.domain.ReferenceService;
 
 public class ShopItemUpdate {
 

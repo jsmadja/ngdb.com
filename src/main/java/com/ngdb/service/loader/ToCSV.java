@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.ngdb.entities.ExternalGame;
 
 public class ToCSV {
 

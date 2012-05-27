@@ -29,7 +29,7 @@ import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Reviews;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.article.element.Tags;
-import com.ngdb.entities.article.vo.Origin;
+import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.shop.ShopItems;
 import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.CollectionObject;
@@ -119,7 +119,11 @@ public abstract class Article {
 	}
 
 	public void addNote(Note note) {
+		if (notes == null) {
+			notes = new Notes();
+		}
 		notes.add(note);
+		note.setArticle(this);
 	}
 
 	public void addTag(Tag tag) {

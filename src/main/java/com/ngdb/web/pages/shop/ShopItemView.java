@@ -5,7 +5,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.user.User;
-import com.ngdb.web.services.domain.UserService;
+import com.ngdb.web.services.infrastructure.UserSession;
 
 public class ShopItemView {
 
@@ -13,16 +13,16 @@ public class ShopItemView {
 	private ShopItem shopItem;
 
 	@Inject
-	private UserService userService;
+	private UserSession userSession;
 
 	public boolean isEditable() {
 		User seller = shopItem.getSeller();
-		return !shopItem.isSold() && userService.isLoggedUser(seller);
+		return !shopItem.isSold() && userSession.isLoggedUser(seller);
 	}
 
 	public boolean isBuyable() {
 		User seller = shopItem.getSeller();
-		return !shopItem.isSold() && !userService.isLoggedUser(seller);
+		return !shopItem.isSold() && !userSession.isLoggedUser(seller);
 	}
 
 	public void setShopItem(ShopItem shopItem) {

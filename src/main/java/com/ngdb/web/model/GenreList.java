@@ -9,7 +9,7 @@ import org.apache.tapestry5.internal.OptionModelImpl;
 import org.apache.tapestry5.internal.SelectModelImpl;
 import org.apache.tapestry5.ioc.internal.util.CollectionFactory;
 
-import com.ngdb.entities.article.vo.Genre;
+import com.ngdb.entities.reference.Genre;
 
 public class GenreList extends ModelList {
 

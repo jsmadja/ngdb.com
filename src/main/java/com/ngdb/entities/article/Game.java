@@ -6,10 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 import com.ngdb.entities.article.element.Genres;
-import com.ngdb.entities.article.vo.Box;
-import com.ngdb.entities.article.vo.Genre;
-import com.ngdb.entities.article.vo.Platform;
-import com.ngdb.entities.article.vo.Publisher;
+import com.ngdb.entities.reference.Box;
+import com.ngdb.entities.reference.Genre;
+import com.ngdb.entities.reference.Platform;
+import com.ngdb.entities.reference.Publisher;
 
 @Entity
 public class Game extends Article {

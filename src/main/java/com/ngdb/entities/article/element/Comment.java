@@ -33,16 +33,8 @@ public class Comment extends AbstractEntity {
 		return text;
 	}
 
-	public User getUser() {
+	public User getAuthor() {
 		return author;
-	}
-
-	public String getAuthorName() {
-		return author.getLogin();
-	}
-
-	public Long getAuthorId() {
-		return author.getId();
 	}
 
 }

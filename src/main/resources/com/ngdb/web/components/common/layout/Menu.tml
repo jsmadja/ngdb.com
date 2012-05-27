@@ -1,5 +1,6 @@
 <div class="well sidebar-nav" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<ul class="nav nav-list">
+	<!-- 
 		<li class="nav-header">Shop</li>
 			<t:loop value="shopItem" source="shopItems">
 				<li>
@@ -9,7 +10,7 @@
 				</li>
 			</t:loop>
 		<li>
-			<t:actionLink t:id="more" id="more">more ...</t:actionLink>
+			<t:pageLink page="market" t:id="more" id="more">more ...</t:pageLink>
 		</li>
 		<li>
 			<hr/>
@@ -20,6 +21,7 @@
 		<li>
 			<t:actionLink t:id="shopSold" id="shopSold" >Sold = ${soldCount}</t:actionLink>
 		</li>
+		 -->
 		<li class="nav-header">Stats</li>
 		<li>
 			<t:pageLink page="games">${gameCount} games</t:pageLink>
@@ -27,11 +29,13 @@
 		<li>
 			<t:pageLink page="hardwares">${hardwareCount} hardware</t:pageLink>
 		</li>
+		<!-- 
 		<li>
-			<t:pageLink page="shop/WishListView">${wishListCount} wishlists</t:pageLink>
+			<t:pageLink page="wishBox">${wishListCount} wishlists</t:pageLink>
 		</li>
 		<li>
 			<t:pageLink page="users">${userCount} users</t:pageLink>
 		</li>
+		 -->
 	</ul>
 </div>

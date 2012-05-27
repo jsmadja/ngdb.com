@@ -23,11 +23,11 @@ public class Wish {
 	private WishId id;
 
 	@ManyToOne
-	@JoinColumn(name = "user_id", insertable = false, updatable = false)
+	@JoinColumn(name = "user_id", insertable = false, updatable = false, nullable = false)
 	private User wisher;
 
 	@ManyToOne
-	@JoinColumn(name = "article_id", insertable = false, updatable = false)
+	@JoinColumn(name = "article_id", insertable = false, updatable = false, nullable = false)
 	private Article article;
 
 	@Temporal(TemporalType.TIMESTAMP)

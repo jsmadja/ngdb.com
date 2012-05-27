@@ -6,8 +6,8 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import com.ngdb.entities.Population;
 import com.ngdb.entities.user.User;
-import com.ngdb.web.services.domain.UserService;
 
 public class Users {
 
@@ -18,10 +18,10 @@ public class Users {
 	private Collection<User> users;
 
 	@Inject
-	private UserService userService;
+	private Population population;
 
 	@SetupRender
 	void init() {
-		this.users = userService.findAll();
+		this.users = population.findEverybody();
 	}
 }

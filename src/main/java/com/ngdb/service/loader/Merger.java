@@ -11,7 +11,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import com.google.common.io.Closeables;
-import com.ngdb.entities.ExternalGame;
 
 public class Merger {
 

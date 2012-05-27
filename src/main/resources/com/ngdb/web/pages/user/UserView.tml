@@ -1,6 +1,22 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<div class="row-fluid show-grid">
 		<div class="span12">
+			<h1>${user.login}</h1>
+
+			<h2>Wish List</h2>			
+			<div class="wishList">
+				<t:grid row="wish" source="user.wishes" />			
+			</div>
+			
+			<h2>Shop</h2>
+			<div class="shop">
+				<t:grid row="shopItem" source="user.shopItems" />
+			</div>
+			
+			<h2>Collection</h2>
+			<div class="collection">
+				<t:grid row="article" source="user.articlesInCollection" />
+			</div>
 		</div>
 	</div>
 </t:layout>

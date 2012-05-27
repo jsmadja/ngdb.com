@@ -14,14 +14,16 @@ import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.services.AssetSource;
 
-import com.ngdb.web.services.domain.CollectionService;
-import com.ngdb.web.services.domain.GameService;
-import com.ngdb.web.services.domain.HardwareService;
-import com.ngdb.web.services.domain.PictureService;
-import com.ngdb.web.services.domain.ReferenceService;
-import com.ngdb.web.services.domain.ShopService;
-import com.ngdb.web.services.domain.UserService;
-import com.ngdb.web.services.domain.WishService;
+import com.ngdb.entities.ArticleFactory;
+import com.ngdb.entities.GameFactory;
+import com.ngdb.entities.HardwareFactory;
+import com.ngdb.entities.Market;
+import com.ngdb.entities.Museum;
+import com.ngdb.entities.Population;
+import com.ngdb.entities.WishBox;
+import com.ngdb.entities.reference.ReferenceService;
+import com.ngdb.web.services.infrastructure.PictureService;
+import com.ngdb.web.services.infrastructure.UserSession;
 
 public class AppModule {
 
@@ -45,13 +47,15 @@ public class AppModule {
 	}
 
 	public static void bind(ServiceBinder binder) {
-		binder.bind(UserService.class);
+		binder.bind(UserSession.class);
 		binder.bind(PictureService.class);
-		binder.bind(GameService.class);
-		binder.bind(HardwareService.class);
-		binder.bind(WishService.class);
-		binder.bind(CollectionService.class);
+		binder.bind(WishBox.class);
+		binder.bind(Museum.class);
 		binder.bind(ReferenceService.class);
-		binder.bind(ShopService.class);
+		binder.bind(Market.class);
+		binder.bind(GameFactory.class);
+		binder.bind(HardwareFactory.class);
+		binder.bind(ArticleFactory.class);
+		binder.bind(Population.class);
 	}
 }

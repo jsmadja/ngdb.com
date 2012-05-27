@@ -2,23 +2,23 @@ package com.ngdb.web.pages;
 
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import com.ngdb.web.services.domain.GameService;
-import com.ngdb.web.services.domain.WishService;
+import com.ngdb.entities.GameFactory;
+import com.ngdb.entities.WishBox;
 
 public class Index {
 
 	@Inject
-	private GameService gameService;
+	private GameFactory gameFactory;
 
 	@Inject
-	private WishService wishService;
+	private WishBox wishBox;
 
 	public Long getNumGames() {
-		return gameService.getNumGames();
+		return gameFactory.getNumGames();
 	}
 
 	public Long getNumWhishes() {
-		return wishService.getNumWishes();
+		return wishBox.getNumWishes();
 	}
 
 }

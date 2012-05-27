@@ -7,7 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-import com.ngdb.entities.article.vo.Genre;
+import com.ngdb.entities.reference.Genre;
 
 @Embeddable
 public class Genres {

@@ -32,4 +32,8 @@ public class Note extends AbstractEntity {
 		return text;
 	}
 
+	public void setArticle(Article article) {
+		this.article = article;
+	}
+
 }

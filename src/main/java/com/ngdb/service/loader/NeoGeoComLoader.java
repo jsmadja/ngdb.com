@@ -12,7 +12,6 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.google.common.io.ByteStreams;
-import com.ngdb.entities.ExternalGame;
 
 public class NeoGeoComLoader {
 

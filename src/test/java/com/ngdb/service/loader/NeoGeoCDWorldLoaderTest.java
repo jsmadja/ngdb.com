@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.ngdb.entities.ExternalGame;
 
 public class NeoGeoCDWorldLoaderTest {
 

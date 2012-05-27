@@ -16,7 +16,7 @@ import javax.persistence.PreUpdate;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Picture;
-import com.ngdb.entities.article.vo.State;
+import com.ngdb.entities.reference.State;
 import com.ngdb.entities.user.User;
 
 @Entity
@@ -106,10 +106,6 @@ public abstract class ShopItem {
 
 	public User getSeller() {
 		return seller;
-	}
-
-	public String getSellerName() {
-		return seller.getLogin();
 	}
 
 	public boolean isSold() {

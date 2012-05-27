@@ -8,6 +8,7 @@
 			</a>
 			<a class="brand" href="/"><span class="orange">ng</span><span class="blue">db</span>.com</a>
 			<div class="btn-group pull-right">
+				<!-- 
 				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 					<i class="icon-user"></i>
 					${username}
@@ -22,27 +23,31 @@
 						<a href="#">Sign Out</a>
 					</li>
 				</ul>
+				 -->
 			</div>
-
+<!-- 
 			<div>
 				<form class="navbar-search pull-left">
 					<input type="text" class="search-query" placeholder="Find Games, Hardware and more..." />
 				</form>
 			</div>
-
+-->
+			
+<!--
 			<div class="nav-collapse pull-right">
 				<ul class="nav">
 					<li>
 						<a href="/shop/shopview/byUser/${userId}">My Shop</a>
 					</li>
 					<li>
-						<a href="/article/collectionView/byUser/${userId}">My Collection</a>
+						<a href="/museum/byUser/${userId}">My Collection</a>
 					</li>
 					<li>
 						<a href="/contact">Contact</a>
 					</li>
 				</ul>
 			</div>
+-->			
 		</div>
 	</div>
 </div>

@@ -2,13 +2,15 @@
 	xmlns:p="tapestry:parameter">
 	<div class="games">
 		<h1>Games</h1>
+		<!--
 		<p>
-			<a t:type="pageLink" class="btn btn-inverse" t:page="article/GameUpdate">Add a new game</a>
+			<a t:type="pageLink" class="btn btn-inverse" t:page="article/game/gameUpdate">Add a new game</a>
 		</p>
+		-->
 		<div>
-			<t:grid source="games" row="game" reorder="Title,AvailableCopyCount,OwnersCount,WishersCount" exclude="Details,WishRank,Id,Buyable,Ngh,MegaCount">
+			<t:grid source="games" row="game" reorder="Ngh,Title,MegaCount" exclude="Details,WishRank,Id,Buyable,Upc,WishersCount,OwnersCount,AvailableCopyCount">
 				<p:titleCell>
-	            	<t:pageLink page="article/gameview" context="game.id">${game.title}</t:pageLink>
+	            	<t:pageLink page="article/game/gameview" context="game.id">${game.title}</t:pageLink>
                 </p:titleCell>
 			</t:grid>
 		</div>

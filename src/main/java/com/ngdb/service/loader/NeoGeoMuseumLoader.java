@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.io.ByteStreams;
-import com.ngdb.entities.ExternalGame;
 
 public class NeoGeoMuseumLoader {
 

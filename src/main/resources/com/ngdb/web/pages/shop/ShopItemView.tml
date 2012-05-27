@@ -40,7 +40,7 @@
 									<b>Seller</b>
 								</td>
 								<td>
-									<a href="#">${shopItem.sellerName}</a>
+									<t:pageLink page="user/UserView" context="shopItem.seller" >${shopItem.seller.login}</t:pageLink>
 								</td>
 							</tr>
 						</table>

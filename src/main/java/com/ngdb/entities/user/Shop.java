@@ -1,5 +1,6 @@
 package com.ngdb.entities.user;
 
+import java.util.Collections;
 import java.util.Set;
 
 import javax.persistence.Embeddable;
@@ -11,6 +12,10 @@ import com.ngdb.entities.shop.ShopItem;
 public class Shop {
 
 	@OneToMany(mappedBy = "seller")
-	private Set<ShopItem> shop;
+	private Set<ShopItem> shopItems;
+
+	public Set<ShopItem> getShopItems() {
+		return Collections.unmodifiableSet(shopItems);
+	}
 
 }

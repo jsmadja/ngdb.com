@@ -1,60 +1,56 @@
 package com.ngdb.web.pages;
 
-import java.io.InputStream;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 
-import com.ngdb.entities.ExternalGame;
 import com.ngdb.entities.article.Game;
-import com.ngdb.entities.article.vo.Box;
-import com.ngdb.entities.article.vo.Origin;
-import com.ngdb.entities.article.vo.Platform;
-import com.ngdb.entities.article.vo.Publisher;
-import com.ngdb.service.loader.NeoGeoCDWorldLoader;
+import com.ngdb.entities.reference.ReferenceService;
 
 public class Init {
-
-	private static NeoGeoCDWorldLoader loader = new NeoGeoCDWorldLoader();
 
 	@Inject
 	Session session;
 
+	@Inject
+	ReferenceService referenceService;
+
 	@CommitAfter
 	void onActivate() throws Exception {
+		InputStreamReader stream = new InputStreamReader(new FileInputStream("/Users/juliensmadja/Developpement/workspaces/ngdb.com/src/main/resources/sources/mvs.csv"), "UTF-8");
+		BufferedReader bufferedReader = new BufferedReader(stream);
+		int i = 0;
+		while (bufferedReader.ready()) {
+			String gameLine = bufferedReader.readLine();
+			gameLine = gameLine.replaceAll("\"", "");
+			gameLine = gameLine.replaceAll(", The", " The");
+			System.err.println(gameLine);
+			if (i > 0) {
+				String[] splits = gameLine.split(",");
+				String ngh = splits[0];
+				String title = splits[1].replaceAll(" The", ", The");
+				String platform = splits[2];
+				String origin = splits[3];
+				String publisher = splits[5];
+				String megaCount = splits[6];
+				String releaseDate = splits[7];
 
-		Box box = (Box) session.load(Box.class, 1L);
-		Platform platform = (Platform) session.load(Platform.class, 1L);
-		Origin origin = (Origin) session.load(Origin.class, 2L);
-
-		InputStream stream = Init.class.getClassLoader().getResourceAsStream("sources/neogeocdworld.html");
-		List<ExternalGame> games = loader.load(stream);
-		for (ExternalGame externalGame : games) {
-			System.err.println(externalGame);
-			Game game = new Game();
-			game.setBox(box);
-			game.setDetails("automatically imported");
-			game.setMegaCount(0L);
-			game.setNgh(externalGame.getNgh());
-			game.setPlatform(platform);
-			game.setOrigin(origin);
-			Publisher publisher = (Publisher) session.createCriteria(Publisher.class).add(Restrictions.like("name", externalGame.getPublisher())).uniqueResult();
-			game.setPublisher(publisher);
-			SimpleDateFormat sdf = new SimpleDateFormat();
-			if (StringUtils.isNotEmpty(externalGame.getAesDate())) {
-				game.setReleaseDate(sdf.parse(externalGame.getAesDate()));
-			} else if (StringUtils.isNotEmpty(externalGame.getMvsDate())) {
-				game.setReleaseDate(sdf.parse(externalGame.getMvsDate()));
-			} else if (StringUtils.isNotEmpty(externalGame.getCdDate())) {
-				game.setReleaseDate(sdf.parse(externalGame.getCdDate()));
+				Game game = new Game();
+				game.setNgh(ngh);
+				game.setTitle(title);
+				game.setPlatform(referenceService.findPlatformByName(platform));
+				game.setOrigin(referenceService.findOriginByName(origin));
+				game.setPublisher(referenceService.findPublisherByName(publisher));
+				game.setMegaCount(Long.valueOf(megaCount));
+				game.setReleaseDate(new SimpleDateFormat("DD/MM/yy").parse(releaseDate));
+				session.persist(game);
 			}
-			game.setTitle(externalGame.getTitle());
-			session.merge(game);
+			i++;
 		}
 	}
 }

@@ -7,9 +7,9 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import com.ngdb.entities.HardwareFactory;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.web.Filter;
-import com.ngdb.web.services.domain.HardwareService;
 
 public class Hardwares {
 
@@ -20,7 +20,7 @@ public class Hardwares {
 	private Collection<Hardware> hardwares;
 
 	@Inject
-	private HardwareService hardwareService;
+	private HardwareFactory hardwareFactory;
 
 	private Filter filter = Filter.none;
 
@@ -35,7 +35,7 @@ public class Hardwares {
 
 	@SetupRender
 	void init() {
-		this.hardwares = hardwareService.findAll(filter, filterValue);
+		this.hardwares = hardwareFactory.findAll();
 	}
 
 }

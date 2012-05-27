@@ -1,5 +1,6 @@
 package com.ngdb.entities.article.element;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -13,6 +14,9 @@ public class Notes implements Iterable<Note> {
 	private Set<Note> notes;
 
 	public void add(Note note) {
+		if (notes == null) {
+			notes = new HashSet<Note>();
+		}
 		this.notes.add(note);
 	}
 

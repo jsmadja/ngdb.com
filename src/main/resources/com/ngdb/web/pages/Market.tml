@@ -1,0 +1,19 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<div class="shop">
+		<h1>Market</h1>
+		<t:loop source="shopItems" value="shopItem">
+			<div class="span3">
+				<t:actionLink t:id="shopItem" id="shopItem" context="shopItem.id">
+					<img class="thumbnail" width="150px" src="${shopItem.mainPicture.url}" alt="${shopItem.title}" />
+					<b>
+						<p>
+							${shopItem.title}
+						</p>
+					</b>
+				</t:actionLink>
+				<a href="#" class="btn btn-success action"><i class="icon-shopping-cart icon-white"></i>&nbsp;${shopItem.currency} ${shopItem.price}</a>
+			</div>
+		</t:loop>
+	</div>
+</t:layout>

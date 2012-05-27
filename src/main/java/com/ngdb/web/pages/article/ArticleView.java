@@ -4,15 +4,15 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.user.User;
-import com.ngdb.web.services.domain.UserService;
+import com.ngdb.web.services.infrastructure.UserSession;
 
 public abstract class ArticleView {
 
 	@Inject
-	protected UserService userService;
+	protected UserSession userSession;
 
 	public boolean isAddableToCollection() {
-		User user = userService.getCurrentUser();
+		User user = userSession.getUser();
 		return user.canAddInCollection(getArticle());
 	}
 
@@ -21,12 +21,12 @@ public abstract class ArticleView {
 	}
 
 	public boolean isSellable() {
-		User user = userService.getCurrentUser();
+		User user = userSession.getUser();
 		return user.canSell(getArticle());
 	}
 
 	public boolean isWishable() {
-		User user = userService.getCurrentUser();
+		User user = userSession.getUser();
 		return user.canWish(getArticle());
 	}
 
