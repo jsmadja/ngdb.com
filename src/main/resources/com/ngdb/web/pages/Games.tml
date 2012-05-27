@@ -8,10 +8,16 @@
 		</p>
 		-->
 		<div>
-			<t:grid source="games" row="game" reorder="Ngh,Title,MegaCount" exclude="Details,WishRank,Id,Buyable,Upc,WishersCount,OwnersCount,AvailableCopyCount">
+			<t:grid source="games" row="game" add="platform,publisher" reorder="Ngh,Title,MegaCount,ReleaseDate" exclude="Details,WishRank,Id,Buyable,Upc,WishersCount,OwnersCount,AvailableCopyCount">
 				<p:titleCell>
 	            	<t:pageLink page="article/game/gameview" context="game.id">${game.title}</t:pageLink>
                 </p:titleCell>
+                <p:platformCell>
+	            	${game.platform.name}
+                </p:platformCell>
+                <p:publisherCell>
+	            	${game.publisher.name}
+                </p:publisherCell>
 			</t:grid>
 		</div>
 	</div>
