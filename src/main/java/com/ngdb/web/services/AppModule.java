@@ -20,6 +20,7 @@ import com.ngdb.entities.HardwareFactory;
 import com.ngdb.entities.Market;
 import com.ngdb.entities.Museum;
 import com.ngdb.entities.Population;
+import com.ngdb.entities.Registry;
 import com.ngdb.entities.WishBox;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.web.services.infrastructure.PictureService;
@@ -57,5 +58,6 @@ public class AppModule {
 		binder.bind(HardwareFactory.class);
 		binder.bind(ArticleFactory.class);
 		binder.bind(Population.class);
+		binder.bind(Registry.class);
 	}
 }

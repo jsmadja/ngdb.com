@@ -1,0 +1,18 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<div class="result">
+		<h1>Results for '${search}'</h1>
+		<div>
+			<t:grid source="results" row="result" reorder="Title" exclude="Details,WishRank,Id,Buyable,AvailableCopyCount,OwnersCount,WishersCount,Upc">
+				<p:titleCell>
+					<t:if test="game">
+	            		<t:pageLink page="article/game/gameview" context="result.id">${result.title}</t:pageLink>
+                		<p:else>
+			            	<t:pageLink page="article/hardware/hardwareView" context="result.id">${result.title}</t:pageLink>
+                		</p:else>
+                	</t:if>
+                </p:titleCell>
+			</t:grid>
+		</div>
+	</div>
+</t:layout>

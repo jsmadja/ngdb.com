@@ -37,7 +37,7 @@ import com.ngdb.entities.user.User;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Article {
+public abstract class Article implements Comparable<Article> {
 
 	@Column(name = "creation_date", nullable = false)
 	private Date creationDate;
@@ -220,6 +220,16 @@ public abstract class Article {
 
 	public ShopItems getShopItems() {
 		return shopItems;
+	}
+
+	@Override
+	public int compareTo(Article article) {
+		return title.toLowerCase().compareTo(article.title.toLowerCase());
+	}
+
+	@Override
+	public String toString() {
+		return title;
 	}
 
 }

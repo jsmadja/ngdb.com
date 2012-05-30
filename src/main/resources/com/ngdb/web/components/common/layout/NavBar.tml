@@ -1,4 +1,4 @@
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-fixed-top" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<div class="navbar-inner">
 		<div class="container-fluid">
 			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -25,13 +25,11 @@
 				</ul>
 				 -->
 			</div>
-<!-- 
 			<div>
-				<form class="navbar-search pull-left">
-					<input type="text" class="search-query" placeholder="Find Games, Hardware and more..." />
-				</form>
+				<t:form t:id="searchForm" class="navbar-search pull-left" t:autofocus="false">
+					<t:textfield value="search" t:id="search" class="search-query" t:mixins="jquery/Autocomplete" placeholder="Find Games, Hardware and more..." />
+				</t:form>
 			</div>
--->
 			
 <!--
 			<div class="nav-collapse pull-right">

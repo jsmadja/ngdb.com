@@ -1,7 +1,20 @@
 package com.ngdb.web.components.common.layout;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.TreeSet;
+
+import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.annotations.OnEvent;
+import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.ngdb.entities.Registry;
+import com.ngdb.entities.article.Article;
+import com.ngdb.web.pages.Result;
 import com.ngdb.web.services.infrastructure.UserSession;
 
 public class NavBar {
@@ -9,12 +22,52 @@ public class NavBar {
 	@Inject
 	private UserSession userSession;
 
+	@Inject
+	private Registry registry;
+
+	@Property
+	private String search;
+
+	@InjectPage
+	private Result result;
+
+	private Collection<String> suggestions = new TreeSet<String>();
+
 	public Long getUserId() {
 		return userSession.getUserId();
 	}
 
+	void onActivate() {
+		Collection<Article> articles = registry.findAll();
+		for (Article article : articles) {
+			suggestions.add(article.getTitle());
+		}
+	}
+
 	public String getUsername() {
 		return userSession.getUsername();
+	}
+
+	Object onSuccess() {
+		Collection<Article> articles = registry.findArticlesMatching(search);
+		result.setResults(articles);
+		result.setSearch(search);
+		return result;
+	}
+
+	@OnEvent("provideCompletions")
+	List<String> autoCompete(String partial) {
+		if (suggestions.isEmpty()) {
+			onActivate();
+		}
+		final String filterLowerCase = partial.toLowerCase();
+		suggestions = Collections2.filter(suggestions, new Predicate<String>() {
+			@Override
+			public boolean apply(String input) {
+				return input.toLowerCase().startsWith(filterLowerCase);
+			}
+		});
+		return new ArrayList<String>(suggestions);
 	}
 
 }
