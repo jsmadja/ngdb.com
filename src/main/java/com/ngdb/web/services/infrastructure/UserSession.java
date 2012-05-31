@@ -20,7 +20,7 @@ public class UserSession {
 	private SecurityService securityService;
 
 	@Inject
-	private Population backofficeService;
+	private Population population;
 
 	@Inject
 	private Request request;
@@ -30,12 +30,16 @@ public class UserSession {
 		doLogout(currentUser);
 
 		UsernamePasswordToken token = new UsernamePasswordToken(login, password);
-		token.setRememberMe(false);
+		token.setRememberMe(true);
 		currentUser.login(token);
 
-		User user = backofficeService.findByLogin(login);
+		User user = population.findByLogin(login);
 		init(user);
 		return user;
+	}
+
+	public void logout() {
+		doLogout(securityService.getSubject());
 	}
 
 	private void doLogout(Subject currentUser) {
@@ -69,9 +73,6 @@ public class UserSession {
 	}
 
 	public User getUser() {
-		if (!isLogged()) {
-			return User.GUEST;
-		}
 		return get(User.class);
 	}
 

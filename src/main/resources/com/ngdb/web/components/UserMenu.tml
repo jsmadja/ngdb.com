@@ -1,0 +1,35 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<!--
+			<div class="nav-collapse pull-right">
+				<ul class="nav">
+					<li>
+						<a href="/shop/shopview/byUser/${userId}">My Shop</a>
+					</li>
+					<li>
+						<a href="/museum/byUser/${userId}">My Collection</a>
+					</li>
+					<li>
+						<a href="/contact">Contact</a>
+					</li>
+				</ul>
+			</div>
+-->			
+	<t:if test="user">
+		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			<i class="icon-user"></i>
+			${username}
+			<span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<!-- 
+			<li>
+				<a href="#">Profile</a>
+			</li>
+			<li class="divider"></li>
+			 -->
+			<li>
+				<t:actionLink t:id="logout" id="logout" >Logout</t:actionLink>
+			</li>
+		</ul>
+	</t:if>
+</div>

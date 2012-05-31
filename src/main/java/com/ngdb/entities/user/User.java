@@ -65,6 +65,10 @@ public class User extends AbstractEntity {
 		return password;
 	}
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public boolean canAddInCollection(Article article) {
 		if (collection == null) {
 			return true;

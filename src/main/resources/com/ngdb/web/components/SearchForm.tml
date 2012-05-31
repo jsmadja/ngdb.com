@@ -1,0 +1,7 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+	<t:form t:id="searchForm" class="navbar-search pull-left"
+		t:autofocus="false">
+		<t:textfield value="search" t:id="search" class="search-query"
+			t:mixins="jquery/Autocomplete" placeholder="Find Games, Hardware and more..." />
+	</t:form>
+</div>		

@@ -8,44 +8,12 @@
 			</a>
 			<a class="brand" href="/"><span class="orange">ng</span><span class="blue">db</span>.com</a>
 			<div class="btn-group pull-right">
-				<!-- 
-				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-					<i class="icon-user"></i>
-					${username}
-					<span class="caret"></span>
-				</a>
-				<ul class="dropdown-menu">
-					<li>
-						<a href="#">Profile</a>
-					</li>
-					<li class="divider"></li>
-					<li>
-						<a href="#">Sign Out</a>
-					</li>
-				</ul>
-				 -->
+				<t:userMenu />
+                <t:loginForm />
 			</div>
 			<div>
-				<t:form t:id="searchForm" class="navbar-search pull-left" t:autofocus="false">
-					<t:textfield value="search" t:id="search" class="search-query" t:mixins="jquery/Autocomplete" placeholder="Find Games, Hardware and more..." />
-				</t:form>
+				<t:searchForm />
 			</div>
-			
-<!--
-			<div class="nav-collapse pull-right">
-				<ul class="nav">
-					<li>
-						<a href="/shop/shopview/byUser/${userId}">My Shop</a>
-					</li>
-					<li>
-						<a href="/museum/byUser/${userId}">My Collection</a>
-					</li>
-					<li>
-						<a href="/contact">Contact</a>
-					</li>
-				</ul>
-			</div>
--->			
 		</div>
 	</div>
 </div>

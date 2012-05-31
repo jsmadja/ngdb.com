@@ -17,7 +17,6 @@ import org.apache.shiro.cache.MemoryConstrainedCacheManager;
 import org.apache.shiro.crypto.hash.Sha1Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.ngdb.entities.Population;
 import com.ngdb.entities.user.User;
@@ -26,13 +25,13 @@ public class BasicRealm extends AuthorizingRealm {
 
 	private static final String NAME = "ngdb-realm";
 
-	@Inject
 	private Population population;
 
-	public BasicRealm() {
+	public BasicRealm(Population population) {
 		super.setCacheManager(new MemoryConstrainedCacheManager());
 		super.setName(NAME);
 		super.setAuthenticationTokenClass(UsernamePasswordToken.class);
+		this.population = population;
 		configureCredentialsMatcher();
 	}
 

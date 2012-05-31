@@ -32,4 +32,12 @@ public class Population {
 		return (User) session.createCriteria(User.class).add(eq("login", login)).uniqueResult();
 	}
 
+	public void addUser(User user) {
+		session.persist(user);
+	}
+
+	public boolean exists(String login) {
+		return findByLogin(login) != null;
+	}
+
 }
