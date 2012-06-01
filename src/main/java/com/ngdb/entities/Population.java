@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.hibernate.Session;
 
 import com.ngdb.entities.user.Token;
@@ -26,6 +27,10 @@ public class Population {
 
 	@Inject
 	private MailService mailService;
+
+	@Inject
+	@Symbol("host.url")
+	private String host;
 
 	public User findById(Long id) {
 		return (User) session.load(User.class, id);
@@ -45,19 +50,31 @@ public class Population {
 
 	public void addUser(User user) {
 		session.persist(user);
-		envoyerMailConfirmationInscription(user);
+		sendSubscriptionConfirmationEmail(user);
 	}
 
-	private void envoyerMailConfirmationInscription(User user) {
+	private void sendSubscriptionConfirmationEmail(User user) {
 		Token token = tokenService.createToken(user);
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("recipient", user.getEmail());
-		params.put("url", "http://fluxx:8080/user/validation?token=" + token.getValue() + "&email=" + user.getEmail());
+		params.put("url", host + "user/validation?token=" + token.getValue() + "&email=" + user.getEmail());
 		mailService.sendMail(user, "subscription", params);
 	}
 
 	public boolean exists(String login) {
 		return findByLogin(login) != null;
+	}
+
+	public void resetPasswordOf(User user) {
+		sendResetPasswordEmail(user);
+	}
+
+	private void sendResetPasswordEmail(User user) {
+		Token token = tokenService.createToken(user);
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("login", user.getLogin());
+		params.put("url", host + "user/changePassword?token=" + token.getValue() + "&email=" + user.getEmail() + "&login=" + user.getLogin());
+		mailService.sendMail(user, "reset_password", params);
 	}
 
 }

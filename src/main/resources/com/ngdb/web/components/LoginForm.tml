@@ -5,6 +5,7 @@
 			<t:passwordfield class="search-query" style="width:200px" value="password" t:id="password" placeholder="password" />
 			<input type="submit" value="Login" />
 			<t:pageLink style="font-size:10px" page="user/UserCreate">Create an account</t:pageLink>
+			<t:pageLink style="font-size:10px" page="user/ResetPassword">Lost password</t:pageLink>
 		</t:form>
 	</t:if>
 </div>
