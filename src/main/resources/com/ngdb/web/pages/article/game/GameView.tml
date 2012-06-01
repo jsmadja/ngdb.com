@@ -211,24 +211,34 @@
 				</t:loop>
 			</table>
 			<hr />
-
+-->
 			<h3>Comments</h3>
-			<t:loop source="game.comments" value="comment">
-				<span>
-					Additional Information by <t:pageLink page="user/UserView" context="comment.author" >${comment.author.login}</t:pageLink>  - ${comment.creationDate}
-				</span>
+			<t:if test="hasNoComments">
+				No comments.
+			</t:if>
+			<t:if test="!user">
 				<p>
+					You must be registered to add a comment.
+				</p>
+			</t:if>
+			<t:loop source="game.comments" value="comment">
+				<p style="word-wrap:break-word;">
 					${comment.text}
+					<br/>
+					<span style="font-size:11px">
+						<t:pageLink page="user/UserView" context="comment.author">${comment.author.login}</t:pageLink>   ${comment.postDate}
+					</span>
 				</p>
 			</t:loop>
-			<t:form t:id="commentForm" class="form-horizontal">
-				<fieldset>
-					<legend>Add a comment</legend>
-					<t:textarea rows="6" id="textarea" style="width:100%" value="commentText" />
-				</fieldset>
-				<button class="btn btn-primary" style="margin-top:10px" type="submit">Submit</button>
-			</t:form>
- -->
+			<t:if test="user">
+				<t:form t:id="commentForm" class="form-horizontal">
+					<fieldset>
+						<legend>Add a comment</legend>
+						<t:textarea rows="6" id="textarea" style="width:100%" value="commentText" />
+					</fieldset>
+					<button class="btn btn-primary" style="margin-top:10px" type="submit">Submit</button>
+				</t:form>
+			</t:if>
 		</div>
 	</div>
 </t:layout>

@@ -1,0 +1,1 @@
+ALTER TABLE comment CHANGE COLUMN `text` `text` VARCHAR(1024) NOT NULL;

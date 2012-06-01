@@ -46,6 +46,14 @@ public class HardwareView extends ArticleView {
 	@Property
 	private String commentText;
 
+	@Property
+	private User user;
+
+	public void onActivate(Hardware hardware) {
+		this.hardware = hardware;
+		this.user = userSession.getUser();
+	}
+
 	@CommitAfter
 	Object onActionFromCollection(Hardware hardware) {
 		User currentUser = userSession.getUser();
@@ -60,10 +68,6 @@ public class HardwareView extends ArticleView {
 		Wish wish = new Wish(currentUser, hardware);
 		session.merge(wish);
 		return HardwareView.class;
-	}
-
-	public void onActivate(Hardware hardware) {
-		this.hardware = hardware;
 	}
 
 	@CommitAfter

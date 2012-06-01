@@ -21,4 +21,8 @@ public class Comments implements Iterable<Comment> {
 		return comments.iterator();
 	}
 
+	public boolean isEmpty() {
+		return comments == null || comments.isEmpty();
+	}
+
 }

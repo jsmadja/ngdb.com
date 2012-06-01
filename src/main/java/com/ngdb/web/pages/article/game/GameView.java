@@ -55,8 +55,12 @@ public class GameView extends ArticleView {
 	@Inject
 	private WishBox wishBox;
 
+	@Property
+	private User user;
+
 	public void onActivate(Game game) {
 		this.game = game;
+		this.user = userSession.getUser();
 	}
 
 	// @CommitAfter

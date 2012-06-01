@@ -48,4 +48,8 @@ public abstract class ArticleView {
 		return "byArticle";
 	}
 
+	public boolean getHasNoComments() {
+		return getArticle().getComments().isEmpty();
+	}
+
 }
