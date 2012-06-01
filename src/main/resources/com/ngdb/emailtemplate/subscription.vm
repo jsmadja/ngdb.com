@@ -1,0 +1,7 @@
+Welcome ${recipient},<br/>
+<br/>
+Your account has been created, you have to confirm it by clicking <a href="${url}">here</a>.
+<br/>
+Thank you !
+<br/>
+ngdb.com Team

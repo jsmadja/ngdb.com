@@ -2,6 +2,8 @@ package com.ngdb.web.services;
 
 import static org.apache.tapestry5.SymbolConstants.APPLICATION_VERSION;
 
+import java.io.IOException;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import org.apache.tapestry5.ioc.Configuration;
@@ -9,8 +11,19 @@ import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.Resource;
 import org.apache.tapestry5.ioc.ServiceBinder;
+import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.SubModule;
+import org.apache.tapestry5.ioc.internal.services.ResourceSymbolProvider;
+import org.apache.tapestry5.ioc.internal.util.ClasspathResource;
+import org.apache.tapestry5.ioc.internal.util.TapestryException;
+import org.apache.tapestry5.ioc.services.SymbolProvider;
+import org.apache.tapestry5.ioc.services.SymbolSource;
 import org.apache.tapestry5.services.AssetSource;
+import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.exception.VelocityException;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.GameFactory;
@@ -52,5 +65,44 @@ public class AppModule {
 		binder.bind(ArticleFactory.class);
 		binder.bind(Population.class);
 		binder.bind(Registry.class);
+		binder.bind(EmailBuilderService.class);
+		binder.bind(TokenService.class);
+		binder.bind(MailService.class);
 	}
+
+	public static VelocityEngine buildVelocityEngine() {
+		try {
+			VelocityEngineFactoryBean factoryBean = new VelocityEngineFactoryBean();
+			Properties velocityProperties = new Properties();
+			velocityProperties.setProperty("resource.loader", "class");
+			velocityProperties.setProperty("class.resource.loader.path", ".");
+			velocityProperties.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+			factoryBean.setVelocityProperties(velocityProperties);
+			return factoryBean.createVelocityEngine();
+		} catch (IOException e) {
+			throw new TapestryException("Cannot create velocity engine", e);
+		} catch (VelocityException e) {
+			throw new TapestryException("Cannot create velocity engine", e);
+		}
+	}
+
+	public static JavaMailSender buildMailSender() {
+		JavaMailSenderImpl sender = new JavaMailSenderImpl();
+		sender.setDefaultEncoding("UTF-8");
+		sender.setHost("smtp.gmail.com");
+		sender.setPort(587);
+		sender.setUsername("testonproject1@gmail.com");
+		sender.setPassword("veryhardpassword");
+		Properties javaMailProperties = new Properties();
+		javaMailProperties.put("mail.smtp.auth", true);
+		javaMailProperties.put("mail.smtp.starttls.enable", true);
+		sender.setJavaMailProperties(javaMailProperties);
+		return sender;
+	}
+
+	@Contribute(SymbolSource.class)
+	public static void contributeSymbolSource(OrderedConfiguration<SymbolProvider> configuration) {
+		configuration.add("NGDB Properties", new ResourceSymbolProvider(new ClasspathResource("ngdb.properties")));
+	}
+
 }

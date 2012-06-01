@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 import org.apache.shiro.authz.Permission;
 
@@ -44,6 +45,9 @@ public class User extends AbstractEntity {
 
 	@Embedded
 	private Set<Profile> profiles;
+
+	@OneToMany(mappedBy = "user")
+	private Set<Token> tokens;
 
 	User() {
 	}
