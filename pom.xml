@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ngdb</groupId>
 	<artifactId>ngdb</artifactId>
-	<version>0.3-SNAPSHOT</version>
+	<version>0.3</version>
 	<packaging>war</packaging>
 	<name>ngdb</name>
 
@@ -202,148 +202,6 @@
 					<optimize>true</optimize>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>sql-maven-plugin</artifactId>
-				<version>1.5</version>
-				<executions>
-					<execution>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>execute</goal>
-						</goals>
-						<configuration>
-							<orderFile>ascending</orderFile>
-							<fileset>
-								<basedir>src/main/db</basedir>
-							</fileset>
-						</configuration>
-					</execution>
-				</executions>
-				<configuration>
-					<url>jdbc:h2:file:/tmp/integrationtest;MODE=MySQL</url>
-					<username>sa</username>
-					<password />
-					<driver>org.h2.Driver</driver>
-					<onError>abort</onError>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>com.h2database</groupId>
-						<artifactId>h2</artifactId>
-						<version>${h2-version}</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.cargo</groupId>
-				<artifactId>cargo-maven2-plugin</artifactId>
-				<version>1.2.1</version>
-				<configuration>
-					<container>
-						<containerId>tomcat7x</containerId>
-						<artifactInstaller>
-							<groupId>com.googlecode.t7mp</groupId>
-							<artifactId>tomcat</artifactId>
-							<version>7.0.26</version>
-						</artifactInstaller>
-						<dependencies>
-							<dependency>
-								<groupId>com.h2database</groupId>
-								<artifactId>h2</artifactId>
-							</dependency>
-						</dependencies>
-					</container>
-					<configuration>
-						<properties>
-							<cargo.servlet.port>48080</cargo.servlet.port>
-							<cargo.tomcat.ajp.port>48009</cargo.tomcat.ajp.port>
-							<cargo.logging>low</cargo.logging>
-							<cargo.jvmargs>-Dngdb.config.file=${ngdb.config.file}</cargo.jvmargs>
-						</properties>
-						<deployables>
-							<deployable>
-								<groupId>com.ngdb</groupId>
-								<artifactId>ngdb</artifactId>
-								<type>war</type>
-								<properties>
-									<context />
-								</properties>
-							</deployable>
-						</deployables>
-						<configfiles>
-							<configfile>
-								<file>${basedir}/target/classes/context.xml</file>
-								<todir>conf/Catalina/localhost/</todir>
-								<tofile>ROOT.xml</tofile>
-							</configfile>
-						</configfiles>
-					</configuration>
-					<wait>false</wait>
-				</configuration>
-				<executions>
-					<execution>
-						<id>start-container</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>start</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>stop-container</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>stop</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>com.carbonfive.db-support</groupId>
-				<artifactId>db-migration-maven-plugin</artifactId>
-				<version>0.9.8</version>
-				<configuration>
-					<url>${ngdb-database.connexion.url}</url>
-					<username>${ngdb-database.connexion.username}</username>
-					<password>${ngdb-database.connexion.password}</password>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>mysql</groupId>
-						<artifactId>mysql-connector-java</artifactId>
-						<version>${mysql-release-version}</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.12</version>
-				<configuration>
-					<includes>
-						<include>**/*IT.java</include>
-					</includes>
-					<parallel>both</parallel>
-					<threadCount>4</threadCount>
-					<perCoreThreadCount>false</perCoreThreadCount>
-				</configuration>
-				<executions>
-					<execution>
-						<id>integration-test</id>
-						<phase>integration-test</phase>
-						<goals>
-							<goal>integration-test</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>verify</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>verify</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 
 		<resources>
@@ -357,40 +215,6 @@
 			</resource>
 		</resources>
 
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											com.carbonfive.db-support
-                                					        </groupId>
-										<artifactId>
-											db-migration-maven-plugin
-                                        					</artifactId>
-										<versionRange>
-											[0.9.8,)
-                                        					</versionRange>
-										<goals>
-											<goal>validate</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 
 	<profiles>
