@@ -89,14 +89,14 @@ public class AppModule {
 	public static JavaMailSender buildMailSender() {
 		JavaMailSenderImpl sender = new JavaMailSenderImpl();
 		sender.setDefaultEncoding("UTF-8");
-		sender.setHost("smtp.gmail.com");
-		sender.setPort(587);
-		sender.setUsername("testonproject1@gmail.com");
-		sender.setPassword("veryhardpassword");
-		Properties javaMailProperties = new Properties();
-		javaMailProperties.put("mail.smtp.auth", true);
-		javaMailProperties.put("mail.smtp.starttls.enable", true);
-		sender.setJavaMailProperties(javaMailProperties);
+		sender.setHost("localhost");
+		// sender.setPort(587);
+		// sender.setUsername("testonproject1@gmail.com");
+		// sender.setPassword("veryhardpassword");
+		// Properties javaMailProperties = new Properties();
+		// javaMailProperties.put("mail.smtp.auth", true);
+		// javaMailProperties.put("mail.smtp.starttls.enable", true);
+		// sender.setJavaMailProperties(javaMailProperties);
 		return sender;
 	}
 
