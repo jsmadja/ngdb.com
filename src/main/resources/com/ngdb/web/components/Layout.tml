@@ -82,4 +82,11 @@
     <script src="/js/bootstrap-typeahead.js"></script>
 
   </body>
+  
+  <script>
+  	<t:if test="user">
+  		mixpanel.name_tag('${user.login}');
+  	</t:if>
+  </script>
+  
 </html>
