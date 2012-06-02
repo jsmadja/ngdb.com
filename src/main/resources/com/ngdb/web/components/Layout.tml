@@ -48,6 +48,7 @@
 		for(e=0;e < g.length;e++)(function(a){b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,0)))}})(g[e]);c._i.push([a,d,f])};window.mixpanel=c})(document,[]);
 		mixpanel.init("8137fb2809fce826f0de605c8da045e2");
 		 -->
+		 mixpanel.track("Layout");
 	</script>
   </head>
 
