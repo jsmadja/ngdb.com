@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ngdb</groupId>
 	<artifactId>ngdb</artifactId>
@@ -33,9 +34,9 @@
 			<version>1.6.2</version>
 		</dependency>
 		<dependency>
-		  <groupId>org.ocpsoft.prettytime</groupId>
-		  <artifactId>prettytime</artifactId>
-		  <version>1.0.8.Final</version>
+			<groupId>org.ocpsoft.prettytime</groupId>
+			<artifactId>prettytime</artifactId>
+			<version>1.0.8.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -273,61 +274,61 @@
 		</profile>
 	</profiles>
 
-<repositories>
-    <repository>
-        <id>devlab722-repo</id>
-        <url>http://nexus.devlab722.net/nexus/content/repositories/releases
+	<repositories>
+		<repository>
+			<id>devlab722-repo</id>
+			<url>http://nexus.devlab722.net/nexus/content/repositories/releases
         </url>
-        <snapshots>
-            <enabled>false</enabled>
-        </snapshots>
-    </repository>
-    <repository>
-        <id>devlab722-snapshot-repo</id>
-        <url>http://nexus.devlab722.net/nexus/content/repositories/snapshots
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>devlab722-snapshot-repo</id>
+			<url>http://nexus.devlab722.net/nexus/content/repositories/snapshots
         </url>
-        <releases>
-            <enabled>false</enabled>
-        </releases>
-    </repository>
-    
-    <repository>
-                        <id>glassfish-maven-repository.dev.java.net</id>
-                        <name>GlassFish Maven Repository</name>
-                        <url>http://download.java.net/maven/glassfish</url>
-                </repository>
-                <repository>
-                        <id>EclipseLink Repo</id>
-                        <name>Eclipse maven repository http://eclipse.ialto.org/rt/eclipselink/maven.repo/</name>
-                        <url>http://mirror.csclub.uwaterloo.ca/eclipse/rt/eclipselink/maven.repo/</url>
-                </repository>
-                <repository>
-                        <id>Maven2</id>
-                        <url>http://repo1.maven.org/maven2</url>
-                        <name>Maven2</name>
-                </repository>
-                <repository>
-                        <id>Maven2 Repo 2</id>
-                        <url>http://repo2.maven.org/maven2</url>
-                        <name>Maven2 Repo 2</name>
-                </repository>
-                <repository>
-                        <id>Java</id>
-                        <url>http://download.java.net/maven/2/</url>
-                        <name>Java</name>
-                </repository>
-                <repository>
-                        <id>sourceforge</id>
-                        <url>http://oss.sonatype.org/content/groups/sourceforge/</url>
-                        <releases>
-                                <enabled>true</enabled>
-                        </releases>
-                        <snapshots>
-                                <enabled>true</enabled>
-                        </snapshots>
-                </repository>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
 
-    
-</repositories>
+		<repository>
+			<id>glassfish-maven-repository.dev.java.net</id>
+			<name>GlassFish Maven Repository</name>
+			<url>http://download.java.net/maven/glassfish</url>
+		</repository>
+		<repository>
+			<id>EclipseLink Repo</id>
+			<name>Eclipse maven repository http://eclipse.ialto.org/rt/eclipselink/maven.repo/</name>
+			<url>http://mirror.csclub.uwaterloo.ca/eclipse/rt/eclipselink/maven.repo/</url>
+		</repository>
+		<repository>
+			<id>Maven2</id>
+			<url>http://repo1.maven.org/maven2</url>
+			<name>Maven2</name>
+		</repository>
+		<repository>
+			<id>Maven2 Repo 2</id>
+			<url>http://repo2.maven.org/maven2</url>
+			<name>Maven2 Repo 2</name>
+		</repository>
+		<repository>
+			<id>Java</id>
+			<url>http://download.java.net/maven/2/</url>
+			<name>Java</name>
+		</repository>
+		<repository>
+			<id>sourceforge</id>
+			<url>http://oss.sonatype.org/content/groups/sourceforge/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+
+
+	</repositories>
 
 </project>
