@@ -12,6 +12,7 @@ import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.Resource;
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
+import org.apache.tapestry5.ioc.annotations.Primary;
 import org.apache.tapestry5.ioc.annotations.SubModule;
 import org.apache.tapestry5.ioc.internal.services.ResourceSymbolProvider;
 import org.apache.tapestry5.ioc.internal.util.ClasspathResource;
@@ -19,6 +20,7 @@ import org.apache.tapestry5.ioc.internal.util.TapestryException;
 import org.apache.tapestry5.ioc.services.SymbolProvider;
 import org.apache.tapestry5.ioc.services.SymbolSource;
 import org.apache.tapestry5.services.AssetSource;
+import org.apache.tapestry5.services.linktransform.PageRenderLinkTransformer;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.VelocityException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -90,14 +92,13 @@ public class AppModule {
 		JavaMailSenderImpl sender = new JavaMailSenderImpl();
 		sender.setDefaultEncoding("UTF-8");
 		sender.setHost("localhost");
-		// sender.setPort(587);
-		// sender.setUsername("testonproject1@gmail.com");
-		// sender.setPassword("veryhardpassword");
-		// Properties javaMailProperties = new Properties();
-		// javaMailProperties.put("mail.smtp.auth", true);
-		// javaMailProperties.put("mail.smtp.starttls.enable", true);
-		// sender.setJavaMailProperties(javaMailProperties);
 		return sender;
+	}
+
+	@Contribute(PageRenderLinkTransformer.class)
+	@Primary
+	public static void provideURLRewriting(OrderedConfiguration<PageRenderLinkTransformer> configuration) {
+		configuration.addInstance("Faces", NeoGeoDbLinkTransformer.class);
 	}
 
 	@Contribute(SymbolSource.class)
