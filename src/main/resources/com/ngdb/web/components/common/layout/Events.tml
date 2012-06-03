@@ -1,0 +1,5 @@
+<div class="well sidebar-nav" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+	<ul class="nav nav-list">
+		<li class="nav-header">Activity</li>
+	</ul>
+</div>

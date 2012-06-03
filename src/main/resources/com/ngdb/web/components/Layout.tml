@@ -58,11 +58,14 @@
     <t:common.layout.navbar />
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span3">
+        <div class="span2">
             <t:common.layout.menu />
         </div>
-        <div class="span9">
+        <div class="span8">
             <t:body />
+        </div>
+        <div class="span2">
+            <t:common.layout.events />
         </div>
 	  </div>
       <hr />
