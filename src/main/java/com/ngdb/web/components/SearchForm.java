@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.TreeSet;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Property;
@@ -37,10 +38,13 @@ public class SearchForm {
 	}
 
 	Object onSuccess() {
-		Collection<Article> articles = registry.findArticlesMatching(search);
-		result.setResults(articles);
-		result.setSearch(search);
-		return result;
+		if (StringUtils.isNotBlank(search)) {
+			Collection<Article> articles = registry.findArticlesMatching(search);
+			result.setResults(articles);
+			result.setSearch(search);
+			return result;
+		}
+		return null;
 	}
 
 	@OnEvent("provideCompletions")

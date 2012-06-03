@@ -12,7 +12,6 @@ import com.ngdb.entities.article.element.Comment;
 import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Tag;
-import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.pages.article.ArticleView;
@@ -62,13 +61,13 @@ public class HardwareView extends ArticleView {
 		return HardwareView.class;
 	}
 
-	@CommitAfter
-	Object onActionFromWishList(Hardware hardware) {
-		User currentUser = userSession.getUser();
-		Wish wish = new Wish(currentUser, hardware);
-		session.merge(wish);
-		return HardwareView.class;
-	}
+	// @CommitAfter
+	// Object onActionFromWishList(Hardware hardware) {
+	// User currentUser = userSession.getUser();
+	// Wish wish = new Wish(currentUser, hardware);
+	// session.merge(wish);
+	// return HardwareView.class;
+	// }
 
 	@CommitAfter
 	public Object onSuccess() {

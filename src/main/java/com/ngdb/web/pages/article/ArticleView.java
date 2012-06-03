@@ -12,8 +12,7 @@ public abstract class ArticleView {
 	protected UserSession userSession;
 
 	public boolean isAddableToCollection() {
-		User user = userSession.getUser();
-		return user.canAddInCollection(getArticle());
+		return userSession.canAddToCollection(getArticle());
 	}
 
 	public boolean isBuyable() {

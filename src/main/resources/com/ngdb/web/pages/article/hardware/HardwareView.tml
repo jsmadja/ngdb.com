@@ -83,6 +83,7 @@
 								</t:actionLink>
 							</p>
 						</t:if>
+						-->
 						<t:if test="addableToCollection">
 							<p>
 								<t:actionlink class="btn btn-primary" t:id="collection" context="hardware.id">
@@ -91,7 +92,6 @@
 								</t:actionlink>
 							</p>
 						</t:if>
-					 -->
 					</td>
 				</tr>
 			</table>

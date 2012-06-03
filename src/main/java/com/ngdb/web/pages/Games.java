@@ -6,7 +6,9 @@ import java.util.Date;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
+import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.Session;
 import org.joda.time.DateTime;
 
 import com.ngdb.entities.GameFactory;
@@ -16,7 +18,10 @@ import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
 import com.ngdb.entities.reference.ReferenceService;
+import com.ngdb.entities.user.CollectionObject;
+import com.ngdb.entities.user.User;
 import com.ngdb.web.Filter;
+import com.ngdb.web.services.infrastructure.UserSession;
 
 public class Games {
 
@@ -31,6 +36,12 @@ public class Games {
 
 	@Inject
 	private ReferenceService referenceService;
+
+	@Inject
+	private UserSession userSession;
+
+	@Inject
+	private Session session;
 
 	private Filter filter = Filter.none;
 
@@ -79,6 +90,19 @@ public class Games {
 			this.games = gameFactory.findAll();
 			break;
 		}
+	}
+
+	public boolean isAddableToCollection() {
+		return userSession.canAddToCollection(game);
+	}
+
+	@CommitAfter
+	Object onActionFromCollection(Game game) {
+		User user = userSession.getUser();
+		CollectionObject collectionObject = new CollectionObject(user, game);
+		session.persist(collectionObject);
+		user.addInCollection(collectionObject);
+		return this;
 	}
 
 }

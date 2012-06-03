@@ -33,9 +33,9 @@
 		<li>
 			<t:pageLink page="wishBox">${wishListCount} wishlists</t:pageLink>
 		</li>
+		-->
 		<li>
 			<t:pageLink page="users">${userCount} users</t:pageLink>
 		</li>
-		 -->
 	</ul>
 </div>

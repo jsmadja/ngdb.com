@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import com.google.common.base.Function;
@@ -13,7 +14,7 @@ import com.ngdb.entities.article.Article;
 @Embeddable
 public class ArticleCollection {
 
-	@OneToMany(mappedBy = "owner")
+	@OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
 	private Set<CollectionObject> collection;
 
 	public boolean contains(Article article) {
@@ -33,6 +34,10 @@ public class ArticleCollection {
 			}
 		};
 		return Collections2.transform(collection, f);
+	}
+
+	public void addInCollection(CollectionObject collectionObject) {
+		collection.add(collectionObject);
 	}
 
 }

@@ -122,4 +122,8 @@ public class User extends AbstractEntity {
 		return permissions;
 	}
 
+	public void addInCollection(CollectionObject collectionObject) {
+		collection.addInCollection(collectionObject);
+	}
+
 }

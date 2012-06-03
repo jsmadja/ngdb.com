@@ -8,7 +8,7 @@
 		</p>
 		-->
 		<div>
-			<t:grid source="games" row="game" add="platform,publisher,origin" reorder="Ngh,Title,MegaCount,ReleaseDate" exclude="Details,WishRank,Id,Buyable,Upc,WishersCount,OwnersCount,AvailableCopyCount,Upc">
+			<t:grid source="games" row="game" add="platform,publisher,origin,actions" reorder="Ngh,Title,MegaCount,ReleaseDate" exclude="Details,WishRank,Id,Buyable,Upc,WishersCount,OwnersCount,AvailableCopyCount,Upc">
 				<p:titleCell>
 	            	<t:pageLink page="article/game/gameview" context="game.id">${game.title}</t:pageLink>
                 </p:titleCell>
@@ -21,6 +21,15 @@
                 <p:originCell>
 	            	${game.origin.title}
                 </p:originCell>
+                <p:actionsCell>
+	                <t:if test="addableToCollection">
+						<p>
+							<t:actionlink class="btn btn-primary" t:id="collection" context="game.id">
+								<i class="icon-plus icon-white"></i>
+							</t:actionlink>
+						</p>
+					</t:if>
+                </p:actionsCell>
 			</t:grid>
 		</div>
 	</div>

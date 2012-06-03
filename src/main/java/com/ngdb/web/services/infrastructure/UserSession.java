@@ -8,6 +8,7 @@ import org.apache.tapestry5.services.Request;
 import org.tynamo.security.services.SecurityService;
 
 import com.ngdb.entities.Population;
+import com.ngdb.entities.article.Article;
 import com.ngdb.entities.user.Shop;
 import com.ngdb.entities.user.User;
 
@@ -52,23 +53,19 @@ public class UserSession {
 		}
 	}
 
-	public <T> void store(Class<T> valueType, T storedValue) {
+	private <T> void store(Class<T> valueType, T storedValue) {
 		applicationStateManager.set(valueType, storedValue);
 	}
 
-	public <T> T get(Class<T> valueType) {
+	private <T> T get(Class<T> valueType) {
 		return applicationStateManager.getIfExists(valueType);
-	}
-
-	public <T> boolean contains(Class<T> valueType) {
-		return applicationStateManager.exists(valueType);
 	}
 
 	public boolean isLogged() {
 		return securityService.isAuthenticated();
 	}
 
-	public void init(User user) {
+	private void init(User user) {
 		store(User.class, user);
 	}
 
@@ -90,6 +87,17 @@ public class UserSession {
 
 	public Shop getShop() {
 		return getUser().getShop();
+	}
+
+	public boolean isAnonymous() {
+		return !isLogged();
+	}
+
+	public boolean canAddToCollection(Article article) {
+		if (isAnonymous()) {
+			return false;
+		}
+		return getUser().canAddInCollection(article);
 	}
 
 }

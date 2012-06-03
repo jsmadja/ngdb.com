@@ -28,4 +28,8 @@ public class UserMenu {
 		return Index.class;
 	}
 
+	public int getNumArticlesInCollection() {
+		return userSession.getUser().getArticlesInCollection().size();
+	}
+
 }

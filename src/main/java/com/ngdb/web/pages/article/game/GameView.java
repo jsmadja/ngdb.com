@@ -14,6 +14,7 @@ import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.reference.Genre;
+import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.pages.article.ArticleView;
 
@@ -63,14 +64,14 @@ public class GameView extends ArticleView {
 		this.user = userSession.getUser();
 	}
 
-	// @CommitAfter
-	// Object onActionFromCollection(Game game) {
-	// User loggedUser = userSession.getUser();
-	// CollectionObject collection = new CollectionObject(loggedUser, game);
-	// session.merge(collection);
-	// return GameView.class;
-	// }
-	//
+	@CommitAfter
+	Object onActionFromCollection(Game game) {
+		CollectionObject collectionObject = new CollectionObject(user, game);
+		session.persist(collectionObject);
+		user.addInCollection(collectionObject);
+		return GameView.class;
+	}
+
 	// @CommitAfter
 	// Object onActionFromWishList(Game game) {
 	// User currentUser = userSession.getUser();

@@ -3,19 +3,16 @@
 	<div class="collection">
 		<h1>Game Collection</h1>
 		<t:loop source="games" value="game">
-			<div class="span3">
-				<t:pagelink page="article/game/gameView" context="game.article.id">
-					<img class="thumbnail" src="${game.article.mainPicture.url}" title="${game.article.title}" />
-				</t:pagelink>
-			</div>
+			<t:pagelink page="article/game/gameView" context="game.article.id">
+				<img class="thumbnail" src="${message:image.host.url}${game.article.mainPicture.url}" title="${game.article.title}" />
+			</t:pagelink>
 		</t:loop>
+		<hr/>
 		<h1>Hardware Collection</h1>
 		<t:loop source="hardwares" value="hardware">
-			<div class="span3">
-				<t:pagelink page="article/hardware/hardwareView" context="hardware.article.id">
-					<img class="thumbnail" src="${hardware.article.mainPicture.url}" title="${hardware.article.title}" />
-				</t:pagelink>
-			</div>
+			<t:pagelink page="article/hardware/hardwareView" context="hardware.article.id">
+				<img class="thumbnail" src="${message:image.host.url}${hardware.article.mainPicture.url}" title="${hardware.article.title}" />
+			</t:pagelink>
 		</t:loop>
 	</div>
 </t:layout>

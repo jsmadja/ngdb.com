@@ -92,9 +92,7 @@
 					</td>
 					<td>
 						<t:if test="user">
-							<p>
 								<a t:type="pageLink" class="btn btn-inverse" t:page="article/game/gameUpdate" t:context="game.id">Edit</a>
-							</p>
 						</t:if>
 						<!-- 
 						<t:if test="buyable">
@@ -121,15 +119,15 @@
 								</t:actionLink>
 							</p>
 						</t:if>
+						-->
 						<t:if test="addableToCollection">
-							<p>
+<!-- 							<p> -->
 								<t:actionlink class="btn btn-primary" t:id="collection" context="game.id">
 									<i class="icon-plus icon-white"></i>
 									Add to your collection
 								</t:actionlink>
-							</p>
+<!-- 							</p> -->
 						</t:if>
-					  -->
 					</td>
 				</tr>
 			</table>

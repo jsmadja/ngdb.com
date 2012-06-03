@@ -1,21 +1,6 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
-<!--
-			<div class="nav-collapse pull-right">
-				<ul class="nav">
-					<li>
-						<a href="/shop/shopview/byUser/${userId}">My Shop</a>
-					</li>
-					<li>
-						<a href="/museum/byUser/${userId}">My Collection</a>
-					</li>
-					<li>
-						<a href="/contact">Contact</a>
-					</li>
-				</ul>
-			</div>
--->			
 	<t:if test="user">
-		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+	<a class="btn dropdown-toggle pull-right" data-toggle="dropdown" href="#">
 			<i class="icon-user"></i>
 			${username}
 			<span class="caret"></span>
@@ -34,5 +19,22 @@
 		<p:else>
 			<t:pageLink page="user/UserCreate">Create an account</t:pageLink>
 		</p:else>
+			<div class="nav-collapse pull-right">
+				<ul class="nav">
+<!--
+					<li>
+						<a href="/shop/shopview/byUser/${userId}">My Shop</a>
+					</li>
+-->			
+					<li>
+						<a href="/museum/byUser/${userId}">My Collection (${numArticlesInCollection})</a>
+					</li>
+<!--
+					<li>
+						<a href="/contact">Contact</a>
+					</li>
+-->			
+				</ul>
+			</div>
 	</t:if>
 </div>
