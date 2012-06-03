@@ -6,6 +6,7 @@
 			<t:textfield class="input-small" value="login" t:id="login" placeholder="login" />
 			<t:passwordfield class="input-small" value="password" t:id="password" placeholder="password" />
 			<button type="submit" class="btn">Sign in</button>
+			<label><t:pageLink style="font-size:8pt" page="user/ResetPassword">Lost password ?</t:pageLink></label>
 		</t:form>
 	</t:if>
 </div>

@@ -32,8 +32,7 @@
 			</li>
 		</ul>
 		<p:else>
-			<t:pageLink style="font-size:8pt" page="user/UserCreate">Create an account</t:pageLink>
-			<t:pageLink style="font-size:8pt" page="user/ResetPassword">Lost password</t:pageLink>
+			<t:pageLink page="user/UserCreate">Create an account</t:pageLink>
 		</p:else>
 	</t:if>
 </div>
