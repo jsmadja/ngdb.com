@@ -2,7 +2,7 @@
 	<div class="users">
 		<h1>Users</h1>
 		<div>
-			<t:grid source="users" row="user" reorder="Login,CreationDate" exclude="Id,ModificationDate">
+			<t:grid source="users" row="user" reorder="Login,CreationDate" exclude="Id,ModificationDate,Email,Password">
 				<p:CreationDateHeader>
 					Subscription date
 	            </p:CreationDateHeader>
