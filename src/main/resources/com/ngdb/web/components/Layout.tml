@@ -51,7 +51,7 @@
 			 mixpanel.track("Layout");
 		</script>
 	</t:if>
-	
+	<meta name="google-site-verification" content="7gxZbPwo1IBp5wKqSXl-ReVw75i5YC97g-Tk3rrqzoo" />
   </head>
 
   <body>
