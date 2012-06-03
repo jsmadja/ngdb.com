@@ -1,7 +1,6 @@
 package com.ngdb.web.pages.shop;
 
-import java.util.Arrays;
-
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -16,6 +15,7 @@ import com.ngdb.web.model.CurrencyList;
 import com.ngdb.web.model.StateList;
 import com.ngdb.web.pages.Index;
 
+@RequiresAuthentication
 public class ShopItemUpdate {
 
 	@Property

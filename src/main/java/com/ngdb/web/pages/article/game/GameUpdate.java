@@ -3,6 +3,7 @@ package com.ngdb.web.pages.article.game;
 import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
@@ -29,6 +30,7 @@ import com.ngdb.web.model.PublisherList;
 import com.ngdb.web.services.infrastructure.PictureService;
 import com.ngdb.web.services.infrastructure.UserSession;
 
+@RequiresAuthentication
 public class GameUpdate {
 
 	@Property

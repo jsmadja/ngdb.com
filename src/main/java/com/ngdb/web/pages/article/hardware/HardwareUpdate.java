@@ -3,6 +3,7 @@ package com.ngdb.web.pages.article.hardware;
 import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
@@ -14,13 +15,16 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.upload.services.UploadedFile;
 import org.hibernate.Session;
 
+import com.ngdb.entities.History;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.web.model.OriginList;
 import com.ngdb.web.services.infrastructure.PictureService;
+import com.ngdb.web.services.infrastructure.UserSession;
 
+@RequiresAuthentication
 public class HardwareUpdate {
 
 	@Property
@@ -61,6 +65,12 @@ public class HardwareUpdate {
 	@Inject
 	private ReferenceService referenceService;
 
+	@Inject
+	private History history;
+
+	@Inject
+	private UserSession userSession;
+	
 	void onActivate(Hardware hardware) {
 		if (hardware != null) {
 			this.hardware = hardware;
@@ -98,6 +108,7 @@ public class HardwareUpdate {
 			hardware.addPicture(picture);
 		}
 		hardwareView.setHardware(hardware);
+		history.add(hardware, userSession.getUser());
 		return hardwareView;
 	}
 

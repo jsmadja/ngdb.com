@@ -18,17 +18,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ngdb.entities.article.Game;
+import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.user.User;
 
 public class History {
 
 	private static final Logger LOG = LoggerFactory.getLogger(History.class);
 
-	private static JAXBContext context;
+	private static JAXBContext gameContext;
+	private static JAXBContext hardwareContext;
 
 	static {
 		try {
-			context = JAXBContext.newInstance(Game.class);
+			gameContext = JAXBContext.newInstance(Game.class);
+			hardwareContext = JAXBContext.newInstance(Hardware.class);
 		} catch (JAXBException e) {
 			throw new IllegalStateException(e);
 		}
@@ -37,7 +40,7 @@ public class History {
 	public void add(Game game, User author) {
 		try {
 			File historyFile = createDestinationFile(game.getId(), author.getLogin());
-			Marshaller marshaller = createMarshaller();
+			Marshaller marshaller = createGameMarshaller();
 			marshaller.marshal(game, historyFile);
 		} catch (IOException e) {
 			LOG.error("Unable to add history for article " + game, e);
@@ -46,8 +49,27 @@ public class History {
 		}
 	}
 
-	private Marshaller createMarshaller() throws JAXBException, PropertyException {
-		Marshaller marshaller = context.createMarshaller();
+	public void add(Hardware hardware, User author) {
+		try {
+			File historyFile = createDestinationFile(hardware.getId(), author.getLogin());
+			Marshaller marshaller = createHardwareMarshaller();
+			marshaller.marshal(hardware, historyFile);
+		} catch (IOException e) {
+			LOG.error("Unable to add history for article " + hardware, e);
+		} catch (JAXBException e) {
+			LOG.error("Unable to add history for article " + hardware, e);
+		}
+	}
+
+	private Marshaller createGameMarshaller() throws JAXBException, PropertyException {
+		Marshaller marshaller = gameContext.createMarshaller();
+		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+		return marshaller;
+	}
+
+	private Marshaller createHardwareMarshaller() throws JAXBException, PropertyException {
+		Marshaller marshaller = hardwareContext.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 		return marshaller;
