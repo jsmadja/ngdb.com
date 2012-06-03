@@ -8,7 +8,6 @@ import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.ngdb.entities.user.User;
-import com.ngdb.web.pages.Index;
 import com.ngdb.web.services.infrastructure.UserSession;
 
 public class LoginForm {
@@ -30,11 +29,10 @@ public class LoginForm {
 	Object onSuccess() {
 		try {
 			userSession.login(login, password);
-			return Index.class;
 		} catch (AuthenticationException authException) {
 			form.recordError("Invalid credentials");
-			return this;
 		}
+		return this;
 	}
 
 	public User getUser() {

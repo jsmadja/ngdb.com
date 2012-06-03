@@ -52,14 +52,16 @@
 							</t:loop>
 						</table>
 					</td>
-					<!-- 
 					<td>
-						<p>
-							<a t:type="pageLink" class="btn btn-inverse" t:page="article/hardware/hardwareUpdate" t:context="hardware.id">Edit</a>
-						</p>
+						<t:if test="user">
+							<p>
+								<a t:type="pageLink" class="btn btn-inverse" t:page="article/hardware/hardwareUpdate" t:context="hardware.id">Edit</a>
+							</p>
+						</t:if>
+						<!--
 						<t:if test="buyable">
 							<p>
-								<t:pageLink class="btn btn-success" page="shop/shopview" context="[byarticle,hardware.id]">
+								<t:pageLink class="btn btn-success" page="shop/shopItemView" context="[byarticle,hardware.id]">
 									<i class="icon-shopping-cart icon-white"></i>
 									Buy it
 								</t:pageLink>
@@ -67,7 +69,7 @@
 						</t:if>
 						<t:if test="sellable">
 							<p>
-								<t:pageLink class="btn btn-danger" page="shop/sellview" context="hardware.id">
+								<t:pageLink class="btn btn-danger" page="shop/shopItemUpdate" context="hardware.id">
 									<i class="icon-shopping-cart icon-white"></i>
 									Sell yours
 								</t:pageLink>
@@ -89,8 +91,8 @@
 								</t:actionlink>
 							</p>
 						</t:if>
-					</td>
 					 -->
+					</td>
 				</tr>
 			</table>
 		</div>
@@ -153,11 +155,13 @@
 			</p>
 		</div>
 		<div class="span9">
-			<h3>Details</h3>
-			<p>
-				${hardware.details}
-			</p>
-			<hr />
+			<t:if test="${game.details}">
+				<h3>Details</h3>
+				<p>
+					${hardware.details}
+				</p>
+				<hr />
+			</t:if>
 <!-- 
 			<h3>Reviews</h3>
 			<table>
@@ -177,11 +181,13 @@
 			<h3>Comments</h3>
 			<t:if test="hasNoComments">
 				<p>
-					You must be registered to add a comment.
+					No comments.
 				</p>
 			</t:if>
 			<t:if test="!user">
-				You must be registered to add a comment.
+				<p>
+					You must be registered to add a comment.
+				</p>
 			</t:if>
 			<t:loop source="hardware.comments" value="comment">
 				<p style="word-wrap:break-word;">
@@ -193,7 +199,7 @@
 				</p>
 			</t:loop>
 			<t:if test="user">
-				<t:form t:id="commentForm" class="form-horizontal">
+				<t:form t:id="commentForm" class="form-horizontal" autofocus="false">
 					<fieldset>
 						<legend>Add a comment</legend>
 						<t:textarea rows="6" id="textarea" style="width:100%" value="commentText" />

@@ -90,11 +90,13 @@
 							</t:loop>
 						</table>
 					</td>
-					<!--
 					<td>
-						<p>
-							<a t:type="pageLink" class="btn btn-inverse" t:page="article/game/GameUpdate" t:context="game.id">Edit</a>
-						</p>
+						<t:if test="user">
+							<p>
+								<a t:type="pageLink" class="btn btn-inverse" t:page="article/game/gameUpdate" t:context="game.id">Edit</a>
+							</p>
+						</t:if>
+						<!-- 
 						<t:if test="buyable">
 							<p>
 								<t:pageLink class="btn btn-success" page="shop/shopItemView" context="[byarticle,game.id]">
@@ -127,8 +129,8 @@
 								</t:actionlink>
 							</p>
 						</t:if>
-					</td>
 					  -->
+					</td>
 				</tr>
 			</table>
 		</div>
@@ -191,11 +193,13 @@
 			</p>
 		</div>
 		<div class="span9">
-			<h3>Details</h3>
-			<p>
-				${game.details}
-			</p>
-			<hr />
+			<t:if test="${game.details}">
+				<h3>Details</h3>
+				<p>
+					${game.details}
+				</p>
+				<hr />
+			</t:if>
 <!-- 
 			<h3>Reviews</h3>
 			<table>
@@ -214,7 +218,9 @@
 -->
 			<h3>Comments</h3>
 			<t:if test="hasNoComments">
-				No comments.
+				<p>
+					No comments.
+				</p>
 			</t:if>
 			<t:if test="!user">
 				<p>
@@ -231,7 +237,7 @@
 				</p>
 			</t:loop>
 			<t:if test="user">
-				<t:form t:id="commentForm" class="form-horizontal">
+				<t:form t:id="commentForm" class="form-horizontal" autofocus="false">
 					<fieldset>
 						<legend>Add a comment</legend>
 						<t:textarea rows="6" id="textarea" style="width:100%" value="commentText" />

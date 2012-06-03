@@ -2,10 +2,12 @@ package com.ngdb.web.pages.article.game;
 
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -98,6 +100,13 @@ public class GameUpdate {
 		}
 	}
 
+	@SetupRender
+	void init() {
+		if (url.equals(Picture.EMPTY.getUrl())) {
+			this.url = "";
+		}
+	}
+
 	@CommitAfter
 	Object onSuccess() {
 		Game game = new Game();
@@ -113,8 +122,13 @@ public class GameUpdate {
 		game.setMegaCount(megaCount);
 		game.setBox(box);
 		game = (Game) session.merge(game);
-		Picture picture = pictureService.store(url, game);
-		game.addPicture(picture);
+		if (StringUtils.isNotBlank(url)) {
+			Picture picture = pictureService.store(url, game);
+			game.addPicture(picture);
+		} else if (this.mainPicture != null) {
+			Picture picture = pictureService.store(mainPicture, game);
+			game.addPicture(picture);
+		}
 		gameView.setGame(game);
 		return gameView;
 	}

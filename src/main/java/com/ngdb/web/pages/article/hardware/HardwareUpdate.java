@@ -2,10 +2,12 @@ package com.ngdb.web.pages.article.hardware;
 
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -71,6 +73,13 @@ public class HardwareUpdate {
 		}
 	}
 
+	@SetupRender
+	void init() {
+		if (url.equals(Picture.EMPTY.getUrl())) {
+			this.url = "";
+		}
+	}
+
 	@CommitAfter
 	Object onSuccess() {
 		Hardware hardware = new Hardware();
@@ -81,14 +90,13 @@ public class HardwareUpdate {
 		hardware.setOrigin(origin);
 		hardware.setReleaseDate(releaseDate);
 		hardware.setTitle(title);
-		Picture picture;
-		if (mainPicture != null) {
-			picture = pictureService.store(mainPicture, hardware);
-		} else {
-			picture = pictureService.store(url, hardware);
+		if (StringUtils.isNotBlank(url)) {
+			Picture picture = pictureService.store(url, hardware);
+			hardware.addPicture(picture);
+		} else if (this.mainPicture != null) {
+			Picture picture = pictureService.store(mainPicture, hardware);
+			hardware.addPicture(picture);
 		}
-		hardware.addPicture(picture);
-		session.merge(hardware);
 		hardwareView.setHardware(hardware);
 		return hardwareView;
 	}
