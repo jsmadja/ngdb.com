@@ -11,6 +11,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
+import org.joda.time.DateTime;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
@@ -67,6 +68,21 @@ public class GameFactory {
 
 	private Criteria allGames() {
 		return session.createCriteria(Game.class).addOrder(asc("title"));
+	}
+
+	public Collection<Game> findAllByReleasedToday() {
+		DateTime date = new DateTime();
+		final int month = date.getMonthOfYear();
+		final int day = date.getDayOfMonth();
+		Collection<Game> games = findAll();
+		games = Collections2.filter(games, new Predicate<Game>() {
+			@Override
+			public boolean apply(Game game) {
+				DateTime releaseDate = new DateTime(game.getReleaseDate().getTime());
+				return releaseDate.getDayOfMonth() == day && releaseDate.getMonthOfYear() == month;
+			}
+		});
+		return games;
 	}
 
 }

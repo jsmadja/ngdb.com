@@ -7,4 +7,12 @@
 			<br/>
 		</li>
 	</t:loop>
+	<t:if test="releases">
+		<li class="events-header">Released today</li>
+		<t:loop value="release" source="releases">
+			<li>
+				<t:pageLink page="article/game/gameview" context="release.id">${release.title} [${release.origin.title}][${release.platform.name}]</t:pageLink>
+			</li>
+		</t:loop>
+	</t:if>
 </ul>

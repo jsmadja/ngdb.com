@@ -8,6 +8,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 
+import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.Hardware;
@@ -23,15 +24,26 @@ public class Events {
 	@Property
 	private Comment comment;
 
+	@Property
+	private Game release;
+
 	@InjectPage
 	private GameView gameView;
 
 	@InjectPage
 	private HardwareView hardwareView;
 
+	@Inject
+	private GameFactory gameFactory;
+
 	@SuppressWarnings("unchecked")
 	public Collection<Comment> getLastComments() {
 		return session.createCriteria(Comment.class).addOrder(Order.desc("creationDate")).setMaxResults(3).list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public Collection<Game> getReleases() {
+		return gameFactory.findAllByReleasedToday();
 	}
 
 	Object onActionFromComment(Article article) {
