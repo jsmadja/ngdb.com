@@ -1,12 +1,10 @@
-<div class="well sidebar-events" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
-	<ul class="events events-list">
-		<li class="events-header">Last comments</li>
-		<t:loop value="comment" source="lastComments">
-			<li>
-				&raquo; <t:actionLink t:id="comment" id="comment" context="${comment.article.id}">${comment.article.title}</t:actionLink><br/>
-				${comment.postDate} by <t:pageLink page="user/UserView" context="comment.author"><b>${comment.author.login}</b></t:pageLink>
-				<br/>
-			</li>
-		</t:loop>
-	</ul>
-</div>
+<ul class="events events-list" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+	<li class="events-header">Last comments</li>
+	<t:loop value="comment" source="lastComments">
+		<li>
+			&raquo; <t:actionLink t:id="comment" id="comment" context="${comment.article.id}">${comment.article.title}</t:actionLink><br/>
+			${comment.postDate} by <t:pageLink page="user/UserView" context="comment.author"><b>${comment.author.login}</b></t:pageLink>
+			<br/>
+		</li>
+	</t:loop>
+</ul>

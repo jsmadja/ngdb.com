@@ -1,4 +1,4 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 <!--
 			<div class="nav-collapse pull-right">
 				<ul class="nav">
@@ -31,5 +31,9 @@
 				<t:actionLink t:id="logout" id="logout" >Logout</t:actionLink>
 			</li>
 		</ul>
+		<p:else>
+			<t:pageLink style="font-size:8pt" page="user/UserCreate">Create an account</t:pageLink>
+			<t:pageLink style="font-size:8pt" page="user/ResetPassword">Lost password</t:pageLink>
+		</p:else>
 	</t:if>
 </div>
