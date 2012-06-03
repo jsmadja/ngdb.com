@@ -50,4 +50,8 @@ public class Comment extends AbstractEntity {
 	public String getPostDate() {
 		return new PrettyTime(Locale.UK).format(getCreationDate());
 	}
+
+	public Article getArticle() {
+		return article;
+	}
 }
