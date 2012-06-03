@@ -19,11 +19,7 @@ public class Layout {
 	}
 
 	public boolean isProductionServer() {
-		System.err.println(request.getPath());
-		System.err.println(request.getContextPath());
-		System.err.println(request.getRemoteHost());
-		System.err.println(request.getServerName());
-		return true;
+		return "88.179.37.215".equals(request.getRemoteHost());
 	}
 
 }
