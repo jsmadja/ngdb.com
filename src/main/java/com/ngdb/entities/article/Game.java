@@ -4,6 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import com.ngdb.entities.article.element.Genres;
 import com.ngdb.entities.reference.Box;
@@ -11,6 +15,8 @@ import com.ngdb.entities.reference.Genre;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
 
+@XmlRootElement(name = "game")
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 public class Game extends Article {
 
@@ -25,6 +31,7 @@ public class Game extends Article {
 	private Long megaCount;
 
 	@Embedded
+	@XmlTransient
 	private Genres genres;
 
 	@OneToOne

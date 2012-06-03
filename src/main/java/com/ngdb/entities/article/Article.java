@@ -1,5 +1,7 @@
 package com.ngdb.entities.article;
 
+import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +19,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import com.google.common.base.Objects;
 import com.ngdb.entities.article.element.Comment;
@@ -37,11 +42,15 @@ import com.ngdb.entities.user.User;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@XmlRootElement(name = "article")
+@XmlAccessorType(FIELD)
 public abstract class Article implements Comparable<Article> {
 
+	@XmlTransient
 	@Column(name = "creation_date", nullable = false)
 	private Date creationDate;
 
+	@XmlTransient
 	@Column(name = "modification_date", nullable = false)
 	private Date modificationDate;
 
@@ -60,26 +69,33 @@ public abstract class Article implements Comparable<Article> {
 	private Origin origin;
 
 	@Embedded
+	@XmlTransient
 	private Notes notes;
 
 	@Embedded
+	@XmlTransient
 	private Tags tags;
 
 	@Embedded
 	private Pictures pictures;
 
 	@Embedded
+	@XmlTransient
 	private Reviews reviews;
 
 	@Embedded
+	@XmlTransient
 	private Comments comments;
 
+	@XmlTransient
 	@OneToMany(mappedBy = "article")
 	private Set<Wish> wishList;
 
 	@Embedded
+	@XmlTransient
 	private ShopItems shopItems;
 
+	@XmlTransient
 	@OneToMany(mappedBy = "article")
 	private Set<CollectionObject> owners;
 

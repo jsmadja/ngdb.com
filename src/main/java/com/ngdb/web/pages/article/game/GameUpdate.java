@@ -7,13 +7,13 @@ import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.upload.services.UploadedFile;
 import org.hibernate.Session;
 
+import com.ngdb.entities.History;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.Box;
@@ -27,6 +27,7 @@ import com.ngdb.web.model.OriginList;
 import com.ngdb.web.model.PlatformList;
 import com.ngdb.web.model.PublisherList;
 import com.ngdb.web.services.infrastructure.PictureService;
+import com.ngdb.web.services.infrastructure.UserSession;
 
 public class GameUpdate {
 
@@ -84,6 +85,12 @@ public class GameUpdate {
 	@Inject
 	private Session session;
 
+	@Inject
+	private History history;
+
+	@Inject
+	private UserSession userSession;
+
 	void onActivate(Game game) {
 		this.game = game;
 		if (game != null) {
@@ -96,14 +103,6 @@ public class GameUpdate {
 			this.releaseDate = game.getReleaseDate();
 			this.details = game.getDetails();
 			this.title = game.getTitle();
-			this.url = game.getMainPicture().getUrl();
-		}
-	}
-
-	@SetupRender
-	void init() {
-		if (url.equals(Picture.EMPTY.getUrl())) {
-			this.url = "";
 		}
 	}
 
@@ -130,6 +129,7 @@ public class GameUpdate {
 			game.addPicture(picture);
 		}
 		gameView.setGame(game);
+		history.add(game, userSession.getUser());
 		return gameView;
 	}
 
