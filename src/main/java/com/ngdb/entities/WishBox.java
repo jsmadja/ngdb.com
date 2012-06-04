@@ -1,5 +1,6 @@
 package com.ngdb.entities;
 
+import static org.hibernate.criterion.Order.desc;
 import static org.hibernate.criterion.Projections.countDistinct;
 
 import java.math.BigInteger;
@@ -7,7 +8,6 @@ import java.util.List;
 
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
-import org.hibernate.criterion.Order;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.shop.Wish;
@@ -35,7 +35,7 @@ public class WishBox {
 	}
 
 	public List<Wish> findAllWishes() {
-		return session.createCriteria(Wish.class).addOrder(Order.desc("modificationDate")).list();
+		return session.createCriteria(Wish.class).addOrder(desc("modificationDate")).list();
 	}
 
 	public void add(User user, Article article) {

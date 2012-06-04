@@ -1,5 +1,7 @@
 package com.ngdb.entities.shop;
 
+import static javax.persistence.FetchType.LAZY;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -22,11 +24,11 @@ public class Wish {
 	@EmbeddedId
 	private WishId id;
 
-	@ManyToOne
+	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "user_id", insertable = false, updatable = false, nullable = false)
 	private User wisher;
 
-	@ManyToOne
+	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "article_id", insertable = false, updatable = false, nullable = false)
 	private Article article;
 

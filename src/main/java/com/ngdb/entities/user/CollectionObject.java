@@ -1,5 +1,7 @@
 package com.ngdb.entities.user;
 
+import static javax.persistence.FetchType.LAZY;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -17,11 +19,11 @@ public class CollectionObject implements Comparable<CollectionObject> {
 	@EmbeddedId
 	private CollectionId id;
 
-	@ManyToOne
+	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
 	private User owner;
 
-	@ManyToOne
+	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "article_id", insertable = false, updatable = false)
 	private Article article;
 
