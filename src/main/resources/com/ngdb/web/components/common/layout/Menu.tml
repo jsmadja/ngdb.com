@@ -27,13 +27,11 @@
 			<t:pageLink page="games">${gameCount} games</t:pageLink>
 		</li>
 		<li>
-			<t:pageLink page="hardwares">${hardwareCount} hardware</t:pageLink>
+			<t:pageLink page="hardwares">${hardwareCount} hardwares</t:pageLink>
 		</li>
-		<!-- 
 		<li>
-			<t:pageLink page="wishBox">${wishListCount} wishlists</t:pageLink>
+			<t:pageLink page="wishBox">${wishListCount} wishes</t:pageLink>
 		</li>
-		-->
 		<li>
 			<t:pageLink page="users">${userCount} users</t:pageLink>
 		</li>

@@ -126,4 +126,8 @@ public class User extends AbstractEntity {
 		collection.addInCollection(collectionObject);
 	}
 
+	public void addToWishes(Wish wish) {
+		wishList.addInWishList(wish);
+	}
+
 }

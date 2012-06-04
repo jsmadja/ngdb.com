@@ -100,4 +100,11 @@ public class UserSession {
 		return getUser().canAddInCollection(article);
 	}
 
+	public boolean canWish(Article article) {
+		if (isAnonymous()) {
+			return false;
+		}
+		return getUser().canWish(article);
+	}
+
 }

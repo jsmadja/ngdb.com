@@ -72,12 +72,11 @@ public class GameView extends ArticleView {
 		return GameView.class;
 	}
 
-	// @CommitAfter
-	// Object onActionFromWishList(Game game) {
-	// User currentUser = userSession.getUser();
-	// wishBox.add(currentUser, game);
-	// return GameView.class;
-	// }
+	@CommitAfter
+	Object onActionFromWishList(Game game) {
+		wishBox.add(user, game);
+		return GameView.class;
+	}
 
 	@CommitAfter
 	public Object onSuccess() {

@@ -6,6 +6,7 @@ import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
+import com.ngdb.entities.WishBox;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.element.Comment;
@@ -48,6 +49,9 @@ public class HardwareView extends ArticleView {
 	@Property
 	private User user;
 
+	@Inject
+	private WishBox wishBox;
+
 	public void onActivate(Hardware hardware) {
 		this.hardware = hardware;
 		this.user = userSession.getUser();
@@ -61,13 +65,11 @@ public class HardwareView extends ArticleView {
 		return HardwareView.class;
 	}
 
-	// @CommitAfter
-	// Object onActionFromWishList(Hardware hardware) {
-	// User currentUser = userSession.getUser();
-	// Wish wish = new Wish(currentUser, hardware);
-	// session.merge(wish);
-	// return HardwareView.class;
-	// }
+	@CommitAfter
+	Object onActionFromWishList(Hardware hardware) {
+		wishBox.add(user, hardware);
+		return HardwareView.class;
+	}
 
 	@CommitAfter
 	public Object onSuccess() {

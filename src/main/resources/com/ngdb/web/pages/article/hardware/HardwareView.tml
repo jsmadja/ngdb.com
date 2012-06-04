@@ -75,22 +75,18 @@
 								</t:pageLink>
 							</p>
 						</t:if>
-						<t:if test="wishable">
-							<p>
-								<t:actionLink class="btn btn-warning" t:id="wishList" context="hardware.id">
-									<i class="icon-heart icon-white"></i>
-									Add to your wishlist
-								</t:actionLink>
-							</p>
-						</t:if>
 						-->
+						<t:if test="wishable">
+							<t:actionLink class="btn btn-warning" t:id="wishList" context="hardware.id">
+								<i class="icon-heart icon-white"></i>
+								Add to your wishlist
+							</t:actionLink>
+						</t:if>
 						<t:if test="addableToCollection">
-							<p>
-								<t:actionlink class="btn btn-primary" t:id="collection" context="hardware.id">
-									<i class="icon-plus icon-white"></i>
-									Add to your collection
-								</t:actionlink>
-							</p>
+							<t:actionlink class="btn btn-primary" t:id="collection" context="hardware.id">
+								<i class="icon-plus icon-white"></i>
+								Add to your collection
+							</t:actionlink>
 						</t:if>
 					</td>
 				</tr>

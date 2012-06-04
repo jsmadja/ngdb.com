@@ -40,6 +40,7 @@ public class WishBox {
 
 	public void add(User user, Article article) {
 		Wish wish = new Wish(user, article);
+		user.addToWishes(wish);
 		session.merge(wish);
 	}
 

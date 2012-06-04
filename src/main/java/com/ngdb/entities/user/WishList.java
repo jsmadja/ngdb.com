@@ -1,5 +1,7 @@
 package com.ngdb.entities.user;
 
+import static javax.persistence.FetchType.EAGER;
+
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
@@ -13,7 +15,7 @@ import com.ngdb.entities.shop.Wish;
 @Embeddable
 public class WishList implements Iterable<Wish> {
 
-	@OneToMany(mappedBy = "wisher")
+	@OneToMany(mappedBy = "wisher", fetch = EAGER)
 	private Set<Wish> wishes;
 
 	public boolean contains(Article article) {
@@ -32,6 +34,10 @@ public class WishList implements Iterable<Wish> {
 
 	public Set<Wish> getWishes() {
 		return Collections.unmodifiableSet(wishes);
+	}
+
+	public void addInWishList(Wish wish) {
+		wishes.add(wish);
 	}
 
 }

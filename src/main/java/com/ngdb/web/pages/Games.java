@@ -12,6 +12,7 @@ import org.hibernate.Session;
 import org.joda.time.DateTime;
 
 import com.ngdb.entities.GameFactory;
+import com.ngdb.entities.WishBox;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.reference.Genre;
 import com.ngdb.entities.reference.Origin;
@@ -42,6 +43,9 @@ public class Games {
 
 	@Inject
 	private Session session;
+
+	@Inject
+	private WishBox wishBox;
 
 	private Filter filter = Filter.none;
 
@@ -96,12 +100,23 @@ public class Games {
 		return userSession.canAddToCollection(game);
 	}
 
+	public boolean isWishable() {
+		return userSession.canWish(game);
+	}
+
 	@CommitAfter
 	Object onActionFromCollection(Game game) {
 		User user = userSession.getUser();
 		CollectionObject collectionObject = new CollectionObject(user, game);
 		session.persist(collectionObject);
 		user.addInCollection(collectionObject);
+		return this;
+	}
+
+	@CommitAfter
+	Object onActionFromWish(Game game) {
+		User user = userSession.getUser();
+		wishBox.add(user, game);
 		return this;
 	}
 

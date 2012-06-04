@@ -11,11 +11,14 @@
                 </p:titleCell>
                 <p:actionsCell>
 	                <t:if test="addableToCollection">
-						<p>
-							<t:actionlink class="btn btn-primary" t:id="collection" context="hardware.id">
-								<i class="icon-plus icon-white"></i>
-							</t:actionlink>
-						</p>
+						<t:actionLink class="btn btn-primary" t:id="collection" context="hardware.id">
+							<i class="icon-plus icon-white"></i>
+						</t:actionLink>
+					</t:if>
+					<t:if test="wishable">
+						<t:actionLink class="btn btn-warning" t:id="wish" context="hardware.id">
+								<i class="icon-heart icon-white"></i>
+						</t:actionLink>
 					</t:if>
                 </p:actionsCell>
 			</t:grid>

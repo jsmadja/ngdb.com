@@ -25,8 +25,7 @@ public abstract class ArticleView {
 	}
 
 	public boolean isWishable() {
-		User user = userSession.getUser();
-		return user.canWish(getArticle());
+		return userSession.canWish(getArticle());
 	}
 
 	public int getNumAvailableCopy() {
