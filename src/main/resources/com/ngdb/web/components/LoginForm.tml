@@ -1,7 +1,7 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<t:if test="!user">
 		<t:form t:id="loginForm" t:autofocus="false" class="well">
-		  	<label>Sign in to neogeodb</label>
+		  	<label><b>Sign in to neogeodb</b></label>
 			<t:errors />
 			<t:textfield class="input-small" value="login" t:id="login" placeholder="login" />
 			<t:passwordfield class="input-small" value="password" t:id="password" placeholder="password" />
