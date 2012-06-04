@@ -1,6 +1,7 @@
 package com.ngdb.entities;
 
 import static org.hibernate.criterion.Order.asc;
+import static org.hibernate.criterion.Projections.rowCount;
 import static org.hibernate.criterion.Restrictions.between;
 import static org.hibernate.criterion.Restrictions.eq;
 
@@ -10,7 +11,6 @@ import java.util.Date;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Projections;
 import org.joda.time.DateTime;
 
 import com.google.common.base.Predicate;
@@ -59,7 +59,7 @@ public class GameFactory {
 	}
 
 	public Long getNumGames() {
-		return (Long) session.createCriteria(Game.class).setProjection(Projections.rowCount()).uniqueResult();
+		return (Long) session.createCriteria(Game.class).setProjection(rowCount()).uniqueResult();
 	}
 
 	public Collection<Game> findAll() {
