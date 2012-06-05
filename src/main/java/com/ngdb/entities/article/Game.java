@@ -101,4 +101,9 @@ public class Game extends Article {
 		return genres.contains(genre);
 	}
 
+	@Override
+	public Class<?> getType() {
+		return Game.class;
+	}
+
 }

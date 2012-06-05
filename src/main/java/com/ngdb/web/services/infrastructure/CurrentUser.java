@@ -77,7 +77,7 @@ public class CurrentUser {
 		if (isAnonymous()) {
 			return false;
 		}
-		return getUser().equals(user);
+		return user.equals(getUser());
 	}
 
 	public Long getUserId() {

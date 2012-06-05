@@ -18,6 +18,7 @@ import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.Category;
 import com.ngdb.web.pages.shop.ShopItemView;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class Market {
 
@@ -41,6 +42,9 @@ public class Market {
 
 	@InjectPage
 	private ShopItemView shopItemView;
+
+	@Inject
+	private CurrentUser currentUser;
 
 	private Long id;
 
@@ -67,8 +71,13 @@ public class Market {
 				this.shopItems = market.findAllItemsSold();
 				break;
 			case byUser:
-				User user = population.findById(id);
-				this.shopItems = market.findAllItemsForSaleBy(user);
+				User user;
+				if (id == null) {
+					user = currentUser.getUser();
+				} else {
+					user = population.findById(id);
+				}
+				this.shopItems = user.getShopItemsToSell();
 				break;
 			}
 		}
@@ -82,4 +91,5 @@ public class Market {
 		shopItemView.setShopItem(shopItem);
 		return shopItemView;
 	}
+
 }

@@ -33,7 +33,7 @@ public class UserMenu {
 	}
 
 	public int getNumArticlesInShop() {
-		return getUser().getShopItems().size();
+		return getUser().getShopItemsToSell().size();
 	}
 
 	public int getNumArticlesInWishList() {

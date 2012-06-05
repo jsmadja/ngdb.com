@@ -3,15 +3,15 @@
 	<div class="collection">
 		<h1>Game Collection</h1>
 		<t:loop source="games" value="game">
-			<t:pagelink page="article/game/gameView" context="game.article.id">
-				<img class="thumbnail" src="${message:image.host.url}${game.article.mainPicture.url}" title="${game.article.title}" />
+			<t:pagelink page="article/game/gameView" context="game.id">
+				<img class="thumbnail" src="${message:image.host.url}${game.mainPicture.url}" title="${game.title}" />
 			</t:pagelink>
 		</t:loop>
 		<hr/>
 		<h1>Hardware Collection</h1>
 		<t:loop source="hardwares" value="hardware">
-			<t:pagelink page="article/hardware/hardwareView" context="hardware.article.id">
-				<img class="thumbnail" src="${message:image.host.url}${hardware.article.mainPicture.url}" title="${hardware.article.title}" />
+			<t:pagelink page="article/hardware/hardwareView" context="hardware.id">
+				<img class="thumbnail" src="${message:image.host.url}${hardware.mainPicture.url}" title="${hardware.title}" />
 			</t:pagelink>
 		</t:loop>
 	</div>

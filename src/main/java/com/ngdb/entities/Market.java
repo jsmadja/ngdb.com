@@ -4,6 +4,7 @@ import static org.hibernate.criterion.Order.desc;
 import static org.hibernate.criterion.Projections.count;
 import static org.hibernate.criterion.Restrictions.eq;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,12 +31,8 @@ public class Market {
 	@Symbol("host.url")
 	private String hostUrl;
 
-	public List<ShopItem> findAllItemsOf(Article article) {
-		return allShopItems().add(eq("article", article)).add(eq("sold", false)).list();
-	}
-
-	public List<ShopItem> findAllItemsForSaleBy(User user) {
-		return allShopItems().add(eq("seller", user)).add(eq("sold", false)).list();
+	public Collection<ShopItem> findAllItemsOf(Article article) {
+		return article.getShopItemsForSale();
 	}
 
 	public List<ShopItem> findAllItemsSold() {
@@ -72,6 +69,10 @@ public class Market {
 		params.put("shopItemUrl", hostUrl + "market.shopitem/" + shopItem.getId());
 		params.put("potentialBuyerEmail", potentialBuyer.getEmail());
 		mailService.sendMail(seller, "potential_buyer", params);
+	}
+
+	public void remove(ShopItem shopItem) {
+		session.delete(shopItem);
 	}
 
 }

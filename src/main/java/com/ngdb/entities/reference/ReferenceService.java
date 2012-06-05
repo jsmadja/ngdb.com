@@ -61,12 +61,16 @@ public class ReferenceService {
 		return (Platform) session.createCriteria(Platform.class).add(eq("name", platform)).uniqueResult();
 	}
 
-	public Origin findOriginByName(String origin) {
+	public Origin findOriginByTitle(String origin) {
 		return (Origin) session.createCriteria(Origin.class).add(eq("title", origin)).uniqueResult();
 	}
 
 	public Publisher findPublisherByName(String publisher) {
 		return (Publisher) session.createCriteria(Publisher.class).add(eq("name", publisher)).uniqueResult();
+	}
+
+	public State findStateByTitle(String title) {
+		return (State) session.createCriteria(State.class).add(eq("title", title)).uniqueResult();
 	}
 
 }

@@ -4,7 +4,7 @@
 			<t:actionLink t:id="shopForSale" id="shopForSale" >For sale = ${forSaleCount}</t:actionLink>
 		</li>
 		<li>
-			<t:actionLink t:id="shopSold" id="shopSold" >Sold = ${soldCount}</t:actionLink>
+			Sold = ${soldCount}
 		</li>
 		<li class="nav-header">Stats</li>
 		<li>

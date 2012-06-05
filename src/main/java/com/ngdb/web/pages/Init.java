@@ -44,7 +44,7 @@ public class Init {
 				game.setNgh(ngh);
 				game.setTitle(title);
 				game.setPlatform(referenceService.findPlatformByName(platform));
-				game.setOrigin(referenceService.findOriginByName(origin));
+				game.setOrigin(referenceService.findOriginByTitle(origin));
 				game.setPublisher(referenceService.findPublisherByName(publisher));
 				game.setMegaCount(Long.valueOf(megaCount));
 				game.setReleaseDate(new SimpleDateFormat("DD/MM/yy").parse(releaseDate));

@@ -2,6 +2,7 @@ package com.ngdb.entities.article;
 
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,17 +25,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.google.common.base.Objects;
+import com.ngdb.entities.article.element.ArticlePictures;
 import com.ngdb.entities.article.element.Comment;
 import com.ngdb.entities.article.element.Comments;
 import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Notes;
 import com.ngdb.entities.article.element.Picture;
-import com.ngdb.entities.article.element.ArticlePictures;
 import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Reviews;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.article.element.Tags;
 import com.ngdb.entities.reference.Origin;
+import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.ShopItems;
 import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.CollectionObject;
@@ -247,5 +249,11 @@ public abstract class Article implements Comparable<Article> {
 	public String toString() {
 		return title;
 	}
+
+	public Collection<ShopItem> getShopItemsForSale() {
+		return shopItems.getShopItemsForSale();
+	}
+
+	public abstract Class<?> getType();
 
 }

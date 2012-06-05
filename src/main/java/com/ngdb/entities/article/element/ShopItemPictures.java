@@ -4,12 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 @Embeddable
 public class ShopItemPictures {
 
-	@OneToMany(mappedBy = "shopItem")
+	@OneToMany(mappedBy = "shopItem", fetch = FetchType.EAGER)
 	private Set<Picture> pictures = new HashSet<Picture>();
 
 	public Picture first() {

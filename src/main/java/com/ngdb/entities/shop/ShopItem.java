@@ -156,4 +156,8 @@ public class ShopItem {
 		return !potentialBuyers.contains(potentialBuyer);
 	}
 
+	public void sold() {
+		this.sold = true;
+	}
+
 }

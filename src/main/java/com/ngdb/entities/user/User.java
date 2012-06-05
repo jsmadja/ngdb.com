@@ -57,6 +57,25 @@ public class User extends AbstractEntity {
 		this.email = email;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof User) {
+			String login2 = ((User) o).login;
+			return login.equalsIgnoreCase(login2);
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return login.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return login;
+	}
+
 	public String getLogin() {
 		return login;
 	}
@@ -128,6 +147,10 @@ public class User extends AbstractEntity {
 
 	public void addToWishes(Wish wish) {
 		wishList.addInWishList(wish);
+	}
+
+	public Collection<ShopItem> getShopItemsToSell() {
+		return shop.getShopItemsToSell();
 	}
 
 }

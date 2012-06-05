@@ -58,6 +58,18 @@
 								Buy it
 							</t:actionlink>
 						</t:if>
+						<t:if test="removeable">
+							<t:actionlink class="btn btn-danger" t:id="remove">
+								<i class="icon-trash icon-white"></i>
+								Delete
+							</t:actionlink>
+						</t:if>
+						<t:if test="soldable">
+							<t:actionlink class="btn btn-info" t:id="sold">
+								<i class="icon-trash icon-white"></i>
+								Sold
+							</t:actionlink>
+						</t:if>
 					</td>
 				</tr>
 			</table>

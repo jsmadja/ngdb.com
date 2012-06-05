@@ -9,6 +9,7 @@ import javax.persistence.Transient;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
+import com.ngdb.Predicates;
 
 @Embeddable
 public class ShopItems {
@@ -17,7 +18,11 @@ public class ShopItems {
 	private Set<ShopItem> shopItems;
 
 	public int getAvailableCopyCount() {
-		return shopItems.size();
+		return getShopItemsForSale().size();
+	}
+
+	public Collection<ShopItem> getShopItemsForSale() {
+		return Collections2.filter(shopItems, Predicates.shopItemsForSale);
 	}
 
 	private Collection<ShopItem> getSealedItems() {

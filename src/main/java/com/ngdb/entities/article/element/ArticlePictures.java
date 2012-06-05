@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -18,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ArticlePictures {
 
 	@ElementCollection
-	@OneToMany(mappedBy = "article")
+	@OneToMany(mappedBy = "article", fetch = FetchType.EAGER)
 	@XmlElements({ @XmlElement(name = "picture") })
 	private Set<Picture> pictures;
 

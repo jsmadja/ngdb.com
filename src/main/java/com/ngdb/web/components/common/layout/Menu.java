@@ -65,13 +65,4 @@ public class Menu {
 		return marketPage;
 	}
 
-	public String getBySoldDate() {
-		return "bySoldDate";
-	}
-
-	Object onActionFromShopSold() {
-		marketPage.setCategory(Category.bySoldDate);
-		return marketPage;
-	}
-
 }

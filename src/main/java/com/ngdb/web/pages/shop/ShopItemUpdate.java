@@ -18,8 +18,8 @@ import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.web.model.CurrencyList;
 import com.ngdb.web.model.StateList;
 import com.ngdb.web.pages.Index;
-import com.ngdb.web.services.infrastructure.PictureService;
 import com.ngdb.web.services.infrastructure.CurrentUser;
+import com.ngdb.web.services.infrastructure.PictureService;
 
 @RequiresAuthentication
 public class ShopItemUpdate {
@@ -61,6 +61,11 @@ public class ShopItemUpdate {
 	@Persist
 	@Property
 	private State state;
+
+	void onActivate() {
+		this.currency = "USD";
+		this.state = referenceService.findStateByTitle("Used");
+	}
 
 	@CommitAfter
 	Object onSuccess() {

@@ -2,12 +2,17 @@
 	xmlns:p="tapestry:parameter">
 	<div class="market">
 		<h1>Market</h1>
-		<t:loop source="shopItems" value="shopItem">
-			<t:actionLink t:id="shopItem" id="shopItem" context="shopItem.id">
-				<img class="thumbnail" width="150px" src="${message:image.host.url}${shopItem.mainPicture.url}" alt="${shopItem.title}" />
-			</t:actionLink>
-			<b>${shopItem.title}</b>
-			<a href="#" class="btn btn-success action"><i class="icon-shopping-cart icon-white"></i>&nbsp;${shopItem.currency} ${shopItem.price}</a>
-		</t:loop>
+		<t:if test="shopItems">
+			<t:loop source="shopItems" value="shopItem">
+				<t:actionLink t:id="shopItem" id="shopItem" context="shopItem.id">
+					<img class="thumbnail" width="150px" src="${message:image.host.url}${shopItem.mainPicture.url}" alt="${shopItem.title}" />
+				</t:actionLink>
+				<b>${shopItem.title}</b>
+				<a href="#" class="btn btn-success action"><i class="icon-shopping-cart icon-white"></i>&nbsp;${shopItem.currency} ${shopItem.price}</a>
+			</t:loop>
+			<p:else>
+				<p>There is nothing to sell</p>
+			</p:else>
+		</t:if>
 	</div>
 </t:layout>

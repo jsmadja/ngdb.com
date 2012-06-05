@@ -7,8 +7,8 @@ import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
-import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
+import com.ngdb.Functions;
 import com.ngdb.entities.article.Article;
 
 @Embeddable
@@ -27,13 +27,7 @@ public class ArticleCollection {
 	}
 
 	public Collection<Article> getArticles() {
-		Function<CollectionObject, Article> f = new Function<CollectionObject, Article>() {
-			@Override
-			public Article apply(CollectionObject input) {
-				return input.getArticle();
-			}
-		};
-		return Collections2.transform(collection, f);
+		return Collections2.transform(collection, Functions.fromCollectionObjectToArticle);
 	}
 
 	public void addInCollection(CollectionObject collectionObject) {
