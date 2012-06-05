@@ -8,11 +8,11 @@ import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
+import com.ngdb.entities.Museum;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
-import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.User;
-import com.ngdb.web.services.infrastructure.UserSession;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class Result {
 
@@ -26,10 +26,13 @@ public class Result {
 	private String search;
 
 	@Inject
-	private UserSession userSession;
+	private CurrentUser userSession;
 
 	@Inject
 	private Session session;
+
+	@Inject
+	private Museum museum;
 
 	public void setResults(Collection<Article> results) {
 		this.results = results;
@@ -58,9 +61,7 @@ public class Result {
 	@CommitAfter
 	Object onActionFromCollection(Article article) {
 		User user = userSession.getUser();
-		CollectionObject collectionObject = new CollectionObject(user, article);
-		session.persist(collectionObject);
-		user.addInCollection(collectionObject);
+		museum.add(user, article);
 		return this;
 	}
 

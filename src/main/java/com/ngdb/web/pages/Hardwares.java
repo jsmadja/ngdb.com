@@ -16,7 +16,7 @@ import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.Filter;
-import com.ngdb.web.services.infrastructure.UserSession;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class Hardwares {
 
@@ -30,7 +30,7 @@ public class Hardwares {
 	private HardwareFactory hardwareFactory;
 
 	@Inject
-	private UserSession userSession;
+	private CurrentUser userSession;
 
 	@Inject
 	private Session session;

@@ -92,26 +92,20 @@
 					</td>
 					<td>
 						<t:if test="user">
-								<a t:type="pageLink" class="btn btn-inverse" t:page="article/game/gameUpdate" t:context="game.id">Edit</a>
+							<a t:type="pageLink" class="btn btn-inverse" t:page="article/game/gameUpdate" t:context="game.id">Edit</a>
 						</t:if>
-						<!-- 
 						<t:if test="buyable">
-							<p>
-								<t:pageLink class="btn btn-success" page="shop/shopItemView" context="[byarticle,game.id]">
-									<i class="icon-shopping-cart icon-white"></i>
-									Buy it
-								</t:pageLink>
-							</p>
+							<t:pageLink class="btn btn-success" page="shop/shopItemView" context="[byarticle,game.id]">
+								<i class="icon-shopping-cart icon-white"></i>
+								Buy it
+							</t:pageLink>
 						</t:if>
 						<t:if test="sellable">
-							<p>
-								<t:pageLink class="btn btn-danger" page="shop/shopItemUpdate" context="game.id">
-									<i class="icon-shopping-cart icon-white"></i>
-									Sell yours
-								</t:pageLink>
-							</p>
+							<t:actionLink class="btn btn-danger" t:id="sell" context="game.id">
+								<i class="icon-shopping-cart icon-white"></i>
+								Sell yours
+							</t:actionLink>
 						</t:if>
-						-->
 						<t:if test="wishable">
 							<t:actionLink class="btn btn-warning" t:id="wishList" context="game.id">
 								<i class="icon-heart icon-white"></i>

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
@@ -12,6 +13,7 @@ import org.hibernate.Session;
 import org.joda.time.DateTime;
 
 import com.ngdb.entities.GameFactory;
+import com.ngdb.entities.Museum;
 import com.ngdb.entities.WishBox;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.reference.Genre;
@@ -19,10 +21,10 @@ import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
 import com.ngdb.entities.reference.ReferenceService;
-import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.Filter;
-import com.ngdb.web.services.infrastructure.UserSession;
+import com.ngdb.web.pages.shop.ShopItemUpdate;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class Games {
 
@@ -39,7 +41,7 @@ public class Games {
 	private ReferenceService referenceService;
 
 	@Inject
-	private UserSession userSession;
+	private CurrentUser userSession;
 
 	@Inject
 	private Session session;
@@ -47,11 +49,17 @@ public class Games {
 	@Inject
 	private WishBox wishBox;
 
+	@Inject
+	private Museum museum;
+
 	private Filter filter = Filter.none;
 
 	private String filterValue;
 
 	private Long id;
+
+	@InjectPage
+	private ShopItemUpdate shopItemUpdate;
 
 	void onActivate(String filter, String value) {
 		if (StringUtils.isNotBlank(filter)) {
@@ -104,12 +112,18 @@ public class Games {
 		return userSession.canWish(game);
 	}
 
+	public boolean isBuyable() {
+		return game.isBuyable();
+	}
+
+	public boolean isSellable() {
+		return userSession.canSell(game);
+	}
+
 	@CommitAfter
 	Object onActionFromCollection(Game game) {
 		User user = userSession.getUser();
-		CollectionObject collectionObject = new CollectionObject(user, game);
-		session.persist(collectionObject);
-		user.addInCollection(collectionObject);
+		museum.add(user, game);
 		return this;
 	}
 
@@ -118,6 +132,15 @@ public class Games {
 		User user = userSession.getUser();
 		wishBox.add(user, game);
 		return this;
+	}
+
+	Object onActionFromSell(Game game) {
+		shopItemUpdate.setArticle(game);
+		return shopItemUpdate;
+	}
+
+	public String getByArticle() {
+		return "byArticle";
 	}
 
 }

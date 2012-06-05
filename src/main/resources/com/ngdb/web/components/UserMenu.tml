@@ -21,11 +21,12 @@
 		</p:else>
 			<div class="nav-collapse pull-right">
 				<ul class="nav">
-<!--
 					<li>
-						<a href="/shop/shopview/byUser/${userId}">My Shop</a>
+						<a href="/wishbox/byUser/${userId}">My whishes (${numArticlesInWishList})</a>
 					</li>
--->			
+					<li>
+						<a href="/market/byUser/${userId}">My Shop (${numArticlesInShop})</a>
+					</li>
 					<li>
 						<a href="/museum/byUser/${userId}">My Collection (${numArticlesInCollection})</a>
 					</li>

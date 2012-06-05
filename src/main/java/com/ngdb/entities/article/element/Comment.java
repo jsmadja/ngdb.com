@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import org.jsoup.Jsoup;
@@ -22,10 +23,10 @@ public class Comment extends AbstractEntity {
 	@Column(nullable = false, length = 1024)
 	private String text;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private User author;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Article article;
 
 	Comment() {

@@ -22,7 +22,7 @@ import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.web.model.OriginList;
 import com.ngdb.web.services.infrastructure.PictureService;
-import com.ngdb.web.services.infrastructure.UserSession;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 
 @RequiresAuthentication
 public class HardwareUpdate {
@@ -69,7 +69,7 @@ public class HardwareUpdate {
 	private History history;
 
 	@Inject
-	private UserSession userSession;
+	private CurrentUser userSession;
 	
 	void onActivate(Hardware hardware) {
 		if (hardware != null) {

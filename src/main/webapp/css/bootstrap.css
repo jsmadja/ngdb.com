@@ -5032,6 +5032,10 @@ TABLE.t-data-grid THEAD TR TH {
 	display:inline;	
 }
 
+.market img.thumbnail {
+	display:inline;	
+}
+
 .collection a {
 	margin:5px 0px 0px 3px;
 }

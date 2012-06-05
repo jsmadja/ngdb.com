@@ -1,5 +1,6 @@
 package com.ngdb.web.pages.article.game;
 
+import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
@@ -14,9 +15,9 @@ import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.reference.Genre;
-import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.pages.article.ArticleView;
+import com.ngdb.web.pages.shop.ShopItemUpdate;
 
 public class GameView extends ArticleView {
 
@@ -59,6 +60,9 @@ public class GameView extends ArticleView {
 	@Property
 	private User user;
 
+	@InjectPage
+	private ShopItemUpdate shopItemUpdate;
+
 	public void onActivate(Game game) {
 		this.game = game;
 		this.user = userSession.getUser();
@@ -66,9 +70,7 @@ public class GameView extends ArticleView {
 
 	@CommitAfter
 	Object onActionFromCollection(Game game) {
-		CollectionObject collectionObject = new CollectionObject(user, game);
-		session.persist(collectionObject);
-		user.addInCollection(collectionObject);
+		museum.add(user, game);
 		return GameView.class;
 	}
 
@@ -76,6 +78,11 @@ public class GameView extends ArticleView {
 	Object onActionFromWishList(Game game) {
 		wishBox.add(user, game);
 		return GameView.class;
+	}
+
+	Object onActionFromSell(Game game) {
+		shopItemUpdate.setArticle(game);
+		return shopItemUpdate;
 	}
 
 	@CommitAfter

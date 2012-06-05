@@ -12,7 +12,7 @@ import com.ngdb.entities.article.Article;
 import com.ngdb.entities.user.Shop;
 import com.ngdb.entities.user.User;
 
-public class UserSession {
+public class CurrentUser {
 
 	@Inject
 	private ApplicationStateManager applicationStateManager;
@@ -74,6 +74,9 @@ public class UserSession {
 	}
 
 	public boolean isLoggedUser(User user) {
+		if (isAnonymous()) {
+			return false;
+		}
 		return getUser().equals(user);
 	}
 
@@ -105,6 +108,13 @@ public class UserSession {
 			return false;
 		}
 		return getUser().canWish(article);
+	}
+
+	public boolean canSell(Article article) {
+		if (isAnonymous()) {
+			return false;
+		}
+		return getUser().canSell(article);
 	}
 
 }

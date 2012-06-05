@@ -4,12 +4,15 @@
 			<table>
 				<tr>
 					<td>
-						<img class="thumbnail" src="${shopItem.mainPicture.url}" title="${shopItem.title}" />
+						<img class="thumbnail" src="${message:image.host.url}${shopItem.mainPicture.url}" title="${shopItem.title}" />
 					</td>
 					<td>
 						<h1 class="header">
 							${shopItem.title}
 						</h1>
+						<t:if test="message">
+							<b>${message}</b>
+						</t:if>
 						<table>
 							<tr>
 								<td class="grey">
@@ -47,17 +50,13 @@
 					</td>
 					<td>
 						<t:if test="editable">
-							<p>
-								<a t:type="pageLink" class="btn btn-inverse" t:page="shop/ShopItemUpdate" t:context="shopItem">Edit</a>
-							</p>
-							</t:if>
+							<a t:type="pageLink" class="btn btn-inverse" t:page="shop/ShopItemUpdate" t:context="shopItem">Edit</a>
+						</t:if>
 						<t:if test="buyable">
-							<p>
-								<a href="#">
-									<i class="icon-shopping-cart icon-white"></i>
-									Buy it
-								</a>
-							</p>
+							<t:actionlink class="btn btn-primary" t:id="buy">
+								<i class="icon-shopping-cart icon-white"></i>
+								Buy it
+							</t:actionlink>
 						</t:if>
 					</td>
 				</tr>

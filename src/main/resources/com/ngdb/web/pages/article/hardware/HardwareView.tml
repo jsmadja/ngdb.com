@@ -58,24 +58,18 @@
 								<a t:type="pageLink" class="btn btn-inverse" t:page="article/hardware/hardwareUpdate" t:context="hardware.id">Edit</a>
 							</p>
 						</t:if>
-						<!--
 						<t:if test="buyable">
-							<p>
 								<t:pageLink class="btn btn-success" page="shop/shopItemView" context="[byarticle,hardware.id]">
 									<i class="icon-shopping-cart icon-white"></i>
 									Buy it
 								</t:pageLink>
-							</p>
 						</t:if>
 						<t:if test="sellable">
-							<p>
 								<t:pageLink class="btn btn-danger" page="shop/shopItemUpdate" context="hardware.id">
 									<i class="icon-shopping-cart icon-white"></i>
 									Sell yours
 								</t:pageLink>
-							</p>
 						</t:if>
-						-->
 						<t:if test="wishable">
 							<t:actionLink class="btn btn-warning" t:id="wishList" context="hardware.id">
 								<i class="icon-heart icon-white"></i>

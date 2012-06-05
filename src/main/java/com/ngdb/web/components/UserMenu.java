@@ -4,32 +4,40 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.ngdb.entities.user.User;
 import com.ngdb.web.pages.Index;
-import com.ngdb.web.services.infrastructure.UserSession;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class UserMenu {
 
 	@Inject
-	private UserSession userSession;
+	private CurrentUser currentUser;
 
 	public Long getUserId() {
-		return userSession.getUserId();
+		return currentUser.getUserId();
 	}
 
 	public String getUsername() {
-		return userSession.getUsername();
+		return currentUser.getUsername();
 	}
 
 	public User getUser() {
-		return userSession.getUser();
+		return currentUser.getUser();
 	}
 
 	Object onActionFromLogout() {
-		userSession.logout();
+		currentUser.logout();
 		return Index.class;
 	}
 
 	public int getNumArticlesInCollection() {
-		return userSession.getUser().getArticlesInCollection().size();
+		return getUser().getArticlesInCollection().size();
+	}
+
+	public int getNumArticlesInShop() {
+		return getUser().getShopItems().size();
+	}
+
+	public int getNumArticlesInWishList() {
+		return getUser().getWishes().size();
 	}
 
 }

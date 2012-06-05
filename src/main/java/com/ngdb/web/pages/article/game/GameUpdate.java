@@ -28,7 +28,7 @@ import com.ngdb.web.model.OriginList;
 import com.ngdb.web.model.PlatformList;
 import com.ngdb.web.model.PublisherList;
 import com.ngdb.web.services.infrastructure.PictureService;
-import com.ngdb.web.services.infrastructure.UserSession;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 
 @RequiresAuthentication
 public class GameUpdate {
@@ -91,7 +91,7 @@ public class GameUpdate {
 	private History history;
 
 	@Inject
-	private UserSession userSession;
+	private CurrentUser userSession;
 
 	void onActivate(Game game) {
 		this.game = game;

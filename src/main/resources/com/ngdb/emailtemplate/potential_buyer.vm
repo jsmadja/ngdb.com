@@ -1,0 +1,8 @@
+Hello ${recipient},<br/>
+<br/>
+${potentialBuyer} is interested by your shop item <a href="${shopItemUrl}">${shopItemTitle}</a>.
+You can contact him/her by sending an email to <a href="mailto:${potentialBuyerEmail}">${potentialBuyerEmail}</a>.
+<br/>
+Thank you !
+<br/>
+The neogeodb.com Team

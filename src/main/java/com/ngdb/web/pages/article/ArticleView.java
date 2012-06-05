@@ -3,13 +3,12 @@ package com.ngdb.web.pages.article;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.ngdb.entities.article.Article;
-import com.ngdb.entities.user.User;
-import com.ngdb.web.services.infrastructure.UserSession;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public abstract class ArticleView {
 
 	@Inject
-	protected UserSession userSession;
+	protected CurrentUser userSession;
 
 	public boolean isAddableToCollection() {
 		return userSession.canAddToCollection(getArticle());
@@ -20,8 +19,7 @@ public abstract class ArticleView {
 	}
 
 	public boolean isSellable() {
-		User user = userSession.getUser();
-		return user.canSell(getArticle());
+		return userSession.canSell(getArticle());
 	}
 
 	public boolean isWishable() {

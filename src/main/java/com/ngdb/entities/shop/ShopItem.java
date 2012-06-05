@@ -5,23 +5,22 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PreUpdate;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Picture;
+import com.ngdb.entities.article.element.ShopItemPictures;
 import com.ngdb.entities.reference.State;
 import com.ngdb.entities.user.User;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class ShopItem {
+public class ShopItem {
 
 	@Column(name = "creation_date", nullable = false)
 	private Date creationDate;
@@ -34,17 +33,17 @@ public abstract class ShopItem {
 	private Long id;
 
 	@Embedded
-	private Picture mainPicture;
+	private ShopItemPictures pictures = new ShopItemPictures();
 
 	@OneToOne
 	private State state;
 
 	private double price;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Article article;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private User seller;
 
 	private String details;
@@ -52,6 +51,9 @@ public abstract class ShopItem {
 	private Boolean sold = false;
 
 	private String currency = "USD";
+
+	@Embedded
+	private PotentialBuyers potentialBuyers;
 
 	public ShopItem() {
 		this.creationDate = this.modificationDate = new Date();
@@ -62,26 +64,12 @@ public abstract class ShopItem {
 		this.modificationDate = new Date();
 	}
 
-	public ShopItem(Picture mainPicture, Article article, double price, State state, String details, User seller) {
-		this();
-		this.mainPicture = mainPicture;
-		this.article = article;
-		this.price = price;
-		this.state = state;
-		this.details = details;
-		this.seller = seller;
-	}
-
 	public double getPrice() {
 		return price;
 	}
 
 	public String getTitle() {
 		return article.getTitle();
-	}
-
-	public Picture getMainPicture() {
-		return mainPicture;
 	}
 
 	public State getState() {
@@ -98,10 +86,6 @@ public abstract class ShopItem {
 
 	public Date getCreationDate() {
 		return creationDate;
-	}
-
-	public void addPicture(Picture picture) {
-		mainPicture = picture;
 	}
 
 	public User getSeller() {
@@ -122,6 +106,54 @@ public abstract class ShopItem {
 
 	public String getCurrency() {
 		return currency;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public void setArticle(Article article) {
+		this.article = article;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	public void setSeller(User seller) {
+		this.seller = seller;
+	}
+
+	public void addPicture(Picture picture) {
+		pictures.add(picture);
+	}
+
+	public ShopItemPictures getPictures() {
+		return pictures;
+	}
+
+	public Picture getMainPicture() {
+		return pictures.first();
+	}
+
+	public void addPotentialBuyer(User potentialBuyer) {
+		potentialBuyers.add(potentialBuyer);
+	}
+
+	public boolean isNotAlreadyWantedBy(User potentialBuyer) {
+		return !potentialBuyers.contains(potentialBuyer);
 	}
 
 }

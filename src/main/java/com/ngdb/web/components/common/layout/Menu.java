@@ -1,7 +1,5 @@
 package com.ngdb.web.components.common.layout;
 
-import java.util.List;
-
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
@@ -11,17 +9,10 @@ import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.HardwareFactory;
 import com.ngdb.entities.Population;
 import com.ngdb.entities.WishBox;
-import com.ngdb.entities.shop.ShopItem;
+import com.ngdb.web.Category;
 import com.ngdb.web.pages.Market;
-import com.ngdb.web.pages.shop.ShopItemView;
 
 public class Menu {
-
-	@Property
-	private List<ShopItem> shopItems;
-
-	@Property
-	private ShopItem shopItem;
 
 	@Property
 	private Long gameCount;
@@ -36,16 +27,10 @@ public class Menu {
 	private Long userCount;
 
 	@Property
-	private Long forSaleCount;
-
-	@Property
 	private Long soldCount;
 
-	@InjectPage
-	private Market marketPage;
-
-	@InjectPage
-	private ShopItemView shopItemView;
+	@Property
+	private Long forSaleCount;
 
 	@Inject
 	private com.ngdb.entities.Market market;
@@ -62,39 +47,31 @@ public class Menu {
 	@Inject
 	private WishBox wishBox;
 
+	@InjectPage
+	private Market marketPage;
+
 	@SetupRender
 	public void init() {
-		this.shopItems = market.findLastForSaleItems();
 		this.gameCount = gameFactory.getNumGames();
 		this.userCount = population.getNumUsers();
 		this.hardwareCount = hardwareFactory.getNumHardwares();
 		this.wishListCount = wishBox.getNumWishes();
-		this.forSaleCount = market.getNumForSaleItems();
 		this.soldCount = market.getNumSoldItems();
+		this.forSaleCount = market.getNumForSaleItems();
+	}
+
+	Object onActionFromShopForSale() {
+		marketPage.setCategory(Category.none);
+		return marketPage;
 	}
 
 	public String getBySoldDate() {
 		return "bySoldDate";
 	}
 
-	// Object onActionFromShopForSale() {
-	// marketPage.setCategory(none);
-	// return marketPage;
-	// }
-	//
-	// Object onActionFromMore() {
-	// marketPage.setCategory(none);
-	// return marketPage;
-	// }
-	//
-	// Object onActionFromShopSold() {
-	// marketPage.setCategory(bySoldDate);
-	// return marketPage;
-	// }
-	//
-	// Object onActionFromShopItem(ShopItem shopItem) {
-	// shopItemView.setShopItem(shopItem);
-	// return shopItemView;
-	// }
+	Object onActionFromShopSold() {
+		marketPage.setCategory(Category.bySoldDate);
+		return marketPage;
+	}
 
 }

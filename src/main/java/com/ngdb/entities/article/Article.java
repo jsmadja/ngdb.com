@@ -29,7 +29,7 @@ import com.ngdb.entities.article.element.Comments;
 import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Notes;
 import com.ngdb.entities.article.element.Picture;
-import com.ngdb.entities.article.element.Pictures;
+import com.ngdb.entities.article.element.ArticlePictures;
 import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Reviews;
 import com.ngdb.entities.article.element.Tag;
@@ -77,7 +77,7 @@ public abstract class Article implements Comparable<Article> {
 	private Tags tags;
 
 	@Embedded
-	private Pictures pictures;
+	private ArticlePictures pictures;
 
 	@Embedded
 	@XmlTransient
@@ -114,7 +114,7 @@ public abstract class Article implements Comparable<Article> {
 	public boolean equals(Object obj) {
 		if (obj instanceof Article) {
 			Article a = (Article) obj;
-			if (a.id.equals(id)) {
+			if (id.equals(a.id)) {
 				return true;
 			}
 		}
@@ -150,7 +150,7 @@ public abstract class Article implements Comparable<Article> {
 		pictures.add(picture);
 	}
 
-	public Pictures getPictures() {
+	public ArticlePictures getPictures() {
 		return pictures;
 	}
 

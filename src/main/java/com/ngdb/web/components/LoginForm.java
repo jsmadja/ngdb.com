@@ -8,7 +8,7 @@ import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.ngdb.entities.user.User;
-import com.ngdb.web.services.infrastructure.UserSession;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class LoginForm {
 
@@ -21,7 +21,7 @@ public class LoginForm {
 	private String password;
 
 	@Inject
-	private UserSession userSession;
+	private CurrentUser userSession;
 
 	@Component(id = "loginForm")
 	private Form form;

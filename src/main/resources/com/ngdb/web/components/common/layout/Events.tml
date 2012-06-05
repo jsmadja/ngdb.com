@@ -1,12 +1,27 @@
 <ul class="events events-list" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
-	<li class="events-header">Last comments</li>
-	<t:loop value="comment" source="lastComments">
-		<li>
-			&raquo; <t:actionLink t:id="comment" id="comment" context="${comment.article.id}">${comment.article.title}</t:actionLink><br/>
-			${comment.postDate} by <t:pageLink page="user/UserView" context="comment.author"><b>${comment.author.login}</b></t:pageLink>
-			<br/>
-		</li>
-	</t:loop>
+	<t:if test="lastComments">
+		<li class="events-header">Last comments</li>
+		<t:loop value="comment" source="lastComments">
+			<li>
+				&raquo; <t:actionLink t:id="comment" id="comment" context="${comment.article.id}">${comment.article.title}</t:actionLink><br/>
+				${comment.postDate} by <t:pageLink page="user/UserView" context="comment.author"><b>${comment.author.login}</b></t:pageLink>
+				<br/>
+			</li>
+		</t:loop>
+	</t:if>
+	<t:if test="shopItems">
+		<li class="events-header">Shop</li>
+				<t:loop value="shopItem" source="shopItems">
+					<li>
+						<t:actionLink t:id="shopItem" id="shopItem" context="shopItem.id">
+							${shopItem.title} (${shopItem.currency} ${shopItem.price})
+						</t:actionLink>
+					</li>
+				</t:loop>
+			<li>
+				<t:pageLink page="market" t:id="more" id="more">more ...</t:pageLink>
+			</li>
+		</t:if>
 	<t:if test="releases">
 		<li class="events-header">Released today</li>
 		<t:loop value="release" source="releases">

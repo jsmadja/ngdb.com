@@ -38,7 +38,7 @@ import com.ngdb.entities.Registry;
 import com.ngdb.entities.WishBox;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.web.services.infrastructure.PictureService;
-import com.ngdb.web.services.infrastructure.UserSession;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 
 @SubModule({ SecurityModule.class })
 public class AppModule {
@@ -57,7 +57,7 @@ public class AppModule {
 	}
 
 	public static void bind(ServiceBinder binder) {
-		binder.bind(UserSession.class);
+		binder.bind(CurrentUser.class);
 		binder.bind(PictureService.class);
 		binder.bind(WishBox.class);
 		binder.bind(Museum.class);

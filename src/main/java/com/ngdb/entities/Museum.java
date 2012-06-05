@@ -62,4 +62,10 @@ public class Museum {
 		});
 	}
 
+	public void add(User user, Article article) {
+		CollectionObject collectionObject = new CollectionObject(user, article);
+		user.addInCollection(collectionObject);
+		session.merge(collectionObject);
+	}
+
 }

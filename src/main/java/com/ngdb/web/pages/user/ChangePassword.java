@@ -18,7 +18,7 @@ import com.ngdb.entities.Population;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.pages.Index;
 import com.ngdb.web.services.TokenService;
-import com.ngdb.web.services.infrastructure.UserSession;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class ChangePassword {
 
@@ -48,7 +48,7 @@ public class ChangePassword {
 	private Form changePasswordForm;
 
 	@Inject
-	private UserSession userSession;
+	private CurrentUser userSession;
 
 	@Inject
 	private Session session;
