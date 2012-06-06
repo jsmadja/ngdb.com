@@ -20,10 +20,6 @@ public class Origin extends AbstractEntity implements Comparable<Origin> {
 	public Origin() {
 	}
 
-	public Origin(String title) {
-		this.title = title;
-	}
-
 	public String getTitle() {
 		return title;
 	}

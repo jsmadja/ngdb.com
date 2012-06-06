@@ -13,7 +13,7 @@ public class EmailBuilderService {
 	@Inject
 	private VelocityEngine velocityEngine;
 
-	public String build(String velocityTemplate, Map<String, String> values) {
+	String build(String velocityTemplate, Map<String, String> values) {
 		try {
 			return VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, buildTemplateName(velocityTemplate), values);
 		} catch (Exception e) {
@@ -21,7 +21,7 @@ public class EmailBuilderService {
 		}
 	}
 
-	public String subject(String velocityTemplate) {
+	String subject(String velocityTemplate) {
 		try {
 			String pathSubjects = buildSubjectFile();
 			String key = buildKeySubject(velocityTemplate);
@@ -34,15 +34,15 @@ public class EmailBuilderService {
 		}
 	}
 
-	public String buildSubjectFile() {
+	String buildSubjectFile() {
 		return String.format("com/ngdb/emailtemplate/subjects.properties");
 	}
 
-	public String buildKeySubject(String template) {
+	String buildKeySubject(String template) {
 		return String.format("mail.subject.%s", template);
 	}
 
-	public String buildTemplateName(String template) {
+	String buildTemplateName(String template) {
 		return String.format("com/ngdb/emailtemplate/%s.vm", template);
 	}
 

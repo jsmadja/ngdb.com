@@ -79,7 +79,7 @@ public class Wish {
 	}
 
 	@Embeddable
-	public static class WishId implements Serializable {
+	private static class WishId implements Serializable {
 
 		@Column(name = "user_id", nullable = false, updatable = false)
 		private Long userId;
@@ -90,7 +90,7 @@ public class Wish {
 		public WishId() {
 		}
 
-		public WishId(Long userId, Long articleId) {
+		WishId(Long userId, Long articleId) {
 			this.userId = userId;
 			this.articleId = articleId;
 		}

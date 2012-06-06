@@ -14,10 +14,6 @@ public class Box extends AbstractEntity implements Comparable<Box> {
 	public Box() {
 	}
 
-	public Box(String name) {
-		this.name = name;
-	}
-
 	public String getName() {
 		return name;
 	}

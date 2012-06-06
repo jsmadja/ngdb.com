@@ -11,11 +11,11 @@ public class SellButton {
 
 	@Property
 	@Parameter
-	protected Article article;
+	private Article article;
 
 	@Property
 	@Parameter
-	protected boolean showText;
+	private boolean showText;
 
 	@InjectPage
 	private ShopItemUpdate shopItemUpdate;

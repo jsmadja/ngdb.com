@@ -19,11 +19,6 @@ public class Note extends AbstractEntity {
 	Note() {
 	}
 
-	public Note(String name, String text) {
-		this.name = name;
-		this.text = text;
-	}
-
 	public String getName() {
 		return name;
 	}

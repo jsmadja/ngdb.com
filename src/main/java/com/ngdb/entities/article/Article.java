@@ -27,14 +27,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import com.google.common.base.Objects;
 import com.ngdb.entities.article.element.ArticlePictures;
-import com.ngdb.entities.article.element.Comment;
 import com.ngdb.entities.article.element.Comments;
-import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Notes;
 import com.ngdb.entities.article.element.Picture;
-import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Reviews;
-import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.article.element.Tags;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.shop.ShopItem;
@@ -137,18 +133,6 @@ public abstract class Article implements Comparable<Article> {
 		return origin;
 	}
 
-	public void addNote(Note note) {
-		if (notes == null) {
-			notes = new Notes();
-		}
-		notes.add(note);
-		note.setArticle(this);
-	}
-
-	public void addTag(Tag tag) {
-		tags.add(tag);
-	}
-
 	public void addPicture(Picture picture) {
 		pictures.add(picture);
 	}
@@ -195,14 +179,6 @@ public abstract class Article implements Comparable<Article> {
 
 	public Reviews getReviews() {
 		return reviews;
-	}
-
-	public void addReview(Review review) {
-		reviews.add(review);
-	}
-
-	public void addComment(Comment comment) {
-		comments.add(comment);
 	}
 
 	public String getTitle() {
@@ -256,9 +232,5 @@ public abstract class Article implements Comparable<Article> {
 	}
 
 	public abstract Class<?> getType();
-
-	public void addCollection(CollectionObject collectionObject) {
-		owners.add(collectionObject);
-	}
 
 }

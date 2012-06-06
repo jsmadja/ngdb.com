@@ -19,13 +19,6 @@ public class Review extends AbstractEntity {
 	Review() {
 	}
 
-	public Review(String label, String url, String mark) {
-		super();
-		this.label = label;
-		this.url = url;
-		this.mark = mark;
-	}
-
 	public String getLabel() {
 		return label;
 	}
@@ -36,5 +29,10 @@ public class Review extends AbstractEntity {
 
 	public String getUrl() {
 		return url;
+	}
+
+	@Override
+	public String toString() {
+		return label + " " + url + " " + mark;
 	}
 }

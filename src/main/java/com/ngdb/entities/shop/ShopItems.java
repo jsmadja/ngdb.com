@@ -127,10 +127,10 @@ public class ShopItems {
 	@Transient
 	private StateFilter keepUsedState = new StateFilter("Used");
 
-	class StateFilter implements Predicate<ShopItem> {
+	private class StateFilter implements Predicate<ShopItem> {
 		private String state;
 
-		public StateFilter(String state) {
+		StateFilter(String state) {
 			this.state = state;
 		}
 

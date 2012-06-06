@@ -46,7 +46,7 @@ public class GameView extends ArticleView {
 	private Note note;
 
 	@Inject
-	protected Session session;
+	private Session session;
 
 	@Property
 	private String commentText;

@@ -20,8 +20,6 @@ import com.ngdb.entities.reference.Publisher;
 @Entity
 public class Game extends Article {
 
-	public static final Game EMPTY = new Game();
-
 	private String ngh;
 
 	@OneToOne

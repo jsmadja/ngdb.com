@@ -14,10 +14,6 @@ public class Platform extends AbstractEntity implements Comparable<Platform> {
 	public Platform() {
 	}
 
-	public Platform(String name) {
-		this.name = name;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -25,6 +21,11 @@ public class Platform extends AbstractEntity implements Comparable<Platform> {
 	@Override
 	public int compareTo(Platform platform) {
 		return name.compareTo(platform.name);
+	}
+
+	@Override
+	public String toString() {
+		return name;
 	}
 
 }

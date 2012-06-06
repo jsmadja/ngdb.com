@@ -63,7 +63,7 @@ public class CollectionObject implements Comparable<CollectionObject> {
 	}
 
 	@Embeddable
-	public static class CollectionId implements Serializable {
+	private static class CollectionId implements Serializable {
 
 		@Column(name = "user_id", nullable = false, updatable = false)
 		private Long userId;
@@ -75,7 +75,7 @@ public class CollectionObject implements Comparable<CollectionObject> {
 
 		}
 
-		public CollectionId(Long userId, Long articleId) {
+		CollectionId(Long userId, Long articleId) {
 			Preconditions.checkNotNull(userId, "userId is mandatory");
 			Preconditions.checkNotNull(articleId, "articleId is mandatory");
 			this.userId = userId;

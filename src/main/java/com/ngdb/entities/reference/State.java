@@ -14,10 +14,6 @@ public class State extends AbstractEntity implements Comparable<State> {
 	public State() {
 	}
 
-	public State(String title) {
-		this.title = title;
-	}
-
 	public String getTitle() {
 		return title;
 	}
@@ -25,5 +21,10 @@ public class State extends AbstractEntity implements Comparable<State> {
 	@Override
 	public int compareTo(State state) {
 		return title.compareTo(state.title);
+	}
+
+	@Override
+	public String toString() {
+		return title;
 	}
 }

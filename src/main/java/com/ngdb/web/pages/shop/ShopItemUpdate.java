@@ -25,26 +25,26 @@ import com.ngdb.web.services.infrastructure.PictureService;
 public class ShopItemUpdate {
 
 	@Property
-	protected UploadedFile mainPicture;
+	private UploadedFile mainPicture;
 
 	@Inject
-	protected Session session;
+	private Session session;
 
 	@Persist
 	@Property
-	protected String url;
+	private String url;
 
 	@Persist
 	@Property
-	protected String currency;
+	private String currency;
 
 	@Persist
 	@Property
-	protected Double price;
+	private Double price;
 
 	@Persist
 	@Property
-	protected String details;
+	private String details;
 
 	@Inject
 	private ReferenceService referenceService;

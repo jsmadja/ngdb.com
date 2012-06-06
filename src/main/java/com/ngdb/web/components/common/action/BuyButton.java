@@ -9,10 +9,10 @@ public class BuyButton {
 
 	@Property
 	@Parameter
-	protected Article article;
+	private Article article;
 
 	@Property
 	@Parameter
-	protected boolean showText;
+	private boolean showText;
 
 }

@@ -19,12 +19,6 @@ import com.ngdb.entities.shop.Wish;
 @Entity
 public class User extends AbstractEntity {
 
-	public static final User GUEST = new User();
-
-	static {
-		GUEST.login = "guest";
-	}
-
 	@Column(nullable = false)
 	private String login;
 
