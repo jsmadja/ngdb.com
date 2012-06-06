@@ -5,10 +5,13 @@ import org.apache.shiro.subject.Subject;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.ApplicationStateManager;
 import org.apache.tapestry5.services.Request;
+import org.hibernate.Session;
 import org.tynamo.security.services.SecurityService;
 
 import com.ngdb.entities.Population;
 import com.ngdb.entities.article.Article;
+import com.ngdb.entities.shop.Wish;
+import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.Shop;
 import com.ngdb.entities.user.User;
 
@@ -25,6 +28,9 @@ public class CurrentUser {
 
 	@Inject
 	private Request request;
+
+	@Inject
+	private Session session;
 
 	public User login(String login, String password) {
 		Subject currentUser = securityService.getSubject();
@@ -100,21 +106,43 @@ public class CurrentUser {
 		if (isAnonymous()) {
 			return false;
 		}
-		return getUser().canAddInCollection(article);
+		return getUserFromDb().canAddInCollection(article);
+	}
+
+	public void addToCollection(Article article) {
+		CollectionObject collectionObject = getUserFromDb().addInCollection(article);
+		session.merge(collectionObject);
 	}
 
 	public boolean canWish(Article article) {
 		if (isAnonymous()) {
 			return false;
 		}
-		return getUser().canWish(article);
+		return getUserFromDb().canWish(article);
+	}
+
+	public void wish(Article article) {
+		Wish wish = getUserFromDb().addToWishes(article);
+		session.merge(wish);
 	}
 
 	public boolean canSell(Article article) {
 		if (isAnonymous()) {
 			return false;
 		}
-		return getUser().canSell(article);
+		return getUserFromDb().canSell(article);
+	}
+
+	public int getNumArticlesInCollection() {
+		return getUserFromDb().getNumArticlesInCollection();
+	}
+
+	private User getUserFromDb() {
+		return ((User) session.load(User.class, getUser().getId()));
+	}
+
+	public int getNumArticlesInWishList() {
+		return getUserFromDb().getNumArticlesInWishList();
 	}
 
 }

@@ -1,0 +1,9 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+	<t:actionLink class="btn btn-warning" t:id="wish" context="article">
+		<i class="icon-heart icon-white" />
+		<t:if test="showText">
+			Add to your wishlist
+		</t:if>
+	</t:actionLink>
+</div>
+

@@ -27,10 +27,7 @@ public class Museum {
 	private Collection<? extends Article> hardwares;
 
 	@Inject
-	private CurrentUser userSession;
-
-	@Inject
-	private com.ngdb.entities.Museum museum;
+	private CurrentUser currentUser;
 
 	@Inject
 	private GameFactory gameFactory;
@@ -40,13 +37,12 @@ public class Museum {
 
 	@SetupRender
 	public void init() {
-		if (userSession.isAnonymous()) {
+		if (currentUser.isAnonymous()) {
 			games = gameFactory.findAll();
 			hardwares = hardwareFactory.findAll();
 		} else {
-			User loggedUser = userSession.getUser();
-			games = museum.findGamesOf(loggedUser);
-			hardwares = museum.findHardwaresOf(loggedUser);
+			games = currentUser.getUser().getGamesInCollection();
+			hardwares = currentUser.getUser().getHardwaresInCollection();
 		}
 	}
 }

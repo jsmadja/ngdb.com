@@ -23,24 +23,16 @@
                 </p:originCell>
                 <p:actionsCell>
                 	<t:if test="buyable">
-						<t:pageLink class="btn btn-success" page="shop/shopItemView" context="[byarticle,game.id]">
-							<i class="icon-shopping-cart icon-white"></i>
-						</t:pageLink>
+						<t:common.action.buyButton article="game" />
 					</t:if>
 					<t:if test="sellable">
-						<t:actionLink class="btn btn-danger" t:id="sell" context="game.id">
-							<i class="icon-shopping-cart icon-white"></i>
-						</t:actionLink>
+						<t:common.action.sellButton article="game" />
 					</t:if>
 	                <t:if test="addableToCollection">
-						<t:actionLink class="btn btn-primary" t:id="collection" context="game.id">
-							<i class="icon-plus icon-white"></i>
-						</t:actionLink>
+						<t:common.action.addToCollectionButton article="game" returnPage="games" />
 					</t:if>
 					<t:if test="wishable">
-						<t:actionLink class="btn btn-warning" t:id="wish" context="game.id">
-								<i class="icon-heart icon-white"></i>
-						</t:actionLink>
+						<t:common.action.wishButton article="game"  returnPage="games" />
 					</t:if>
                 </p:actionsCell>
 			</t:grid>

@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -98,7 +99,7 @@ public abstract class Article implements Comparable<Article> {
 	private ShopItems shopItems;
 
 	@XmlTransient
-	@OneToMany(mappedBy = "article")
+	@OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
 	private Set<CollectionObject> owners;
 
 	private String details;
@@ -255,5 +256,9 @@ public abstract class Article implements Comparable<Article> {
 	}
 
 	public abstract Class<?> getType();
+
+	public void addCollection(CollectionObject collectionObject) {
+		owners.add(collectionObject);
+	}
 
 }

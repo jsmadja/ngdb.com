@@ -54,33 +54,19 @@
 					</td>
 					<td>
 						<t:if test="user">
-							<p>
-								<a t:type="pageLink" class="btn btn-inverse" t:page="article/hardware/hardwareUpdate" t:context="hardware.id">Edit</a>
-							</p>
+							<a t:type="pageLink" class="btn btn-inverse" t:page="article/hardware/hardwareUpdate" t:context="hardware.id">Edit</a>
 						</t:if>
 						<t:if test="buyable">
-								<t:pageLink class="btn btn-success" page="shop/shopItemView" context="[byarticle,hardware.id]">
-									<i class="icon-shopping-cart icon-white"></i>
-									Buy it
-								</t:pageLink>
+							<t:common.action.buyButton article="hardware" showText="true" />
 						</t:if>
 						<t:if test="sellable">
-								<t:pageLink class="btn btn-danger" page="shop/shopItemUpdate" context="hardware.id">
-									<i class="icon-shopping-cart icon-white"></i>
-									Sell yours
-								</t:pageLink>
+							<t:common.action.sellButton article="hardware" showText="true" />
 						</t:if>
 						<t:if test="wishable">
-							<t:actionLink class="btn btn-warning" t:id="wishList" context="hardware.id">
-								<i class="icon-heart icon-white"></i>
-								Add to your wishlist
-							</t:actionLink>
+							<t:common.action.wishButton article="hardware"  showText="true" />
 						</t:if>
 						<t:if test="addableToCollection">
-							<t:actionlink class="btn btn-primary" t:id="collection" context="hardware.id">
-								<i class="icon-plus icon-white"></i>
-								Add to your collection
-							</t:actionlink>
+							<t:common.action.addToCollectionButton article="hardware" showText="true" />
 						</t:if>
 					</td>
 				</tr>
@@ -152,22 +138,7 @@
 				</p>
 				<hr />
 			</t:if>
-<!-- 
-			<h3>Reviews</h3>
-			<table>
-				<t:loop source="hardware.reviews" value="review">
-					<tr>
-						<td>
-							<a href="${review.url}">${review.label}</a>
-						</td>
-						<td>
-							${review.mark}
-						</td>
-					</tr>
-				</t:loop>
-			</table>
-			<hr />
--->
+
 			<h3>Comments</h3>
 			<t:if test="hasNoComments">
 				<p>

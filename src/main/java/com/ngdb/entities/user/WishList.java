@@ -1,6 +1,6 @@
 package com.ngdb.entities.user;
 
-import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -15,12 +15,14 @@ import com.ngdb.entities.shop.Wish;
 @Embeddable
 public class WishList implements Iterable<Wish> {
 
-	@OneToMany(mappedBy = "wisher", fetch = EAGER)
+	@OneToMany(mappedBy = "wisher", fetch = LAZY)
 	private Set<Wish> wishes;
 
 	public boolean contains(Article article) {
 		for (Wish wish : wishes) {
-			if (article.equals(wish.getArticle())) {
+			Long searchId = article.getId();
+			Long idInWishList = wish.getArticle().getId();
+			if (searchId.equals(idInWishList)) {
 				return true;
 			}
 		}
@@ -38,6 +40,10 @@ public class WishList implements Iterable<Wish> {
 
 	public void addInWishList(Wish wish) {
 		wishes.add(wish);
+	}
+
+	public int getNumWishes() {
+		return wishes.size();
 	}
 
 }

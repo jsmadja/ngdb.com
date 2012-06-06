@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
 import com.ngdb.entities.article.Article;
 
 @Entity
@@ -31,9 +33,11 @@ public class CollectionObject implements Comparable<CollectionObject> {
 	}
 
 	public CollectionObject(User owner, Article article) {
+		Preconditions.checkNotNull(owner, "owner is mandatory");
+		Preconditions.checkNotNull(article, "article is mandatory");
 		this.owner = owner;
 		this.article = article;
-		this.id = new CollectionId(owner, article);
+		this.id = new CollectionId(owner.getId(), article.getId());
 	}
 
 	public User getOwner() {
@@ -42,6 +46,20 @@ public class CollectionObject implements Comparable<CollectionObject> {
 
 	public Article getArticle() {
 		return article;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof CollectionObject) {
+			CollectionObject collectionObject = (CollectionObject) o;
+			return owner.equals(collectionObject.owner) && article.equals(collectionObject.article);
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(owner, article);
 	}
 
 	@Embeddable
@@ -57,9 +75,11 @@ public class CollectionObject implements Comparable<CollectionObject> {
 
 		}
 
-		public CollectionId(User user, Article article) {
-			this.userId = user.getId();
-			this.articleId = article.getId();
+		public CollectionId(Long userId, Long articleId) {
+			Preconditions.checkNotNull(userId, "userId is mandatory");
+			Preconditions.checkNotNull(articleId, "articleId is mandatory");
+			this.userId = userId;
+			this.articleId = articleId;
 		}
 
 		public boolean equals(Object o) {
@@ -83,6 +103,11 @@ public class CollectionObject implements Comparable<CollectionObject> {
 	@Override
 	public int compareTo(CollectionObject collectionObject) {
 		return this.getArticle().getTitle().compareTo(collectionObject.getArticle().getTitle());
+	}
+
+	@Override
+	public String toString() {
+		return owner.toString() + " " + article.toString();
 	}
 
 }

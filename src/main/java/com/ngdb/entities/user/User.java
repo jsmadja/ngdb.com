@@ -92,25 +92,11 @@ public class User extends AbstractEntity {
 		this.password = password;
 	}
 
-	public boolean canAddInCollection(Article article) {
-		if (collection == null) {
-			return true;
-		}
-		return !collection.contains(article);
-	}
-
 	public boolean canSell(Article article) {
 		if (collection == null) {
 			return false;
 		}
 		return collection.contains(article);
-	}
-
-	public boolean canWish(Article article) {
-		if (wishList == null) {
-			return true;
-		}
-		return !wishList.contains(article);
 	}
 
 	public Set<Wish> getWishes() {
@@ -141,16 +127,49 @@ public class User extends AbstractEntity {
 		return permissions;
 	}
 
-	public void addInCollection(CollectionObject collectionObject) {
-		collection.addInCollection(collectionObject);
-	}
-
-	public void addToWishes(Wish wish) {
+	public Wish addToWishes(Article article) {
+		Wish wish = new Wish(this, article);
 		wishList.addInWishList(wish);
+		return wish;
 	}
 
 	public Collection<ShopItem> getShopItemsToSell() {
 		return shop.getShopItemsToSell();
 	}
 
+	public boolean canAddInCollection(Article article) {
+		if (collection == null) {
+			return true;
+		}
+		return !collection.contains(article);
+	}
+
+	public boolean canWish(Article article) {
+		if (wishList == null) {
+			return true;
+		}
+		return !wishList.contains(article);
+	}
+
+	public CollectionObject addInCollection(Article article) {
+		CollectionObject collectionObject = new CollectionObject(this, article);
+		collection.addInCollection(collectionObject);
+		return collectionObject;
+	}
+
+	public Collection<Article> getGamesInCollection() {
+		return collection.getGames();
+	}
+
+	public Collection<Article> getHardwaresInCollection() {
+		return collection.getHardwares();
+	}
+
+	public int getNumArticlesInCollection() {
+		return collection.getNumArticles();
+	}
+
+	public int getNumArticlesInWishList() {
+		return wishList.getNumWishes();
+	}
 }

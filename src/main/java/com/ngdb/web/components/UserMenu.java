@@ -29,7 +29,7 @@ public class UserMenu {
 	}
 
 	public int getNumArticlesInCollection() {
-		return getUser().getArticlesInCollection().size();
+		return currentUser.getNumArticlesInCollection();
 	}
 
 	public int getNumArticlesInShop() {
@@ -37,7 +37,7 @@ public class UserMenu {
 	}
 
 	public int getNumArticlesInWishList() {
-		return getUser().getWishes().size();
+		return currentUser.getNumArticlesInWishList();
 	}
 
 }

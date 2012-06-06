@@ -69,23 +69,6 @@ public class GameView extends ArticleView {
 	}
 
 	@CommitAfter
-	Object onActionFromCollection(Game game) {
-		museum.add(user, game);
-		return GameView.class;
-	}
-
-	@CommitAfter
-	Object onActionFromWishList(Game game) {
-		wishBox.add(user, game);
-		return GameView.class;
-	}
-
-	Object onActionFromSell(Game game) {
-		shopItemUpdate.setArticle(game);
-		return shopItemUpdate;
-	}
-
-	@CommitAfter
 	public Object onSuccess() {
 		User user = userSession.getUser();
 		Comment comment = new Comment(commentText, user, getArticle());

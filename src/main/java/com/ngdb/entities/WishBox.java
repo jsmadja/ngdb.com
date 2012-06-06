@@ -11,7 +11,6 @@ import org.hibernate.Session;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.shop.Wish;
-import com.ngdb.entities.user.User;
 
 public class WishBox {
 
@@ -36,12 +35,6 @@ public class WishBox {
 
 	public List<Wish> findAllWishes() {
 		return session.createCriteria(Wish.class).addOrder(desc("modificationDate")).list();
-	}
-
-	public void add(User user, Article article) {
-		Wish wish = new Wish(user, article);
-		user.addToWishes(wish);
-		session.merge(wish);
 	}
 
 }

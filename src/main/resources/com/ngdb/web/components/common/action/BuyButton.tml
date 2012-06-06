@@ -1,0 +1,8 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+	<t:pageLink class="btn btn-success" page="shop/shopItemView" context="article">
+		<i class="icon-shopping-cart icon-white"></i>
+		<t:if test="showText">
+			Buy it
+		</t:if>
+	</t:pageLink>
+</div>

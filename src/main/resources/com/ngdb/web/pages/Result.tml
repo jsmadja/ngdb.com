@@ -14,11 +14,7 @@
                 </p:titleCell>
                 <p:actionsCell>
 	                <t:if test="addableToCollection">
-						<p>
-							<t:actionlink class="btn btn-primary" t:id="collection" context="result.id">
-								<i class="icon-plus icon-white"></i>
-							</t:actionlink>
-						</p>
+						<t:common.action.addToCollectionButton article="result" />
 					</t:if>
                 </p:actionsCell>
 			</t:grid>
