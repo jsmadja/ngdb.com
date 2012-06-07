@@ -26,26 +26,6 @@ public abstract class ArticleView {
 		return userSession.canWish(getArticle());
 	}
 
-	public int getNumAvailableCopy() {
-		return getArticle().getAvailableCopyCount();
-	}
-
 	protected abstract Article getArticle();
-
-	public String getByOrigin() {
-		return "byOrigin";
-	}
-
-	public String getByReleaseDate() {
-		return "byReleaseDate";
-	}
-
-	public String getByArticle() {
-		return "byArticle";
-	}
-
-	public boolean getHasNoComments() {
-		return getArticle().getComments().isEmpty();
-	}
 
 }

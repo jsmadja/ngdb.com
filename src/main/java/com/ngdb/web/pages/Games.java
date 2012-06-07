@@ -107,8 +107,4 @@ public class Games {
 		return currentUser.canSell(game);
 	}
 
-	public String getByArticle() {
-		return "byArticle";
-	}
-
 }

@@ -1,23 +1,17 @@
 package com.ngdb.web.pages.article.game;
 
-import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
-import com.ngdb.entities.Museum;
-import com.ngdb.entities.WishBox;
 import com.ngdb.entities.article.Game;
-import com.ngdb.entities.article.element.Comment;
 import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.reference.Genre;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.pages.article.ArticleView;
-import com.ngdb.web.pages.shop.ShopItemUpdate;
 
 public class GameView extends ArticleView {
 
@@ -37,9 +31,6 @@ public class GameView extends ArticleView {
 	private Review review;
 
 	@Property
-	private Comment comment;
-
-	@Property
 	private String value;
 
 	@Property
@@ -49,59 +40,15 @@ public class GameView extends ArticleView {
 	private Session session;
 
 	@Property
-	private String commentText;
-
-	@Inject
-	private Museum museum;
-
-	@Inject
-	private WishBox wishBox;
-
-	@Property
 	private User user;
-
-	@InjectPage
-	private ShopItemUpdate shopItemUpdate;
 
 	public void onActivate(Game game) {
 		this.game = game;
 		this.user = userSession.getUser();
 	}
 
-	@CommitAfter
-	public Object onSuccess() {
-		User user = userSession.getUser();
-		Comment comment = new Comment(commentText, user, getArticle());
-		session.merge(comment);
-		return GameView.class;
-	}
-
-	public String getCollectionRank() {
-		return museum.getRankOf(game);
-	}
-
-	public String getWishRank() {
-		return wishBox.getRankOf(game);
-	}
-
 	public Game onPassivate() {
 		return game;
-	}
-
-	public String getByPlatform() {
-		return "byPlatform";
-	}
-
-	public String getByNgh() {
-		return "byNgh";
-	}
-
-	public String getByGenre() {
-		return "byGenre";
-	}
-
-	public String getByPublisher() {
-		return "byPublisher";
 	}
 
 	@Override

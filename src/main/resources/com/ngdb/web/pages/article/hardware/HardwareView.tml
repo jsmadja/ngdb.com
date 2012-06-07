@@ -77,57 +77,7 @@
 	<div class="row-fluid show-grid">
 		<div class="span3">
 			<p>
-				<div class="history">
-					<!-- 
-					<table>
-						<tr>
-							<td>Collection:</td>
-							<td>
-								<b>${hardware.collectionRank}</b>
-								(${hardware.ownersCount})
-							</td>
-						</tr>
-						<tr>
-							<td>Wishlist:</td>
-							<td>
-								<b>${hardware.wishRank}</b>
-								(${hardware.wishersCount})
-							</td>
-						</tr>
-					</table>
-					<span style="background-color:lime">Shops: ${hardware.availableCopyCount} copy available</span>
-					<table>
-						<tr>
-							<td></td>
-							<td><b>Qty</b></td>
-							<td><b>Avg</b></td>
-							<td><b>Max</b></td>
-							<td><b>Min</b></td>
-						</tr>
-						<tr>
-							<td><b>Sealed</b></td>
-							<td>${hardware.shopItems.sealedQuantity}</td>
-							<td>${hardware.shopItems.sealedAverage}</td>
-							<td>${hardware.shopItems.sealedMax}</td>
-							<td>${hardware.shopItems.sealedMin}</td>
-						</tr>
-						<tr>
-							<td><b>Mint</b></td>
-							<td>${hardware.shopItems.mintQuantity}</td>
-							<td>${hardware.shopItems.mintAverage}</td>
-							<td>${hardware.shopItems.mintMax}</td>
-							<td>${hardware.shopItems.mintMin}</td>
-						</tr>
-						<tr>
-							<td><b>Used</b></td>
-							<td>${hardware.shopItems.usedQuantity}</td>
-							<td>${hardware.shopItems.usedAverage}</td>
-							<td>${hardware.shopItems.usedMax}</td>
-							<td>${hardware.shopItems.usedMin}</td>
-						</tr>
-					</table>
-					 -->
-				</div>
+				<t:article.history article="hardware" />
 			</p>
 		</div>
 		<div class="span9">
@@ -140,34 +90,7 @@
 			</t:if>
 
 			<h3>Comments</h3>
-			<t:if test="hasNoComments">
-				<p>
-					No comments.
-				</p>
-			</t:if>
-			<t:if test="!user">
-				<p>
-					You must be registered to add a comment.
-				</p>
-			</t:if>
-			<t:loop source="hardware.comments" value="comment">
-				<p style="word-wrap:break-word;">
-					${comment.text}
-					<br/>
-					<span style="font-size:11px">
-						<t:pageLink page="user/UserView" context="comment.author">${comment.author.login}</t:pageLink>   ${comment.postDate}
-					</span>
-				</p>
-			</t:loop>
-			<t:if test="user">
-				<t:form t:id="commentForm" class="form-horizontal" autofocus="false">
-					<fieldset>
-						<legend>Add a comment</legend>
-						<t:textarea rows="6" id="textarea" style="width:100%" value="commentText" />
-					</fieldset>
-					<button class="btn btn-primary" style="margin-top:10px" type="submit">Submit</button>
-				</t:form>
-			</t:if>
+			<t:article.commentBlock article="hardware" />
 		</div>
 	</div>
 </t:layout>

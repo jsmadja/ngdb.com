@@ -25,7 +25,7 @@
 									<b>Release date</b>
 								</td>
 								<td>
-									<t:pagelink page="games" context="[byreleaseDate,game.releaseDate]">
+									<t:pagelink page="games" context="literal:byreleaseDate,game.releaseDate">
 										${game.releaseDate}
 									</t:pagelink>
 								</td>
@@ -35,7 +35,7 @@
 									<b>NGH</b>
 								</td>
 								<td>
-								<t:pagelink page="games" context="[byngh,game.ngh]">
+								<t:pagelink page="games" context="literal:byngh,game.ngh">
 										${game.ngh}
 									</t:pagelink>
 								</td>
@@ -45,7 +45,7 @@
 									<b>Platform</b>
 								</td>
 								<td>
-									<t:pagelink page="games" context="[byplatform,game.platform.id]">
+									<t:pagelink page="games" context="literal:byplatform,game.platform.id">
 										${game.platform.name}
 									</t:pagelink>
 								</td>
@@ -55,7 +55,7 @@
 									<b>Origin</b>
 								</td>
 								<td>
-									<t:pagelink page="games" context="[byorigin,game.origin.id]">
+									<t:pagelink page="games" context="literal:byorigin,game.origin.id">
 										${game.origin.title}
 									</t:pagelink>
 								</td>
@@ -73,7 +73,7 @@
 									<b>Publisher</b>
 								</td>
 								<td>
-									<t:pagelink page="games" context="[bypublisher,game.publisher.id]">
+									<t:pagelink page="games" context="literal:bypublisher,game.publisher.id">
 										${game.publisher.name}
 									</t:pagelink>
 								</td>
@@ -115,57 +115,7 @@
 	<div class="row-fluid show-grid">
 		<div class="span3">
 			<p>
-				<div class="history">
-<!-- 
-					<table>
-						<tr>
-							<td>Collection:</td>
-							<td>
-								<b>${collectionRank}</b>
-								(${game.ownersCount})
-							</td>
-						</tr>
-						<tr>
-							<td>Wishlist:</td>
-							<td>
-								<b>${wishRank}</b>
-								(${game.wishersCount})
-							</td>
-						</tr>
-					</table>
-					<span style="background-color:lime">Shops: ${game.availableCopyCount} copy available</span>
-					<table>
-						<tr>
-							<td></td>
-							<td><b>Qty</b></td>
-							<td><b>Avg</b></td>
-							<td><b>Max</b></td>
-							<td><b>Min</b></td>
-						</tr>
-						<tr>
-							<td><b>Sealed</b></td>
-							<td>${game.shopItems.sealedQuantity}</td>
-							<td>${game.shopItems.sealedAverage}</td>
-							<td>${game.shopItems.sealedMax}</td>
-							<td>${game.shopItems.sealedMin}</td>
-						</tr>
-						<tr>
-							<td><b>Mint</b></td>
-							<td>${game.shopItems.mintQuantity}</td>
-							<td>${game.shopItems.mintAverage}</td>
-							<td>${game.shopItems.mintMax}</td>
-							<td>${game.shopItems.mintMin}</td>
-						</tr>
-						<tr>
-							<td><b>Used</b></td>
-							<td>${game.shopItems.usedQuantity}</td>
-							<td>${game.shopItems.usedAverage}</td>
-							<td>${game.shopItems.usedMax}</td>
-							<td>${game.shopItems.usedMin}</td>
-						</tr>
-					</table>
-					 -->
-				</div>
+				<t:article.history article="game" />
 			</p>
 		</div>
 		<div class="span9">
@@ -178,34 +128,7 @@
 			</t:if>
 
 			<h3>Comments</h3>
-			<t:if test="hasNoComments">
-				<p>
-					No comments.
-				</p>
-			</t:if>
-			<t:if test="!user">
-				<p>
-					You must be registered to add a comment.
-				</p>
-			</t:if>
-			<t:loop source="game.comments" value="comment">
-				<p style="word-wrap:break-word;">
-					${comment.text}
-					<br/>
-					<span style="font-size:11px">
-						<t:pageLink page="user/UserView" context="comment.author">${comment.author.login}</t:pageLink>   ${comment.postDate}
-					</span>
-				</p>
-			</t:loop>
-			<t:if test="user">
-				<t:form t:id="commentForm" class="form-horizontal" autofocus="false">
-					<fieldset>
-						<legend>Add a comment</legend>
-						<t:textarea rows="6" id="textarea" style="width:100%" value="commentText" />
-					</fieldset>
-					<button class="btn btn-primary" style="margin-top:10px" type="submit">Submit</button>
-				</t:form>
-			</t:if>
+			<t:article.commentBlock article="game" />
 		</div>
 	</div>
 </t:layout>

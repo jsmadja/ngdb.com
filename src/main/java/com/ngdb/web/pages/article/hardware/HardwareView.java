@@ -2,13 +2,9 @@ package com.ngdb.web.pages.article.hardware;
 
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.hibernate.annotations.CommitAfter;
-import org.apache.tapestry5.ioc.annotations.Inject;
-import org.hibernate.Session;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Hardware;
-import com.ngdb.entities.article.element.Comment;
 import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Tag;
@@ -30,19 +26,10 @@ public class HardwareView extends ArticleView {
 	private Review review;
 
 	@Property
-	private Comment comment;
-
-	@Property
 	private String value;
 
 	@Property
 	private Note note;
-
-	@Inject
-	private Session session;
-
-	@Property
-	private String commentText;
 
 	@Property
 	private User user;
@@ -50,13 +37,6 @@ public class HardwareView extends ArticleView {
 	public void onActivate(Hardware hardware) {
 		this.hardware = hardware;
 		this.user = userSession.getUser();
-	}
-
-	@CommitAfter
-	public Object onSuccess() {
-		User user = userSession.getUser();
-		session.merge(new Comment(commentText, user, getArticle()));
-		return HardwareView.class;
 	}
 
 	@Override
