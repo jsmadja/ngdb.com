@@ -12,10 +12,6 @@ public class Reviews implements Iterable<Review> {
 	@OneToMany(mappedBy = "article")
 	private Set<Review> reviews;
 
-	public void add(Review review) {
-		this.reviews.add(review);
-	}
-
 	@Override
 	public Iterator<Review> iterator() {
 		return reviews.iterator();

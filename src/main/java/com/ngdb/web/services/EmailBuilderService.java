@@ -34,15 +34,15 @@ public class EmailBuilderService {
 		}
 	}
 
-	String buildSubjectFile() {
+	private String buildSubjectFile() {
 		return String.format("com/ngdb/emailtemplate/subjects.properties");
 	}
 
-	String buildKeySubject(String template) {
+	private String buildKeySubject(String template) {
 		return String.format("mail.subject.%s", template);
 	}
 
-	String buildTemplateName(String template) {
+	private String buildTemplateName(String template) {
 		return String.format("com/ngdb/emailtemplate/%s.vm", template);
 	}
 

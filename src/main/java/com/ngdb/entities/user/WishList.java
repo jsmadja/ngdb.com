@@ -18,7 +18,7 @@ public class WishList implements Iterable<Wish> {
 	@OneToMany(mappedBy = "wisher", fetch = LAZY)
 	private Set<Wish> wishes;
 
-	public boolean contains(Article article) {
+	boolean contains(Article article) {
 		for (Wish wish : wishes) {
 			Long searchId = article.getId();
 			Long idInWishList = wish.getArticle().getId();
@@ -38,7 +38,7 @@ public class WishList implements Iterable<Wish> {
 		return Collections.unmodifiableSet(wishes);
 	}
 
-	public void addInWishList(Wish wish) {
+	void addInWishList(Wish wish) {
 		wishes.add(wish);
 	}
 

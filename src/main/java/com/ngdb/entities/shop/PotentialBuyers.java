@@ -17,11 +17,11 @@ public class PotentialBuyers {
 	@JoinTable(name = "PotentialBuyers", inverseJoinColumns = { @JoinColumn(name = "user_id") }, joinColumns = { @JoinColumn(name = "shop_item_id") })
 	private Set<User> potentialBuyers;
 
-	public void add(User potentialBuyer) {
+	void add(User potentialBuyer) {
 		potentialBuyers.add(potentialBuyer);
 	}
 
-	public boolean contains(User user) {
+	boolean contains(User user) {
 		return potentialBuyers.contains(user);
 	}
 

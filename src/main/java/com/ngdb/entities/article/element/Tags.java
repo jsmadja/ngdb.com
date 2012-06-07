@@ -15,8 +15,4 @@ public class Tags {
 	@JoinTable(name = "ArticleTags", inverseJoinColumns = { @JoinColumn(name = "tag_id") }, joinColumns = { @JoinColumn(name = "article_id") })
 	private Set<Tag> tags = new HashSet<Tag>();
 
-	public void add(Tag tag) {
-		this.tags.add(tag);
-	}
-
 }

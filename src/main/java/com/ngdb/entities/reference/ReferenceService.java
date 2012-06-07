@@ -8,28 +8,29 @@ import java.util.List;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
+@SuppressWarnings("unchecked")
 public class ReferenceService {
 
 	@Inject
 	private Session session;
 
-	public List getPlatforms() {
+	public List<Platform> getPlatforms() {
 		return session.createCriteria(Platform.class).list();
 	}
 
-	public List getGenres() {
+	public List<Genre> getGenres() {
 		return session.createCriteria(Genre.class).list();
 	}
 
-	public List getPublishers() {
+	public List<Publisher> getPublishers() {
 		return session.createCriteria(Publisher.class).list();
 	}
 
-	public List getBoxes() {
+	public List<Box> getBoxes() {
 		return session.createCriteria(Box.class).list();
 	}
 
-	public List getOrigins() {
+	public List<Origin> getOrigins() {
 		return session.createCriteria(Origin.class).list();
 	}
 
