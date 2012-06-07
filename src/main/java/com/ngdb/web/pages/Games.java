@@ -107,4 +107,14 @@ public class Games {
 		return currentUser.canSell(game);
 	}
 
+	static int evenOdd = 0;
+
+	public String getRowClass() {
+		evenOdd++;
+		if (evenOdd % 2 == 0) {
+			return "odd";
+		}
+		return "even";
+	}
+
 }

@@ -1,6 +1,6 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 	xmlns:p="tapestry:parameter">
-	<div class="games">
+	<div class="games article_table">
 		<h1>Games</h1>
 		<!--
 		<p>
@@ -8,19 +8,18 @@
 		</p>
 		-->
 		<div>
-			<t:grid source="games" row="game" add="platform,publisher,origin,actions" reorder="Title" exclude="MegaCount,ReleaseDate,Ngh,Details,WishRank,Id,Buyable,Upc,WishersCount,OwnersCount,AvailableCopyCount,Upc">
+			<t:grid source="games" 
+				row="game" 
+				add="actions" 
+				reorder="Title"
+				rowClass="rowClass"
+				exclude="MegaCount,ReleaseDate,Ngh,Details,WishRank,Id,Buyable,Upc,WishersCount,OwnersCount,AvailableCopyCount,Upc">
 				<p:titleCell>
-	            	<t:pageLink page="article/game/gameview" context="game.id">${game.title}</t:pageLink>
+					<img class="picture" style="float:left" src="${message:image.host.url}${game.mainPicture.url}" title="${game.title}" />
+            		<t:pageLink page="article/game/gameview" context="game.id">${game.title}</t:pageLink>
+            		<br/><br/>
+            		${game.platform.name} -${game.publisher.name} - ${game.origin.title}
                 </p:titleCell>
-                <p:platformCell>
-	            	${game.platform.name}
-                </p:platformCell>
-                <p:publisherCell>
-	            	${game.publisher.name}
-                </p:publisherCell>
-                <p:originCell>
-	            	${game.origin.title}
-                </p:originCell>
                 <p:actionsCell>
                 	<t:if test="buyable">
 						<t:common.action.buyButton article="game" />

@@ -5061,3 +5061,19 @@ TABLE.t-data-grid THEAD TR TH {
 .form-actions btn {
 	margin-right: 10px;	
 }
+
+.even {
+	background-color: #FFFFFF;
+}
+
+.odd {
+	background-color: #EFEFEF;
+}
+
+.article_table table {
+  width:100%;	
+}
+
+.article_table img.picture {
+	width:50px;	
+}
