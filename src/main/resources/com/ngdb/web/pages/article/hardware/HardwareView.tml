@@ -25,7 +25,7 @@
 									<b>Release date</b>
 								</td>
 								<td>
-									<t:pagelink page="hardwares" context="[byreleaseDate,hardware.releaseDate]">
+									<t:pagelink page="hardwares" context="literal:byreleaseDate,hardware.releaseDate">
 										${hardware.releaseDate}
 									</t:pagelink>
 								</td>
@@ -35,7 +35,7 @@
 									<b>Origin</b>
 								</td>
 								<td>
-									<t:pagelink page="hardwares" context="[byorigin,hardware.origin.id]">
+									<t:pagelink page="hardwares" context="literal:byorigin,hardware.origin.id">
 										${hardware.origin.title}
 									</t:pagelink>
 								</td>
@@ -53,21 +53,7 @@
 						</table>
 					</td>
 					<td>
-						<t:if test="user">
-							<a t:type="pageLink" class="btn btn-inverse" t:page="article/hardware/hardwareUpdate" t:context="hardware.id">Edit</a>
-						</t:if>
-						<t:if test="buyable">
-							<t:common.action.buyButton article="hardware" showText="true" />
-						</t:if>
-						<t:if test="sellable">
-							<t:common.action.sellButton article="hardware" showText="true" />
-						</t:if>
-						<t:if test="wishable">
-							<t:common.action.wishButton article="hardware"  showText="true" />
-						</t:if>
-						<t:if test="addableToCollection">
-							<t:common.action.addToCollectionButton article="hardware" showText="true" />
-						</t:if>
+						<t:article.actionBlock article="hardware" />
 					</td>
 				</tr>
 			</table>
@@ -88,7 +74,6 @@
 				</p>
 				<hr />
 			</t:if>
-
 			<h3>Comments</h3>
 			<t:article.commentBlock article="hardware" />
 		</div>

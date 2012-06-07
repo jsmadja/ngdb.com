@@ -2,16 +2,16 @@ package com.ngdb.web.pages.article.hardware;
 
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
 
-import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.user.User;
-import com.ngdb.web.pages.article.ArticleView;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 
-public class HardwareView extends ArticleView {
+public class HardwareView {
 
 	@Persist("entity")
 	private Hardware hardware;
@@ -34,14 +34,12 @@ public class HardwareView extends ArticleView {
 	@Property
 	private User user;
 
+	@Inject
+	private CurrentUser currentUser;
+
 	public void onActivate(Hardware hardware) {
 		this.hardware = hardware;
-		this.user = userSession.getUser();
-	}
-
-	@Override
-	protected Article getArticle() {
-		return hardware;
+		this.user = currentUser.getUser();
 	}
 
 	public void setHardware(Hardware hardware) {

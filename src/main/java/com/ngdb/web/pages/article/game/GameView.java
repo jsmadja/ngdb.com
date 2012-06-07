@@ -11,9 +11,9 @@ import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.reference.Genre;
 import com.ngdb.entities.user.User;
-import com.ngdb.web.pages.article.ArticleView;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 
-public class GameView extends ArticleView {
+public class GameView {
 
 	@Persist("entity")
 	private Game game;
@@ -42,17 +42,15 @@ public class GameView extends ArticleView {
 	@Property
 	private User user;
 
+	@Inject
+	private CurrentUser currentUser;
+
 	public void onActivate(Game game) {
 		this.game = game;
-		this.user = userSession.getUser();
+		this.user = currentUser.getUser();
 	}
 
 	public Game onPassivate() {
-		return game;
-	}
-
-	@Override
-	protected Game getArticle() {
 		return game;
 	}
 
