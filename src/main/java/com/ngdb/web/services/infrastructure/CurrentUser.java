@@ -8,8 +8,10 @@ import org.apache.tapestry5.services.Request;
 import org.hibernate.Session;
 import org.tynamo.security.services.SecurityService;
 
+import com.ngdb.entities.Market;
 import com.ngdb.entities.Population;
 import com.ngdb.entities.article.Article;
+import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.Shop;
@@ -31,6 +33,9 @@ public class CurrentUser {
 
 	@Inject
 	private Session session;
+
+	@Inject
+	private Market market;
 
 	public User login(String login, String password) {
 		Subject currentUser = securityService.getSubject();
@@ -143,6 +148,10 @@ public class CurrentUser {
 
 	public int getNumArticlesInWishList() {
 		return getUserFromDb().getNumArticlesInWishList();
+	}
+
+	public void buy(ShopItem shopItem) {
+		shopItem.addPotentialBuyer(getUserFromDb());
 	}
 
 }

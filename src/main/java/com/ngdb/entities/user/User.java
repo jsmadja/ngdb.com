@@ -166,4 +166,5 @@ public class User extends AbstractEntity {
 	public int getNumArticlesInWishList() {
 		return wishList.getNumWishes();
 	}
+
 }

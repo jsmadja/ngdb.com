@@ -10,16 +10,7 @@
 	            	<t:pageLink page="article/hardware/hardwareView" context="hardware.id">${hardware.title}</t:pageLink>
                 </p:titleCell>
                 <p:actionsCell>
-	                <t:if test="addableToCollection">
-						<t:actionLink class="btn btn-primary" t:id="collection" context="hardware.id">
-							<i class="icon-plus icon-white"></i>
-						</t:actionLink>
-					</t:if>
-					<t:if test="wishable">
-						<t:actionLink class="btn btn-warning" t:id="wish" context="hardware.id">
-								<i class="icon-heart icon-white"></i>
-						</t:actionLink>
-					</t:if>
+                   	<t:article.actionBlock showText="false" article="hardware" />
                 </p:actionsCell>
 			</t:grid>
 		</div>

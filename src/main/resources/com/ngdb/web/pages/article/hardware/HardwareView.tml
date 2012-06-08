@@ -53,7 +53,7 @@
 						</table>
 					</td>
 					<td>
-						<t:article.actionBlock article="hardware" />
+						<t:article.actionBlock article="hardware" showText="true" />
 					</td>
 				</tr>
 			</table>

@@ -15,6 +15,10 @@ public class ActionBlock {
 	private CurrentUser currentUser;
 
 	@Property
+	@Parameter(required = false)
+	private boolean showText;
+
+	@Property
 	@Parameter
 	private Article article;
 

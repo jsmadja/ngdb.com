@@ -12,6 +12,7 @@
 				row="game" 
 				add="actions" 
 				reorder="Title"
+				rowsPerPage="10"
 				rowClass="rowClass"
 				exclude="MegaCount,ReleaseDate,Ngh,Details,WishRank,Id,Buyable,Upc,WishersCount,OwnersCount,AvailableCopyCount,Upc">
 				<p:titleCell>
@@ -21,18 +22,7 @@
             		${game.platform.name} -${game.publisher.name} - ${game.origin.title}
                 </p:titleCell>
                 <p:actionsCell>
-                	<t:if test="buyable">
-						<t:common.action.buyButton article="game" />
-					</t:if>
-					<t:if test="sellable">
-						<t:common.action.sellButton article="game" />
-					</t:if>
-	                <t:if test="addableToCollection">
-						<t:common.action.addToCollectionButton article="game" returnPage="games" />
-					</t:if>
-					<t:if test="wishable">
-						<t:common.action.wishButton article="game"  returnPage="games" />
-					</t:if>
+                	<t:article.actionBlock showText="false" article="game" />
                 </p:actionsCell>
 			</t:grid>
 		</div>

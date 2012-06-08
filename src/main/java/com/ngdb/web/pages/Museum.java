@@ -9,7 +9,6 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.HardwareFactory;
 import com.ngdb.entities.article.Article;
-import com.ngdb.entities.user.User;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class Museum {
@@ -45,4 +44,5 @@ public class Museum {
 			hardwares = currentUser.getUser().getHardwaresInCollection();
 		}
 	}
+
 }

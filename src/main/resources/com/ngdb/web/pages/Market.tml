@@ -8,7 +8,12 @@
 					<img class="thumbnail" width="150px" src="${message:image.host.url}${shopItem.mainPicture.url}" alt="${shopItem.title}" />
 				</t:actionLink>
 				<b>${shopItem.title}</b>
-				<a href="#" class="btn btn-success action"><i class="icon-shopping-cart icon-white"></i>&nbsp;${shopItem.currency} ${shopItem.price}</a>
+				<t:if test="user">
+					<t:common.action.buyButton shopItem="shopItem" />
+					<p:else>
+						${shopItem.currency} ${shopItem.price}
+					</p:else>
+				</t:if>
 			</t:loop>
 			<p:else>
 				<p>There is nothing to sell</p>

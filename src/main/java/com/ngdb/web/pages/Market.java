@@ -1,10 +1,7 @@
 package com.ngdb.web.pages;
 
-import static org.apache.commons.lang.StringUtils.isNotBlank;
-
 import java.util.Collection;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -46,16 +43,8 @@ public class Market {
 	@Inject
 	private CurrentUser currentUser;
 
+	@Persist
 	private Long id;
-
-	void onActivate(String category, String value) {
-		if (isNotBlank(category)) {
-			this.category = Category.valueOf(Category.class, category);
-			if (StringUtils.isNumeric(value)) {
-				id = Long.valueOf(value);
-			}
-		}
-	}
 
 	@SetupRender
 	public void init() {
@@ -90,6 +79,14 @@ public class Market {
 	Object onActionFromShopItem(ShopItem shopItem) {
 		shopItemView.setShopItem(shopItem);
 		return shopItemView;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public User getUser() {
+		return currentUser.getUser();
 	}
 
 }

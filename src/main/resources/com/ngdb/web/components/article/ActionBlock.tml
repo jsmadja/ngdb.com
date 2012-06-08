@@ -3,15 +3,15 @@
 		<a t:type="pageLink" class="btn btn-inverse" t:page="${updatePage}" t:context="article.id">Edit</a>
 	</t:if>
 	<t:if test="buyable">
-		<t:common.action.buyButton article="article" showText="true" />
+		<t:common.action.browseOffersButton article="article" showText="${showText}" />
 	</t:if>
 	<t:if test="sellable">
-		<t:common.action.sellButton article="article" showText="true" />
+		<t:common.action.sellButton article="article" showText="${showText}" />
 	</t:if>
 	<t:if test="wishable">
-		<t:common.action.wishButton article="article"  showText="true" />
+		<t:common.action.wishButton article="article"  showText="${showText}" />
 	</t:if>
 	<t:if test="addableToCollection">
-		<t:common.action.addToCollectionButton article="article" showText="true" />
+		<t:common.action.addToCollectionButton article="article" showText="${showText}" />
 	</t:if>
 </div>
