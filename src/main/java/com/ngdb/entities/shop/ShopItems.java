@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import com.google.common.base.Predicate;
@@ -17,7 +18,7 @@ import com.ngdb.entities.reference.State;
 @Embeddable
 public class ShopItems {
 
-	@OneToMany(mappedBy = "article")
+	@OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
 	private Set<ShopItem> shopItems;
 
 	public int getAvailableCopyCount() {
