@@ -127,7 +127,7 @@ public class User extends AbstractEntity {
 		return wish;
 	}
 
-	public Collection<ShopItem> getShopItemsToSell() {
+	public Collection<ShopItem> getShopItemsForSale() {
 		return shop.getShopItemsToSell();
 	}
 
@@ -165,6 +165,18 @@ public class User extends AbstractEntity {
 
 	public int getNumArticlesInWishList() {
 		return wishList.getNumWishes();
+	}
+
+	public int getNumArticlesInShop() {
+		return shop.getNumArticlesToSell();
+	}
+
+	public boolean canMarkAsSold(ShopItem shopItem) {
+		return shop.contains(shopItem);
+	}
+
+	public boolean canRemove(ShopItem shopItem) {
+		return canMarkAsSold(shopItem);
 	}
 
 }

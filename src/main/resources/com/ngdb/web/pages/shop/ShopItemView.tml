@@ -68,7 +68,7 @@
 						</t:if>
 						<t:if test="soldable">
 							<t:actionlink class="btn btn-info" t:id="sold">
-								<i class="icon-trash icon-white"></i>
+								<i class="icon-ok icon-white"></i>
 								Sold
 							</t:actionlink>
 						</t:if>

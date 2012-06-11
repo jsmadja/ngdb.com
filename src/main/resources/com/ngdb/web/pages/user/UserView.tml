@@ -20,7 +20,7 @@
 		</t:grid>
 		
 		<h2>Shop</h2>
-		<t:grid source="user.shopItemsToSell" 
+		<t:grid source="user.shopItemsForSale" 
 				row="shopItem" 
 				rowsPerPage="10"
 				exclude="CreationDate,Sold,Id,ModificationDate"

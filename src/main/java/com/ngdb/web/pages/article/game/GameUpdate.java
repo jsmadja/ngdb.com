@@ -2,7 +2,6 @@ package com.ngdb.web.pages.article.game;
 
 import java.util.Date;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectPage;
@@ -27,8 +26,8 @@ import com.ngdb.web.model.GenreList;
 import com.ngdb.web.model.OriginList;
 import com.ngdb.web.model.PlatformList;
 import com.ngdb.web.model.PublisherList;
-import com.ngdb.web.services.infrastructure.PictureService;
 import com.ngdb.web.services.infrastructure.CurrentUser;
+import com.ngdb.web.services.infrastructure.PictureService;
 
 @RequiresAuthentication
 public class GameUpdate {
@@ -45,10 +44,6 @@ public class GameUpdate {
 
 	@Inject
 	protected PictureService pictureService;
-
-	@Property
-	@Persist
-	protected String url;
 
 	@Property
 	protected String details;
@@ -123,12 +118,10 @@ public class GameUpdate {
 		game.setMegaCount(megaCount);
 		game.setBox(box);
 		game = (Game) session.merge(game);
-		if (StringUtils.isNotBlank(url)) {
-			Picture picture = pictureService.store(url, game);
-			game.addPicture(picture);
-		} else if (this.mainPicture != null) {
+		if (this.mainPicture != null) {
 			Picture picture = pictureService.store(mainPicture, game);
 			game.addPicture(picture);
+			session.merge(picture);
 		}
 		gameView.setGame(game);
 		history.add(game, userSession.getUser());

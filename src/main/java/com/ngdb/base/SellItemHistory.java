@@ -1,25 +1,18 @@
-package com.ngdb.web.pages.article;
-
-import org.apache.tapestry5.annotations.Property;
+package com.ngdb.base;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.reference.State;
 
 public class SellItemHistory {
 
-	@Property
 	private String stateName;
 
-	@Property
 	private int forSaleQuantity;
 
-	@Property
 	private double averagePrice;
 
-	@Property
 	private double maxPrice;
 
-	@Property
 	private double minPrice;
 
 	public SellItemHistory(Article article, State state) {
@@ -29,4 +22,25 @@ public class SellItemHistory {
 		this.maxPrice = article.getMaxPriceInState(state);
 		this.minPrice = article.getMaxPriceInState(state);
 	}
+
+	public String getStateName() {
+		return stateName;
+	}
+
+	public int getForSaleQuantity() {
+		return forSaleQuantity;
+	}
+
+	public double getAveragePrice() {
+		return averagePrice;
+	}
+
+	public double getMaxPrice() {
+		return maxPrice;
+	}
+
+	public double getMinPrice() {
+		return minPrice;
+	}
+
 }

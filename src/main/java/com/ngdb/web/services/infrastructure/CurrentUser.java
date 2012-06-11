@@ -15,7 +15,6 @@ import com.ngdb.entities.Population;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.Wish;
-import com.ngdb.entities.user.ArticleCollection;
 import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.Shop;
 import com.ngdb.entities.user.User;
@@ -163,6 +162,22 @@ public class CurrentUser {
 
 	public Collection<? extends Article> getHardwaresInMuseum() {
 		return getUserFromDb().getCollection().getHardwares();
+	}
+
+	public int getNumArticlesInShop() {
+		return getUserFromDb().getNumArticlesInShop();
+	}
+
+	public boolean canMarkAsSold(ShopItem shopItem) {
+		return getUserFromDb().canMarkAsSold(shopItem);
+	}
+
+	public boolean canRemove(ShopItem shopItem) {
+		return getUserFromDb().canRemove(shopItem);
+	}
+
+	public boolean canEdit(ShopItem shopItem) {
+		return canMarkAsSold(shopItem);
 	}
 
 }

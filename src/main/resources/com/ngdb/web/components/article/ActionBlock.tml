@@ -1,4 +1,4 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<t:if test="user">
 		<t:common.action.editButton article="article" showText="${showText}" />
 	</t:if>
@@ -14,4 +14,4 @@
 	<t:if test="addableToCollection">
 		<t:common.action.addToCollectionButton article="article" showText="${showText}" />
 	</t:if>
-</div>
+</span>

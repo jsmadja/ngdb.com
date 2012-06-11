@@ -78,6 +78,7 @@ public abstract class Article implements Comparable<Article> {
 	private Tags tags;
 
 	@Embedded
+	@XmlTransient
 	private ArticlePictures pictures;
 
 	@Embedded

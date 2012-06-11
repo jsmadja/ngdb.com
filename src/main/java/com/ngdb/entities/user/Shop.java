@@ -15,7 +15,7 @@ import com.ngdb.entities.shop.ShopItem;
 @Embeddable
 public class Shop {
 
-	@OneToMany(mappedBy = "seller", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "seller", fetch = FetchType.LAZY)
 	private Set<ShopItem> shopItems;
 
 	public Set<ShopItem> getShopItems() {
@@ -24,5 +24,13 @@ public class Shop {
 
 	public Collection<ShopItem> getShopItemsToSell() {
 		return Collections2.filter(shopItems, Predicates.shopItemsForSale);
+	}
+
+	public int getNumArticlesToSell() {
+		return getShopItemsToSell().size();
+	}
+
+	public boolean contains(ShopItem shopItem) {
+		return shopItems.contains(shopItem);
 	}
 }

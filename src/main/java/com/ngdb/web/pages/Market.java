@@ -1,12 +1,17 @@
 package com.ngdb.web.pages;
 
+import static org.apache.commons.lang.StringUtils.isNotBlank;
+
 import java.util.Collection;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
+import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.Session;
 
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.Population;
@@ -46,6 +51,21 @@ public class Market {
 	@Persist
 	private Long id;
 
+	@Property
+	private String username;
+
+	@Inject
+	private Session session;
+
+	void onActivate(String filter, String value) {
+		if (isNotBlank(filter)) {
+			this.category = Category.valueOf(Category.class, filter);
+			if (StringUtils.isNumeric(value)) {
+				this.id = Long.valueOf(value);
+			}
+		}
+	}
+
 	@SetupRender
 	public void init() {
 		if (category == null || category == Category.none) {
@@ -54,7 +74,7 @@ public class Market {
 			switch (category) {
 			case byArticle:
 				Article article = articleFactory.findById(id);
-				this.shopItems = market.findAllItemsOf(article);
+				this.shopItems = article.getShopItemsForSale();
 				break;
 			case bySoldDate:
 				this.shopItems = market.findAllItemsSold();
@@ -66,7 +86,8 @@ public class Market {
 				} else {
 					user = population.findById(id);
 				}
-				this.shopItems = user.getShopItemsToSell();
+				this.shopItems = user.getShopItemsForSale();
+				this.username = user.getLogin();
 				break;
 			}
 		}
@@ -81,12 +102,36 @@ public class Market {
 		return shopItemView;
 	}
 
+	@CommitAfter
+	Object onActionFromSold(ShopItem shopItem) {
+		shopItem.sold();
+		return this;
+	}
+
+	@CommitAfter
+	Object onActionFromRemove(ShopItem shopItem) {
+		session.delete(shopItem);
+		return this;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public User getUser() {
 		return currentUser.getUser();
+	}
+
+	public boolean getCanMarkAsSold() {
+		return currentUser.canMarkAsSold(shopItem);
+	}
+
+	public boolean getCanRemove() {
+		return currentUser.canRemove(shopItem);
+	}
+
+	public boolean getCanEdit() {
+		return currentUser.canEdit(shopItem);
 	}
 
 }

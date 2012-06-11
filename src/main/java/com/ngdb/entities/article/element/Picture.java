@@ -41,4 +41,9 @@ public class Picture extends AbstractEntity {
 		this.shopItem = shopItem;
 	}
 
+	@Override
+	public String toString() {
+		return url;
+	}
+
 }

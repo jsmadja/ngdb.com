@@ -62,9 +62,22 @@ public class ShopItemUpdate {
 	@Property
 	private State state;
 
-	void onActivate() {
-		this.currency = "USD";
-		this.state = referenceService.findStateByTitle("Used");
+	@Property
+	@Persist("entity")
+	private ShopItem shopItem;
+
+	void onActivate(ShopItem shopItem) {
+		this.shopItem = shopItem;
+		if (shopItem != null) {
+			this.article = shopItem.getArticle();
+			this.currency = shopItem.getCurrency();
+			this.details = shopItem.getDetails();
+			this.price = shopItem.getPrice();
+			this.state = shopItem.getState();
+		} else {
+			this.currency = "USD";
+			this.state = referenceService.findStateByTitle("Used");
+		}
 	}
 
 	@CommitAfter
