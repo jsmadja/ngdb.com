@@ -7,7 +7,6 @@ import org.apache.tapestry5.annotations.Property;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
-import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class Result {
 

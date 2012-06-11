@@ -15,9 +15,7 @@
                 	</t:if>
                 </p:titleCell>
                 <p:actionsCell>
-	                <t:if test="addableToCollection">
-						<t:common.action.addToCollectionButton article="result" />
-					</t:if>
+					<t:article.actionBlock showText="false" article="result" />
                 </p:actionsCell>
 			</t:grid>
 		</div>
