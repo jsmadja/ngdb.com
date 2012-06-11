@@ -66,7 +66,7 @@ public abstract class Article implements Comparable<Article> {
 	@Temporal(TemporalType.DATE)
 	private Date releaseDate;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	private Origin origin;
 
 	@Embedded
@@ -90,7 +90,7 @@ public abstract class Article implements Comparable<Article> {
 	private Comments comments;
 
 	@XmlTransient
-	@OneToMany(mappedBy = "article")
+	@OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
 	private Set<Wish> wishList;
 
 	@Embedded
@@ -103,7 +103,7 @@ public abstract class Article implements Comparable<Article> {
 
 	private String details;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	private Platform platform;
 
 	public Article() {

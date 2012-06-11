@@ -79,7 +79,7 @@
 			</p>
 		</div>
 		<div class="span9">
-			<t:if test="${game.details}">
+			<t:if test="${hardware.details}">
 				<h3>Details</h3>
 				<p>
 					${hardware.details}

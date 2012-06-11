@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 @Embeddable
 public class ShopItemPictures {
 
-	@OneToMany(mappedBy = "shopItem", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "shopItem", fetch = FetchType.LAZY)
 	private Set<Picture> pictures = new HashSet<Picture>();
 
 	public Picture first() {

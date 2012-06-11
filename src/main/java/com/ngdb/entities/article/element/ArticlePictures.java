@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ArticlePictures {
 
 	@ElementCollection
-	@OneToMany(mappedBy = "article", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
 	@XmlElements({ @XmlElement(name = "picture") })
 	private Set<Picture> pictures;
 

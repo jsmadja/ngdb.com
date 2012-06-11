@@ -144,7 +144,7 @@ public class CurrentUser {
 		return getUserFromDb().getNumArticlesInCollection();
 	}
 
-	private User getUserFromDb() {
+	public User getUserFromDb() {
 		return ((User) session.load(User.class, getUser().getId()));
 	}
 

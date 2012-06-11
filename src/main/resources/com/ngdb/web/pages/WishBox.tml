@@ -2,7 +2,7 @@
 	<div class="wishes">
 		<div class="page-header">
 			<h1>Wishes</h1>
-		<div class="page-header">
+		</div>
 		<t:grid source="wishes" 
 				row="wish" 
 				exclude="ModificationDate"

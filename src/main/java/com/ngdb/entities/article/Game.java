@@ -3,6 +3,7 @@ package com.ngdb.entities.article;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -21,7 +22,7 @@ public class Game extends Article {
 
 	private String ngh;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	private Publisher publisher;
 
 	@Column(name = "mega_count")
@@ -31,7 +32,7 @@ public class Game extends Article {
 	@XmlTransient
 	private Genres genres;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	private Box box;
 
 	private String upc;
