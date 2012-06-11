@@ -1,5 +1,7 @@
 package com.ngdb.web.services.infrastructure;
 
+import java.util.Collection;
+
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -13,6 +15,7 @@ import com.ngdb.entities.Population;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.Wish;
+import com.ngdb.entities.user.ArticleCollection;
 import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.Shop;
 import com.ngdb.entities.user.User;
@@ -152,6 +155,14 @@ public class CurrentUser {
 
 	public void buy(ShopItem shopItem) {
 		shopItem.addPotentialBuyer(getUserFromDb());
+	}
+
+	public Collection<? extends Article> getGamesInMuseum() {
+		return getUserFromDb().getCollection().getGames();
+	}
+
+	public Collection<? extends Article> getHardwaresInMuseum() {
+		return getUserFromDb().getCollection().getHardwares();
 	}
 
 }

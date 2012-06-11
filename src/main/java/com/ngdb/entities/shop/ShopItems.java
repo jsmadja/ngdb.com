@@ -1,15 +1,18 @@
 package com.ngdb.entities.shop;
 
+import static com.google.common.collect.Collections2.filter;
+import static java.lang.Double.MAX_VALUE;
+import static java.lang.Double.MIN_VALUE;
+
 import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
 import com.ngdb.Predicates;
+import com.ngdb.entities.reference.State;
 
 @Embeddable
 public class ShopItems {
@@ -22,110 +25,54 @@ public class ShopItems {
 	}
 
 	public Collection<ShopItem> getShopItemsForSale() {
-		return Collections2.filter(shopItems, Predicates.shopItemsForSale);
+		return filter(shopItems, Predicates.shopItemsForSale);
 	}
 
-	private Collection<ShopItem> getSealedItems() {
-		return Collections2.filter(shopItems, keepSealedState);
+	public boolean hasShopItemInState(State state) {
+		return !shopItemsByState(state).isEmpty();
 	}
 
-	public int getMintQuantity() {
-		return getMintItems().size();
+	public int getAvailableCopyInState(State state) {
+		return shopItemsByState(state).size();
 	}
 
-	private Collection<ShopItem> getMintItems() {
-		return Collections2.filter(shopItems, keepMintState);
+	public double getAveragePriceInState(State state) {
+		Collection<ShopItem> shopItems = shopItemsByState(state);
+		if (shopItems.size() == 0) {
+			return 0;
+		}
+		double sum = 0;
+		for (ShopItem shopItem : shopItems) {
+			sum += shopItem.getPrice();
+		}
+		return sum / shopItems.size();
 	}
 
-	public int getUsedQuantity() {
-		return getUsedItems().size();
-	}
-
-	private Collection<ShopItem> getUsedItems() {
-		return Collections2.filter(shopItems, keepUsedState);
-	}
-
-	public String getSealedAverage() {
-		return getAverage(getSealedItems());
-	}
-
-	public String getSealedMax() {
-		return getMax(getSealedItems());
-	}
-
-	public String getSealedMin() {
-		return getMin(getSealedItems());
-	}
-
-	private String getMax(Collection<ShopItem> items) {
-		Double max = Double.MIN_VALUE;
-		for (ShopItem shopItem : items) {
+	public double getMaxPriceInState(State state) {
+		Double max = MIN_VALUE;
+		for (ShopItem shopItem : shopItemsByState(state)) {
 			max = Math.max(max, shopItem.getPrice());
 		}
-		if (max.equals(Double.MIN_VALUE)) {
-			return "";
+		if (max.equals(MIN_VALUE)) {
+			return 0;
 		}
-		return "$" + max;
+		return max;
 	}
 
-	private String getMin(Collection<ShopItem> items) {
-		Double min = Double.MAX_VALUE;
-		for (ShopItem shopItem : items) {
+	public double getMinPriceInState(State state) {
+		Double min = MAX_VALUE;
+		for (ShopItem shopItem : shopItemsByState(state)) {
 			min = Math.min(min, shopItem.getPrice());
 		}
-		if (min.equals(Double.MAX_VALUE)) {
-			return "";
+		if (min.equals(MAX_VALUE)) {
+			return 0;
 		}
-		return "$" + min;
+		return min;
 	}
 
-	private String getAverage(Collection<ShopItem> items) {
-		Double average = 0D;
-		for (ShopItem shopItem : items) {
-			average += shopItem.getPrice();
-		}
-		if (average.equals(0D)) {
-			return "";
-		}
-		return "$" + (average / shopItems.size());
+	private Collection<ShopItem> shopItemsByState(State state) {
+		return filter(shopItems, new StateFilter(state.getTitle()));
 	}
-
-	public String getMintAverage() {
-		return getAverage(getMintItems());
-	}
-
-	public String getMintMax() {
-		return getMax(getMintItems());
-	}
-
-	public String getMintMin() {
-		return getMin(getMintItems());
-	}
-
-	public String getUsedAverage() {
-		return getAverage(getUsedItems());
-	}
-
-	public String getUsedMax() {
-		return getMax(getUsedItems());
-	}
-
-	public String getUsedMin() {
-		return getMin(getUsedItems());
-	}
-
-	public int getSealedQuantity() {
-		return getSealedItems().size();
-	}
-
-	@Transient
-	private StateFilter keepSealedState = new StateFilter("Sealed");
-
-	@Transient
-	private StateFilter keepMintState = new StateFilter("Mint");
-
-	@Transient
-	private StateFilter keepUsedState = new StateFilter("Used");
 
 	private class StateFilter implements Predicate<ShopItem> {
 		private String state;
@@ -142,5 +89,4 @@ public class ShopItems {
 			return shopItem.isSold() && state.equals(shopItem.getState().getTitle());
 		}
 	}
-
 }

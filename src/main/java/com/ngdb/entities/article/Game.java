@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import com.ngdb.entities.article.element.Genres;
 import com.ngdb.entities.reference.Box;
 import com.ngdb.entities.reference.Genre;
-import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
 
 @XmlRootElement(name = "game")
@@ -31,9 +30,6 @@ public class Game extends Article {
 	@Embedded
 	@XmlTransient
 	private Genres genres;
-
-	@OneToOne
-	private Platform platform;
 
 	@OneToOne
 	private Box box;
@@ -69,14 +65,6 @@ public class Game extends Article {
 
 	public Genres getGenres() {
 		return genres;
-	}
-
-	public void setPlatform(Platform platform) {
-		this.platform = platform;
-	}
-
-	public Platform getPlatform() {
-		return platform;
 	}
 
 	public void setBox(Box box) {

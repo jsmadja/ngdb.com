@@ -1,10 +1,23 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<div class="wishes">
-		<h1>Wishes</h1>
-		<t:grid source="wishes" row="wish" exclude="ModificationDate">
-			<p:CreationDateHeader>
-				Wish Date
-			</p:CreationDateHeader>
+		<div class="page-header">
+			<h1>Wishes</h1>
+		<div class="page-header">
+		<t:grid source="wishes" 
+				row="wish" 
+				exclude="ModificationDate"
+				rowsPerPage="10"
+				rowClass="rowClass">
+				<p:titleCell>
+					<img class="picture" style="float:left" src="${message:image.host.url}${wish.article.mainPicture.url}" title="${wish.article.title}" />
+            		<t:pageLink page="${viewPage}" context="wish.article">${wish.article.title}</t:pageLink>
+                </p:titleCell>
+                <p:userCell>
+                	<t:pageLink page="user/userView" context="wish.wisher"><b>${wish.wisher.login}</b></t:pageLink>
+                </p:userCell>
+       			<p:CreationDateHeader>
+					Wish Date
+				</p:CreationDateHeader>
 		</t:grid>
 	</div>
 </t:layout>

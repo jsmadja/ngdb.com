@@ -1,0 +1,5 @@
+<span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+	<t:pageLink page="${viewPage}" context="article">
+		<img class="thumbnail" src="${message:image.host.url}${article.mainPicture.url}" title="${article.title}" />
+	</t:pageLink>
+</span>

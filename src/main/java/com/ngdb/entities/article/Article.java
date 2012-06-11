@@ -33,6 +33,8 @@ import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.article.element.Reviews;
 import com.ngdb.entities.article.element.Tags;
 import com.ngdb.entities.reference.Origin;
+import com.ngdb.entities.reference.Platform;
+import com.ngdb.entities.reference.State;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.ShopItems;
 import com.ngdb.entities.shop.Wish;
@@ -99,6 +101,9 @@ public abstract class Article implements Comparable<Article> {
 	private Set<CollectionObject> owners;
 
 	private String details;
+
+	@OneToOne
+	private Platform platform;
 
 	public Article() {
 		creationDate = modificationDate = new Date();
@@ -232,5 +237,33 @@ public abstract class Article implements Comparable<Article> {
 	}
 
 	public abstract Class<?> getType();
+
+	public boolean hasShopItemInState(State state) {
+		return shopItems.hasShopItemInState(state);
+	}
+
+	public int getAvailableCopyInState(State state) {
+		return shopItems.getAvailableCopyInState(state);
+	}
+
+	public double getAveragePriceInState(State state) {
+		return shopItems.getAveragePriceInState(state);
+	}
+
+	public double getMaxPriceInState(State state) {
+		return shopItems.getMaxPriceInState(state);
+	}
+
+	public double getMinPriceInState(State state) {
+		return shopItems.getMinPriceInState(state);
+	}
+
+	public void setPlatform(Platform platform) {
+		this.platform = platform;
+	}
+
+	public Platform getPlatform() {
+		return platform;
+	}
 
 }

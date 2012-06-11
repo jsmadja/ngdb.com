@@ -4,10 +4,12 @@
 			<table>
 				<tr>
 					<td>
-						<img class="thumbnail" src="${message:image.host.url}${game.mainPicture.url}" title="${game.title}" />
+						<t:article.thumbnail article="game" />
 					</td>
 					<td>
-						<h1 class="header">${game.title}</h1>
+						<div class="page-header">
+							<h1 class="header">${game.title}</h1>
+						</div>
 						<table>
 							<tr><td class="grey"><b>#NGDB</b></td><td>${game.id}</td></tr>
 							<tr><td class="grey"><b>Release date</b></td>

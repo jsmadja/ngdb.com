@@ -7,12 +7,14 @@
 						<img class="thumbnail" src="${message:image.host.url}${shopItem.mainPicture.url}" title="${shopItem.title}" />
 					</td>
 					<td>
-						<h1 class="header">
-							${shopItem.title}
-						</h1>
-						<t:if test="message">
-							<b>${message}</b>
-						</t:if>
+						<div class="page-header">
+							<h1 class="header">
+								${shopItem.title}
+							</h1>
+							<t:if test="message">
+								<b>${message}</b>
+							</t:if>
+						</div>
 						<table>
 							<tr>
 								<td class="grey">

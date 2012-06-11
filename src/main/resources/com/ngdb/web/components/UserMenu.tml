@@ -2,16 +2,20 @@
 	<t:if test="user">
 	<a class="btn dropdown-toggle pull-right" data-toggle="dropdown" href="#">
 			<i class="icon-user"></i>
-			${username}
+				${username}
 			<span class="caret"></span>
 		</a>
 		<ul class="dropdown-menu">
-			<!-- 
 			<li>
-				<a href="#">Profile</a>
+				<a href="/wishbox/byUser/${userId}">My whishes (${numArticlesInWishList})</a>
+			</li>
+			<li>
+				<a href="/market/byUser/${userId}">My Shop (${numArticlesInShop})</a>
+			</li>
+			<li>
+				<a href="/museum/byUser/${userId}">My Collection (${numArticlesInCollection})</a>
 			</li>
 			<li class="divider"></li>
-			 -->
 			<li>
 				<t:actionLink t:id="logout" id="logout" >Logout</t:actionLink>
 			</li>
@@ -19,23 +23,5 @@
 		<p:else>
 			<t:pageLink page="user/UserCreate">Create an account</t:pageLink>
 		</p:else>
-			<div class="nav-collapse pull-right">
-				<ul class="nav">
-					<li>
-						<a href="/wishbox/byUser/${userId}">My whishes (${numArticlesInWishList})</a>
-					</li>
-					<li>
-						<a href="/market/byUser/${userId}">My Shop (${numArticlesInShop})</a>
-					</li>
-					<li>
-						<a href="/museum/byUser/${userId}">My Collection (${numArticlesInCollection})</a>
-					</li>
-<!--
-					<li>
-						<a href="/contact">Contact</a>
-					</li>
--->			
-				</ul>
-			</div>
 	</t:if>
 </div>

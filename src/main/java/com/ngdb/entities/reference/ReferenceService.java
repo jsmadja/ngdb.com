@@ -74,4 +74,8 @@ public class ReferenceService {
 		return (State) session.createCriteria(State.class).add(eq("title", title)).uniqueResult();
 	}
 
+	public List<State> findAllStates() {
+		return session.createCriteria(State.class).list();
+	}
+
 }

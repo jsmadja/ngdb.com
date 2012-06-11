@@ -1,8 +1,8 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
-	<t:actionLink class="btn btn-primary" t:id="collection" context="article">
+<span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+	<t:actionLink class="btn btn-primary" t:id="collection" context="article" t:mixins="jquery/tooltip" title="Add to your collection">
 		<i class="icon-plus icon-white"></i>
 		<t:if test="showText">
 			Add to your collection
 		</t:if>
 	</t:actionLink>
-</div>
+</span>

@@ -1,7 +1,9 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 	xmlns:p="tapestry:parameter">
 	<div class="market">
-		<h1>Market</h1>
+		<div class="page-header">
+			<h1>Market</h1>
+		</div>
 		<t:if test="shopItems">
 			<t:loop source="shopItems" value="shopItem">
 				<t:actionLink t:id="shopItem" id="shopItem" context="shopItem.id">

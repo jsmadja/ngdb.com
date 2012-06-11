@@ -5,12 +5,14 @@
 			<table>
 				<tr>
 					<td>
-						<img class="thumbnail" src="${message:image.host.url}${hardware.mainPicture.url}" title="${hardware.title}" />
+						<t:article.thumbnail article="hardware" />
 					</td>
 					<td>
-						<h1 class="header">
-							${hardware.title}
-						</h1>
+						<div class="page-header">
+							<h1 class="header">
+								${hardware.title}
+							</h1>
+						</div>
 						<table>
 							<tr>
 								<td class="grey">
@@ -27,6 +29,16 @@
 								<td>
 									<t:pagelink page="hardwares" context="literal:byreleaseDate,hardware.releaseDate">
 										${hardware.releaseDate}
+									</t:pagelink>
+								</td>
+							</tr>
+							<tr>
+								<td class="grey">
+									<b>Platform</b>
+								</td>
+								<td>
+									<t:pagelink page="hardwares" context="literal:byplatform,hardware.platform.id">
+										${hardware.platform.name}
 									</t:pagelink>
 								</td>
 							</tr>

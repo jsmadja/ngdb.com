@@ -19,10 +19,11 @@ import com.ngdb.entities.History;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.Origin;
+import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.web.model.OriginList;
-import com.ngdb.web.services.infrastructure.PictureService;
 import com.ngdb.web.services.infrastructure.CurrentUser;
+import com.ngdb.web.services.infrastructure.PictureService;
 
 @RequiresAuthentication
 public class HardwareUpdate {
@@ -56,6 +57,10 @@ public class HardwareUpdate {
 	@Validate("required")
 	private Date releaseDate;
 
+	@Property
+	@Validate("required")
+	private Platform platform;
+
 	@InjectPage
 	private HardwareView hardwareView;
 
@@ -70,7 +75,7 @@ public class HardwareUpdate {
 
 	@Inject
 	private CurrentUser userSession;
-	
+
 	void onActivate(Hardware hardware) {
 		if (hardware != null) {
 			this.hardware = hardware;
@@ -80,6 +85,7 @@ public class HardwareUpdate {
 			this.details = hardware.getDetails();
 			this.title = hardware.getTitle();
 			this.url = hardware.getMainPicture().getUrl();
+			this.platform = hardware.getPlatform();
 		}
 	}
 
@@ -100,6 +106,7 @@ public class HardwareUpdate {
 		hardware.setOrigin(origin);
 		hardware.setReleaseDate(releaseDate);
 		hardware.setTitle(title);
+		hardware.setPlatform(platform);
 		if (StringUtils.isNotBlank(url)) {
 			Picture picture = pictureService.store(url, hardware);
 			hardware.addPicture(picture);

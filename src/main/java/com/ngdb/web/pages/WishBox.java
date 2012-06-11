@@ -2,15 +2,17 @@ package com.ngdb.web.pages;
 
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.ngdb.entities.Population;
+import com.ngdb.entities.article.Game;
 import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.Category;
@@ -21,9 +23,8 @@ public class WishBox {
 	private Wish wish;
 
 	@Property
-	private Collection<Wish> wishes;
+	private List<Wish> wishes;
 
-	@Persist
 	private Category category;
 
 	@Inject
@@ -51,9 +52,27 @@ public class WishBox {
 			switch (category) {
 			case byUser:
 				User user = population.findById(id);
-				this.wishes = user.getWishes();
+				this.wishes = new ArrayList<Wish>(user.getWishes());
 				break;
 			}
 		}
+		Collections.sort(this.wishes);
+	}
+
+	public String getViewPage() {
+		if (wish.getArticle() instanceof Game) {
+			return "article/game/gameView";
+		}
+		return "article/hardware/hardwareView";
+	}
+
+	static int evenOdd = 0;
+
+	public String getRowClass() {
+		evenOdd++;
+		if (evenOdd % 2 == 0) {
+			return "odd";
+		}
+		return "even";
 	}
 }

@@ -1,18 +1,19 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 	xmlns:p="tapestry:parameter">
 	<div class="collection">
-		<h1>Game Collection</h1>
+		
+		<div class="page-header">
+			<h1>Game Collection</h1>
+		</div>
 		<t:loop source="games" value="game">
-			<t:pagelink page="article/game/gameView" context="game.id">
-				<img class="thumbnail" src="${message:image.host.url}${game.mainPicture.url}" title="${game.title}" />
-			</t:pagelink>
+			<t:article.thumbnail article="game" />
 		</t:loop>
-		<hr/>
-		<h1>Hardware Collection</h1>
+		
+		<div class="page-header">
+			<h1>Hardware Collection</h1>
+		</div>
 		<t:loop source="hardwares" value="hardware">
-			<t:pagelink page="article/hardware/hardwareView" context="hardware.id">
-				<img class="thumbnail" src="${message:image.host.url}${hardware.mainPicture.url}" title="${hardware.title}" />
-			</t:pagelink>
+			<t:article.thumbnail article="hardware" />
 		</t:loop>
 	</div>
 </t:layout>

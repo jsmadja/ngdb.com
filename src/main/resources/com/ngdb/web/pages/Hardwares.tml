@@ -1,6 +1,8 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<div class="hardwares">
-		<h1>Hardware</h1>
+		<div class="page-header">
+			<h1>Hardware</h1>
+		</div>
 <!-- 		<p> -->
 <!-- 			<a t:type="pageLink" class="btn btn-inverse" t:page="article/hardware/HardwareUpdate">Add a new hardware</a> -->
 <!-- 		</p> -->

@@ -40,8 +40,8 @@ public class Museum {
 			games = gameFactory.findAll();
 			hardwares = hardwareFactory.findAll();
 		} else {
-			games = currentUser.getUser().getGamesInCollection();
-			hardwares = currentUser.getUser().getHardwaresInCollection();
+			games = currentUser.getGamesInMuseum();
+			hardwares = currentUser.getHardwaresInMuseum();
 		}
 	}
 

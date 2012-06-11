@@ -1,13 +1,17 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 	xmlns:p="tapestry:parameter">
-	<h1>
-		<t:if test="editMode">
-			Edit game
-			<p:else>
-				Add new game
-			</p:else>
-		</t:if>
-	</h1>
+	<div class="page-header">
+		<h1>
+			<div class="page-header">
+				<t:if test="editMode">
+					Edit game
+					<p:else>
+						Add new game
+					</p:else>
+				</t:if>
+			</div>
+		</h1>
+	</div>
 	<div class="row">
 		<div class="span1">
 				<t:if test="editMode">

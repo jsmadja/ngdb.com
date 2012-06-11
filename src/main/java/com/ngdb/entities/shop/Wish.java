@@ -19,7 +19,7 @@ import com.ngdb.entities.article.Article;
 import com.ngdb.entities.user.User;
 
 @Entity
-public class Wish {
+public class Wish implements Comparable<Wish> {
 
 	@EmbeddedId
 	private WishId id;
@@ -111,6 +111,11 @@ public class Wish {
 
 			return true;
 		}
+	}
+
+	@Override
+	public int compareTo(Wish o) {
+		return o.creationDate.compareTo(creationDate);
 	}
 
 }

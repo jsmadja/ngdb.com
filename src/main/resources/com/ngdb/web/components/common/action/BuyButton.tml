@@ -1,6 +1,6 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
-	<t:actionLink t:id="buy" class="btn btn-success" context="shopItem">
+<span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+	<t:actionLink t:id="buy" class="btn btn-success" context="shopItem" t:mixins="jquery/tooltip" title="Buy it" >
 		<i class="icon-shopping-cart icon-white"></i>
 			&nbsp;${shopItem.currency} ${shopItem.price}
 	</t:actionLink>
-</div>
+</span>

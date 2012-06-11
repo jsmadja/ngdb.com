@@ -3809,7 +3809,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .navbar .btn-group {
-  padding: 5px 5px 6px;
+  padding: 0px 5px 6px;
   margin: 0;
 }
 
@@ -5058,6 +5058,22 @@ TABLE.t-data-grid THEAD TR TH {
 	margin:5px 0px 0px 3px;
 }
 
+.wishes img.picture {
+	width:80px;	
+}
+
+.wishes table {
+  width:100%;	
+}
+
+.user img.picture {
+	width:80px;	
+}
+
+.user table {
+  width:100%;	
+}
+
 .form-actions btn {
 	margin-right: 10px;	
 }
@@ -5075,5 +5091,10 @@ TABLE.t-data-grid THEAD TR TH {
 }
 
 .article_table img.picture {
-	width:50px;	
+	width:80px;	
 }
+
+.action span {
+	margin-left: 5px;	
+}
+

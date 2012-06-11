@@ -24,26 +24,14 @@
 			<td><b>Max</b></td>
 			<td><b>Min</b></td>
 		</tr>
-		<tr>
-			<td><b>Sealed</b></td>
-			<td>${article.shopItems.sealedQuantity}</td>
-			<td>${article.shopItems.sealedAverage}</td>
-			<td>${article.shopItems.sealedMax}</td>
-			<td>${article.shopItems.sealedMin}</td>
-		</tr>
-		<tr>
-			<td><b>Mint</b></td>
-			<td>${article.shopItems.mintQuantity}</td>
-			<td>${article.shopItems.mintAverage}</td>
-			<td>${article.shopItems.mintMax}</td>
-			<td>${article.shopItems.mintMin}</td>
-		</tr>
-		<tr>
-			<td><b>Used</b></td>
-			<td>${article.shopItems.usedQuantity}</td>
-			<td>${article.shopItems.usedAverage}</td>
-			<td>${article.shopItems.usedMax}</td>
-			<td>${article.shopItems.usedMin}</td>
-		</tr>
+		<t:loop source="sellHistory" value="sellItemHistory" >
+			<tr>
+				<td><b>${sellItemHistory.stateName}</b></td>
+				<td>${sellItemHistory.forSaleQuantity}</td>
+				<td>${sellItemHistory.averagePrice}</td>
+				<td>${sellItemHistory.maxPrice}</td>
+				<td>${sellItemHistory.minPrice}</td>
+			</tr>
+		</t:loop>
 	</table>
 </div>

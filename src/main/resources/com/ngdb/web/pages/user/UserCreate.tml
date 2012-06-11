@@ -1,41 +1,39 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
-	<div class="row-fluid show-grid">
-		<div class="span12">
-			<h1>New account</h1>
-			<t:form t:id="userForm" class="form-horizontal">
-				<t:errors />
-				<div class="control-group">
-					<fieldset>
-						<div class="control-group">
-							<t:label for="login" class="control-label">Login</t:label>
-							<div class="controls">
-								<t:textfield value="login" t:id="login" />
-							</div>
-						</div>
-						<div class="control-group">
-							<t:label for="email" class="control-label">Email address</t:label>
-							<div class="controls">
-								<t:textfield value="email" t:id="email" />
-							</div>
-						</div>
-						<div class="control-group">
-							<t:label for="password" class="control-label">Password</t:label>
-							<div class="controls">
-								<t:passwordfield value="password" t:id="password" />
-							</div>
-						</div>
-						<div class="control-group">
-							<t:label for="confirmPassword" class="control-label">Confirm Password</t:label>
-							<div class="controls">
-								<t:passwordfield value="confirmPassword" t:id="confirmPassword" />
-							</div>
-						</div>
-						<div class="form-actions">
-							<button class="btn btn-primary" type="submit">Sign up!</button>
-						</div>
-					</fieldset>
-				</div>
-			</t:form>
-		</div>
+	<div class="page-header">
+		<h1>New account</h1>
 	</div>
+	<t:form t:id="userForm" class="form-horizontal">
+		<t:errors />
+		<div class="control-group">
+			<fieldset>
+				<div class="control-group">
+					<t:label for="login" class="control-label">Login</t:label>
+					<div class="controls">
+						<t:textfield value="login" t:id="login" />
+					</div>
+				</div>
+				<div class="control-group">
+					<t:label for="email" class="control-label">Email address</t:label>
+					<div class="controls">
+						<t:textfield value="email" t:id="email" />
+					</div>
+				</div>
+				<div class="control-group">
+					<t:label for="password" class="control-label">Password</t:label>
+					<div class="controls">
+						<t:passwordfield value="password" t:id="password" />
+					</div>
+				</div>
+				<div class="control-group">
+					<t:label for="confirmPassword" class="control-label">Confirm Password</t:label>
+					<div class="controls">
+						<t:passwordfield value="confirmPassword" t:id="confirmPassword" />
+					</div>
+				</div>
+				<div class="form-actions">
+					<button class="btn btn-primary" type="submit">Sign up!</button>
+				</div>
+			</fieldset>
+		</div>
+	</t:form>
 </t:layout>

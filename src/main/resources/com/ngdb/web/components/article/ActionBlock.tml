@@ -1,6 +1,6 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<t:if test="user">
-		<a t:type="pageLink" class="btn btn-inverse" t:page="${updatePage}" t:context="article.id">Edit</a>
+		<t:common.action.editButton article="article" showText="${showText}" />
 	</t:if>
 	<t:if test="buyable">
 		<t:common.action.browseOffersButton article="article" showText="${showText}" />

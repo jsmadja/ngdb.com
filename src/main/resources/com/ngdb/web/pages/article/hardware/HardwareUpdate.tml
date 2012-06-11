@@ -1,13 +1,15 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 	xmlns:p="tapestry:parameter">
-	<h1>
-	<t:if test="editMode">
-			Edit hardware
-			<p:else>
-				Add new hardware
-			</p:else>
-		</t:if>
-	</h1>
+	<div class="page-header">
+		<h1>
+		<t:if test="editMode">
+				Edit hardware
+				<p:else>
+					Add new hardware
+				</p:else>
+			</t:if>
+		</h1>
+	</div>
 	<div class="row">
 		<div class="span1">
 			<t:if test="editMode">
@@ -38,6 +40,12 @@
 							<t:label for="releaseDate" class="control-label">Release Date</t:label>
 							<div class="controls">
 								<t:datefield value="releaseDate" t:id="releaseDate" />
+							</div>
+						</div>
+						<div class="control-group">
+							<t:label for="platform" class="control-label">Platform</t:label>
+							<div class="controls">
+								<t:select value="platform" model="platforms" t:id="platform" />
 							</div>
 						</div>
 						<div class="control-group">
