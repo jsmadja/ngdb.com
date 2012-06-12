@@ -2,6 +2,7 @@ package com.ngdb.web.pages.shop;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.SelectModel;
+import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
@@ -16,7 +17,6 @@ import com.ngdb.entities.reference.State;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.web.model.CurrencyList;
 import com.ngdb.web.model.StateList;
-import com.ngdb.web.pages.Index;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.PictureService;
 
@@ -61,6 +61,9 @@ public class ShopItemUpdate {
 	@Persist("entity")
 	private ShopItem shopItem;
 
+	@InjectPage
+	private ShopItemView shopItemView;
+
 	void onActivate(ShopItem shopItem) {
 		this.shopItem = shopItem;
 		if (shopItem != null) {
@@ -79,7 +82,7 @@ public class ShopItemUpdate {
 	Object onSuccess() {
 		ShopItem shopItem = new ShopItem();
 		shopItem.setArticle(article);
-		shopItem.setCurrency("USD");
+		shopItem.setCurrency(currency);
 		shopItem.setDetails(details);
 		shopItem.setPrice(price);
 		shopItem.setSeller(userSession.getUser());
@@ -90,7 +93,8 @@ public class ShopItemUpdate {
 			shopItem.addPicture(picture);
 			session.merge(picture);
 		}
-		return Index.class;
+		shopItemView.setShopItem(shopItem);
+		return shopItemView;
 	}
 
 	public SelectModel getStates() {

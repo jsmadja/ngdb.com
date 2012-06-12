@@ -19,21 +19,7 @@
 					</p:else>
 				</t:if>
 				${shopItem.seller.login}
-				<t:if test="canMarkAsSold">
-					<t:actionLink t:id="sold" class="btn btn-info"  id="sold" context="shopItem" t:mixins="jquery/tooltip" title="Mark as sold">
-						<i class="icon-ok icon-white"></i>
-					</t:actionLink>
-				</t:if>
-				<t:if test="canEdit">
-					<t:pageLink t:id="edit" class="btn btn-inverse" page="shop/shopItemUpdate" id="edit" context="shopItem" t:mixins="jquery/tooltip" title="Edit">
-						<i class="icon-edit icon-white"></i>
-					</t:pageLink>
-				</t:if>
-				<t:if test="canRemove">
-					<t:actionLink t:id="remove" class="btn btn-danger" id="remove" context="shopItem" t:mixins="jquery/tooltip" title="Delete">
-						<i class="icon-trash icon-white"></i>
-					</t:actionLink>
-				</t:if>
+				<t:shopItem.actionBlock shopItem="shopItem" showText="false" />
 			</t:loop>
 			<p:else>
 				<p>There is nothing to sell</p>

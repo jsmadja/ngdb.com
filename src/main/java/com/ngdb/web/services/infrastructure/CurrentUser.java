@@ -169,15 +169,25 @@ public class CurrentUser {
 	}
 
 	public boolean canMarkAsSold(ShopItem shopItem) {
-		return getUserFromDb().canMarkAsSold(shopItem);
+		return isLogged() && getUserFromDb().canMarkAsSold(shopItem);
 	}
 
 	public boolean canRemove(ShopItem shopItem) {
-		return getUserFromDb().canRemove(shopItem);
+		return isLogged() && getUserFromDb().canRemove(shopItem);
 	}
 
 	public boolean canEdit(ShopItem shopItem) {
 		return canMarkAsSold(shopItem);
+	}
+
+	public boolean isSeller(ShopItem shopItem) {
+		return isLoggedUser(shopItem.getSeller());
+	}
+
+	public boolean canBuy(ShopItem shopItem) {
+		boolean currentUserIsPotentialBuyer = isLogged() && shopItem.isNotAlreadyWantedBy(getUser());
+		boolean currentUserIsNotTheSeller = !isSeller(shopItem);
+		return currentUserIsNotTheSeller && currentUserIsPotentialBuyer;
 	}
 
 }

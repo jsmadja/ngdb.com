@@ -51,27 +51,7 @@
 						</table>
 					</td>
 					<td>
-						<t:if test="editable">
-							<a t:type="pageLink" class="btn btn-inverse" t:page="shop/ShopItemUpdate" t:context="shopItem">Edit</a>
-						</t:if>
-						<t:if test="buyable">
-							<t:actionlink class="btn btn-primary" t:id="buy">
-								<i class="icon-shopping-cart icon-white"></i>
-								Buy it
-							</t:actionlink>
-						</t:if>
-						<t:if test="removeable">
-							<t:actionlink class="btn btn-danger" t:id="remove">
-								<i class="icon-trash icon-white"></i>
-								Delete
-							</t:actionlink>
-						</t:if>
-						<t:if test="soldable">
-							<t:actionlink class="btn btn-info" t:id="sold">
-								<i class="icon-ok icon-white"></i>
-								Sold
-							</t:actionlink>
-						</t:if>
+						<t:shopItem.actionBlock shopItem="shopItem" showText="true" />
 					</td>
 				</tr>
 			</table>

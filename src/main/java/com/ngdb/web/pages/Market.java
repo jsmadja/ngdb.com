@@ -5,11 +5,9 @@ import static org.apache.commons.lang.StringUtils.isNotBlank;
 import java.util.Collection;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
-import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
@@ -19,7 +17,6 @@ import com.ngdb.entities.article.Article;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.Category;
-import com.ngdb.web.pages.shop.ShopItemView;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class Market {
@@ -41,9 +38,6 @@ public class Market {
 
 	@Persist
 	private Category category;
-
-	@InjectPage
-	private ShopItemView shopItemView;
 
 	@Inject
 	private CurrentUser currentUser;
@@ -97,41 +91,12 @@ public class Market {
 		this.category = category;
 	}
 
-	Object onActionFromShopItem(ShopItem shopItem) {
-		shopItemView.setShopItem(shopItem);
-		return shopItemView;
-	}
-
-	@CommitAfter
-	Object onActionFromSold(ShopItem shopItem) {
-		shopItem.sold();
-		return this;
-	}
-
-	@CommitAfter
-	Object onActionFromRemove(ShopItem shopItem) {
-		session.delete(shopItem);
-		return this;
-	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public User getUser() {
 		return currentUser.getUser();
-	}
-
-	public boolean getCanMarkAsSold() {
-		return currentUser.canMarkAsSold(shopItem);
-	}
-
-	public boolean getCanRemove() {
-		return currentUser.canRemove(shopItem);
-	}
-
-	public boolean getCanEdit() {
-		return currentUser.canEdit(shopItem);
 	}
 
 }

@@ -1,0 +1,26 @@
+<span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+	<t:if test="editable">
+		<t:pageLink class="btn btn-inverse" page="shop/ShopItemUpdate" t:context="shopItem">
+			<i class="icon-edit icon-white"></i>
+			<t:if test="showText">Edit</t:if>
+		</t:pageLink>
+	</t:if>
+	<t:if test="buyable">
+		<t:actionlink class="btn btn-primary" t:id="buy">
+			<i class="icon-shopping-cart icon-white"></i>
+			<t:if test="showText">Buy it</t:if>
+		</t:actionlink>
+	</t:if>
+	<t:if test="soldable">
+		<t:actionLink t:id="sold" class="btn btn-info"  id="sold" context="shopItem" t:mixins="jquery/tooltip" title="Mark as sold">
+			<i class="icon-ok icon-white"></i>
+			<t:if test="showText">Mark as sold</t:if>
+		</t:actionLink>
+	</t:if>
+	<t:if test="removeable">
+		<t:actionLink t:id="remove" class="btn btn-danger" id="remove" context="shopItem" t:mixins="jquery/tooltip" title="Delete">
+			<i class="icon-trash icon-white"></i>
+			<t:if test="showText">Delete</t:if>
+		</t:actionLink>
+	</t:if>	
+</span>
