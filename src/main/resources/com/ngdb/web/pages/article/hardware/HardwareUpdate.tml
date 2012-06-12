@@ -31,8 +31,6 @@
 						<div class="control-group">
 							<t:label for="mainPicture" class="control-label">Picture</t:label>
 							<div class="controls">
-								<t:textfield value="url" t:id="url" placeholder="direct link" />
-								or
 								<input t:type="upload" t:id="mainPicture" t:value="mainPicture">upload file</input>
 							</div>
 						</div>

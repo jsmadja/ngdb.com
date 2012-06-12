@@ -2,13 +2,11 @@ package com.ngdb.web.pages.article.hardware;
 
 import java.util.Date;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -41,10 +39,6 @@ public class HardwareUpdate {
 
 	@Inject
 	private Session session;
-
-	@Property
-	@Persist
-	private String url;
 
 	@Property
 	private String details;
@@ -84,15 +78,7 @@ public class HardwareUpdate {
 			this.releaseDate = hardware.getReleaseDate();
 			this.details = hardware.getDetails();
 			this.title = hardware.getTitle();
-			this.url = hardware.getMainPicture().getUrl();
 			this.platform = hardware.getPlatform();
-		}
-	}
-
-	@SetupRender
-	void init() {
-		if (url.equals(Picture.EMPTY.getUrl())) {
-			this.url = "";
 		}
 	}
 
@@ -107,12 +93,10 @@ public class HardwareUpdate {
 		hardware.setReleaseDate(releaseDate);
 		hardware.setTitle(title);
 		hardware.setPlatform(platform);
-		if (StringUtils.isNotBlank(url)) {
-			Picture picture = pictureService.store(url, hardware);
-			hardware.addPicture(picture);
-		} else if (this.mainPicture != null) {
+		if (this.mainPicture != null) {
 			Picture picture = pictureService.store(mainPicture, hardware);
 			hardware.addPicture(picture);
+			session.merge(picture);
 		}
 		hardwareView.setHardware(hardware);
 		history.add(hardware, userSession.getUser());

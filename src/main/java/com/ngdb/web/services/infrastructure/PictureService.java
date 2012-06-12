@@ -8,8 +8,6 @@ import static java.util.UUID.randomUUID;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import org.apache.tapestry5.upload.services.UploadedFile;
 import org.slf4j.Logger;
@@ -26,17 +24,6 @@ public class PictureService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(PictureService.class);
 
-	public Picture store(String url, Article article) {
-		try {
-			Picture picture = createPictureFromUrl(url, article);
-			picture.setArticle(article);
-			return picture;
-		} catch (IOException e) {
-			LOG.warn("Cannot create picture with url '" + url + "' for article " + article.getId(), e);
-		}
-		return Picture.EMPTY;
-	}
-
 	public Picture store(UploadedFile uploadedFile, Article article) {
 		try {
 			Picture picture = createPictureFromUploadedFile(uploadedFile, article);
@@ -44,17 +31,6 @@ public class PictureService {
 			return picture;
 		} catch (IOException e) {
 			LOG.warn("Cannot create picture with name '" + uploadedFile.getFileName() + "' for article " + article.getId(), e);
-		}
-		return Picture.EMPTY;
-	}
-
-	public Picture store(String url, ShopItem shopItem) {
-		try {
-			Picture picture = createPictureFromUrl(url, shopItem);
-			picture.setShopItem(shopItem);
-			return picture;
-		} catch (IOException e) {
-			LOG.warn("Cannot create picture with url '" + url + "' for shopItem " + shopItem.getId(), e);
 		}
 		return Picture.EMPTY;
 	}
@@ -70,22 +46,10 @@ public class PictureService {
 		return Picture.EMPTY;
 	}
 
-	private Picture createPictureFromUrl(String url, Article article) throws IOException, MalformedURLException {
-		InputStream fromStream = new URL(url).openStream();
-		String pictureName = name() + "." + extension(url);
-		return createPicture(article, fromStream, pictureName);
-	}
-
 	private Picture createPictureFromUploadedFile(UploadedFile uploadedFile, Article article) throws IOException {
 		InputStream fromStream = uploadedFile.getStream();
 		String pictureName = name() + "." + extension(uploadedFile.getFileName());
 		return createPicture(article, fromStream, pictureName);
-	}
-
-	private Picture createPictureFromUrl(String url, ShopItem shopItem) throws IOException, MalformedURLException {
-		InputStream fromStream = new URL(url).openStream();
-		String pictureName = name() + "." + extension(url);
-		return createPicture(shopItem, fromStream, pictureName);
 	}
 
 	private Picture createPictureFromUploadedFile(UploadedFile uploadedFile, ShopItem shopItem) throws IOException {

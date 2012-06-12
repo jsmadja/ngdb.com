@@ -1,6 +1,5 @@
 package com.ngdb.web.pages.shop;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.Persist;
@@ -29,10 +28,6 @@ public class ShopItemUpdate {
 
 	@Inject
 	private Session session;
-
-	@Persist
-	@Property
-	private String url;
 
 	@Persist
 	@Property
@@ -90,12 +85,10 @@ public class ShopItemUpdate {
 		shopItem.setSeller(userSession.getUser());
 		shopItem.setState(state);
 		shopItem = (ShopItem) session.merge(shopItem);
-		if (StringUtils.isNotBlank(url)) {
-			Picture picture = pictureService.store(url, shopItem);
-			shopItem.addPicture(picture);
-		} else if (this.mainPicture != null) {
+		if (this.mainPicture != null) {
 			Picture picture = pictureService.store(mainPicture, shopItem);
 			shopItem.addPicture(picture);
+			session.merge(picture);
 		}
 		return Index.class;
 	}
