@@ -22,7 +22,7 @@ public class NeoGeoMuseumLoader {
 	private static final String MVS_DATE_PATTERN = ".*MVS Cartridge:(" + DATE + ").*";
 	private static final String CD_DATE_PATTERN = ".*NEOGEO CD:(" + DATE + ").*";
 
-	public ExternalGame loadGameInfo(String html) {
+	private ExternalGame loadGameInfo(String html) {
 		html = clean(html);
 		ExternalGame game = new ExternalGame();
 		game.setTitle(extract(html, TITLE_PATTERN).toUpperCase());

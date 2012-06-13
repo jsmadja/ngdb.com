@@ -20,7 +20,7 @@ public class SellItemHistory {
 		this.forSaleQuantity = article.getAvailableCopyInState(state);
 		this.averagePrice = article.getAveragePriceInState(state);
 		this.maxPrice = article.getMaxPriceInState(state);
-		this.minPrice = article.getMaxPriceInState(state);
+		this.minPrice = article.getMinPriceInState(state);
 	}
 
 	public String getStateName() {

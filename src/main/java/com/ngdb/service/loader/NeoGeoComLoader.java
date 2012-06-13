@@ -39,7 +39,7 @@ public class NeoGeoComLoader {
 		return games;
 	}
 
-	public ExternalGame loadGameInfo(String html) {
+	private ExternalGame loadGameInfo(String html) {
 		String[] splits = html.split("</td>");
 		String nghColumn = clean(splits[1]);
 		String titleColumn = clean(splits[3]);

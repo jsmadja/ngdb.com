@@ -86,7 +86,7 @@ public class CurrentUser {
 		return get(User.class);
 	}
 
-	public boolean isLoggedUser(User user) {
+	private boolean isLoggedUser(User user) {
 		if (isAnonymous()) {
 			return false;
 		}

@@ -40,7 +40,7 @@ public class NeoGeoCDWorldLoader {
 		return games;
 	}
 
-	public ExternalGame loadGameInfo(String html) {
+	private ExternalGame loadGameInfo(String html) {
 		String[] splits = html.split("</td>");
 		String nghColumn = splits[0].trim();
 		String ngcdColumn = splits[1].trim();

@@ -160,8 +160,4 @@ public class ShopItem {
 		this.sold = true;
 	}
 
-	public boolean isInState(State state) {
-		return this.state.equals(state);
-	}
-
 }

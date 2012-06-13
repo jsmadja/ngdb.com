@@ -2,10 +2,11 @@
 	<div class="market">
 		<div class="page-header">
 			<h1>
-				<t:if test="username">${username}'s market</t:if>
-				<p:else>
-					Market
-				</p:else>
+				<t:if test="username">${username}'s market
+					<p:else>
+						Market
+					</p:else>
+				</t:if>
 			</h1>
 		</div>
 		<t:if test="shopItems">
