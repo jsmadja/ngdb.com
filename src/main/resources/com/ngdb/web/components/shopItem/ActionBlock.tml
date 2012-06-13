@@ -15,7 +15,7 @@
 				</t:if>
 				<t:if test="buyable">
 					<li>
-						<t:actionlink t:id="buy">
+						<t:actionlink t:id="buy" id="buy" context="shopItem">
 							Buy it
 						</t:actionlink>
 					</li>
