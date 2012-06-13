@@ -59,7 +59,6 @@ public class GameFactory {
 	}
 
 	public Long getNumGames() {
-
 		return (Long) session.createCriteria(Game.class).setProjection(rowCount()).uniqueResult();
 	}
 

@@ -65,7 +65,7 @@
 						</table>
 					</td>
 					<td>
-						<t:article.actionBlock article="hardware" showText="true" />
+						<t:article.actionBlock article="hardware" />
 					</td>
 				</tr>
 			</table>

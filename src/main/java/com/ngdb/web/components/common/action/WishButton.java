@@ -14,10 +14,6 @@ public class WishButton {
 	@Parameter
 	private Article article;
 
-	@Property
-	@Parameter
-	private boolean showText;
-
 	@Inject
 	private CurrentUser currentUser;
 
@@ -25,8 +21,18 @@ public class WishButton {
 	@Parameter
 	private String returnPage;
 
+	@Property
+	@Parameter
+	private boolean asButton;
+
 	@CommitAfter
 	Object onActionFromWish(Article article) {
+		currentUser.wish(article);
+		return returnPage;
+	}
+
+	@CommitAfter
+	Object onActionFromWishLink(Article article) {
 		currentUser.wish(article);
 		return returnPage;
 	}

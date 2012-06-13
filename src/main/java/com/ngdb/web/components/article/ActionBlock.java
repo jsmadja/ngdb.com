@@ -16,7 +16,7 @@ public class ActionBlock {
 
 	@Property
 	@Parameter(required = false)
-	private boolean showText;
+	private boolean asButton;
 
 	@Property
 	@Parameter

@@ -21,16 +21,16 @@ public class WishBox {
 		return (Long) session.createCriteria(Wish.class).setProjection(countDistinct("article")).uniqueResult();
 	}
 
-	public String getRankOf(Article article) {
+	public int getRankOf(Article article) {
 		List<Object[]> list = session.createSQLQuery("SELECT article_id,COUNT(*) FROM Wish GROUP BY article_id ORDER BY COUNT(*) DESC").list();
 		int rank = 1;
 		for (Object[] o : list) {
 			BigInteger articleId = (BigInteger) o[0];
 			if (article.getId().equals(articleId.longValue())) {
-				return Integer.toString(rank);
+				return rank;
 			}
 		}
-		return "N/A";
+		return Integer.MAX_VALUE;
 	}
 
 	public List<Wish> findAllWishes() {

@@ -1,9 +1,13 @@
 <span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
-	<t:actionLink class="btn btn-warning" t:id="wish" context="article" t:mixins="jquery/tooltip" title="Add to your wishlist">
-		<i class="icon-heart icon-white" />
-		<t:if test="showText">
-			Add to your wishlist
-		</t:if>
-	</t:actionLink>
+	<t:if test="asButton">
+		<t:actionLink class="btn btn-warning" t:id="wish" context="article" t:mixins="jquery/tooltip" title="Add to your wishlist">
+			<i class="icon-heart icon-white" />
+		</t:actionLink>
+		<p:else>
+			<t:actionLink class="btn btn-warning" t:id="wishLink" context="article">
+				Add to your wishlist
+			</t:actionLink>
+		</p:else>
+	</t:if>
 </span>
 

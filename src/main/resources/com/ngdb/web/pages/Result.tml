@@ -15,7 +15,7 @@
                 	</t:if>
                 </p:titleCell>
                 <p:actionsCell>
-					<t:article.actionBlock showText="false" article="result" />
+					<t:article.actionBlock asButton="true" article="result" />
                 </p:actionsCell>
 			</t:grid>
 		</div>

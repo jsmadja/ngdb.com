@@ -1,8 +1,12 @@
 <span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
-	<t:pageLink t:id="edit" class="btn btn-inverse" page="${updatePage}" context="article" t:mixins="jquery/tooltip" title="Edit">
-		<i class="icon-edit icon-white" />
-		<t:if test="showText">
-			Edit
-		</t:if>
-	</t:pageLink>
+	<t:if test="asButton">
+		<t:pageLink t:id="editButton" class="btn btn-inverse" page="${updatePage}" context="article" t:mixins="jquery/tooltip" title="Edit">
+			<i class="icon-edit icon-white" />
+		</t:pageLink>
+		<p:else>
+			<t:pageLink t:id="edit" page="${updatePage}" context="article">
+				Edit
+			</t:pageLink>
+		</p:else>
+	 </t:if>
 </span>

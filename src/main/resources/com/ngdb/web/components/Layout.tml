@@ -97,8 +97,10 @@
     <script>
 	  	<t:if test="user">
 	  		mixpanel.name_tag('${user.login}');
+			mixpanel.track('Navigation', {'titre' : document.title, 'url' : window.location.pathname, 'user': '${user.login}' });
 		  	<p:else>
 		  		mixpanel.name_tag('guest');
+		  		mixpanel.track('Navigation', {'titre' : document.title, 'url' : window.location.pathname, 'user': 'guest' });
 		  	</p:else>
 	  	</t:if>
 	  </script>

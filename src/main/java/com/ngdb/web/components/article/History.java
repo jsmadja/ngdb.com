@@ -49,15 +49,36 @@ public class History {
 	}
 
 	public String getCollectionRank() {
-		return museum.getRankOf(article);
+		return asRankString(museum.getRankOf(article));
 	}
 
 	public String getWishRank() {
-		return wishBox.getRankOf(article);
+		return asRankString(wishBox.getRankOf(article));
 	}
 
 	public int getNumAvailableCopy() {
 		return article.getAvailableCopyCount();
+	}
+
+	private String asRankString(int value) {
+		if (value == Integer.MAX_VALUE) {
+			return "N/A";
+		}
+		int hundredRemainder = value % 100;
+		int tenRemainder = value % 10;
+		if (hundredRemainder - tenRemainder == 10) {
+			return value + "th";
+		}
+		switch (tenRemainder) {
+		case 1:
+			return value + "st";
+		case 2:
+			return value + "nd";
+		case 3:
+			return value + "rd";
+		default:
+			return value + "th";
+		}
 	}
 
 }

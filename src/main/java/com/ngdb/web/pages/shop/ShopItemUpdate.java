@@ -64,6 +64,10 @@ public class ShopItemUpdate {
 	@InjectPage
 	private ShopItemView shopItemView;
 
+	void onActivate(Article article) {
+		this.article = article;
+	}
+
 	void onActivate(ShopItem shopItem) {
 		this.shopItem = shopItem;
 		if (shopItem != null) {

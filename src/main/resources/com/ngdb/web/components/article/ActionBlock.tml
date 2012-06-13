@@ -1,17 +1,52 @@
-<span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter" class="pull-right" >
 	<t:if test="user">
-		<t:common.action.editButton article="article" showText="${showText}" />
-	</t:if>
-	<t:if test="buyable">
-		<t:common.action.browseOffersButton article="article" showText="${showText}" />
-	</t:if>
-	<t:if test="sellable">
-		<t:common.action.sellButton article="article" showText="${showText}" />
-	</t:if>
-	<t:if test="wishable">
-		<t:common.action.wishButton article="article"  showText="${showText}" />
-	</t:if>
-	<t:if test="addableToCollection">
-		<t:common.action.addToCollectionButton article="article" showText="${showText}" />
+		<t:if test="asButton">
+			<t:common.action.editButton article="article" asButton="true" />
+			<t:if test="buyable">
+					<t:common.action.browseOffersButton article="article" asButton="true" />
+			</t:if>
+			<t:if test="sellable">
+					<t:common.action.sellButton article="article" asButton="true" />
+			</t:if>
+			<t:if test="wishable">
+					<t:common.action.wishButton article="article" asButton="true" />
+			</t:if>
+			<t:if test="addableToCollection">
+					<t:common.action.addToCollectionButton article="article" asButton="true" />
+			</t:if>
+			<p:else>
+				<div class="btn-group pull-right">
+					<a class="btn dropdown-toggle pull-right" data-toggle="dropdown" href="#">
+						Actions
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<t:common.action.editButton article="article" asButton="false" />
+						</li>
+						<t:if test="buyable">
+							<li>
+								<t:common.action.browseOffersButton article="article" asButton="false" />
+							</li>
+						</t:if>
+						<t:if test="sellable">
+							<li>
+								<t:common.action.sellButton article="article" asButton="false" />
+							</li>
+						</t:if>
+						<t:if test="wishable">
+							<li>
+								<t:common.action.wishButton article="article"  asButton="false" />
+							</li>
+						</t:if>
+						<t:if test="addableToCollection">
+							<li>
+								<t:common.action.addToCollectionButton article="article" asButton="false" />
+							</li>
+						</t:if>
+					</ul>
+				</div>
+			</p:else>
+		</t:if>
 	</t:if>
 </span>

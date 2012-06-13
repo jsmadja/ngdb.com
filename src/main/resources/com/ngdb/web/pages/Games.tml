@@ -1,5 +1,4 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-	xmlns:p="tapestry:parameter">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<div class="games article_table">
 		<div class="page-header">
 			<h1>Games</h1>
@@ -12,20 +11,18 @@
 		<div>
 			<t:grid source="games" 
 				row="game" 
-				add="actions" 
-				reorder="Title"
 				rowsPerPage="10"
 				rowClass="rowClass"
 				exclude="MegaCount,ReleaseDate,Ngh,Details,WishRank,Id,Buyable,Upc,WishersCount,OwnersCount,AvailableCopyCount,Upc">
 				<p:titleCell>
-					<img class="picture" style="float:left" src="${message:image.host.url}${game.mainPicture.url}" title="${game.title}" />
+					<t:pageLink page="article/game/gameView" context="game">
+						<img class="picture" style="float:left" src="${message:image.host.url}${game.mainPicture.url}" title="${game.title}" />
+					</t:pageLink>
             		<t:pageLink page="article/game/gameview" context="game.id">${game.title}</t:pageLink>
             		<br/><br/>
             		${game.platform.name} -${game.publisher.name} - ${game.origin.title}
+                	<t:article.actionBlock asButton="true" article="game" />
                 </p:titleCell>
-                <p:actionsCell>
-                	<t:article.actionBlock showText="false" article="game" />
-                </p:actionsCell>
 			</t:grid>
 		</div>
 	</div>

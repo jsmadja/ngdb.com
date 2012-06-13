@@ -1,9 +1,9 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<t:if test="user">
-	<a class="btn dropdown-toggle pull-right" data-toggle="dropdown" href="#">
-			<i class="icon-user"></i>
-				${username}
-			<span class="caret"></span>
+		<a class="btn dropdown-toggle pull-right" data-toggle="dropdown" href="#">
+				<i class="icon-user"></i>
+					${username}
+				<span class="caret"></span>
 		</a>
 		<ul class="dropdown-menu">
 			<li>

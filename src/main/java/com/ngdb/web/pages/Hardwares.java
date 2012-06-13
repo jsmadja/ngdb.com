@@ -8,7 +8,6 @@ import java.util.Date;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
-import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.joda.time.DateTime;
 
@@ -18,7 +17,6 @@ import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.web.Filter;
-import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class Hardwares {
 
@@ -30,9 +28,6 @@ public class Hardwares {
 
 	@Inject
 	private HardwareFactory hardwareFactory;
-
-	@Inject
-	private CurrentUser currentUser;
 
 	@Inject
 	private ReferenceService referenceService;
@@ -74,25 +69,4 @@ public class Hardwares {
 			break;
 		}
 	}
-
-	public boolean isAddableToCollection() {
-		return currentUser.canAddToCollection(hardware);
-	}
-
-	public boolean isWishable() {
-		return currentUser.canWish(hardware);
-	}
-
-	@CommitAfter
-	Object onActionFromCollection(Hardware hardware) {
-		currentUser.addToCollection(hardware);
-		return this;
-	}
-
-	@CommitAfter
-	Object onActionFromWish(Hardware hardware) {
-		currentUser.wish(hardware);
-		return this;
-	}
-
 }

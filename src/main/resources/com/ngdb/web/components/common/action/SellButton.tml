@@ -1,8 +1,12 @@
 <span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
-	<t:actionLink class="btn btn-danger" t:id="sell" context="article" t:mixins="jquery/tooltip" title="Sell yours">
-		<i class="icon-shopping-cart icon-white"></i>
-		<t:if test="showText">
-			Sell yours
-		</t:if>
-	</t:actionLink>
+	<t:if test="asButton">
+		<t:pageLink t:id="sellButton" class="btn btn-danger" page="shop/shopItemUpdate" context="article" t:mixins="jquery/tooltip" title="Sell yours">
+			<i class="icon-shopping-cart icon-white"></i>
+		</t:pageLink>
+		<p:else>
+			<t:pageLink t:id="sell" page="shop/shopItemUpdate" context="article">
+				Sell yours
+			</t:pageLink>
+		</p:else>
+	</t:if>
 </span>

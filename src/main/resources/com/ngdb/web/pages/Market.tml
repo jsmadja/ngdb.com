@@ -19,7 +19,6 @@
 					</p:else>
 				</t:if>
 				${shopItem.seller.login}
-				<t:shopItem.actionBlock shopItem="shopItem" showText="false" />
 			</t:loop>
 			<p:else>
 				<p>There is nothing to sell</p>

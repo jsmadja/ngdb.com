@@ -16,7 +16,7 @@ public class AddToCollectionButton {
 
 	@Property
 	@Parameter
-	private boolean showText;
+	private boolean asButton;
 
 	@Property
 	@Parameter
@@ -27,6 +27,12 @@ public class AddToCollectionButton {
 
 	@CommitAfter
 	Object onActionFromCollection(Article article) {
+		currentUser.addToCollection(article);
+		return returnPage;
+	}
+
+	@CommitAfter
+	Object onActionFromCollectionLink(Article article) {
 		currentUser.addToCollection(article);
 		return returnPage;
 	}

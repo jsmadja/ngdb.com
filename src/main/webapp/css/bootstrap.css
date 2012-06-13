@@ -5098,3 +5098,6 @@ TABLE.t-data-grid THEAD TR TH {
 	margin-left: 5px;	
 }
 
+.result table {
+  width:100%;	
+}

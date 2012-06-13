@@ -14,7 +14,7 @@ public class EditButton {
 
 	@Property
 	@Parameter
-	private boolean showText;
+	private boolean asButton;
 
 	public String getUpdatePage() {
 		if (article instanceof Game) {
