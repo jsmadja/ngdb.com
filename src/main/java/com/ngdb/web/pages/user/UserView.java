@@ -31,7 +31,7 @@ public class UserView {
 	}
 
 	public String getViewPage() {
-		if (wish.getArticle() instanceof Game) {
+		if (wish.getArticle().getType().equals(Game.class)) {
 			return "article/game/gameView";
 		}
 		return "article/hardware/hardwareView";
