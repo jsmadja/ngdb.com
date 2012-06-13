@@ -79,12 +79,14 @@ public class ActionBlock {
 	@CommitAfter
 	Object onActionFromSold(ShopItem shopItem) {
 		shopItem.sold();
-		return this;
+		marketPage.setUser(currentUser.getUser());
+		return marketPage;
 	}
 
 	@CommitAfter
 	Object onActionFromRemove(ShopItem shopItem) {
 		session.delete(shopItem);
-		return this;
+		marketPage.setUser(currentUser.getUser());
+		return marketPage;
 	}
 }

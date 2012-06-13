@@ -9,7 +9,6 @@ import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.hibernate.Session;
 
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.Population;
@@ -47,9 +46,6 @@ public class Market {
 
 	@Property
 	private String username;
-
-	@Inject
-	private Session session;
 
 	void onActivate(String filter, String value) {
 		if (isNotBlank(filter)) {
@@ -97,6 +93,11 @@ public class Market {
 
 	public User getUser() {
 		return currentUser.getUser();
+	}
+
+	public void setUser(User user) {
+		this.id = user.getId();
+		this.category = Category.byUser;
 	}
 
 }

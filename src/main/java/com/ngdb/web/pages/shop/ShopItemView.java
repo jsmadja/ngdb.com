@@ -20,6 +20,10 @@ public class ShopItemView {
 	@Property
 	private String message;
 
+	void onActivate(ShopItem shopItem) {
+		this.shopItem = shopItem;
+	}
+
 	@SetupRender
 	void onInit() {
 		User potentialBuyer = currentUser.getUser();

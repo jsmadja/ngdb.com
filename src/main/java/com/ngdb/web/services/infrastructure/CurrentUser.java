@@ -90,7 +90,7 @@ public class CurrentUser {
 		if (isAnonymous()) {
 			return false;
 		}
-		return user.equals(getUser());
+		return user.getLogin().equals(getUser().getLogin());
 	}
 
 	public Long getUserId() {
@@ -181,6 +181,9 @@ public class CurrentUser {
 	}
 
 	public boolean isSeller(ShopItem shopItem) {
+		if (shopItem == null) {
+			return false;
+		}
 		return isLoggedUser(shopItem.getSeller());
 	}
 

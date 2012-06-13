@@ -1,16 +1,18 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-	xmlns:p="tapestry:parameter">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<div class="market">
 		<div class="page-header">
 			<h1>
-				<t:if test="username">${username}'s </t:if>Market
+				<t:if test="username">${username}'s market</t:if>
+				<p:else>
+					Market
+				</p:else>
 			</h1>
 		</div>
 		<t:if test="shopItems">
 			<t:loop source="shopItems" value="shopItem">
-				<t:actionLink t:id="shopItem" id="shopItem" context="shopItem.id">
+				<t:pageLink t:id="shopItem" id="shopItem" page="shop/shopItemView" context="shopItem.id">
 					<img class="thumbnail" width="150px" src="${message:image.host.url}${shopItem.mainPicture.url}" alt="${shopItem.title}" />
-				</t:actionLink>
+				</t:pageLink>
 				<b>${shopItem.title}</b>
 				<t:if test="user">
 					<t:common.action.buyButton shopItem="shopItem" />

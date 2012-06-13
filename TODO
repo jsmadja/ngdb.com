@@ -8,3 +8,4 @@ Carousel pour afficher les images d un shop item
 Carousel pour afficher les images d un article
 Museum par user doit etre accessible en anonyme
 Changer l'implementation de onSuccess dans GameView et HardwareView pour que ca soit currentUser.addCommentOn(article)
+Taille du Detail dans un ShopItemUpdate : JDBC batch update
