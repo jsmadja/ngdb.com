@@ -39,7 +39,7 @@ public class ReferenceService {
 	}
 
 	public List<String> getCurrencies() {
-		return asList("USD");
+		return asList("$");
 	}
 
 	public Genre findGenreById(Long id) {

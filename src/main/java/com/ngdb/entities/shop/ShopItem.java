@@ -50,7 +50,7 @@ public class ShopItem {
 
 	private Boolean sold = false;
 
-	private String currency = "USD";
+	private String currency = "$";
 
 	@Embedded
 	private PotentialBuyers potentialBuyers;

@@ -17,6 +17,7 @@ import com.ngdb.entities.reference.State;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.web.model.CurrencyList;
 import com.ngdb.web.model.StateList;
+import com.ngdb.web.pages.Market;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.PictureService;
 
@@ -45,6 +46,7 @@ public class ShopItemUpdate {
 	private ReferenceService referenceService;
 
 	@Persist
+	@Property
 	private Article article;
 
 	@Inject
@@ -64,22 +66,25 @@ public class ShopItemUpdate {
 	@InjectPage
 	private ShopItemView shopItemView;
 
-	void onActivate(Article article) {
-		this.article = article;
+	Object onActivate() {
+		return Market.class;
 	}
 
-	void onActivate(ShopItem shopItem) {
+	boolean onActivate(Article article) {
+		this.article = article;
+		this.currency = "$";
+		this.state = referenceService.findStateByTitle("Used");
+		return true;
+	}
+
+	boolean onActivate(ShopItem shopItem) {
 		this.shopItem = shopItem;
-		if (shopItem != null) {
-			this.article = shopItem.getArticle();
-			this.currency = shopItem.getCurrency();
-			this.details = shopItem.getDetails();
-			this.price = shopItem.getPrice();
-			this.state = shopItem.getState();
-		} else {
-			this.currency = "USD";
-			this.state = referenceService.findStateByTitle("Used");
-		}
+		this.article = shopItem.getArticle();
+		this.currency = shopItem.getCurrency();
+		this.details = shopItem.getDetails();
+		this.price = shopItem.getPrice();
+		this.state = shopItem.getState();
+		return true;
 	}
 
 	@CommitAfter
@@ -107,14 +112,6 @@ public class ShopItemUpdate {
 
 	public SelectModel getCurrencies() {
 		return new CurrencyList(referenceService.getCurrencies());
-	}
-
-	public void setArticle(Article article) {
-		this.article = article;
-	}
-
-	public Article getArticle() {
-		return article;
 	}
 
 }

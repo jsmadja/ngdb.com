@@ -56,6 +56,12 @@ public class Market {
 		}
 	}
 
+	boolean onActivate(User user) {
+		this.category = Category.byUser;
+		this.id = user.getId();
+		return true;
+	}
+
 	@SetupRender
 	public void init() {
 		if (category == null || category == Category.none) {

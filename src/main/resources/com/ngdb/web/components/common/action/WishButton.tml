@@ -4,7 +4,7 @@
 			<i class="icon-heart icon-white" />
 		</t:actionLink>
 		<p:else>
-			<t:actionLink class="btn btn-warning" t:id="wishLink" context="article">
+			<t:actionLink t:id="wishLink" context="article">
 				Add to your wishlist
 			</t:actionLink>
 		</p:else>

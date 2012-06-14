@@ -11,17 +11,23 @@
 		</div>
 		<t:if test="shopItems">
 			<t:loop source="shopItems" value="shopItem">
-				<t:pageLink t:id="shopItem" id="shopItem" page="shop/shopItemView" context="shopItem.id">
-					<img class="thumbnail" width="150px" src="${message:image.host.url}${shopItem.mainPicture.url}" alt="${shopItem.title}" />
-				</t:pageLink>
-				<b>${shopItem.title}</b>
-				<t:if test="user">
-					<t:common.action.buyButton shopItem="shopItem" />
-					<p:else>
-						${shopItem.currency} ${shopItem.price}
-					</p:else>
-				</t:if>
-				${shopItem.seller.login}
+				<span>
+					<t:pageLink t:id="shopItem" id="shopItem" page="shop/shopItemView" context="shopItem.id">
+						<img class="thumbnail" width="150px" src="${message:image.host.url}${shopItem.mainPicture.url}" alt="${shopItem.title}" />
+					</t:pageLink>
+					<p style="text-align:center;width:170px">
+						<b>${shopItem.title}</b>
+					</p>
+					<p style="text-align:center;width:170px">
+						<t:if test="user">
+							<t:common.action.buyButton shopItem="shopItem" />
+							<p:else>
+								${shopItem.currency}${shopItem.price}
+							</p:else>
+						</t:if>
+						<t:pageLink page="market" context="shopItem.seller">${shopItem.seller.login}</t:pageLink>
+					</p>
+				</span>
 			</t:loop>
 			<p:else>
 				<p>There is nothing to sell</p>
