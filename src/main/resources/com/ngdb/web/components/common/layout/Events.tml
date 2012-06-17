@@ -13,13 +13,13 @@
 		<li class="events-header">Shop</li>
 				<t:loop value="shopItem" source="shopItems">
 					<li>
-						<t:actionLink t:id="shopItem" id="shopItem" context="shopItem.id">
-							${shopItem.title} (${shopItem.currency} ${shopItem.price})
-						</t:actionLink>
+						<t:pageLink page="shop/shopItemView" context="shopItem">
+							${shopItem.title} (${shopItem.currency}${shopItem.price})
+						</t:pageLink>
 					</li>
 				</t:loop>
 			<li>
-				<t:pageLink page="market" t:id="more" id="more">more ...</t:pageLink>
+				<t:pageLink page="market">more ...</t:pageLink>
 			</li>
 		</t:if>
 	<t:if test="releases">

@@ -16,7 +16,6 @@ import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.element.Comment;
 import com.ngdb.entities.shop.ShopItem;
-import com.ngdb.web.Category;
 import com.ngdb.web.pages.Market;
 import com.ngdb.web.pages.article.game.GameView;
 import com.ngdb.web.pages.article.hardware.HardwareView;
@@ -82,16 +81,6 @@ public class Events {
 		}
 		hardwareView.setHardware((Hardware) article);
 		return hardwareView;
-	}
-
-	Object onActionFromMore() {
-		marketPage.setCategory(Category.none);
-		return marketPage;
-	}
-
-	Object onActionFromShopItem(ShopItem shopItem) {
-		shopItemView.setShopItem(shopItem);
-		return shopItemView;
 	}
 
 }

@@ -13,7 +13,7 @@
 			<t:if test="message">
 				<b>${message}</b>
 			</t:if>
-<!-- 			<t:shopItem.shopActionBlock item="shopItem.id" /> -->
+			<t:shopItem.shopActionBlock item="shopItem" />
 			<table>
 				<tr>
 					<td>
