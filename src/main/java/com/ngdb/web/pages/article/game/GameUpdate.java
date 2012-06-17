@@ -104,7 +104,7 @@ public class GameUpdate {
 	}
 
 	@CommitAfter
-	Object onSuccess() {
+	public Object onSuccess() {
 		Game game = new Game();
 		if (isEditMode()) {
 			game = this.game;

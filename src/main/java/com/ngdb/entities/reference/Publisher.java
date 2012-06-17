@@ -20,6 +20,9 @@ public class Publisher extends AbstractEntity implements Comparable<Publisher> {
 
 	@Override
 	public int compareTo(Publisher publisher) {
+		if (publisher == null) {
+			return 0;
+		}
 		return name.compareTo(publisher.name);
 	}
 

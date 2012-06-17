@@ -5,6 +5,7 @@ import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.upload.services.UploadedFile;
@@ -17,7 +18,6 @@ import com.ngdb.entities.reference.State;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.web.model.CurrencyList;
 import com.ngdb.web.model.StateList;
-import com.ngdb.web.pages.Market;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.PictureService;
 
@@ -36,10 +36,12 @@ public class ShopItemUpdate {
 
 	@Persist
 	@Property
+	@Validate("required")
 	private Double price;
 
 	@Persist
 	@Property
+	@Validate("required")
 	private String details;
 
 	@Inject
@@ -66,10 +68,6 @@ public class ShopItemUpdate {
 	@InjectPage
 	private ShopItemView shopItemView;
 
-	Object onActivate() {
-		return Market.class;
-	}
-
 	boolean onActivate(Article article) {
 		this.article = article;
 		this.currency = "$";
@@ -88,8 +86,11 @@ public class ShopItemUpdate {
 	}
 
 	@CommitAfter
-	Object onSuccess() {
+	public Object onSuccess() {
 		ShopItem shopItem = new ShopItem();
+		if (this.shopItem != null) {
+			shopItem = this.shopItem;
+		}
 		shopItem.setArticle(article);
 		shopItem.setCurrency(currency);
 		shopItem.setDetails(details);

@@ -7,4 +7,5 @@ http://localhost:8080/wishbox
 http://localhost:8080/users
 http://localhost:8080/user/view/2
 http://localhost:8080/shop/itemview
-http://localhost:8080/shop/itemview/786432
+http://localhost:8080/shop/itemview/819200
+http://localhost:8080/market/2

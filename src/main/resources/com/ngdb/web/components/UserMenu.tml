@@ -10,7 +10,7 @@
 				<a href="/wishbox/byUser/${userId}">My whishes (${numArticlesInWishList})</a>
 			</li>
 			<li>
-				<a href="/market/byUser/${userId}">My Shop (${numArticlesInShop})</a>
+				<a href="/market/${userId}">My Shop (${numArticlesInShop})</a>
 			</li>
 			<li>
 				<a href="/museum/byUser/${userId}">My Collection (${numArticlesInCollection})</a>

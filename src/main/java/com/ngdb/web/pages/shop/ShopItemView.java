@@ -43,5 +43,4 @@ public class ShopItemView {
 	public ShopItem getShopItem() {
 		return shopItem;
 	}
-
 }
