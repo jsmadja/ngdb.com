@@ -10,7 +10,6 @@ import org.apache.tapestry5.services.Request;
 import org.hibernate.Session;
 import org.tynamo.security.services.SecurityService;
 
-import com.ngdb.entities.Market;
 import com.ngdb.entities.Population;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.shop.ShopItem;
@@ -35,9 +34,6 @@ public class CurrentUser {
 
 	@Inject
 	private Session session;
-
-	@Inject
-	private Market market;
 
 	public User login(String login, String password) {
 		Subject currentUser = securityService.getSubject();
