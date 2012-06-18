@@ -14,8 +14,6 @@ import com.ngdb.entities.HardwareFactory;
 import com.ngdb.entities.Population;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.user.User;
-import com.ngdb.web.Category;
-import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class Museum {
 
@@ -32,9 +30,6 @@ public class Museum {
 	private Collection<? extends Article> hardwares;
 
 	@Inject
-	private CurrentUser currentUser;
-
-	@Inject
 	private GameFactory gameFactory;
 
 	@Inject
@@ -43,15 +38,10 @@ public class Museum {
 	@Inject
 	private Population population;
 
-	private Category category;
-
 	private Long id;
-
-	private User user;
 
 	void onActivate(String category, String value) {
 		if (isNotBlank(category)) {
-			this.category = Category.valueOf(Category.class, category);
 			if (StringUtils.isNumeric(value)) {
 				id = Long.valueOf(value);
 			}
@@ -64,10 +54,9 @@ public class Museum {
 			games = gameFactory.findAll();
 			hardwares = hardwareFactory.findAll();
 		} else {
-			user = population.findById(id);
+			User user = population.findById(id);
 			games = user.getGamesInCollection();
 			hardwares = user.getHardwaresInCollection();
 		}
 	}
-
 }
