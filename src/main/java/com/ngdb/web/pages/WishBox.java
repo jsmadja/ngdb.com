@@ -12,10 +12,11 @@ import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.ngdb.entities.Population;
-import com.ngdb.entities.article.Game;
 import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.Category;
+import com.ngdb.web.pages.base.EvenOdd;
+import com.ngdb.web.pages.base.Redirections;
 
 public class WishBox {
 
@@ -34,6 +35,8 @@ public class WishBox {
 	private Population population;
 
 	private Long id;
+
+	private EvenOdd evenOdd;
 
 	void onActivate(String category, String value) {
 		if (isNotBlank(category)) {
@@ -60,19 +63,10 @@ public class WishBox {
 	}
 
 	public String getViewPage() {
-		if (wish.getArticle().getType().equals(Game.class)) {
-			return "article/game/gameView";
-		}
-		return "article/hardware/hardwareView";
+		return Redirections.toViewPage(wish.getArticle());
 	}
 
-	static int evenOdd = 0;
-
 	public String getRowClass() {
-		evenOdd++;
-		if (evenOdd % 2 == 0) {
-			return "odd";
-		}
-		return "even";
+		return evenOdd.next();
 	}
 }
