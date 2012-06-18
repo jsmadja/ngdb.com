@@ -9,7 +9,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
-import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.joda.time.DateTime;
 
@@ -21,7 +20,7 @@ import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.web.Filter;
-import com.ngdb.web.services.infrastructure.CurrentUser;
+import com.ngdb.web.pages.base.EvenOdd;
 
 public class Games {
 
@@ -38,14 +37,13 @@ public class Games {
 	@Inject
 	private ReferenceService referenceService;
 
-	@Inject
-	private CurrentUser currentUser;
-
 	private Filter filter = Filter.none;
 
 	private String filterValue;
 
 	private Long id;
+
+	private EvenOdd evenOdd = new EvenOdd();
 
 	void onActivate(String filter, String value) {
 		if (isNotBlank(filter)) {
@@ -90,31 +88,8 @@ public class Games {
 		}
 	}
 
-	public boolean isAddableToCollection() {
-		return currentUser.canAddToCollection(game);
-	}
-
-	public boolean isWishable() {
-		return currentUser.canWish(game);
-	}
-
-	public boolean isBuyable() {
-		return game.isBuyable();
-	}
-
-	@CommitAfter
-	public boolean isSellable() {
-		return currentUser.canSell(game);
-	}
-
-	static int evenOdd = 0;
-
 	public String getRowClass() {
-		evenOdd++;
-		if (evenOdd % 2 == 0) {
-			return "odd";
-		}
-		return "even";
+		return evenOdd.next();
 	}
 
 }

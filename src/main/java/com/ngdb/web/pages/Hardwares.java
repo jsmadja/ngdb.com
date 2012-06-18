@@ -17,6 +17,7 @@ import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.web.Filter;
+import com.ngdb.web.pages.base.EvenOdd;
 
 public class Hardwares {
 
@@ -37,6 +38,8 @@ public class Hardwares {
 	private Long id;
 
 	private String filterValue;
+
+	private EvenOdd evenOdd = new EvenOdd();
 
 	void onActivate(String filter, String value) {
 		if (isNotBlank(filter)) {
@@ -69,4 +72,9 @@ public class Hardwares {
 			break;
 		}
 	}
+
+	public String getRowClass() {
+		return evenOdd.next();
+	}
+
 }

@@ -3,17 +3,15 @@
 		<div class="page-header">
 			<h1>Games</h1>
 		</div>
-		<!--
 		<p>
-			<a t:type="pageLink" class="btn btn-inverse" t:page="article/game/gameUpdate">Add a new game</a>
+			<t:pageLink class="btn btn-inverse" page="article/game/gameUpdate">Add a new game</t:pageLink>
 		</p>
-		-->
 		<div>
 			<t:grid source="games" 
 				row="game" 
 				rowsPerPage="10"
 				rowClass="rowClass"
-				exclude="MegaCount,ReleaseDate,Ngh,Details,WishRank,Id,Buyable,Upc,WishersCount,OwnersCount,AvailableCopyCount,Upc">
+				include="title">
 				<p:titleCell>
 					<t:pageLink page="article/game/gameView" context="game">
 						<img class="picture" style="float:left" src="${message:image.host.url}${game.mainPicture.url}" title="${game.title}" />

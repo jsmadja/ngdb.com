@@ -3,13 +3,14 @@
 		<div class="page-header">
 			<h1>Hardwares</h1>
 		</div>
-<!-- 		<p> -->
-<!-- 			<a t:type="pageLink" class="btn btn-inverse" t:page="article/hardware/HardwareUpdate">Add a new hardware</a> -->
-<!-- 		</p> -->
+		<p>
+			<t:pageLink class="btn btn-inverse" page="article/hardware/HardwareUpdate">Add a new hardware</t:pageLink>
+		</p>
 		<div>
 			<t:grid source="hardwares" 
 					row="hardware" 
-					exclude="Details,WishRank,Id,Buyable,AvailableCopyCount,OwnersCount,WishersCount,Upc">
+					rowClass="rowClass"
+					include="title">
 				<p:titleCell>
 	            	<t:pageLink page="article/hardware/hardwareView" context="hardware.id">${hardware.title}</t:pageLink>
                    	<t:article.actionBlock asButton="true" article="hardware" />
