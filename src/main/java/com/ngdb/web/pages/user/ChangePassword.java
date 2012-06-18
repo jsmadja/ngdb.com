@@ -11,8 +11,6 @@ import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.ngdb.entities.Population;
 import com.ngdb.entities.user.User;
@@ -21,8 +19,6 @@ import com.ngdb.web.services.TokenService;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class ChangePassword {
-
-	private static final Logger logger = LoggerFactory.getLogger(ChangePassword.class);
 
 	@Inject
 	private TokenService tokenService;
