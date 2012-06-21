@@ -5030,6 +5030,7 @@ TABLE.t-data-grid THEAD TR TH {
 
 .collection img.thumbnail {
 	display:inline;	
+	max-width: 100px;
 }
 
 .market img.thumbnail {
