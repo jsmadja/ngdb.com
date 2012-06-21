@@ -31,8 +31,8 @@ public class Init {
 	@CommitAfter
 	void onActivate() throws Exception {
 		Origin Japan = referenceService.findOriginByTitle("Japan");
-		// insertInDb(ROOT + "mvs.csv", Japan, referenceService.findPlatformByName("MVS"));
-		insertInDb(ROOT + "aes.csv", Japan, referenceService.findPlatformByName("AES"));
+		insertInDb(ROOT + "mvs.csv", Japan, referenceService.findPlatformByName("MVS"));
+		// insertInDb(ROOT + "aes.csv", Japan, referenceService.findPlatformByName("AES"));
 		// insertInDb(ROOT + "cd_jp.csv", Japan, referenceService.findPlatformByName("CD"));
 		// insertInDb(ROOT + "cd_us.csv", referenceService.findOriginByTitle("US"), referenceService.findPlatformByName("CD"));
 	}

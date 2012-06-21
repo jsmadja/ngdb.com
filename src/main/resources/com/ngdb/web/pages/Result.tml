@@ -8,7 +8,12 @@
 			<t:grid source="results" row="result" include="Title" add="actions">
 				<p:titleCell>
 					<t:if test="game">
-	            		<t:pageLink page="article/game/gameview" context="result.id">${result.title}</t:pageLink>
+						<t:pageLink page="article/game/gameView" context="result">
+							<img class="picture" style="float:left" src="${message:image.host.url}${result.mainPicture.url}" title="${result.title}" />
+						</t:pageLink>
+            			<t:pageLink page="article/game/gameview" context="result.id">${result.title}</t:pageLink>
+            			<br/><br/>
+            			${result.platform.name} - ${result.origin.title}
                 		<p:else>
 			            	<t:pageLink page="article/hardware/hardwareView" context="result.id">${result.title}</t:pageLink>
                 		</p:else>

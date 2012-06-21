@@ -39,8 +39,6 @@ public class SearchForm {
 
 	Object onSuccess() {
 		if (StringUtils.isNotBlank(search)) {
-			Collection<Article> articles = registry.findArticlesMatching(search);
-			result.setResults(articles);
 			result.setSearch(search);
 			return result;
 		}
