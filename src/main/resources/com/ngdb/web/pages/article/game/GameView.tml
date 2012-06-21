@@ -57,7 +57,7 @@
 					</td>
 					<td>
 						<t:pagelink page="games" context="literal:bypublisher,game.publisher.id">
-							${game?.publisher.name}
+							${game.publisher?.name}
 						</t:pagelink>
 					</td>
 				</tr>
