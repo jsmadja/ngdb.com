@@ -1,4 +1,4 @@
-package com.ngdb.web.pages.base;
+package com.ngdb.base;
 
 public class EvenOdd {
 

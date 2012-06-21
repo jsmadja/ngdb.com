@@ -20,7 +20,7 @@ public class State extends AbstractEntity implements Comparable<State> {
 
 	@Override
 	public int compareTo(State state) {
-		return title.compareTo(state.title);
+		return title.compareToIgnoreCase(state.title);
 	}
 
 	@Override

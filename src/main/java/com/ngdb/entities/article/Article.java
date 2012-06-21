@@ -140,6 +140,9 @@ public abstract class Article implements Comparable<Article> {
 	}
 
 	public void addPicture(Picture picture) {
+		if (pictures == null) {
+			pictures = new ArticlePictures();
+		}
 		pictures.add(picture);
 	}
 
@@ -225,7 +228,7 @@ public abstract class Article implements Comparable<Article> {
 
 	@Override
 	public int compareTo(Article article) {
-		return title.toLowerCase().compareTo(article.title.toLowerCase());
+		return title.compareToIgnoreCase(article.title);
 	}
 
 	@Override

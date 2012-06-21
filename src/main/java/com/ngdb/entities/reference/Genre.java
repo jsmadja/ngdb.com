@@ -21,7 +21,7 @@ public class Genre extends AbstractEntity implements Comparable<Genre> {
 
 	@Override
 	public int compareTo(Genre genre) {
-		return title.compareTo(genre.title);
+		return title.compareToIgnoreCase(genre.title);
 	}
 
 }

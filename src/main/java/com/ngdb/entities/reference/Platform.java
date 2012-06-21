@@ -20,7 +20,10 @@ public class Platform extends AbstractEntity implements Comparable<Platform> {
 
 	@Override
 	public int compareTo(Platform platform) {
-		return name.compareTo(platform.name);
+		if (name == null || platform.name == null) {
+			return 0;
+		}
+		return name.compareToIgnoreCase(platform.name);
 	}
 
 	@Override

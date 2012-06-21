@@ -2,8 +2,6 @@ package com.ngdb.entities;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -22,7 +20,7 @@ public class Registry {
 	private HardwareFactory hardwareFactory;
 
 	public Collection<Article> findArticlesMatching(final String search) {
-		Set<Article> articles = new TreeSet<Article>();
+		Collection<Article> articles = new ArrayList<Article>();
 		final String searchItem = search.toLowerCase().trim();
 		Collection<Game> games = gameFactory.findAll();
 		Collection<Game> matchingGames = Collections2.filter(games, new Predicate<Game>() {

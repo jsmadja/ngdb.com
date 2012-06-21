@@ -5,7 +5,7 @@
 			<h1>Results for '${search}'</h1>
 		</div>
 		<div>
-			<t:grid source="results" row="result" reorder="Title" add="actions" exclude="Details,WishRank,Id,Buyable,AvailableCopyCount,OwnersCount,WishersCount,Upc">
+			<t:grid source="results" row="result" include="Title" add="actions">
 				<p:titleCell>
 					<t:if test="game">
 	            		<t:pageLink page="article/game/gameview" context="result.id">${result.title}</t:pageLink>

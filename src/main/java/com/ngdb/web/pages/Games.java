@@ -12,6 +12,7 @@ import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.joda.time.DateTime;
 
+import com.ngdb.base.EvenOdd;
 import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.reference.Genre;
@@ -20,7 +21,6 @@ import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.web.Filter;
-import com.ngdb.web.pages.base.EvenOdd;
 
 public class Games {
 

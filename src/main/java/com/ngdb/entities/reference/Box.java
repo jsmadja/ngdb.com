@@ -20,6 +20,6 @@ public class Box extends AbstractEntity implements Comparable<Box> {
 
 	@Override
 	public int compareTo(Box box) {
-		return name.compareTo(box.name);
+		return name.compareToIgnoreCase(box.name);
 	}
 }

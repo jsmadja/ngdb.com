@@ -26,7 +26,7 @@ public class Origin extends AbstractEntity implements Comparable<Origin> {
 
 	@Override
 	public int compareTo(Origin origin) {
-		return title.compareTo(origin.title);
+		return title.compareToIgnoreCase(origin.title);
 	}
 
 }

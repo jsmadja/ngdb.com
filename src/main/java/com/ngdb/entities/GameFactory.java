@@ -78,6 +78,12 @@ public class GameFactory {
 		games = Collections2.filter(games, new Predicate<Game>() {
 			@Override
 			public boolean apply(Game game) {
+				if (game == null) {
+					return false;
+				}
+				if (game.getReleaseDate() == null) {
+					return false;
+				}
 				DateTime releaseDate = new DateTime(game.getReleaseDate().getTime());
 				return releaseDate.getDayOfMonth() == day && releaseDate.getMonthOfYear() == month;
 			}

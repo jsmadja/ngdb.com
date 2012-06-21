@@ -2,6 +2,7 @@ package com.ngdb.entities.article.element;
 
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.ElementCollection;
@@ -21,7 +22,7 @@ public class ArticlePictures {
 	@ElementCollection
 	@OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
 	@XmlElements({ @XmlElement(name = "picture") })
-	private Set<Picture> pictures;
+	private Set<Picture> pictures = new HashSet<Picture>();
 
 	public Picture first() {
 		if (pictures == null || pictures.isEmpty()) {

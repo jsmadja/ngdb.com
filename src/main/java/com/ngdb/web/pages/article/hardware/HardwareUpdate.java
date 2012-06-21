@@ -20,6 +20,7 @@ import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.web.model.OriginList;
+import com.ngdb.web.model.PlatformList;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.PictureService;
 
@@ -68,7 +69,7 @@ public class HardwareUpdate {
 	private History history;
 
 	@Inject
-	private CurrentUser userSession;
+	private CurrentUser currentUser;
 
 	void onActivate(Hardware hardware) {
 		if (hardware != null) {
@@ -93,13 +94,14 @@ public class HardwareUpdate {
 		hardware.setReleaseDate(releaseDate);
 		hardware.setTitle(title);
 		hardware.setPlatform(platform);
+		hardware = (Hardware) session.merge(hardware);
 		if (this.mainPicture != null) {
 			Picture picture = pictureService.store(mainPicture, hardware);
 			hardware.addPicture(picture);
 			session.merge(picture);
 		}
 		hardwareView.setHardware(hardware);
-		history.add(hardware, userSession.getUser());
+		history.add(hardware, currentUser.getUser());
 		return hardwareView;
 	}
 
@@ -109,6 +111,10 @@ public class HardwareUpdate {
 
 	public SelectModel getOrigins() {
 		return new OriginList(referenceService.getOrigins());
+	}
+
+	public SelectModel getPlatforms() {
+		return new PlatformList(referenceService.getPlatforms());
 	}
 
 }

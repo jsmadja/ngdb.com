@@ -17,7 +17,7 @@
 							<t:label for="price" class="control-label">Price</t:label>
 							<div class="controls">
 								<t:textfield value="price" t:id="price" />
-								<t:select value="currency" model="currencies" t:id="currency" />
+								<t:select style="max-width:50px" value="currency" model="currencies" t:id="currency" />
 							</div>
 						</div>
 						<div class="control-group">
