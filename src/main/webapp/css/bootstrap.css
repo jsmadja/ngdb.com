@@ -5101,3 +5101,7 @@ TABLE.t-data-grid THEAD TR TH {
 .result table {
   width:100%;	
 }
+
+.result img.picture {
+	width:80px;	
+}
