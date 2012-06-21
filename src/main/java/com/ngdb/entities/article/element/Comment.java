@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
 import org.ocpsoft.pretty.time.PrettyTime;
 
 import com.ngdb.entities.AbstractEntity;
@@ -34,7 +32,8 @@ public class Comment extends AbstractEntity {
 
 	public Comment(String text, User author, Article article) {
 		this.article = article;
-		String cleanedText = Jsoup.clean(text, Whitelist.none());
+		// String cleanedText = Jsoup.clean(text, Whitelist.none());
+		String cleanedText = text;
 		int end = cleanedText.length() < MAX_COMMENT_LENGTH ? cleanedText.length() : MAX_COMMENT_LENGTH;
 		this.text = cleanedText.substring(0, end);
 		this.author = author;
