@@ -2,8 +2,9 @@ package com.ngdb.web.pages;
 
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 
-import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Persist;
@@ -12,6 +13,7 @@ import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.joda.time.DateTime;
 
+import com.ngdb.Comparators;
 import com.ngdb.base.EvenOdd;
 import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.article.Game;
@@ -29,7 +31,7 @@ public class Games {
 	private Game game;
 
 	@Property
-	private Collection<Game> games;
+	private List<Game> games;
 
 	@Inject
 	private GameFactory gameFactory;
@@ -86,6 +88,7 @@ public class Games {
 			this.games = gameFactory.findAll();
 			break;
 		}
+		Collections.sort(games, Comparators.gamesByTitlePlatformOrigin);
 	}
 
 	public String getRowClass() {

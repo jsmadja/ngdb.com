@@ -1,12 +1,14 @@
 package com.ngdb.entities;
 
+import static com.google.common.collect.Collections2.filter;
 import static org.hibernate.criterion.Order.asc;
 import static org.hibernate.criterion.Projections.rowCount;
 import static org.hibernate.criterion.Restrictions.between;
 import static org.hibernate.criterion.Restrictions.eq;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Criteria;
@@ -14,7 +16,6 @@ import org.hibernate.Session;
 import org.joda.time.DateTime;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.reference.Genre;
 import com.ngdb.entities.reference.Origin;
@@ -27,23 +28,23 @@ public class GameFactory {
 	@Inject
 	private Session session;
 
-	public Collection<Game> findAllByReleaseDate(Date releaseDate) {
+	public List<Game> findAllByReleaseDate(Date releaseDate) {
 		return allGames().add(between("releaseDate", releaseDate, releaseDate)).list();
 	}
 
-	public Collection<Game> findAllByNgh(String ngh) {
+	public List<Game> findAllByNgh(String ngh) {
 		return allGames().add(eq("ngh", ngh)).list();
 	}
 
-	public Collection<Game> findAllByPlatform(Platform platform) {
+	public List<Game> findAllByPlatform(Platform platform) {
 		return allGames().add(eq("platform", platform)).list();
 	}
 
-	public Collection<Game> findAllByOrigin(Origin origin) {
+	public List<Game> findAllByOrigin(Origin origin) {
 		return allGames().add(eq("origin", origin)).list();
 	}
 
-	public Collection<Game> findAllByGenre(final Genre genre) {
+	public List<Game> findAllByGenre(final Genre genre) {
 		Criteria criteria = allGames();
 		Predicate<Game> additionnalFilter = new Predicate<Game>() {
 			@Override
@@ -51,10 +52,10 @@ public class GameFactory {
 				return game.isOfGenre(genre);
 			}
 		};
-		return Collections2.filter(criteria.list(), additionnalFilter);
+		return new ArrayList<Game>(filter(criteria.list(), additionnalFilter));
 	}
 
-	public Collection<Game> findAllByPublisher(Publisher publisher) {
+	public List<Game> findAllByPublisher(Publisher publisher) {
 		return allGames().add(eq("publisher", publisher)).list();
 	}
 
@@ -62,7 +63,7 @@ public class GameFactory {
 		return (Long) session.createCriteria(Game.class).setProjection(rowCount()).uniqueResult();
 	}
 
-	public Collection<Game> findAll() {
+	public List<Game> findAll() {
 		return allGames().list();
 	}
 
@@ -70,12 +71,12 @@ public class GameFactory {
 		return session.createCriteria(Game.class).addOrder(asc("title"));
 	}
 
-	public Collection<Game> findAllByReleasedToday() {
+	public List<Game> findAllByReleasedToday() {
 		DateTime date = new DateTime();
 		final int month = date.getMonthOfYear();
 		final int day = date.getDayOfMonth();
-		Collection<Game> games = findAll();
-		games = Collections2.filter(games, new Predicate<Game>() {
+		List<Game> games = findAll();
+		games = new ArrayList<Game>(filter(games, new Predicate<Game>() {
 			@Override
 			public boolean apply(Game game) {
 				if (game == null) {
@@ -87,7 +88,7 @@ public class GameFactory {
 				DateTime releaseDate = new DateTime(game.getReleaseDate().getTime());
 				return releaseDate.getDayOfMonth() == day && releaseDate.getMonthOfYear() == month;
 			}
-		});
+		}));
 		return games;
 	}
 
