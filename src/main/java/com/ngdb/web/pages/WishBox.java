@@ -36,7 +36,7 @@ public class WishBox {
 
 	private Long id;
 
-	private EvenOdd evenOdd;
+	private EvenOdd evenOdd = new EvenOdd();
 
 	void onActivate(String category, String value) {
 		if (isNotBlank(category)) {
