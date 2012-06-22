@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import org.apache.shiro.authz.Permission;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.ngdb.entities.AbstractEntity;
 import com.ngdb.entities.article.Article;
@@ -17,6 +19,7 @@ import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.Wish;
 
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractEntity {
 
 	@Column(nullable = false)

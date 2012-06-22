@@ -15,10 +15,14 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.user.User;
 
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Wish implements Comparable<Wish> {
 
 	@EmbeddedId

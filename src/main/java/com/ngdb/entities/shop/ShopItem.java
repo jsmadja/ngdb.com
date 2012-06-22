@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PreUpdate;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.article.element.ShopItemPictures;
@@ -20,6 +23,7 @@ import com.ngdb.entities.reference.State;
 import com.ngdb.entities.user.User;
 
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ShopItem {
 
 	@Column(name = "creation_date", nullable = false)

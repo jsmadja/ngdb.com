@@ -4,11 +4,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.ngdb.entities.AbstractEntity;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.shop.ShopItem;
 
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Picture extends AbstractEntity {
 
 	public static final Picture EMPTY = new Picture("/ngdb/unknown.png");

@@ -7,11 +7,15 @@ import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.ngdb.entities.AbstractEntity;
 
 @Entity
 @XmlRootElement(name = "origin")
 @XmlAccessorType(FIELD)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Origin extends AbstractEntity implements Comparable<Origin> {
 
 	@Column(unique = true, nullable = false)

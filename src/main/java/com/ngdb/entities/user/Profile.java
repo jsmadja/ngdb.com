@@ -7,9 +7,12 @@ import javax.persistence.Embeddable;
 
 import org.apache.shiro.authz.Permission;
 import org.apache.shiro.authz.permission.WildcardPermission;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.TypeDef;
 
 @Embeddable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @TypeDef(defaultForType = Profile.class, typeClass = ProfileUserType.class)
 public enum Profile {
 

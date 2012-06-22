@@ -25,6 +25,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.google.common.base.Objects;
 import com.ngdb.entities.article.element.ArticlePictures;
 import com.ngdb.entities.article.element.Comments;
@@ -45,6 +48,7 @@ import com.ngdb.entities.user.User;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @XmlRootElement(name = "article")
 @XmlAccessorType(FIELD)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public abstract class Article implements Comparable<Article> {
 
 	@XmlTransient

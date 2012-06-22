@@ -11,11 +11,15 @@ import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.google.common.base.Predicate;
 import com.ngdb.Predicates;
 import com.ngdb.entities.reference.State;
 
 @Embeddable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ShopItems {
 
 	@OneToMany(mappedBy = "article", fetch = FetchType.LAZY)

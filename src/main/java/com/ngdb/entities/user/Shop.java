@@ -8,11 +8,15 @@ import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.google.common.collect.Collections2;
 import com.ngdb.Predicates;
 import com.ngdb.entities.shop.ShopItem;
 
 @Embeddable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Shop {
 
 	@OneToMany(mappedBy = "seller", fetch = FetchType.LAZY)

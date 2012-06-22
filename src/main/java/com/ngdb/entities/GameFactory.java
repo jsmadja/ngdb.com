@@ -62,7 +62,7 @@ public class GameFactory {
 	}
 
 	public Long getNumGames() {
-		return (Long) session.createCriteria(Game.class).setProjection(rowCount()).uniqueResult();
+		return (Long) session.createCriteria(Game.class).setCacheable(true).setProjection(rowCount()).uniqueResult();
 	}
 
 	public List<Game> findAll() {

@@ -10,6 +10,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.ngdb.entities.article.element.Genres;
 import com.ngdb.entities.reference.Box;
 import com.ngdb.entities.reference.Genre;
@@ -18,6 +21,7 @@ import com.ngdb.entities.reference.Publisher;
 @Entity
 @XmlRootElement(name = "game")
 @XmlAccessorType(XmlAccessType.FIELD)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Game extends Article {
 
 	private String ngh;

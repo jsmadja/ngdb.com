@@ -9,10 +9,14 @@ import java.util.Set;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.shop.Wish;
 
 @Embeddable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class WishList implements Iterable<Wish> {
 
 	@OneToMany(mappedBy = "wisher", fetch = LAZY)

@@ -18,11 +18,11 @@ public class WishBox {
 	private Session session;
 
 	public Long getNumWishes() {
-		return (Long) session.createCriteria(Wish.class).setProjection(countDistinct("article")).uniqueResult();
+		return (Long) session.createCriteria(Wish.class).setCacheable(true).setProjection(countDistinct("article")).uniqueResult();
 	}
 
 	public int getRankOf(Article article) {
-		List<Object[]> list = session.createSQLQuery("SELECT article_id,COUNT(*) FROM Wish GROUP BY article_id ORDER BY COUNT(*) DESC").list();
+		List<Object[]> list = session.createSQLQuery("SELECT article_id,COUNT(*) FROM Wish GROUP BY article_id ORDER BY COUNT(*) DESC").setCacheable(true).list();
 		int rank = 1;
 		for (Object[] o : list) {
 			BigInteger articleId = (BigInteger) o[0];
@@ -34,7 +34,7 @@ public class WishBox {
 	}
 
 	public List<Wish> findAllWishes() {
-		return session.createCriteria(Wish.class).addOrder(desc("modificationDate")).list();
+		return session.createCriteria(Wish.class).setCacheable(true).addOrder(desc("modificationDate")).list();
 	}
 
 }

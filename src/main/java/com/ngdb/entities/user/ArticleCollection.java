@@ -13,9 +13,13 @@ import java.util.Set;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.ngdb.entities.article.Article;
 
 @Embeddable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ArticleCollection {
 
 	@OneToMany(mappedBy = "owner", fetch = LAZY)

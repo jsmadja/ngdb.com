@@ -6,6 +6,7 @@ import static org.hibernate.criterion.Restrictions.eq;
 import java.util.List;
 
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.CacheMode;
 import org.hibernate.Session;
 
 @SuppressWarnings("unchecked")
@@ -27,7 +28,7 @@ public class ReferenceService {
 	}
 
 	public List<Box> getBoxes() {
-		return session.createCriteria(Box.class).setCacheable(true).list();
+		return session.createCriteria(Box.class).setCacheMode(CacheMode.NORMAL).setCacheable(true).list();
 	}
 
 	public List<Origin> getOrigins() {
