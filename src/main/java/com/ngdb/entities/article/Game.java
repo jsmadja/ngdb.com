@@ -15,9 +15,9 @@ import com.ngdb.entities.reference.Box;
 import com.ngdb.entities.reference.Genre;
 import com.ngdb.entities.reference.Publisher;
 
+@Entity
 @XmlRootElement(name = "game")
 @XmlAccessorType(XmlAccessType.FIELD)
-@Entity
 public class Game extends Article {
 
 	private String ngh;

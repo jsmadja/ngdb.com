@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+
+	<diskStore path="java.io.tmpdir"/>
+    <defaultCache
+        maxElementsInMemory="10000"
+        eternal="false"
+        timeToIdleSeconds="120"
+        timeToLiveSeconds="120"
+        overflowToDisk="true" statistics="true" />
+        
+        <cache name="org.hibernate.cache.StandardQueryCache" 
+                maxElementsInMemory="10000"
+        eternal="false"
+        timeToIdleSeconds="120"
+        timeToLiveSeconds="120"
+        statistics="true" />
+<!-- 
+	<cache name="com.ngdb.entities.reference.Origin" eternal="true" overflowToDisk="false" />
+	<cache name="com.ngdb.entities.reference.Platform" eternal="true" overflowToDisk="false" />
+	<cache name="com.ngdb.entities.reference.State" eternal="true" overflowToDisk="false" />
+	<cache name="com.ngdb.entities.reference.Box" eternal="true" overflowToDisk="false" />
+	<cache name="com.ngdb.entities.reference.Genre" eternal="true" overflowToDisk="false" />
+	<cache name="com.ngdb.entities.reference.Publisher" eternal="true" overflowToDisk="false" />
+	 -->
+</ehcache>

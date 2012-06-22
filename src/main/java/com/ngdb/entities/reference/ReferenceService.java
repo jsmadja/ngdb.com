@@ -15,27 +15,27 @@ public class ReferenceService {
 	private Session session;
 
 	public List<Platform> getPlatforms() {
-		return session.createCriteria(Platform.class).list();
+		return session.createCriteria(Platform.class).setCacheable(true).list();
 	}
 
 	public List<Genre> getGenres() {
-		return session.createCriteria(Genre.class).list();
+		return session.createCriteria(Genre.class).setCacheable(true).list();
 	}
 
 	public List<Publisher> getPublishers() {
-		return session.createCriteria(Publisher.class).list();
+		return session.createCriteria(Publisher.class).setCacheable(true).list();
 	}
 
 	public List<Box> getBoxes() {
-		return session.createCriteria(Box.class).list();
+		return session.createCriteria(Box.class).setCacheable(true).list();
 	}
 
 	public List<Origin> getOrigins() {
-		return session.createCriteria(Origin.class).list();
+		return session.createCriteria(Origin.class).setCacheable(true).list();
 	}
 
 	public List<State> getStates() {
-		return session.createCriteria(State.class).list();
+		return session.createCriteria(State.class).setCacheable(true).list();
 	}
 
 	public List<String> getCurrencies() {
@@ -59,23 +59,23 @@ public class ReferenceService {
 	}
 
 	public Platform findPlatformByName(String platform) {
-		return (Platform) session.createCriteria(Platform.class).add(eq("name", platform)).uniqueResult();
+		return (Platform) session.createCriteria(Platform.class).add(eq("name", platform)).setCacheable(true).uniqueResult();
 	}
 
 	public Origin findOriginByTitle(String origin) {
-		return (Origin) session.createCriteria(Origin.class).add(eq("title", origin)).uniqueResult();
+		return (Origin) session.createCriteria(Origin.class).add(eq("title", origin)).setCacheable(true).uniqueResult();
 	}
 
 	public Publisher findPublisherByName(String publisher) {
-		return (Publisher) session.createCriteria(Publisher.class).add(eq("name", publisher)).uniqueResult();
+		return (Publisher) session.createCriteria(Publisher.class).add(eq("name", publisher)).setCacheable(true).uniqueResult();
 	}
 
 	public State findStateByTitle(String title) {
-		return (State) session.createCriteria(State.class).add(eq("title", title)).uniqueResult();
+		return (State) session.createCriteria(State.class).add(eq("title", title)).setCacheable(true).uniqueResult();
 	}
 
 	public List<State> findAllStates() {
-		return session.createCriteria(State.class).list();
+		return session.createCriteria(State.class).setCacheable(true).list();
 	}
 
 }

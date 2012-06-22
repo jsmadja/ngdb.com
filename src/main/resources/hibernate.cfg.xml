@@ -1,6 +1,6 @@
 <!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
@@ -9,12 +9,14 @@
 		<property name="hibernate.connection.username">ngdb</property>
 		<property name="hibernate.connection.password">ngdb</property>
 		<property name="hbm2ddl.auto">validate</property>
-		<property name="hibernate.show_sql">false</property>
+		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.format_sql">false</property>
 		<property name="hibernate.jdbc.factory_class">net.bull.javamelody.HibernateBatcherFactory</property>
 		<property name="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory</property>
-		<property name="cache.use_second_level_cache">true</property>
-		<property name="cache.use_query_cache">true</property>
+		<property name="hibernate.cache.use_second_level_cache">true</property>
+		<property name="hibernate.cache.use_query_cache">true</property>
 		<property name="hibernate.cache.use_structured_entries">false</property>
+		<property name="hibernate.generate_statistics">false</property> 
 	</session-factory>
 </hibernate-configuration>
+
