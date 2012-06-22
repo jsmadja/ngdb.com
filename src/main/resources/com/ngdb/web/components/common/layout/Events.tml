@@ -23,10 +23,10 @@
 			</li>
 		</t:if>
 	<t:if test="releases">
-		<li class="events-header">Released today</li>
+		<li class="events-header">Released in ${month}</li>
 		<t:loop value="release" source="releases">
 			<li>
-				<t:pageLink page="article/game/gameview" context="release.id">${release.title} [${release.origin.title}][${release.platform.name}]</t:pageLink>
+				<t:pageLink page="article/game/gameview" context="release.id">${release.title} - ${release.platform.name} ${release.origin.title}</t:pageLink>
 			</li>
 		</t:loop>
 	</t:if>

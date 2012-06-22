@@ -1,19 +1,21 @@
 package com.ngdb.entities;
 
 import static com.google.common.collect.Collections2.filter;
+import static com.ngdb.Predicates.releasedThisMonth;
 import static org.hibernate.criterion.Order.asc;
 import static org.hibernate.criterion.Projections.rowCount;
 import static org.hibernate.criterion.Restrictions.between;
 import static org.hibernate.criterion.Restrictions.eq;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.math.RandomUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.joda.time.DateTime;
 
 import com.google.common.base.Predicate;
 import com.ngdb.entities.article.Game;
@@ -68,28 +70,15 @@ public class GameFactory {
 	}
 
 	private Criteria allGames() {
-		return session.createCriteria(Game.class).addOrder(asc("title"));
+		return session.createCriteria(Game.class).setCacheable(true).addOrder(asc("title"));
 	}
 
-	public List<Game> findAllByReleasedToday() {
-		DateTime date = new DateTime();
-		final int month = date.getMonthOfYear();
-		final int day = date.getDayOfMonth();
+	public Collection<Game> findAllByReleasedThisMonth() {
 		List<Game> games = findAll();
-		games = new ArrayList<Game>(filter(games, new Predicate<Game>() {
-			@Override
-			public boolean apply(Game game) {
-				if (game == null) {
-					return false;
-				}
-				if (game.getReleaseDate() == null) {
-					return false;
-				}
-				DateTime releaseDate = new DateTime(game.getReleaseDate().getTime());
-				return releaseDate.getDayOfMonth() == day && releaseDate.getMonthOfYear() == month;
-			}
-		}));
-		return games;
+		return filter(games, releasedThisMonth);
 	}
 
+	public Game getRandomGame() {
+		return findAll().get(RandomUtils.nextInt(getNumGames().intValue()));
+	}
 }

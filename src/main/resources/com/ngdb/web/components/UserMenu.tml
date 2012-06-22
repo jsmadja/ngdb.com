@@ -21,7 +21,9 @@
 			</li>
 		</ul>
 		<p:else>
-			<t:pageLink page="user/UserCreate">Create an account</t:pageLink>
+			<div style="margin-top:10px">
+				<t:pageLink page="user/UserCreate">Create an account</t:pageLink>
+			</div>
 		</p:else>
 	</t:if>
 </div>

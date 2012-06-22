@@ -26,4 +26,37 @@
 			</p>
 		</div>
 	</div>
+	
+	<div class="row-fluid">
+		<div class="span4">
+			<p>
+				<t:pageLink page="article/game/gameView" context="randomGame1">
+					<img class="thumbnail" src="${message:image.host.url}${randomGame1.mainPicture.url}" title="${randomGame1.title}" />
+				</t:pageLink>
+			</p>
+			<p>
+				<t:pageLink class="btn" page="article/game/gameView" context="randomGame1">Do you own it ?</t:pageLink>
+			</p>
+		</div>
+		<div class="span4">
+			<p>
+				<t:pageLink page="article/game/gameView" context="randomGame2">
+					<img class="thumbnail" src="${message:image.host.url}${randomGame2.mainPicture.url}" title="${randomGame2.title}" />
+				</t:pageLink>
+			</p>
+			<p>
+				<t:pageLink class="btn" page="article/game/gameView" context="randomGame2">Do you want it ?</t:pageLink>
+			</p>
+		</div>
+		<div class="span4">
+			<p>
+				<t:pageLink page="article/game/gameView" context="randomGame3">
+					<img class="thumbnail" src="${message:image.host.url}${randomGame3.mainPicture.url}" title="${randomGame3.title}" />
+				</t:pageLink>
+			</p>
+			<p>
+				<t:pageLink class="btn" page="article/game/gameView" context="randomGame3">Do you sell it ?</t:pageLink>
+			</p>
+		</div>
+	</div>
 </t:layout>

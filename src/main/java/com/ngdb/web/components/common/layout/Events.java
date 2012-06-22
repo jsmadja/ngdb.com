@@ -1,7 +1,10 @@
 package com.ngdb.web.components.common.layout;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;
@@ -71,7 +74,7 @@ public class Events {
 	}
 
 	public Collection<Game> getReleases() {
-		return gameFactory.findAllByReleasedToday();
+		return gameFactory.findAllByReleasedThisMonth();
 	}
 
 	Object onActionFromComment(Article article) {
@@ -81,6 +84,10 @@ public class Events {
 		}
 		hardwareView.setHardware((Hardware) article);
 		return hardwareView;
+	}
+
+	public String getMonth() {
+		return new SimpleDateFormat("MMMMM", Locale.UK).format(new Date());
 	}
 
 }

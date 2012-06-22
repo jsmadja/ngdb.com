@@ -1,5 +1,7 @@
 package com.ngdb;
 
+import org.joda.time.DateTime;
+
 import com.google.common.base.Predicate;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
@@ -26,6 +28,20 @@ public class Predicates {
 		@Override
 		public boolean apply(Article input) {
 			return input.getType().equals(Hardware.class);
+		}
+	};
+
+	public static Predicate<Article> releasedThisMonth = new Predicate<Article>() {
+
+		public boolean apply(Article game) {
+			if (game == null) {
+				return false;
+			}
+			if (game.getReleaseDate() == null) {
+				return false;
+			}
+			final int month = new DateTime().getMonthOfYear();
+			return (game.getReleaseDate().getMonth() + 1) == month;
 		}
 	};
 

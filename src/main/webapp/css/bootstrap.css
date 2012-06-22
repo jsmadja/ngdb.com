@@ -5106,3 +5106,10 @@ TABLE.t-data-grid THEAD TR TH {
 .result img.picture {
 	width:80px;	
 }
+
+.updates {
+  margin-bottom: 18px;
+  margin-left: 0;
+  list-style: none;
+  font-size:8pt;
+}

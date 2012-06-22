@@ -1,12 +1,6 @@
-<div class="well sidebar-nav" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<div class="well sidebar-nav updates" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<ul class="nav nav-list">
-		<li>
-			<t:actionLink t:id="shopForSale" id="shopForSale" >For sale = ${forSaleCount}</t:actionLink>
-		</li>
-		<li>
-			Sold = ${soldCount}
-		</li>
-		<li class="nav-header">Stats</li>
+		<li class="nav-header">DB stats</li>
 		<li>
 			<t:pageLink page="games">${gameCount} games</t:pageLink>
 		</li>
@@ -19,5 +13,15 @@
 		<li>
 			<t:pageLink page="users">${userCount} users</t:pageLink>
 		</li>
+		<li>
+			<t:actionLink t:id="shopForSale" id="shopForSale" >${forSaleCount} items in market</t:actionLink>
+		</li>
+		
+		<li class="nav-header">Last updates</li>
+		<t:loop value="update" source="updates">
+			<li>
+				<t:pageLink page="article/game/gameview" context="update.id">${update.title} - ${update.platform.name} ${update.origin.title}</t:pageLink>
+			</li>
+		</t:loop>
 	</ul>
 </div>
