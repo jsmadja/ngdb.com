@@ -1,7 +1,15 @@
 package com.ngdb.web.pages;
 
+import static com.google.common.collect.Collections2.filter;
+import static com.ngdb.Predicates.keepAesOnly;
+import static com.ngdb.Predicates.keepCdOnly;
+import static com.ngdb.Predicates.keepJapanOnly;
+import static com.ngdb.Predicates.keepMvsOnly;
+import static com.ngdb.Predicates.keepUsaOnly;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +21,7 @@ import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.joda.time.DateTime;
 
+import com.google.common.base.Predicate;
 import com.ngdb.Comparators;
 import com.ngdb.base.EvenOdd;
 import com.ngdb.entities.GameFactory;
@@ -32,6 +41,7 @@ public class Games {
 	@Property
 	private Game game;
 
+	@Persist
 	@Property
 	private List<Game> games;
 
@@ -52,6 +62,8 @@ public class Games {
 
 	private EvenOdd evenOdd = new EvenOdd();
 
+	private List<Predicate> filters = new ArrayList<Predicate>();
+
 	void onActivate(String filter, String value) {
 		if (isNotBlank(filter)) {
 			this.filter = Filter.valueOf(Filter.class, filter);
@@ -60,6 +72,71 @@ public class Games {
 				this.id = Long.valueOf(filterValue);
 			}
 		}
+	}
+
+	Object onActionFromAes() {
+		filters.add(keepAesOnly);
+		return this;
+	}
+
+	public boolean isFilteredByAes() {
+		return filters.contains(keepAesOnly);
+	}
+
+	public int getNumGamesOfAES() {
+		return filter(this.games, keepAesOnly).size();
+	}
+
+	Object onActionFromMvs() {
+		filters.add(keepMvsOnly);
+		return this;
+	}
+
+	public boolean isFilteredByMvs() {
+		return filters.contains(keepMvsOnly);
+	}
+
+	public int getNumGamesOfMVS() {
+		return filter(this.games, keepMvsOnly).size();
+	}
+
+	Object onActionFromCd() {
+		filters.add(keepCdOnly);
+		return this;
+	}
+
+	public boolean isFilteredByCd() {
+		return filters.contains(keepMvsOnly);
+	}
+
+	public int getNumGamesOfCD() {
+		return filter(this.games, keepMvsOnly).size();
+	}
+
+	Object onActionFromJapan() {
+		filters.add(keepJapanOnly);
+		return this;
+	}
+
+	public boolean isFilteredByJapan() {
+		return filters.contains(keepJapanOnly);
+	}
+
+	public int getNumGamesOfJapan() {
+		return filter(this.games, keepJapanOnly).size();
+	}
+
+	Object onActionFromUsa() {
+		filters.add(keepUsaOnly);
+		return this;
+	}
+
+	public boolean isFilteredByUSA() {
+		return filters.contains(keepUsaOnly);
+	}
+
+	public int getNumGamesOfUSA() {
+		return filter(this.games, keepUsaOnly).size();
 	}
 
 	@SetupRender
@@ -93,6 +170,11 @@ public class Games {
 			this.games = gameFactory.findAll();
 			break;
 		}
+		Collection<Game> filteredGames = new ArrayList<Game>(games);
+		for (Predicate<Game> filter : filters) {
+			filteredGames = filter(filteredGames, filter);
+		}
+		this.games = new ArrayList<Game>(filteredGames);
 		Collections.sort(games, Comparators.gamesByTitlePlatformOrigin);
 	}
 

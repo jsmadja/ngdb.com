@@ -45,4 +45,39 @@ public class Predicates {
 		}
 	};
 
+	public static Predicate<Game> keepAesOnly = new Predicate<Game>() {
+		@Override
+		public boolean apply(Game game) {
+			return "AES".equals(game.getPlatform().getName());
+		}
+	};
+
+	public static Predicate<Game> keepMvsOnly = new Predicate<Game>() {
+		@Override
+		public boolean apply(Game game) {
+			return "MVS".equals(game.getPlatform().getName());
+		}
+	};
+
+	public static Predicate<Game> keepCdOnly = new Predicate<Game>() {
+		@Override
+		public boolean apply(Game game) {
+			return "CD".equals(game.getPlatform().getName());
+		}
+	};
+
+	public static Predicate<Game> keepJapanOnly = new Predicate<Game>() {
+		@Override
+		public boolean apply(Game game) {
+			return "Japan".equals(game.getOrigin().getTitle());
+		}
+	};
+
+	public static Predicate<Game> keepUsaOnly = new Predicate<Game>() {
+		@Override
+		public boolean apply(Game game) {
+			return "USA".equals(game.getOrigin().getTitle());
+		}
+	};
+
 }
