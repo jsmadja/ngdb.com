@@ -22,7 +22,7 @@ public class WishBox {
 	}
 
 	public int getRankOf(Article article) {
-		List<Object[]> list = session.createSQLQuery("SELECT article_id,COUNT(*) FROM Wish GROUP BY article_id ORDER BY COUNT(*) DESC").setCacheable(true).list();
+		List<Object[]> list = session.createSQLQuery("SELECT article_id,COUNT(*) FROM Wish GROUP BY article_id ORDER BY COUNT(*) DESC").list();
 		int rank = 1;
 		for (Object[] o : list) {
 			BigInteger articleId = (BigInteger) o[0];
