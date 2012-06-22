@@ -18,6 +18,7 @@ import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.web.Filter;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class Hardwares {
 
@@ -32,6 +33,9 @@ public class Hardwares {
 
 	@Inject
 	private ReferenceService referenceService;
+
+	@Inject
+	private CurrentUser currentUser;
 
 	private Filter filter = Filter.none;
 

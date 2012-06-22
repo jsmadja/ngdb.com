@@ -3,9 +3,11 @@
 		<div class="page-header">
 			<h1>Games</h1>
 		</div>
-		<p>
-			<t:pageLink class="btn btn-inverse" page="article/game/gameUpdate">Add a new game</t:pageLink>
-		</p>
+		<t:if test="user">
+			<p>
+				<t:pageLink class="btn btn-inverse" page="article/game/gameUpdate">Add a new game</t:pageLink>
+			</p>
+		</t:if>
 		<div>
 			<t:grid source="games" 
 				row="game" 

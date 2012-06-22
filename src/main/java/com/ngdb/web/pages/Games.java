@@ -22,7 +22,9 @@ import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
 import com.ngdb.entities.reference.ReferenceService;
+import com.ngdb.entities.user.User;
 import com.ngdb.web.Filter;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class Games {
 
@@ -38,6 +40,9 @@ public class Games {
 
 	@Inject
 	private ReferenceService referenceService;
+
+	@Inject
+	private CurrentUser currentUser;
 
 	private Filter filter = Filter.none;
 
@@ -93,6 +98,10 @@ public class Games {
 
 	public String getRowClass() {
 		return evenOdd.next();
+	}
+
+	public User getUser() {
+		return currentUser.getUser();
 	}
 
 }
