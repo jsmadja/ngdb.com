@@ -1,6 +1,7 @@
 package com.ngdb.entities.reference;
 
 import static java.util.Arrays.asList;
+import static org.hibernate.criterion.Order.asc;
 import static org.hibernate.criterion.Restrictions.eq;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class ReferenceService {
 	private Session session;
 
 	public List<Platform> getPlatforms() {
-		return session.createCriteria(Platform.class).setCacheable(true).list();
+		return session.createCriteria(Platform.class).setCacheable(true).addOrder(asc("name")).list();
 	}
 
 	public List<Genre> getGenres() {
@@ -32,7 +33,7 @@ public class ReferenceService {
 	}
 
 	public List<Origin> getOrigins() {
-		return session.createCriteria(Origin.class).setCacheable(true).list();
+		return session.createCriteria(Origin.class).setCacheable(true).addOrder(asc("title")).list();
 	}
 
 	public List<State> getStates() {

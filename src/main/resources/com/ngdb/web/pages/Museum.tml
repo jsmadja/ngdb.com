@@ -3,10 +3,21 @@
 	<div class="collection">
 		
 		<div class="page-header">
-			<h1>Game Collection</h1>
+			<h1>Museum</h1>
 		</div>
-		<t:loop source="games" value="game">
-			<t:article.thumbnail article="game" />
+		
+		<t:loop source="platforms" value="platform">
+			<t:loop source="origins" value="origin">
+				<t:if test="games">
+					<h2>${platform} from ${origin}</h2>
+					<t:loop source="games" value="game">
+						<t:article.thumbnail article="game" />
+					</t:loop>
+					<br/>
+					<br/>
+					<br/>
+				</t:if>
+			</t:loop>
 		</t:loop>
 		
 		<div class="page-header">

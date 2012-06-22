@@ -36,4 +36,9 @@ public class Origin extends AbstractEntity implements Comparable<Origin> {
 		return title.compareToIgnoreCase(origin.title);
 	}
 
+	@Override
+	public String toString() {
+		return title;
+	}
+
 }
