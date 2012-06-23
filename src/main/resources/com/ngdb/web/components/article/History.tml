@@ -1,4 +1,5 @@
 <div class="history" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+	<br/>
 	<table>
 		<tr>
 			<td>Collection:</td>
@@ -15,23 +16,29 @@
 			</td>
 		</tr>
 	</table>
-	<span style="background-color:lime">Shops: ${article.availableCopyCount} copy available</span>
-	<table>
-		<tr>
-			<td></td>
-			<td><b>Qty</b></td>
-			<td><b>Avg</b></td>
-			<td><b>Max</b></td>
-			<td><b>Min</b></td>
-		</tr>
-		<t:loop source="sellHistory" value="sellItemHistory" >
+	<br/>
+	<t:if test="buyable">
+		<span style="background-color:lime">Shops: ${article.availableCopyCount} copy available</span>
+	</t:if>
+	<t:if test="notEmpty">
+		<br/>
+		<table style="text-align:center; width:100%">
 			<tr>
-				<td><b>${sellItemHistory.stateName}</b></td>
-				<td>${sellItemHistory.forSaleQuantity}</td>
-				<td>${sellItemHistory.averagePrice}</td>
-				<td>${sellItemHistory.maxPrice}</td>
-				<td>${sellItemHistory.minPrice}</td>
+				<td></td>
+				<td><b>Qty</b></td>
+				<td><b>Avg</b></td>
+				<td><b>Max</b></td>
+				<td><b>Min</b></td>
 			</tr>
-		</t:loop>
-	</table>
+			<t:loop source="sellHistory" value="sellItemHistory" >
+				<tr>
+					<td><b>${sellItemHistory.stateName}</b></td>
+					<td>${sellItemHistory.forSaleQuantity}</td>
+					<td>${sellItemHistory.averagePrice}</td>
+					<td>${sellItemHistory.maxPrice}</td>
+					<td>${sellItemHistory.minPrice}</td>
+				</tr>
+			</t:loop>
+		</table>
+	</t:if>
 </div>

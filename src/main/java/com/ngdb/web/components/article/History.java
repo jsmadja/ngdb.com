@@ -81,4 +81,12 @@ public class History {
 		}
 	}
 
+	public boolean isNotEmpty() {
+		return !sellHistory.isEmpty();
+	}
+
+	public boolean isBuyable() {
+		return getNumAvailableCopy() > 0;
+	}
+
 }
