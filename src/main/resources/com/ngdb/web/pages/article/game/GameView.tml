@@ -68,7 +68,7 @@
 			<t:if test="${game.details}">
 				<h3>Details</h3>
 				<p>
-					${game.details}
+					<t:OutputRaw value="${game.details}"/>
 				</p>
 				<hr />
 			</t:if>

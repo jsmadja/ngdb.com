@@ -1,5 +1,6 @@
 package com.ngdb.web.pages.article.game;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 
@@ -46,6 +47,10 @@ public class GameView {
 
 	public void setGame(Game game) {
 		this.game = game;
+	}
+
+	public String getDetails() {
+		return StringEscapeUtils.unescapeHtml(game.getDetails());
 	}
 
 }

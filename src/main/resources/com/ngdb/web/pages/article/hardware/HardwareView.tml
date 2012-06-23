@@ -11,60 +11,60 @@
 		</div>
 		<div class="span9">
 			<t:article.actionBlock article="hardware" />
-						<table>
-							<tr>
-								<td class="grey">
-									<b>#NGDB</b>
-								</td>
-								<td>
-									${hardware.id}
-								</td>
-							</tr>
-							<tr>
-								<td class="grey">
-									<b>Release date</b>
-								</td>
-								<td>
-									<t:pagelink page="hardwares" context="literal:byreleaseDate,hardware.releaseDate">
-										${hardware.releaseDate}
-									</t:pagelink>
-								</td>
-							</tr>
-							<tr>
-								<td class="grey">
-									<b>Platform</b>
-								</td>
-								<td>
-									<t:pagelink page="hardwares" context="literal:byplatform,hardware.platform.id">
-										${hardware.platform.name}
-									</t:pagelink>
-								</td>
-							</tr>
-							<tr>
-								<td class="grey">
-									<b>Origin</b>
-								</td>
-								<td>
-									<t:pagelink page="hardwares" context="literal:byorigin,hardware.origin.id">
-										${hardware.origin.title}
-									</t:pagelink>
-								</td>
-							</tr>
-							<t:loop source="hardware.notes" value="note">
-								<tr>
-									<td class="grey">
-										<b>${note.name}</b>
-									</td>
-									<td>
-										${note.text}
-									</td>
-								</tr>
-							</t:loop>
-						</table>
-		<t:if test="${hardware.details}">
+				<table>
+					<tr>
+						<td class="grey">
+							<b>#NGDB</b>
+						</td>
+						<td>
+							${hardware.id}
+						</td>
+					</tr>
+					<tr>
+						<td class="grey">
+							<b>Release date</b>
+						</td>
+						<td>
+							<t:pagelink page="hardwares" context="literal:byreleaseDate,hardware.releaseDate">
+								${hardware.releaseDate}
+							</t:pagelink>
+						</td>
+					</tr>
+					<tr>
+						<td class="grey">
+							<b>Platform</b>
+						</td>
+						<td>
+							<t:pagelink page="hardwares" context="literal:byplatform,hardware.platform.id">
+								${hardware.platform.name}
+							</t:pagelink>
+						</td>
+					</tr>
+					<tr>
+						<td class="grey">
+							<b>Origin</b>
+						</td>
+						<td>
+							<t:pagelink page="hardwares" context="literal:byorigin,hardware.origin.id">
+								${hardware.origin.title}
+							</t:pagelink>
+						</td>
+					</tr>
+					<t:loop source="hardware.notes" value="note">
+						<tr>
+							<td class="grey">
+								<b>${note.name}</b>
+							</td>
+							<td>
+								${note.text}
+							</td>
+						</tr>
+					</t:loop>
+				</table>
+			<t:if test="${hardware.details}">
 				<h3>Details</h3>
 				<p>
-					${hardware.details}
+					<t:OutputRaw value="${hardware.details}"/>
 				</p>
 				<hr />
 			</t:if>
