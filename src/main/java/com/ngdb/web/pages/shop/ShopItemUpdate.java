@@ -65,6 +65,7 @@ public class ShopItemUpdate {
 		this.details = shopItem.getDetails();
 		this.price = shopItem.getPrice();
 		this.state = shopItem.getState();
+		this.shopItem.updateModificationDate();
 		return true;
 	}
 

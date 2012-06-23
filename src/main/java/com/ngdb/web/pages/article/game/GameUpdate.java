@@ -88,7 +88,11 @@ public class GameUpdate {
 	@Inject
 	private CurrentUser userSession;
 
-	void onActivate(Game game) {
+	void onActivate() {
+		this.game = null;
+	}
+
+	boolean onActivate(Game game) {
 		this.game = game;
 		if (game != null) {
 			this.publisher = game.getPublisher();
@@ -101,6 +105,7 @@ public class GameUpdate {
 			this.details = game.getDetails();
 			this.title = game.getTitle();
 		}
+		return true;
 	}
 
 	@CommitAfter
@@ -108,6 +113,7 @@ public class GameUpdate {
 		Game game = new Game();
 		if (isEditMode()) {
 			game = this.game;
+			game.updateModificationDate();
 		}
 		game.setDetails(details);
 		game.setOrigin(origin);

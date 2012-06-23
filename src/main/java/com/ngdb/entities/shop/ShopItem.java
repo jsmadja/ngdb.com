@@ -171,4 +171,8 @@ public class ShopItem {
 		return pictures.first().equals(Picture.EMPTY);
 	}
 
+	public void updateModificationDate() {
+		this.modificationDate = new Date();
+	}
+
 }

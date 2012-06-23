@@ -71,16 +71,19 @@ public class HardwareUpdate {
 	@Inject
 	private CurrentUser currentUser;
 
-	void onActivate(Hardware hardware) {
-		if (hardware != null) {
-			this.hardware = hardware;
-			this.details = hardware.getDetails();
-			this.origin = hardware.getOrigin();
-			this.releaseDate = hardware.getReleaseDate();
-			this.details = hardware.getDetails();
-			this.title = hardware.getTitle();
-			this.platform = hardware.getPlatform();
-		}
+	void onActivate() {
+		this.hardware = null;
+	}
+
+	boolean onActivate(Hardware hardware) {
+		this.hardware = hardware;
+		this.details = hardware.getDetails();
+		this.origin = hardware.getOrigin();
+		this.releaseDate = hardware.getReleaseDate();
+		this.details = hardware.getDetails();
+		this.title = hardware.getTitle();
+		this.platform = hardware.getPlatform();
+		return true;
 	}
 
 	@CommitAfter
@@ -88,6 +91,7 @@ public class HardwareUpdate {
 		Hardware hardware = new Hardware();
 		if (isEditMode()) {
 			hardware = this.hardware;
+			hardware.updateModificationDate();
 		}
 		hardware.setDetails(details);
 		hardware.setOrigin(origin);

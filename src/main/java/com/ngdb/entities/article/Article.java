@@ -18,7 +18,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -114,8 +113,7 @@ public abstract class Article implements Comparable<Article> {
 		creationDate = modificationDate = new Date();
 	}
 
-	@PreUpdate
-	public void preUpdate() {
+	public void updateModificationDate() {
 		modificationDate = new Date();
 	}
 
