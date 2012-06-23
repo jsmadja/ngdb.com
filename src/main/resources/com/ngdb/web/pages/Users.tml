@@ -12,7 +12,7 @@
 					User
 	            </p:LoginHeader>
 	            <p:LoginCell>
-	            	<a href="#">${user.login}</a>
+	            	<t:pageLink page="user/UserView" context="user"><b>${user.login}</b></t:pageLink>
 	            </p:LoginCell>
 			</t:grid>
 		</div>
