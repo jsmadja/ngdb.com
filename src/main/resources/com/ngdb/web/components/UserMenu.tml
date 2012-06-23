@@ -13,6 +13,7 @@
 				<a href="/market/${userId}">My Shop (${numArticlesInShop})</a>
 			</li>
 			<li>
+				<t:pageLink page="museum" context="literal:byUser,user.id,">My Collection (${numArticlesInCollection})</t:pageLink>
 				<a href="/museum/byUser/${userId}">My Collection (${numArticlesInCollection})</a>
 			</li>
 			<li class="divider"></li>

@@ -58,7 +58,7 @@
 					</t:pageLink>
             		<t:pageLink page="article/game/gameview" context="game.id">${game.title}</t:pageLink>
             		<br/><br/>
-            		${game.platform.name} - ${game.publisher.name} - ${game.origin.title}
+            		${game.platform.name} - ${game.publisher?.name} - ${game.origin.title}
                 	<t:article.actionBlock asButton="true" article="game" />
                 </p:titleCell>
 			</t:grid>
