@@ -5,20 +5,13 @@
 					
 	<div class="row-fluid show-grid article">
 		<div class="span3">
-			<t:article.thumbnail article="game" />
+			<t:article.thumbnail article="game" noClick="true" />
 			<t:article.history article="game" />
 		</div>
 		<div class="span9">
 			<t:article.actionBlock article="game" />
 			<table>
 				<tr><td class="grey"><b>#NGDB</b></td><td>${game.id}</td></tr>
-				<tr><td class="grey"><b>Release date</b></td>
-					<td>
-						<t:pagelink page="games" context="literal:byreleaseDate,game.releaseDate">
-							${game.releaseDate}
-						</t:pagelink>
-					</td>
-				</tr>
 				<tr>
 					<td class="grey">
 						<b>NGH</b>
@@ -61,10 +54,18 @@
 						</t:pagelink>
 					</td>
 				</tr>
+				<tr><td class="grey"><b>Release date</b></td>
+					<td>
+						<t:pagelink page="games" context="literal:byreleaseDate,game.releaseDate">
+							${game.releaseDate}
+						</t:pagelink>
+					</td>
+				</tr>
 				<t:loop source="game.notes" value="note">
 					<tr><td class="grey"><b>${note.name}</b></td><td>${note.text}</td></tr>
 				</t:loop>
 			</table>
+			<hr />
 			<t:if test="${game.details}">
 				<h3>Details</h3>
 				<p>
@@ -72,6 +73,8 @@
 				</p>
 				<hr />
 			</t:if>
+			<t:article.gallery article="game" />
+			<hr/>
 			<h3>Comments</h3>
 			<t:article.commentBlock article="game" />
 		</div>

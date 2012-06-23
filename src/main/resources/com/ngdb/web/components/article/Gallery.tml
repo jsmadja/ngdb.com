@@ -1,0 +1,9 @@
+<div class="gallery" t:type="jQuery/Gallery" t:selector="a[rel^=gal]" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+	<h3>Gallery</h3>
+	<t:loop source="pictures" value="picture">
+	    <a href="${message:image.host.url}${picture.url}" 
+	    	id="image" rel="gal">
+	    	<img src="${message:image.host.url}${picture.url}" height="75" width="75" style="margin-left:2px;border-radius:5px" />
+	    </a>
+	</t:loop>
+</div> 

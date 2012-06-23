@@ -3,6 +3,7 @@ package com.ngdb.entities.article.element;
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.ElementCollection;
@@ -21,7 +22,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @XmlAccessorType(FIELD)
 @XmlRootElement(name = "pictures")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ArticlePictures {
+public class ArticlePictures implements Iterable<Picture> {
 
 	@ElementCollection
 	@OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
@@ -37,6 +38,11 @@ public class ArticlePictures {
 
 	public void add(Picture picture) {
 		pictures.add(picture);
+	}
+
+	@Override
+	public Iterator<Picture> iterator() {
+		return pictures.iterator();
 	}
 
 }

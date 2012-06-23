@@ -1,5 +1,10 @@
-<span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
-	<t:pageLink page="${viewPage}" context="article">
+<span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+	<t:if test="noClick">
 		<img class="thumbnail" src="${message:image.host.url}${article.mainPicture.url}" title="${article.title}" />
-	</t:pageLink>
+		<p:else>
+			<t:pageLink page="${viewPage}" context="article">
+				<img class="thumbnail" src="${message:image.host.url}${article.mainPicture.url}" title="${article.title}" />
+			</t:pageLink>
+		</p:else>
+	</t:if>
 </span>
