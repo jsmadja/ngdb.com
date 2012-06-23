@@ -5,13 +5,15 @@ import java.util.Date;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectPage;
-import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.upload.services.UploadedFile;
 import org.hibernate.Session;
+import org.joda.time.DateTime;
 
 import com.ngdb.entities.History;
 import com.ngdb.entities.article.Hardware;
@@ -28,7 +30,7 @@ import com.ngdb.web.services.infrastructure.PictureService;
 public class HardwareUpdate {
 
 	@Property
-	@Persist("entity")
+	@Parameter(allowNull = true)
 	private Hardware hardware;
 
 	@Property
@@ -71,19 +73,27 @@ public class HardwareUpdate {
 	@Inject
 	private CurrentUser currentUser;
 
-	void onActivate() {
-		this.hardware = null;
+	public void onActivate(Hardware hardware) {
+		this.hardware = hardware;
 	}
 
-	boolean onActivate(Hardware hardware) {
-		this.hardware = hardware;
-		this.details = hardware.getDetails();
-		this.origin = hardware.getOrigin();
-		this.releaseDate = hardware.getReleaseDate();
-		this.details = hardware.getDetails();
-		this.title = hardware.getTitle();
-		this.platform = hardware.getPlatform();
-		return true;
+	@SetupRender
+	public void setup() {
+		if (hardware == null) {
+			this.details = null;
+			this.origin = null;
+			this.releaseDate = new DateTime().withYear(1990).toDate();
+			this.details = null;
+			this.title = null;
+			this.platform = null;
+		} else {
+			this.details = hardware.getDetails();
+			this.origin = hardware.getOrigin();
+			this.releaseDate = hardware.getReleaseDate();
+			this.details = hardware.getDetails();
+			this.title = hardware.getTitle();
+			this.platform = hardware.getPlatform();
+		}
 	}
 
 	@CommitAfter

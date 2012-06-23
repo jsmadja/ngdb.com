@@ -1,7 +1,10 @@
 package com.ngdb.web.components.article;
 
+import static org.apache.commons.lang.StringUtils.isNotBlank;
+
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
@@ -18,6 +21,7 @@ public class CommentBlock {
 	private Article article;
 
 	@Property
+	@Validate("required")
 	private Comment comment;
 
 	@Property
@@ -32,7 +36,9 @@ public class CommentBlock {
 	@CommitAfter
 	public Object onSuccess() {
 		User user = currentUser.getUser();
-		session.merge(new Comment(commentText, user, article));
+		if (isNotBlank(commentText)) {
+			session.merge(new Comment(commentText, user, article));
+		}
 		return this;
 	}
 

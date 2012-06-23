@@ -5,13 +5,15 @@ import java.util.Date;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectPage;
-import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.upload.services.UploadedFile;
 import org.hibernate.Session;
+import org.joda.time.DateTime;
 
 import com.ngdb.entities.History;
 import com.ngdb.entities.article.Game;
@@ -33,7 +35,7 @@ import com.ngdb.web.services.infrastructure.PictureService;
 public class GameUpdate {
 
 	@Property
-	@Persist("entity")
+	@Parameter(allowNull = true)
 	private Game game;
 
 	@Property
@@ -88,13 +90,23 @@ public class GameUpdate {
 	@Inject
 	private CurrentUser userSession;
 
-	void onActivate() {
-		this.game = null;
+	public void onActivate(Game game) {
+		this.game = game;
 	}
 
-	boolean onActivate(Game game) {
-		this.game = game;
-		if (game != null) {
+	@SetupRender
+	public void setup() {
+		if (game == null) {
+			this.publisher = null;
+			this.platform = null;
+			this.megaCount = null;
+			this.box = null;
+			this.details = null;
+			this.origin = null;
+			this.releaseDate = new DateTime().withYear(1990).toDate();
+			this.details = null;
+			this.title = null;
+		} else {
 			this.publisher = game.getPublisher();
 			this.platform = game.getPlatform();
 			this.megaCount = game.getMegaCount();
@@ -105,7 +117,6 @@ public class GameUpdate {
 			this.details = game.getDetails();
 			this.title = game.getTitle();
 		}
-		return true;
 	}
 
 	@CommitAfter
