@@ -1,15 +1,15 @@
 package com.ngdb.web.pages;
 
-import static org.apache.commons.lang.StringUtils.isNotBlank;
-
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.HardwareFactory;
 import com.ngdb.entities.Population;
@@ -23,8 +23,6 @@ public class Museum {
 
 	@Property
 	private Article game;
-
-	private Collection<? extends Article> games;
 
 	@Property
 	private Article hardware;
@@ -54,6 +52,7 @@ public class Museum {
 	@Inject
 	private ReferenceService referenceService;
 
+	@Persist
 	private Long id;
 
 	void onActivate() {
@@ -61,29 +60,32 @@ public class Museum {
 		this.platforms = referenceService.getPlatforms();
 	}
 
-	boolean onActivate(String category, String value) {
-		if (isNotBlank(category)) {
-			if (StringUtils.isNumeric(value)) {
-				id = Long.valueOf(value);
-			}
-		}
-		return true;
+	void onActivate(User user) {
+		this.id = user.getId();
 	}
 
 	@SetupRender
 	public void init() {
 		if (id == null) {
-			games = gameFactory.findAll();
 			hardwares = hardwareFactory.findAll();
 		} else {
 			User user = population.findById(id);
-			games = user.getGamesInCollection();
 			hardwares = user.getHardwaresInCollection();
 		}
 	}
 
-	public Collection<? extends Article> getGames() {
-		return gameFactory.findAllByOriginAndPlatform(origin, platform);
+	public Collection<Article> getGames() {
+		Collection<Article> games = gameFactory.findAllByOriginAndPlatform(origin, platform);
+		if (id != null) {
+			final User user = population.findById(id);
+			games = Collections2.filter(games, new Predicate<Article>() {
+				@Override
+				public boolean apply(Article article) {
+					return user.owns(article);
+				}
+			});
+		}
+		return games;
 	}
 
 	public List<Origin> getOrigins() {

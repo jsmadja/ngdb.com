@@ -182,4 +182,8 @@ public class User extends AbstractEntity {
 		return canMarkAsSold(shopItem);
 	}
 
+	public boolean owns(Article article) {
+		return collection.contains(article);
+	}
+
 }
