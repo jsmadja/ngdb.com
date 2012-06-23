@@ -1,10 +1,12 @@
 <div class="history" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<br/>
-	<table>
+	<table style="width:100%">
 		<tr>
 			<td>Collection:</td>
 			<td>
 				<b>${collectionRank}</b>
+			</td>
+			<td>
 				(${article.ownersCount})
 			</td>
 		</tr>
@@ -12,12 +14,14 @@
 			<td>Wishlist:</td>
 			<td>
 				<b>${wishRank}</b>
+			</td>
+			<td>
 				(${article.wishersCount})
 			</td>
 		</tr>
 	</table>
-	<br/>
 	<t:if test="buyable">
+		<br/>
 		<span style="background-color:lime">Shops: ${article.availableCopyCount} copy available</span>
 	</t:if>
 	<t:if test="notEmpty">
