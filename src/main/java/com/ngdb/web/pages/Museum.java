@@ -3,7 +3,6 @@ package com.ngdb.web.pages;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -52,7 +51,6 @@ public class Museum {
 	@Inject
 	private ReferenceService referenceService;
 
-	@Persist
 	private Long id;
 
 	void onActivate() {
