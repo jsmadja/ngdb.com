@@ -20,6 +20,7 @@ import org.hibernate.Session;
 import com.google.common.base.Predicate;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
+import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.Genre;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
@@ -70,6 +71,15 @@ public class GameFactory {
 		return allGames().list();
 	}
 
+	public List<Game> findAllWithMainPicture() {
+		return new ArrayList<Game>(filter(allGames().list(), new Predicate<Game>() {
+			@Override
+			public boolean apply(Game game) {
+				return !Picture.EMPTY.equals(game.getMainPicture());
+			}
+		}));
+	}
+
 	private Criteria allGames() {
 		return session.createCriteria(Game.class).addOrder(asc("title"));
 	}
@@ -79,8 +89,9 @@ public class GameFactory {
 		return filter(games, releasedThisMonth);
 	}
 
-	public Game getRandomGame() {
-		return findAll().get(RandomUtils.nextInt(getNumGames().intValue()));
+	public Game getRandomGameWithMainPicture() {
+		List<Game> gamesWithMainPicture = findAllWithMainPicture();
+		return gamesWithMainPicture.get(RandomUtils.nextInt(gamesWithMainPicture.size()));
 	}
 
 	public Collection<Article> findAllByOriginAndPlatform(Origin origin, Platform platform) {

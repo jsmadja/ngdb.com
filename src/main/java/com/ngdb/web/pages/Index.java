@@ -27,9 +27,9 @@ public class Index {
 
 	@SetupRender
 	public void init() {
-		randomGame1 = gameFactory.getRandomGame();
-		randomGame2 = gameFactory.getRandomGame();
-		randomGame3 = gameFactory.getRandomGame();
+		randomGame1 = gameFactory.getRandomGameWithMainPicture();
+		randomGame2 = gameFactory.getRandomGameWithMainPicture();
+		randomGame3 = gameFactory.getRandomGameWithMainPicture();
 	}
 
 	public Long getNumGames() {
