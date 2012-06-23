@@ -149,6 +149,9 @@ public class ShopItem {
 	}
 
 	public Picture getMainPicture() {
+		if (hasNoPicture()) {
+			return article.getPictures().first();
+		}
 		return pictures.first();
 	}
 
@@ -162,6 +165,10 @@ public class ShopItem {
 
 	public void sold() {
 		this.sold = true;
+	}
+
+	public boolean hasNoPicture() {
+		return pictures.first().equals(Picture.EMPTY);
 	}
 
 }

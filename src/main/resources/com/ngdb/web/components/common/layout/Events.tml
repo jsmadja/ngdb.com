@@ -9,8 +9,9 @@
 			</li>
 		</t:loop>
 	</t:if>
+	<br/>
 	<t:if test="shopItems">
-		<li class="events-header">Shop</li>
+		<li class="events-header">For sale</li>
 				<t:loop value="shopItem" source="shopItems">
 					<li>
 						<t:pageLink page="shop/shopItemView" context="shopItem">
@@ -21,7 +22,8 @@
 			<li>
 				<t:pageLink page="market">more ...</t:pageLink>
 			</li>
-		</t:if>
+	</t:if>
+	<br/>
 	<t:if test="releases">
 		<li class="events-header">Released in ${month}</li>
 		<t:loop value="release" source="releases">
