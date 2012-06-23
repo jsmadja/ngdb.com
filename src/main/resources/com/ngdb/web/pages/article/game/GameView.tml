@@ -74,7 +74,6 @@
 				<hr />
 			</t:if>
 			<t:article.gallery article="game" />
-			<hr/>
 			<h3>Comments</h3>
 			<t:article.commentBlock article="game" />
 		</div>

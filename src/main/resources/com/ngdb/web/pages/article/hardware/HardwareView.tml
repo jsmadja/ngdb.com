@@ -69,8 +69,7 @@
 				</p>
 				<hr />
 			</t:if>
-			<t:article.gallery article="game" />
-			<hr/>
+			<t:article.gallery article="hardware" />
 			<h3>Comments</h3>
 			<t:article.commentBlock article="hardware" />
 		</div>
