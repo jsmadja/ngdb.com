@@ -11,16 +11,18 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.upload.services.UploadedFile;
 import org.hibernate.Session;
 
+import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.reference.State;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.web.model.CurrencyList;
 import com.ngdb.web.model.StateList;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.PictureService;
 
 @RequiresAuthentication
-public class ShopItemUpdate {
+public class ShopItemCreate {
 
 	@Property
 	private UploadedFile mainPicture;
@@ -45,34 +47,38 @@ public class ShopItemUpdate {
 	@Inject
 	private ReferenceService referenceService;
 
+	@Persist
+	@Property
+	private Article article;
+
 	@Inject
 	private PictureService pictureService;
+
+	@Inject
+	private CurrentUser userSession;
 
 	@Persist
 	@Property
 	private State state;
 
-	@Property
-	@Persist("entity")
-	private ShopItem shopItem;
-
 	@InjectPage
 	private ShopItemView shopItemView;
 
-	boolean onActivate(ShopItem shopItem) {
-		this.shopItem = shopItem;
-		this.currency = shopItem.getCurrency();
-		this.details = shopItem.getDetails();
-		this.price = shopItem.getPrice();
-		this.state = shopItem.getState();
+	boolean onActivate(Article article) {
+		this.article = article;
+		this.currency = "$";
+		this.state = referenceService.findStateByTitle("Used");
 		return true;
 	}
 
 	@CommitAfter
 	public Object onSuccess() {
+		ShopItem shopItem = new ShopItem();
+		shopItem.setArticle(article);
 		shopItem.setCurrency(currency);
 		shopItem.setDetails(details);
 		shopItem.setPrice(price);
+		shopItem.setSeller(userSession.getUser());
 		shopItem.setState(state);
 		shopItem = (ShopItem) session.merge(shopItem);
 		if (this.mainPicture != null) {

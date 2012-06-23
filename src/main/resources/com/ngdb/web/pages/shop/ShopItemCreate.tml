@@ -1,8 +1,6 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<div class="page-header">
-		<t:if test="shopItem">
-			<h1>Update ${shopItem.article.title}</h1>
-		</t:if>
+		<h1>Add ${article.title} in the market</h1>
 	</div>
 	<div class="row">
 		<div class="span12">
@@ -37,7 +35,7 @@
 						</div>
 						<div class="form-actions">
 							<button class="btn btn-primary" type="submit">
-								Update
+								Add to market
 							</button>
 							<input type="reset" class="btn" value="Cancel" />
 						</div>

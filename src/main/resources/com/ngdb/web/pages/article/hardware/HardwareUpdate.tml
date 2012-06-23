@@ -3,7 +3,7 @@
 	<div class="page-header">
 		<h1>
 		<t:if test="editMode">
-				Edit hardware
+				Edit ${hardware.title}
 				<p:else>
 					Add new hardware
 				</p:else>
@@ -59,8 +59,15 @@
 							</div>
 						</div>
 						<div class="form-actions">
-							<button class="btn btn-primary" type="submit">Add new hardware in database</button>
-							<button class="btn">Cancel</button>
+							<button class="btn btn-primary" type="submit">
+								<t:if test="editMode">
+									Update
+									<p:else>		
+										Add new hardware in database
+									</p:else>
+								</t:if>
+							</button>
+							<input type="reset" class="btn" value="Cancel" />
 						</div>
 					</fieldset>
 				</div>

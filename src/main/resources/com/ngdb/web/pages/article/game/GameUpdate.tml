@@ -3,7 +3,7 @@
 	<div class="page-header">
 		<h1>
 			<t:if test="editMode">
-				Edit game
+				Edit ${game.title}
 				<p:else>
 					Add new game
 				</p:else>
@@ -72,8 +72,15 @@
 							</div>
 						</div>
 						<div class="form-actions">
-							<button class="btn btn-primary" type="submit">Add new game in database</button>
-							<button class="btn">Cancel</button>
+							<button class="btn btn-primary" type="submit">
+								<t:if test="editMode">
+									Update
+									<p:else>
+										Add new game in database
+									</p:else>
+								</t:if>
+							</button>
+							<input type="reset" class="btn" value="Cancel" />
 						</div>
 					</fieldset>
 				</div>
