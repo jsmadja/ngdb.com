@@ -130,10 +130,7 @@ public class CurrentUser {
 	}
 
 	public boolean canSell(Article article) {
-		if (isAnonymous()) {
-			return false;
-		}
-		return getUserFromDb().canSell(article);
+		return isLogged();
 	}
 
 	public int getNumArticlesInCollection() {
