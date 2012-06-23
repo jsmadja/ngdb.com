@@ -63,7 +63,7 @@ public class GameFactory {
 	}
 
 	public Long getNumGames() {
-		return (Long) session.createCriteria(Game.class).setCacheable(true).setProjection(rowCount()).uniqueResult();
+		return (Long) session.createCriteria(Game.class).setProjection(rowCount()).uniqueResult();
 	}
 
 	public List<Game> findAll() {
@@ -71,7 +71,7 @@ public class GameFactory {
 	}
 
 	private Criteria allGames() {
-		return session.createCriteria(Game.class).setCacheable(true).addOrder(asc("title"));
+		return session.createCriteria(Game.class).addOrder(asc("title"));
 	}
 
 	public Collection<Game> findAllByReleasedThisMonth() {

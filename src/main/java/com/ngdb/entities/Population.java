@@ -37,15 +37,15 @@ public class Population {
 	}
 
 	public Collection<User> findEverybody() {
-		return session.createCriteria(User.class).setCacheable(true).addOrder(asc("login")).list();
+		return session.createCriteria(User.class).addOrder(asc("login")).list();
 	}
 
 	public Long getNumUsers() {
-		return (Long) session.createCriteria(User.class).setCacheable(true).setProjection(count("id")).uniqueResult();
+		return (Long) session.createCriteria(User.class).setProjection(count("id")).uniqueResult();
 	}
 
 	public User findByLogin(String login) {
-		return (User) session.createCriteria(User.class).setCacheable(true).add(eq("login", login)).uniqueResult();
+		return (User) session.createCriteria(User.class).add(eq("login", login)).uniqueResult();
 	}
 
 	public void addUser(User user) {

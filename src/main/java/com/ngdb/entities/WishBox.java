@@ -18,7 +18,7 @@ public class WishBox {
 	private Session session;
 
 	public Long getNumWishes() {
-		return (Long) session.createCriteria(Wish.class).setCacheable(true).setProjection(countDistinct("article")).uniqueResult();
+		return (Long) session.createCriteria(Wish.class).setProjection(countDistinct("article")).uniqueResult();
 	}
 
 	public int getRankOf(Article article) {
@@ -34,7 +34,7 @@ public class WishBox {
 	}
 
 	public List<Wish> findAllWishes() {
-		return session.createCriteria(Wish.class).setCacheable(true).addOrder(desc("modificationDate")).list();
+		return session.createCriteria(Wish.class).addOrder(desc("modificationDate")).list();
 	}
 
 }

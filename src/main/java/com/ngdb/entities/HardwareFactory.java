@@ -35,7 +35,7 @@ public class HardwareFactory {
 	}
 
 	public Long getNumHardwares() {
-		return (Long) session.createCriteria(Hardware.class).setCacheable(true).setProjection(rowCount()).uniqueResult();
+		return (Long) session.createCriteria(Hardware.class).setProjection(rowCount()).uniqueResult();
 	}
 
 	public Collection<Hardware> findAll() {
@@ -43,7 +43,7 @@ public class HardwareFactory {
 	}
 
 	private Criteria allHardwares() {
-		return session.createCriteria(Hardware.class).setCacheable(true).addOrder(asc("title"));
+		return session.createCriteria(Hardware.class).addOrder(asc("title"));
 	}
 
 }
