@@ -4,42 +4,42 @@
 			<h1>Games</h1>
 		</div>
 		
-		<h3>Filters</h3>
-		<p>
-			<t:if test="filteredByAes">
-				AES (${numGamesOfAES})
-				<p:else>
-					<t:actionLink t:id="aes" > AES (${numGamesOfAES}) </t:actionLink>
-				</p:else>
-			</t:if>
-			<t:if test="filteredByMvs">
-				MVS (${numGamesOfMVS})
-				<p:else>
-					<t:actionLink t:id="mvs" > MVS (${numGamesOfMVS}) </t:actionLink>
-				</p:else>
-			</t:if>
-			<t:if test="filteredByCd">
-				CD (${numGamesOfCD})
-				<p:else>
-					<t:actionLink t:id="cd" > CD (${numGamesOfCD}) </t:actionLink>
-				</p:else>
-			</t:if>
-		</p>
+<!-- 		<h3>Filters</h3> -->
+<!-- 		<p> -->
+<!-- 			<t:if test="filteredByAes"> -->
+<!-- 				AES (${numGamesOfAES}) -->
+<!-- 				<p:else> -->
+<!-- 					<t:actionLink t:id="aes" > AES (${numGamesOfAES}) </t:actionLink> -->
+<!-- 				</p:else> -->
+<!-- 			</t:if> -->
+<!-- 			<t:if test="filteredByMvs"> -->
+<!-- 				MVS (${numGamesOfMVS}) -->
+<!-- 				<p:else> -->
+<!-- 					<t:actionLink t:id="mvs" > MVS (${numGamesOfMVS}) </t:actionLink> -->
+<!-- 				</p:else> -->
+<!-- 			</t:if> -->
+<!-- 			<t:if test="filteredByCd"> -->
+<!-- 				CD (${numGamesOfCD}) -->
+<!-- 				<p:else> -->
+<!-- 					<t:actionLink t:id="cd" > CD (${numGamesOfCD}) </t:actionLink> -->
+<!-- 				</p:else> -->
+<!-- 			</t:if> -->
+<!-- 		</p> -->
 		
-		<p>
-			<t:if test="filteredByJapan">
-				Japan (${numGamesOfJapan})
-				<p:else>
-					<t:actionLink t:id="japan" > Japan (${numGamesOfJapan}) </t:actionLink>
-				</p:else>
-			</t:if>
-			<t:if test="filteredByUSA">
-				Japan (${numGamesOfUSA})
-				<p:else>
-					<t:actionLink t:id="usa" > USA (${numGamesOfUSA}) </t:actionLink>
-				</p:else>
-			</t:if>
-		</p>
+<!-- 		<p> -->
+<!-- 			<t:if test="filteredByJapan"> -->
+<!-- 				Japan (${numGamesOfJapan}) -->
+<!-- 				<p:else> -->
+<!-- 					<t:actionLink t:id="japan" > Japan (${numGamesOfJapan}) </t:actionLink> -->
+<!-- 				</p:else> -->
+<!-- 			</t:if> -->
+<!-- 			<t:if test="filteredByUSA"> -->
+<!-- 				Japan (${numGamesOfUSA}) -->
+<!-- 				<p:else> -->
+<!-- 					<t:actionLink t:id="usa" > USA (${numGamesOfUSA}) </t:actionLink> -->
+<!-- 				</p:else> -->
+<!-- 			</t:if> -->
+<!-- 		</p> -->
 		
 		<t:if test="user">
 			<p>
