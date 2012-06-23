@@ -17,6 +17,7 @@ import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
+import com.ngdb.entities.user.User;
 import com.ngdb.web.Filter;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 
@@ -79,6 +80,10 @@ public class Hardwares {
 
 	public String getRowClass() {
 		return evenOdd.next();
+	}
+
+	public User getUser() {
+		return currentUser.getUser();
 	}
 
 }
