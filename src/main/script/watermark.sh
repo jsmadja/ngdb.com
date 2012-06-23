@@ -18,7 +18,7 @@ WM=/tmp/Watermark.png  # This is the path to your watermark image
 SCALE=100                          # This sets the scale % of your watermark image
 
 # Find all image files in current directory and watermark.
-file -i * | grep image | awk -F':' '{ print $1 }' | while read IMAGE
+file -i `find /ngdb/images_bak/articles -type f` | grep image | awk -F':' '{ print $1 }' | while read IMAGE
 	do
 		echo Watermarking $IMAGE
 		NAME=`echo $IMAGE | cut -f1 -d.`
@@ -26,3 +26,4 @@ file -i * | grep image | awk -F':' '{ print $1 }' | while read IMAGE
 		composite -dissolve 40% -quality 100 \( $WM -resize $SCALE% \) "$IMAGE" "${NAME}_wm.${EXT}"
 	done
 exit 0
+
