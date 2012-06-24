@@ -12,8 +12,8 @@
     <style type="text/css">
       body {
         padding-top: 40px;
-        margin-left:10%;
-        margin-right:10%;
+        margin-left:1%;
+        margin-right:1%;
       }
       .sidebar-nav {
         padding: 9px 0;

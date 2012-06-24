@@ -3750,7 +3750,7 @@ input[type="submit"].btn.btn-mini {
   position: fixed;
   z-index: 1030;
   margin-bottom: 0;
-  min-width: 80%;
+  min-width: 98%;
 }
 
 .navbar-fixed-top .navbar-inner,
