@@ -35,7 +35,7 @@ public class HardwareFactory {
 	}
 
 	public Long getNumHardwares() {
-		return (Long) session.createCriteria(Hardware.class).setProjection(rowCount()).uniqueResult();
+		return (Long) session.createCriteria(Hardware.class).setProjection(rowCount()).setCacheable(true).setCacheRegion("cacheCount").uniqueResult();
 	}
 
 	public Collection<Hardware> findAll() {

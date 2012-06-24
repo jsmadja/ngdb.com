@@ -41,7 +41,7 @@ public class Population {
 	}
 
 	public Long getNumUsers() {
-		return (Long) session.createCriteria(User.class).setProjection(count("id")).uniqueResult();
+		return (Long) session.createCriteria(User.class).setProjection(count("id")).setCacheable(true).setCacheRegion("cacheCount").uniqueResult();
 	}
 
 	public User findByLogin(String login) {

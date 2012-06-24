@@ -48,15 +48,15 @@ public class Market {
 	}
 
 	public List<ShopItem> findLastForSaleItems() {
-		return session.createQuery("SELECT si FROM ShopItem si WHERE si.sold = false ORDER BY modificationDate DESC").setMaxResults(3).list();
+		return session.createQuery("SELECT si FROM ShopItem si WHERE si.sold = false ORDER BY modificationDate DESC").setCacheable(true).setCacheRegion("cacheCount").setMaxResults(3).list();
 	}
 
 	public Long getNumForSaleItems() {
-		return (Long) session.createCriteria(ShopItem.class).setProjection(count("id")).add(eq("sold", false)).uniqueResult();
+		return (Long) session.createCriteria(ShopItem.class).setProjection(count("id")).add(eq("sold", false)).setCacheable(true).setCacheRegion("cacheCount").uniqueResult();
 	}
 
 	public Long getNumSoldItems() {
-		return (Long) session.createCriteria(ShopItem.class).setProjection(count("id")).add(eq("sold", true)).uniqueResult();
+		return (Long) session.createCriteria(ShopItem.class).setProjection(count("id")).add(eq("sold", true)).setCacheable(true).setCacheRegion("cacheCount").uniqueResult();
 	}
 
 	public void potentialBuyer(ShopItem shopItem, User potentialBuyer) {

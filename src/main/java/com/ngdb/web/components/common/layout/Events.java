@@ -70,7 +70,7 @@ public class Events {
 
 	@SuppressWarnings("unchecked")
 	public Collection<Comment> getLastComments() {
-		return session.createCriteria(Comment.class).setCacheable(true).addOrder(Order.desc("creationDate")).setMaxResults(3).list();
+		return session.createCriteria(Comment.class).setCacheable(true).setCacheRegion("cacheCount").addOrder(Order.desc("creationDate")).setMaxResults(3).list();
 	}
 
 	public Collection<Game> getReleases() {

@@ -10,10 +10,15 @@
         overflowToDisk="true" statistics="true" />
         
         <cache name="org.hibernate.cache.StandardQueryCache" 
-                maxElementsInMemory="100000" 
+        maxElementsInMemory="100000" 
         eternal="false"
         timeToIdleSeconds="120"
         timeToLiveSeconds="120"
         statistics="true" />
+	
+	    <cache name="cacheCount" 
+        maxElementsInMemory="100000" 
+        eternal="false"
+        timeToIdleSeconds="3600" />
 	
 </ehcache>

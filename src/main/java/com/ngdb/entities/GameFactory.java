@@ -20,7 +20,6 @@ import org.hibernate.Session;
 import com.google.common.base.Predicate;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
-import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.Genre;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
@@ -64,7 +63,7 @@ public class GameFactory {
 	}
 
 	public Long getNumGames() {
-		return (Long) session.createCriteria(Game.class).setProjection(rowCount()).uniqueResult();
+		return (Long) session.createCriteria(Game.class).setProjection(rowCount()).setCacheable(true).setCacheRegion("cacheCount").uniqueResult();
 	}
 
 	public List<Game> findAll() {
@@ -72,16 +71,11 @@ public class GameFactory {
 	}
 
 	public List<Game> findAllWithMainPicture() {
-		return new ArrayList<Game>(filter(allGames().list(), new Predicate<Game>() {
-			@Override
-			public boolean apply(Game game) {
-				return !Picture.EMPTY.equals(game.getMainPicture());
-			}
-		}));
+		return session.createQuery("SELECT g FROM Game g WHERE g.pictures.pictures is not empty").list();
 	}
 
 	private Criteria allGames() {
-		return session.createCriteria(Game.class).addOrder(asc("title"));
+		return session.createCriteria(Game.class).setCacheable(true).addOrder(asc("title"));
 	}
 
 	public Collection<Game> findAllByReleasedThisMonth() {
