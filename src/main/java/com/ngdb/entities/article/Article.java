@@ -5,6 +5,7 @@ import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -26,6 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.ocpsoft.pretty.time.PrettyTime;
 
 import com.google.common.base.Objects;
 import com.ngdb.entities.article.element.ArticlePictures;
@@ -270,6 +272,10 @@ public abstract class Article implements Comparable<Article> {
 
 	public Platform getPlatform() {
 		return platform;
+	}
+
+	public String getLastUpdateDate() {
+		return new PrettyTime(Locale.UK).format(modificationDate);
 	}
 
 }

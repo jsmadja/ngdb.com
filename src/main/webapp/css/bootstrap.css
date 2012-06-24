@@ -169,7 +169,8 @@ a {
 
 a:hover {
   color: #005580;
-  text-decoration: underline;
+  text-decoration: none;
+  color: orange;
 }
 
 .row {
@@ -3215,7 +3216,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .nav > li > a {
-  display: block;
+  display: inline-block;
 }
 
 .nav > li > a:hover {

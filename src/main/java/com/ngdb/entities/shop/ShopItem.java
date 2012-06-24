@@ -1,6 +1,7 @@
 package com.ngdb.entities.shop;
 
 import java.util.Date;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -15,6 +16,7 @@ import javax.persistence.PreUpdate;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.ocpsoft.pretty.time.PrettyTime;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Picture;
@@ -178,6 +180,10 @@ public class ShopItem {
 	@Override
 	public String toString() {
 		return getArticle().getTitle() + " by " + seller.getLogin() + " for " + getPrice() + getCurrency();
+	}
+
+	public String getForSaleDate() {
+		return new PrettyTime(Locale.UK).format(getCreationDate());
 	}
 
 }

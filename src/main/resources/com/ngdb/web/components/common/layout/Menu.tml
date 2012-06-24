@@ -20,7 +20,7 @@
 		<li class="nav-header">Last updates</li>
 		<t:loop value="update" source="updates">
 			<li>
-				<t:pageLink page="article/game/gameview" context="update.id"><b>${update.title}</b> - ${update.platform.name} ${update.origin.title}</t:pageLink>
+				<t:pageLink page="article/game/gameview" context="update.id"><b>${update.title}</b></t:pageLink> ${update.lastUpdateDate}
 			</li>
 		</t:loop>
 	</ul>
