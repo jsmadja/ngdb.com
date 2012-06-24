@@ -175,4 +175,9 @@ public class ShopItem {
 		this.modificationDate = new Date();
 	}
 
+	@Override
+	public String toString() {
+		return getArticle().getTitle() + " by " + seller.getLogin() + " for " + getPrice() + getCurrency();
+	}
+
 }

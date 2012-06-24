@@ -4,6 +4,7 @@ import static org.hibernate.criterion.Order.desc;
 import static org.hibernate.criterion.Projections.count;
 import static org.hibernate.criterion.Restrictions.eq;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,11 @@ import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.ngdb.entities.article.Article;
+import com.ngdb.entities.reference.Origin;
+import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.services.MailService;
@@ -69,4 +75,17 @@ public class Market {
 		session.delete(shopItem);
 	}
 
+	public Collection<ShopItem> findAllByOriginAndPlatform(final Origin origin, final Platform platform) {
+		Collection<ShopItem> list = allShopItems().list();
+		list = Collections2.filter(list, new Predicate<ShopItem>() {
+			@Override
+			public boolean apply(ShopItem input) {
+				Article article = input.getArticle();
+				Origin articleOrigin = article.getOrigin();
+				Platform articlePlatform = article.getPlatform();
+				return articleOrigin.equals(origin) && articlePlatform.equals(platform);
+			}
+		});
+		return list;
+	}
 }

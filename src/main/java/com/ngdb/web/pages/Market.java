@@ -1,30 +1,27 @@
 package com.ngdb.web.pages;
 
-import static org.apache.commons.lang.StringUtils.isNotBlank;
-
 import java.util.Collection;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.Population;
 import com.ngdb.entities.article.Article;
+import com.ngdb.entities.reference.Origin;
+import com.ngdb.entities.reference.Platform;
+import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.Category;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class Market {
-
-	@Property
-	private ShopItem shopItem;
-
-	@Property
-	private Collection<ShopItem> shopItems;
 
 	@Inject
 	private com.ngdb.entities.Market market;
@@ -47,47 +44,45 @@ public class Market {
 	@Property
 	private String username;
 
+	private List<Platform> platforms;
+
+	@Property
+	private ShopItem shopItem;
+
+	@Property
+	private Platform platform;
+
+	private List<Origin> origins;
+
+	@Property
+	private Origin origin;
+
+	@Inject
+	private ReferenceService referenceService;
+
+	void onActivate() {
+		this.origins = referenceService.getOrigins();
+		this.platforms = referenceService.getPlatforms();
+	}
+
 	void onActivate(String filter, String value) {
-		if (isNotBlank(filter)) {
+		if (StringUtils.isNotBlank(filter)) {
 			this.category = Category.valueOf(Category.class, filter);
 			if (StringUtils.isNumeric(value)) {
 				this.id = Long.valueOf(value);
-			}
-		}
-	}
-
-	boolean onActivate(User user) {
-		this.category = Category.byUser;
-		this.id = user.getId();
-		return true;
-	}
-
-	@SetupRender
-	public void init() {
-		if (category == null || category == Category.none) {
-			this.shopItems = market.findAllItemsForSale();
-		} else {
-			switch (category) {
-			case byArticle:
-				Article article = articleFactory.findById(id);
-				this.shopItems = article.getShopItemsForSale();
-				break;
-			case bySoldDate:
-				this.shopItems = market.findAllItemsSold();
-				break;
-			case byUser:
-				User user;
-				if (id == null) {
-					user = currentUser.getUser();
-				} else {
-					user = population.findById(id);
+				if (category == Category.byUser) {
+					username = population.findById(id).getLogin();
 				}
-				this.shopItems = user.getShopItemsForSale();
-				this.username = user.getLogin();
-				break;
 			}
 		}
 	}
+
+	// boolean onActivate(User user) {
+	// this.category = Category.byUser;
+	// this.id = user.getId();
+	// this.username = user.getLogin();
+	// return true;
+	// }
 
 	public void setCategory(Category category) {
 		this.category = category;
@@ -104,6 +99,59 @@ public class Market {
 	public void setUser(User user) {
 		this.id = user.getId();
 		this.category = Category.byUser;
+	}
+
+	public Collection<ShopItem> getShopItems() {
+		Collection<ShopItem> shopItems = findAllByOriginAndPlatform();
+		if (category != null) {
+			switch (category) {
+			case byArticle:
+				Article article = articleFactory.findById(id);
+				shopItems = filterBy(shopItems, article);
+				break;
+			case byUser:
+				User user;
+				if (id == null) {
+					user = currentUser.getUser();
+				} else {
+					user = population.findById(id);
+				}
+				shopItems = filterBy(shopItems, user);
+				break;
+			}
+		}
+		return shopItems;
+	}
+
+	private Collection<ShopItem> filterBy(Collection<ShopItem> shopItems, final User user) {
+		return Collections2.filter(shopItems, new Predicate<ShopItem>() {
+			@Override
+			public boolean apply(ShopItem input) {
+				return input.getSeller().getId().equals(user.getId());
+			}
+		});
+	}
+
+	private Collection<ShopItem> filterBy(Collection<ShopItem> shopItems, final Article article) {
+		return Collections2.filter(shopItems, new Predicate<ShopItem>() {
+			@Override
+			public boolean apply(ShopItem input) {
+				return input.getArticle().getId().equals(article.getId());
+			}
+		});
+	}
+
+	private Collection<ShopItem> findAllByOriginAndPlatform() {
+		Collection<ShopItem> shopItems = market.findAllByOriginAndPlatform(origin, platform);
+		return shopItems;
+	}
+
+	public List<Origin> getOrigins() {
+		return origins;
+	}
+
+	public List<Platform> getPlatforms() {
+		return platforms;
 	}
 
 }

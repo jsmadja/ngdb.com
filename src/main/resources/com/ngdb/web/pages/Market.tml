@@ -9,29 +9,44 @@
 				</t:if>
 			</h1>
 		</div>
-		<t:if test="shopItems">
-			<t:loop source="shopItems" value="shopItem">
-				<span>
-					<t:pageLink t:id="shopItem" id="shopItem" page="shop/shopItemView" context="shopItem.id">
-						<img class="thumbnail" width="150px" src="${message:image.host.url}${shopItem.mainPicture.url}" alt="${shopItem.title}" />
-					</t:pageLink>
-					<p style="text-align:center;width:170px">
-						<b>${shopItem.title}</b>
-					</p>
-					<p style="text-align:center;width:170px">
-						<t:if test="user">
-							<t:common.action.buyButton shopItem="shopItem" />
-							<p:else>
-								${shopItem.currency}${shopItem.price}
-							</p:else>
-						</t:if>
-						<t:pageLink page="market" context="shopItem.seller">${shopItem.seller.login}</t:pageLink>
-					</p>
-				</span>
+		<t:loop source="platforms" value="platform">
+			<t:loop source="origins" value="origin">
+				<t:if test="shopItems">
+					<h2>${platform} from ${origin}</h2>
+					<t:loop source="shopItems" value="shopItem">
+						<table style="display:inline">
+							<tr>
+								<td>
+									<t:pageLink page="shop/shopItemView" context="shopItem.id">
+										<img class="thumbnail" width="150px" src="${message:image.host.url}${shopItem.mainPicture.url}" alt="${shopItem.title}" />
+									</t:pageLink>
+								</td>
+							</tr>
+							<tr>
+							<td style="text-align:center;width:170px;font-weight:bold">
+								<t:pageLink page="shop/shopItemView" context="shopItem.id">
+									${shopItem.title}
+								</t:pageLink>
+							</td>
+							</tr>
+							<tr>
+								<td style="text-align:center;width:170px">
+									<t:if test="user">
+										<t:common.action.buyButton shopItem="shopItem" />
+										<p:else>
+											<span style="font-size:12pt">${shopItem.currency}${shopItem.price}</span>
+										</p:else>
+									</t:if>
+									by <t:pageLink page="market" context="literal:byUser,shopItem.seller">${shopItem.seller.login}</t:pageLink>
+								</td>
+							</tr>
+						</table>
+					</t:loop>
+					<br/>
+					<br/>
+					<br/>
+				</t:if>
 			</t:loop>
-			<p:else>
-				<p>There is nothing to sell</p>
-			</p:else>
-		</t:if>
+		</t:loop>
 	</div>
 </t:layout>
