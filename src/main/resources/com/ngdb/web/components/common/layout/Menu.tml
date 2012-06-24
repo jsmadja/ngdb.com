@@ -2,25 +2,25 @@
 	<ul class="nav nav-list">
 		<li class="nav-header">DB stats</li>
 		<li>
-			<t:pageLink page="games">${gameCount} games</t:pageLink>
+			<t:pageLink page="games"><b>${gameCount}</b> games</t:pageLink>
 		</li>
 		<li>
-			<t:pageLink page="hardwares">${hardwareCount} hardwares</t:pageLink>
+			<t:pageLink page="hardwares"><b>${hardwareCount}</b> hardwares</t:pageLink>
 		</li>
 		<li>
-			<t:pageLink page="wishBox">${wishListCount} wishes</t:pageLink>
+			<t:pageLink page="wishBox"><b>${wishListCount}</b> wishes</t:pageLink>
 		</li>
 		<li>
-			<t:pageLink page="users">${userCount} users</t:pageLink>
+			<t:pageLink page="users"><b>${userCount}</b> users</t:pageLink>
 		</li>
 		<li>
-			<t:actionLink t:id="shopForSale" id="shopForSale" >${forSaleCount} items in market</t:actionLink>
+			<t:actionLink t:id="shopForSale" id="shopForSale"><b>${forSaleCount}</b> items in market</t:actionLink>
 		</li>
 		
 		<li class="nav-header">Last updates</li>
 		<t:loop value="update" source="updates">
 			<li>
-				<t:pageLink page="article/game/gameview" context="update.id">${update.title} - ${update.platform.name} ${update.origin.title}</t:pageLink>
+				<t:pageLink page="article/game/gameview" context="update.id"><b>${update.title}</b> - ${update.platform.name} ${update.origin.title}</t:pageLink>
 			</li>
 		</t:loop>
 	</ul>
