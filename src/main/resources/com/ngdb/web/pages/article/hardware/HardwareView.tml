@@ -1,77 +1,79 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
-	<div class="page-header">
-		<h1 class="header">
-			${hardware.title}
-		</h1>
-	</div>
-	<div class="row-fluid show-grid article">
-		<div class="span3">
-			<t:article.thumbnail article="hardware" noClick="true" />
-			<t:article.history article="hardware" />
+	<t:if test="hardware">
+		<div class="page-header">
+			<h1 class="header">
+				${hardware.title}
+			</h1>
 		</div>
-		<div class="span9">
-			<t:article.actionBlock article="hardware" />
-				<table>
-					<tr>
-						<td class="grey">
-							<b>#NGDB</b>
-						</td>
-						<td>
-							${hardware.id}
-						</td>
-					</tr>
-					<tr>
-						<td class="grey">
-							<b>Release date</b>
-						</td>
-						<td>
-							<t:pagelink page="hardwares" context="literal:byreleaseDate,hardware.releaseDate">
-								${hardware.releaseDate}
-							</t:pagelink>
-						</td>
-					</tr>
-					<tr>
-						<td class="grey">
-							<b>Platform</b>
-						</td>
-						<td>
-							<t:pagelink page="hardwares" context="literal:byplatform,hardware.platform.id">
-								${hardware.platform.name}
-							</t:pagelink>
-						</td>
-					</tr>
-					<tr>
-						<td class="grey">
-							<b>Origin</b>
-						</td>
-						<td>
-							<t:pagelink page="hardwares" context="literal:byorigin,hardware.origin.id">
-								${hardware.origin.title}
-							</t:pagelink>
-						</td>
-					</tr>
-					<t:loop source="hardware.notes" value="note">
+		<div class="row-fluid show-grid article">
+			<div class="span3">
+				<t:article.thumbnail article="hardware" noClick="true" />
+				<t:article.history article="hardware" />
+			</div>
+			<div class="span9">
+				<t:article.actionBlock article="hardware" />
+					<table>
 						<tr>
 							<td class="grey">
-								<b>${note.name}</b>
+								<b>#NGDB</b>
 							</td>
 							<td>
-								${note.text}
+								${hardware.id}
 							</td>
 						</tr>
-					</t:loop>
-				</table>
-				<hr/>
-			<t:if test="${hardware.details}">
-				<h3>Details</h3>
-				<p>
-					<t:OutputRaw value="${hardware.details}"/>
-				</p>
-				<hr />
-			</t:if>
-			<t:article.gallery article="hardware" />
-			<h3>Comments</h3>
-			<t:article.commentBlock article="hardware" />
+						<tr>
+							<td class="grey">
+								<b>Release date</b>
+							</td>
+							<td>
+								<t:pagelink page="hardwares" context="literal:byreleaseDate,hardware.releaseDate">
+									${hardware.releaseDate}
+								</t:pagelink>
+							</td>
+						</tr>
+						<tr>
+							<td class="grey">
+								<b>Platform</b>
+							</td>
+							<td>
+								<t:pagelink page="hardwares" context="literal:byplatform,hardware.platform.id">
+									${hardware.platform.name}
+								</t:pagelink>
+							</td>
+						</tr>
+						<tr>
+							<td class="grey">
+								<b>Origin</b>
+							</td>
+							<td>
+								<t:pagelink page="hardwares" context="literal:byorigin,hardware.origin.id">
+									${hardware.origin.title}
+								</t:pagelink>
+							</td>
+						</tr>
+						<t:loop source="hardware.notes" value="note">
+							<tr>
+								<td class="grey">
+									<b>${note.name}</b>
+								</td>
+								<td>
+									${note.text}
+								</td>
+							</tr>
+						</t:loop>
+					</table>
+					<hr/>
+				<t:if test="${hardware.details}">
+					<h3>Details</h3>
+					<p>
+						<t:OutputRaw value="${hardware.details}"/>
+					</p>
+					<hr />
+				</t:if>
+				<t:article.gallery article="hardware" />
+				<h3>Comments</h3>
+				<t:article.commentBlock article="hardware" />
+			</div>
 		</div>
-	</div>
+	</t:if>
 </t:layout>
