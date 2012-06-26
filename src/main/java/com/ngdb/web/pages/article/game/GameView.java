@@ -9,6 +9,7 @@ import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.reference.Genre;
+import com.ngdb.web.Filter;
 
 public class GameView {
 
@@ -51,6 +52,26 @@ public class GameView {
 
 	public String getDetails() {
 		return StringEscapeUtils.unescapeHtml(game.getDetails());
+	}
+
+	public String getByNgh() {
+		return Filter.byNgh.name();
+	}
+
+	public String getByOrigin() {
+		return Filter.byOrigin.name();
+	}
+
+	public String getByPlatform() {
+		return Filter.byPlatform.name();
+	}
+
+	public String getByPublisher() {
+		return Filter.byPublisher.name();
+	}
+
+	public String getByReleaseDate() {
+		return Filter.byReleaseDate.name();
 	}
 
 }

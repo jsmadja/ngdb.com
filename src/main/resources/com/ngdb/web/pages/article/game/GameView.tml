@@ -18,7 +18,7 @@
 							<b>NGH</b>
 						</td>
 						<td>
-						<t:pagelink page="games" context="literal:byngh,game.ngh">
+						<t:pagelink page="games" context="[byNgh,game.ngh]">
 								${game.ngh}
 							</t:pagelink>
 						</td>
@@ -28,7 +28,7 @@
 							<b>Platform</b>
 						</td>
 						<td>
-							<t:pagelink page="games" context="literal:byplatform,game.platform.id">
+							<t:pagelink page="games" context="[byPlatform,game.platform]">
 								${game.platform.name}
 							</t:pagelink>
 						</td>
@@ -38,7 +38,7 @@
 							<b>Origin</b>
 						</td>
 						<td>
-							<t:pagelink page="games" context="literal:byorigin,game.origin.id">
+							<t:pagelink page="games" context="[byOrigin,game.origin]">
 								${game.origin.title}
 							</t:pagelink>
 						</td>
@@ -50,14 +50,14 @@
 							<b>Publisher</b>
 						</td>
 						<td>
-							<t:pagelink page="games" context="literal:bypublisher,game.publisher.id">
+							<t:pagelink page="games" context="[byPublisher,game.publisher]">
 								${game.publisher?.name}
 							</t:pagelink>
 						</td>
 					</tr>
 					<tr><td class="grey"><b>Release date</b></td>
 						<td>
-							<t:pagelink page="games" context="literal:byreleaseDate,game.releaseDate">
+							<t:pagelink page="games" context="[byReleaseDate,game.releaseDate]">
 								${game.releaseDate}
 							</t:pagelink>
 						</td>

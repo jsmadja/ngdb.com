@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -38,15 +39,24 @@ public class Hardwares {
 	@Inject
 	private CurrentUser currentUser;
 
-	private Filter filter = Filter.none;
+	@Persist
+	@Property
+	private Filter filter;
 
+	@Persist
+	@Property
 	private Long id;
 
+	@Property
 	private String filterValue;
 
 	private EvenOdd evenOdd = new EvenOdd();
 
-	void onActivate(String filter, String value) {
+	void onActivate() {
+		filter = Filter.none;
+	}
+
+	boolean onActivate(String filter, String value) {
 		if (isNotBlank(filter)) {
 			this.filter = Filter.valueOf(Filter.class, filter);
 			this.filterValue = value;
@@ -54,6 +64,7 @@ public class Hardwares {
 				this.id = Long.valueOf(filterValue);
 			}
 		}
+		return true;
 	}
 
 	@SetupRender
@@ -61,15 +72,19 @@ public class Hardwares {
 		switch (filter) {
 		case byReleaseDate:
 			int year = Integer.valueOf(filterValue.split("-")[0]);
-			Date releaseDate = new DateTime().withTimeAtStartOfDay().withYear(year).toDate();
+			int month = Integer.valueOf(filterValue.split("-")[1]);
+			int day = Integer.valueOf(filterValue.split("-")[2]);
+			Date releaseDate = new DateTime().withTimeAtStartOfDay().withDayOfMonth(day).withMonthOfYear(month).withYear(year).toDate();
 			this.hardwares = hardwareFactory.findAllByReleaseDate(releaseDate);
 			break;
 		case byOrigin:
 			Origin origin = referenceService.findOriginById(id);
+			this.filterValue = origin.getTitle();
 			this.hardwares = hardwareFactory.findAllByOrigin(origin);
 			break;
 		case byPlatform:
 			Platform platform = referenceService.findPlatformById(id);
+			this.filterValue = platform.getName();
 			this.hardwares = hardwareFactory.findAllByPlatform(platform);
 			break;
 		default:

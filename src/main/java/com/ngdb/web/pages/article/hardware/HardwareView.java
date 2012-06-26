@@ -7,6 +7,7 @@ import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Tag;
+import com.ngdb.web.Filter;
 
 public class HardwareView {
 
@@ -38,6 +39,26 @@ public class HardwareView {
 
 	public Hardware getHardware() {
 		return hardware;
+	}
+
+	public String getByNgh() {
+		return Filter.byNgh.name();
+	}
+
+	public String getByOrigin() {
+		return Filter.byOrigin.name();
+	}
+
+	public String getByPlatform() {
+		return Filter.byPlatform.name();
+	}
+
+	public String getByPublisher() {
+		return Filter.byPublisher.name();
+	}
+
+	public String getByReleaseDate() {
+		return Filter.byReleaseDate.name();
 	}
 
 }

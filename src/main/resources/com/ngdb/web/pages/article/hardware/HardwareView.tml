@@ -26,7 +26,7 @@
 								<b>Release date</b>
 							</td>
 							<td>
-								<t:pagelink page="hardwares" context="literal:byreleaseDate,hardware.releaseDate">
+								<t:pagelink page="hardwares" context="[byReleaseDate,hardware.releaseDate]">
 									${hardware.releaseDate}
 								</t:pagelink>
 							</td>
@@ -36,7 +36,7 @@
 								<b>Platform</b>
 							</td>
 							<td>
-								<t:pagelink page="hardwares" context="literal:byplatform,hardware.platform.id">
+								<t:pagelink page="hardwares" context="[byPlatform,hardware.platform]">
 									${hardware.platform.name}
 								</t:pagelink>
 							</td>
@@ -46,7 +46,7 @@
 								<b>Origin</b>
 							</td>
 							<td>
-								<t:pagelink page="hardwares" context="literal:byorigin,hardware.origin.id">
+								<t:pagelink page="hardwares" context="[byOrigin,hardware.origin]">
 									${hardware.origin.title}
 								</t:pagelink>
 							</td>

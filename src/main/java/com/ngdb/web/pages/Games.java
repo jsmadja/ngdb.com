@@ -1,7 +1,6 @@
 package com.ngdb.web.pages;
 
 import static com.google.common.collect.Collections2.filter;
-import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -49,24 +48,32 @@ public class Games {
 	@Inject
 	private CurrentUser currentUser;
 
-	private Filter filter = Filter.none;
+	@Persist
+	@Property
+	private Filter filter;
 
+	@Property
 	private String filterValue;
 
+	@Persist
+	@Property
 	private Long id;
 
 	private EvenOdd evenOdd = new EvenOdd();
 
 	private List<Predicate> filters = new ArrayList<Predicate>();
 
-	void onActivate(String filter, String value) {
-		if (isNotBlank(filter)) {
-			this.filter = Filter.valueOf(Filter.class, filter);
-			this.filterValue = value;
-			if (StringUtils.isNumeric(filterValue)) {
-				this.id = Long.valueOf(filterValue);
-			}
+	void onActivate() {
+		filter = Filter.none;
+	}
+
+	boolean onActivate(String filter, String value) {
+		this.filter = Filter.valueOf(Filter.class, filter);
+		this.filterValue = value;
+		if (StringUtils.isNumeric(value)) {
+			this.id = Long.valueOf(filterValue);
 		}
+		return true;
 	}
 
 	/*
@@ -106,6 +113,7 @@ public class Games {
 		switch (filter) {
 		case byGenre:
 			Genre genre = referenceService.findGenreById(id);
+			this.filterValue = genre.getTitle();
 			this.games = gameFactory.findAllByGenre(genre);
 			break;
 		case byNgh:
@@ -113,19 +121,24 @@ public class Games {
 			break;
 		case byOrigin:
 			Origin origin = referenceService.findOriginById(id);
+			this.filterValue = origin.getTitle();
 			this.games = gameFactory.findAllByOrigin(origin);
 			break;
 		case byPlatform:
 			Platform platform = referenceService.findPlatformById(id);
+			this.filterValue = platform.getName();
 			this.games = gameFactory.findAllByPlatform(platform);
 			break;
 		case byPublisher:
 			Publisher publisher = referenceService.findPublisherBy(id);
+			this.filterValue = publisher.getName();
 			this.games = gameFactory.findAllByPublisher(publisher);
 			break;
 		case byReleaseDate:
 			int year = Integer.valueOf(filterValue.split("-")[0]);
-			Date releaseDate = new DateTime().withTimeAtStartOfDay().withYear(year).toDate();
+			int month = Integer.valueOf(filterValue.split("-")[1]);
+			int day = Integer.valueOf(filterValue.split("-")[2]);
+			Date releaseDate = new DateTime().withTimeAtStartOfDay().withDayOfMonth(day).withMonthOfYear(month).withYear(year).toDate();
 			this.games = gameFactory.findAllByReleaseDate(releaseDate);
 			break;
 		default:

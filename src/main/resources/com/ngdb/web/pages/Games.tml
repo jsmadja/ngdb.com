@@ -4,6 +4,10 @@
 			<h1>Games</h1>
 		</div>
 		
+		<t:if test="filterValue">
+			<h2>with filter (${filter} = ${filterValue} )</h2>
+		</t:if>
+		
 <!-- 		<h3>Filters</h3> -->
 <!-- 		<p> -->
 <!-- 			<t:if test="filteredByAes"> -->
