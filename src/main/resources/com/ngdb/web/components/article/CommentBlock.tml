@@ -9,7 +9,7 @@
 			You must be registered to add a comment.
 		</p>
 	</t:if>
-	<t:loop source="article.comments" value="comment">
+	<t:loop source="comments" value="comment">
 		<p style="word-wrap:break-word;">
 			${comment.text}
 			<br/>

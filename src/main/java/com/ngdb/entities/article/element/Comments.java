@@ -1,5 +1,6 @@
 package com.ngdb.entities.article.element;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -24,6 +25,10 @@ public class Comments implements Iterable<Comment> {
 
 	public boolean isEmpty() {
 		return comments == null || comments.isEmpty();
+	}
+
+	public Set<Comment> all() {
+		return Collections.unmodifiableSet(comments);
 	}
 
 }

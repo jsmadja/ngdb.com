@@ -17,7 +17,7 @@ import com.ngdb.entities.user.User;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Comment extends AbstractEntity {
+public class Comment extends AbstractEntity implements Comparable<Comment> {
 
 	private static final int MAX_COMMENT_LENGTH = 1024;
 
@@ -56,5 +56,10 @@ public class Comment extends AbstractEntity {
 
 	public Article getArticle() {
 		return article;
+	}
+
+	@Override
+	public int compareTo(Comment comment) {
+		return comment.getCreationDate().compareTo(this.getCreationDate());
 	}
 }
