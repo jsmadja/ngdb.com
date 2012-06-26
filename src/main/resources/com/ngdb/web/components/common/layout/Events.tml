@@ -28,7 +28,7 @@
 		<li class="events-header">Released in ${month}</li>
 		<t:loop value="release" source="releases">
 			<li style="margin-bottom:10px">
-				<t:pageLink page="article/game/gameview" context="release.id"><b>${release.title}</b> - ${release.platform.name} ${release.origin.title}</t:pageLink>
+				<t:pageLink page="article/game/gameview" context="release.id"><img src="/img/flags/${release.origin}.png" width="20px" alt="${release.origin}" /><b> ${release.title}</b><span style="font-size:7pt"> ${release.platform.name}</span></t:pageLink>
 			</li>
 		</t:loop>
 	</t:if>

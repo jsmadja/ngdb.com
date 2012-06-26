@@ -1,30 +1,53 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 	xmlns:p="tapestry:parameter">
 	<div class="collection">
-		
 		<div class="page-header">
 			<h1>Museum</h1>
 		</div>
-		
-		<t:loop source="platforms" value="platform">
-			<t:loop source="origins" value="origin">
-				<t:if test="games">
-					<h2>${platform} from ${origin}</h2>
-					<t:loop source="games" value="game">
-						<t:article.thumbnail article="game" />
+		<div class="tabbable"> <!-- Only required for left/right tabs -->
+			<ul class="nav nav-tabs">
+				<t:loop source="platforms" value="platform">
+					<li class="${firstTab}">
+						<a href="#tab${idTab}" data-toggle="tab">${platform}</a>
+					</li>
+				</t:loop>
+				<li>
+					<a href="#tab${idTab}" data-toggle="tab">Hardware</a>
+				</li>
+			</ul>
+			<div class="tab-content">
+				<t:loop source="platforms" value="platform">
+					<div class="tab-pane ${firstContent}" id="tab${idContent}">
+						<div class="tabbable tabs-left">
+							<ul class="nav nav-tabs">
+								<t:loop source="origins" value="origin">
+									<t:if test="games">
+										<li class="${firstOrigin}">
+											<a href="#tab_${originIdTab}" data-toggle="tab"><img src="/img/flags/${origin}.png" alt="${origin}" /></a>
+										</li>
+									</t:if>
+								</t:loop>
+							</ul>
+							<div class="tab-content">
+								<t:loop source="origins" value="origin">
+									<t:if test="games">
+										<div class="tab-pane ${firstOrigin}" id="tab_${originIdContent}">
+											<t:loop source="games" value="game">
+												<t:article.thumbnail article="game" />
+											</t:loop>
+										</div>
+									</t:if>
+								</t:loop>
+							</div>
+						</div>
+					</div>
+				</t:loop>
+				<div class="tab-pane" id="tab${idContent}">
+					<t:loop source="hardwares" value="hardware">
+						<t:article.thumbnail article="hardware" />
 					</t:loop>
-					<br/>
-					<br/>
-					<br/>
-				</t:if>
-			</t:loop>
-		</t:loop>
-		
-		<div class="page-header">
-			<h1>Hardware Collection</h1>
+				</div>
+			</div>
 		</div>
-		<t:loop source="hardwares" value="hardware">
-			<t:article.thumbnail article="hardware" />
-		</t:loop>
 	</div>
 </t:layout>

@@ -39,7 +39,7 @@
 						</td>
 						<td>
 							<t:pagelink page="games" context="[byOrigin,game.origin]">
-								${game.origin.title}
+								<img src="/img/flags/${game.origin}.png" alt="${game.origin}" />
 							</t:pagelink>
 						</td>
 					</tr>

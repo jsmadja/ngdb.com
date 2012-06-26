@@ -47,7 +47,7 @@
 							</td>
 							<td>
 								<t:pagelink page="hardwares" context="[byOrigin,hardware.origin]">
-									${hardware.origin.title}
+									<img src="/img/flags/${hardware.origin}.png" alt="${hardware.origin}" />
 								</t:pagelink>
 							</td>
 						</tr>

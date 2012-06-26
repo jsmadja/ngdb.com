@@ -51,6 +51,11 @@ public class Museum {
 	@Inject
 	private ReferenceService referenceService;
 
+	private int idTab = 0;
+	private int idContent = 0;
+	private int originIdTab = 0;
+	private int originIdContent = 0;
+
 	private Long id;
 
 	void onActivate() {
@@ -93,4 +98,33 @@ public class Museum {
 	public List<Platform> getPlatforms() {
 		return platforms;
 	}
+
+	public int getIdContent() {
+		return idContent++;
+	}
+
+	public int getOriginIdContent() {
+		return originIdContent++;
+	}
+
+	public int getIdTab() {
+		return idTab++;
+	}
+
+	public int getOriginIdTab() {
+		return originIdTab++;
+	}
+
+	public String getFirstTab() {
+		return idTab == 0 ? "active" : "";
+	}
+
+	public String getFirstContent() {
+		return idContent == 0 ? "active" : "";
+	}
+
+	public String getFirstOrigin() {
+		return origin.getTitle().equalsIgnoreCase("Japan") ? "active" : "";
+	}
+
 }

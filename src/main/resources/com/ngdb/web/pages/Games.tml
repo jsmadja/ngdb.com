@@ -62,7 +62,7 @@
 					</t:pageLink>
             		<t:pageLink page="article/game/gameview" context="game.id">${game.title}</t:pageLink>
             		<br/><br/>
-            		${game.platform.name} - ${game.publisher?.name} - ${game.origin.title}
+            		<img src="/img/flags/${game.origin}.png" alt="${game.origin}" /> ${game.platform.name} - ${game.publisher?.name}
                 	<t:article.actionBlock asButton="true" article="game" />
                 </p:titleCell>
 			</t:grid>
