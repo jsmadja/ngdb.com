@@ -11,7 +11,6 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.hibernate.Session;
 
 import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.article.Article;
@@ -37,16 +36,12 @@ public class CommentBlock {
 	private CurrentUser currentUser;
 
 	@Inject
-	private Session session;
-
-	@Inject
 	private GameFactory gameFactory;
 
 	@CommitAfter
 	public Object onSuccess() {
-		User user = currentUser.getUser();
 		if (isNotBlank(commentText)) {
-			session.merge(new Comment(commentText, user, article));
+			currentUser.addCommentOn(article, commentText);
 		}
 		return this;
 	}

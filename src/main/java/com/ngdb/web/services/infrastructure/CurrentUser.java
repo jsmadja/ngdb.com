@@ -12,6 +12,7 @@ import org.tynamo.security.services.SecurityService;
 
 import com.ngdb.entities.Population;
 import com.ngdb.entities.article.Article;
+import com.ngdb.entities.article.element.Comment;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.CollectionObject;
@@ -184,6 +185,11 @@ public class CurrentUser {
 		boolean currentUserIsPotentialBuyer = isLogged() && shopItem.isNotAlreadyWantedBy(getUser());
 		boolean currentUserIsNotTheSeller = !isSeller(shopItem);
 		return currentUserIsNotTheSeller && currentUserIsPotentialBuyer;
+	}
+
+	public void addCommentOn(Article article, String commentText) {
+		User user = getUser();
+		session.merge(new Comment(commentText, user, article));
 	}
 
 }
