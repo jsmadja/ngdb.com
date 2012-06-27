@@ -29,6 +29,10 @@ public class ActionBlock {
 		return currentUser.canAddToCollection(article);
 	}
 
+	public boolean isRemoveableFromCollection() {
+		return currentUser.canRemoveFromCollection(article);
+	}
+
 	public boolean isBuyable() {
 		article = articleFactory.findById(article.getId());
 		return article.isBuyable();
@@ -40,6 +44,10 @@ public class ActionBlock {
 
 	public boolean isWishable() {
 		return currentUser.canWish(article);
+	}
+
+	public boolean isUnwishable() {
+		return currentUser.canUnwish(article);
 	}
 
 	public User getUser() {

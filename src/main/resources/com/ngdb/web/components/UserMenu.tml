@@ -7,13 +7,13 @@
 		</a>
 		<ul class="dropdown-menu">
 			<li>
-				<a href="/wishbox/byUser/${userId}">My whishes (${numArticlesInWishList})</a>
+				<a href="/wishbox/byUser/${userId}"><i class="icon-heart" /> My whishes (${numArticlesInWishList})</a>
 			</li>
 			<li>
-				<a href="/market/byUser/${userId}">My Shop (${numArticlesInShop})</a>
+				<a href="/market/byUser/${userId}"><i class="icon-share" /> My Shop (${numArticlesInShop})</a>
 			</li>
 			<li>
-				<t:pageLink page="museum" context="user">My Collection (${numArticlesInCollection})</t:pageLink>
+				<t:pageLink page="museum" context="user"><i class="icon-plus" /> My Collection (${numArticlesInCollection})</t:pageLink>
 			</li>
 			<li class="divider"></li>
 			<li>

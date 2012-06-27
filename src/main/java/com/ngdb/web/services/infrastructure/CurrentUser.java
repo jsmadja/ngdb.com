@@ -113,9 +113,21 @@ public class CurrentUser {
 		return getUserFromDb().canAddInCollection(article);
 	}
 
+	public boolean canRemoveFromCollection(Article article) {
+		if (isAnonymous()) {
+			return false;
+		}
+		return getUserFromDb().canRemoveFromCollection(article);
+	}
+
 	public void addToCollection(Article article) {
 		CollectionObject collectionObject = getUserFromDb().addInCollection(article);
 		session.merge(collectionObject);
+	}
+
+	public void removeFromCollection(Article article) {
+		User userFromDb = getUserFromDb();
+		userFromDb.removeFromCollection(article);
 	}
 
 	public boolean canWish(Article article) {
@@ -125,9 +137,21 @@ public class CurrentUser {
 		return getUserFromDb().canWish(article);
 	}
 
+	public boolean canUnwish(Article article) {
+		if (isAnonymous()) {
+			return false;
+		}
+		return getUserFromDb().canUnwish(article);
+	}
+
 	public void wish(Article article) {
 		Wish wish = getUserFromDb().addToWishes(article);
 		session.merge(wish);
+	}
+
+	public void unwish(Article article) {
+		User userFromDb = getUserFromDb();
+		userFromDb.removeFromWishes(article);
 	}
 
 	public boolean canSell(Article article) {

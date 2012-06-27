@@ -1,11 +1,11 @@
 <span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<t:if test="asButton">
-		<t:actionLink class="btn btn-warning" t:id="wish" context="article" t:mixins="jquery/tooltip" title="Add to your wishlist">
+		<t:actionLink class="btn btn-success" t:id="wish" context="article" t:mixins="jquery/tooltip" title="Add to your wishlist">
 			<i class="icon-heart icon-white" />
 		</t:actionLink>
 		<p:else>
 			<t:actionLink t:id="wishLink" context="article">
-				Add to your wishlist
+				<i class="icon-heart" /> Add to your wishlist
 			</t:actionLink>
 		</p:else>
 	</t:if>

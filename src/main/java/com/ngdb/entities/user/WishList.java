@@ -19,7 +19,7 @@ import com.ngdb.entities.shop.Wish;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class WishList implements Iterable<Wish> {
 
-	@OneToMany(mappedBy = "wisher", fetch = LAZY)
+	@OneToMany(mappedBy = "wisher", fetch = LAZY, orphanRemoval = true)
 	private Set<Wish> wishes;
 
 	boolean contains(Article article) {
@@ -48,6 +48,19 @@ public class WishList implements Iterable<Wish> {
 
 	public int getNumWishes() {
 		return wishes.size();
+	}
+
+	public void removeFromWishList(Article article) {
+		if (contains(article)) {
+			Wish wishToRemove = null;
+			for (Wish wish : wishes) {
+				if (wish.getArticle().getId().equals(article.getId())) {
+					wishToRemove = wish;
+					break;
+				}
+			}
+			wishes.remove(wishToRemove);
+		}
 	}
 
 }

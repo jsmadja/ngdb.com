@@ -1,11 +1,11 @@
 <span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<t:if test="asButton">
-		<t:pageLink t:id="buy" class="btn btn-success" page="market" context="literal:byArticle,article.id" t:mixins="jquery/tooltip" title="View items for sale">
+		<t:pageLink t:id="buy" class="btn btn-warning" page="market" context="literal:byArticle,article.id" t:mixins="jquery/tooltip" title="View items for sale">
 			<i class="icon-shopping-cart icon-white"></i>
 		</t:pageLink>
 		<p:else>
 			<t:pageLink t:id="buyLink" page="market" context="literal:byArticle,article.id">
-				View items for sale
+				<i class="icon-shopping-cart icon-white"/> View items for sale
 			</t:pageLink>
 		</p:else>
 	</t:if>

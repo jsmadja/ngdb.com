@@ -22,7 +22,7 @@ import com.ngdb.entities.article.Article;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ArticleCollection {
 
-	@OneToMany(mappedBy = "owner", fetch = LAZY)
+	@OneToMany(mappedBy = "owner", fetch = LAZY, orphanRemoval = true)
 	private Set<CollectionObject> collection;
 
 	public boolean contains(Article article) {
@@ -38,6 +38,19 @@ public class ArticleCollection {
 
 	public void addInCollection(CollectionObject collectionObject) {
 		collection.add(collectionObject);
+	}
+
+	public void removeFromCollection(Article article) {
+		if (contains(article)) {
+			CollectionObject collectionObjectToRemove = null;
+			for (CollectionObject collectionObject : collection) {
+				if (collectionObject.getArticle().getId().equals(article.getId())) {
+					collectionObjectToRemove = collectionObject;
+					break;
+				}
+			}
+			collection.remove(collectionObjectToRemove);
+		}
 	}
 
 	public Collection<Article> getArticles() {

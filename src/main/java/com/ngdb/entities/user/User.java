@@ -130,6 +130,10 @@ public class User extends AbstractEntity {
 		return wish;
 	}
 
+	public void removeFromWishes(Article article) {
+		wishList.removeFromWishList(article);
+	}
+
 	public Collection<ShopItem> getShopItemsForSale() {
 		return shop.getShopItemsToSell();
 	}
@@ -141,6 +145,13 @@ public class User extends AbstractEntity {
 		return !collection.contains(article);
 	}
 
+	public boolean canRemoveFromCollection(Article article) {
+		if (collection == null) {
+			return false;
+		}
+		return collection.contains(article);
+	}
+
 	public boolean canWish(Article article) {
 		if (wishList == null) {
 			return true;
@@ -148,10 +159,21 @@ public class User extends AbstractEntity {
 		return !wishList.contains(article);
 	}
 
+	public boolean canUnwish(Article article) {
+		if (wishList == null) {
+			return false;
+		}
+		return wishList.contains(article);
+	}
+
 	public CollectionObject addInCollection(Article article) {
 		CollectionObject collectionObject = new CollectionObject(this, article);
 		collection.addInCollection(collectionObject);
 		return collectionObject;
+	}
+
+	public void removeFromCollection(Article article) {
+		collection.removeFromCollection(article);
 	}
 
 	public Collection<Article> getGamesInCollection() {

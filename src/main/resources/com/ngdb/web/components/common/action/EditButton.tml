@@ -5,7 +5,7 @@
 		</t:pageLink>
 		<p:else>
 			<t:pageLink t:id="edit" page="${updatePage}" context="article">
-				Edit
+				<i class="icon-edit" /> Edit
 			</t:pageLink>
 		</p:else>
 	 </t:if>

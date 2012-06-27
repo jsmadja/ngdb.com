@@ -8,7 +8,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import com.ngdb.entities.article.Article;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 
-public class AddToCollectionButton {
+public class RemoveFromCollectionButton {
 
 	@Property
 	@Parameter
@@ -26,14 +26,14 @@ public class AddToCollectionButton {
 	private CurrentUser currentUser;
 
 	@CommitAfter
-	Object onActionFromCollection(Article article) {
-		currentUser.addToCollection(article);
+	Object onActionFromRemoveCollection(Article article) {
+		currentUser.removeFromCollection(article);
 		return returnPage;
 	}
 
 	@CommitAfter
-	Object onActionFromCollectionLink(Article article) {
-		return onActionFromCollection(article);
+	Object onActionFromRemoveCollectionLink(Article article) {
+		return onActionFromRemoveCollection(article);
 	}
 
 }

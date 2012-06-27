@@ -11,8 +11,14 @@
 			<t:if test="wishable">
 					<t:common.action.wishButton article="article" asButton="true" />
 			</t:if>
+			<t:if test="unwishable">
+					<t:common.action.unwishButton article="article" asButton="true" />
+			</t:if>
 			<t:if test="addableToCollection">
 					<t:common.action.addToCollectionButton article="article" asButton="true" />
+			</t:if>
+			<t:if test="removeableFromCollection">
+					<t:common.action.removeFromCollectionButton article="article" asButton="true" />
 			</t:if>
 			<p:else>
 				<div class="btn-group pull-right">
@@ -39,9 +45,19 @@
 								<t:common.action.wishButton article="article"  asButton="false" />
 							</li>
 						</t:if>
+						<t:if test="unwishable">
+							<li>
+								<t:common.action.unwishButton article="article" asButton="false" />
+							</li>
+						</t:if>
 						<t:if test="addableToCollection">
 							<li>
 								<t:common.action.addToCollectionButton article="article" asButton="false" />
+							</li>
+						</t:if>
+						<t:if test="removeableFromCollection">
+							<li>
+								<t:common.action.removeFromCollectionButton article="article" asButton="false" />
 							</li>
 						</t:if>
 					</ul>

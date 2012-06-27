@@ -122,4 +122,8 @@ public class Wish implements Comparable<Wish> {
 		return o.creationDate.compareTo(creationDate);
 	}
 
+	public void setArticle(Article article) {
+		this.article = article;
+	}
+
 }

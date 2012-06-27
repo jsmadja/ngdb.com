@@ -8,32 +8,32 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import com.ngdb.entities.article.Article;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 
-public class AddToCollectionButton {
+public class UnwishButton {
 
 	@Property
 	@Parameter
 	private Article article;
 
-	@Property
-	@Parameter
-	private boolean asButton;
+	@Inject
+	private CurrentUser currentUser;
 
 	@Property
 	@Parameter
 	private String returnPage;
 
-	@Inject
-	private CurrentUser currentUser;
+	@Property
+	@Parameter
+	private boolean asButton;
 
 	@CommitAfter
-	Object onActionFromCollection(Article article) {
-		currentUser.addToCollection(article);
+	Object onActionFromUnwish(Article article) {
+		currentUser.unwish(article);
 		return returnPage;
 	}
 
 	@CommitAfter
-	Object onActionFromCollectionLink(Article article) {
-		return onActionFromCollection(article);
+	Object onActionFromUnwishLink(Article article) {
+		return onActionFromUnwish(article);
 	}
 
 }
