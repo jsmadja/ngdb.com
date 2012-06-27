@@ -1,6 +1,5 @@
 Bouton remove dans WishList
 Bouton remove dans Market
-Museum : se passer du criteria pour renvoyer la liste des articles de type jeux/hardware au lieu de CollectionObject
 State : convertir en VO
 Multiupload d'image pour la creation d un shop item
 Multiupload d'image pour la mise a jour d un article
@@ -8,4 +7,4 @@ Carousel pour afficher les images d un shop item
 Taille du Detail dans un ShopItemUpdate : JDBC batch update
 Supprimer les PublisherList
 Probleme des pages blanches
-Onglets pour le museum
+Something's wrong, tell us
