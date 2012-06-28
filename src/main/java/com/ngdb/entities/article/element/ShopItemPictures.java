@@ -1,6 +1,7 @@
 package com.ngdb.entities.article.element;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.Embeddable;
@@ -12,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ShopItemPictures {
+public class ShopItemPictures implements Iterable<Picture> {
 
 	@OneToMany(mappedBy = "shopItem", fetch = FetchType.LAZY)
 	private Set<Picture> pictures = new HashSet<Picture>();
@@ -26,6 +27,11 @@ public class ShopItemPictures {
 
 	public void add(Picture picture) {
 		pictures.add(picture);
+	}
+
+	@Override
+	public Iterator<Picture> iterator() {
+		return pictures.iterator();
 	}
 
 }

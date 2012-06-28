@@ -23,7 +23,7 @@
 									<b>Price</b>
 								</td>
 								<td>
-									${shopItem.currency} ${shopItem.price}
+									$ ${shopItem.priceInDollars} / ${shopItem.priceInEuros} euros
 								</td>
 							</tr>
 							<tr>
@@ -58,7 +58,7 @@
 			<p>
 				<t:OutputRaw value="${shopItem.details}"/>
 			</p>
-			<t:shopitem.gallery article="shopItem" />
+			<t:shopitem.gallery shopItem="shopItem" />
 		</div>
 	</div>
 </t:layout>

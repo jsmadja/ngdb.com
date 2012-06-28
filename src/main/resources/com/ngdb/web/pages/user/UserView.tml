@@ -34,8 +34,8 @@
 		<t:grid source="user.shopItemsForSale" 
 				row="shopItem" 
 				rowsPerPage="10"
-				include="title, details,price"
-				add="origin, platform"
+				include="title, details"
+				add="origin, platform,price"
 				reorder="title, origin, platform,details,price"
 				rowClass="rowClass">
 				<p:titleHeader>Article</p:titleHeader>
@@ -46,7 +46,7 @@
                 	<t:if test="user">
 						<t:common.action.buyButton shopItem="shopItem" />
 						<p:else>
-							<span style="font-size:12pt">${shopItem.currency}${shopItem.price}</span>
+							<span style="font-size:12pt">$${shopItem.priceInDollars} / ${shopItem.priceInEuros} euros</span>
 						</p:else>
 					</t:if>
                 </p:priceCell>

@@ -15,7 +15,6 @@ import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.reference.State;
 import com.ngdb.entities.shop.ShopItem;
-import com.ngdb.web.model.CurrencyList;
 import com.ngdb.web.model.StateList;
 import com.ngdb.web.services.infrastructure.PictureService;
 
@@ -30,12 +29,13 @@ public class ShopItemUpdate {
 
 	@Persist
 	@Property
-	private String currency;
+	@Validate("required")
+	private Double priceInDollars;
 
 	@Persist
 	@Property
 	@Validate("required")
-	private Double price;
+	private Double priceInEuros;
 
 	@Persist
 	@Property
@@ -61,9 +61,9 @@ public class ShopItemUpdate {
 
 	boolean onActivate(ShopItem shopItem) {
 		this.shopItem = shopItem;
-		this.currency = shopItem.getCurrency();
 		this.details = shopItem.getDetails();
-		this.price = shopItem.getPrice();
+		this.priceInDollars = shopItem.getPriceInDollars();
+		this.priceInEuros = shopItem.getPriceInEuros();
 		this.state = shopItem.getState();
 		this.shopItem.updateModificationDate();
 		return true;
@@ -71,9 +71,9 @@ public class ShopItemUpdate {
 
 	@CommitAfter
 	public Object onSuccess() {
-		shopItem.setCurrency(currency);
 		shopItem.setDetails(details);
-		shopItem.setPrice(price);
+		shopItem.setPriceInDollars(priceInDollars);
+		shopItem.setPriceInEuros(priceInEuros);
 		shopItem.setState(state);
 		shopItem = (ShopItem) session.merge(shopItem);
 		if (this.mainPicture != null) {
@@ -87,10 +87,6 @@ public class ShopItemUpdate {
 
 	public SelectModel getStates() {
 		return new StateList(referenceService.getStates());
-	}
-
-	public SelectModel getCurrencies() {
-		return new CurrencyList(referenceService.getCurrencies());
 	}
 
 }

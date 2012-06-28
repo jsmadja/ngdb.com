@@ -1,5 +1,7 @@
 package com.ngdb.entities.shop;
 
+import static java.text.MessageFormat.format;
+
 import java.util.Date;
 import java.util.Locale;
 
@@ -44,8 +46,6 @@ public class ShopItem {
 	@OneToOne
 	private State state;
 
-	private double price;
-
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Article article;
 
@@ -56,7 +56,9 @@ public class ShopItem {
 
 	private Boolean sold = false;
 
-	private String currency = "$";
+	private Double priceInDollars;
+
+	private Double priceInEuros;
 
 	@Embedded
 	private PotentialBuyers potentialBuyers;
@@ -68,10 +70,6 @@ public class ShopItem {
 	@PreUpdate
 	public void update() {
 		this.modificationDate = new Date();
-	}
-
-	public double getPrice() {
-		return price;
 	}
 
 	public String getTitle() {
@@ -110,16 +108,8 @@ public class ShopItem {
 		return modificationDate;
 	}
 
-	public String getCurrency() {
-		return currency;
-	}
-
 	public void setState(State state) {
 		this.state = state;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
 	}
 
 	public void setDetails(String details) {
@@ -132,10 +122,6 @@ public class ShopItem {
 
 	public void setArticle(Article article) {
 		this.article = article;
-	}
-
-	public void setCurrency(String currency) {
-		this.currency = currency;
 	}
 
 	public void setSeller(User seller) {
@@ -179,11 +165,27 @@ public class ShopItem {
 
 	@Override
 	public String toString() {
-		return getArticle().getTitle() + " by " + seller.getLogin() + " for " + getPrice() + getCurrency();
+		return format("{0} by {1} for ${2} ({3}e)", getArticle().getTitle(), seller.getLogin(), getPriceInDollars(), getPriceInEuros());
 	}
 
 	public String getForSaleDate() {
 		return new PrettyTime(Locale.UK).format(getCreationDate());
+	}
+
+	public void setPriceInDollars(Double priceInDollars) {
+		this.priceInDollars = priceInDollars;
+	}
+
+	public Double getPriceInDollars() {
+		return priceInDollars;
+	}
+
+	public void setPriceInEuros(Double priceInEuros) {
+		this.priceInEuros = priceInEuros;
+	}
+
+	public Double getPriceInEuros() {
+		return priceInEuros;
 	}
 
 }

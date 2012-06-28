@@ -48,7 +48,7 @@ public class ShopItems {
 		}
 		double sum = 0;
 		for (ShopItem shopItem : shopItems) {
-			sum += shopItem.getPrice();
+			sum += shopItem.getPriceInDollars();
 		}
 		return sum / shopItems.size();
 	}
@@ -56,7 +56,7 @@ public class ShopItems {
 	public double getMaxPriceInState(State state) {
 		Double max = MIN_VALUE;
 		for (ShopItem shopItem : shopItemsByState(state)) {
-			max = Math.max(max, shopItem.getPrice());
+			max = Math.max(max, shopItem.getPriceInDollars());
 		}
 		if (max.equals(MIN_VALUE)) {
 			return 0;
@@ -67,7 +67,7 @@ public class ShopItems {
 	public double getMinPriceInState(State state) {
 		Double min = MAX_VALUE;
 		for (ShopItem shopItem : shopItemsByState(state)) {
-			min = Math.min(min, shopItem.getPrice());
+			min = Math.min(min, shopItem.getPriceInDollars());
 		}
 		if (min.equals(MAX_VALUE)) {
 			return 0;

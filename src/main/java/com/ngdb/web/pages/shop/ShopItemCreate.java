@@ -16,7 +16,6 @@ import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.reference.State;
 import com.ngdb.entities.shop.ShopItem;
-import com.ngdb.web.model.CurrencyList;
 import com.ngdb.web.model.StateList;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.PictureService;
@@ -32,12 +31,13 @@ public class ShopItemCreate {
 
 	@Persist
 	@Property
-	private String currency;
+	@Validate("required")
+	private Double priceInDollars;
 
 	@Persist
 	@Property
 	@Validate("required")
-	private Double price;
+	private Double priceInEuros;
 
 	@Persist
 	@Property
@@ -66,7 +66,6 @@ public class ShopItemCreate {
 
 	boolean onActivate(Article article) {
 		this.article = article;
-		this.currency = "$";
 		this.state = referenceService.findStateByTitle("Used");
 		return true;
 	}
@@ -75,9 +74,9 @@ public class ShopItemCreate {
 	public Object onSuccess() {
 		ShopItem shopItem = new ShopItem();
 		shopItem.setArticle(article);
-		shopItem.setCurrency(currency);
 		shopItem.setDetails(details);
-		shopItem.setPrice(price);
+		shopItem.setPriceInDollars(priceInDollars);
+		shopItem.setPriceInEuros(priceInEuros);
 		shopItem.setSeller(userSession.getUser());
 		shopItem.setState(state);
 		shopItem = (ShopItem) session.merge(shopItem);
@@ -92,10 +91,6 @@ public class ShopItemCreate {
 
 	public SelectModel getStates() {
 		return new StateList(referenceService.getStates());
-	}
-
-	public SelectModel getCurrencies() {
-		return new CurrencyList(referenceService.getCurrencies());
 	}
 
 }

@@ -9,10 +9,15 @@
 				<div class="control-group">
 					<fieldset>
 						<div class="control-group">
-							<t:label for="price" class="control-label">Price</t:label>
+							<t:label for="priceInDollars" class="control-label">Price in dollars* : </t:label>
 							<div class="controls">
-								<t:textfield value="price" t:id="price" />
-								<t:select style="max-width:50px" value="currency" model="currencies" t:id="currency" />
+								$<t:textfield value="priceInDollars" t:id="priceInDollars" />
+							</div>
+						</div>
+						<div class="control-group">
+							<t:label for="priceInEuros" class="control-label">Price in euros* : </t:label>
+							<div class="controls">
+								<t:textfield value="priceInEuros" t:id="priceInEuros" /> euros
 							</div>
 						</div>
 						<div class="control-group">

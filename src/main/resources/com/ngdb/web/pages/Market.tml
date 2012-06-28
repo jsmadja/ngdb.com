@@ -34,10 +34,10 @@
 									<t:if test="user">
 										<t:common.action.buyButton shopItem="shopItem" />
 										<p:else>
-											<span style="font-size:12pt">${shopItem.currency}${shopItem.price}</span>
+											<span style="font-size:12pt">$${shopItem.priceInDollars} / ${shopItem.priceInEuros} euros</span>
 										</p:else>
 									</t:if>
-									by <t:pageLink page="market" context="literal:byUser,shopItem.seller">${shopItem.seller.login}</t:pageLink>
+									by <t:pageLink page="market" context="shopItem.seller">${shopItem.seller.login}</t:pageLink>
 								</td>
 							</tr>
 						</table>
