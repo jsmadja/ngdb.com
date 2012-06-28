@@ -16,7 +16,7 @@
 					<li style="margin-bottom:10px">
 						<t:pageLink page="shop/shopItemView" context="shopItem">
 							<b>${shopItem.title}</b> ${shopItem.currency}${shopItem.price}
-						</t:pageLink> ${shopItem.forSaleDate} by <t:pageLink page="user/UserView" context="shopItem.seller.login">${shopItem.seller.login}</t:pageLink>
+						</t:pageLink> ${shopItem.forSaleDate} by <t:pageLink page="user/UserView" context="shopItem.seller">${shopItem.seller.login}</t:pageLink>
 					</li>
 				</t:loop>
 			<li>
