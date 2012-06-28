@@ -465,7 +465,7 @@ h6 small {
 }
 
 h1 {
-  font-size: 30px;
+  font-size: 21px;
   line-height: 36px;
 }
 
@@ -517,8 +517,8 @@ h6 {
 
 .page-header {
   padding-bottom: 17px;
-  margin: 18px 0;
-  border-bottom: 1px solid #eeeeee;
+  margin: 5px 0;
+  /*border-bottom: 1px solid #eeeeee;*/
 }
 
 .page-header h1 {
@@ -2420,8 +2420,8 @@ table .span24 {
   clear: both;
   font-weight: normal;
   line-height: 18px;
-  color: #333333;
   white-space: nowrap;
+  font-size: 10pt;
 }
 
 .dropdown-menu li > a:hover,
@@ -5021,7 +5021,7 @@ TABLE.t-data-grid THEAD TR TH {
 }
 
 .history {
-	font-size: 10px;	
+	font-size: 12px;	
 }
 
 .collection div.span3 {
@@ -5113,4 +5113,12 @@ TABLE.t-data-grid THEAD TR TH {
   margin-left: 0;
   list-style: none;
   font-size:8pt;
+}
+
+.pipe {
+	color:#CCCCCC;
+}
+
+.subtitle {
+	font-size:9t;
 }

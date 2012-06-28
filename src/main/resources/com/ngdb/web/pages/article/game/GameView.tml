@@ -1,72 +1,25 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<t:if test="game">
-		<div class="page-header">
-			<h1 class="header">${game.title}</h1>
-		</div>
-						
 		<div class="row-fluid show-grid article">
 			<div class="span3">
 				<t:article.thumbnail article="game" noClick="true" />
+				<br/>
 				<t:article.history article="game" />
+				<br/>
+				<t:article.gallery article="game" />
 			</div>
 			<div class="span9">
-				<t:article.actionBlock article="game" />
-				<table>
-					<tr><td class="grey"><b>#NGDB</b></td><td>${game.id}</td></tr>
-					<tr>
-						<td class="grey">
-							<b>NGH</b>
-						</td>
-						<td>
-						<t:pagelink page="games" context="[byNgh,game.ngh]">
-								${game.ngh}
-							</t:pagelink>
-						</td>
-					</tr>
-					<tr>
-						<td class="grey">
-							<b>Platform</b>
-						</td>
-						<td>
-							<t:pagelink page="games" context="[byPlatform,game.platform]">
-								${game.platform.name}
-							</t:pagelink>
-						</td>
-					</tr>
-					<tr>
-						<td class="grey">
-							<b>Origin</b>
-						</td>
-						<td>
-							<t:pagelink page="games" context="[byOrigin,game.origin]">
-								<img src="/img/flags/${game.origin}.png" alt="${game.origin}" />
-							</t:pagelink>
-						</td>
-					</tr>
-					<tr><td class="grey"><b>Mega Count</b></td><td>${game.megaCount}</td>
-					</tr>
-					<tr>
-						<td class="grey">
-							<b>Publisher</b>
-						</td>
-						<td>
-							<t:pagelink page="games" context="[byPublisher,game.publisher]">
-								${game.publisher?.name}
-							</t:pagelink>
-						</td>
-					</tr>
-					<tr><td class="grey"><b>Release date</b></td>
-						<td>
-							<t:pagelink page="games" context="[byReleaseDate,game.releaseDate]">
-								${game.releaseDate}
-							</t:pagelink>
-						</td>
-					</tr>
-					<t:loop source="game.notes" value="note">
-						<tr><td class="grey"><b>${note.name}</b></td><td>${note.text}</td></tr>
-					</t:loop>
-				</table>
-				<hr />
+				<div class="page-header">
+					<h1 class="header">${game.title} 
+						<span style="font-size:15px">
+							(<t:pagelink page="games" context="[byReleaseDate,game.releaseDate]">${game.releaseDate}</t:pagelink>) <t:pagelink page="games" context="[byOrigin,game.origin]"><img src="/img/flags/${game.origin}.png" alt="${game.origin}" /></t:pagelink>
+						</span>
+						<t:article.actionBlock article="game" />
+					</h1>
+					<div class="subtitle">
+						<t:pagelink page="games" context="[byNgh,game.ngh]"> ${game.ngh} </t:pagelink> ${game.megaCount}MB <t:pagelink page="games" context="[byPlatform,game.platform]"> ${game.platform.name} </t:pagelink><span class="pipe"> - </span><t:pagelink page="games" context="[byPublisher,game.publisher]"> ${game.publisher?.name} </t:pagelink> 
+					</div>
+				</div>
 				<t:if test="${game.details}">
 					<h3>Details</h3>
 					<p>
@@ -74,7 +27,6 @@
 					</p>
 					<hr />
 				</t:if>
-				<t:article.gallery article="game" />
 				<h3>Comments</h3>
 				<t:article.commentBlock article="game" />
 			</div>
