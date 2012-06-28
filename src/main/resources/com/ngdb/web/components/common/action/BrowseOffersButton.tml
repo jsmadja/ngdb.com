@@ -5,7 +5,7 @@
 		</t:pageLink>
 		<p:else>
 			<t:pageLink t:id="buyLink" page="market" context="literal:byArticle,article.id">
-				<i class="icon-shopping-cart icon-white"/> View items for sale
+				<i class="icon-shopping-cart"/> View items for sale
 			</t:pageLink>
 		</p:else>
 	</t:if>

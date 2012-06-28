@@ -1,27 +1,32 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<div class="page-header">
-		<t:if test="shopItem">
-			<h1>Update ${shopItem.article.title}</h1>
-		</t:if>
+		<h1>Update ${shopItem.article.title}</h1>
 	</div>
 	<div class="row">
-		<div class="span12">
+		<div class="span3"/>
+		<div class="span9">
 			<t:form t:id="shopItemForm" id="shopItemForm" class="form-horizontal">
 				<t:errors />
 				<div class="control-group">
 					<fieldset>
-						<div class="control-group">
-							<t:label for="priceInDollars" class="control-label">Price in dollars* : </t:label>
-							<div class="controls">
-								$<t:textfield value="priceInDollars" t:id="priceInDollars" />
+					
+						<t:zone t:id="priceZone" id="priceZone">
+							<div class="control-group">
+								<t:label for="priceInDollars" class="control-label">Price in USD* : </t:label>
+								<div class="controls">
+										<t:textfield style="max-width:50px" value="priceInDollars" t:id="priceInDollars" placeholder="$0.00" t:mixins="jquery/zoneUpdater" t:clientEvent="blur" t:event="dollarsChanged" t:zone="priceZone" />
+										${suggestedPriceInDollars}
+								</div>
 							</div>
-						</div>
-						<div class="control-group">
-							<t:label for="priceInEuros" class="control-label">Price in euros* : </t:label>
-							<div class="controls">
-								<t:textfield value="priceInEuros" t:id="priceInEuros" /> euros
+							<div class="control-group">
+								<t:label for="priceInDollars" class="control-label">Price in EUR* : </t:label>
+								<div class="controls">
+									<t:textfield style="max-width:50px" value="priceInEuros" t:id="priceInEuros" placeholder="0.00 €" t:mixins="jquery/zoneUpdater" t:clientEvent="blur" t:event="eurosChanged" t:zone="priceZone" /> 
+									${suggestedPriceInEuros}
+								</div>
 							</div>
-						</div>
+						</t:zone>
+						
 						<div class="control-group">
 							<t:label for="state" class="control-label">State* : </t:label>
 							<div class="controls">
@@ -31,7 +36,7 @@
 						<div class="control-group">
 							<t:label for="details" class="control-label">Details : </t:label>
 							<div class="controls">
-								<t:textarea style="width:100%" rows="6" value="details" t:id="details" />
+								<t:textarea style="width:70%" rows="6" value="details" t:id="details" />
 							</div>
 						</div>
 						<div class="control-group">

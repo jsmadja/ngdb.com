@@ -23,7 +23,7 @@
 									<b>Price</b>
 								</td>
 								<td>
-									$ ${shopItem.priceInDollars} / ${shopItem.priceInEuros} euros
+									$${shopItem.priceInDollars} / ${shopItem.priceInEuros} €
 								</td>
 							</tr>
 							<tr>

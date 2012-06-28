@@ -15,7 +15,7 @@
 				<t:loop value="shopItem" source="shopItems">
 					<li style="margin-bottom:10px">
 						<t:pageLink page="shop/shopItemView" context="shopItem">
-							<b>${shopItem.title}</b> $${shopItem.priceInDollars} / ${shopItem.priceInEuros} euros
+							<b>${shopItem.title}</b> $${shopItem.priceInDollars} / ${shopItem.priceInEuros} €
 						</t:pageLink> ${shopItem.forSaleDate} by <t:pageLink page="user/UserView" context="shopItem.seller">${shopItem.seller.login}</t:pageLink>
 					</li>
 				</t:loop>

@@ -1,13 +1,17 @@
 package com.ngdb.web.pages.shop;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.SelectModel;
+import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.Validate;
+import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.upload.services.UploadedFile;
 import org.hibernate.Session;
 
@@ -17,6 +21,7 @@ import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.reference.State;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.web.model.StateList;
+import com.ngdb.web.services.infrastructure.CurrencyService;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.PictureService;
 
@@ -64,6 +69,24 @@ public class ShopItemCreate {
 	@InjectPage
 	private ShopItemView shopItemView;
 
+	@Inject
+	private CurrencyService currencyService;
+
+	@Inject
+	private Request request;
+
+	@Inject
+	private ComponentResources componentResources;
+
+	@InjectComponent
+	private Zone priceZone;
+
+	@Property
+	private String suggestedPriceInEuros;
+
+	@Property
+	private String suggestedPriceInDollars;
+
 	boolean onActivate(Article article) {
 		this.article = article;
 		this.state = referenceService.findStateByTitle("Used");
@@ -91,6 +114,24 @@ public class ShopItemCreate {
 
 	public SelectModel getStates() {
 		return new StateList(referenceService.getStates());
+	}
+
+	public Object onDollarsChanged() {
+		String priceToConvert = request.getParameter("param");
+		if (priceToConvert != null) {
+			priceInDollars = Double.valueOf(priceToConvert);
+			suggestedPriceInEuros = "Suggested EUR price ~ " + currencyService.fromDollarsToEuros(priceInDollars) + " €";
+		}
+		return request.isXHR() ? priceZone.getBody() : null;
+	}
+
+	public Object onEurosChanged() {
+		String priceToConvert = request.getParameter("param");
+		if (priceToConvert != null) {
+			priceInEuros = Double.valueOf(priceToConvert);
+			suggestedPriceInDollars = "Suggested USD price ~ $" + currencyService.fromEurosToDollars(priceInEuros);
+		}
+		return request.isXHR() ? priceZone.getBody() : null;
 	}
 
 }

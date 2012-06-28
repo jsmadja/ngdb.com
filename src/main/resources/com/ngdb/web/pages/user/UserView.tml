@@ -46,7 +46,7 @@
                 	<t:if test="user">
 						<t:common.action.buyButton shopItem="shopItem" />
 						<p:else>
-							<span style="font-size:12pt">$${shopItem.priceInDollars} / ${shopItem.priceInEuros} euros</span>
+							<span style="font-size:12pt">$${shopItem.priceInDollars} / ${shopItem.priceInEuros} €</span>
 						</p:else>
 					</t:if>
                 </p:priceCell>

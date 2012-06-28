@@ -1,5 +1,5 @@
 <span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<t:pageLink t:id="edit" page="shop/ShopItemUpdate" context="shopItem">
-		Edit
+		<i class="icon-edit" /> Edit
 	</t:pageLink>
 </span>
