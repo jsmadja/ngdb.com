@@ -2,7 +2,12 @@
 	xmlns:p="tapestry:parameter">
 	<div class="collection">
 		<div class="page-header">
-			<h1>Museum</h1>
+			<t:if test="user">
+				<h1>${user.login}'s museum</h1>
+				<p:else>
+					<h1>Museum</h1>
+				</p:else>
+			</t:if>
 		</div>
 		<div class="tabbable"> <!-- Only required for left/right tabs -->
 			<ul class="nav nav-tabs">

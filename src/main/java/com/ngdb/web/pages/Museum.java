@@ -58,6 +58,9 @@ public class Museum {
 
 	private Long id;
 
+	@Property
+	private User user;
+
 	void onActivate() {
 		this.origins = referenceService.getOrigins();
 		this.platforms = referenceService.getPlatforms();
@@ -65,6 +68,7 @@ public class Museum {
 
 	void onActivate(User user) {
 		this.id = user.getId();
+		this.user = user;
 	}
 
 	@SetupRender

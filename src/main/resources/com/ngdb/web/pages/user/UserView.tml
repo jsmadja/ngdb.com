@@ -4,47 +4,60 @@
 			<h1>${user.login}</h1>
 		</div>
 
-		<h2>Wish List</h2>			
+		<p>
+			<t:pageLink page="museum" context="${user.id}">Click here to see ${user.login}'s collection</t:pageLink>
+		</p>
+
+		<h2>${user.login}'s wish list</h2>			
 		<t:grid source="user.wishes" 
 				row="wish" 
 				rowsPerPage="10"
-				exclude="user,modificationDate"
+				include="title"
+				add="origin, platform"
+				reorder="title, platform, origin"
 				rowClass="rowClass">
+				<p:titleHeader>Article</p:titleHeader>
+                <p:originCell>
+                	<img src="/img/flags/${wish.article.origin}.png" alt="${wish.article.origin}" />
+                </p:originCell>
 				<p:titleCell>
-					<img class="picture" style="float:left" src="${message:image.host.url}${wish.article.mainPicture.url}" title="${wish.article.title}" />
-            		<t:pageLink page="${viewPage}" context="wish.article">${wish.article.title}</t:pageLink>
+					 <t:pageLink page="${viewPage}" context="wish.article">${wish.article.title}</t:pageLink>
                 </p:titleCell>
-       			<p:CreationDateHeader>
-					Wish Date
-				</p:CreationDateHeader>
+                <p:platformCell>
+                	${wish.article.platform.name}
+                </p:platformCell>
 		</t:grid>
 		
-		<h2>Shop</h2>
+		<hr/>
+		
+		<h2>${user.login}'s shop</h2>
 		<t:grid source="user.shopItemsForSale" 
 				row="shopItem" 
 				rowsPerPage="10"
-				exclude="CreationDate,Sold,Id,ModificationDate"
-				reorder="title,details,price,currency"
+				include="title, details,price"
+				add="origin, platform"
+				reorder="title, origin, platform,details,price"
 				rowClass="rowClass">
+				<p:titleHeader>Article</p:titleHeader>
 				<p:titleCell>
-					<img class="picture" style="float:left" src="${message:image.host.url}${shopItem.article.mainPicture.url}" title="${shopItem.article.title}" />
-            		<t:pageLink page="${viewPage}" context="shopItem.article">${shopItem.article.title}</t:pageLink>
+					<t:pageLink page="${viewPage}" context="shopItem.article">${shopItem.article.title}</t:pageLink>
                 </p:titleCell>
+                <p:priceCell>
+                	<t:if test="user">
+						<t:common.action.buyButton shopItem="shopItem" />
+						<p:else>
+							<span style="font-size:12pt">${shopItem.currency}${shopItem.price}</span>
+						</p:else>
+					</t:if>
+                </p:priceCell>
+                <p:inStoreSinceHeader>For sale since</p:inStoreSinceHeader>
+                <p:originCell>
+                	<img src="/img/flags/${shopItem.article.origin}.png" alt="${shopItem.article.origin}" />
+                </p:originCell>
+                <p:platformCell>
+                	${shopItem.article.platform.name}
+                </p:platformCell>
 		</t:grid>
 		
-		<h2>Collection</h2>
-		<div class="collection">
-			<t:grid source="user.articlesInCollection" 
-				row="article" 
-				reorder="Title"
-				rowsPerPage="10"
-				exclude="MegaCount,ReleaseDate,Ngh,Details,WishRank,Id,Buyable,Upc,WishersCount,OwnersCount,AvailableCopyCount,Upc"
-				rowClass="rowClass">
-				<p:titleCell>
-					<img class="picture" style="float:left" src="${message:image.host.url}${article.mainPicture.url}" title="${article.title}" />
-            		<t:pageLink page="${viewPage}" context="article.id">${article.title}</t:pageLink>
-                </p:titleCell>
-		</t:grid>
-		</div>
 	</div>
 </t:layout>

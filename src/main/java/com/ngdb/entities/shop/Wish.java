@@ -119,7 +119,7 @@ public class Wish implements Comparable<Wish> {
 
 	@Override
 	public int compareTo(Wish o) {
-		return o.creationDate.compareTo(creationDate);
+		return o.getArticle().compareTo(article);
 	}
 
 	public void setArticle(Article article) {

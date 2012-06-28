@@ -1,5 +1,6 @@
 package com.ngdb.web.pages.user;
 
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -13,6 +14,7 @@ import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class UserView {
 
+	@Persist
 	private User user;
 
 	@Property
