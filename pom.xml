@@ -30,6 +30,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.joda</groupId>
+			<artifactId>joda-money</artifactId>
+			<version>0.6</version>
+		</dependency>
+		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache-core</artifactId>
 			<version>${ehcache-version}</version>

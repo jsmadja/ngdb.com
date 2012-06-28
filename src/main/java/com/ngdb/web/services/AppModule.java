@@ -38,6 +38,7 @@ import com.ngdb.entities.Population;
 import com.ngdb.entities.Registry;
 import com.ngdb.entities.WishBox;
 import com.ngdb.entities.reference.ReferenceService;
+import com.ngdb.web.services.infrastructure.CurrencyService;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.PictureService;
 
@@ -73,6 +74,7 @@ public class AppModule {
 		binder.bind(TokenService.class);
 		binder.bind(MailService.class);
 		binder.bind(History.class);
+		binder.bind(CurrencyService.class);
 	}
 
 	public static VelocityEngine buildVelocityEngine() {
