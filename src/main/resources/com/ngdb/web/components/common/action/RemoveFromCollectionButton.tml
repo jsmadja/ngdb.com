@@ -1,7 +1,7 @@
 <span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<t:if test="asButton">
 		<t:actionLink class="btn btn-danger" t:id="removeCollection" context="article" t:mixins="jquery/tooltip" title="Remove from your collection">
-			<i class="icon-plus icon-white" />
+			<i class="icon-minus icon-white" />
 		</t:actionLink>
 		<p:else>
 			<t:actionLink t:id="removeCollectionLink" context="article" >
