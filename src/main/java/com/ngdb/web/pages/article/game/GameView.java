@@ -7,7 +7,6 @@ import org.apache.tapestry5.annotations.Property;
 
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Note;
-import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.reference.Genre;
 import com.ngdb.web.Filter;
@@ -25,9 +24,6 @@ public class GameView {
 
 	@Property
 	private Tag tag;
-
-	@Property
-	private Review review;
 
 	@Property
 	private String value;

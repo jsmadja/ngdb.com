@@ -11,7 +11,6 @@ import java.util.TreeSet;
 import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -32,7 +31,6 @@ public class TagBlock {
 	private Article article;
 
 	@Property
-	@Validate("required")
 	private Tag tag;
 
 	@Inject

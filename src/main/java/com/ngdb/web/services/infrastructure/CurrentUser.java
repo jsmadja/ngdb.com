@@ -13,6 +13,7 @@ import org.tynamo.security.services.SecurityService;
 import com.ngdb.entities.Population;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Comment;
+import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.Wish;
@@ -221,6 +222,12 @@ public class CurrentUser {
 		Tag tag = new Tag(tagText, article);
 		session.persist(tag);
 		getArticleFromDb(article).addTag(tag);
+	}
+
+	public void addReviewOn(Article article, String label, String url, String mark) {
+		Review review = new Review(label, url, mark, article);
+		session.persist(review);
+		getArticleFromDb(article).addReview(review);
 	}
 
 	private Article getArticleFromDb(Article article) {

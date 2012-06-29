@@ -35,6 +35,7 @@ import com.ngdb.entities.article.element.ArticlePictures;
 import com.ngdb.entities.article.element.Comments;
 import com.ngdb.entities.article.element.Notes;
 import com.ngdb.entities.article.element.Picture;
+import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Reviews;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.article.element.Tags;
@@ -286,6 +287,10 @@ public abstract class Article implements Comparable<Article> {
 
 	public void addTag(Tag tag) {
 		tags.add(tag);
+	}
+
+	public void addReview(Review review) {
+		reviews.add(review);
 	}
 
 }
