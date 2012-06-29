@@ -30,6 +30,7 @@
 						#${game.id}<t:pagelink page="games" context="[byPlatform,game.platform]"> ${game.platform.name} </t:pagelink><span class="pipe"> - </span><t:pagelink page="games" context="[byPublisher,game.publisher]"> ${game.publisher?.name} </t:pagelink> 
 					</div>
 				</div>
+				<t:article.tagBlock article="game" />
 				<t:if test="${game.details}">
 					<h3>Details</h3>
 					<p>
@@ -37,7 +38,6 @@
 					</p>
 					<hr />
 				</t:if>
-				<t:article.tagBlock article="game" />
 				<h3>Comments</h3>
 				<t:article.commentBlock article="game" />
 			</div>

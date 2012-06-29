@@ -138,7 +138,9 @@ public class GameUpdate {
 		if (this.mainPicture != null) {
 			Picture picture = pictureService.store(mainPicture, game);
 			game.addPicture(picture);
-			session.merge(picture);
+			if (isEditMode()) {
+				session.merge(picture);
+			}
 		}
 		gameView.setGame(game);
 		history.add(game, userSession.getUser());
