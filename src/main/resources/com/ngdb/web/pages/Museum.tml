@@ -13,7 +13,7 @@
 			<ul class="nav nav-tabs">
 				<t:loop source="platforms" value="platform">
 					<li class="${firstTab}">
-						<a href="#tab${idTab}" data-toggle="tab">${platform}</a>
+						<a href="#tab${idTab}" data-toggle="tab">${platform} (${numInPlatform})</a>
 					</li>
 				</t:loop>
 				<li>
@@ -28,7 +28,7 @@
 								<t:loop source="origins" value="origin">
 									<t:if test="games">
 										<li class="${firstOrigin}">
-											<a href="#tab_${originIdTab}" data-toggle="tab"><img src="/img/flags/${origin}.png" alt="${origin}" /></a>
+											<a href="#tab_${originIdTab}" data-toggle="tab"><img src="/img/flags/${origin}.png" alt="${origin}" /> (${NumInOriginAndPlatform})</a>
 										</li>
 									</t:if>
 								</t:loop>

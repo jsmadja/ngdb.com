@@ -17,9 +17,7 @@
 				rowClass="rowClass">
 				<p:titleHeader>Article</p:titleHeader>
 				<p:titleCell>
-					 <t:pageLink page="${viewPage}" context="wish.article">${wish.article.title}</t:pageLink>
-					 <br/>
-            		<img src="/img/flags/${wish.article.origin}.png" alt="${wish.article.origin}" /> <span class="subtitle">${wish.article.platform.name}</span>
+					 <img src="/img/flags/${wish.article.origin}.png" alt="${wish.article.origin}" /> <t:pageLink page="${viewPage}" context="wish.article"> ${wish.article.title} </t:pageLink> - <span class="subtitle">${wish.article.platform.name}</span>
                 </p:titleCell>
 		</t:grid>
 		

@@ -95,6 +95,14 @@ public class Museum {
 		return games;
 	}
 
+	public int getNumInPlatform() {
+		return gameFactory.findAllByPlatform(platform).size();
+	}
+
+	public int getNumInOriginAndPlatform() {
+		return getGames().size();
+	}
+
 	public List<Origin> getOrigins() {
 		return origins;
 	}

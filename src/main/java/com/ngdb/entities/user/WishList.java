@@ -5,6 +5,7 @@ import static javax.persistence.FetchType.LAZY;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
@@ -39,7 +40,7 @@ public class WishList implements Iterable<Wish> {
 	}
 
 	public Set<Wish> getWishes() {
-		return Collections.unmodifiableSet(wishes);
+		return Collections.unmodifiableSet(new TreeSet<Wish>(wishes));
 	}
 
 	void addInWishList(Wish wish) {
