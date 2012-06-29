@@ -49,7 +49,7 @@ public class Index {
 	}
 
 	public String getRandomGame3MainPicture() {
-		return randomGame2.getMainPicture().getUrl("medium");
+		return randomGame3.getMainPicture().getUrl("medium");
 	}
 
 }
