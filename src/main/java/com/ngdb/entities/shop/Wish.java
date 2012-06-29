@@ -4,6 +4,7 @@ import static javax.persistence.FetchType.LAZY;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -17,6 +18,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.ocpsoft.pretty.time.PrettyTime;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.user.User;
@@ -80,6 +82,10 @@ public class Wish implements Comparable<Wish> {
 
 	public Date getModificationDate() {
 		return modificationDate;
+	}
+
+	public String getWishDate() {
+		return new PrettyTime(Locale.UK).format(getCreationDate());
 	}
 
 	@Embeddable

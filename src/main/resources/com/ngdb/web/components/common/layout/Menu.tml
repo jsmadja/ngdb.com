@@ -13,10 +13,6 @@
 		<li>
 			<t:pageLink page="users"><b>${userCount}</b> users</t:pageLink>
 		</li>
-		<li>
-			<t:actionLink t:id="shopForSale" id="shopForSale"><b>${forSaleCount}</b> items in market</t:actionLink>
-		</li>
-		
 		<li class="nav-header">Last updates</li>
 		<t:loop value="update" source="updates">
 			<li>

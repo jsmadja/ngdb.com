@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.ocpsoft.pretty.time.PrettyTime;
@@ -233,7 +234,7 @@ public abstract class Article implements Comparable<Article> {
 
 	@Override
 	public int compareTo(Article article) {
-		return title.compareToIgnoreCase(article.title);
+		return title.compareToIgnoreCase(StringUtils.defaultString(article.title));
 	}
 
 	@Override
