@@ -31,11 +31,20 @@ public class DeleteButton {
 	@Parameter
 	private ShopItem shopItem;
 
+	@Property
+	@Parameter
+	private boolean asButton;
+
 	@CommitAfter
 	Object onActionFromRemove(ShopItem shopItem) {
 		session.delete(shopItem);
 		marketPage.setUser(currentUser.getUser());
 		return marketPage;
+	}
+
+	@CommitAfter
+	Object onActionFromRemoveButton(ShopItem shopItem) {
+		return onActionFromRemove(shopItem);
 	}
 
 	@CommitAfter

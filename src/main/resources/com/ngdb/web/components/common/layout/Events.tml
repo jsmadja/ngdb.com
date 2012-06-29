@@ -23,6 +23,7 @@
 				<t:pageLink page="market">more ...</t:pageLink>
 			</li>
 	</t:if>
+	<!-- 
 	<br/>
 	<t:if test="releases">
 		<li class="events-header">Released in ${month}</li>
@@ -32,4 +33,5 @@
 			</li>
 		</t:loop>
 	</t:if>
+	 -->
 </ul>

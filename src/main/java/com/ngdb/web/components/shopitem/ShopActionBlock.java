@@ -3,6 +3,7 @@ package com.ngdb.web.components.shopitem;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.Session;
 
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.user.User;
@@ -17,24 +18,35 @@ public class ShopActionBlock {
 	@Parameter
 	private ShopItem shopItem;
 
+	@Inject
+	private Session session;
+
+	@Property
+	@Parameter(required = false)
+	private boolean asButton;
+
 	public User getUser() {
 		return currentUser.getUser();
 	}
 
 	public boolean isBuyable() {
-		return currentUser.canBuy(shopItem);
+		return currentUser.canBuy(getShopItemFromDb());
 	}
 
 	public boolean isSoldable() {
-		return currentUser.canMarkAsSold(shopItem);
+		return currentUser.canMarkAsSold(getShopItemFromDb());
 	}
 
 	public boolean isRemoveable() {
-		return currentUser.canRemove(shopItem);
+		return currentUser.canRemove(getShopItemFromDb());
 	}
 
 	public boolean isEditable() {
-		return currentUser.canEdit(shopItem);
+		return currentUser.canEdit(getShopItemFromDb());
+	}
+
+	private ShopItem getShopItemFromDb() {
+		return (ShopItem) session.load(ShopItem.class, shopItem.getId());
 	}
 
 }

@@ -3,6 +3,7 @@ package com.ngdb.web.pages.user;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.Session;
 
 import com.ngdb.base.EvenOdd;
 import com.ngdb.entities.article.Article;
@@ -29,6 +30,9 @@ public class UserView {
 	@Inject
 	private CurrentUser currentUser;
 
+	@Inject
+	private Session session;
+
 	private EvenOdd evenOdd = new EvenOdd();
 
 	void onActivate(User user) {
@@ -51,6 +55,14 @@ public class UserView {
 
 	public String getRowClass() {
 		return evenOdd.next();
+	}
+
+	public boolean isBuyable() {
+		return currentUser.canBuy(getShopItemFromDb());
+	}
+
+	private ShopItem getShopItemFromDb() {
+		return (ShopItem) session.load(ShopItem.class, shopItem.getId());
 	}
 
 }

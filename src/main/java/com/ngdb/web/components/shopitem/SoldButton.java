@@ -21,6 +21,10 @@ public class SoldButton {
 	@Inject
 	private CurrentUser currentUser;
 
+	@Property
+	@Parameter
+	private boolean asButton;
+
 	@CommitAfter
 	Object onActionFromSold(ShopItem shopItem) {
 		shopItem.sold();

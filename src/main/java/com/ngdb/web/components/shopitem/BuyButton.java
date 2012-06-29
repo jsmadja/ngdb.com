@@ -21,6 +21,15 @@ public class BuyButton {
 	@Inject
 	private CurrentUser currentUser;
 
+	@Property
+	@Parameter
+	private boolean asButton;
+
+	@CommitAfter
+	Object onActionFromBuyButton() {
+		return onActionFromBuy();
+	}
+
 	@CommitAfter
 	Object onActionFromBuy() {
 		market.potentialBuyer(shopItem, currentUser.getUser());

@@ -3,7 +3,6 @@ Bouton remove dans Market
 State : convertir en VO
 Multiupload d'image pour la creation d un shop item
 Multiupload d'image pour la mise a jour d un article
-Carousel pour afficher les images d un shop item
 Taille du Detail dans un ShopItemUpdate : JDBC batch update
 Supprimer les PublisherList
 Probleme des pages blanches

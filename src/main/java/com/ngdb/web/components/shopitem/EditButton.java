@@ -11,4 +11,8 @@ public class EditButton {
 	@Parameter
 	private ShopItem shopItem;
 
+	@Property
+	@Parameter
+	private boolean asButton;
+
 }

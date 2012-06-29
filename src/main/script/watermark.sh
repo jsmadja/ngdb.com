@@ -23,7 +23,9 @@ file -i `find /ngdb/images_bak/articles -type f` | grep image | awk -F':' '{ pri
 		echo Watermarking $IMAGE
 		NAME=`echo $IMAGE | cut -f1 -d.`
 		EXT=`echo $IMAGE | cut -f2 -d.`
-		composite -dissolve 40% -quality 100 \( $WM -resize $SCALE% \) "$IMAGE" "${NAME}_wm.${EXT}"
+		composite -dissolve 40% -quality 100 \( $WM -resize $SCALE% \) "$IMAGE" "${NAME}_high.${EXT}"
+		convert ${IMAGE} -resize 15% ${NAME}_small.${EXT}
+                convert ${IMAGE} -resize 40% ${NAME}_medium.${EXT}
 	done
 exit 0
 
