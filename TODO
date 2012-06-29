@@ -1,5 +1,3 @@
-Bouton remove dans WishList
-Bouton remove dans Market
 State : convertir en VO
 Multiupload d'image pour la creation d un shop item
 Multiupload d'image pour la mise a jour d un article
@@ -8,8 +6,9 @@ Supprimer les PublisherList
 Probleme des pages blanches
 Something's wrong, tell us
 Utiliser TextOutput pour le formatage des commentaires
-LE museum est trop lourd a afficher ca DL toutes les images!
 les dates des jeux à resaisir
-ajout des genres 
-ajout des tags
 ajout des notes
+
+Total des jeux, total par plate-forme, total par origine
+Et éventuellement, le passage possible en mode liste pour pouvoir trier
+ou exporter la liste vers excel.

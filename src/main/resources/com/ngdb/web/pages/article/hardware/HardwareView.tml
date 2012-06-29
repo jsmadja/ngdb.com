@@ -8,7 +8,10 @@
 		<div class="row-fluid show-grid article">
 			<div class="span3">
 				<t:article.thumbnail article="hardware" noClick="true" size="literal:medium" />
+				<br/>
 				<t:article.history article="hardware" />
+				<br/>
+				<t:article.gallery article="hardware" />
 			</div>
 			<div class="span9">
 				<t:article.actionBlock article="hardware" />
@@ -70,7 +73,7 @@
 					</p>
 					<hr />
 				</t:if>
-				<t:article.gallery article="hardware" />
+				<t:article.tagBlock article="game" />
 				<h3>Comments</h3>
 				<t:article.commentBlock article="hardware" />
 			</div>

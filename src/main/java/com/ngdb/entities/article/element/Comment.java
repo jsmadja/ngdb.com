@@ -35,7 +35,6 @@ public class Comment extends AbstractEntity implements Comparable<Comment> {
 
 	public Comment(String text, User author, Article article) {
 		this.article = article;
-		// String cleanedText = Jsoup.clean(text, Whitelist.none());
 		String cleanedText = text;
 		int end = cleanedText.length() < MAX_COMMENT_LENGTH ? cleanedText.length() : MAX_COMMENT_LENGTH;
 		this.text = cleanedText.substring(0, end);

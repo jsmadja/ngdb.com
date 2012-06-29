@@ -1,7 +1,10 @@
 package com.ngdb.entities;
 
 import static com.google.common.collect.Collections2.filter;
+import static org.hibernate.criterion.Order.asc;
 import static org.hibernate.criterion.Order.desc;
+import static org.hibernate.criterion.Projections.distinct;
+import static org.hibernate.criterion.Projections.property;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,6 +16,7 @@ import org.hibernate.Session;
 import com.google.common.base.Predicate;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
+import com.ngdb.entities.article.element.Tag;
 
 public class Registry {
 
@@ -48,6 +52,10 @@ public class Registry {
 
 	public List<Game> findLastUpdates() {
 		return session.createCriteria(Game.class).setCacheable(true).setMaxResults(5).addOrder(desc("modificationDate")).list();
+	}
+
+	public Collection<String> findAllTags() {
+		return session.createCriteria(Tag.class).setProjection(distinct(property("name"))).addOrder(asc("name")).list();
 	}
 
 }

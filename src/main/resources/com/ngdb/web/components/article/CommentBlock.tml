@@ -5,9 +5,7 @@
 		</p>
 	</t:if>
 	<t:if test="!user">
-		<p>
-			You must be registered to add a comment.
-		</p>
+		<div class="alert alert-info">You must be registered to add a comment.</div>
 	</t:if>
 	<t:loop source="comments" value="comment">
 		<p style="word-wrap:break-word;">

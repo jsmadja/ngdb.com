@@ -12,7 +12,7 @@
 				</h1>
 			</div>
 			<t:if test="message">
-				<b>${message}</b>
+				<div class="alert alert-info">${message}</div>
 			</t:if>
 			<table>
 				<tr>

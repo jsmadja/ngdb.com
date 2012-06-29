@@ -35,6 +35,7 @@ import com.ngdb.entities.article.element.Comments;
 import com.ngdb.entities.article.element.Notes;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.article.element.Reviews;
+import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.article.element.Tags;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
@@ -276,6 +277,14 @@ public abstract class Article implements Comparable<Article> {
 
 	public String getLastUpdateDate() {
 		return new PrettyTime(Locale.UK).format(modificationDate);
+	}
+
+	public boolean containsTag(String tag) {
+		return tags.contains(tag);
+	}
+
+	public void addTag(Tag tag) {
+		tags.add(tag);
 	}
 
 }

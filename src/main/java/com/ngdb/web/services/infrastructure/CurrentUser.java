@@ -13,6 +13,7 @@ import org.tynamo.security.services.SecurityService;
 import com.ngdb.entities.Population;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Comment;
+import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.CollectionObject;
@@ -214,6 +215,16 @@ public class CurrentUser {
 	public void addCommentOn(Article article, String commentText) {
 		User user = getUser();
 		session.merge(new Comment(commentText, user, article));
+	}
+
+	public void addTagOn(Article article, String tagText) {
+		Tag tag = new Tag(tagText, article);
+		session.persist(tag);
+		getArticleFromDb(article).addTag(tag);
+	}
+
+	private Article getArticleFromDb(Article article) {
+		return (Article) session.load(Article.class, article.getId());
 	}
 
 }
