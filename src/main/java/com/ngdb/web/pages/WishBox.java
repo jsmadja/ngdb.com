@@ -69,4 +69,8 @@ public class WishBox {
 	public String getRowClass() {
 		return evenOdd.next();
 	}
+
+	public String getMainPictureUrl() {
+		return wish.getArticle().getMainPicture().getUrl("small");
+	}
 }

@@ -9,7 +9,7 @@
 				rowsPerPage="20"
 				rowClass="rowClass">
 				<p:titleCell>
-					<img class="picture" style="float:left" src="${message:image.host.url}${wish.article.mainPicture.url}" title="${wish.article.title}" />
+					<img class="picture" style="float:left" src="${message:image.host.url}${mainPictureUrl}" title="${wish.article.title}" />
             		<t:pageLink page="${viewPage}" context="wish.article">${wish.article.title}</t:pageLink>
             		<br/><br/>
             		<img src="/img/flags/${wish.article.origin}.png" alt="${wish.article.origin}" /> ${wish.article.platform.name}
