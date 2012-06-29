@@ -1,6 +1,7 @@
 package com.ngdb.web.pages.article.game;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 
@@ -72,6 +73,10 @@ public class GameView {
 
 	public String getByReleaseDate() {
 		return Filter.byReleaseDate.name();
+	}
+
+	public String getNgh() {
+		return StringUtils.isNumeric(game.getNgh()) ? "NGH " + game.getNgh() : game.getNgh();
 	}
 
 }
