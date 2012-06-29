@@ -1,0 +1,30 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+	<table width="100%">
+		<t:loop source="reviews" value="review">
+			<tr>
+				<td>
+					<a href="${review.url}" target="blank">${review.label}</a>
+				</td>
+				<td colspan="2">
+					<t:OutputRaw value="${stars}" />
+				</td>
+			</tr>
+		</t:loop>
+		<t:if test="user">
+			<tr>
+				<t:form t:id="reviewForm" id="reviewForm" t:autofocus="false">
+					<td>
+						<t:textfield value="label" t:id="label" placeholder="label" />
+					</td>
+					<td>
+						<t:textfield value="url" t:id="url" placeholder="http://www." />
+					</td>
+					<td>
+						<t:textfield value="mark" t:id="mark" style="width:100px" placeholder="rate 7/10 or 67%" />
+						<button class="btn btn-primary" type="submit" style="height: 28px;vertical-align: top;margin-left:10px" >Add review</button>
+					</td>
+				</t:form>
+			</tr>
+		</t:if>
+	</table>
+</div>
