@@ -40,4 +40,16 @@ public class Index {
 		return wishBox.getNumWishes();
 	}
 
+	public String getRandomGame1MainPicture() {
+		return randomGame1.getMainPicture().getUrl("medium");
+	}
+
+	public String getRandomGame2MainPicture() {
+		return randomGame2.getMainPicture().getUrl("medium");
+	}
+
+	public String getRandomGame3MainPicture() {
+		return randomGame2.getMainPicture().getUrl("medium");
+	}
+
 }

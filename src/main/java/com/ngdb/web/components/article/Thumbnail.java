@@ -14,6 +14,10 @@ public class Thumbnail {
 
 	@Property
 	@Parameter
+	private String size;
+
+	@Property
+	@Parameter
 	private boolean noClick;
 
 	public String getViewPage() {
@@ -21,6 +25,13 @@ public class Thumbnail {
 			return "article/game/gameView";
 		}
 		return "article/hardware/hardwareView";
+	}
+
+	public String getUrl() {
+		if (size == null) {
+			return article.getMainPicture().getUrl();
+		}
+		return article.getMainPicture().getUrl(size);
 	}
 
 }

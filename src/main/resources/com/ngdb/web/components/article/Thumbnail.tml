@@ -3,7 +3,7 @@
 		<img class="thumbnail" src="${message:image.host.url}${article.mainPicture.url}" title="${article.title}" />
 		<p:else>
 			<t:pageLink page="${viewPage}" context="article">
-				<img class="thumbnail" src="${message:image.host.url}${article.mainPicture.url}" title="${article.title}" />
+				<img class="thumbnail" src="${message:image.host.url}${url}" title="${article.title}" />
 			</t:pageLink>
 		</p:else>
 	</t:if>

@@ -20,4 +20,8 @@ public class Gallery {
 		return article.getPictures();
 	}
 
+	public String getSmallPictureUrl() {
+		return picture.getUrl("small");
+	}
+
 }

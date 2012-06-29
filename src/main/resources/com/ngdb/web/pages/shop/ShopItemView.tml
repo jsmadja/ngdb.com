@@ -1,7 +1,7 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<div class="row-fluid show-grid article">
 		<div class="span3">
-			<img class="thumbnail" src="${message:image.host.url}${shopItem.mainPicture.url}"
+			<img class="thumbnail" src="${message:image.host.url}${shopItemMainPicture}"
 				title="${shopItem.title}" />
 		</div>
 		<div class="span9">

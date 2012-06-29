@@ -3,7 +3,7 @@
 		<t:loop source="pictures" value="picture">
 		    <a href="${message:image.host.url}${picture.url}" 
 		    	id="image" rel="gal">
-		    	<img src="${message:image.host.url}${picture.url}" height="75" width="75" style="margin-left:2px;border-radius:5px" />
+		    	<img src="${message:image.host.url}${smallPictureUrl}" height="75" width="75" style="margin-left:2px;border-radius:5px" />
 		    </a>
 		</t:loop>
 	</t:if>

@@ -43,4 +43,8 @@ public class ShopItemView {
 	public ShopItem getShopItem() {
 		return shopItem;
 	}
+
+	public String getShopItemMainPicture() {
+		return shopItem.getArticle().getMainPicture().getUrl("small");
+	}
 }

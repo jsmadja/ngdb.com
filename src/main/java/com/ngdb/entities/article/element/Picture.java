@@ -45,14 +45,36 @@ public class Picture extends AbstractEntity {
 		return url;
 	}
 
+	public String getUrl(String size) {
+		if (url == null) {
+			return EMPTY.getUrl();
+		}
+		if (isAvailableIn(size)) {
+			return toSizeUrl(size);
+		}
+		return url;
+	}
+
 	public String toWatermarkedUrl() {
-		StringBuilder watermarkedUrl = new StringBuilder(url);
-		watermarkedUrl.insert(url.lastIndexOf("."), "_wm");
-		return watermarkedUrl.toString();
+		return addSuffix("wm");
+	}
+
+	public String toSizeUrl(String size) {
+		return addSuffix(size);
+	}
+
+	private String addSuffix(String suffix) {
+		StringBuilder sizeUrl = new StringBuilder(url);
+		sizeUrl.insert(url.lastIndexOf("."), "_" + suffix);
+		return sizeUrl.toString();
 	}
 
 	private boolean isWatermarked() {
 		return new File(toWatermarkedUrl()).exists();
+	}
+
+	private boolean isAvailableIn(String size) {
+		return new File(toSizeUrl(size)).exists();
 	}
 
 	public void setArticle(Article article) {

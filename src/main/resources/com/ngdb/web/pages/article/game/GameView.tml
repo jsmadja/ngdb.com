@@ -2,7 +2,7 @@
 	<t:if test="game">
 		<div class="row-fluid show-grid article">
 			<div class="span3">
-				<t:article.thumbnail article="game" noClick="true" />
+				<t:article.thumbnail article="game" noClick="true" size="literal:medium" />
 				<br/>
 				<t:article.history article="game" />
 				<br/>

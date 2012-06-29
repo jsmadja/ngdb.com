@@ -20,4 +20,8 @@ public class Gallery {
 		return shopItem.getPictures();
 	}
 
+	public String getSmallPictureUrl() {
+		return picture.getUrl("small");
+	}
+
 }

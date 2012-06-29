@@ -18,7 +18,7 @@
 							<tr>
 								<td>
 									<t:pageLink page="shop/shopItemView" context="shopItem.id">
-										<img class="thumbnail" width="150px" src="${message:image.host.url}${shopItem.mainPicture.url}" alt="${shopItem.title}" />
+										<img class="thumbnail" width="150px" src="${message:image.host.url}${shopItemMainPicture}" alt="${shopItem.title}" />
 									</t:pageLink>
 								</td>
 							</tr>
