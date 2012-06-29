@@ -31,4 +31,9 @@ public class SoldButton {
 		marketPage.setUser(currentUser.getUser());
 		return marketPage;
 	}
+
+	@CommitAfter
+	Object onActionFromSoldButton(ShopItem shopItem) {
+		return onActionFromSold(shopItem);
+	}
 }
