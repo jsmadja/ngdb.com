@@ -1,13 +1,12 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<t:if test="!user">
-		<t:form t:id="loginForm" t:autofocus="false" class="well">
-		  	<label><b>Sign in to neogeodb</b></label>
+		<t:form t:id="loginForm" t:autofocus="false">
+		  	<label style="text-align:center"><b>Sign in to neogeodb</b></label>
 			<t:errors />
 			<t:textfield class="input-small" value="login" t:id="login" placeholder="login" />
 			<t:passwordfield class="input-small" value="password" t:id="password" placeholder="password" />
 			<br/>
-			<button type="submit" class="btn">Sign in</button>
-			<label><t:pageLink style="font-size:8pt" page="user/ResetPassword">Lost password ?</t:pageLink></label>
+			<button type="submit" class="btn">Sign in</button><label><t:pageLink style="font-size:8pt" page="user/ResetPassword">Lost password ?</t:pageLink></label>
 		</t:form>
 	</t:if>
 </div>
