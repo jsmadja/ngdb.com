@@ -22,6 +22,7 @@ import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.user.User;
+import com.ngdb.web.Filter;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class TagBlock {
@@ -91,6 +92,10 @@ public class TagBlock {
 			}
 		});
 		return new ArrayList<String>(suggestions);
+	}
+
+	public String getByTag() {
+		return Filter.byTag.name();
 	}
 
 }

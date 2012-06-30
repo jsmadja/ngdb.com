@@ -10,6 +10,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.CacheMode;
 import org.hibernate.Session;
 
+import com.ngdb.entities.article.element.Tag;
+
 @SuppressWarnings("unchecked")
 public class ReferenceService {
 
@@ -78,6 +80,10 @@ public class ReferenceService {
 
 	public List<State> findAllStates() {
 		return session.createCriteria(State.class).setCacheable(true).list();
+	}
+
+	public Tag findTagById(Long id) {
+		return (Tag) session.load(Tag.class, id);
 	}
 
 }

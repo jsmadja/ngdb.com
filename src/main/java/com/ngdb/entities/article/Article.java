@@ -297,4 +297,8 @@ public abstract class Article implements Comparable<Article> {
 		pictures.remove(picture);
 	}
 
+	public boolean containsTag(Tag tag) {
+		return tags.contains(tag);
+	}
+
 }

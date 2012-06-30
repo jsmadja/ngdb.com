@@ -2,9 +2,6 @@ Il faut que l’on affine notre concept de recherche
 
 State : convertir en VO
 
-Multiupload d'image pour la creation d un shop item
-Multiupload d'image pour la mise a jour d un article
-
 Taille du Detail dans un ShopItemUpdate : JDBC batch update
 
 Supprimer les PublisherList
@@ -16,8 +13,6 @@ Something's wrong, tell us
 Utiliser TextOutput pour le formatage des commentaires
 
 Les dates des jeux à resaisir
-
-Tags: avoir des liens valides quand on clique dessus
 
 Supprimer les genres
 

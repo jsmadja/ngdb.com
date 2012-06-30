@@ -20,6 +20,7 @@ import com.ngdb.Comparators;
 import com.ngdb.base.EvenOdd;
 import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.article.Game;
+import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.reference.Genre;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
@@ -140,6 +141,11 @@ public class Games {
 			int day = Integer.valueOf(filterValue.split("-")[2]);
 			Date releaseDate = new DateTime().withTimeAtStartOfDay().withDayOfMonth(day).withMonthOfYear(month).withYear(year).toDate();
 			this.games = gameFactory.findAllByReleaseDate(releaseDate);
+			break;
+		case byTag:
+			Tag tag = referenceService.findTagById(id);
+			this.games = gameFactory.findAllByTag(tag);
+			this.filterValue = tag.getName();
 			break;
 		default:
 			this.games = gameFactory.findAll();

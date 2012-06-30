@@ -44,4 +44,8 @@ public class Tags implements Iterable<Tag> {
 		tags.add(tag);
 	}
 
+	public boolean contains(Tag tag) {
+		return tags.contains(tag);
+	}
+
 }

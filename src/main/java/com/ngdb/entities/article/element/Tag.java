@@ -51,4 +51,17 @@ public class Tag extends AbstractEntity implements Comparable<Tag> {
 		return this.name.equalsIgnoreCase(name);
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Tag) {
+			return ((Tag) obj).hasName(name);
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return name.hashCode();
+	}
+
 }
