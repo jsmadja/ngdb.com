@@ -1,18 +1,28 @@
+Il faut que l’on affine notre concept de recherche
+
 State : convertir en VO
+
 Multiupload d'image pour la creation d un shop item
 Multiupload d'image pour la mise a jour d un article
+
 Taille du Detail dans un ShopItemUpdate : JDBC batch update
+
 Supprimer les PublisherList
+
 Probleme des pages blanches
+
 Something's wrong, tell us
+
 Utiliser TextOutput pour le formatage des commentaires
-les dates des jeux à resaisir
+
+Les dates des jeux à resaisir
 
 Tags: avoir des liens valides quand on clique dessus
 
-Total des jeux, total par plate-forme, total par origine
+Supprimer les genres
+
+-------------------
+V1.1
+-------------------
 Et éventuellement, le passage possible en mode liste pour pouvoir trier
 ou exporter la liste vers excel.
-
-
-Supprimer les genres

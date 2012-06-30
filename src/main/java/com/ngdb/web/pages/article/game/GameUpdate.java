@@ -39,24 +39,27 @@ public class GameUpdate {
 	private Game game;
 
 	@Property
-	protected UploadedFile mainPicture;
+	private UploadedFile mainPicture;
 
 	@Inject
-	protected ReferenceService referenceService;
+	private ReferenceService referenceService;
 
 	@Inject
-	protected PictureService pictureService;
+	private PictureService pictureService;
 
 	@Property
-	protected String details;
+	private String details;
+
+	@Property
+	private String ngh;
 
 	@Property
 	@Validate("required")
-	protected Origin origin;
+	private Origin origin;
 
 	@Property
 	@Validate("required")
-	protected Date releaseDate;
+	private Date releaseDate;
 
 	@Property
 	@Validate("required")
@@ -76,7 +79,7 @@ public class GameUpdate {
 
 	@Property
 	@Validate("required,maxLength=255")
-	protected String title;
+	private String title;
 
 	@InjectPage
 	private GameView gameView;
@@ -106,6 +109,7 @@ public class GameUpdate {
 			this.releaseDate = new DateTime().withYear(1990).toDate();
 			this.details = null;
 			this.title = null;
+			this.ngh = null;
 		} else {
 			this.publisher = game.getPublisher();
 			this.platform = game.getPlatform();
@@ -116,6 +120,7 @@ public class GameUpdate {
 			this.releaseDate = game.getReleaseDate();
 			this.details = game.getDetails();
 			this.title = game.getTitle();
+			this.ngh = game.getNgh();
 		}
 	}
 
@@ -134,6 +139,7 @@ public class GameUpdate {
 		game.setPlatform(platform);
 		game.setMegaCount(megaCount);
 		game.setBox(box);
+		game.setNgh(ngh);
 		game = (Game) session.merge(game);
 		if (this.mainPicture != null) {
 			Picture picture = pictureService.store(mainPicture, game);

@@ -62,6 +62,12 @@
 							</div>
 						</div>
 						<div class="control-group">
+							<t:label for="ngh" class="control-label">NGH : </t:label>
+							<div class="controls">
+								<t:textfield value="ngh" t:id="ngh" />
+							</div>
+						</div>
+						<div class="control-group">
 							<t:label for="publisher" class="control-label">Publisher* : </t:label>
 							<div class="controls">
 								<t:select value="publisher" model="publishers"
