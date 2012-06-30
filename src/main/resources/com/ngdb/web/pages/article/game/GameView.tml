@@ -43,9 +43,11 @@
 				</t:if>
 				
 				<t:if test="game.reviews">
-					<br/>
-					<h3>Reviews</h3>
-					<t:article.reviewBlock article="game" />
+					<t:if test="user">
+						<h3>Reviews</h3>
+						<br/>
+						<t:article.reviewBlock article="game" />
+					</t:if>
 				</t:if>
 				
 				<h3>Comments</h3>
