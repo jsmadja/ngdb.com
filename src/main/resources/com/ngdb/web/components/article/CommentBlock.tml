@@ -9,8 +9,7 @@
 	</t:if>
 	<t:loop source="comments" value="comment">
 		<p style="word-wrap:break-word;">
-			${comment.text}
-			<br/>
+			<t:textOutput value="${comment.text}" />
 			<span style="font-size:11px">
 				<t:pageLink page="user/UserView" context="comment.author">${comment.author.login}</t:pageLink>   ${comment.postDate}
 			</span>
