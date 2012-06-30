@@ -21,7 +21,6 @@ import com.ngdb.base.EvenOdd;
 import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Tag;
-import com.ngdb.entities.reference.Genre;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
@@ -112,11 +111,6 @@ public class Games {
 	@SetupRender
 	void init() {
 		switch (filter) {
-		case byGenre:
-			Genre genre = referenceService.findGenreById(id);
-			this.filterValue = genre.getTitle();
-			this.games = gameFactory.findAllByGenre(genre);
-			break;
 		case byNgh:
 			this.games = gameFactory.findAllByNgh(filterValue);
 			break;

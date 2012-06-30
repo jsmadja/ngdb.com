@@ -22,10 +22,6 @@ public class ReferenceService {
 		return session.createCriteria(Platform.class).setCacheable(true).addOrder(asc("name")).list();
 	}
 
-	public List<Genre> getGenres() {
-		return session.createCriteria(Genre.class).setCacheable(true).list();
-	}
-
 	public List<Publisher> getPublishers() {
 		return session.createCriteria(Publisher.class).setCacheable(true).list();
 	}
@@ -44,10 +40,6 @@ public class ReferenceService {
 
 	public List<String> getCurrencies() {
 		return asList("$");
-	}
-
-	public Genre findGenreById(Long id) {
-		return (Genre) session.load(Genre.class, id);
 	}
 
 	public Origin findOriginById(Long id) {

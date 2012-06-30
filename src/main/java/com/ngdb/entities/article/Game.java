@@ -1,21 +1,17 @@
 package com.ngdb.entities.article;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.ngdb.entities.article.element.Genres;
 import com.ngdb.entities.reference.Box;
-import com.ngdb.entities.reference.Genre;
 import com.ngdb.entities.reference.Publisher;
 
 @Entity
@@ -31,10 +27,6 @@ public class Game extends Article {
 
 	@Column(name = "mega_count")
 	private Long megaCount;
-
-	@Embedded
-	@XmlTransient
-	private Genres genres;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	private Box box;
@@ -68,10 +60,6 @@ public class Game extends Article {
 		this.megaCount = megaCount;
 	}
 
-	public Genres getGenres() {
-		return genres;
-	}
-
 	public void setBox(Box box) {
 		this.box = box;
 	}
@@ -86,10 +74,6 @@ public class Game extends Article {
 
 	public String getUpc() {
 		return upc;
-	}
-
-	public boolean isOfGenre(Genre genre) {
-		return genres.contains(genre);
 	}
 
 	@Override

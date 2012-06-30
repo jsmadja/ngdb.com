@@ -21,7 +21,6 @@ import com.google.common.base.Predicate;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Tag;
-import com.ngdb.entities.reference.Genre;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
@@ -46,17 +45,6 @@ public class GameFactory {
 
 	public List<Game> findAllByOrigin(Origin origin) {
 		return allGames().add(eq("origin", origin)).list();
-	}
-
-	public List<Game> findAllByGenre(final Genre genre) {
-		Criteria criteria = allGames();
-		Predicate<Game> additionnalFilter = new Predicate<Game>() {
-			@Override
-			public boolean apply(Game game) {
-				return game.isOfGenre(genre);
-			}
-		};
-		return new ArrayList<Game>(filter(criteria.list(), additionnalFilter));
 	}
 
 	public List<Game> findAllByPublisher(Publisher publisher) {

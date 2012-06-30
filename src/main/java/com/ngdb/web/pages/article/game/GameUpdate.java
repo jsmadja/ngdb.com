@@ -30,7 +30,6 @@ import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.web.model.BoxList;
-import com.ngdb.web.model.GenreList;
 import com.ngdb.web.model.OriginList;
 import com.ngdb.web.model.PlatformList;
 import com.ngdb.web.model.PublisherList;
@@ -206,10 +205,6 @@ public class GameUpdate {
 
 	public SelectModel getPlatforms() {
 		return new PlatformList(referenceService.getPlatforms());
-	}
-
-	public SelectModel getGenres() {
-		return new GenreList(referenceService.getGenres());
 	}
 
 	public SelectModel getPublishers() {

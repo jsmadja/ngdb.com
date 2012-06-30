@@ -9,7 +9,6 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Tag;
-import com.ngdb.entities.reference.Genre;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.Filter;
 import com.ngdb.web.services.infrastructure.CurrentUser;
@@ -18,9 +17,6 @@ public class GameView {
 
 	@Persist("entity")
 	private Game game;
-
-	@Property
-	private Genre genre;
 
 	@Property
 	private Note property;
