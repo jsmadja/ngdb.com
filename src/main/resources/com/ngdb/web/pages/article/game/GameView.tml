@@ -4,8 +4,7 @@
 			<div class="span3">
 				<t:article.thumbnail article="game" noClick="true" size="literal:medium" />
 				<br/>
-				<t:pagelink page="games" context="[byNgh,game.ngh]" class="pull-right">${ngh}</t:pagelink>
-				<div style="text-align: center; border-style: solid; border-color: red; width: 50%;">
+				<div style="text-align: center; border-style: solid; border-color: red; width: 50%;margin-left:auto;margin-right:auto">
 					<span style="color: red; font-weight: bold;font-size: 27pt;">
 						${game.megaCount}
 					</span> 
@@ -28,7 +27,7 @@
 						<t:article.actionBlock article="game" />
 					</h1>
 					<div class="subtitle">
-						#${game.id}<t:pagelink page="games" context="[byPlatform,game.platform]"> ${game.platform.name} </t:pagelink><span class="pipe"> - </span><t:pagelink page="games" context="[byPublisher,game.publisher]"> ${game.publisher?.name} </t:pagelink> 
+						#${game.id}<t:pagelink page="games" context="[byPlatform,game.platform]"> ${game.platform.name} <t:pagelink page="games" context="[byNgh,game.ngh]">${ngh}</t:pagelink> </t:pagelink><span class="pipe"> - </span><t:pagelink page="games" context="[byPublisher,game.publisher]"> ${game.publisher?.name} </t:pagelink> 
 					</div>
 				</div>
 				
