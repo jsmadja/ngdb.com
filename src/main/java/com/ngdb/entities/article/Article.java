@@ -55,6 +55,8 @@ import com.ngdb.entities.user.User;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public abstract class Article implements Comparable<Article> {
 
+	private static final int MAX_DETAIL_LENGTH = 1024;
+
 	@XmlTransient
 	@Column(name = "creation_date", nullable = false)
 	private Date creationDate;
@@ -178,7 +180,8 @@ public abstract class Article implements Comparable<Article> {
 	}
 
 	public void setDetails(String details) {
-		this.details = details;
+		int end = details.length() < MAX_DETAIL_LENGTH ? details.length() : MAX_DETAIL_LENGTH;
+		this.details = details.substring(0, end);
 	}
 
 	public String getDetails() {

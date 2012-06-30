@@ -30,6 +30,8 @@ import com.ngdb.entities.user.User;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ShopItem {
 
+	private static final int MAX_DETAIL_LENGTH = 1024;
+
 	@Column(name = "creation_date", nullable = false)
 	private Date creationDate;
 
@@ -113,7 +115,8 @@ public class ShopItem {
 	}
 
 	public void setDetails(String details) {
-		this.details = details;
+		int end = details.length() < MAX_DETAIL_LENGTH ? details.length() : MAX_DETAIL_LENGTH;
+		this.details = details.substring(0, end);
 	}
 
 	public void setCreationDate(Date creationDate) {
