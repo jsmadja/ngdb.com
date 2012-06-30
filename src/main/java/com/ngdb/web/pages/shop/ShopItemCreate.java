@@ -1,10 +1,14 @@
 package com.ngdb.web.pages.shop;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.Validate;
@@ -12,7 +16,9 @@ import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.apache.tapestry5.upload.services.UploadedFile;
+import org.got5.tapestry5.jquery.JQueryEventConstants;
 import org.hibernate.Session;
 
 import com.ngdb.entities.article.Article;
@@ -27,9 +33,6 @@ import com.ngdb.web.services.infrastructure.PictureService;
 
 @RequiresAuthentication
 public class ShopItemCreate {
-
-	@Property
-	private UploadedFile mainPicture;
 
 	@Inject
 	private Session session;
@@ -87,10 +90,24 @@ public class ShopItemCreate {
 	@Property
 	private String suggestedPriceInDollars;
 
+	@Persist
+	@Property
+	private List<UploadedFile> pictures;
+
 	boolean onActivate(Article article) {
 		this.article = article;
 		this.state = referenceService.findStateByTitle("Used");
+		if (pictures == null) {
+			pictures = new ArrayList<UploadedFile>();
+		}
 		return true;
+	}
+
+	@OnEvent(component = "uploadImage", value = JQueryEventConstants.AJAX_UPLOAD)
+	void onImageUpload(UploadedFile uploadedFile) {
+		if (uploadedFile != null) {
+			this.pictures.add(uploadedFile);
+		}
 	}
 
 	@CommitAfter
@@ -103,8 +120,8 @@ public class ShopItemCreate {
 		shopItem.setSeller(userSession.getUser());
 		shopItem.setState(state);
 		shopItem = (ShopItem) session.merge(shopItem);
-		if (this.mainPicture != null) {
-			Picture picture = pictureService.store(mainPicture, shopItem);
+		for (UploadedFile uploadedPicture : pictures) {
+			Picture picture = pictureService.store(uploadedPicture, shopItem);
 			shopItem.addPicture(picture);
 			session.merge(picture);
 		}

@@ -2,6 +2,7 @@ package com.ngdb.web.components.article;
 
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.json.JSONObject;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.ArticlePictures;
@@ -15,6 +16,10 @@ public class Gallery {
 
 	@Property
 	private Picture picture;
+
+	public JSONObject getParams() {
+		return new JSONObject("maxHeight", "600px", "slideshow", "true", "slideshowSpeed", "5000");
+	}
 
 	public ArticlePictures getPictures() {
 		return article.getPictures();

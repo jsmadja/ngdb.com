@@ -40,9 +40,16 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<t:label for="mainPicture" class="control-label">Picture : </t:label>
+							<span class="control-label">Pictures : </span>
 							<div class="controls">
-								<input t:type="upload" t:id="mainPicture" t:value="mainPicture">upload file</input>
+								<t:jquery.ajaxUpload t:id="uploadImage" t:multiple="true"
+									t:allowedExtensions="[jpg, png, gif, jpeg, bmp]" t:sizeLimit="3M" />
+								<div class="alert alert-info">Click on a picture to delete it.</div>
+								<t:loop source="storedPictures" value="picture">
+									<span>
+							    		<t:actionLink context="picture" t:id="deletePicture" ><img src="${message:image.host.url}${smallPictureUrl}" height="75" width="75" style="margin-left:2px;border-radius:5px" /></t:actionLink>
+							    	</span>
+								</t:loop>
 							</div>
 						</div>
 						<div class="form-actions">

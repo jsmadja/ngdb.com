@@ -1,4 +1,4 @@
-<div class="gallery" t:type="jQuery/Gallery" t:selector="a[rel^=gal]" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<div class="gallery" t:type="jQuery/Gallery" t:params="params"  t:selector="a[rel^=gal]" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<t:if test="pictures">
 		<t:loop source="pictures" value="picture">
 		    <a href="${message:image.host.url}${picture.url}" 

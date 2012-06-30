@@ -21,7 +21,8 @@ public class CurrencyService {
 		return fromToRate(dollars, USD, EUR, conversionRateService.getDollarToEurosRate());
 	}
 
-	private double fromToRate(double amount, CurrencyUnit fromCurrency, CurrencyUnit toCurrency, double rateConversion) {
+	private double fromToRate(Double amount, CurrencyUnit fromCurrency, CurrencyUnit toCurrency, double rateConversion) {
+		amount = new BigDecimal(amount).setScale(2, HALF_DOWN).doubleValue();
 		Money money = Money.of(fromCurrency, amount);
 		BigDecimal conversionRate = new BigDecimal(rateConversion);
 		Money dollar = money.convertedTo(toCurrency, conversionRate, HALF_DOWN);

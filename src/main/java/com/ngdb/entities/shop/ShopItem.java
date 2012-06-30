@@ -188,4 +188,8 @@ public class ShopItem {
 		return priceInEuros;
 	}
 
+	public void removePicture(Picture picture) {
+		pictures.remove(picture);
+	}
+
 }

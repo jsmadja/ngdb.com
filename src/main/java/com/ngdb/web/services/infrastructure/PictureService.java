@@ -84,4 +84,8 @@ public class PictureService {
 		return url.substring(url.lastIndexOf('.') + 1);
 	}
 
+	public void delete(Picture picture) {
+		new File(picture.getUrl()).getParentFile().delete();
+	}
+
 }

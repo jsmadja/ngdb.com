@@ -8,6 +8,9 @@
 			<div class="page-header">
 				<h1 class="header">
 					${shopItem.title}
+					<span style="font-size:15px">
+						<img src="/img/flags/${shopItem.article.origin}.png" alt="${shopItem.article.origin}" /> ${shopItem.article.platform.name}
+					</span>
 					<t:shopitem.shopActionBlock shopItem="shopItem" />
 				</h1>
 			</div>

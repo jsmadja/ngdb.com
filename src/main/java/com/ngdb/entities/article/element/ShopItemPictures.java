@@ -1,5 +1,6 @@
 package com.ngdb.entities.article.element;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -15,7 +16,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ShopItemPictures implements Iterable<Picture> {
 
-	@OneToMany(mappedBy = "shopItem", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "shopItem", fetch = FetchType.LAZY, orphanRemoval = true)
 	private Set<Picture> pictures = new HashSet<Picture>();
 
 	public Picture first() {
@@ -32,6 +33,14 @@ public class ShopItemPictures implements Iterable<Picture> {
 	@Override
 	public Iterator<Picture> iterator() {
 		return pictures.iterator();
+	}
+
+	public void remove(Picture picture) {
+		pictures.remove(picture);
+	}
+
+	public Set<Picture> all() {
+		return Collections.unmodifiableSet(pictures);
 	}
 
 }
