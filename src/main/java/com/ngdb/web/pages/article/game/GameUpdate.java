@@ -1,17 +1,23 @@
 package com.ngdb.web.pages.article.game;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.upload.services.UploadedFile;
+import org.got5.tapestry5.jquery.JQueryEventConstants;
 import org.hibernate.Session;
 import org.joda.time.DateTime;
 
@@ -93,8 +99,22 @@ public class GameUpdate {
 	@Inject
 	private CurrentUser userSession;
 
+	@Persist
+	@Property
+	private List<UploadedFile> pictures;
+
+	@Persist
+	@Property
+	private Set<Picture> storedPictures;
+
+	@Property
+	private Picture picture;
+
 	public void onActivate(Game game) {
 		this.game = game;
+		if (pictures == null) {
+			pictures = new ArrayList<UploadedFile>();
+		}
 	}
 
 	@SetupRender
@@ -121,6 +141,14 @@ public class GameUpdate {
 			this.details = game.getDetails();
 			this.title = game.getTitle();
 			this.ngh = game.getNgh();
+			this.storedPictures = game.getPictures().all();
+		}
+	}
+
+	@OnEvent(component = "uploadImage", value = JQueryEventConstants.AJAX_UPLOAD)
+	void onImageUpload(UploadedFile uploadedFile) {
+		if (uploadedFile != null) {
+			this.pictures.add(uploadedFile);
 		}
 	}
 
@@ -148,9 +176,28 @@ public class GameUpdate {
 				session.merge(picture);
 			}
 		}
+		for (UploadedFile uploadedPicture : pictures) {
+			Picture picture = pictureService.store(uploadedPicture, game);
+			game.addPicture(picture);
+			if (isEditMode()) {
+				session.merge(picture);
+			}
+		}
 		gameView.setGame(game);
 		history.add(game, userSession.getUser());
 		return gameView;
+	}
+
+	@CommitAfter
+	Object onActionFromDeletePicture(Picture picture) {
+		game.removePicture(picture);
+		pictureService.delete(picture);
+		this.storedPictures = game.getPictures().all();
+		return this;
+	}
+
+	public String getSmallPictureUrl() {
+		return picture.getUrl("small");
 	}
 
 	public boolean isEditMode() {

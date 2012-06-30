@@ -293,4 +293,8 @@ public abstract class Article implements Comparable<Article> {
 		reviews.add(review);
 	}
 
+	public void removePicture(Picture picture) {
+		pictures.remove(picture);
+	}
+
 }

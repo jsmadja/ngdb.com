@@ -2,6 +2,7 @@ package com.ngdb.entities.article.element;
 
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -43,6 +44,14 @@ public class ArticlePictures implements Iterable<Picture> {
 	@Override
 	public Iterator<Picture> iterator() {
 		return pictures.iterator();
+	}
+
+	public Set<Picture> all() {
+		return Collections.unmodifiableSet(pictures);
+	}
+
+	public void remove(Picture picture) {
+		pictures.remove(picture);
 	}
 
 }
