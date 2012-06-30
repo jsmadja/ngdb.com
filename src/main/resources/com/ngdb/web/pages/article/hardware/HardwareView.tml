@@ -20,7 +20,6 @@
 						#${hardware.id}<t:pagelink page="hardwares" context="[byPlatform,hardware.platform]"> ${hardware.platform.name} </t:pagelink> 
 					</div>
 				</div>
-				<t:article.actionBlock article="hardware" />
 					<table>
 						<t:loop source="hardware.notes" value="note">
 							<tr>
