@@ -10,10 +10,23 @@ Les dates des jeux à resaisir
 
 MEttre a jour les dates de modif quand on ajoute un tag, une review, ...
 
+Lien vers l’article du museum depuis un article en vente
+
 Lien : 1 copy available
+
+Vente en cours
+
+BUG
+-----------------
+
+J’ai « Mark as Sold » super sidekicks 2, il reste dans la liste du Market mais n’est plus compté dans les items… 26 au lie de 27.
+Il est en « Sold » dans la DB, mais toujours présent dans la liste (à la fin…)
+Peut-être un bug de la liste Market qui ne devrait pas afficher les articles Sold ?
 
 -------------------
 V1.1
 -------------------
 Et éventuellement, le passage possible en mode liste pour pouvoir trier
 ou exporter la liste vers excel.
+
+Avoir un panier d'achat
