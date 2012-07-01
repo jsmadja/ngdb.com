@@ -152,8 +152,4 @@ public class Market {
 		return platforms;
 	}
 
-	public String getShopItemMainPicture() {
-		return shopItem.getArticle().getMainPicture().getUrl("medium");
-	}
-
 }

@@ -1,7 +1,9 @@
 package com.ngdb.web.services.infrastructure;
 
 import java.util.Collection;
+import java.util.Locale;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -232,6 +234,16 @@ public class CurrentUser {
 
 	private Article getArticleFromDb(Article article) {
 		return (Article) session.load(Article.class, article.getId());
+	}
+
+	public boolean isFrench() {
+		return isFrench(request.getLocale());
+	}
+
+	private boolean isFrench(Locale locale) {
+		String country = StringUtils.defaultString(locale.getCountry());
+		String language = StringUtils.defaultString(locale.getLanguage());
+		return country.equalsIgnoreCase("fr") || language.equalsIgnoreCase("fr");
 	}
 
 }
