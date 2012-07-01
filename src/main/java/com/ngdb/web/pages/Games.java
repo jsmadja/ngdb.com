@@ -17,7 +17,6 @@ import org.joda.time.DateTime;
 
 import com.google.common.base.Predicate;
 import com.ngdb.Comparators;
-import com.ngdb.base.EvenOdd;
 import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Tag;
@@ -58,8 +57,6 @@ public class Games {
 	@Persist
 	@Property
 	private Long id;
-
-	private EvenOdd evenOdd = new EvenOdd();
 
 	private List<Predicate> filters = new ArrayList<Predicate>();
 
@@ -151,10 +148,6 @@ public class Games {
 		}
 		this.games = new ArrayList<Game>(filteredGames);
 		Collections.sort(games, Comparators.gamesByTitlePlatformOrigin);
-	}
-
-	public String getRowClass() {
-		return evenOdd.next();
 	}
 
 	public User getUser() {

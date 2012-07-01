@@ -12,7 +12,6 @@ import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.joda.time.DateTime;
 
-import com.ngdb.base.EvenOdd;
 import com.ngdb.entities.HardwareFactory;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.reference.Origin;
@@ -49,8 +48,6 @@ public class Hardwares {
 
 	@Property
 	private String filterValue;
-
-	private EvenOdd evenOdd = new EvenOdd();
 
 	void onActivate() {
 		filter = Filter.none;
@@ -91,10 +88,6 @@ public class Hardwares {
 			this.hardwares = hardwareFactory.findAll();
 			break;
 		}
-	}
-
-	public String getRowClass() {
-		return evenOdd.next();
 	}
 
 	public User getUser() {

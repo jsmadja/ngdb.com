@@ -10,7 +10,15 @@
 			<div class="btn-group pull-right">
 				<t:userMenu />
             </div>
-			<div>
+			<div class="nav-collapse">
+	            <ul class="nav pull-left">
+	              <li><a href="/">Home</a></li>
+	              <li><a href="about">About</a></li>
+	              <li><a href="contact">Contact</a></li>
+	              <li><a href="stats">Stats</a></li>
+	            </ul>
+          	</div>
+			<div style="margin-left:auto;margin-right:auto">
 				<t:searchForm />
 			</div>
 		</div>

@@ -5,7 +5,6 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
-import com.ngdb.base.EvenOdd;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.shop.ShopItem;
@@ -33,8 +32,6 @@ public class UserView {
 	@Inject
 	private Session session;
 
-	private EvenOdd evenOdd = new EvenOdd();
-
 	void onActivate(User user) {
 		this.user = user;
 	}
@@ -48,10 +45,6 @@ public class UserView {
 
 	public User getUser() {
 		return user;
-	}
-
-	public String getRowClass() {
-		return evenOdd.next();
 	}
 
 	public boolean isBuyable() {

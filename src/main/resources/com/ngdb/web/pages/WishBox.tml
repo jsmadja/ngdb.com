@@ -7,7 +7,7 @@
 				row="wish" 
 				include="title, user, wishDate"
 				rowsPerPage="20"
-				rowClass="rowClass">
+				class="table table-striped table-bordered table-condensed">
 				<p:titleCell>
 					<img class="picture" style="float:left" src="${message:image.host.url}${mainPictureUrl}" title="${wish.article.title}" />
             		<t:pageLink page="${viewPage}" context="wish.article">${wish.article.title}</t:pageLink>

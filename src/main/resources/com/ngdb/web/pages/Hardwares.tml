@@ -16,7 +16,7 @@
 		<div>
 			<t:grid source="hardwares" 
 					row="hardware" 
-					rowClass="rowClass"
+					class="table table-striped table-bordered table-condensed"
 					include="title">
 				<p:titleCell>
 	            	<t:pageLink page="article/hardware/hardwareView" context="hardware.id">${hardware.title}</t:pageLink>

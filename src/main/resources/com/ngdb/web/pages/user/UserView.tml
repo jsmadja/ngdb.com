@@ -13,7 +13,7 @@
 
 			<h2>${user.login}'s wish list</h2>
 			<t:grid source="user.wishes" row="wish" rowsPerPage="20"
-				include="title" reorder="title," rowClass="rowClass">
+				include="title" reorder="title," class="table table-striped table-bordered table-condensed">
 				<p:titleHeader>Article</p:titleHeader>
 				<p:titleCell>
 					<img src="/img/flags/${wish.article.origin}.png" alt="${wish.article.origin}" />
@@ -29,7 +29,7 @@
 			<h2>${user.login}'s shop</h2>
 			<t:grid source="user.shopItemsForSale" row="shopItem"
 				rowsPerPage="20" include="title, details" add="price, inStoreSince"
-				reorder="title,details,inStoreSince,price" rowClass="rowClass">
+				reorder="title,details,inStoreSince,price" class="table table-striped table-bordered table-condensed">
 				<p:titleHeader>Article</p:titleHeader>
 				<p:titleCell>
 					<t:pageLink page="${viewPage}" context="shopItem.article">${shopItem.article.title}

@@ -5,6 +5,7 @@ import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.ngdb.entities.GameFactory;
+import com.ngdb.entities.HardwareFactory;
 import com.ngdb.entities.WishBox;
 import com.ngdb.entities.article.Game;
 
@@ -25,11 +26,22 @@ public class Index {
 	@Property
 	private Game randomGame3;
 
+	@Property
+	private Long gameCount;
+
+	@Property
+	private Long hardwareCount;
+
+	@Inject
+	private HardwareFactory hardwareFactory;
+
 	@SetupRender
 	public void init() {
 		randomGame1 = gameFactory.getRandomGameWithMainPicture();
 		randomGame2 = gameFactory.getRandomGameWithMainPicture();
 		randomGame3 = gameFactory.getRandomGameWithMainPicture();
+		this.gameCount = gameFactory.getNumGames();
+		this.hardwareCount = hardwareFactory.getNumHardwares();
 	}
 
 	public Long getNumGames() {

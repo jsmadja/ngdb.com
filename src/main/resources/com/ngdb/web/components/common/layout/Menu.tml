@@ -1,18 +1,5 @@
 <div class="well sidebar-nav updates" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<ul class="nav nav-list">
-		<li class="nav-header">DB stats</li>
-		<li>
-			<t:pageLink page="games"><b>${gameCount}</b> games</t:pageLink>
-		</li>
-		<li>
-			<t:pageLink page="hardwares"><b>${hardwareCount}</b> hardwares</t:pageLink>
-		</li>
-		<li>
-			<t:pageLink page="wishBox"><b>${wishListCount}</b> wishes</t:pageLink>
-		</li>
-		<li>
-			<t:pageLink page="users"><b>${userCount}</b> users</t:pageLink>
-		</li>
 		<li class="nav-header">Last updates</li>
 		<t:loop value="update" source="updates">
 			<li>

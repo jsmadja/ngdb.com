@@ -54,7 +54,7 @@
 			<t:grid source="games" 
 				row="game" 
 				rowsPerPage="10"
-				rowClass="rowClass"
+				class="table table-striped table-bordered table-condensed"
 				include="title">
 				<p:titleCell>
 					<t:pageLink page="article/game/gameView" context="game">
