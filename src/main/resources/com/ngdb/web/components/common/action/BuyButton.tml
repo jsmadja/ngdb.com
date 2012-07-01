@@ -1,5 +1,5 @@
 <span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<t:actionLink t:id="buy" class="btn btn-success" context="shopItem" t:mixins="jquery/tooltip" title="Buy it" >
-		$${shopItem.priceInDollars} / ${shopItem.priceInEuros} €
+		${price}
 	</t:actionLink>
 </span>
