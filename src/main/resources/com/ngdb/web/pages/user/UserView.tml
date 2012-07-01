@@ -1,56 +1,60 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
-	<div class="user">
-		<div class="page-header">
-			<h1>${user.login}</h1>
-		</div>
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<t:if test="user">
+		<div class="user">
+			<div class="page-header">
+				<h1>${user.login}</h1>
+			</div>
 
-		<p>
-			<t:pageLink page="museum" context="${user.id}">Click here to see ${user.login}'s collection</t:pageLink>
-		</p>
+			<p>
+				<t:pageLink page="museum" context="${user.id}">Click here to see
+					${user.login}'s collection</t:pageLink>
+			</p>
 
-		<h2>${user.login}'s wish list</h2>			
-		<t:grid source="user.wishes" 
-				row="wish" 
-				rowsPerPage="20"
-				include="title"
-				reorder="title,"
-				rowClass="rowClass">
+			<h2>${user.login}'s wish list</h2>
+			<t:grid source="user.wishes" row="wish" rowsPerPage="20"
+				include="title" reorder="title," rowClass="rowClass">
 				<p:titleHeader>Article</p:titleHeader>
 				<p:titleCell>
-					 <img src="/img/flags/${wish.article.origin}.png" alt="${wish.article.origin}" /> <t:pageLink page="${viewPage}" context="wish.article"> ${wish.article.title} </t:pageLink> - <span class="subtitle">${wish.article.platform.name}</span>
-                </p:titleCell>
-		</t:grid>
-		
-		<hr/>
-		
-		<h2>${user.login}'s shop</h2>
-		<t:grid source="user.shopItemsForSale" 
-				row="shopItem" 
-				rowsPerPage="20"
-				include="title, details"
-				add="price, inStoreSince"
-				reorder="title,details,inStoreSince,price"
-				rowClass="rowClass">
+					<img src="/img/flags/${wish.article.origin}.png" alt="${wish.article.origin}" />
+					<t:pageLink page="${viewPage}" context="wish.article">
+						${wish.article.title} </t:pageLink>
+					-
+					<span class="subtitle">${wish.article.platform.name}</span>
+				</p:titleCell>
+			</t:grid>
+
+			<hr />
+
+			<h2>${user.login}'s shop</h2>
+			<t:grid source="user.shopItemsForSale" row="shopItem"
+				rowsPerPage="20" include="title, details" add="price, inStoreSince"
+				reorder="title,details,inStoreSince,price" rowClass="rowClass">
 				<p:titleHeader>Article</p:titleHeader>
 				<p:titleCell>
-					<t:pageLink page="${viewPage}" context="shopItem.article">${shopItem.article.title}</t:pageLink>
-					 <br/>
-            		<img src="/img/flags/${shopItem.article.origin}.png" alt="${shopItem.article.origin}" /> <span class="subtitle">${shopItem.article.platform.name}</span>
-                </p:titleCell>
-                <p:priceCell>
-   					<t:shopitem.shopActionBlock shopItem="shopItem" asButton="true" />
-                	<t:if test="buyable">
-						<t:common.action.buyButton shopItem="shopItem" asButton="true" />
+					<t:pageLink page="${viewPage}" context="shopItem.article">${shopItem.article.title}
+					</t:pageLink>
+					<br />
+					<img src="/img/flags/${shopItem.article.origin}.png" alt="${shopItem.article.origin}" />
+					<span class="subtitle">${shopItem.article.platform.name}</span>
+				</p:titleCell>
+				<p:priceCell>
+					<t:shopitem.shopActionBlock shopItem="shopItem"
+						asButton="true" />
+					<t:if test="buyable">
+						<t:common.action.buyButton shopItem="shopItem"
+							asButton="true" />
 						<p:else>
-							<span style="font-size:10pt">$${shopItem.priceInDollars} / ${shopItem.priceInEuros} €</span>
+							<span style="font-size:10pt">$${shopItem.priceInDollars} /
+								${shopItem.priceInEuros} €</span>
 						</p:else>
 					</t:if>
-	            </p:priceCell>
-                <p:inStoreSinceHeader>For sale</p:inStoreSinceHeader>
-                <p:inStoreSinceCell>
-                	${shopItem.forSaleDate}
+				</p:priceCell>
+				<p:inStoreSinceHeader>For sale</p:inStoreSinceHeader>
+				<p:inStoreSinceCell>
+					${shopItem.forSaleDate}
                 </p:inStoreSinceCell>
-		</t:grid>
-		
-	</div>
+			</t:grid>
+		</div>
+	</t:if>
 </t:layout>

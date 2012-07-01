@@ -47,9 +47,6 @@ public class UserView {
 	}
 
 	public User getUser() {
-		if (user == null) {
-			this.user = currentUser.getUserFromDb();
-		}
 		return user;
 	}
 
