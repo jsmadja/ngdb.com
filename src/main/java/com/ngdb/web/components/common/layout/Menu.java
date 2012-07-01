@@ -2,24 +2,35 @@ package com.ngdb.web.components.common.layout;
 
 import java.util.List;
 
+import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import com.ngdb.entities.Registry;
-import com.ngdb.entities.article.Game;
+import com.ngdb.entities.shop.ShopItem;
+import com.ngdb.web.pages.shop.ShopItemView;
 
 public class Menu {
 
 	@Property
-	private Game update;
+	private List<ShopItem> shopItems;
 
-	private List<Game> updates;
+	@Property
+	private ShopItem shopItem;
+
+	@Property
+	private Long forSaleCount;
+
+	@InjectPage
+	private ShopItemView shopItemView;
 
 	@Inject
-	private Registry registry;
+	private com.ngdb.entities.Market market;
 
-	public List<Game> getUpdates() {
-		return registry.findLastUpdates();
+	@SetupRender
+	void onInit() {
+		this.shopItems = market.findLastForSaleItems(5);
+		this.forSaleCount = market.getNumForSaleItems();
 	}
 
 }

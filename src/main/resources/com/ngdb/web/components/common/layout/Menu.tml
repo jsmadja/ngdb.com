@@ -1,10 +1,17 @@
 <div class="well sidebar-nav updates" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<ul class="nav nav-list">
-		<li class="nav-header">Last updates</li>
-		<t:loop value="update" source="updates">
-			<li>
-				<t:pageLink page="article/game/gameview" context="update.id"><b>${update.title}</b></t:pageLink> ${update.lastUpdateDate}
-			</li>
-		</t:loop>
+		<t:if test="shopItems">
+			<li class="nav-header">For sale</li>
+					<t:loop value="shopItem" source="shopItems">
+						<li style="margin-bottom:10px">
+							<t:pageLink page="shop/shopItemView" context="shopItem">
+								<b>${shopItem.title}</b> $${shopItem.priceInDollars} / ${shopItem.priceInEuros} €
+							</t:pageLink> ${shopItem.forSaleDate} by <t:pageLink page="user/UserView" context="shopItem.seller">${shopItem.seller.login}</t:pageLink>
+						</li>
+					</t:loop>
+				<li>
+					<t:pageLink page="market">View <b>${forSaleCount}</b> items in market ...</t:pageLink>
+				</li>
+		</t:if>
 	</ul>
 </div>

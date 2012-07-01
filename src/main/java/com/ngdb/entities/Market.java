@@ -47,8 +47,8 @@ public class Market {
 		return session.createCriteria(ShopItem.class).addOrder(desc("modificationDate"));
 	}
 
-	public List<ShopItem> findLastForSaleItems() {
-		return session.createQuery("SELECT si FROM ShopItem si WHERE si.sold = false ORDER BY modificationDate DESC").setCacheable(true).setCacheRegion("cacheCount").setMaxResults(3).list();
+	public List<ShopItem> findLastForSaleItems(int count) {
+		return session.createQuery("SELECT si FROM ShopItem si WHERE si.sold = false ORDER BY modificationDate DESC").setCacheable(true).setCacheRegion("cacheCount").setMaxResults(count).list();
 	}
 
 	public Long getNumForSaleItems() {

@@ -8,21 +8,19 @@ import java.util.Locale;
 
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 
 import com.ngdb.entities.GameFactory;
+import com.ngdb.entities.Registry;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.element.Comment;
-import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.web.pages.Market;
 import com.ngdb.web.pages.article.game.GameView;
 import com.ngdb.web.pages.article.hardware.HardwareView;
-import com.ngdb.web.pages.shop.ShopItemView;
 
 public class Events {
 
@@ -34,15 +32,6 @@ public class Events {
 
 	@Property
 	private Game release;
-
-	@Property
-	private List<ShopItem> shopItems;
-
-	@Property
-	private ShopItem shopItem;
-
-	@Property
-	private Long forSaleCount;
 
 	@InjectPage
 	private GameView gameView;
@@ -56,16 +45,16 @@ public class Events {
 	@InjectPage
 	private Market marketPage;
 
-	@InjectPage
-	private ShopItemView shopItemView;
+	@Property
+	private Game update;
+
+	private List<Game> updates;
 
 	@Inject
-	private com.ngdb.entities.Market market;
+	private Registry registry;
 
-	@SetupRender
-	void onInit() {
-		this.shopItems = market.findLastForSaleItems();
-		this.forSaleCount = market.getNumForSaleItems();
+	public List<Game> getUpdates() {
+		return registry.findLastUpdates();
 	}
 
 	@SuppressWarnings("unchecked")
