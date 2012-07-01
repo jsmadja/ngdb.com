@@ -29,8 +29,12 @@ public class Menu {
 
 	@SetupRender
 	void onInit() {
-		this.shopItems = market.findLastForSaleItems(5);
+		this.shopItems = market.findLastForSaleItems(3);
 		this.forSaleCount = market.getNumForSaleItems();
+	}
+
+	public String getPrice() {
+		return market.getPriceOf(shopItem);
 	}
 
 }

@@ -4,6 +4,7 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import com.ngdb.entities.Market;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 
@@ -18,6 +19,9 @@ public class ShopItem {
 	@Inject
 	private CurrentUser currentUser;
 
+	@Inject
+	private Market market;
+
 	public String getShopItemMainPicture() {
 		return shopItem.getArticle().getMainPicture().getUrl("medium");
 	}
@@ -27,10 +31,7 @@ public class ShopItem {
 	}
 
 	public String getPrice() {
-		if (currentUser.isFrench()) {
-			return shopItem.getPriceInEuros() + " €";
-		}
-		return "$" + shopItem.getPriceInEuros();
+		return market.getPriceOf(shopItem);
 	}
 
 	public String getTitle() {

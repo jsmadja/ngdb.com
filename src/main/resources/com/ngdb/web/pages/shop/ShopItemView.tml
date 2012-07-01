@@ -1,68 +1,70 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
-	<div class="row-fluid show-grid article">
-		<div class="span3">
-			<img class="thumbnail" src="${message:image.host.url}${shopItemMainPicture}"
-				title="${shopItem.title}" />
-		</div>
-		<div class="span9">
-			<div class="page-header">
-				<h1 class="header">
-					${shopItem.title}
-					<span style="font-size:15px">
-						<img src="/img/flags/${shopItem.article.origin}.png" alt="${shopItem.article.origin}" /> ${shopItem.article.platform.name}
-					</span>
-					<t:shopitem.shopActionBlock shopItem="shopItem" />
-				</h1>
+	<t:if test="shopItem">
+		<div class="row-fluid show-grid article">
+			<div class="span3">
+				<img class="thumbnail" src="${message:image.host.url}${shopItemMainPicture}"
+					title="${shopItem.title}" />
 			</div>
-			<t:if test="message">
-				<div class="alert alert-info">${message}</div>
-			</t:if>
-			<table>
-				<tr>
-					<td>
-						<table>
-							<tr>
-								<td class="grey">
-									<b>Price</b>
-								</td>
-								<td>
-									$${shopItem.priceInDollars} / ${shopItem.priceInEuros} €
-								</td>
-							</tr>
-							<tr>
-								<td class="grey">
-									<b>For sale date</b>
-								</td>
-								<td>
-									${shopItem.forSaleDate}
-								</td>
-							</tr>
-							<tr>
-								<td class="grey">
-									<b>State</b>
-								</td>
-								<td>
-									<a href="#">${shopItem.state.title}</a>
-								</td>
-							</tr>
-							<tr>
-								<td class="grey">
-									<b>Seller</b>
-								</td>
-								<td>
-									<t:pageLink page="user/UserView" context="shopItem.seller">
-										${shopItem.seller.login}</t:pageLink>
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</table>
-			<h2>Description</h2>
-			<p>
-				<t:OutputRaw value="${shopItem.details}" />
-			</p>
-			<t:shopitem.gallery shopItem="shopItem" />
+			<div class="span9">
+				<div class="page-header">
+					<h1 class="header">
+						${shopItem.title}
+						<span style="font-size:15px">
+							<img src="/img/flags/${shopItem.article.origin}.png" alt="${shopItem.article.origin}" /> ${shopItem.article.platform.name}
+						</span>
+						<t:shopitem.shopActionBlock shopItem="shopItem" />
+					</h1>
+				</div>
+				<t:if test="message">
+					<div class="alert alert-info">${message}</div>
+				</t:if>
+				<table>
+					<tr>
+						<td>
+							<table>
+								<tr>
+									<td class="grey">
+										<b>Price</b>
+									</td>
+									<td>
+										$${shopItem.priceInDollars} / ${shopItem.priceInEuros} €
+									</td>
+								</tr>
+								<tr>
+									<td class="grey">
+										<b>For sale date</b>
+									</td>
+									<td>
+										${shopItem.forSaleDate}
+									</td>
+								</tr>
+								<tr>
+									<td class="grey">
+										<b>State</b>
+									</td>
+									<td>
+										<a href="#">${shopItem.state.title}</a>
+									</td>
+								</tr>
+								<tr>
+									<td class="grey">
+										<b>Seller</b>
+									</td>
+									<td>
+										<t:pageLink page="user/UserView" context="shopItem.seller">
+											${shopItem.seller.login}</t:pageLink>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<h2>Description</h2>
+				<p>
+					<t:OutputRaw value="${shopItem.details}" />
+				</p>
+				<t:shopitem.gallery shopItem="shopItem" />
+			</div>
 		</div>
-	</div>
+	</t:if>
 </t:layout>

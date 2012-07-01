@@ -22,6 +22,7 @@ import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.services.MailService;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class Market {
 
@@ -34,6 +35,9 @@ public class Market {
 	@Inject
 	@Symbol("host.url")
 	private String hostUrl;
+
+	@Inject
+	private CurrentUser currentUser;
 
 	public List<ShopItem> findAllItemsSold() {
 		return allShopItems().add(eq("sold", true)).list();
@@ -87,5 +91,12 @@ public class Market {
 			}
 		});
 		return list;
+	}
+
+	public String getPriceOf(com.ngdb.entities.shop.ShopItem shopItem) {
+		if (currentUser.isFrench()) {
+			return shopItem.getPriceInEuros() + " €";
+		}
+		return "$" + shopItem.getPriceInEuros();
 	}
 }

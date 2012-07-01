@@ -20,6 +20,10 @@ public class Thumbnail {
 	@Parameter
 	private boolean noClick;
 
+	@Property
+	@Parameter
+	private boolean center;
+
 	public String getViewPage() {
 		if (article instanceof Game) {
 			return "article/game/gameView";

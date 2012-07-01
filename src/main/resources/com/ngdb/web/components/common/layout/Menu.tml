@@ -3,10 +3,15 @@
 		<t:if test="shopItems">
 			<li class="nav-header">For sale</li>
 					<t:loop value="shopItem" source="shopItems">
-						<li style="margin-bottom:10px">
+						<li style="margin-bottom:10px;text-align:center">
 							<t:pageLink page="shop/shopItemView" context="shopItem">
-								<b>${shopItem.title}</b> $${shopItem.priceInDollars} / ${shopItem.priceInEuros} €
-							</t:pageLink> ${shopItem.forSaleDate} by <t:pageLink page="user/UserView" context="shopItem.seller">${shopItem.seller.login}</t:pageLink>
+								<p>
+									<t:article.thumbnail article="shopItem.article" noClick="true" size="literal:small" center="true"/>
+								</p>
+								<p>
+									${shopItem.title} <span class="label label-warning">${price}</span>
+								</p>
+							</t:pageLink>
 						</li>
 					</t:loop>
 				<li>
