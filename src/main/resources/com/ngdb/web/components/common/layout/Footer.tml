@@ -3,9 +3,7 @@
 		<p>&copy;
 			neogeodb 2012 - version ${version} 
 		</p>
-		<div class="pull-right">
-			<a href="http://www.monitor.us"><img src="http://images.monitor.us/monbadges120-40.png" title="Monitor.Us - Free website, server &amp; network monitoring tool" border="0" /></a>
-			<a href="http://mixpanel.com/f/partner"><img src="http://mixpanel.com/site_media/images/partner/badge_blue.png" alt="Real Time Web Analytics" /></a>
-		</div>
+		<a href="http://www.monitor.us"><img src="http://images.monitor.us/monbadges120-40.png" title="Monitor.Us - Free website, server &amp; network monitoring tool" border="0" /></a>
+		<a href="http://mixpanel.com/f/partner"><img src="http://mixpanel.com/site_media/images/partner/badge_blue.png" alt="Real Time Web Analytics" /></a>
 	</center>
 </footer>
