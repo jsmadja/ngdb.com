@@ -28,7 +28,7 @@ import com.ngdb.entities.user.User;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ShopItem {
+public class ShopItem implements Comparable<ShopItem> {
 
 	private static final int MAX_DETAIL_LENGTH = 1024;
 
@@ -193,6 +193,11 @@ public class ShopItem {
 
 	public void removePicture(Picture picture) {
 		pictures.remove(picture);
+	}
+
+	@Override
+	public int compareTo(ShopItem shopItem) {
+		return article.compareTo(shopItem.article);
 	}
 
 }

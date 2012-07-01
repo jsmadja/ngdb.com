@@ -1,6 +1,10 @@
 package com.ngdb.web.pages;
 
+import static com.google.common.collect.Collections2.filter;
+
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -77,13 +81,6 @@ public class Market {
 		}
 	}
 
-	// boolean onActivate(User user) {
-	// this.category = Category.byUser;
-	// this.id = user.getId();
-	// this.username = user.getLogin();
-	// return true;
-	// }
-
 	public void setCategory(Category category) {
 		this.category = category;
 	}
@@ -102,7 +99,7 @@ public class Market {
 	}
 
 	public Collection<ShopItem> getShopItems() {
-		Collection<ShopItem> shopItems = findAllByOriginAndPlatform();
+		List<ShopItem> shopItems = new ArrayList<ShopItem>(findAllByOriginAndPlatform());
 		if (category != null) {
 			switch (category) {
 			case byArticle:
@@ -116,10 +113,11 @@ public class Market {
 				} else {
 					user = population.findById(id);
 				}
-				shopItems = filterBy(shopItems, user);
+				shopItems = new ArrayList<ShopItem>(filterBy(shopItems, user));
 				break;
 			}
 		}
+		Collections.sort(shopItems);
 		return shopItems;
 	}
 
@@ -132,13 +130,13 @@ public class Market {
 		});
 	}
 
-	private Collection<ShopItem> filterBy(Collection<ShopItem> shopItems, final Article article) {
-		return Collections2.filter(shopItems, new Predicate<ShopItem>() {
+	private List<ShopItem> filterBy(Collection<ShopItem> shopItems, final Article article) {
+		return new ArrayList<ShopItem>(filter(shopItems, new Predicate<ShopItem>() {
 			@Override
 			public boolean apply(ShopItem input) {
 				return input.getArticle().getId().equals(article.getId());
 			}
-		});
+		}));
 	}
 
 	private Collection<ShopItem> findAllByOriginAndPlatform() {
