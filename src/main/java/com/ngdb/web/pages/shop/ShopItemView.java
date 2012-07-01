@@ -5,6 +5,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
+import com.ngdb.entities.Market;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.services.infrastructure.CurrentUser;
@@ -19,6 +20,9 @@ public class ShopItemView {
 
 	@Property
 	private String message;
+
+	@Inject
+	private Market market;
 
 	void onActivate(ShopItem shopItem) {
 		this.shopItem = shopItem;
@@ -46,5 +50,9 @@ public class ShopItemView {
 
 	public String getShopItemMainPicture() {
 		return shopItem.getArticle().getMainPicture().getUrl("medium");
+	}
+
+	public String getPrice() {
+		return market.getPriceOf(shopItem);
 	}
 }
