@@ -1,5 +1,4 @@
-<span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-	xmlns:p="tapestry:parameter" class="pull-right">
+<span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter" class="pull-right">
 	<t:if test="user">
 		<t:if test="asButton">
 			<t:if test="editable">
