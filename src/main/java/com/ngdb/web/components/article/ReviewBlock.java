@@ -53,6 +53,7 @@ public class ReviewBlock {
 
 	@CommitAfter
 	public Object onSuccess() {
+		article.updateModificationDate();
 		currentUser.addReviewOn(article, label, url, mark);
 		return this;
 	}

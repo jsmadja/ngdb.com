@@ -56,6 +56,7 @@ public class TagBlock {
 	public Object onSuccess() {
 		if (isNotBlank(search)) {
 			if (!article.containsTag(search)) {
+				article.updateModificationDate();
 				currentUser.addTagOn(article, search);
 			}
 		}
