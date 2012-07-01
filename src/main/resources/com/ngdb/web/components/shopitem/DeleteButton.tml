@@ -1,0 +1,15 @@
+<span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<t:if test="asButton">
+		<t:actionLink t:id="removeButton" class="btn btn-danger" id="removeButton" context="shopItem"
+			t:mixins="jquery/tooltip" title="Delete">
+			<i class="icon-trash icon-white" />
+		</t:actionLink>
+		<p:else>
+			<t:actionLink t:id="remove" id="remove" context="shopItem">
+				<i class="icon-trash" />
+				Delete
+			</t:actionLink>
+		</p:else>
+	</t:if>
+</span>

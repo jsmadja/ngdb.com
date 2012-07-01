@@ -1,0 +1,49 @@
+<span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter" class="pull-right">
+	<t:if test="user">
+		<t:if test="asButton">
+			<t:if test="editable">
+				<t:shopItem.editButton shopItem="shopItem" asButton="true" />
+			</t:if>
+			<t:if test="buyable">
+				<t:shopItem.buyButton shopItem="shopItem" asButton="true" />
+			</t:if>
+			<t:if test="soldable">
+				<t:shopItem.soldButton shopItem="shopItem" asButton="true" />
+			</t:if>
+			<t:if test="removeable">
+				<t:shopItem.deleteButton shopItem="shopItem" asButton="true" />
+			</t:if>
+			<p:else>
+				<div class="btn-group pull-right">
+					<a class="btn dropdown-toggle pull-right" data-toggle="dropdown"
+						href="#">
+						Actions
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<t:if test="editable">
+							<li>
+								<t:shopItem.editButton shopItem="shopItem" />
+							</li>
+						</t:if>
+						<t:if test="buyable">
+							<li>
+								<t:shopItem.buyButton shopItem="shopItem" />
+							</li>
+						</t:if>
+						<t:if test="soldable">
+							<li>
+								<t:shopItem.soldButton shopItem="shopItem" />
+							</li>
+						</t:if>
+						<t:if test="removeable">
+							<li>
+								<t:shopItem.deleteButton shopItem="shopItem" />
+							</li>
+						</t:if>
+					</ul>
+				</div>
+			</p:else>
+		</t:if>
+	</t:if>
+</span>
