@@ -20,6 +20,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.ocpsoft.pretty.time.PrettyTime;
 
+import com.google.common.base.Objects;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.user.User;
 
@@ -120,6 +121,11 @@ public class Wish implements Comparable<Wish> {
 				return false;
 
 			return true;
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hashCode(articleId, userId);
 		}
 	}
 

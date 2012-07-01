@@ -102,6 +102,11 @@ public class CollectionObject implements Comparable<CollectionObject> {
 
 			return true;
 		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hashCode(articleId, userId);
+		}
 	}
 
 	@Override
