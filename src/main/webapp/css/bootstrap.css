@@ -5121,3 +5121,11 @@ TABLE.t-data-grid THEAD TR TH {
 .subtitle {
 	font-size:9t;
 }
+
+.shop_item {
+	margin-right:1%;
+	display:inline-block;
+	width:24%;
+	text-align:center;
+	margin-top:20px;
+}

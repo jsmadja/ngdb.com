@@ -1,13 +1,19 @@
 <span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-	xmlns:p="tapestry:parameter" style="float:left;margin-right:20px">
+	xmlns:p="tapestry:parameter" class="shop_item">
+	<table>
+	<tr><td>
 	<t:pageLink page="shop/shopItemView" context="shopItem.id">
 		<img class="thumbnail" width="150px"
 			src="${message:image.host.url}${shopItemMainPicture}" alt="${shopItem.title}" />
 	</t:pageLink>
-	<p style="text-align:center;margin-top:10px">
+	</td></tr>
+	<tr><td>
+	<span style="text-align:center;margin-top:10px">
 		<t:pageLink page="shop/shopItemView" context="shopItem.id">${title}</t:pageLink>
-	</p>
-	<p style="text-align:left">
+	</span>
+	</td></tr>
+	<tr><td>
+	<span style="text-align:left">
 		<t:if test="user">
 			<t:common.action.buyButton shopItem="shopItem" />
 			<p:else>
@@ -15,5 +21,7 @@
 			</p:else>
 		</t:if>
 		by <t:pageLink page="market" context="shopItem.seller">${shopItem.seller.login}</t:pageLink>
-	</p>
+	</span>
+	</td></tr>
+	</table>
 </span>
