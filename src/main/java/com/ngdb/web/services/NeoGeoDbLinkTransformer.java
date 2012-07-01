@@ -9,8 +9,7 @@ public class NeoGeoDbLinkTransformer implements PageRenderLinkTransformer {
 
 	public Link transformPageRenderLink(Link defaultLink, PageRenderRequestParameters parameters) {
 		if (isProductionServer(defaultLink)) {
-			// return defaultLink.copyWithBasePath("http://www.neogeodb.com" + defaultLink.toString());
-			return defaultLink.copyWithBasePath("/" + defaultLink.toString());
+			return defaultLink.copyWithBasePath("http://www.neogeodb.com" + defaultLink.toString());
 		}
 		return defaultLink;
 	}
