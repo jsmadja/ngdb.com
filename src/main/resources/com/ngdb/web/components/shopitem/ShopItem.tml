@@ -17,7 +17,7 @@
 		<t:if test="user">
 			<t:common.action.buyButton shopItem="shopItem" />
 			<p:else>
-				<span class="btn btn-success">${price}</span>
+				<span class="label btn-success" style="font-size:9pt;font-weight:normal">${price}</span>
 			</p:else>
 		</t:if>
 		by <t:pageLink page="market" context="shopItem.seller">${shopItem.seller.login}</t:pageLink>
