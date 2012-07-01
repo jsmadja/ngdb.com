@@ -38,7 +38,9 @@
 									<t:if test="games">
 										<div class="tab-pane ${firstOrigin}" id="tab_${originIdContent}">
 											<t:loop source="games" value="game">
-												<t:article.thumbnail article="game" size="literal:small" />
+												<span class="museum_item">
+													<t:article.thumbnail article="game" size="literal:medium" />
+												</span>
 											</t:loop>
 										</div>
 									</t:if>
@@ -49,7 +51,9 @@
 				</t:loop>
 				<div class="tab-pane" id="tab${idContent}">
 					<t:loop source="hardwares" value="hardware">
-						<t:article.thumbnail article="hardware" size="literal:small" />
+						<span class="museum_item">
+							<t:article.thumbnail article="hardware" size="literal:medium" />
+						</span>
 					</t:loop>
 				</div>
 			</div>

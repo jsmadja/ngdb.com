@@ -5030,7 +5030,7 @@ TABLE.t-data-grid THEAD TR TH {
 
 .collection img.thumbnail {
 	display:inline;	
-	max-width: 100px;
+	width: 160px;
 }
 
 .market img.thumbnail {
@@ -5128,4 +5128,9 @@ TABLE.t-data-grid THEAD TR TH {
 	width:24%;
 	text-align:center;
 	margin-top:20px;
+}
+
+.museum_item {
+	margin-right:1%;
+	display:inline-block;
 }
