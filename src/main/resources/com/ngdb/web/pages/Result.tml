@@ -12,7 +12,7 @@
 					</t:pageLink>
           			<t:pageLink page="article/game/gameview" context="result.id">${result.title}</t:pageLink>
           			<br/><br/>
-          			${result.platform.name} - ${result.origin.title}
+            		<img src="/img/flags/${result.origin}.png" alt="${result.origin}" /> ${result.platform.name}
                 </p:titleCell>
                 <p:actionsCell>
 					<t:article.actionBlock asButton="true" article="result" />
