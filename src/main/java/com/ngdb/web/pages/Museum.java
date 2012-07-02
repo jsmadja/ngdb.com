@@ -1,5 +1,8 @@
 package com.ngdb.web.pages;
 
+import static com.google.common.collect.Collections2.filter;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -13,6 +16,7 @@ import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.HardwareFactory;
 import com.ngdb.entities.Population;
 import com.ngdb.entities.article.Article;
+import com.ngdb.entities.article.Game;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
@@ -96,7 +100,20 @@ public class Museum {
 	}
 
 	public int getNumInPlatform() {
-		return gameFactory.findAllByPlatform(platform).size();
+		List<Game> articles = gameFactory.findAllByPlatform(platform);
+		if (user != null) {
+			articles = new ArrayList<Game>(filter(articles, keepOnlyOwnedArticlesBy(user)));
+		}
+		return articles.size();
+	}
+
+	private Predicate<Game> keepOnlyOwnedArticlesBy(final User user) {
+		return new Predicate<Game>() {
+			@Override
+			public boolean apply(Game input) {
+				return user.owns(input);
+			}
+		};
 	}
 
 	public int getNumInOriginAndPlatform() {
@@ -137,6 +154,10 @@ public class Museum {
 
 	public String getFirstOrigin() {
 		return origin.getTitle().equalsIgnoreCase("Japan") ? "active" : "";
+	}
+
+	public boolean isGamesInPlatform() {
+		return getNumInPlatform() > 0;
 	}
 
 }
