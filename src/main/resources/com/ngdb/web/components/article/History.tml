@@ -22,7 +22,7 @@
 	</table>
 	<t:if test="buyable">
 		<br/>
-		<span style="background-color:lime">Shops: ${article.availableCopyCount} copy available</span>
+		<span style="margin-right:10%;margin-left:10%;"><t:pageLink page="market" context="[byArticle,article]"><b>${article.availableCopyCount}</b> available item(s) in market</t:pageLink></span>
 	</t:if>
 	<t:if test="notEmpty">
 		<br/>

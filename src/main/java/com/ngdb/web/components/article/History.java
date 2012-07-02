@@ -15,6 +15,7 @@ import com.ngdb.entities.WishBox;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.reference.State;
+import com.ngdb.web.Category;
 
 public class History {
 
@@ -87,6 +88,10 @@ public class History {
 
 	public boolean isBuyable() {
 		return getNumAvailableCopy() > 0;
+	}
+
+	public String getByArticle() {
+		return Category.byArticle.name();
 	}
 
 }
