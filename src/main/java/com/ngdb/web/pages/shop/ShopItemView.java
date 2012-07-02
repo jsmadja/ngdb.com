@@ -8,6 +8,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import com.ngdb.entities.Market;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.user.User;
+import com.ngdb.web.pages.base.Redirections;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class ShopItemView {
@@ -54,5 +55,9 @@ public class ShopItemView {
 
 	public String getPrice() {
 		return market.getPriceOf(shopItem);
+	}
+
+	public String getViewPage() {
+		return Redirections.toViewPage(shopItem.getArticle());
 	}
 }
