@@ -1,5 +1,7 @@
 package com.ngdb.web.components.article;
 
+import static org.apache.commons.lang.StringUtils.isNotBlank;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -53,8 +55,10 @@ public class ReviewBlock {
 
 	@CommitAfter
 	public Object onSuccess() {
-		article.updateModificationDate();
-		currentUser.addReviewOn(article, label, url, mark);
+		if (isNotBlank(label) && isNotBlank(url) && isNotBlank(mark)) {
+			article.updateModificationDate();
+			currentUser.addReviewOn(article, label, url, mark);
+		}
 		return this;
 	}
 

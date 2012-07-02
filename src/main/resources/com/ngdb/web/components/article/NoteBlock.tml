@@ -1,0 +1,28 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+	<br/>
+	<table class="${cssClass}">
+		<t:if test="notes">
+			<t:loop source="notes" value="note">
+				<tr>
+					<td><b>${note.name}</b></td>
+					<td>${note.text}</td>
+				</tr>
+			</t:loop>
+		</t:if>
+		<t:if test="user">
+			<t:form t:id="noteForm" id="noteForm" t:autofocus="false"
+				style="height:10px;margin:none;">
+				<tr>
+					<td>
+						<t:textfield value="name" t:id="name" t:mixins="jquery/Autocomplete"
+							placeholder="property name" />
+					</td>
+					<td>
+						<t:textfield value="text" t:id="text" />
+					</td>
+				</tr>
+				<button class="btn btn-primary" type="submit" style="display:none" >Add note</button>
+			</t:form>
+		</t:if>
+	</table>
+</div>

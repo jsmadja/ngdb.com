@@ -1221,6 +1221,7 @@ select:focus:required:invalid:focus {
 
 :-moz-placeholder {
   color: #999999;
+  font-style:italic;
 }
 
 ::-webkit-input-placeholder {

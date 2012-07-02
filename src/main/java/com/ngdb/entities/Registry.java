@@ -16,6 +16,7 @@ import org.hibernate.Session;
 import com.google.common.base.Predicate;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
+import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Tag;
 
 public class Registry {
@@ -56,6 +57,10 @@ public class Registry {
 
 	public Collection<String> findAllTags() {
 		return session.createCriteria(Tag.class).setProjection(distinct(property("name"))).addOrder(asc("name")).list();
+	}
+
+	public Collection<String> findAllPropertyNames() {
+		return session.createCriteria(Note.class).setProjection(distinct(property("name"))).addOrder(asc("name")).list();
 	}
 
 }

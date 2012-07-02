@@ -33,6 +33,8 @@
 				
 				<t:article.tagBlock article="game" />
 				
+				<t:article.noteBlock article="game" />
+				
 				<t:if test="${game.details}">
 					<h3>Details</h3>
 					<p>
@@ -41,13 +43,7 @@
 					<hr />
 				</t:if>
 				
-				<t:if test="game.reviews">
-					<t:if test="user">
-						<h3>Reviews</h3>
-						<br/>
-						<t:article.reviewBlock article="game" />
-					</t:if>
-				</t:if>
+				<t:article.reviewBlock article="game" />
 				
 				<h3>Comments</h3>
 				<t:article.commentBlock article="game" />

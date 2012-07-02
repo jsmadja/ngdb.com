@@ -2,7 +2,7 @@
 	<table width="100%">
 		<t:loop source="reviews" value="review">
 			<tr>
-				<td>
+				<td width="33%">
 					<a href="${review.url}" target="blank">${review.label}</a>
 				</td>
 				<td colspan="2">
@@ -16,15 +16,16 @@
 					<td>
 						<t:textfield value="label" t:id="label" placeholder="label" />
 					</td>
-					<td>
-						<t:textfield value="url" t:id="url" placeholder="http://www." />
+					<td width="100%">
+						<t:textfield value="url" t:id="url" style="width:95%" placeholder="http://www." />
 					</td>
 					<td>
-						<t:textfield value="mark" t:id="mark" style="width:100px" placeholder="rate 7/10 or 67%" />
-						<button class="btn btn-primary" type="submit" style="height: 28px;vertical-align: top;margin-left:10px" >Add review</button>
+						<t:textfield value="mark" t:id="mark" placeholder="rate 7/10 or 67%" style="width:100px"/>
+						<button class="btn btn-primary" type="submit">Add review</button>
 					</td>
 				</t:form>
 			</tr>
 		</t:if>
 	</table>
+	<hr/>
 </div>

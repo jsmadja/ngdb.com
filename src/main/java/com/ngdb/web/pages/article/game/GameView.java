@@ -7,7 +7,6 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.ngdb.entities.article.Game;
-import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.Filter;
@@ -19,16 +18,10 @@ public class GameView {
 	private Game game;
 
 	@Property
-	private Note property;
-
-	@Property
 	private Tag tag;
 
 	@Property
 	private String value;
-
-	@Property
-	private Note note;
 
 	@Inject
 	private CurrentUser currentUser;

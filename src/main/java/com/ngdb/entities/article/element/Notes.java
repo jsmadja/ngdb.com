@@ -1,5 +1,7 @@
 package com.ngdb.entities.article.element;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -15,11 +17,32 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class Notes implements Iterable<Note> {
 
 	@OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
-	private Set<Note> notes;
+	private Set<Note> notes = new HashSet<Note>();
 
 	@Override
 	public Iterator<Note> iterator() {
 		return notes.iterator();
+	}
+
+	public boolean contains(String name) {
+		for (Note note : notes) {
+			if (note.hasName(name)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void add(Note note) {
+		notes.add(note);
+	}
+
+	public boolean isEmpty() {
+		return notes.isEmpty();
+	}
+
+	public Set<Note> all() {
+		return Collections.unmodifiableSet(notes);
 	}
 
 }

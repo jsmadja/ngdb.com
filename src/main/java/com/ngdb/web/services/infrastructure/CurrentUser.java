@@ -15,6 +15,7 @@ import org.tynamo.security.services.SecurityService;
 import com.ngdb.entities.Population;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Comment;
+import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.shop.ShopItem;
@@ -230,6 +231,12 @@ public class CurrentUser {
 		Review review = new Review(label, url, mark, article);
 		session.persist(review);
 		getArticleFromDb(article).addReview(review);
+	}
+
+	public void addPropertyOn(Article article, String name, String text) {
+		Note note = new Note(name, text, article);
+		session.persist(note);
+		getArticleFromDb(article).addNote(note);
 	}
 
 	private Article getArticleFromDb(Article article) {

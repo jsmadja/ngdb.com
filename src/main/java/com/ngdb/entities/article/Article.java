@@ -33,6 +33,7 @@ import org.ocpsoft.pretty.time.PrettyTime;
 import com.google.common.base.Objects;
 import com.ngdb.entities.article.element.ArticlePictures;
 import com.ngdb.entities.article.element.Comments;
+import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Notes;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.article.element.Review;
@@ -302,6 +303,14 @@ public abstract class Article implements Comparable<Article> {
 
 	public boolean containsTag(Tag tag) {
 		return tags.contains(tag);
+	}
+
+	public boolean containsProperty(String name) {
+		return notes.contains(name);
+	}
+
+	public void addNote(Note note) {
+		notes.add(note);
 	}
 
 }

@@ -11,7 +11,7 @@ import com.ngdb.entities.article.Article;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Note extends AbstractEntity {
+public class Note extends AbstractEntity implements Comparable<Note> {
 
 	private String name;
 
@@ -21,6 +21,12 @@ public class Note extends AbstractEntity {
 	private Article article;
 
 	Note() {
+	}
+
+	public Note(String name, String text, Article article) {
+		this.article = article;
+		this.name = name;
+		this.text = text;
 	}
 
 	public String getName() {
@@ -33,6 +39,15 @@ public class Note extends AbstractEntity {
 
 	public void setArticle(Article article) {
 		this.article = article;
+	}
+
+	public boolean hasName(String name) {
+		return this.name.equalsIgnoreCase(name);
+	}
+
+	@Override
+	public int compareTo(Note note) {
+		return name.compareToIgnoreCase(note.name);
 	}
 
 }
