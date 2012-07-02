@@ -181,6 +181,7 @@ public abstract class Article implements Comparable<Article> {
 	}
 
 	public void setDetails(String details) {
+		details = StringUtils.defaultString(details);
 		int end = details.length() < MAX_DETAIL_LENGTH ? details.length() : MAX_DETAIL_LENGTH;
 		this.details = details.substring(0, end);
 	}
