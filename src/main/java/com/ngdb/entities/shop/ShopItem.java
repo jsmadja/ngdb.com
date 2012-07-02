@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PreUpdate;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.ocpsoft.pretty.time.PrettyTime;
@@ -115,6 +116,7 @@ public class ShopItem implements Comparable<ShopItem> {
 	}
 
 	public void setDetails(String details) {
+		details = StringUtils.defaultString(details);
 		int end = details.length() < MAX_DETAIL_LENGTH ? details.length() : MAX_DETAIL_LENGTH;
 		this.details = details.substring(0, end);
 	}
