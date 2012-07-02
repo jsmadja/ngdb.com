@@ -20,8 +20,10 @@
 					<td>
 						<t:textfield value="text" t:id="text" />
 					</td>
+					<td>
+						<button class="btn btn-primary" type="submit" class="btn btn-primary">Add note</button>
+					</td>
 				</tr>
-				<button class="btn btn-primary" type="submit" style="display:none" >Add note</button>
 			</t:form>
 		</t:if>
 	</table>
