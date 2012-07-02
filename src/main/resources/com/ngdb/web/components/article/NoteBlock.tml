@@ -1,6 +1,6 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<br/>
-	<table class="${cssClass}">
+	<table class="${cssClass}" style="font-size:8pt">
 		<t:if test="notes">
 			<t:loop source="notes" value="note">
 				<tr>
@@ -18,10 +18,8 @@
 							placeholder="property name" />
 					</td>
 					<td>
-						<t:textfield value="text" t:id="text" />
-					</td>
-					<td>
-						<button class="btn btn-primary" type="submit">Add note</button>
+						<t:textfield value="text" t:id="text" style="70%" />
+						<button class="btn btn-primary pull-right" type="submit">Add note</button>
 					</td>
 				</tr>
 			</t:form>

@@ -9,7 +9,6 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.OnEvent;
-import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
@@ -40,7 +39,7 @@ import com.ngdb.web.services.infrastructure.PictureService;
 public class GameUpdate {
 
 	@Property
-	@Parameter(allowNull = true)
+	@Persist("entity")
 	private Game game;
 
 	@Property
@@ -116,6 +115,10 @@ public class GameUpdate {
 		}
 	}
 
+	Game onPassivate() {
+		return game;
+	}
+
 	@SetupRender
 	public void setup() {
 		if (game == null) {
@@ -146,9 +149,8 @@ public class GameUpdate {
 
 	@OnEvent(component = "uploadImage", value = JQueryEventConstants.AJAX_UPLOAD)
 	void onImageUpload(UploadedFile uploadedFile) {
-		if (uploadedFile != null) {
-			this.pictures.add(uploadedFile);
-		}
+		System.err.println("insert:" + uploadedFile.getFileName());
+		this.pictures.add(uploadedFile);
 	}
 
 	@CommitAfter
@@ -176,6 +178,7 @@ public class GameUpdate {
 			}
 		}
 		for (UploadedFile uploadedPicture : pictures) {
+			System.err.println("store:" + uploadedPicture.getFileName());
 			Picture picture = pictureService.store(uploadedPicture, game);
 			game.addPicture(picture);
 			if (isEditMode()) {
@@ -191,6 +194,7 @@ public class GameUpdate {
 	Object onActionFromDeletePicture(Picture picture) {
 		game.removePicture(picture);
 		pictureService.delete(picture);
+		game = (Game) session.merge(game);
 		this.storedPictures = game.getPictures().all();
 		return this;
 	}
