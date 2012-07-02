@@ -1,32 +1,17 @@
 <ul class="events events-list" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
-	
-	<li class="events-header">Last updates</li>
+	<li class="events-header">Updates</li>
 	<t:loop value="update" source="updates">
 		<li>
 			<t:pageLink page="article/game/gameview" context="update.id"><b>${update.title}</b></t:pageLink> ${update.lastUpdateDate}
 		</li>
 	</t:loop>
-
 	<t:if test="lastComments">
 		<br/>
-		<li class="events-header">Last comments</li>
+		<li class="events-header">Comments</li>
 		<t:loop value="comment" source="lastComments">
 			<li style="margin-bottom:10px">
-				<t:actionLink t:id="comment" id="comment" context="${comment.article.id}"><b>${comment.article.title}</b></t:actionLink><br/>
-				${comment.postDate} by <t:pageLink page="user/UserView" context="comment.author">${comment.author.login}</t:pageLink>
-				<br/>
+				<t:actionLink t:id="comment" id="comment" context="${comment.article.id}"><b>${comment.article.title}</b></t:actionLink> ${comment.postDate} by <t:pageLink page="user/UserView" context="comment.author"> ${comment.author.login}</t:pageLink>
 			</li>
 		</t:loop>
 	</t:if>
-	<!-- 
-	<br/>
-	<t:if test="releases">
-		<li class="events-header">Released in ${month}</li>
-		<t:loop value="release" source="releases">
-			<li style="margin-bottom:10px">
-				<t:pageLink page="article/game/gameview" context="release.id"><img src="/img/flags/${release.origin}.png" width="20px" alt="${release.origin}" /><b> ${release.title}</b><span style="font-size:7pt"> ${release.platform.name}</span></t:pageLink>
-			</li>
-		</t:loop>
-	</t:if>
-	 -->
 </ul>
