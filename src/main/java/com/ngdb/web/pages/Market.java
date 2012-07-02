@@ -8,12 +8,12 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
+import com.ngdb.Predicates;
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.Population;
 import com.ngdb.entities.article.Article;
@@ -36,13 +36,11 @@ public class Market {
 	@Inject
 	private Population population;
 
-	@Persist
 	private Category category;
 
 	@Inject
 	private CurrentUser currentUser;
 
-	@Persist
 	private Long id;
 
 	@Property
@@ -117,6 +115,7 @@ public class Market {
 				break;
 			}
 		}
+		shopItems = new ArrayList<ShopItem>(filter(shopItems, Predicates.shopItemsForSale));
 		Collections.sort(shopItems);
 		return shopItems;
 	}
