@@ -23,6 +23,10 @@ J’ai « Mark as Sold » super sidekicks 2, il reste dans la liste du Market ma
 Il est en « Sold » dans la DB, mais toujours présent dans la liste (à la fin…)
 Peut-être un bug de la liste Market qui ne devrait pas afficher les articles Sold ?
 
+Stéphane/02.07.2012:
+Le total des jeux du Museum en page d'accueil reste bloqué sur 660 alors que j'ai rajouté 127 Jeux pocket + 14 jeux HN64.
+Mise à jour oubliée ?
+
 -------------------
 V1.1
 -------------------
