@@ -9,7 +9,7 @@
 								<t:article.thumbnail article="shopItem.article" noClick="true" size="literal:medium" center="true"/>
 							</p>
 							<p>
-								${shopItem.title} <span class="label label-warning">${price}</span>
+								${shopItem.title} <span class="label label-warning" style="font-size:12pt">${price}</span>
 							</p>
 						</t:pageLink>
 					</li>
