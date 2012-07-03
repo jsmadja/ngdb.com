@@ -1,6 +1,5 @@
 package com.ngdb.web.pages;
 
-import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.Validate;
@@ -13,7 +12,6 @@ public class Contact {
 
 	@Property
 	@Validate("required")
-	@Parameter(allowNull = true, name = "title")
 	private String title;
 
 	@Property
@@ -28,6 +26,15 @@ public class Contact {
 
 	@Inject
 	private Population population;
+
+	public void onActivate() {
+
+	}
+
+	public boolean onActivate(String title) {
+		this.title = title;
+		return true;
+	}
 
 	public Object onSuccess() {
 		mailService.sendMail("julien.smadja+neogeodb@gmail.com", comment, title);
