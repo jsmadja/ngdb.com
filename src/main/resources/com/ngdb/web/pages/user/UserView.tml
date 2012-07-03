@@ -10,10 +10,20 @@
 				<t:pageLink page="museum" context="${user.id}">Click here to see
 					${user.login}'s collection</t:pageLink>
 			</p>
+			
+			<h2>Current orders</h2>
+			<t:grid include="title,details" add="price,seller" source="currentOrders" row="currentOrder" rowsPerPage="20" class="table table-striped table-bordered table-condensed">
+				<p:priceCell>
+					${orderPrice}
+				</p:priceCell>
+				<p:sellerCell>
+					<t:pageLink page="user/userView" context="${currentOrder.seller.id}"> ${currentOrder.seller.login} </t:pageLink>
+				</p:sellerCell>
+			</t:grid>
 
 			<h2>${user.login}'s wish list</h2>
 			<t:grid source="user.wishes" row="wish" rowsPerPage="20"
-				include="title" reorder="title" add="sellers" class="table table-striped table-bordered table-condensed">
+				include="title,wishDate" reorder="title" add="sellers" class="table table-striped table-bordered table-condensed">
 				<p:titleHeader>Article</p:titleHeader>
 				<p:titleCell>
 					<img src="/img/flags/${wish.article.origin}.png" alt="${wish.article.origin}" />
@@ -30,6 +40,9 @@
 						<t:pageLink page="user/userView" context="${seller.id}"> ${seller.login} </t:pageLink>
 					</t:loop>
 				</p:sellersCell>
+				<p:wishDateHeader>
+					Wish date
+				</p:wishDateHeader>
 			</t:grid>
 
 			<hr />

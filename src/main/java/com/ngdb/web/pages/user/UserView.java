@@ -30,6 +30,9 @@ public class UserView {
 	private ShopItem shopItem;
 
 	@Property
+	private ShopItem currentOrder;
+
+	@Property
 	private User potentialBuyer;
 
 	@Property
@@ -82,6 +85,14 @@ public class UserView {
 
 	public String getPrice() {
 		return market.getPriceOf(shopItem);
+	}
+
+	public Set<ShopItem> getCurrentOrders() {
+		return user.getPotentialBuys();
+	}
+
+	public String getOrderPrice() {
+		return market.getPriceOf(currentOrder);
 	}
 
 }

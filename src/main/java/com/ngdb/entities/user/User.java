@@ -15,6 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.ngdb.entities.AbstractEntity;
 import com.ngdb.entities.article.Article;
+import com.ngdb.entities.shop.PotentialBuys;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.Wish;
 
@@ -45,6 +46,9 @@ public class User extends AbstractEntity implements Comparable<User> {
 
 	@OneToMany(mappedBy = "user")
 	private Set<Token> tokens;
+
+	@Embedded
+	private PotentialBuys potentialBuys;
 
 	User() {
 	}
@@ -211,6 +215,10 @@ public class User extends AbstractEntity implements Comparable<User> {
 	@Override
 	public int compareTo(User user) {
 		return login.compareToIgnoreCase(user.getLogin());
+	}
+
+	public Set<ShopItem> getPotentialBuys() {
+		return potentialBuys.all();
 	}
 
 }
