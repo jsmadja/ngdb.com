@@ -6,7 +6,7 @@
 					<li style="margin-bottom:10px;text-align:center">
 						<t:pageLink page="shop/shopItemView" context="shopItem">
 							<p>
-								<t:article.thumbnail article="shopItem.article" noClick="true" size="literal:medium" center="true"/>
+								<t:article.thumbnail article="shopItem.article" noClick="true" size="literal:small" center="true"/>
 							</p>
 							<p>
 								${shopItem.title} <span class="label label-warning" style="font-size:12pt">${price}</span>
