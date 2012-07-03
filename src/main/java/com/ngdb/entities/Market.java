@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
@@ -98,5 +100,16 @@ public class Market {
 			return shopItem.getPriceInEuros() + " €";
 		}
 		return "$" + shopItem.getPriceInEuros();
+	}
+
+	public Set<User> findSellersOf(Article article) {
+		Set<User> sellers = new TreeSet<User>();
+		List<ShopItem> allItemsForSale = findAllItemsForSale();
+		for (ShopItem shopItem : allItemsForSale) {
+			if (shopItem.getArticle().getId().equals(article.getId())) {
+				sellers.add(shopItem.getSeller());
+			}
+		}
+		return sellers;
 	}
 }

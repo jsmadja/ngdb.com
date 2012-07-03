@@ -13,7 +13,7 @@
 
 			<h2>${user.login}'s wish list</h2>
 			<t:grid source="user.wishes" row="wish" rowsPerPage="20"
-				include="title" reorder="title," class="table table-striped table-bordered table-condensed">
+				include="title" reorder="title" add="sellers" class="table table-striped table-bordered table-condensed">
 				<p:titleHeader>Article</p:titleHeader>
 				<p:titleCell>
 					<img src="/img/flags/${wish.article.origin}.png" alt="${wish.article.origin}" />
@@ -22,6 +22,14 @@
 					-
 					<span class="subtitle">${wish.article.platform.name}</span>
 				</p:titleCell>
+				<p:sellersHeader>
+					Sellers
+				</p:sellersHeader>
+				<p:sellersCell>
+					<t:loop source="sellers" value="seller">
+						<a href="#"> ${seller.login} </a>
+					</t:loop>
+				</p:sellersCell>
 			</t:grid>
 
 			<hr />
