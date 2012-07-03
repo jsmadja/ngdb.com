@@ -66,7 +66,10 @@
 				<t:shopitem.gallery shopItem="shopItem" />
 				
 				<p>
-					<t:pagelink class="pull-right label label-important" page="contact" context="shopItem.title">Something's wrong ?</t:pagelink>
+					<t:pagelink class="pull-right label label-important" page="contact" context="shopItem.title">
+						<i class="icon-flag icon-white"></i>
+						Something's wrong ?
+					</t:pagelink>
 				</p>
 				
 			</div>

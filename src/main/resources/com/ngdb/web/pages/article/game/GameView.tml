@@ -48,7 +48,10 @@
 				<t:article.reviewBlock article="game" />
 
 				<p>
-					<t:pagelink class="pull-right label label-important" page="contact" context="game.title">Something's wrong ?</t:pagelink>
+					<t:pagelink class="pull-right label label-important" page="contact" context="game.title">
+						<i class="icon-flag icon-white"></i>
+						Something's wrong ?
+					</t:pagelink>
 				</p>
 				
 				<h3>Comments</h3>

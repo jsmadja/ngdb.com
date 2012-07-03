@@ -44,7 +44,10 @@
 				<t:article.tagBlock article="hardware" />
 
 				<p>
-					<t:pagelink class="pull-right label label-important" page="contact" context="hardware.title">Something's wrong ?</t:pagelink>
+					<t:pagelink class="pull-right label label-important" page="contact" context="hardware.title">
+						<i class="icon-flag icon-white"></i>
+						Something's wrong ?
+					</t:pagelink>
 				</p>
 				
 				<h3>Comments</h3>

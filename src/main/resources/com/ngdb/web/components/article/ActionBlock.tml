@@ -1,25 +1,27 @@
 <span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter" class="pull-right" >
 	<t:if test="user">
 		<t:if test="asButton">
-			<t:common.action.editButton article="article" asButton="true" />
-			<t:if test="buyable">
-					<t:common.action.browseOffersButton article="article" asButton="true" />
-			</t:if>
-			<t:if test="sellable">
-					<t:common.action.sellButton article="article" asButton="true" />
-			</t:if>
-			<t:if test="wishable">
-					<t:common.action.wishButton article="article" asButton="true" />
-			</t:if>
-			<t:if test="unwishable">
-					<t:common.action.unwishButton article="article" asButton="true" />
-			</t:if>
-			<t:if test="addableToCollection">
-					<t:common.action.addToCollectionButton article="article" asButton="true" />
-			</t:if>
-			<t:if test="removeableFromCollection">
-					<t:common.action.removeFromCollectionButton article="article" asButton="true" />
-			</t:if>
+		<div class="btn-group">
+	  			<t:common.action.editButton article="article" asButton="true" />
+				<t:if test="buyable">
+						<t:common.action.browseOffersButton article="article" asButton="true" />
+				</t:if>
+				<t:if test="sellable">
+						<t:common.action.sellButton article="article" asButton="true" />
+				</t:if>
+				<t:if test="wishable">
+						<t:common.action.wishButton article="article" asButton="true" />
+				</t:if>
+				<t:if test="unwishable">
+						<t:common.action.unwishButton article="article" asButton="true" />
+				</t:if>
+				<t:if test="addableToCollection">
+						<t:common.action.addToCollectionButton article="article" asButton="true" />
+				</t:if>
+				<t:if test="removeableFromCollection">
+						<t:common.action.removeFromCollectionButton article="article" asButton="true" />
+				</t:if>
+				</div>
 			<p:else>
 				<div class="btn-group pull-right">
 					<a class="btn dropdown-toggle pull-right" data-toggle="dropdown" href="#">
