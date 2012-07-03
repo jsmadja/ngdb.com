@@ -1,7 +1,38 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<div>
-		<div class="page-header">
-			<h1>Contact</h1>
+		<div class="row">
+		<div class="span3" />
+		<div class="span9">
+			<div class="page-header">
+				<h1>Contact</h1>
+			</div>
+			<t:if test="message">
+				<div class="alert alert-info">${message}</div>
+			</t:if>
+			<t:form t:id="contactForm" class="form-horizontal">
+				<t:errors />
+				<div class="control-group">
+					<fieldset>
+						<div class="control-group">
+							<t:label for="title" class="control-label">Title* : </t:label>
+							<div class="controls">
+								<t:textfield value="title" t:id="title" />
+							</div>
+						</div>
+						<div class="control-group">
+							<t:label for="comment" class="control-label">Comment* : </t:label>
+							<div class="controls">
+								<t:textarea rows="6" value="comment" t:id="comment" style="width:60%" />
+							</div>
+						</div>
+						<div class="form-actions">
+							<button class="btn btn-primary" type="submit">Submit</button>
+						</div>
+					</fieldset>
+				</div>
+			</t:form>
 		</div>
+		<div class="span3" />
+	</div>
 	</div>
 </t:layout>

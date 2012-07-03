@@ -48,7 +48,7 @@ public class MailService {
 		sendMail(receiver.getEmail(), body, subject);
 	}
 
-	private void sendMail(String receiver, String body, String subject) {
+	public void sendMail(String receiver, String body, String subject) {
 		if (disable) {
 			logger.info(String.format("Receiver : %s", receiver));
 			logger.info(String.format("Body : %s", body));
