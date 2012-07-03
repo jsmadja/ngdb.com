@@ -4,6 +4,7 @@ import static java.text.MessageFormat.format;
 
 import java.util.Date;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -200,6 +201,10 @@ public class ShopItem implements Comparable<ShopItem> {
 	@Override
 	public int compareTo(ShopItem shopItem) {
 		return article.compareTo(shopItem.article);
+	}
+
+	public Set<User> getPotentialBuyers() {
+		return potentialBuyers.all();
 	}
 
 }

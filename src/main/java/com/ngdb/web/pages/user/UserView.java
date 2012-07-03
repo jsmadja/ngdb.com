@@ -30,6 +30,9 @@ public class UserView {
 	private ShopItem shopItem;
 
 	@Property
+	private User potentialBuyer;
+
+	@Property
 	private User seller;
 
 	@Inject
@@ -46,7 +49,12 @@ public class UserView {
 	}
 
 	public String getViewPage() {
-		if (wish.getArticle().getType().equals(Game.class)) {
+		if (wish == null) {
+			return "";
+		}
+		Article article = wish.getArticle();
+		Class<?> type = article.getType();
+		if (type.equals(Game.class)) {
 			return "article/game/gameView";
 		}
 		return "article/hardware/hardwareView";
@@ -66,6 +74,14 @@ public class UserView {
 
 	public Set<User> getSellers() {
 		return market.findSellersOf(wish.getArticle());
+	}
+
+	public Set<User> getPotentialBuyers() {
+		return shopItem.getPotentialBuyers();
+	}
+
+	public String getPrice() {
+		return market.getPriceOf(shopItem);
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.ngdb.entities.shop;
 
+import java.util.Collections;
 import java.util.Set;
 
 import javax.persistence.Embeddable;
@@ -27,6 +28,10 @@ public class PotentialBuyers {
 
 	boolean contains(User user) {
 		return potentialBuyers.contains(user);
+	}
+
+	public Set<User> all() {
+		return Collections.unmodifiableSet(potentialBuyers);
 	}
 
 }

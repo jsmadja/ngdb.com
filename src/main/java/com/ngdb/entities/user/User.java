@@ -20,7 +20,7 @@ import com.ngdb.entities.shop.Wish;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class User extends AbstractEntity {
+public class User extends AbstractEntity implements Comparable<User> {
 
 	@Column(nullable = false)
 	private String login;
@@ -206,6 +206,11 @@ public class User extends AbstractEntity {
 
 	public boolean owns(Article article) {
 		return collection.contains(article);
+	}
+
+	@Override
+	public int compareTo(User user) {
+		return login.compareToIgnoreCase(user.getLogin());
 	}
 
 }

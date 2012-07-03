@@ -27,7 +27,7 @@
 				</p:sellersHeader>
 				<p:sellersCell>
 					<t:loop source="sellers" value="seller">
-						<a href="#"> ${seller.login} </a>
+						<t:pageLink page="user/userView" context="${seller.id}"> ${seller.login} </t:pageLink>
 					</t:loop>
 				</p:sellersCell>
 			</t:grid>
@@ -36,8 +36,8 @@
 
 			<h2>${user.login}'s shop</h2>
 			<t:grid source="user.shopItemsForSale" row="shopItem"
-				rowsPerPage="20" include="title, details" add="price, inStoreSince"
-				reorder="title,details,inStoreSince,price" class="table table-striped table-bordered table-condensed">
+				rowsPerPage="20" include="title, details" add="price, potentialBuyers"
+				reorder="title,details,price,potentialBuyers" class="table table-striped table-bordered table-condensed">
 				<p:titleHeader>Article</p:titleHeader>
 				<p:titleCell>
 					<t:pageLink page="${viewPage}" context="shopItem.article">${shopItem.article.title}
@@ -47,21 +47,20 @@
 					<span class="subtitle">${shopItem.article.platform.name}</span>
 				</p:titleCell>
 				<p:priceCell>
-					<t:shopitem.shopActionBlock shopItem="shopItem"
-						asButton="true" />
 					<t:if test="buyable">
 						<t:common.action.buyButton shopItem="shopItem"
 							asButton="true" />
 						<p:else>
-							<span style="font-size:10pt">$${shopItem.priceInDollars} /
-								${shopItem.priceInEuros} €</span>
+							<span style="font-size:10pt">${price}</span>
 						</p:else>
 					</t:if>
 				</p:priceCell>
-				<p:inStoreSinceHeader>For sale</p:inStoreSinceHeader>
-				<p:inStoreSinceCell>
-					${shopItem.forSaleDate}
-                </p:inStoreSinceCell>
+				<p:potentialBuyersHeader>Potential buyers</p:potentialBuyersHeader>
+				<p:potentialBuyersCell>
+					<t:loop source="potentialBuyers" value="potentialBuyer">
+						<t:pageLink page="user/userView" context="${potentialBuyer.id}"> ${potentialBuyer.login} </t:pageLink>
+					</t:loop>                
+				</p:potentialBuyersCell>
 			</t:grid>
 		</div>
 	</t:if>
