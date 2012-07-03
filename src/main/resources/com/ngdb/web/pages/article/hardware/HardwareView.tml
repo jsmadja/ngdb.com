@@ -41,11 +41,12 @@
 					<hr />
 				</t:if>
 				
+				<t:article.tagBlock article="hardware" />
+
 				<p>
 					<t:pagelink class="pull-right label label-important" page="contact" context="hardware.title">Something's wrong ?</t:pagelink>
 				</p>
 				
-				<t:article.tagBlock article="hardware" />
 				<h3>Comments</h3>
 				<t:article.commentBlock article="hardware" />
 			</div>
