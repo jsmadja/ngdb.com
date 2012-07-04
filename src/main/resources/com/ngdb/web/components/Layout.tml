@@ -69,8 +69,7 @@
         </div>
         <div class="span2">
         	<div class="well sidebar-events" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
-        	    <t:loginForm />
-				<t:common.layout.events />
+        	    <t:common.layout.events />
 			</div>
         </div>
 	  </div>

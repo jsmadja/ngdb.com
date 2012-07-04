@@ -21,9 +21,18 @@
 			</li>
 		</ul>
 		<p:else>
-			<div style="margin-top:10px">
+			<a class="btn dropdown-toggle pull-right" data-toggle="dropdown" href="#">
+				<i class="icon-user"></i>
+					Sign in
+				<span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<t:loginForm />
+			<li class="divider"></li>
+			<li>
 				<t:pageLink page="user/UserCreate">Create an account</t:pageLink>
-			</div>
+			</li>
+		</ul>
 		</p:else>
 	</t:if>
 </div>

@@ -68,7 +68,14 @@
   }
 
   function clearMenus() {
-    $(toggle).parent().removeClass('open')
+	  if(arguments.length > 0) {
+		 var _id = arguments[0].target.id;
+		  if(_id != "login" && _id != "password") {
+			  $(toggle).parent().removeClass('open')
+		  }
+	  } else {
+		  $(toggle).parent().removeClass('open')
+	  }
   }
 
 

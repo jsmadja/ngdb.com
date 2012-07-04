@@ -5135,3 +5135,8 @@ TABLE.t-data-grid THEAD TR TH {
 	margin-right:1%;
 	display:inline-block;
 }
+
+.t-error li {
+	padding-left:20px;
+	list-style: none;	
+}
