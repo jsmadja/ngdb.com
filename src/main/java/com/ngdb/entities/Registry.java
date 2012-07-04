@@ -52,7 +52,7 @@ public class Registry {
 	}
 
 	public List<Game> findLastUpdates() {
-		return session.createCriteria(Game.class).setCacheable(true).setMaxResults(5).addOrder(desc("modificationDate")).list();
+		return session.createCriteria(Game.class).setCacheable(true).setMaxResults(7).addOrder(desc("modificationDate")).list();
 	}
 
 	public Collection<String> findAllTags() {
