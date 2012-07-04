@@ -17,20 +17,27 @@
 								<t:label for="priceInDollars" class="control-label">Price in USD* :
 								</t:label>
 								<div class="controls">
-									<t:textfield style="max-width:50px" value="priceInDollars"
-										t:id="priceInDollars" placeholder="$0.00" t:mixins="jquery/zoneUpdater"
-										t:clientEvent="blur" t:event="dollarsChanged" t:zone="priceZone" />
+									<div class="input-prepend input-append">
+										<span class="add-on">$</span>
+	    						        <t:textfield style="max-width:50px" value="priceInDollars"
+											t:id="priceInDollars" placeholder="0.00" t:mixins="jquery/zoneUpdater"
+											t:clientEvent="blur" t:event="dollarsChanged" t:zone="priceZone" />
+									</div>
 									${suggestedPriceInDollars}
 								</div>
 							</div>
 							<div class="control-group">
 								<t:label for="priceInDollars" class="control-label">Price in EUR* :
 								</t:label>
+								
 								<div class="controls">
-									<t:textfield style="max-width:50px" value="priceInEuros"
-										t:id="priceInEuros" placeholder="0.00 €" t:mixins="jquery/zoneUpdater"
-										t:clientEvent="blur" t:event="eurosChanged" t:zone="priceZone" />
-									${suggestedPriceInEuros}
+									<div class="input-prepend input-append">
+    						            <t:textfield style="max-width:50px" value="priceInEuros"
+											t:id="priceInEuros" placeholder="0.00" t:mixins="jquery/zoneUpdater"
+											t:clientEvent="blur" t:event="eurosChanged" t:zone="priceZone" />
+											<span class="add-on">€</span>
+              						</div>
+              						${suggestedPriceInEuros}
 								</div>
 							</div>
 						</t:zone>
@@ -42,7 +49,7 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<t:label for="details" class="control-label">Details : </t:label>
+							<t:label for="details" class="control-label">Details* : </t:label>
 							<div class="controls">
 								<t:textarea style="width:70%" rows="6" value="details"
 									t:id="details" />
