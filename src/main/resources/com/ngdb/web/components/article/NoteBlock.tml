@@ -15,11 +15,11 @@
 				<tr>
 					<td>
 						<t:textfield value="name" t:id="name" t:mixins="jquery/Autocomplete"
-							placeholder="property name" />
+							placeholder="property name" style="width:96%" />
 					</td>
 					<td>
-						<t:textfield value="text" t:id="text" style="70%" />
-						<button class="btn btn-primary pull-right" type="submit">Add note</button>
+						<t:textfield value="text" t:id="text" style="width:75%" />
+						<button class="btn btn-primary pull-right btn-mini" type="submit">Add note</button>
 					</td>
 				</tr>
 			</t:form>

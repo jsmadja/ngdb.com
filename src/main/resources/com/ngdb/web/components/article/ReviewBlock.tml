@@ -14,7 +14,7 @@
 				<t:form t:id="reviewForm" id="reviewForm" t:autofocus="false">
 			<tr>
 					<td>
-						<t:textfield value="label" t:id="label" placeholder="label" />
+						<t:textfield value="label" t:id="label" placeholder="label" style="width:95%" />
 					</td>
 					<td width="100%">
 						<t:textfield value="url" t:id="url" style="width:95%" placeholder="http://www." />
@@ -25,7 +25,7 @@
 			</tr>
 			<tr>
 			<td colspan="3">
-				<button class="btn btn-primary pull-right" type="submit">Add review</button>
+				<button class="btn btn-mini btn-primary pull-right" type="submit">Add review</button>
 			</td>
 			</tr>
 				</t:form>
