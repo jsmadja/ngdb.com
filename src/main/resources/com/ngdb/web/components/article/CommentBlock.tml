@@ -4,17 +4,19 @@
 			No comments.
 		</p>
 	</t:if>
+	<t:loop source="comments" value="comment">
+		<blockquote>
+			<p style="word-wrap:break-word;">
+				<t:textOutput value="${comment.text}" />
+				<span style="font-size:11px">
+					<t:pageLink page="user/UserView" context="comment.author">${comment.author.login}</t:pageLink>   ${comment.postDate}
+				</span>
+			</p>
+		</blockquote>
+	</t:loop>
 	<t:if test="!user">
 		<div class="alert alert-info">You must be registered to add a comment.</div>
 	</t:if>
-	<t:loop source="comments" value="comment">
-		<p style="word-wrap:break-word;">
-			<t:textOutput value="${comment.text}" />
-			<span style="font-size:11px">
-				<t:pageLink page="user/UserView" context="comment.author">${comment.author.login}</t:pageLink>   ${comment.postDate}
-			</span>
-		</p>
-	</t:loop>
 	<t:if test="user">
 		<t:form t:id="commentForm" class="form-horizontal" autofocus="false">
 			<fieldset>
