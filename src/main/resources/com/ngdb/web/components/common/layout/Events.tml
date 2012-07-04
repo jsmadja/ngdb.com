@@ -1,7 +1,7 @@
 <ul class="events events-list" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<li class="events-header">Updates</li>
 	<t:loop value="update" source="updates">
-		<li>
+		<li style="line-height:24px">
 			<t:pageLink page="article/game/gameview" context="update.id"><b>${update.title}</b></t:pageLink> ${update.lastUpdateDate}
 		</li>
 	</t:loop>
