@@ -43,6 +43,7 @@ import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.article.element.Tags;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
+import com.ngdb.entities.reference.Publisher;
 import com.ngdb.entities.reference.State;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.ShopItems;
@@ -117,6 +118,9 @@ public abstract class Article implements Comparable<Article>, Serializable {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	private Platform platform;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	private Publisher publisher;
 
 	public Article() {
 		creationDate = modificationDate = new Date();
@@ -313,6 +317,14 @@ public abstract class Article implements Comparable<Article>, Serializable {
 
 	public void addNote(Note note) {
 		notes.add(note);
+	}
+
+	public Publisher getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
 	}
 
 }

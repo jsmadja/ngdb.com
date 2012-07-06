@@ -21,6 +21,26 @@
 		<table class="table">
 			<tr>
 				<td>
+					<t:if test="filteredByGames">
+						<button class="btn active btn-mini">
+							<b>Games</b>
+						</button>
+						<p:else>
+							<t:actionLink class="btn btn-mini" t:id="selectGames">Games</t:actionLink>
+						</p:else>
+					</t:if>
+					<t:if test="!filteredByGames">
+						<button class="btn active btn-mini">
+							<b>Hardwares</b>
+						</button>
+						<p:else>
+							<t:actionLink class="btn btn-mini" t:id="selectHardwares">Hardwares</t:actionLink>
+						</p:else>
+					</t:if>
+				</td>
+			</tr>
+			<tr>
+				<td>
 					<t:loop source="platforms" value="platform">
 						<t:if test="filteredByThisPlatform">
 							<button class="btn active btn-mini">
@@ -61,9 +81,9 @@
 			</tr>
 		</table>
 
-		<t:loop source="games" value="game">
+		<t:loop source="articles" value="article">
 			<span class="museum_item">
-				<t:article.thumbnail article="game" size="literal:medium" />
+				<t:article.thumbnail article="article" size="literal:medium" />
 			</span>
 		</t:loop>
 	</div>

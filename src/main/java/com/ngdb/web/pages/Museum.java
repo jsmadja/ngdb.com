@@ -14,7 +14,8 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 import com.ngdb.Predicates;
 import com.ngdb.entities.GameFactory;
-import com.ngdb.entities.article.Game;
+import com.ngdb.entities.HardwareFactory;
+import com.ngdb.entities.article.Article;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
@@ -23,10 +24,13 @@ import com.ngdb.entities.user.User;
 public class Museum {
 
 	@Property
-	private Game game;
+	private Article article;
 
 	@Inject
 	private GameFactory gameFactory;
+
+	@Inject
+	private HardwareFactory hardwareFactory;
 
 	@Inject
 	private ReferenceService referenceService;
@@ -49,10 +53,14 @@ public class Museum {
 	@Property
 	private Origin origin;
 
+	@Property
+	private boolean filteredByGames;
+
 	void onActivate() {
 		if (filterOrigin == null && filterPlatform == null) {
 			this.filterOrigin = referenceService.findOriginByTitle("Japan").getId();
 			this.filterPlatform = referenceService.findPlatformByName("Neo·Geo CD").getId();
+			this.filteredByGames = true;
 		}
 	}
 
@@ -60,29 +68,33 @@ public class Museum {
 		this.user = user;
 	}
 
-	public List<Game> getGames() {
-		List<Game> games = gameFactory.findAll();
-		Collection<Game> filteredGames = new ArrayList<Game>(games);
-		List<Predicate<Game>> filters = Lists.newArrayList();
+	public List<Article> getArticles() {
+		Collection<Article> filteredArticles;
+		List<Predicate<Article>> filters = Lists.newArrayList();
+		if (filteredByGames) {
+			filteredArticles = new ArrayList<Article>(gameFactory.findAll());
+		} else {
+			filteredArticles = new ArrayList<Article>(hardwareFactory.findAll());
+		}
 		if (filterOrigin != null) {
 			filters.add(new Predicates.OriginPredicate(referenceService.findOriginById(filterOrigin)));
 		}
 		if (filterPlatform != null) {
 			filters.add(new Predicates.PlatformPredicate(referenceService.findPlatformById(filterPlatform)));
 		}
-		for (Predicate<Game> filter : filters) {
-			filteredGames = filter(filteredGames, filter);
+		for (Predicate<Article> filter : filters) {
+			filteredArticles = filter(filteredArticles, filter);
 		}
 		if (user != null) {
-			filteredGames = filter(filteredGames, keepOnlyOwnedArticlesBy(user));
+			filteredArticles = filter(filteredArticles, keepOnlyOwnedArticlesBy(user));
 		}
-		return new ArrayList<Game>(filteredGames);
+		return new ArrayList<Article>(filteredArticles);
 	}
 
-	private Predicate<Game> keepOnlyOwnedArticlesBy(final User user) {
-		return new Predicate<Game>() {
+	private Predicate<Article> keepOnlyOwnedArticlesBy(final User user) {
+		return new Predicate<Article>() {
 			@Override
-			public boolean apply(Game input) {
+			public boolean apply(Article input) {
 				return user.owns(input);
 			}
 		};
@@ -90,6 +102,16 @@ public class Museum {
 
 	Object onActionFromClearFilters() {
 		onActivate();
+		return this;
+	}
+
+	Object onActionFromSelectGames() {
+		this.filteredByGames = true;
+		return this;
+	}
+
+	Object onActionFromSelectHardwares() {
+		this.filteredByGames = false;
 		return this;
 	}
 

@@ -2,21 +2,21 @@ package com.ngdb;
 
 import java.util.Comparator;
 
-import com.ngdb.entities.article.Game;
+import com.ngdb.entities.article.Article;
 
 public class Comparators {
 
-	public static Comparator<Game> byTitlePlatformOrigin = new Comparator<Game>() {
+	public static Comparator<Article> byTitlePlatformOrigin = new Comparator<Article>() {
 		@Override
-		public int compare(Game g1, Game g2) {
-			if (g1.getTitle().compareToIgnoreCase(g2.getTitle()) != 0) {
-				return g1.getTitle().compareToIgnoreCase(g2.getTitle());
+		public int compare(Article a1, Article a2) {
+			if (a1.getTitle().compareToIgnoreCase(a2.getTitle()) != 0) {
+				return a1.getTitle().compareToIgnoreCase(a2.getTitle());
 			}
-			if (g1.getPlatform().compareTo(g2.getPlatform()) != 0) {
-				return g1.getPlatform().compareTo(g2.getPlatform());
+			if (a1.getPlatform().compareTo(a2.getPlatform()) != 0) {
+				return a1.getPlatform().compareTo(a2.getPlatform());
 			}
-			if (g1.getOrigin().compareTo(g2.getOrigin()) != 0) {
-				return g1.getOrigin().compareTo(g2.getOrigin());
+			if (a1.getOrigin().compareTo(a2.getOrigin()) != 0) {
+				return a1.getOrigin().compareTo(a2.getOrigin());
 			}
 			return 0;
 		}

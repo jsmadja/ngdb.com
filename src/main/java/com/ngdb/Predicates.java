@@ -83,7 +83,7 @@ public class Predicates {
 		}
 	};
 
-	public static class PlatformPredicate implements Predicate<Game> {
+	public static class PlatformPredicate implements Predicate<Article> {
 		private String name;
 
 		public PlatformPredicate(Platform platform) {
@@ -91,15 +91,15 @@ public class Predicates {
 		}
 
 		@Override
-		public boolean apply(Game game) {
-			Platform platform = game.getPlatform();
+		public boolean apply(Article article) {
+			Platform platform = article.getPlatform();
 			String platformName = platform.getName();
 			return name.equals(platformName);
 		}
 
 	}
 
-	public static class OriginPredicate implements Predicate<Game> {
+	public static class OriginPredicate implements Predicate<Article> {
 		private String title;
 
 		public OriginPredicate(Origin origin) {
@@ -107,15 +107,15 @@ public class Predicates {
 		}
 
 		@Override
-		public boolean apply(Game game) {
-			Origin origin = game.getOrigin();
+		public boolean apply(Article article) {
+			Origin origin = article.getOrigin();
 			String originTitle = origin.getTitle();
 			return title.equalsIgnoreCase(originTitle);
 		}
 
 	}
 
-	public static class PublisherPredicate implements Predicate<Game> {
+	public static class PublisherPredicate implements Predicate<Article> {
 		private String name;
 
 		public PublisherPredicate(Publisher publisher) {
@@ -123,8 +123,8 @@ public class Predicates {
 		}
 
 		@Override
-		public boolean apply(Game game) {
-			Publisher publisher = game.getPublisher();
+		public boolean apply(Article article) {
+			Publisher publisher = article.getPublisher();
 			if (publisher == null) {
 				return false;
 			}

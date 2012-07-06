@@ -23,7 +23,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 import com.ngdb.Predicates;
 import com.ngdb.entities.GameFactory;
-import com.ngdb.entities.article.Game;
+import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
@@ -37,11 +37,11 @@ public class Games {
 
 	@Persist
 	@Property
-	private Game game;
+	private Article game;
 
 	@Persist
 	@Property
-	private List<Game> games;
+	private List<Article> games;
 
 	@Inject
 	private GameFactory gameFactory;
@@ -89,14 +89,14 @@ public class Games {
 	private static final Logger LOG = LoggerFactory.getLogger(Games.class);
 
 	void onActivate() {
-		this.games = gameFactory.findAll();
+		this.games = new ArrayList<Article>(gameFactory.findAll());
 	}
 
 	boolean onActivate(String filter, String value) {
 		this.filterOrigin = null;
 		this.filterPlatform = null;
 		this.filterPublisher = null;
-		this.games = gameFactory.findAll();
+		this.games = new ArrayList<Article>(gameFactory.findAll());
 		this.filter = Filter.valueOf(Filter.class, filter);
 		this.filterValue = value;
 		if (StringUtils.isNumeric(value)) {
@@ -158,8 +158,8 @@ public class Games {
 	}
 
 	private void filterGames() {
-		Collection<Game> filteredGames = new ArrayList<Game>(games);
-		List<Predicate<Game>> filters = Lists.newArrayList();
+		Collection<Article> filteredGames = new ArrayList<Article>(games);
+		List<Predicate<Article>> filters = Lists.newArrayList();
 		if (filterOrigin != null) {
 			filters.add(new Predicates.OriginPredicate(referenceService.findOriginById(filterOrigin)));
 		}
@@ -169,10 +169,10 @@ public class Games {
 		if (filterPublisher != null) {
 			filters.add(new Predicates.PublisherPredicate(referenceService.findPublisherBy(filterPublisher)));
 		}
-		for (Predicate<Game> filter : filters) {
+		for (Predicate<Article> filter : filters) {
 			filteredGames = filter(filteredGames, filter);
 		}
-		this.games = new ArrayList<Game>(filteredGames);
+		this.games = new ArrayList<Article>(filteredGames);
 	}
 
 	private void initFilters() {
@@ -181,7 +181,7 @@ public class Games {
 		}
 		switch (filter) {
 		case byNgh:
-			this.games = gameFactory.findAllByNgh(filterValue);
+			this.games = new ArrayList<Article>(gameFactory.findAllByNgh(filterValue));
 			break;
 		case byOrigin:
 			filterOrigin = id;
@@ -197,15 +197,15 @@ public class Games {
 			break;
 		case byReleaseDate:
 			Date releaseDate = toReleaseDate();
-			this.games = gameFactory.findAllByReleaseDate(releaseDate);
+			this.games = new ArrayList<Article>(gameFactory.findAllByReleaseDate(releaseDate));
 			break;
 		case byTag:
 			Tag tag = referenceService.findTagById(id);
-			this.games = gameFactory.findAllByTag(tag);
+			this.games = new ArrayList<Article>(gameFactory.findAllByTag(tag));
 			this.filterValue = tag.getName();
 			break;
 		default:
-			this.games = gameFactory.findAll();
+			this.games = new ArrayList<Article>(gameFactory.findAll());
 			break;
 		}
 	}

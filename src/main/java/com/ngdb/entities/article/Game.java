@@ -12,7 +12,6 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.ngdb.entities.reference.Box;
-import com.ngdb.entities.reference.Publisher;
 
 @Entity
 @XmlRootElement(name = "game")
@@ -21,9 +20,6 @@ import com.ngdb.entities.reference.Publisher;
 public class Game extends Article {
 
 	private String ngh;
-
-	@OneToOne(fetch = FetchType.LAZY)
-	private Publisher publisher;
 
 	@Column(name = "mega_count")
 	private Long megaCount;
@@ -42,14 +38,6 @@ public class Game extends Article {
 
 	public void setNgh(String ngh) {
 		this.ngh = ngh;
-	}
-
-	public Publisher getPublisher() {
-		return publisher;
-	}
-
-	public void setPublisher(Publisher publisher) {
-		this.publisher = publisher;
 	}
 
 	public Long getMegaCount() {
