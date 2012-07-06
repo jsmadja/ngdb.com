@@ -2,6 +2,7 @@ package com.ngdb.entities.article;
 
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -54,7 +55,7 @@ import com.ngdb.entities.user.User;
 @XmlRootElement(name = "article")
 @XmlAccessorType(FIELD)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public abstract class Article implements Comparable<Article> {
+public abstract class Article implements Comparable<Article>, Serializable {
 
 	private static final int MAX_DETAIL_LENGTH = 1024;
 

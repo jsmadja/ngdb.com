@@ -8,7 +8,7 @@
 			<h2>Collection</h2>
 			<p>Use <b>neogeodb</b> online anytime to track down your collection in any available format. Report errors on doubtful titles to warn others.</p>
 			<p>
-				<a class="btn" href="/museum">View <b>${gameCount}</b> games in the museum &raquo;</a>
+				<a class="btn" href="/museum">View <b>${articleCount}</b> articles in the museum &raquo;</a>
 			</p>
 		</div>
 		<div class="span4">

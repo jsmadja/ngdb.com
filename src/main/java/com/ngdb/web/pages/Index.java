@@ -1,5 +1,9 @@
 package com.ngdb.web.pages;
 
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
+
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -18,50 +22,59 @@ public class Index {
 	private WishBox wishBox;
 
 	@Property
-	private Game randomGame1;
-
-	@Property
-	private Game randomGame2;
-
-	@Property
-	private Game randomGame3;
-
-	@Property
-	private Long gameCount;
-
-	@Property
-	private Long hardwareCount;
+	private Long articleCount;
 
 	@Inject
 	private HardwareFactory hardwareFactory;
 
-	@SetupRender
-	public void init() {
-		randomGame1 = gameFactory.getRandomGameWithMainPicture();
-		randomGame2 = gameFactory.getRandomGameWithMainPicture();
-		randomGame3 = gameFactory.getRandomGameWithMainPicture();
-		this.gameCount = gameFactory.getNumGames();
-		this.hardwareCount = hardwareFactory.getNumHardwares();
+	private static Cache cache;
+
+	static {
+		CacheManager create = CacheManager.create();
+		cache = create.getCache("index.random.games");
 	}
 
-	public Long getNumGames() {
-		return gameFactory.getNumGames();
+	@SetupRender
+	public void init() {
+		this.articleCount = gameFactory.getNumGames() + hardwareFactory.getNumHardwares();
 	}
 
 	public Long getNumWhishes() {
 		return wishBox.getNumWishes();
 	}
 
+	public Game getRandomGame1() {
+		return getRandomGameFromCache(1);
+	}
+
+	public Game getRandomGame2() {
+		return getRandomGameFromCache(2);
+	}
+
+	public Game getRandomGame3() {
+		return getRandomGameFromCache(3);
+	}
+
+	private Game getRandomGameFromCache(int index) {
+		if (cache.isKeyInCache(index)) {
+			return (Game) cache.get(index).getValue();
+		}
+		Game randomGame = gameFactory.getRandomGameWithMainPicture();
+		Element element = new Element(index, randomGame);
+		cache.put(element);
+		return getRandomGameFromCache(index);
+	}
+
 	public String getRandomGame1MainPicture() {
-		return randomGame1.getMainPicture().getUrl("medium");
+		return getRandomGame1().getMainPicture().getUrl("medium");
 	}
 
 	public String getRandomGame2MainPicture() {
-		return randomGame2.getMainPicture().getUrl("medium");
+		return getRandomGame2().getMainPicture().getUrl("medium");
 	}
 
 	public String getRandomGame3MainPicture() {
-		return randomGame3.getMainPicture().getUrl("medium");
+		return getRandomGame3().getMainPicture().getUrl("medium");
 	}
 
 }

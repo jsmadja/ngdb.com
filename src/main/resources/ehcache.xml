@@ -13,6 +13,9 @@
 
 	<cache name="cacheCount" maxElementsInMemory="100000" eternal="false"
 		timeToIdleSeconds="3600" />
+		
+	<cache name="index.random.games" maxElementsInMemory="3"
+		eternal="false" timeToLiveSeconds="3600" overflowToDisk="true" statistics="true" />
 
 	<cache name="com.ngdb.entities.article.Article"
 		maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="120"
