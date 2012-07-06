@@ -19,16 +19,12 @@
 						<button class="btn active btn-mini">
 							<b>Games</b>
 						</button>
+						<t:actionLink class="btn btn-mini" t:id="selectHardwares">Hardwares</t:actionLink>
 						<p:else>
 							<t:actionLink class="btn btn-mini" t:id="selectGames">Games</t:actionLink>
-						</p:else>
-					</t:if>
-					<t:if test="!filteredByGames">
-						<button class="btn active btn-mini">
-							<b>Hardwares</b>
-						</button>
-						<p:else>
-							<t:actionLink class="btn btn-mini" t:id="selectHardwares">Hardwares</t:actionLink>
+							<button class="btn active btn-mini">
+								<b>Hardwares</b>
+							</button>
 						</p:else>
 					</t:if>
 				</td>

@@ -53,6 +53,7 @@ public class Museum {
 	@Property
 	private Origin origin;
 
+	@Persist
 	@Property
 	private boolean filteredByGames;
 
