@@ -1,7 +1,11 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
-	<div>
-		<div class="page-header">
-			<h1>About</h1>
-		</div>
+	<ul class="breadcrumb">
+	  <li>
+	    <a href="/">Home</a> <span class="divider">/</span>
+	  </li>
+	  <li class="active">About</li>
+	</ul>
+	<div class="page-header">
+		<h1>About</h1>
 	</div>
 </t:layout>

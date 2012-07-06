@@ -1,6 +1,15 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 	xmlns:p="tapestry:parameter">
 	<t:if test="user">
+		<ul class="breadcrumb">
+		  <li>
+		    <a href="/">Home</a> <span class="divider">/</span>
+		  </li>
+		  <li>
+		    <t:pageLink page="users">Users</t:pageLink><span class="divider">/</span>
+		  </li>
+		  <li class="active">${user.login}</li>
+		</ul>
 		<div class="user">
 			<div class="page-header">
 				<h1>${user.login}</h1>

@@ -1,5 +1,14 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<t:if test="hardware">
+		<ul class="breadcrumb">
+		  <li>
+		    <a href="/">Home</a> <span class="divider">/</span>
+		  </li>
+		  <li>
+		    <t:pageLink page="hardwares">HArdwares</t:pageLink><span class="divider">/</span>
+		  </li>
+		  <li class="active">${hardware.title}</li>
+		</ul>
 		<div class="row-fluid show-grid article">
 			<div class="span3">
 				<t:article.thumbnail article="hardware" noClick="true" size="literal:medium" />

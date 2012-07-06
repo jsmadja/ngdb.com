@@ -1,5 +1,11 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 	xmlns:p="tapestry:parameter">
+	<ul class="breadcrumb">
+	  <li>
+	    <a href="/">Home</a> <span class="divider">/</span>
+	  </li>
+	  <li class="active">Search result</li>
+	</ul>
 	<div class="result">
 		<div class="page-header">
 			<h1>Results for '${search}'</h1>
