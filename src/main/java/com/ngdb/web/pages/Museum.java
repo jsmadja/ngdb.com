@@ -6,16 +6,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
+import com.ngdb.Predicates;
 import com.ngdb.entities.GameFactory;
-import com.ngdb.entities.HardwareFactory;
-import com.ngdb.entities.Population;
-import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
@@ -25,86 +23,60 @@ import com.ngdb.entities.user.User;
 public class Museum {
 
 	@Property
-	private Article game;
-
-	@Property
-	private Article hardware;
-
-	@Property
-	private Collection<? extends Article> hardwares;
-
-	private List<Platform> platforms;
-
-	@Property
-	private Platform platform;
-
-	private List<Origin> origins;
-
-	@Property
-	private Origin origin;
+	private Game game;
 
 	@Inject
 	private GameFactory gameFactory;
 
 	@Inject
-	private HardwareFactory hardwareFactory;
-
-	@Inject
-	private Population population;
-
-	@Inject
 	private ReferenceService referenceService;
-
-	private int idTab = 0;
-	private int idContent = 0;
-	private int originIdTab = 0;
-	private int originIdContent = 0;
-
-	private Long id;
 
 	@Property
 	private User user;
 
+	// ---- Platform
+	@Persist
+	private Long filterPlatform;
+
+	@Property
+	private Platform platform;
+
+	// ---- Origin
+
+	@Persist
+	private Long filterOrigin;
+
+	@Property
+	private Origin origin;
+
 	void onActivate() {
-		this.origins = referenceService.getOrigins();
-		this.platforms = referenceService.getPlatforms();
+		if (filterOrigin == null && filterPlatform == null) {
+			this.filterOrigin = referenceService.findOriginByTitle("Japan").getId();
+			this.filterPlatform = referenceService.findPlatformByName("Neo·Geo CD").getId();
+		}
 	}
 
 	void onActivate(User user) {
-		this.id = user.getId();
 		this.user = user;
 	}
 
-	@SetupRender
-	public void init() {
-		if (id == null) {
-			hardwares = hardwareFactory.findAll();
-		} else {
-			User user = population.findById(id);
-			hardwares = user.getHardwaresInCollection();
+	public List<Game> getGames() {
+		List<Game> games = gameFactory.findAll();
+		Collection<Game> filteredGames = new ArrayList<Game>(games);
+		List<Predicate<Game>> filters = Lists.newArrayList();
+		if (filterOrigin != null) {
+			filters.add(new Predicates.OriginPredicate(referenceService.findOriginById(filterOrigin)));
 		}
-	}
-
-	public Collection<Article> getGames() {
-		Collection<Article> games = gameFactory.findAllByOriginAndPlatform(origin, platform);
-		if (id != null) {
-			final User user = population.findById(id);
-			games = Collections2.filter(games, new Predicate<Article>() {
-				@Override
-				public boolean apply(Article article) {
-					return user.owns(article);
-				}
-			});
+		if (filterPlatform != null) {
+			filters.add(new Predicates.PlatformPredicate(referenceService.findPlatformById(filterPlatform)));
 		}
-		return games;
-	}
-
-	public int getNumInPlatform() {
-		List<Game> articles = gameFactory.findAllByPlatform(platform);
+		for (Predicate<Game> filter : filters) {
+			filteredGames = filter(filteredGames, filter);
+		}
 		if (user != null) {
-			articles = new ArrayList<Game>(filter(articles, keepOnlyOwnedArticlesBy(user)));
+			filteredGames = filter(filteredGames, keepOnlyOwnedArticlesBy(user));
 		}
-		return articles.size();
+		return new ArrayList<Game>(filteredGames);
 	}
 
 	private Predicate<Game> keepOnlyOwnedArticlesBy(final User user) {
@@ -116,48 +88,38 @@ public class Museum {
 		};
 	}
 
-	public int getNumInOriginAndPlatform() {
-		return getGames().size();
+	Object onActionFromClearFilters() {
+		onActivate();
+		return this;
 	}
+
+	// ---- Platform
+	public List<Platform> getPlatforms() {
+		return referenceService.getPlatforms();
+	}
+
+	Object onActionFromFilterPlatform(Platform platform) {
+		filterPlatform = platform.getId();
+		return this;
+	}
+
+	public boolean isFilteredByThisPlatform() {
+		return platform.getId().equals(filterPlatform);
+	}
+
+	// ---- Origin
 
 	public List<Origin> getOrigins() {
-		return origins;
+		return referenceService.getOrigins();
 	}
 
-	public List<Platform> getPlatforms() {
-		return platforms;
+	Object onActionFromFilterOrigin(Origin origin) {
+		filterOrigin = origin.getId();
+		return this;
 	}
 
-	public int getIdContent() {
-		return idContent++;
-	}
-
-	public int getOriginIdContent() {
-		return originIdContent++;
-	}
-
-	public int getIdTab() {
-		return idTab++;
-	}
-
-	public int getOriginIdTab() {
-		return originIdTab++;
-	}
-
-	public String getFirstTab() {
-		return idTab == 0 ? "active" : "";
-	}
-
-	public String getFirstContent() {
-		return idContent == 0 ? "active" : "";
-	}
-
-	public String getFirstOrigin() {
-		return origin.getTitle().equalsIgnoreCase("Japan") ? "active" : "";
-	}
-
-	public boolean isGamesInPlatform() {
-		return getNumInPlatform() > 0;
+	public boolean isFilteredByThisOrigin() {
+		return origin.getId().equals(filterOrigin);
 	}
 
 }

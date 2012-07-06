@@ -1,10 +1,11 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 	xmlns:p="tapestry:parameter">
 	<ul class="breadcrumb">
-	  <li>
-	    <a href="/">Home</a> <span class="divider">/</span>
-	  </li>
-	  <li class="active">Museum</li>
+		<li>
+			<a href="/">Home</a>
+			<span class="divider">/</span>
+		</li>
+		<li class="active">Museum</li>
 	</ul>
 	<div class="collection">
 		<div class="page-header">
@@ -15,63 +16,55 @@
 				</p:else>
 			</t:if>
 		</div>
-		<div class="tabbable"> <!-- Only required for left/right tabs -->
-			<ul class="nav nav-tabs">
-				<t:loop source="platforms" value="platform">
-					<t:if test="gamesInPlatform">
-						<li class="${firstTab}">
-							<a href="#tab${idTab}" data-toggle="tab">${platform}
-								(${numInPlatform})</a>
-						</li>
-					</t:if>
-				</t:loop>
-				<li>
-					<a href="#tab${idTab}" data-toggle="tab">Hardware</a>
-				</li>
-			</ul>
-			<div class="tab-content">
-				<t:loop source="platforms" value="platform">
-					<t:if test="gamesInPlatform">
-						<div class="tab-pane ${firstContent}" id="tab${idContent}">
-							<div class="tabbable tabs-left">
-								<ul class="nav nav-tabs">
-									<t:loop source="origins" value="origin">
-										<t:if test="games">
-											<li class="${firstOrigin}">
-												<a href="#tab_${originIdTab}" data-toggle="tab">
-													<img src="/img/flags/${origin}.png" alt="${origin}" />
-													(${NumInOriginAndPlatform})
-												</a>
-											</li>
-										</t:if>
-									</t:loop>
-								</ul>
-								<div class="tab-content">
-									<t:loop source="origins" value="origin">
-										<t:if test="games">
-											<div class="tab-pane ${firstOrigin}" id="tab_${originIdContent}">
-												<t:loop source="games" value="game">
-													<span class="museum_item">
-														<t:article.thumbnail article="game"
-															size="literal:medium" />
-													</span>
-												</t:loop>
-											</div>
-										</t:if>
-									</t:loop>
-								</div>
-							</div>
-						</div>
-					</t:if>
-				</t:loop>
-				<div class="tab-pane" id="tab${idContent}">
-					<t:loop source="hardwares" value="hardware">
-						<span class="museum_item">
-							<t:article.thumbnail article="hardware" size="literal:medium" />
-						</span>
+
+		<h3>Filters</h3>
+		<table class="table">
+			<tr>
+				<td>
+					<t:loop source="platforms" value="platform">
+						<t:if test="filteredByThisPlatform">
+							<button class="btn active btn-mini">
+								<b>${platform.name}</b>
+							</button>
+							<p:else>
+								<t:actionLink class="btn btn-mini" t:id="filterPlatform"
+									context="platform">${platform.name}</t:actionLink>
+							</p:else>
+						</t:if>
 					</t:loop>
-				</div>
-			</div>
-		</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<t:loop source="origins" value="origin">
+						<t:if test="filteredByThisOrigin">
+							<button class="btn active btn-mini">
+								<img src="/img/flags/${origin}.png" alt="${origin}" />
+							</button>
+							<p:else>
+								<t:actionLink t:id="filterOrigin" context="origin.id">
+									<button class="btn btn-mini" style="height:30px">
+										<img src="/img/flags/${origin}.png" alt="${origin}" />
+									</button>
+								</t:actionLink>
+							</p:else>
+						</t:if>
+					</t:loop>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<t:actionLink t:id="clearFilters"
+						class="btn btn-small btn-primary pull-left">Clear filters
+					</t:actionLink>
+				</td>
+			</tr>
+		</table>
+
+		<t:loop source="games" value="game">
+			<span class="museum_item">
+				<t:article.thumbnail article="game" size="literal:medium" />
+			</span>
+		</t:loop>
 	</div>
 </t:layout>

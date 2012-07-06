@@ -18,7 +18,6 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 
 import com.google.common.base.Predicate;
-import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.reference.Origin;
@@ -77,7 +76,7 @@ public class GameFactory {
 		return gamesWithMainPicture.get(RandomUtils.nextInt(gamesWithMainPicture.size()));
 	}
 
-	public Collection<Article> findAllByOriginAndPlatform(Origin origin, Platform platform) {
+	public Collection<Game> findAllByOriginAndPlatform(Origin origin, Platform platform) {
 		return allGames().add(eq("origin", origin)).add(eq("platform", platform)).list();
 	}
 
