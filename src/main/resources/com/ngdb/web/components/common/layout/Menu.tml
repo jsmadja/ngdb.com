@@ -1,7 +1,7 @@
 <div class="well sidebar-nav updates" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<ul class="nav nav-list">
 		<t:if test="shopItems">
-			<li class="nav-header">For sale</li>
+			<li class="orange-bar half-rounded-bar small-bar">For sale</li>
 				<t:loop value="shopItem" source="shopItems">
 					<li style="margin-bottom:10px;text-align:center">
 						<t:pageLink page="shop/shopItemView" context="shopItem">
@@ -9,7 +9,7 @@
 								<t:article.thumbnail article="shopItem.article" noClick="true" size="literal:small" center="true"/>
 							</p>
 							<p>
-								${shopItem.title} <span class="label label-warning" style="font-size:12pt">${price}</span>
+								${shopItem.title} <span class="label label-warning">${price}</span>
 							</p>
 						</t:pageLink>
 					</li>

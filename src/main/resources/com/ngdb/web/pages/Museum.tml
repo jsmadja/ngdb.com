@@ -1,22 +1,16 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 	xmlns:p="tapestry:parameter">
-	<ul class="breadcrumb">
-		<li>
-			<a href="/">Home</a>
-			<span class="divider">/</span>
-		</li>
-		<li class="active">Museum</li>
-	</ul>
 	<div class="collection">
 		<div class="page-header">
-			<t:if test="user">
-				<h1>${user.login}'s museum</h1>
-				<p:else>
-					<h1>Museum</h1>
-				</p:else>
-			</t:if>
+			<h1 class="blue-bar rounded-bar big-bar">
+				<t:if test="user">
+					${user.login}'s museum
+					<p:else>
+						Museum
+					</p:else>
+				</t:if>
+			</h1>
 		</div>
-
 		<h3>Filters</h3>
 		<table class="table">
 			<tr>

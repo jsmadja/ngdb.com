@@ -1,9 +1,8 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<div class="hardwares article_table">
 		<div class="page-header">
-			<h1>Hardwares</h1>
+			<h1 class="blue-bar rounded-bar big-bar">Hardwares</h1>
 		</div>
-		
 		<t:if test="filterValue">
 			<h2>with filter (${filter} = ${filterValue} )</h2>
 		</t:if>

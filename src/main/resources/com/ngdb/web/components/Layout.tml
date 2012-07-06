@@ -16,7 +16,7 @@
         margin-right:1%;
       }
       .sidebar-nav {
-        padding: 9px 0;
+        padding: 0px 0;
       }
     </style>
     <link href="/css/bootstrap-responsive.css" rel="stylesheet" />
