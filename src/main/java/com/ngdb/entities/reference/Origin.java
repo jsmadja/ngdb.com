@@ -24,6 +24,10 @@ public class Origin extends AbstractEntity implements Comparable<Origin> {
 	public Origin() {
 	}
 
+	public Origin(String title) {
+		this.title = title;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -39,6 +43,19 @@ public class Origin extends AbstractEntity implements Comparable<Origin> {
 	@Override
 	public String toString() {
 		return title;
+	}
+
+	@Override
+	public int hashCode() {
+		return title.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Origin) {
+			return ((Origin) o).getId().equals(getId());
+		}
+		return false;
 	}
 
 }

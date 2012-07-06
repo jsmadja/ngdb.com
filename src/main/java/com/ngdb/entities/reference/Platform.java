@@ -18,6 +18,10 @@ public class Platform extends AbstractEntity implements Comparable<Platform> {
 	public Platform() {
 	}
 
+	public Platform(String name) {
+		this.name = name;
+	}
+
 	public String getName() {
 		return name;
 	}

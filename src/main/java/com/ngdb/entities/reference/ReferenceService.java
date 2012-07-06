@@ -7,7 +7,6 @@ import static org.hibernate.criterion.Restrictions.eq;
 import java.util.List;
 
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.hibernate.CacheMode;
 import org.hibernate.Session;
 
 import com.ngdb.entities.article.element.Tag;
@@ -23,11 +22,11 @@ public class ReferenceService {
 	}
 
 	public List<Publisher> getPublishers() {
-		return session.createCriteria(Publisher.class).setCacheable(true).list();
+		return session.createCriteria(Publisher.class).setCacheable(true).addOrder(asc("name")).list();
 	}
 
 	public List<Box> getBoxes() {
-		return session.createCriteria(Box.class).setCacheMode(CacheMode.NORMAL).setCacheable(true).list();
+		return session.createCriteria(Box.class).setCacheable(true).list();
 	}
 
 	public List<Origin> getOrigins() {

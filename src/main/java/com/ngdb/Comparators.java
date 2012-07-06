@@ -6,7 +6,7 @@ import com.ngdb.entities.article.Game;
 
 public class Comparators {
 
-	public static Comparator<Game> gamesByTitlePlatformOrigin = new Comparator<Game>() {
+	public static Comparator<Game> byTitlePlatformOrigin = new Comparator<Game>() {
 		@Override
 		public int compare(Game g1, Game g2) {
 			if (g1.getTitle().compareToIgnoreCase(g2.getTitle()) != 0) {

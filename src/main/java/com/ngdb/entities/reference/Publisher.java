@@ -18,6 +18,10 @@ public class Publisher extends AbstractEntity implements Comparable<Publisher> {
 	public Publisher() {
 	}
 
+	public Publisher(String name) {
+		this.name = name;
+	}
+
 	public String getName() {
 		return name;
 	}

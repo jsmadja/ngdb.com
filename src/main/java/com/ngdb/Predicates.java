@@ -6,6 +6,9 @@ import com.google.common.base.Predicate;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.Hardware;
+import com.ngdb.entities.reference.Origin;
+import com.ngdb.entities.reference.Platform;
+import com.ngdb.entities.reference.Publisher;
 import com.ngdb.entities.shop.ShopItem;
 
 public class Predicates {
@@ -79,5 +82,56 @@ public class Predicates {
 			return "USA".equals(game.getOrigin().getTitle());
 		}
 	};
+
+	public static class PlatformPredicate implements Predicate<Game> {
+		private String name;
+
+		public PlatformPredicate(Platform platform) {
+			this.name = platform.getName();
+		}
+
+		@Override
+		public boolean apply(Game game) {
+			Platform platform = game.getPlatform();
+			String platformName = platform.getName();
+			return name.equals(platformName);
+		}
+
+	}
+
+	public static class OriginPredicate implements Predicate<Game> {
+		private String title;
+
+		public OriginPredicate(Origin origin) {
+			this.title = origin.getTitle();
+		}
+
+		@Override
+		public boolean apply(Game game) {
+			Origin origin = game.getOrigin();
+			String originTitle = origin.getTitle();
+			return title.equalsIgnoreCase(originTitle);
+		}
+
+	}
+
+	public static class PublisherPredicate implements Predicate<Game> {
+		private String name;
+
+		public PublisherPredicate(Publisher publisher) {
+			this.name = publisher.getName();
+		}
+
+		@Override
+		public boolean apply(Game game) {
+			Publisher publisher = game.getPublisher();
+			if (publisher == null) {
+				return false;
+			}
+			String publisherName = publisher.getName();
+			return name.equalsIgnoreCase(publisherName);
+		}
+
+	}
 
 }

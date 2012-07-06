@@ -1,70 +1,93 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
 	<div class="games article_table">
 		<div class="page-header">
 			<h1>Games</h1>
 		</div>
+
+		<h3>Filters</h3>
+		<table class="table">
+			<tr>
+				<td>
+					<t:loop source="platforms" value="platform">
+						<t:if test="filteredByThisPlatform">
+							<button class="btn active btn-mini"><b>${platform.name}</b></button>
+							<p:else>
+								<t:actionLink class="btn btn-mini" t:id="filterPlatform" context="platform">${platform.name}</t:actionLink>
+							</p:else>
+						</t:if>
+					</t:loop>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<t:loop source="origins" value="origin">
+						<t:if test="filteredByThisOrigin">
+							<button class="btn active btn-mini">
+								<img src="/img/flags/${origin}.png" alt="${origin}" />
+							</button>
+							<p:else>
+								<t:actionLink t:id="filterOrigin" context="origin.id">
+									<button class="btn btn-mini" style="height:30px">
+										<img src="/img/flags/${origin}.png" alt="${origin}" />
+									</button>
+								</t:actionLink>
+							</p:else>
+						</t:if>
+					</t:loop>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<t:loop source="publishers" value="publisher">
+						<t:if test="filteredByThisPublisher">
+							<button class="btn active btn-mini"><b>${publisher.name}</b></button>
+							<p:else>
+								<t:actionLink class="btn btn-mini" t:id="filterPublisher"
+										context="publisher">${publisher.name}
+									</t:actionLink>
+							</p:else>
+						</t:if>
+					</t:loop>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<t:actionLink t:id="clearFilters" class="btn btn-small btn-primary pull-left" >Clear filters</t:actionLink>
+				</td>
+			</tr>
+		</table>
 		
-		<t:if test="filterValue">
-			<h2>with filter (${filter} = ${filterValue} )</h2>
-		</t:if>
-		
-<!-- 		<h3>Filters</h3> -->
-<!-- 		<p> -->
-<!-- 			<t:if test="filteredByAes"> -->
-<!-- 				AES (${numGamesOfAES}) -->
-<!-- 				<p:else> -->
-<!-- 					<t:actionLink t:id="aes" > AES (${numGamesOfAES}) </t:actionLink> -->
-<!-- 				</p:else> -->
-<!-- 			</t:if> -->
-<!-- 			<t:if test="filteredByMvs"> -->
-<!-- 				MVS (${numGamesOfMVS}) -->
-<!-- 				<p:else> -->
-<!-- 					<t:actionLink t:id="mvs" > MVS (${numGamesOfMVS}) </t:actionLink> -->
-<!-- 				</p:else> -->
-<!-- 			</t:if> -->
-<!-- 			<t:if test="filteredByCd"> -->
-<!-- 				CD (${numGamesOfCD}) -->
-<!-- 				<p:else> -->
-<!-- 					<t:actionLink t:id="cd" > CD (${numGamesOfCD}) </t:actionLink> -->
-<!-- 				</p:else> -->
-<!-- 			</t:if> -->
-<!-- 		</p> -->
-		
-<!-- 		<p> -->
-<!-- 			<t:if test="filteredByJapan"> -->
-<!-- 				Japan (${numGamesOfJapan}) -->
-<!-- 				<p:else> -->
-<!-- 					<t:actionLink t:id="japan" > Japan (${numGamesOfJapan}) </t:actionLink> -->
-<!-- 				</p:else> -->
-<!-- 			</t:if> -->
-<!-- 			<t:if test="filteredByUSA"> -->
-<!-- 				Japan (${numGamesOfUSA}) -->
-<!-- 				<p:else> -->
-<!-- 					<t:actionLink t:id="usa" > USA (${numGamesOfUSA}) </t:actionLink> -->
-<!-- 				</p:else> -->
-<!-- 			</t:if> -->
-<!-- 		</p> -->
-		
+		<p>
+			<b>${numResults}</b> game(s) found for query <b><i>${queryLabel}</i></b>
+		</p>
+
 		<t:if test="user">
 			<p>
-				<t:pageLink class="btn btn-inverse" page="article/game/gameUpdate">Add a new game</t:pageLink>
+				<t:pageLink class="btn btn-inverse" page="article/game/gameUpdate">Add a new game
+				</t:pageLink>
 			</p>
 		</t:if>
+		
 		<div>
-			<t:grid source="games" 
-				row="game" 
-				rowsPerPage="10"
-				class="table table-striped table-bordered table-condensed"
+			<t:grid source="games" row="game" rowsPerPage="10"
+				pagerPosition="bottom" class="table table-striped table-bordered table-condensed"
 				include="title">
+				<p:titleHeader></p:titleHeader>
 				<p:titleCell>
 					<t:pageLink page="article/game/gameView" context="game">
-						<img class="picture" style="float:left" src="${message:image.host.url}${game.mainPicture.url}" title="${game.title}" />
+						<img class="picture" style="float:left"
+							src="${message:image.host.url}${game.mainPicture.url}" title="${game.title}" />
 					</t:pageLink>
-            		<t:pageLink page="article/game/gameview" context="game.id">${game.title}</t:pageLink>
-            		<br/><br/>
-            		<img src="/img/flags/${game.origin}.png" alt="${game.origin}" /> ${game.platform.name} - ${game.publisher?.name}
-                	<t:article.actionBlock asButton="true" article="game" />
-                </p:titleCell>
+					<t:pageLink page="article/game/gameview" context="game.id">${game.title}
+					</t:pageLink>
+					<br />
+					<br />
+					<img src="/img/flags/${game.origin}.png" alt="${game.origin}" />
+					${game.platform.name} - ${game.publisher?.name}
+					<t:article.actionBlock asButton="true"
+						article="game" />
+				</p:titleCell>
 			</t:grid>
 		</div>
 	</div>
