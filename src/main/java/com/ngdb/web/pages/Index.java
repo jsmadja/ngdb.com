@@ -10,6 +10,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.HardwareFactory;
+import com.ngdb.entities.Population;
 import com.ngdb.entities.WishBox;
 import com.ngdb.entities.article.Game;
 
@@ -27,6 +28,12 @@ public class Index {
 	@Inject
 	private HardwareFactory hardwareFactory;
 
+	@Inject
+	private Population population;
+
+	@Inject
+	private com.ngdb.entities.Market market;
+
 	private static Cache cache;
 
 	static {
@@ -41,6 +48,14 @@ public class Index {
 
 	public Long getNumWhishes() {
 		return wishBox.getNumWishes();
+	}
+
+	public Long getMemberCount() {
+		return population.getNumUsers();
+	}
+
+	public Long getShopItemCount() {
+		return market.getNumForSaleItems();
 	}
 
 	public Game getRandomGame1() {
