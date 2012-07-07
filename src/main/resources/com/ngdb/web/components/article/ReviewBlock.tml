@@ -12,22 +12,20 @@
 		</t:loop>
 		<t:if test="user">
 				<t:form t:id="reviewForm" id="reviewForm" t:autofocus="false">
-			<tr>
-					<td>
-						<t:textfield value="label" t:id="label" placeholder="label" style="width:95%" />
-					</td>
-					<td width="100%">
-						<t:textfield value="url" t:id="url" style="width:95%" placeholder="http://www." />
-					</td>
-					<td>
-						<t:textfield value="mark" t:id="mark" placeholder="rate 7/10 or 67%" style="width:100px"/>
-					</td>
-			</tr>
-			<tr>
-			<td colspan="3">
-				<button class="btn btn-mini btn-primary pull-right" type="submit">Add review</button>
-			</td>
-			</tr>
+					<tr>
+						<td>
+							<t:textfield value="label" t:id="label" placeholder="label" style="width:95%" />
+						</td>
+						<td>
+							<t:textfield value="url" t:id="url" style="width:100%" placeholder="http://www." />
+						</td>
+						<td>
+							<t:textfield value="mark" t:id="mark" placeholder="rate 7/10 or 67%" style="width:100%"/>
+						</td>
+						<td>
+							<button class="btn btn-mini btn-primary pull-right" type="submit">Add review</button>
+						</td>
+					</tr>
 				</t:form>
 		</t:if>
 	</table>
