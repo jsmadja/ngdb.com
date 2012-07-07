@@ -7,7 +7,7 @@
 				<span class="icon-bar"></span>
 			</a>
 			<a class="brand" href="/"><span class="orange">neogeo</span><span class="blue">db</span>.com <span class="label label-important">BETA</span></a>
-			<div class="btn-group pull-right">
+			<div class="btn-group pull-right" style="margin-top:5px">
 				<t:userMenu />
             </div>
 			<div class="nav-collapse">
