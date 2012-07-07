@@ -4,7 +4,7 @@
 			<h1 class="black-bar rounded-bar big-bar">Members</h1>
 		</div>
 		<div>
-			<t:grid source="users" class="table table-striped table-bordered table-condensed" row="user" reorder="Login,CreationDate" exclude="Id,ModificationDate,Email,Password">
+			<t:grid source="users" class="table table-striped table-bordered table-condensed" row="user" include="login,creationDate">
 				<p:CreationDateHeader>
 					Subscription date
 	            </p:CreationDateHeader>
