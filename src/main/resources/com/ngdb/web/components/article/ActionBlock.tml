@@ -2,8 +2,7 @@
 	<t:if test="user">
 		<t:if test="asButton">
 		<div class="btn-group">
-	  			<t:common.action.editButton article="article" asButton="true" />
-				<t:if test="buyable">
+	  			<t:if test="buyable">
 						<t:common.action.browseOffersButton article="article" asButton="true" />
 				</t:if>
 				<t:if test="sellable">

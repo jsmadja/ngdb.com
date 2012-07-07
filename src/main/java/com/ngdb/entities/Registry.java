@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
@@ -32,15 +33,17 @@ public class Registry {
 
 	public List<Game> findGamesMatching(final String search) {
 		List<Game> articles = new ArrayList<Game>();
-		final String searchItem = search.toLowerCase().trim();
-		Collection<Game> games = gameFactory.findAll();
-		Collection<Game> matchingGames = filter(games, new Predicate<Game>() {
-			@Override
-			public boolean apply(Game game) {
-				return game.getTitle().toLowerCase().contains(searchItem);
-			}
-		});
-		articles.addAll(matchingGames);
+		if (StringUtils.isNotBlank(search)) {
+			final String searchItem = search.toLowerCase().trim();
+			Collection<Game> games = gameFactory.findAll();
+			Collection<Game> matchingGames = filter(games, new Predicate<Game>() {
+				@Override
+				public boolean apply(Game game) {
+					return game.getTitle().toLowerCase().contains(searchItem);
+				}
+			});
+			articles.addAll(matchingGames);
+		}
 		return articles;
 	}
 
