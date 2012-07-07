@@ -2416,7 +2416,7 @@ table .span24 {
 
 .dropdown-menu a {
   display: block;
-  padding: 3px 15px;
+  padding: 0px 15px;
   clear: both;
   font-weight: normal;
   line-height: 18px;
