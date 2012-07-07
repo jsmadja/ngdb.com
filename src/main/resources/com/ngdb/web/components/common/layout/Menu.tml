@@ -15,7 +15,7 @@
 					</li>
 				</t:loop>
 				<li>
-					<t:pageLink page="market">View <b>${forSaleCount}</b> items in market ...</t:pageLink>
+					<t:pageLink page="market" style="text-align:center" >View <b>${forSaleCount}</b> items in market ...</t:pageLink>
 				</li>
 		</t:if>
 	</ul>

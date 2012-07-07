@@ -5159,6 +5159,7 @@ TABLE.t-data-grid THEAD TR TH {
     font-weight:bold;
     height:20px;
     padding-top:0px;
+    margin-bottom: 10px;
 }
 
 .half-rounded-bar {
