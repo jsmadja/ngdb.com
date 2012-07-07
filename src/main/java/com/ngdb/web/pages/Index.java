@@ -71,8 +71,9 @@ public class Index {
 	}
 
 	private Game getRandomGameFromCache(int index) {
-		if (cache.isKeyInCache(index)) {
-			return (Game) cache.get(index).getValue();
+		Element elementInCache = cache.get(index);
+		if (elementInCache != null) {
+			return (Game) elementInCache.getValue();
 		}
 		Game randomGame = gameFactory.getRandomGameWithMainPicture();
 		Element element = new Element(index, randomGame);
