@@ -17,6 +17,8 @@
                 <p:actionsCell>
 					<t:article.actionBlock asButton="true" article="result" />
                 </p:actionsCell>
+                <p:titleHeader></p:titleHeader>
+                <p:actionsHeader></p:actionsHeader>
 			</t:grid>
 		</div>
 	</div>
