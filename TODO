@@ -6,11 +6,23 @@ Les dates des jeux à resaisir
 
 Ajouter le fast Edit
 
-Tableau members à epurer
-
 Ajouter filtre sur le market
 
-Barre de navigation: apparence en bouton 
+Barre de navigation: apparence en bouton
+
+Les filtres dans le Museum et la collection, c’est un bon début. Il manque également une possibilité de filtrer les autres propriétés, au moins le titre. Est-ce prévu ?
+
+Egalement pour m’aider a trouver les erreurs dans les DB, il faudrait pouvoir passer du mode « Pictures » au mode « Liste » dans les vues Museum et Collection.
+
+Un truc chouette qui n’est plus visible, c’est le nombre de jeux dans chaque catégorie, ou au moins dans le résultat filtré.
+
+
+Bugs
+----
+
+Je ne peux pas afficher ma collection, ça m’affiche toujours toute la base…
+
+
 
 -------------------
 V1.1
