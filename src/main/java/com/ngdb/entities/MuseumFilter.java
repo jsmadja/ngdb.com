@@ -40,6 +40,10 @@ public class MuseumFilter {
 
 	private Date filteredReleaseDate;
 
+	private boolean consolidated;
+
+	private List<Article> initialArticleList;
+
 	public MuseumFilter(GameFactory gameFactory, HardwareFactory hardwareFactory) {
 		this.gameFactory = gameFactory;
 		this.hardwareFactory = hardwareFactory;
@@ -55,6 +59,7 @@ public class MuseumFilter {
 		this.filteredTag = null;
 		this.filteredByGames = true;
 		this.filteredUser = null;
+		this.consolidated = false;
 	}
 
 	public String getQueryLabel() {
@@ -109,7 +114,7 @@ public class MuseumFilter {
 	}
 
 	private Collection<Article> applyFilters(List<Predicate<Article>> filters) {
-		Collection<Article> filteredArticles = getChosenArticlesByType();
+		Collection<Article> filteredArticles = newInitialArticleList();
 		buildFilters(filters);
 		for (Predicate<Article> filter : filters) {
 			filteredArticles = filter(filteredArticles, filter);
@@ -117,17 +122,23 @@ public class MuseumFilter {
 		return filteredArticles;
 	}
 
-	private Collection<Article> getChosenArticlesByType() {
-		if (filteredByGames) {
-			if (filteredUser == null) {
-				return new ArrayList<Article>(gameFactory.findAll());
+	private void buildInitialArticleList() {
+		if (!consolidated) {
+			if (filteredByGames) {
+				if (filteredUser == null) {
+					initialArticleList = new ArrayList<Article>(gameFactory.findAll());
+				} else {
+					initialArticleList = gameFactory.findAllOwnedBy(filteredUser);
+				}
+			} else {
+				if (filteredUser == null) {
+					initialArticleList = new ArrayList<Article>(hardwareFactory.findAll());
+				} else {
+					initialArticleList = hardwareFactory.findAllOwnedBy(filteredUser);
+				}
 			}
-			return gameFactory.findAllOwnedBy(filteredUser);
+			validateArticles();
 		}
-		if (filteredUser == null) {
-			return new ArrayList<Article>(hardwareFactory.findAll());
-		}
-		return hardwareFactory.findAllOwnedBy(filteredUser);
 	}
 
 	private void buildFilters(List<Predicate<Article>> filters) {
@@ -159,10 +170,12 @@ public class MuseumFilter {
 
 	public void filterByGames() {
 		this.filteredByGames = true;
+		invalidateArticles();
 	}
 
 	public void filterByHardwares() {
 		this.filteredByGames = false;
+		invalidateArticles();
 	}
 
 	public boolean isFilteredBy(Publisher publisher) {
@@ -186,8 +199,16 @@ public class MuseumFilter {
 		return origin.getId().equals(filteredOrigin.getId());
 	}
 
+	private void invalidateArticles() {
+		this.consolidated = false;
+	}
+
+	private void validateArticles() {
+		this.consolidated = true;
+	}
+
 	public int getNumArticlesInThisOrigin(Origin origin) {
-		Collection<? extends Article> articles = getChosenArticlesByType();
+		Collection<Article> articles = newInitialArticleList();
 		if (filteredPlatform != null) {
 			Predicates.PlatformPredicate filterByPlatform = new Predicates.PlatformPredicate(filteredPlatform);
 			articles = filter(articles, filterByPlatform);
@@ -198,7 +219,7 @@ public class MuseumFilter {
 	}
 
 	public int getNumArticlesInThisPublisher(Publisher publisher) {
-		Collection<? extends Article> articles = getChosenArticlesByType();
+		Collection<Article> articles = newInitialArticleList();
 		if (filteredPlatform != null) {
 			Predicates.PlatformPredicate filterByPlatform = new Predicates.PlatformPredicate(filteredPlatform);
 			articles = filter(articles, filterByPlatform);
@@ -213,12 +234,19 @@ public class MuseumFilter {
 	}
 
 	public int getNumArticlesInThisPlatform(Platform platform) {
-		Collection<Article> articles = getChosenArticlesByType();
+		Collection<Article> articles = newInitialArticleList();
 		articles = filter(articles, new Predicates.PlatformPredicate(platform));
 		return articles.size();
 	}
 
+	private Collection<Article> newInitialArticleList() {
+		buildInitialArticleList();
+		Collection<Article> articles = new ArrayList<Article>(initialArticleList);
+		return articles;
+	}
+
 	public void filterByTag(Tag tag) {
+		invalidateArticles();
 		this.filteredTag = tag;
 	}
 

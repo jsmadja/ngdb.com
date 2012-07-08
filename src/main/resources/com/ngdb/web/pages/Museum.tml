@@ -21,11 +21,9 @@
 						<t:actionLink class="btn-mini" t:id="selectHardwares">Hardwares<span class="counter">(${numHardwares})</span></t:actionLink>
 						<p:else>
 							<t:actionLink class="btn-mini" t:id="selectGames">Games (${numGames})</t:actionLink>
-							<t:actionLink class="active btn-mini">
-								<span class="selected-link">
-									<b>Hardwares <span class="counter"> (${numHardwares})</span></b>
-								</span>
-							</t:actionLink>
+							<span class="selected-link">
+								<b>Hardwares <span class="counter"> (${numHardwares})</span></b>
+							</span>
 						</p:else>
 					</t:if>
 				</td>

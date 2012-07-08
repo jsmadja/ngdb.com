@@ -2,6 +2,8 @@ package com.ngdb.web.components.article;
 
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.Session;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
@@ -24,6 +26,9 @@ public class Thumbnail {
 	@Parameter
 	private boolean center;
 
+	@Inject
+	private Session session;
+
 	public String getViewPage() {
 		if (article instanceof Game) {
 			return "article/game/gameView";
@@ -32,6 +37,7 @@ public class Thumbnail {
 	}
 
 	public String getUrl() {
+		session.refresh(article);
 		if (size == null) {
 			return article.getMainPicture().getUrl();
 		}

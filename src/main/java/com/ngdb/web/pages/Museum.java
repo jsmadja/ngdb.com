@@ -26,15 +26,12 @@ public class Museum {
 	@Property
 	private Article article;
 
-	// ---- Platform
 	@Property
 	private Platform platform;
 
-	// ---- Origin
 	@Property
 	private Origin origin;
 
-	// ---- Publisher
 	@Property
 	private Publisher publisher;
 
@@ -113,8 +110,6 @@ public class Museum {
 		return getArticles().size();
 	}
 
-	// ---- Hardwares
-
 	public long getNumHardwares() {
 		return museumFilter.getNumHardwares();
 	}
@@ -124,8 +119,6 @@ public class Museum {
 		return this;
 	}
 
-	// ---- Games
-
 	Object onActionFromSelectGames() {
 		museumFilter.filterByGames();
 		return this;
@@ -134,8 +127,6 @@ public class Museum {
 	public long getNumGames() {
 		return museumFilter.getNumGames();
 	}
-
-	// ---- Platform
 
 	public List<Platform> getPlatforms() {
 		return referenceService.getPlatforms();
@@ -161,8 +152,6 @@ public class Museum {
 		return museumFilter.getNumArticlesInThisPlatform(platform);
 	}
 
-	// ---- Origin
-
 	public List<Origin> getOrigins() {
 		return referenceService.getOrigins();
 	}
@@ -186,8 +175,6 @@ public class Museum {
 	public int getNumArticlesInThisOrigin() {
 		return museumFilter.getNumArticlesInThisOrigin(origin);
 	}
-
-	// ---- Publisher
 
 	public boolean isArticleInThisPublisher() {
 		return museumFilter.getNumArticlesInThisPublisher(publisher) > 0;
