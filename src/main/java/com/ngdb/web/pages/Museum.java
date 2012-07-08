@@ -116,7 +116,7 @@ public class Museum {
 	// ---- Hardwares
 
 	public long getNumHardwares() {
-		return hardwareFactory.getNumHardwares();
+		return museumFilter.getNumHardwares();
 	}
 
 	Object onActionFromSelectHardwares() {
@@ -132,7 +132,7 @@ public class Museum {
 	}
 
 	public long getNumGames() {
-		return gameFactory.getNumGames();
+		return museumFilter.getNumGames();
 	}
 
 	// ---- Platform
@@ -158,7 +158,7 @@ public class Museum {
 	}
 
 	public int getNumArticlesInThisPlatform() {
-		return museumFilter.getArticlesFilterdByPlatform(platform).size();
+		return museumFilter.getNumArticlesInThisPlatform(platform);
 	}
 
 	// ---- Origin

@@ -54,34 +54,42 @@ public class MuseumFilter {
 		this.filteredReleaseDate = null;
 		this.filteredTag = null;
 		this.filteredByGames = true;
+		this.filteredUser = null;
 	}
 
 	public String getQueryLabel() {
 		String queryLabel = "all ";
 		if (filteredByGames) {
-			queryLabel += "games";
+			queryLabel += orange("games");
 		} else {
-			queryLabel += "hardwares";
+			queryLabel += orange("hardwares");
 		}
 		if (filteredOrigin != null) {
-			queryLabel += " from " + filteredOrigin.getTitle();
+			queryLabel += " from " + orange(filteredOrigin.getTitle());
 		}
 		if (filteredPublisher != null) {
-			queryLabel += " published by " + filteredPublisher.getName();
+			queryLabel += " published by " + orange(filteredPublisher.getName());
 		}
 		if (filteredPlatform != null) {
-			queryLabel += " on " + filteredPlatform.getName();
+			queryLabel += " on " + orange(filteredPlatform.getName());
 		}
 		if (filteredNgh != null) {
-			queryLabel += " with ngh '" + filteredNgh + "'";
+			queryLabel += " with ngh " + orange(filteredNgh);
 		}
 		if (filteredReleaseDate != null) {
-			queryLabel += " with release date '" + new SimpleDateFormat("MM/dd/yyyy").format(filteredReleaseDate) + "'";
+			queryLabel += " released at" + orange(new SimpleDateFormat("MM/dd/yyyy").format(filteredReleaseDate));
 		}
 		if (filteredTag != null) {
-			queryLabel += " with tag '" + filteredTag.getName() + "'";
+			queryLabel += " with tag " + orange(filteredTag.getName());
+		}
+		if (filteredUser != null) {
+			queryLabel += " owned by " + orange(filteredUser.getLogin());
 		}
 		return queryLabel;
+	}
+
+	private String orange(String name) {
+		return "<span class=\"orange\">" + name + "</span>";
 	}
 
 	public void filterByUser(User user) {
@@ -101,20 +109,25 @@ public class MuseumFilter {
 	}
 
 	private Collection<Article> applyFilters(List<Predicate<Article>> filters) {
-		Collection<Article> filteredArticles;
-		if (filteredByGames) {
-			filteredArticles = new ArrayList<Article>(gameFactory.findAll());
-		} else {
-			filteredArticles = new ArrayList<Article>(hardwareFactory.findAll());
-		}
+		Collection<Article> filteredArticles = getChosenArticlesByType();
 		buildFilters(filters);
 		for (Predicate<Article> filter : filters) {
 			filteredArticles = filter(filteredArticles, filter);
 		}
-		if (filteredUser != null) {
-			filteredArticles = filter(filteredArticles, keepOnlyOwnedArticlesBy(filteredUser));
-		}
 		return filteredArticles;
+	}
+
+	private Collection<Article> getChosenArticlesByType() {
+		if (filteredByGames) {
+			if (filteredUser == null) {
+				return new ArrayList<Article>(gameFactory.findAll());
+			}
+			return gameFactory.findAllOwnedBy(filteredUser);
+		}
+		if (filteredUser == null) {
+			return new ArrayList<Article>(hardwareFactory.findAll());
+		}
+		return hardwareFactory.findAllOwnedBy(filteredUser);
 	}
 
 	private void buildFilters(List<Predicate<Article>> filters) {
@@ -136,15 +149,6 @@ public class MuseumFilter {
 		if (filteredReleaseDate != null) {
 			filters.add(new Predicates.ReleaseDatePredicate(filteredReleaseDate));
 		}
-	}
-
-	private Predicate<Article> keepOnlyOwnedArticlesBy(final User user) {
-		return new Predicate<Article>() {
-			@Override
-			public boolean apply(Article input) {
-				return user.owns(input);
-			}
-		};
 	}
 
 	public List<Article> getArticles() {
@@ -208,20 +212,10 @@ public class MuseumFilter {
 		return articles.size();
 	}
 
-	private Collection<? extends Article> getChosenArticlesByType() {
-		Collection<? extends Article> articles;
-		if (filteredByGames) {
-			articles = gameFactory.findAll();
-		} else {
-			articles = hardwareFactory.findAll();
-		}
-		return articles;
-	}
-
-	public Collection<Article> getArticlesFilterdByPlatform(Platform platform) {
-		Predicates.PlatformPredicate filter = new Predicates.PlatformPredicate(platform);
-		Collection<? extends Article> articles = (Collection<? extends Article>) getChosenArticlesByType();
-		return new ArrayList<Article>(filter(articles, filter));
+	public int getNumArticlesInThisPlatform(Platform platform) {
+		Collection<Article> articles = getChosenArticlesByType();
+		articles = filter(articles, new Predicates.PlatformPredicate(platform));
+		return articles.size();
 	}
 
 	public void filterByTag(Tag tag) {
@@ -250,6 +244,20 @@ public class MuseumFilter {
 
 	public Date getFilteredReleaseDate() {
 		return filteredReleaseDate;
+	}
+
+	public long getNumHardwares() {
+		if (filteredUser != null) {
+			return filteredUser.getHardwaresInCollection().size();
+		}
+		return hardwareFactory.getNumHardwares();
+	}
+
+	public long getNumGames() {
+		if (filteredUser != null) {
+			return filteredUser.getGamesInCollection().size();
+		}
+		return gameFactory.getNumGames();
 	}
 
 }

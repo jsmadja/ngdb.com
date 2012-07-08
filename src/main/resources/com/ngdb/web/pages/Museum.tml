@@ -102,7 +102,7 @@
 		</table>
 		
 		<p>
-			<b>${numResults}</b> game(s) found for query <b><i>${queryLabel}</i></b>
+			<b>${numResults}</b> game(s) found for query <b><i><t:outputRaw value="${queryLabel}" /></i></b>
 		</p>
 
 		<t:loop source="articles" value="article">

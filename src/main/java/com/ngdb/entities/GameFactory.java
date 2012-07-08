@@ -18,11 +18,14 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 
 import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
+import com.ngdb.entities.user.User;
 
 @SuppressWarnings("unchecked")
 public class GameFactory {
@@ -89,5 +92,14 @@ public class GameFactory {
 			}
 		};
 		return new ArrayList<Game>(filter(criteria.list(), additionnalFilter));
+	}
+
+	public List<Article> findAllOwnedBy(final User owner) {
+		return new ArrayList<Article>(Collections2.filter(findAll(), new Predicate<Article>() {
+			@Override
+			public boolean apply(Article input) {
+				return owner.owns(input);
+			}
+		}));
 	}
 }

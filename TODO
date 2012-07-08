@@ -14,16 +14,6 @@ Les filtres dans le Museum et la collection, c’est un bon début. Il manque é
 
 Egalement pour m’aider a trouver les erreurs dans les DB, il faudrait pouvoir passer du mode « Pictures » au mode « Liste » dans les vues Museum et Collection.
 
-Un truc chouette qui n’est plus visible, c’est le nombre de jeux dans chaque catégorie, ou au moins dans le résultat filtré.
-
-
-Bugs
-----
-
-Je ne peux pas afficher ma collection, ça m’affiche toujours toute la base…
-
-
-
 -------------------
 V1.1
 -------------------
