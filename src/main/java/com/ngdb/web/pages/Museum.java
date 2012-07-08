@@ -2,7 +2,6 @@ package com.ngdb.web.pages;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -101,7 +100,7 @@ public class Museum {
 		}
 	}
 
-	public Collection<Article> getArticles() {
+	public List<Article> getArticles() {
 		return museumFilter.getArticles();
 	}
 
