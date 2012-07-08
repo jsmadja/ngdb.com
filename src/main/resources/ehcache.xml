@@ -11,6 +11,10 @@
 		maxElementsInMemory="100000" eternal="false" timeToIdleSeconds="120"
 		timeToLiveSeconds="120" statistics="true" />
 
+	<cache name="org.hibernate.cache.UpdateTimestampsCache" maxElementsInMemory="10000" eternal="false"
+		timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="true"
+		statistics="true" />
+
 	<cache name="cacheCount" maxElementsInMemory="100000" eternal="false"
 		timeToIdleSeconds="3600" />
 		
