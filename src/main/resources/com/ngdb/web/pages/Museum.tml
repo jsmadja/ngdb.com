@@ -11,20 +11,21 @@
 				</t:if>
 			</h1>
 		</div>
-		<h3>Filters</h3>
-		<table class="table">
+		<table class="table table-bordered table-condensed">
 			<tr>
 				<td>
 					<t:if test="filteredByGames">
-						<button class="btn active btn-mini">
-							<b>Games</b>
-						</button>
-						<t:actionLink class="btn btn-mini" t:id="selectHardwares">Hardwares</t:actionLink>
+						<span class="selected-link">
+								<b>Games<span class="counter" >(${numGames})</span></b>
+						</span>
+						<t:actionLink class="btn-mini" t:id="selectHardwares">Hardwares<span class="counter">(${numHardwares})</span></t:actionLink>
 						<p:else>
-							<t:actionLink class="btn btn-mini" t:id="selectGames">Games</t:actionLink>
-							<button class="btn active btn-mini">
-								<b>Hardwares</b>
-							</button>
+							<t:actionLink class="btn-mini" t:id="selectGames">Games (${numGames})</t:actionLink>
+							<t:actionLink class="active btn-mini">
+								<span class="selected-link">
+									<b>Hardwares <span class="counter"> (${numHardwares})</span></b>
+								</span>
+							</t:actionLink>
 						</p:else>
 					</t:if>
 				</td>
@@ -33,12 +34,12 @@
 				<td>
 					<t:loop source="platforms" value="platform">
 						<t:if test="filteredByThisPlatform">
-							<button class="btn active btn-mini">
-								<b>${platform.name}</b>
-							</button>
+							<span class="selected-link">
+								<b>${platform.name}<span class="counter"> (${numArticlesInThisPlatform})</span></b>
+							</span>
 							<p:else>
-								<t:actionLink class="btn btn-mini" t:id="filterPlatform"
-									context="platform">${platform.name}</t:actionLink>
+								<t:actionLink class="btn-mini" t:id="filterPlatform" id="filterPlatform"
+									context="platform">${platform.name} <span class="counter"> (${numArticlesInThisPlatform})</span></t:actionLink>
 							</p:else>
 						</t:if>
 					</t:loop>
@@ -48,13 +49,11 @@
 				<td>
 					<t:loop source="origins" value="origin">
 						<t:if test="filteredByThisOrigin">
-							<button class="btn active btn-mini">
-								<img src="/img/flags/${origin}.png" alt="${origin}" />
-							</button>
+							<img src="/img/flags/${origin}.png" alt="${origin}" /><span class="counter"> (${numArticlesInThisOrigin})</span>
 							<p:else>
 								<t:actionLink t:id="filterOrigin" context="origin.id">
 									<button class="btn btn-mini" style="height:30px">
-										<img src="/img/flags/${origin}.png" alt="${origin}" />
+										<img src="/img/flags/${origin}.png" alt="${origin}" /><span class="counter"> (${numArticlesInThisOrigin})</span>
 									</button>
 								</t:actionLink>
 							</p:else>

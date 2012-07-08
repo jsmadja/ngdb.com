@@ -100,17 +100,17 @@ public class Predicates {
 	}
 
 	public static class OriginPredicate implements Predicate<Article> {
-		private String title;
+		private Long id;
 
 		public OriginPredicate(Origin origin) {
-			this.title = origin.getTitle();
+			this.id = origin.getId();
 		}
 
 		@Override
 		public boolean apply(Article article) {
 			Origin origin = article.getOrigin();
-			String originTitle = origin.getTitle();
-			return title.equalsIgnoreCase(originTitle);
+			Long originId = origin.getId();
+			return id.equals(originId);
 		}
 
 	}

@@ -5200,3 +5200,15 @@ TABLE.t-data-grid THEAD TR TH {
 	background: linear-gradient(to bottom,  #aebcbf 0%,#6e7774 50%,#0a0e0a 51%,#0a0809 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aebcbf', endColorstr='#0a0809',GradientType=0 );
 }
+
+.counter {
+	color:grey;
+	font-size:8pt;
+	padding-left:5px;
+	margin-left:0px;
+}
+
+.selected-link {
+	font-size: 9pt;
+	color:orange;	
+}

@@ -35,6 +35,7 @@ public class Museum {
 	@Inject
 	private ReferenceService referenceService;
 
+	@Persist
 	@Property
 	private User user;
 
@@ -59,14 +60,21 @@ public class Museum {
 
 	void onActivate() {
 		if (filterOrigin == null && filterPlatform == null) {
-			this.filterOrigin = referenceService.findOriginByTitle("Japan").getId();
-			this.filterPlatform = referenceService.findPlatformByName("Neo·Geo CD").getId();
-			this.filteredByGames = true;
+			init();
+			this.user = null;
 		}
 	}
 
-	void onActivate(User user) {
+	private void init() {
+		this.filterOrigin = referenceService.findOriginByTitle("Japan").getId();
+		this.filterPlatform = referenceService.findPlatformByName("Neo·Geo CD").getId();
+		this.filteredByGames = true;
+	}
+
+	boolean onActivate(User user) {
+		init();
 		this.user = user;
+		return true;
 	}
 
 	public List<Article> getArticles() {
@@ -78,10 +86,10 @@ public class Museum {
 			filteredArticles = new ArrayList<Article>(hardwareFactory.findAll());
 		}
 		if (filterOrigin != null) {
-			filters.add(new Predicates.OriginPredicate(referenceService.findOriginById(filterOrigin)));
+			filters.add(new Predicates.OriginPredicate(currentOrigin()));
 		}
 		if (filterPlatform != null) {
-			filters.add(new Predicates.PlatformPredicate(referenceService.findPlatformById(filterPlatform)));
+			filters.add(new Predicates.PlatformPredicate(currentPlatform()));
 		}
 		for (Predicate<Article> filter : filters) {
 			filteredArticles = filter(filteredArticles, filter);
@@ -102,7 +110,7 @@ public class Museum {
 	}
 
 	Object onActionFromClearFilters() {
-		onActivate();
+		init();
 		return this;
 	}
 
@@ -143,6 +151,53 @@ public class Museum {
 
 	public boolean isFilteredByThisOrigin() {
 		return origin.getId().equals(filterOrigin);
+	}
+
+	public long getNumGames() {
+		return gameFactory.getNumGames();
+	}
+
+	public long getNumHardwares() {
+		return hardwareFactory.getNumHardwares();
+	}
+
+	public int getNumArticlesInThisPlatform() {
+		return getArticlesFilterdByPlatform().size();
+	}
+
+	private Collection<Article> getArticlesFilterdByPlatform() {
+		Predicates.PlatformPredicate filter = new Predicates.PlatformPredicate(platform);
+		Collection<? extends Article> articles = (Collection<? extends Article>) getChosenArticlesByType();
+		return new ArrayList<Article>(filter(articles, filter));
+	}
+
+	private Collection<? extends Article> getChosenArticlesByType() {
+		Collection<? extends Article> articles;
+		if (filteredByGames) {
+			articles = gameFactory.findAll();
+		} else {
+			articles = hardwareFactory.findAll();
+		}
+		return articles;
+	}
+
+	public int getNumArticlesInThisOrigin() {
+		Platform currentPlatform = referenceService.findPlatformById(filterPlatform);
+		Predicates.PlatformPredicate filterByPlatform = new Predicates.PlatformPredicate(currentPlatform);
+		Predicates.OriginPredicate filterByOrigin = new Predicates.OriginPredicate(origin);
+
+		Collection<? extends Article> articles = getChosenArticlesByType();
+		articles = filter(articles, filterByPlatform);
+		articles = filter(articles, filterByOrigin);
+		return articles.size();
+	}
+
+	private Origin currentOrigin() {
+		return referenceService.findOriginById(filterOrigin);
+	}
+
+	private Platform currentPlatform() {
+		return referenceService.findPlatformById(filterPlatform);
 	}
 
 }
