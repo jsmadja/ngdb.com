@@ -22,6 +22,7 @@ public class Museum {
 			if (article.getId().equals(articleId.longValue())) {
 				return rank;
 			}
+			rank++;
 		}
 		return Integer.MAX_VALUE;
 	}
