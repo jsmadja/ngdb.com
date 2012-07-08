@@ -31,43 +31,43 @@ public class MuseumFilterTest {
 
 	@Test
 	public void should_create_empty_query_label() {
-		assertThat(museumFilter.getQueryLabel()).isEqualTo("all games");
+		assertThat(museumFilter.getQueryLabel()).isEqualTo("all <span class=\"orange\">games</span>");
 	}
 
 	@Test
 	public void should_create_query_label_with_origin() {
 		museumFilter.filterByOrigin(new Origin("Japan"));
-		assertThat(museumFilter.getQueryLabel()).isEqualTo("all games from Japan");
+		assertThat(museumFilter.getQueryLabel()).isEqualTo("all <span class=\"orange\">games</span> from <span class=\"orange\">Japan</span>");
 	}
 
 	@Test
 	public void should_create_query_label_with_publisher() {
 		museumFilter.filterByPublisher(new Publisher("SNK"));
-		assertThat(museumFilter.getQueryLabel()).isEqualTo("all games published by SNK");
+		assertThat(museumFilter.getQueryLabel()).isEqualTo("all <span class=\"orange\">games</span> published by <span class=\"orange\">SNK</span>");
 	}
 
 	@Test
 	public void should_create_query_label_with_platform() {
 		museumFilter.filterByPlatform(new Platform("NeoGeoCD"));
-		assertThat(museumFilter.getQueryLabel()).isEqualTo("all games on NeoGeoCD");
+		assertThat(museumFilter.getQueryLabel()).isEqualTo("all <span class=\"orange\">games</span> on <span class=\"orange\">NeoGeoCD</span>");
 	}
 
 	@Test
 	public void should_create_query_label_with_ngh() {
 		museumFilter.filterByNgh("nghX");
-		assertThat(museumFilter.getQueryLabel()).isEqualTo("all games with ngh 'nghX'");
+		assertThat(museumFilter.getQueryLabel()).isEqualTo("all <span class=\"orange\">games</span> with ngh <span class=\"orange\">nghX</span>");
 	}
 
 	@Test
 	public void should_create_query_label_with_release_date() {
 		museumFilter.filterByReleaseDate(new DateTime().withYear(1995).withMonthOfYear(12).withDayOfMonth(19).toDate());
-		assertThat(museumFilter.getQueryLabel()).isEqualTo("all games with release date '12/19/1995'");
+		assertThat(museumFilter.getQueryLabel()).isEqualTo("all <span class=\"orange\">games</span> released at <span class=\"orange\">12/19/1995</span>");
 	}
 
 	@Test
 	public void should_create_query_label_with_tag() {
 		museumFilter.filterByTag(new Tag("tagX", null));
-		assertThat(museumFilter.getQueryLabel()).isEqualTo("all games with tag <span class=\"orange\">tagX</span>");
+		assertThat(museumFilter.getQueryLabel()).isEqualTo("all <span class=\"orange\">games</span> with tag <span class=\"orange\">tagX</span>");
 	}
 
 }

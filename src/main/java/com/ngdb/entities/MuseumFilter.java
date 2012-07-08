@@ -77,7 +77,7 @@ public class MuseumFilter {
 			queryLabel += " with ngh " + orange(filteredNgh);
 		}
 		if (filteredReleaseDate != null) {
-			queryLabel += " released at" + orange(new SimpleDateFormat("MM/dd/yyyy").format(filteredReleaseDate));
+			queryLabel += " released at " + orange(new SimpleDateFormat("MM/dd/yyyy").format(filteredReleaseDate));
 		}
 		if (filteredTag != null) {
 			queryLabel += " with tag " + orange(filteredTag.getName());
