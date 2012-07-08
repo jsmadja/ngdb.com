@@ -56,7 +56,7 @@ public class Picture extends AbstractEntity {
 	}
 
 	public String toWatermarkedUrl() {
-		return addSuffix("wm");
+		return addSuffix("high");
 	}
 
 	public String toSizeUrl(String size) {
