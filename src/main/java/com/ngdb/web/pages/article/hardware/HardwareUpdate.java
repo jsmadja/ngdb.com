@@ -144,11 +144,13 @@ public class HardwareUpdate {
 				session.merge(picture);
 			}
 		}
-		for (UploadedFile uploadedPicture : pictures) {
-			Picture picture = pictureService.store(uploadedPicture, hardware);
-			hardware.addPicture(picture);
-			if (isEditMode()) {
-				session.merge(picture);
+		if (pictures != null) {
+			for (UploadedFile uploadedPicture : pictures) {
+				Picture picture = pictureService.store(uploadedPicture, hardware);
+				hardware.addPicture(picture);
+				if (isEditMode()) {
+					session.merge(picture);
+				}
 			}
 		}
 		hardwareView.setHardware(hardware);

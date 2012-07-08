@@ -177,12 +177,13 @@ public class GameUpdate {
 				session.merge(picture);
 			}
 		}
-		for (UploadedFile uploadedPicture : pictures) {
-			System.err.println("store:" + uploadedPicture.getFileName());
-			Picture picture = pictureService.store(uploadedPicture, game);
-			game.addPicture(picture);
-			if (isEditMode()) {
-				session.merge(picture);
+		if (pictures != null) {
+			for (UploadedFile uploadedPicture : pictures) {
+				Picture picture = pictureService.store(uploadedPicture, game);
+				game.addPicture(picture);
+				if (isEditMode()) {
+					session.merge(picture);
+				}
 			}
 		}
 		gameView.setGame(game);
