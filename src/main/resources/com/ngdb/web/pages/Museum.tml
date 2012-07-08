@@ -38,8 +38,11 @@
 								<b>${platform.name}<span class="counter"> (${numArticlesInThisPlatform})</span></b>
 							</span>
 							<p:else>
-								<t:actionLink class="btn-mini" t:id="filterPlatform" id="filterPlatform"
-									context="platform">${platform.name} <span class="counter"> (${numArticlesInThisPlatform})</span></t:actionLink>
+								<t:if test="articleInThisPlatform">
+									<t:actionLink class="btn-mini" t:id="filterPlatform" id="filterPlatform" context="platform">
+										${platform.name} <span class="counter"> (${numArticlesInThisPlatform})</span>
+									</t:actionLink>
+								</t:if>
 							</p:else>
 						</t:if>
 					</t:loop>
@@ -51,11 +54,29 @@
 						<t:if test="filteredByThisOrigin">
 							<img src="/img/flags/${origin}.png" alt="${origin}" /><span class="counter"> (${numArticlesInThisOrigin})</span>
 							<p:else>
-								<t:actionLink t:id="filterOrigin" context="origin.id">
-									<button class="btn btn-mini" style="height:30px">
-										<img src="/img/flags/${origin}.png" alt="${origin}" /><span class="counter"> (${numArticlesInThisOrigin})</span>
-									</button>
-								</t:actionLink>
+								<t:if test="articleInThisOrigin">
+									<t:actionLink t:id="filterOrigin" context="origin.id">
+										<button class="btn btn-mini" style="height:30px">
+											<img src="/img/flags/${origin}.png" alt="${origin}" /><span class="counter"> (${numArticlesInThisOrigin})</span>
+										</button>
+									</t:actionLink>
+								</t:if>
+							</p:else>
+						</t:if>
+					</t:loop>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<t:loop source="publishers" value="publisher">
+						<t:if test="filteredByThisPublisher">
+							<span class="selected-link"><b>${publisher.name}<span class="counter"> (${numArticlesInThisPublisher})</span></b></span>
+							<p:else>
+								<t:if test="articleInThisPublisher">
+									<t:actionLink class="btn-mini" t:id="filterPublisher" context="publisher">
+										${publisher.name} <span class="counter"> (${numArticlesInThisPublisher})</span>
+									</t:actionLink>
+								</t:if>
 							</p:else>
 						</t:if>
 					</t:loop>
@@ -69,6 +90,10 @@
 				</td>
 			</tr>
 		</table>
+		
+		<p>
+			<b>${numResults}</b> game(s) found for query <b><i>${queryLabel}</i></b>
+		</p>
 
 		<t:loop source="articles" value="article">
 			<span class="museum_item">

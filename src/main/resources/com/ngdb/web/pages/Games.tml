@@ -40,29 +40,11 @@
 			</tr>
 			<tr>
 				<td>
-					<t:loop source="publishers" value="publisher">
-						<t:if test="filteredByThisPublisher">
-							<button class="btn active btn-mini"><b>${publisher.name}</b></button>
-							<p:else>
-								<t:actionLink class="btn btn-mini" t:id="filterPublisher"
-										context="publisher">${publisher.name}
-									</t:actionLink>
-							</p:else>
-						</t:if>
-					</t:loop>
-				</td>
-			</tr>
-			<tr>
-				<td>
 					<t:actionLink t:id="clearFilters" class="btn btn-small btn-primary pull-left" >Clear filters</t:actionLink>
 				</td>
 			</tr>
 		</table>
 		
-		<p>
-			<b>${numResults}</b> game(s) found for query <b><i>${queryLabel}</i></b>
-		</p>
-
 		<t:if test="user">
 			<p>
 				<t:pageLink class="btn btn-inverse" page="article/game/gameUpdate">Add a new game
