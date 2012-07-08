@@ -12,12 +12,12 @@
 				<div class="page-header">
 					<h1 class="header">${hardware.title} 
 						<span style="font-size:15px">
-							(<t:pagelink page="hardwares" context="[byReleaseDate,hardware.releaseDate]">${hardware.releaseDate}</t:pagelink>) <t:pagelink page="hardwares" context="[byOrigin,hardware.origin]"><img src="/img/flags/${hardware.origin}.png" alt="${hardware.origin}" /></t:pagelink>
+							(<t:pagelink page="museum" context="[byReleaseDate,hardware.releaseDate]">${hardware.releaseDate}</t:pagelink>) <t:pagelink page="museum" context="[byOrigin,hardware.origin]"><img src="/img/flags/${hardware.origin}.png" alt="${hardware.origin}" /></t:pagelink>
 						</span>
 						<t:article.actionBlock article="hardware" />
 					</h1>
 					<div class="subtitle">
-						#${hardware.id}<t:pagelink page="hardwares" context="[byPlatform,hardware.platform]"> ${hardware.platform.name} </t:pagelink> 
+						#${hardware.id}<t:pagelink page="museum" context="[byPlatform,hardware.platform]"> ${hardware.platform.name} </t:pagelink> 
 					</div>
 				</div>
 					<table>
