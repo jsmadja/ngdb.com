@@ -7,6 +7,7 @@ import static org.hibernate.criterion.Restrictions.eq;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Criteria;
@@ -38,7 +39,7 @@ public class HardwareFactory {
 		return (Long) session.createCriteria(Hardware.class).setProjection(rowCount()).setCacheable(true).setCacheRegion("cacheCount").uniqueResult();
 	}
 
-	public Collection<Hardware> findAll() {
+	public List<Hardware> findAll() {
 		return allHardwares().list();
 	}
 

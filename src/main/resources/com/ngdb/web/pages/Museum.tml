@@ -84,12 +84,12 @@
 			</tr>
 			<tr>
 				<td>
-					Tag: ${filterValue}
+					Tag: ${tag?.name}
 				</td>
 			</tr>
 			<tr>
 				<td>
-					Release date: ${filterValue}
+					Release date: ${releaseDate}
 				</td>
 			</tr>
 			<tr>

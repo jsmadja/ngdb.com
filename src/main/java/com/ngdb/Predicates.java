@@ -1,11 +1,14 @@
 package com.ngdb;
 
+import java.util.Date;
+
 import org.joda.time.DateTime;
 
 import com.google.common.base.Predicate;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.Hardware;
+import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
@@ -48,53 +51,18 @@ public class Predicates {
 		}
 	};
 
-	public static Predicate<Game> keepAesOnly = new Predicate<Game>() {
-		@Override
-		public boolean apply(Game game) {
-			return "AES".equals(game.getPlatform().getName());
-		}
-	};
-
-	public static Predicate<Game> keepMvsOnly = new Predicate<Game>() {
-		@Override
-		public boolean apply(Game game) {
-			return "MVS".equals(game.getPlatform().getName());
-		}
-	};
-
-	public static Predicate<Game> keepCdOnly = new Predicate<Game>() {
-		@Override
-		public boolean apply(Game game) {
-			return "CD".equals(game.getPlatform().getName());
-		}
-	};
-
-	public static Predicate<Game> keepJapanOnly = new Predicate<Game>() {
-		@Override
-		public boolean apply(Game game) {
-			return "Japan".equals(game.getOrigin().getTitle());
-		}
-	};
-
-	public static Predicate<Game> keepUsaOnly = new Predicate<Game>() {
-		@Override
-		public boolean apply(Game game) {
-			return "USA".equals(game.getOrigin().getTitle());
-		}
-	};
-
 	public static class PlatformPredicate implements Predicate<Article> {
-		private String name;
+		private Long id;
 
 		public PlatformPredicate(Platform platform) {
-			this.name = platform.getName();
+			this.id = platform.getId();
 		}
 
 		@Override
 		public boolean apply(Article article) {
 			Platform platform = article.getPlatform();
-			String platformName = platform.getName();
-			return name.equals(platformName);
+			Long platformId = platform.getId();
+			return id.equals(platformId);
 		}
 
 	}
@@ -131,7 +99,57 @@ public class Predicates {
 			String publisherName = publisher.getName();
 			return name.equalsIgnoreCase(publisherName);
 		}
+	}
 
+	public static class NghPredicate implements Predicate<Article> {
+
+		private String ngh;
+
+		public NghPredicate(String ngh) {
+			this.ngh = ngh;
+		}
+
+		@Override
+		public boolean apply(Article input) {
+			if (input.getType().equals(Game.class)) {
+				Game game = (Game) input;
+				String ngh = game.getNgh();
+				if (ngh != null) {
+					return ngh.equalsIgnoreCase(this.ngh);
+				}
+			}
+			return false;
+		}
+
+	}
+
+	public static class TagPredicate implements Predicate<Article> {
+
+		private Tag tag;
+
+		public TagPredicate(Tag tag) {
+			this.tag = tag;
+		}
+
+		@Override
+		public boolean apply(Article input) {
+			return input.containsTag(tag);
+		}
+	}
+
+	public static class ReleaseDatePredicate implements Predicate<Article> {
+
+		private Date releaseDate;
+
+		public ReleaseDatePredicate(Date releaseDate) {
+			this.releaseDate = releaseDate;
+		}
+
+		@Override
+		public boolean apply(Article input) {
+			Date inputReleaseDate = input.getReleaseDate();
+			return inputReleaseDate != null && inputReleaseDate.equals(releaseDate);
+		}
 	}
 
 }
