@@ -1,6 +1,8 @@
 package com.ngdb.entities;
 
 import static com.google.common.collect.Collections2.filter;
+import static com.ngdb.Comparators.byTitlePlatformOrigin;
+import static java.util.Collections.sort;
 import static org.hibernate.criterion.Order.asc;
 import static org.hibernate.criterion.Order.desc;
 import static org.hibernate.criterion.Projections.distinct;
@@ -44,6 +46,7 @@ public class Registry {
 			});
 			articles.addAll(matchingGames);
 		}
+		sort(articles, byTitlePlatformOrigin);
 		return articles;
 	}
 
