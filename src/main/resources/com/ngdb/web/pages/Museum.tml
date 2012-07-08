@@ -84,6 +84,16 @@
 			</tr>
 			<tr>
 				<td>
+					Tag: ${filterValue}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Release date: ${filterValue}
+				</td>
+			</tr>
+			<tr>
+				<td>
 					<t:actionLink t:id="clearFilters"
 						class="btn btn-small btn-primary pull-left">Clear filters
 					</t:actionLink>
