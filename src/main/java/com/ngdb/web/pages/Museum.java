@@ -344,7 +344,12 @@ public class Museum {
 	}
 
 	public String getQueryLabel() {
-		String queryLabel = "all games";
+		String queryLabel = "all ";
+		if (filteredByGames) {
+			queryLabel += "games";
+		} else {
+			queryLabel += "hardwares";
+		}
 		if (filterOrigin != null) {
 			Origin origin = referenceService.findOriginById(filterOrigin);
 			queryLabel += " from " + origin.getTitle();

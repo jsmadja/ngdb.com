@@ -2,6 +2,7 @@ package com.ngdb.web.pages;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -26,6 +27,11 @@ public class MuseumTest {
 
 	@Mock
 	private ReferenceService referenceService;
+
+	@Before
+	public void init() {
+		ReflectionTestUtils.setField(museum, "filteredByGames", true);
+	}
 
 	@Test
 	public void should_create_empty_query_label() {
