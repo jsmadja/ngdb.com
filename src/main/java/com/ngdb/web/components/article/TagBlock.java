@@ -55,12 +55,31 @@ public class TagBlock {
 	@CommitAfter
 	public Object onSuccess() {
 		if (isNotBlank(search)) {
-			if (!article.containsTag(search)) {
-				article.updateModificationDate();
-				currentUser.addTagOn(article, search);
+			Set<String> tags = extractTags();
+			for (String tag : tags) {
+				addTag(tag);
 			}
 		}
 		return this;
+	}
+
+	private void addTag(String tag) {
+		if (!article.containsTag(tag)) {
+			article.updateModificationDate();
+			currentUser.addTagOn(article, tag);
+		}
+	}
+
+	private Set<String> extractTags() {
+		Set<String> tags = new TreeSet<String>();
+		String[] split = search.split(",");
+		for (String tagsSplitByVirgule : split) {
+			String[] tagsToAdd = tagsSplitByVirgule.split(";");
+			for (String tag : tagsToAdd) {
+				tags.add(tag.trim());
+			}
+		}
+		return tags;
 	}
 
 	public User getUser() {
