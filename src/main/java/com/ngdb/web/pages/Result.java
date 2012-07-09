@@ -7,17 +7,21 @@ import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.ngdb.entities.Registry;
-import com.ngdb.entities.article.Game;
+import com.ngdb.entities.article.Article;
+import com.ngdb.web.pages.base.Redirections;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class Result {
 
 	@Persist
-	private List<Game> results;
+	private List<Article> results;
 
 	@Property
-	private Game result;
+	private Article result;
 
 	@Persist
 	private String search;
@@ -25,16 +29,22 @@ public class Result {
 	@Inject
 	private Registry registry;
 
+	@Inject
+	private CurrentUser currentUser;
+
+	private static final Logger LOG = LoggerFactory.getLogger(Result.class);
+
 	@SetupRender
 	public void setup() {
+		LOG.info(currentUser.getUsername() + " is searching for '" + search + "'");
 		results = registry.findGamesMatching(search);
 	}
 
-	public void setResults(List<Game> results) {
+	public void setResults(List<Article> results) {
 		this.results = results;
 	}
 
-	public Collection<Game> getResults() {
+	public Collection<Article> getResults() {
 		return results;
 	}
 
@@ -44,6 +54,10 @@ public class Result {
 
 	public String getSearch() {
 		return search;
+	}
+
+	public String getViewPage() {
+		return Redirections.toViewPage(result);
 	}
 
 }

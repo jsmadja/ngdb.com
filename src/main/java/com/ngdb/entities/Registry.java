@@ -3,6 +3,7 @@ package com.ngdb.entities;
 import static com.google.common.collect.Collections2.filter;
 import static com.ngdb.Comparators.byTitlePlatformOrigin;
 import static java.util.Collections.sort;
+import static org.apache.commons.lang.StringUtils.isNotBlank;
 import static org.hibernate.criterion.Order.asc;
 import static org.hibernate.criterion.Order.desc;
 import static org.hibernate.criterion.Projections.distinct;
@@ -12,11 +13,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
-import com.google.common.base.Predicate;
+import com.ngdb.Predicates;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Note;
@@ -33,24 +33,19 @@ public class Registry {
 	@Inject
 	private Session session;
 
-	public List<Game> findGamesMatching(final String search) {
-		List<Game> articles = new ArrayList<Game>();
-		if (StringUtils.isNotBlank(search)) {
+	public List<Article> findGamesMatching(final String search) {
+		List<Article> articles = new ArrayList<Article>();
+		if (isNotBlank(search)) {
 			final String searchItem = search.toLowerCase().trim();
-			Collection<Game> games = gameFactory.findAll();
-			Collection<Game> matchingGames = filter(games, new Predicate<Game>() {
-				@Override
-				public boolean apply(Game game) {
-					return game.getTitle().toLowerCase().contains(searchItem);
-				}
-			});
-			articles.addAll(matchingGames);
+			List<Article> allArticles = findAllArticles();
+			Collection<Article> matchingArticles = filter(allArticles, new Predicates.Matching(searchItem));
+			articles.addAll(matchingArticles);
+			sort(articles, byTitlePlatformOrigin);
 		}
-		sort(articles, byTitlePlatformOrigin);
 		return articles;
 	}
 
-	public List<Article> findAll() {
+	public List<Article> findAllArticles() {
 		List<Article> articles = new ArrayList<Article>();
 		articles.addAll(gameFactory.findAll());
 		articles.addAll(hardwareFactory.findAll());

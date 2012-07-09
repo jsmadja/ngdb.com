@@ -152,4 +152,30 @@ public class Predicates {
 		}
 	}
 
+	public static class Matching implements Predicate<Article> {
+
+		private String pattern;
+
+		public Matching(String searchItem) {
+			this.pattern = searchItem;
+		}
+
+		@Override
+		public boolean apply(Article article) {
+			return foundInTitle(article) || foundInTags(article) || foundInNotes(article);
+		}
+
+		private boolean foundInNotes(Article article) {
+			return article.containsProperty(pattern);
+		}
+
+		private boolean foundInTags(Article article) {
+			return article.containsTag(pattern);
+		}
+
+		private boolean foundInTitle(Article article) {
+			return article.getTitle().toLowerCase().contains(pattern);
+		}
+	}
+
 }

@@ -100,6 +100,9 @@ public class CurrentUser {
 	}
 
 	public String getUsername() {
+		if (isAnonymous()) {
+			return "Anonymous";
+		}
 		return getUser().getLogin();
 	}
 

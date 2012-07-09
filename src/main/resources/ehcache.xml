@@ -12,58 +12,61 @@
 		timeToLiveSeconds="120" statistics="true" />
 
 	<cache name="org.hibernate.cache.UpdateTimestampsCache" maxElementsInMemory="10000" eternal="false"
-		timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="true"
+		timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="false"
 		statistics="true" />
 
 	<cache name="cacheCount" maxElementsInMemory="100000" eternal="false"
 		timeToIdleSeconds="3600" />
+	
+	<cache name="search.all.suggestions" maxElementsInMemory="1"
+		eternal="false" timeToLiveSeconds="3600" overflowToDisk="false" statistics="true" />
 		
 	<cache name="index.random.games" maxElementsInMemory="3"
-		eternal="false" timeToLiveSeconds="3600" overflowToDisk="true" statistics="true" />
+		eternal="false" timeToLiveSeconds="3600" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.article.Article"
 		maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="120"
-		timeToLiveSeconds="120" overflowToDisk="true" statistics="true" />
+		timeToLiveSeconds="120" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.article.element.Comment"
 		maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="120"
-		timeToLiveSeconds="120" overflowToDisk="true" statistics="true" />
+		timeToLiveSeconds="120" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.article.element.Note"
-		maxElementsInMemory="10000" eternal="true" overflowToDisk="true" statistics="true" />
+		maxElementsInMemory="10000" eternal="true" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.article.element.Picture"
 		maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="120"
-		timeToLiveSeconds="120" overflowToDisk="true" statistics="true" />
+		timeToLiveSeconds="120" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.article.element.Review"
-		maxElementsInMemory="10000" eternal="true" overflowToDisk="true" statistics="true" />
+		maxElementsInMemory="10000" eternal="true" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.article.element.Tag"
-		maxElementsInMemory="10000" eternal="true" overflowToDisk="true" statistics="true" />
+		maxElementsInMemory="10000" eternal="true" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.reference.Box"
-		maxElementsInMemory="10000" eternal="true" overflowToDisk="true" statistics="true" />
+		maxElementsInMemory="10000" eternal="true" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.reference.Origin"
-		maxElementsInMemory="10000" eternal="true" overflowToDisk="true" statistics="true" />
+		maxElementsInMemory="10000" eternal="true" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.reference.Platform"
-		maxElementsInMemory="10000" eternal="true" overflowToDisk="true" statistics="true" />
+		maxElementsInMemory="10000" eternal="true" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.reference.Publisher"
-		maxElementsInMemory="10000" eternal="true" overflowToDisk="true" statistics="true" />
+		maxElementsInMemory="10000" eternal="true" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.reference.State"
-		maxElementsInMemory="10000" eternal="true" overflowToDisk="true" statistics="true" />
+		maxElementsInMemory="10000" eternal="true" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.shop.ShopItem"
 		maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="120"
-		timeToLiveSeconds="120" overflowToDisk="true" statistics="true" />
+		timeToLiveSeconds="120" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.shop.Wish" maxElementsInMemory="10000"
 		eternal="false" timeToIdleSeconds="120" timeToLiveSeconds="120"
-		overflowToDisk="true" statistics="true" />
+		overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.user.CollectionObject"
 		maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="120"
