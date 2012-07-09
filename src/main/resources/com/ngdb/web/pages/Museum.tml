@@ -100,7 +100,7 @@
 		</table>
 		
 		<p>
-			<b>${numResults}</b> game(s) found for query <b><i><t:outputRaw value="${queryLabel}" /></i></b>
+			<b>${numResults}</b> item(s) found for query <b><i><t:outputRaw value="${queryLabel}" /></i></b>
 		</p>
 		<div>
 			<t:if test="thumbnailMode">
