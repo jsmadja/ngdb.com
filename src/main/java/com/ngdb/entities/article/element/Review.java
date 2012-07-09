@@ -40,6 +40,9 @@ public class Review extends AbstractEntity implements Comparable<Review> {
 	}
 
 	public String getMark() {
+		if (mark == null) {
+			return "00";
+		}
 		if (mark.contains("%")) {
 			return convertPercents();
 		} else if (mark.contains("/")) {
