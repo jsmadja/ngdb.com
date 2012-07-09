@@ -1,6 +1,6 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<div class="page-header">
-		<h1>Account validated</h1>
+		<h1 class="black-bar rounded-bar big-bar">Account validated</h1>
 	</div>
 	<div class="alert alert-info">Congratulations, your account has been validated. You can log in with your credentials.</div>
 </t:layout>

@@ -125,6 +125,7 @@
 					<p:actionHeader />
 					<p:titleCell>
 						<t:pageLink page="${viewPage}" context="article.id">${article.title}</t:pageLink>
+						<img src="/img/flags/${article.origin}.png" alt="${article.origin}" /> ${article.platform.name}
 					</p:titleCell>
 					<p:actionCell>
 						<t:article.actionBlock article="article" asButton="true" />
