@@ -20,6 +20,7 @@ import com.ngdb.entities.reference.Publisher;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.Filter;
+import com.ngdb.web.pages.base.Redirections;
 
 public class Museum {
 
@@ -46,6 +47,10 @@ public class Museum {
 
 	@Inject
 	private HardwareFactory hardwareFactory;
+
+	@Persist
+	@Property
+	private boolean thumbnailMode;
 
 	void onActivate() {
 		if (museumFilter == null) {
@@ -167,6 +172,16 @@ public class Museum {
 		return museumFilter.getNumArticlesInThisOrigin(origin) > 0;
 	}
 
+	Object onActionFromThumbnailMode() {
+		this.thumbnailMode = true;
+		return this;
+	}
+
+	Object onActionFromGridMode() {
+		this.thumbnailMode = false;
+		return this;
+	}
+
 	Object onActionFromFilterOrigin(Origin origin) {
 		museumFilter.filterByOrigin(origin);
 		return this;
@@ -218,6 +233,10 @@ public class Museum {
 
 	public String getQueryLabel() {
 		return museumFilter.getQueryLabel();
+	}
+
+	public String getViewPage() {
+		return Redirections.toViewPage(article);
 	}
 
 }

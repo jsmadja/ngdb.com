@@ -102,11 +102,35 @@
 		<p>
 			<b>${numResults}</b> game(s) found for query <b><i><t:outputRaw value="${queryLabel}" /></i></b>
 		</p>
+		<div>
+			<t:if test="thumbnailMode">
+				<span class="selected-link"><b>Thumbnail</b></span>
+				<t:actionLink t:id="gridMode" id="gridMode">Grid</t:actionLink>
+				<p:else>
+					<t:actionLink t:id="thumbnailMode" id="thumbnailMode">Thumbnail</t:actionLink>
+					<span class="selected-link"><b>Grid</b></span>
+				</p:else>
+			</t:if>
+		</div>
 
-		<t:loop source="articles" value="article">
-			<span class="museum_item">
-				<t:article.thumbnail article="article" size="literal:medium" />
-			</span>
-		</t:loop>
+		<t:if test="thumbnailMode">
+			<t:loop source="articles" value="article">
+				<span class="museum_item">
+					<t:article.thumbnail article="article" size="literal:medium" />
+				</span>
+			</t:loop>
+			<p:else>
+				<t:grid source="articles" include="title" add="action" pagePosition="bottom" class="table table-striped table-bordered table-condensed" row="article">
+					<p:titleHeader />
+					<p:actionHeader />
+					<p:titleCell>
+						<t:pageLink page="${viewPage}" context="article.id">${article.title}</t:pageLink>
+					</p:titleCell>
+					<p:actionCell>
+						<t:article.actionBlock article="article" asButton="true" />
+					</p:actionCell>
+				</t:grid>
+			</p:else>
+		</t:if>
 	</div>
 </t:layout>
