@@ -7,10 +7,10 @@
 		</a>
 		<ul class="dropdown-menu">
 			<li>
-				<a href="/wishbox/byUser/${userId}"><i class="icon-heart" /> My whishes (${numArticlesInWishList})</a>
+				<a href="http://www.neogeodb.com/wishbox/byUser/${userId}"><i class="icon-heart" /> My whishes (${numArticlesInWishList})</a>
 			</li>
 			<li>
-				<a href="/market/byUser/${userId}"><i class="icon-share" /> My Shop (${numArticlesInShop})</a>
+				<a href="http://www.neogeodb.com/market/byUser/${userId}"><i class="icon-share" /> My Shop (${numArticlesInShop})</a>
 			</li>
 			<li>
 				<t:pageLink page="museum" context="user"><i class="icon-plus" /> My Collection (${numArticlesInCollection})</t:pageLink>

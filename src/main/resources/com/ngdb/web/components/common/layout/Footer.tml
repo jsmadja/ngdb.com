@@ -2,9 +2,9 @@
 	<center>
 		<p>
 			<ul>
-		   		<li style="display:inline"><a href="/about" style="padding-right:5px">about</a><span class="divider">|</span></li>
-	            <li style="display:inline"><a href="/contact" style="padding-left:5px;padding-right:5px">contact</a><span class="divider">|</span></li>
-	            <li style="display:inline"><a href="/stats" style="padding-left:5px">stats</a></li>
+		   		<li style="display:inline"><a href="http://www.neogeodb.com/about" style="padding-right:5px">about</a><span class="divider">|</span></li>
+	            <li style="display:inline"><a href="http://www.neogeodb.com/contact" style="padding-left:5px;padding-right:5px">contact</a><span class="divider">|</span></li>
+	            <li style="display:inline"><a href="http://www.neogeodb.com/stats" style="padding-left:5px">stats</a></li>
 	        </ul>
 		</p>
 		<p>&copy;
