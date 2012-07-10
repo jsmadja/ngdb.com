@@ -37,7 +37,7 @@ public class Contact {
 	}
 
 	public Object onSuccess() {
-		mailService.sendMail("julien.smadja+neogeodb@gmail.com", comment, title);
+		mailService.sendMail("julien.smadja+neogeodb@gmail.com", "[CONTACT] " + comment, title);
 		message = "Your comment has been successfully sent";
 		return this;
 	}
