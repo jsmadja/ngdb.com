@@ -1,9 +1,13 @@
 package com.ngdb.entities;
 
+import static com.google.common.collect.Collections2.filter;
+import static com.ngdb.ShopItemPredicates.isGameShopItem;
+import static com.ngdb.ShopItemPredicates.isHardwareShopItem;
 import static org.hibernate.criterion.Order.desc;
 import static org.hibernate.criterion.Projections.count;
 import static org.hibernate.criterion.Restrictions.eq;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -111,6 +115,24 @@ public class Market {
 			}
 		}
 		return sellers;
+	}
+
+	public Collection<ShopItem> findAllGamesForSale() {
+		List<ShopItem> allItemsForSale = findAllItemsForSale();
+		return new ArrayList<ShopItem>(filter(allItemsForSale, isGameShopItem));
+	}
+
+	public Collection<ShopItem> findAllHardwaresForSale() {
+		List<ShopItem> allItemsForSale = findAllItemsForSale();
+		return new ArrayList<ShopItem>(filter(allItemsForSale, isHardwareShopItem));
+	}
+
+	public long getNumHardwaresForSale() {
+		return findAllHardwaresForSale().size();
+	}
+
+	public long getNumGamesForSale() {
+		return findAllGamesForSale().size();
 	}
 
 }

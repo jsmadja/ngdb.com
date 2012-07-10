@@ -4,8 +4,6 @@ Les dates des jeux à resaisir
 
 Ajouter le fast Edit
 
-Ajouter filtre sur le market
-
 Les filtres dans le Museum et la collection, c’est un bon début. Il manque également une possibilité de filtrer les autres propriétés, au moins le titre. Est-ce prévu ?
 
 Caracteres Japonais qui passent pas
@@ -17,6 +15,8 @@ Remplir la page About
 Prefixer les objets de mail Commentaire par : [COMMENTAIRE] ou [SOMETHING WRONG]
 
 tiens, une fonction qui serait sympa, ce serait de pouvoir changer entre Jap et Us sans retirer la cartouche de sa collection
+
+Deplacer les ressources statiques js, css, ico, images, dans Apache
 
 -------
 BUGS

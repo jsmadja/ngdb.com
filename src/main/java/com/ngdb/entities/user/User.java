@@ -221,4 +221,20 @@ public class User extends AbstractEntity implements Comparable<User> {
 		return potentialBuys.all();
 	}
 
+	public long getNumHardwaresForSale() {
+		return shop.getNumHardwaresForSale();
+	}
+
+	public long getNumGamesForSale() {
+		return shop.getNumGamesForSale();
+	}
+
+	public Collection<ShopItem> getAllGamesForSale() {
+		return shop.getAllGamesForSale();
+	}
+
+	public Collection<ShopItem> getAllHardwaresForSale() {
+		return shop.getAllHardwaresForSale();
+	}
+
 }

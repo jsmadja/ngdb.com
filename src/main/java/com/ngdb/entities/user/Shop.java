@@ -1,5 +1,8 @@
 package com.ngdb.entities.user;
 
+import static com.google.common.collect.Collections2.filter;
+import static com.ngdb.Predicates.shopItemsForSale;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
@@ -11,8 +14,7 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.google.common.collect.Collections2;
-import com.ngdb.Predicates;
+import com.ngdb.ShopItemPredicates;
 import com.ngdb.entities.shop.ShopItem;
 
 @Embeddable
@@ -27,7 +29,7 @@ public class Shop {
 	}
 
 	public Collection<ShopItem> getShopItemsToSell() {
-		return Collections2.filter(shopItems, Predicates.shopItemsForSale);
+		return filter(shopItems, shopItemsForSale);
 	}
 
 	public int getNumArticlesToSell() {
@@ -36,5 +38,21 @@ public class Shop {
 
 	public boolean contains(ShopItem shopItem) {
 		return shopItems.contains(shopItem);
+	}
+
+	public long getNumHardwaresForSale() {
+		return getAllHardwaresForSale().size();
+	}
+
+	public long getNumGamesForSale() {
+		return getAllGamesForSale().size();
+	}
+
+	public Collection<ShopItem> getAllGamesForSale() {
+		return filter(shopItems, ShopItemPredicates.gamesForSale);
+	}
+
+	public Collection<ShopItem> getAllHardwaresForSale() {
+		return filter(shopItems, ShopItemPredicates.hardwaresForSale);
 	}
 }

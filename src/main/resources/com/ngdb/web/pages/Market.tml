@@ -14,16 +14,78 @@
 		<t:if test="!user">
 			<div class="alert alert-info">You must be registered to buy an article.</div>
 		</t:if>
-		<t:loop source="platforms" value="platform">
-			<t:loop source="origins" value="origin">
-				<t:if test="shopItems">
-					<h2>${platform} from ${origin}</h2>
-						<t:loop source="shopItems" value="shopItem">
-							<t:shopitem.shopitem shopItem="shopItem" />
-						</t:loop>
-					<hr style="clear:both"/>
-				</t:if>
-			</t:loop>
+		
+		<table class="table table-bordered table-condensed">
+			<tr>
+				<td>
+					<t:if test="filteredByGames">
+						<span class="selected-link">
+								<b>Games<span class="counter" >(${numGames})</span></b>
+						</span>
+						<t:actionLink class="btn-mini" t:id="selectHardwares">Hardwares<span class="counter">(${numHardwares})</span></t:actionLink>
+						<p:else>
+							<t:actionLink class="btn-mini" t:id="selectGames">Games (${numGames})</t:actionLink>
+							<span class="selected-link">
+								<b>Hardwares <span class="counter"> (${numHardwares})</span></b>
+							</span>
+						</p:else>
+					</t:if>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<t:loop source="platforms" value="platform">
+						<t:if test="filteredByThisPlatform">
+							<span class="selected-link">
+								<b>${platform.name}<span class="counter"> (${numArticlesInThisPlatform})</span></b>
+							</span>
+							<p:else>
+								<t:if test="articleInThisPlatform">
+									<t:actionLink class="btn-mini" t:id="filterPlatform" id="filterPlatform" context="platform">
+										${platform.name} <span class="counter"> (${numArticlesInThisPlatform})</span>
+									</t:actionLink>
+								</t:if>
+							</p:else>
+						</t:if>
+					</t:loop>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<t:loop source="origins" value="origin">
+						<t:if test="filteredByThisOrigin">
+							<img src="/img/flags/${origin}.png" alt="${origin}" /><span class="counter"> (${numArticlesInThisOrigin})</span>
+							<p:else>
+								<t:if test="articleInThisOrigin">
+									<t:actionLink t:id="filterOrigin" context="origin.id">
+										<button class="btn btn-mini" style="height:30px">
+											<img src="/img/flags/${origin}.png" alt="${origin}" /><span class="counter"> (${numArticlesInThisOrigin})</span>
+										</button>
+									</t:actionLink>
+								</t:if>
+							</p:else>
+						</t:if>
+					</t:loop>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<t:actionLink t:id="clearFilters"
+						class="btn btn-small btn-primary pull-left">Clear filters
+					</t:actionLink>
+				</td>
+			</tr>
+		</table>
+		
+		<p>
+			<b>${numResults}</b> item(s) found for query <b><i><t:outputRaw value="${queryLabel}" /></i></b>
+		</p>
+		
+		<t:loop source="shopItems" value="shopItem">
+			<span class="museum_item">
+				<t:shopitem.shopitem shopItem="shopItem" />
+			</span>
 		</t:loop>
+		
 	</div>
 </t:layout>
