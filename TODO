@@ -1,5 +1,3 @@
-Supprimer les PublisherList
-
 Probleme des pages blanches
 
 Les dates des jeux à resaisir
@@ -8,8 +6,6 @@ Ajouter le fast Edit
 
 Ajouter filtre sur le market
 
-Barre de navigation: apparence en bouton
-
 Les filtres dans le Museum et la collection, c’est un bon début. Il manque également une possibilité de filtrer les autres propriétés, au moins le titre. Est-ce prévu ?
 
 Caracteres Japonais qui passent pas
@@ -17,12 +13,6 @@ Caracteres Japonais qui passent pas
 Trouver un icone pour les plateformes
 
 Remplir la page About
-
-Bug:
-Caused by: java.lang.NullPointerException
-	at com.ngdb.entities.article.element.Review.getMark(Review.java:43)
-	at com.ngdb.entities.article.element.Review.compareTo(Review.java:79)
-	at com.ngdb.entities.article.element.Review.compareTo(Review.java:17)
 
 -------------------
 V1.1
