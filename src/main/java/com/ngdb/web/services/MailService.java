@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
@@ -67,7 +66,7 @@ public class MailService {
 	private MimeMessage createMessage(String receiver, String body, String subject) throws MessagingException {
 		MimeMessage mimeMessage = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
-		if (StringUtils.isBlank(testDestinataire)) {
+		if (!disable) {
 			helper.setTo(receiver);
 		} else {
 			helper.setTo(testDestinataire);
