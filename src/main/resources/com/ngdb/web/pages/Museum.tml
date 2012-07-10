@@ -120,7 +120,7 @@
 				</span>
 			</t:loop>
 			<p:else>
-				<t:grid source="articles" include="title" add="origin,platform,action" pagePosition="bottom" class="table table-striped table-bordered table-condensed" row="article">
+				<t:grid source="articles" include="title" add="origin,platform,action" pagerPosition="BOTH" class="table table-striped table-bordered table-condensed" row="article">
 					<p:titleCell>
 						<t:pageLink page="${viewPage}" context="article.id">${article.title}</t:pageLink>
 					</p:titleCell>

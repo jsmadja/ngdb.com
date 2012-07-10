@@ -3,7 +3,7 @@
 		<div class="page-header">
 			<h1 class="orange-bar rounded-bar big-bar">Wishes</h1>
 		</div>
-		<t:grid source="wishes" 
+		<t:grid pagerPosition="BOTH" source="wishes" 
 				row="wish" 
 				include="title, user, wishDate"
 				rowsPerPage="20"

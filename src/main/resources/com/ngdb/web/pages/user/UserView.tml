@@ -12,7 +12,7 @@
 			</p>
 			
 			<h2>Current orders</h2>
-			<t:grid include="title,details" add="price,seller" source="currentOrders" row="currentOrder" rowsPerPage="20" class="table table-striped table-bordered table-condensed">
+			<t:grid pagerPosition="BOTH" include="title,details" add="price,seller" source="currentOrders" row="currentOrder" rowsPerPage="20" class="table table-striped table-bordered table-condensed">
 				<p:priceCell>
 					${orderPrice}
 				</p:priceCell>
@@ -22,7 +22,7 @@
 			</t:grid>
 
 			<h2>${user.login}'s wish list</h2>
-			<t:grid source="user.wishes" row="wish" rowsPerPage="20"
+			<t:grid pagerPosition="BOTH" source="user.wishes" row="wish" rowsPerPage="20"
 				include="title,wishDate" reorder="title" add="sellers" class="table table-striped table-bordered table-condensed">
 				<p:titleHeader>Article</p:titleHeader>
 				<p:titleCell>
@@ -48,7 +48,7 @@
 			<hr />
 
 			<h2>${user.login}'s shop</h2>
-			<t:grid source="user.shopItemsForSale" row="shopItem"
+			<t:grid pagerPosition="BOTH" source="user.shopItemsForSale" row="shopItem"
 				rowsPerPage="20" include="title, details" add="price, potentialBuyers"
 				reorder="title,details,price,potentialBuyers" class="table table-striped table-bordered table-condensed">
 				<p:titleHeader>Article</p:titleHeader>

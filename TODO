@@ -21,8 +21,6 @@ BUGS
 -------
 un peu d'ajax pour les boutons (par exemple bouton +/- dans ma collection) plutôt que de recharger la page aurait été bienvenu (en plus à chaque clic on revient en haut de la liste)
 --------------------------------------------------
-Qd on regarde la liste des jeux (par exemple la liste des MVS), les numéros de page sont en haut de la liste, mais pas en bas (les boutons permettant de passer d'une page à l'autre). Lorsqu'on est en bas de la liste, on est obligé de scroller vers le haut pour changer de page.
---------------------------------------------------
 Il manque métal slug 5, SVC Chaos dans la liste des MVS
 --------------------------------------------------
 J'ai eu page blanche 2 fois en changeant d'une page à l'autre de la liste ou au bout du 5 ou 6ème clic sur un bouton + dans la liste; Seul un rechargement complet de la page permet de revenir à une situation normale. J'ai eu l'impression qu'il y avait un problème avec ma session
