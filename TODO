@@ -25,10 +25,6 @@ Il manque métal slug 5, SVC Chaos dans la liste des MVS
 --------------------------------------------------
 J'ai eu page blanche 2 fois en changeant d'une page à l'autre de la liste ou au bout du 5 ou 6ème clic sur un bouton + dans la liste; Seul un rechargement complet de la page permet de revenir à une situation normale. J'ai eu l'impression qu'il y avait un problème avec ma session
 --------------------------------------------------
-Les erreurs ne sont pas trapés . la requête :
-http://www.neogeodb.com/shop/itemcre...09090909090909 , sur un item qui n'existe pas permet d'obtenir un message d'erreur et des infos sur les api utilisées
-en fait c'est dès qu'on dépasse la taille de stockage d'un long, il faudrait faire un substring
---------------------------------------------------
 Dans contact, le commentaire est censé être obligatoire, il ne l'ai pas. 
 
 -------------------
