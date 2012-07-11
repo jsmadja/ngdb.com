@@ -25,18 +25,6 @@ DB
 
 Il manque métal slug 5, SVC Chaos dans la liste des MVS
 
---------------------------------------------------
-Dans contact, le commentaire est censé être obligatoire, il ne l'ai pas. 
-
-Caused by: java.lang.NumberFormatException: null
-	at java.lang.Long.parseLong(Long.java:375)
-	at java.lang.Long.valueOf(Long.java:525)
-	at com.ngdb.web.pages.Museum.onActivate(Museum.java:82)
-	at com.ngdb.web.pages.Museum.dispatchComponentEvent(Museum.java)
-	at org.apache.tapestry5.internal.structure.ComponentPageElementImpl.dispatchEvent(ComponentPageElementImpl.java:923)
-	at org.apache.tapestry5.internal.structure.ComponentPageElementImpl.processEventTriggering(ComponentPageElementImpl.java:1106)
-	... 77 more
-
 -------------------
 V1.1
 -------------------

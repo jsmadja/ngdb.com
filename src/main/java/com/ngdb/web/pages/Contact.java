@@ -15,6 +15,7 @@ public class Contact {
 	private String title;
 
 	@Property
+	@Validate("required")
 	private String comment;
 
 	@Persist
