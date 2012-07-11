@@ -1,9 +1,12 @@
 package com.ngdb.web.components.article;
 
+import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.article.Article;
@@ -29,6 +32,12 @@ public class ActionBlock {
 	@Property
 	@Parameter
 	private String returnPage;
+
+	@Inject
+	private AjaxResponseRenderer ajaxResponseRenderer;
+
+	@InjectComponent
+	private Zone actionBlockZone;
 
 	public boolean isAddableToCollection() {
 		return currentUser.canAddToCollection(article);
@@ -60,14 +69,15 @@ public class ActionBlock {
 	}
 
 	@CommitAfter
-	Object onActionFromCollection(Article article) {
+	void onAddToCollection(Article article) {
 		currentUser.addToCollection(article);
-		return returnPage;
+		ajaxResponseRenderer.addRender(actionBlockZone);
 	}
 
 	@CommitAfter
 	Object onActionFromCollectionLink(Article article) {
-		return onActionFromCollection(article);
+		currentUser.addToCollection(article);
+		return returnPage;
 	}
 
 	@CommitAfter

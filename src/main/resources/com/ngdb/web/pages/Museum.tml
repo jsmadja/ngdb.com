@@ -16,7 +16,7 @@
 				<td>
 					<t:if test="filteredByGames">
 						<span class="selected-link">
-								<b>Games<span class="counter" >(${numGames})</span></b>
+							<b>Games<span class="counter" >(${numGames})</span></b>
 						</span>
 						<t:actionLink class="btn-mini" t:id="selectHardwares">Hardwares<span class="counter">(${numHardwares})</span></t:actionLink>
 						<p:else>

@@ -1,93 +1,95 @@
 <span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter" class="pull-right" >
 	<t:if test="user">
-		<t:if test="asButton">
-			<div class="btn-group">
-	  			<t:if test="buyable">
-					<t:pageLink t:id="buy" class="btn btn-warning" page="market" context="literal:byArticle,article.id" t:mixins="jquery/tooltip" title="View items for sale">
-						<i class="icon-shopping-cart icon-white"></i>
-					</t:pageLink>
-				</t:if>
-				<t:if test="sellable">
-					<t:pageLink t:id="sellButton" class="btn btn-success" page="shop/shopItemCreate" context="article" t:mixins="jquery/tooltip" title="Sell yours">
-						<i class="icon-share icon-white" />
-					</t:pageLink>
-				</t:if>
-				<t:if test="wishable">
-					<t:actionLink class="btn btn-success" t:id="wish" context="article" t:mixins="jquery/tooltip" title="Add to your wishlist">
-						<i class="icon-heart icon-white" />
-					</t:actionLink>
-				</t:if>
-				<t:if test="unwishable">
-					<t:actionLink class="btn btn-danger" t:id="unwish" context="article" t:mixins="jquery/tooltip" title="Remove from your wishlist">
-						<i class="icon-fire icon-white" />
-					</t:actionLink>				
-				</t:if>
-				<t:if test="addableToCollection">
-					<t:actionLink class="btn btn-success" t:id="collection" context="article" t:mixins="jquery/tooltip" title="Add to your collection">
-						<i class="icon-plus icon-white" />
-					</t:actionLink>
-				</t:if>
-				<t:if test="removeableFromCollection">
-					<t:actionLink class="btn btn-danger" t:id="removeCollection" context="article" t:mixins="jquery/tooltip" title="Remove from your collection">
-						<i class="icon-minus icon-white" />
-					</t:actionLink>
-				</t:if>
-				</div>
-			<p:else>
-				<div class="btn-group pull-right">
-					<a class="btn dropdown-toggle pull-right" data-toggle="dropdown" href="#">
-						Actions
-						<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li>
-							<t:common.action.editButton article="article" asButton="false" />
-						</li>
-						<t:if test="buyable">
+        <t:zone t:id="actionBlockZone">
+			<t:if test="asButton">
+				<div class="btn-group">
+		  			<t:if test="buyable">
+						<t:pageLink t:id="buy" class="btn btn-warning" page="market" context="literal:byArticle,article.id" t:mixins="jquery/tooltip" title="View items for sale">
+							<i class="icon-shopping-cart icon-white"></i>
+						</t:pageLink>
+					</t:if>
+					<t:if test="sellable">
+						<t:pageLink t:id="sellButton" class="btn btn-success" page="shop/shopItemCreate" context="article" t:mixins="jquery/tooltip" title="Sell yours">
+							<i class="icon-share icon-white" />
+						</t:pageLink>
+					</t:if>
+					<t:if test="wishable">
+						<t:actionLink class="btn btn-success" t:id="wish" context="article" t:mixins="jquery/tooltip" title="Add to your wishlist">
+							<i class="icon-heart icon-white" />
+						</t:actionLink>
+					</t:if>
+					<t:if test="unwishable">
+						<t:actionLink class="btn btn-danger" t:id="unwish" context="article" t:mixins="jquery/tooltip" title="Remove from your wishlist">
+							<i class="icon-fire icon-white" />
+						</t:actionLink>				
+					</t:if>
+					<t:if test="addableToCollection">
+						<t:eventLink class="btn btn-success" zone="actionBlockZone" t:event="addToCollection" context="article" t:mixins="jquery/tooltip" title="Add to your collection">
+							<i class="icon-plus icon-white" />
+						</t:eventLink>
+					</t:if>
+					<t:if test="removeableFromCollection">
+						<t:actionLink class="btn btn-danger" t:id="removeCollection" context="article" t:mixins="jquery/tooltip" title="Remove from your collection">
+							<i class="icon-minus icon-white" />
+						</t:actionLink>
+					</t:if>
+					</div>
+				<p:else>
+					<div class="btn-group pull-right">
+						<a class="btn dropdown-toggle pull-right" data-toggle="dropdown" href="#">
+							Actions
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
 							<li>
-								<t:pageLink t:id="buyLink" page="market" context="literal:byArticle,article.id">
-									<i class="icon-shopping-cart"/> View items for sale
-								</t:pageLink>
+								<t:common.action.editButton article="article" asButton="false" />
 							</li>
-						</t:if>
-						<t:if test="sellable">
-							<li>
-								<t:pageLink t:id="sell" page="shop/shopItemCreate" context="article">
-									<i class="icon-share" /> Sell yours
-								</t:pageLink>
-							</li>
-						</t:if>
-						<t:if test="wishable">
-							<li>
-								<t:actionLink t:id="wishLink" context="article">
-									<i class="icon-heart" /> Add to your wishlist
-								</t:actionLink>
-							</li>
-						</t:if>
-						<t:if test="unwishable">
-							<li>
-								<t:actionLink t:id="unwishLink" context="article">
-									<i class="icon-fire" /> Remove from your wishlist
-								</t:actionLink>
-							</li>
-						</t:if>
-						<t:if test="addableToCollection">
-							<li>
-								<t:actionLink t:id="collectionLink" context="article" >
-									<i class="icon-plus" /> Add to your collection
-								</t:actionLink>
-							</li>
-						</t:if>
-						<t:if test="removeableFromCollection">
-							<li>
-								<t:actionLink t:id="removeCollectionLink" context="article" >
-									<i class="icon-minus" />Remove from your collection
-								</t:actionLink>
-							</li>
-						</t:if>
-					</ul>
-				</div>
-			</p:else>
-		</t:if>
+							<t:if test="buyable">
+								<li>
+									<t:pageLink t:id="buyLink" page="market" context="literal:byArticle,article.id">
+										<i class="icon-shopping-cart"/> View items for sale
+									</t:pageLink>
+								</li>
+							</t:if>
+							<t:if test="sellable">
+								<li>
+									<t:pageLink t:id="sell" page="shop/shopItemCreate" context="article">
+										<i class="icon-share" /> Sell yours
+									</t:pageLink>
+								</li>
+							</t:if>
+							<t:if test="wishable">
+								<li>
+									<t:actionLink t:id="wishLink" context="article">
+										<i class="icon-heart" /> Add to your wishlist
+									</t:actionLink>
+								</li>
+							</t:if>
+							<t:if test="unwishable">
+								<li>
+									<t:actionLink t:id="unwishLink" context="article">
+										<i class="icon-fire" /> Remove from your wishlist
+									</t:actionLink>
+								</li>
+							</t:if>
+							<t:if test="addableToCollection">
+								<li>
+									<t:actionLink t:id="collectionLink" context="article" >
+										<i class="icon-plus" /> Add to your collection
+									</t:actionLink>
+								</li>
+							</t:if>
+							<t:if test="removeableFromCollection">
+								<li>
+									<t:actionLink t:id="removeCollectionLink" context="article" >
+										<i class="icon-minus" />Remove from your collection
+									</t:actionLink>
+								</li>
+							</t:if>
+						</ul>
+					</div>
+				</p:else>
+			</t:if>
+		</t:zone>
 	</t:if>
 </span>
