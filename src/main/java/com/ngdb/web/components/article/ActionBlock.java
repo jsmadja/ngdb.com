@@ -69,42 +69,42 @@ public class ActionBlock {
 	}
 
 	@CommitAfter
-	void onAddToCollection(Article article) {
+	void onActionFromAddToCollection(Article article) {
+		this.article = article;
 		currentUser.addToCollection(article);
+		ajaxResponseRenderer.addRender(getZoneId(), actionBlockZone.getBody());
+	}
+
+	@CommitAfter
+	void onActionFromRemoveCollection(Article article) {
+		this.article = article;
+		currentUser.removeFromCollection(article);
 		ajaxResponseRenderer.addRender(actionBlockZone);
 	}
 
 	@CommitAfter
-	Object onActionFromCollectionLink(Article article) {
-		currentUser.addToCollection(article);
-		return returnPage;
+	void onActionFromUnwish(Article article) {
+		this.article = article;
+		currentUser.unwish(article);
+		ajaxResponseRenderer.addRender(actionBlockZone);
 	}
 
 	@CommitAfter
-	Object onActionFromRemoveCollection(Article article) {
-		currentUser.removeFromCollection(article);
-		return returnPage;
+	void onActionFromWish(Article article) {
+		this.article = article;
+		currentUser.wish(article);
+		ajaxResponseRenderer.addRender(actionBlockZone);
 	}
 
 	@CommitAfter
-	Object onActionFromRemoveCollectionLink(Article article) {
-		return onActionFromRemoveCollection(article);
-	}
-
-	@CommitAfter
-	Object onActionFromUnwish(Article article) {
+	Object onActionFromUnwishLink(Article article) {
 		currentUser.unwish(article);
 		return returnPage;
 	}
 
 	@CommitAfter
-	Object onActionFromUnwishLink(Article article) {
-		return onActionFromUnwish(article);
-	}
-
-	@CommitAfter
-	Object onActionFromWish(Article article) {
-		currentUser.wish(article);
+	Object onActionFromRemoveCollectionLink(Article article) {
+		currentUser.removeFromCollection(article);
 		return returnPage;
 	}
 
@@ -113,4 +113,15 @@ public class ActionBlock {
 		currentUser.wish(article);
 		return returnPage;
 	}
+
+	@CommitAfter
+	Object onActionFromCollectionLink(Article article) {
+		currentUser.addToCollection(article);
+		return returnPage;
+	}
+
+	public String getZoneId() {
+		return "actionBlockZone_" + article.getId().toString();
+	}
+
 }

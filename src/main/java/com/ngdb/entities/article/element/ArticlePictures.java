@@ -26,7 +26,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class ArticlePictures implements Iterable<Picture> {
 
 	@ElementCollection
-	@OneToMany(mappedBy = "article", fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy = "article", fetch = FetchType.LAZY, orphanRemoval = true)
 	@XmlElements({ @XmlElement(name = "picture") })
 	private Set<Picture> pictures = new HashSet<Picture>();
 

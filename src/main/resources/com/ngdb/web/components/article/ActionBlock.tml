@@ -1,35 +1,35 @@
 <span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter" class="pull-right" >
 	<t:if test="user">
-        <t:zone t:id="actionBlockZone">
+        <t:zone t:id="actionBlockZone" id="${zoneId}">
 			<t:if test="asButton">
 				<div class="btn-group">
 		  			<t:if test="buyable">
-						<t:pageLink t:id="buy" class="btn btn-warning" page="market" context="literal:byArticle,article.id" t:mixins="jquery/tooltip" title="View items for sale">
+						<t:pageLink t:id="buy" class="btn btn-warning" page="market" context="literal:byArticle,article.id" title="View items for sale">
 							<i class="icon-shopping-cart icon-white"></i>
 						</t:pageLink>
 					</t:if>
 					<t:if test="sellable">
-						<t:pageLink t:id="sellButton" class="btn btn-success" page="shop/shopItemCreate" context="article" t:mixins="jquery/tooltip" title="Sell yours">
+						<t:pageLink t:id="sellButton" class="btn btn-success"  page="shop/shopItemCreate" context="article" title="Sell yours">
 							<i class="icon-share icon-white" />
 						</t:pageLink>
 					</t:if>
 					<t:if test="wishable">
-						<t:actionLink class="btn btn-success" t:id="wish" context="article" t:mixins="jquery/tooltip" title="Add to your wishlist">
+						<t:actionLink class="btn btn-success" zone="prop:zoneId" t:id="wish" context="article" title="Add to your wishlist">
 							<i class="icon-heart icon-white" />
 						</t:actionLink>
 					</t:if>
 					<t:if test="unwishable">
-						<t:actionLink class="btn btn-danger" t:id="unwish" context="article" t:mixins="jquery/tooltip" title="Remove from your wishlist">
+						<t:actionLink class="btn btn-danger" zone="prop:zoneId" t:id="unwish" context="article" title="Remove from your wishlist">
 							<i class="icon-fire icon-white" />
 						</t:actionLink>				
 					</t:if>
 					<t:if test="addableToCollection">
-						<t:eventLink class="btn btn-success" zone="actionBlockZone" t:event="addToCollection" context="article" t:mixins="jquery/tooltip" title="Add to your collection">
+						<t:actionLink class="btn btn-success" zone="prop:zoneId" t:id="addToCollection" context="article">
 							<i class="icon-plus icon-white" />
-						</t:eventLink>
+						</t:actionLink>
 					</t:if>
 					<t:if test="removeableFromCollection">
-						<t:actionLink class="btn btn-danger" t:id="removeCollection" context="article" t:mixins="jquery/tooltip" title="Remove from your collection">
+						<t:actionLink class="btn btn-danger"  zone="prop:zoneId" t:id="removeCollection" context="article">
 							<i class="icon-minus icon-white" />
 						</t:actionLink>
 					</t:if>
