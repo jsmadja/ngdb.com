@@ -8,21 +8,21 @@
 			<h2>Collection</h2>
 			<p>Use <b>neogeodb</b> online anytime to track down your collection in any available format. Report errors on doubtful titles to warn others.</p>
 			<p>
-				<a class="btn" href="http://www.neogeodb.com/museum">View <b>${articleCount}</b> articles in the museum &raquo;</a>
+				<a class="btn" href="/museum">View <b>${articleCount}</b> articles in the museum &raquo;</a>
 			</p>
 		</div>
 		<div class="span4">
 			<h2>WishList</h2>
 			<p>Looking for rare titles? Setup your Wishlist and receive instant notification by Email when one of them is added to a User Shop.</p>
 			<p>
-				<a class="btn" href="http://www.neogeodb.com/wishBox">View what our <b>${memberCount}</b> members want &raquo;</a>
+				<a class="btn" href="/wishBox">View what our <b>${memberCount}</b> members want &raquo;</a>
 			</p>
 		</div>
 		<div class="span4">
 			<h2>Personal Shop</h2>
 			<p>Want to free some shelf space and generate cash from your collection? Start selling at will using all <b>neogeodb</b> past sales statistics and best offers from buyers to fine-tune your prices.</p>
 			<p>
-				<a class="btn" href="http://www.neogeodb.com/market">View the <b>${shopItemCount}</b> articles for sale &raquo;</a>
+				<a class="btn" href="/market">View the <b>${shopItemCount}</b> articles for sale &raquo;</a>
 			</p>
 		</div>
 	</div>
