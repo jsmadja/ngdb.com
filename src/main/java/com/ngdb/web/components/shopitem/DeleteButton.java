@@ -1,7 +1,5 @@
 package com.ngdb.web.components.shopitem;
 
-import static com.ngdb.web.Category.byUser;
-
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -38,7 +36,6 @@ public class DeleteButton {
 	@CommitAfter
 	Object onActionFromRemove(ShopItem shopItem) {
 		session.delete(shopItem);
-		marketPage.setUser(currentUser.getUser());
 		return marketPage;
 	}
 
@@ -50,7 +47,6 @@ public class DeleteButton {
 	@CommitAfter
 	Object onActionFromRemove() {
 		market.remove(shopItem);
-		marketPage.setCategory(byUser);
 		return marketPage;
 	}
 }

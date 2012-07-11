@@ -2,6 +2,7 @@ package com.ngdb.web.components.article;
 
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.ngdb.entities.ArticleFactory;
@@ -24,6 +25,10 @@ public class ActionBlock {
 
 	@Inject
 	private ArticleFactory articleFactory;
+
+	@Property
+	@Parameter
+	private String returnPage;
 
 	public boolean isAddableToCollection() {
 		return currentUser.canAddToCollection(article);
@@ -54,4 +59,48 @@ public class ActionBlock {
 		return currentUser.getUser();
 	}
 
+	@CommitAfter
+	Object onActionFromCollection(Article article) {
+		currentUser.addToCollection(article);
+		return returnPage;
+	}
+
+	@CommitAfter
+	Object onActionFromCollectionLink(Article article) {
+		return onActionFromCollection(article);
+	}
+
+	@CommitAfter
+	Object onActionFromRemoveCollection(Article article) {
+		currentUser.removeFromCollection(article);
+		return returnPage;
+	}
+
+	@CommitAfter
+	Object onActionFromRemoveCollectionLink(Article article) {
+		return onActionFromRemoveCollection(article);
+	}
+
+	@CommitAfter
+	Object onActionFromUnwish(Article article) {
+		currentUser.unwish(article);
+		return returnPage;
+	}
+
+	@CommitAfter
+	Object onActionFromUnwishLink(Article article) {
+		return onActionFromUnwish(article);
+	}
+
+	@CommitAfter
+	Object onActionFromWish(Article article) {
+		currentUser.wish(article);
+		return returnPage;
+	}
+
+	@CommitAfter
+	Object onActionFromWishLink(Article article) {
+		currentUser.wish(article);
+		return returnPage;
+	}
 }
