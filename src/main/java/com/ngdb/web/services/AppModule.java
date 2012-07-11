@@ -21,7 +21,6 @@ import org.apache.tapestry5.ioc.internal.util.TapestryException;
 import org.apache.tapestry5.ioc.services.SymbolProvider;
 import org.apache.tapestry5.ioc.services.SymbolSource;
 import org.apache.tapestry5.services.AssetSource;
-import org.apache.tapestry5.services.linktransform.ComponentEventLinkTransformer;
 import org.apache.tapestry5.services.linktransform.PageRenderLinkTransformer;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.VelocityException;
@@ -107,12 +106,6 @@ public class AppModule {
 	@Primary
 	public static void provideURLRewriting(OrderedConfiguration<PageRenderLinkTransformer> configuration) {
 		configuration.addInstance("Faces", NeoGeoDbLinkTransformer.class);
-	}
-
-	@Primary
-	@Contribute(ComponentEventLinkTransformer.class)
-	public static void provideURLEventRewriting(OrderedConfiguration<ComponentEventLinkTransformer> configuration) {
-		configuration.addInstance("Faces", NeoGeoDbEventLinkTransformer.class);
 	}
 
 	@Contribute(SymbolSource.class)
