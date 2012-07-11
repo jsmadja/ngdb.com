@@ -69,6 +69,10 @@ public class Museum {
 	}
 
 	boolean onActivate(String filterName, String value) {
+		if (value == null) {
+			onActivate();
+			return true;
+		}
 		museumFilter = new MuseumFilter(gameFactory, hardwareFactory);
 		Filter filter = Filter.valueOf(Filter.class, filterName);
 		switch (filter) {
