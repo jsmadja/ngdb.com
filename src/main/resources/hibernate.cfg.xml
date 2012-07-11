@@ -20,7 +20,10 @@
 		<property name="hibernate.cache.use_structured_entries">false</property>
 		<property name="hibernate.cache.region_prefix"></property>
 		
-		<property name="hibernate.generate_statistics">false</property> 
+		<property name="hibernate.generate_statistics">false</property>
+		
+		<property name="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+		 
 	</session-factory>
 </hibernate-configuration>
 
