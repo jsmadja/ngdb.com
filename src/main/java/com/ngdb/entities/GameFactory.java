@@ -4,12 +4,10 @@ import static com.google.common.collect.Collections2.filter;
 import static com.ngdb.Predicates.releasedThisMonth;
 import static org.hibernate.criterion.Order.asc;
 import static org.hibernate.criterion.Projections.rowCount;
-import static org.hibernate.criterion.Restrictions.between;
 import static org.hibernate.criterion.Restrictions.eq;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.math.RandomUtils;
@@ -20,10 +18,6 @@ import org.hibernate.Session;
 import com.google.common.base.Predicate;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
-import com.ngdb.entities.article.element.Tag;
-import com.ngdb.entities.reference.Origin;
-import com.ngdb.entities.reference.Platform;
-import com.ngdb.entities.reference.Publisher;
 import com.ngdb.entities.user.User;
 
 @SuppressWarnings("unchecked")
@@ -32,24 +26,8 @@ public class GameFactory {
 	@Inject
 	private Session session;
 
-	public List<Game> findAllByReleaseDate(Date releaseDate) {
-		return allGames().add(between("releaseDate", releaseDate, releaseDate)).list();
-	}
-
 	public List<Game> findAllByNgh(String ngh) {
 		return allGames().add(eq("ngh", ngh)).list();
-	}
-
-	public List<Game> findAllByPlatform(Platform platform) {
-		return allGames().add(eq("platform", platform)).list();
-	}
-
-	public List<Game> findAllByOrigin(Origin origin) {
-		return allGames().add(eq("origin", origin)).list();
-	}
-
-	public List<Game> findAllByPublisher(Publisher publisher) {
-		return allGames().add(eq("publisher", publisher)).list();
 	}
 
 	public Long getNumGames() {
@@ -76,21 +54,6 @@ public class GameFactory {
 	public Game getRandomGameWithMainPicture() {
 		List<Game> gamesWithMainPicture = findAllWithMainPicture();
 		return gamesWithMainPicture.get(RandomUtils.nextInt(gamesWithMainPicture.size()));
-	}
-
-	public Collection<Game> findAllByOriginAndPlatform(Origin origin, Platform platform) {
-		return allGames().add(eq("origin", origin)).add(eq("platform", platform)).list();
-	}
-
-	public List<Game> findAllByTag(final Tag tag) {
-		Criteria criteria = allGames();
-		Predicate<Game> additionnalFilter = new Predicate<Game>() {
-			@Override
-			public boolean apply(Game game) {
-				return game.containsTag(tag);
-			}
-		};
-		return new ArrayList<Game>(filter(criteria.list(), additionnalFilter));
 	}
 
 	public List<Article> findAllOwnedBy(final User owner) {
