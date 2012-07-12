@@ -9,7 +9,7 @@
 								<t:article.thumbnail article="shopItem.article" noClick="true" size="literal:small" center="true"/>
 							</p>
 							<p>
-								<span style="margin-right:10px">${shopItem.title}</span> <t:common.platform platform="shopItem.article.platform"/>
+								<span style="margin-right:10px;font-size:9pt">${shopItem.title}</span> <t:common.platform platform="shopItem.article.platform"/>
 							</p>
 							<p>	
 								<span class="price-label">${price}</span>
