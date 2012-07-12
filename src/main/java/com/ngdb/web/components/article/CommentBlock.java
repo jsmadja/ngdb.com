@@ -37,11 +37,10 @@ public class CommentBlock {
 	private GameFactory gameFactory;
 
 	@CommitAfter
-	public Object onSuccess() {
+	public void onSuccess() {
 		if (isNotBlank(commentText)) {
 			currentUser.addCommentOn(article, commentText);
 		}
-		return this;
 	}
 
 	public boolean getHasNoComments() {
