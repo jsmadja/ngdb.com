@@ -13,7 +13,6 @@ import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.Resource;
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
-import org.apache.tapestry5.ioc.annotations.Primary;
 import org.apache.tapestry5.ioc.annotations.SubModule;
 import org.apache.tapestry5.ioc.internal.services.ResourceSymbolProvider;
 import org.apache.tapestry5.ioc.internal.util.ClasspathResource;
@@ -21,7 +20,6 @@ import org.apache.tapestry5.ioc.internal.util.TapestryException;
 import org.apache.tapestry5.ioc.services.SymbolProvider;
 import org.apache.tapestry5.ioc.services.SymbolSource;
 import org.apache.tapestry5.services.AssetSource;
-import org.apache.tapestry5.services.linktransform.PageRenderLinkTransformer;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.VelocityException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -100,12 +98,6 @@ public class AppModule {
 		sender.setDefaultEncoding("UTF-8");
 		sender.setHost("localhost");
 		return sender;
-	}
-
-	@Contribute(PageRenderLinkTransformer.class)
-	@Primary
-	public static void provideURLRewriting(OrderedConfiguration<PageRenderLinkTransformer> configuration) {
-		configuration.addInstance("Faces", NeoGeoDbLinkTransformer.class);
 	}
 
 	@Contribute(SymbolSource.class)
