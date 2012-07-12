@@ -20,6 +20,10 @@ Deplacer les ressources statiques js, css, ico, images, dans Apache
 BUGS
 -------
 
+[WARN] TapestryModule.ComponentInstanceResultProcessor Component article/hardware/View:commentblock was returned from an event handler method, but is not a page component. The page containing the component will render the client response.
+
+Les commentaires d un article ne sont pas triés
+
 DB
 ***
 
