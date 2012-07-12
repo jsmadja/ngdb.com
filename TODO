@@ -25,6 +25,8 @@ Manque un <hr> dans la page userView pour separer current orders et wishlist
 BUGS
 -------
 
+Ne pas afficher deux fois le meme jeu dans la home
+
 WARN  [org.apache.tapestry5.services.TapestryModule.ComponentInstanceResultProcessor] Component article/hardware/View:commentblock was returned from an event handler method, but is not a page component. The page containing the component will render the client response.
 
 A TESTER: Les commentaires d un article ne sont pas triés
