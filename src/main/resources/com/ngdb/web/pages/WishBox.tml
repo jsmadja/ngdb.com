@@ -12,7 +12,7 @@
 					<img class="picture" style="float:left" src="${message:image.host.url}${mainPictureUrl}" title="${wish.article.title}" />
             		<t:pageLink page="${viewPage}" context="wish.article">${wish.article.title}</t:pageLink>
             		<br/><br/>
-            		<img src="/img/flags/${wish.article.origin}.png" alt="${wish.article.origin}" /> ${wish.article.platform.name}
+            		<img src="/img/flags/${wish.article.origin}.png" alt="${wish.article.origin}" /> <t:common.platform platform="wish.article.platform"/>
                 </p:titleCell>
                 <p:userCell>
                 	<t:pageLink page="user/userView" context="wish.wisher"><b>${wish.wisher.login}</b></t:pageLink>

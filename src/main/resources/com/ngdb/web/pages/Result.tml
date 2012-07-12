@@ -10,7 +10,7 @@
 					<t:article.thumbnail article="result" size="literal:small" />
           			<t:pageLink page="${viewPage}" context="result.id">${result.title}</t:pageLink>
           			<br/><br/>
-            		<img src="/img/flags/${result.origin}.png" alt="${result.origin}" /> ${result.platform.name}
+            		<img src="/img/flags/${result.origin}.png" alt="${result.origin}" /> <t:common.platform platform="result.platform"/>
                 </p:titleCell>
                 <p:actionsCell>
 					<t:article.actionBlock asButton="true" article="result" />

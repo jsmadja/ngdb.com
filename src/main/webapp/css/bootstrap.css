@@ -5011,11 +5011,13 @@ TABLE.t-data-grid THEAD TR TH {
 	color:#606060;
 }
 
+/*
 .article h1.header span {
     color: #666666;
     font-size: 15px;
     font-weight: normal;
 }
+*/
 
 .nobr {
     white-space: nowrap;
@@ -5137,7 +5139,7 @@ TABLE.t-data-grid THEAD TR TH {
 	list-style: none;	
 }
 
-.rounded-bar {
+.rounded-bar, .platformLabel, .price-label {
     border-radius: 5px 5px 5px 5px;
     color: white;
     height: 30px;
@@ -5151,7 +5153,7 @@ TABLE.t-data-grid THEAD TR TH {
     padding-top: 3px;
 }
 
-.small-bar {
+.small-bar, .platformLabel, .price-label {
     font-size: 12pt;
     width: 100%;
     text-transform:uppercase;
@@ -5168,7 +5170,7 @@ TABLE.t-data-grid THEAD TR TH {
     text-shadow: 0 0 0 #333333;
 }
 
-.orange-bar {
+.orange-bar, .price-label {
 	background: #ffb76b; /* Old browsers */
 	background: -moz-linear-gradient(top,  #ffb76b 0%, #ffa73d 50%, #ff7c00 51%, #ff7f04 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb76b), color-stop(50%,#ffa73d), color-stop(51%,#ff7c00), color-stop(100%,#ff7f04)); /* Chrome,Safari4+ */
@@ -5190,7 +5192,7 @@ TABLE.t-data-grid THEAD TR TH {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6db3f2', endColorstr='#1e69de',GradientType=0 ); /* IE6-9 */
 }
 
-.black-bar {
+.black-bar, .platformLabel {
 	background: #aebcbf;
 	background: -moz-linear-gradient(top,  #aebcbf 0%, #6e7774 50%, #0a0e0a 51%, #0a0809 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#aebcbf), color-stop(50%,#6e7774), color-stop(51%,#0a0e0a), color-stop(100%,#0a0809));
@@ -5211,4 +5213,22 @@ TABLE.t-data-grid THEAD TR TH {
 .selected-link {
 	font-size: 9pt;
 	color:orange;	
+}
+
+.platformLabel {
+  font-size: 8pt;
+  padding:2px 4px 2px;
+}
+
+.platformLabel:hover {
+	color:orange;	
+}
+
+.price-label {
+  font-size: 12pt;
+  padding:2px 9px 2px;
+}
+
+.price-label:hover {
+	color:white;	
 }

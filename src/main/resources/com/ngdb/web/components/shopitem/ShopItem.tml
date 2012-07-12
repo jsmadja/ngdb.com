@@ -23,7 +23,7 @@
 					<t:if test="user">
 						<t:common.action.buyButton shopItem="shopItem" />
 						<p:else>
-							<span class="label label-warning" style="font-size:9pt;font-weight:bold">${price}</span>
+							<span class="price-label">${price}</span>
 						</p:else>
 					</t:if>
 					by

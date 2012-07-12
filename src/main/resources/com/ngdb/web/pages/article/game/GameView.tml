@@ -29,7 +29,7 @@
 						<t:article.actionBlock article="game" />
 					</h1>
 					<div class="subtitle">
-						#${game.id}<t:pagelink page="museum" context="[byPlatform,game.platform]"> ${game.platform.name} <t:pagelink page="museum" context="[byNgh,game.ngh]">${ngh}</t:pagelink> </t:pagelink><span class="pipe"> - </span><t:pagelink page="museum" context="[byPublisher,game.publisher]"> ${game.publisher?.name} </t:pagelink> 
+						#${game.id}<t:pagelink page="museum" context="[byPlatform,game.platform]"><t:common.platform platform="game.platform"/><t:pagelink page="museum" context="[byNgh,game.ngh]">${ngh}</t:pagelink> </t:pagelink><span class="pipe"> - </span><t:pagelink page="museum" context="[byPublisher,game.publisher]"> ${game.publisher?.name} </t:pagelink> 
 					</div>
 				</div>
 				

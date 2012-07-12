@@ -32,7 +32,7 @@
 					<t:pageLink page="${viewPage}" context="wish.article">
 						${wish.article.title} </t:pageLink>
 					-
-					<span class="subtitle">${wish.article.platform.name}</span>
+					<span class="subtitle"><t:common.platform platform="wish.article.platform"/></span>
 				</p:titleCell>
 				<p:sellersHeader>
 					Sellers
@@ -59,7 +59,7 @@
 					</t:pageLink>
 					<br />
 					<img src="/img/flags/${shopItem.article.origin}.png" alt="${shopItem.article.origin}" />
-					<span class="subtitle">${shopItem.article.platform.name}</span>
+					<span class="subtitle"><t:common.platform platform="shopitem.article.platform"/></span>
 				</p:titleCell>
 				<p:priceCell>
 					<t:if test="buyable">

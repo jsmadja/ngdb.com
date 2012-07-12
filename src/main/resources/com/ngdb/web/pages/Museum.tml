@@ -33,12 +33,12 @@
 					<t:loop source="platforms" value="platform">
 						<t:if test="filteredByThisPlatform">
 							<span class="selected-link">
-								<b>${platform.name}<span class="counter"> (${numArticlesInThisPlatform})</span></b>
+								<t:common.platform platform="platform"/><b><span class="counter"> (${numArticlesInThisPlatform})</span></b>
 							</span>
 							<p:else>
 								<t:if test="articleInThisPlatform">
 									<t:actionLink class="btn-mini" t:id="filterPlatform" id="filterPlatform" context="platform">
-										${platform.name} <span class="counter"> (${numArticlesInThisPlatform})</span>
+										<t:common.platform platform="platform"/><span class="counter"> (${numArticlesInThisPlatform})</span>
 									</t:actionLink>
 								</t:if>
 							</p:else>
@@ -128,7 +128,7 @@
 						<img src="/img/flags/${article.origin}.png" alt="${article.origin}" />
 					</p:originCell>
 					<p:platformCell>
-						${article.platform}
+						<t:common.platform platform="article.platform"/>
 					</p:platformCell>
 					<p:actionCell>
 						<t:article.actionBlock article="article" asButton="true" />

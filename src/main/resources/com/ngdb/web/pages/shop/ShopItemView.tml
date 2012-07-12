@@ -10,7 +10,7 @@
 					<h1 class="header">
 						<t:pageLink page="${viewPage}" context="shopItem.article">${shopItem.title}</t:pageLink>
 						<span style="margin-left:10px;font-size:15px">
-							<img src="/img/flags/${shopItem.article.origin}.png" alt="${shopItem.article.origin}" /> ${shopItem.article.platform.name}
+							<img src="/img/flags/${shopItem.article.origin}.png" alt="${shopItem.article.origin}" /> <t:common.platform platform="shopitem.article.platform"/>
 						</span>
 						<t:shopitem.shopActionBlock shopItem="shopItem" />
 					</h1>
@@ -27,7 +27,7 @@
 										<b>Price</b>
 									</td>
 									<td>
-										${price}
+										<span class="price-label">${price}</span>
 									</td>
 								</tr>
 								<tr>

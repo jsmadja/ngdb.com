@@ -1,0 +1,1 @@
+<span class="platformLabel"  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">${platformName}</span>
