@@ -18,6 +18,9 @@ Deplacer les ressources statiques js, css, ico, images, dans Apache
 
 Poser le tracker de navigation de mix panel
 
+Manque un <hr> dans la page userView pour separer current orders et wishlist
+
+
 -------
 BUGS
 -------
