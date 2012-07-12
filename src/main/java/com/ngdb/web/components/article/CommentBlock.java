@@ -2,9 +2,9 @@ package com.ngdb.web.components.article;
 
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -51,17 +51,21 @@ public class CommentBlock {
 		return currentUser.getUser();
 	}
 
-	public Set<Comment> getComments() {
+	public List<Comment> getComments() {
+		List<Comment> comments;
 		if (article.getType().equals(Game.class)) {
 			Game game = (Game) article;
-			Set<Comment> comments = new TreeSet<Comment>(game.getComments().all());
+			comments = new ArrayList<Comment>(game.getComments().all());
 			List<Game> relatedGames = gameFactory.findAllByNgh(game.getNgh());
 			for (Game relatedGame : relatedGames) {
 				comments.addAll(relatedGame.getComments().all());
 			}
 			return comments;
+		} else {
+			comments = new ArrayList<Comment>(article.getComments().all());
 		}
-		return article.getComments().all();
+		Collections.sort(comments);
+		return comments;
 	}
 
 }
