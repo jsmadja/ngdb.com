@@ -20,6 +20,8 @@
 					<t:pageLink page="user/userView" context="${currentOrder.seller.id}"> ${currentOrder.seller.login} </t:pageLink>
 				</p:sellerCell>
 			</t:grid>
+			
+			<hr />
 
 			<h2>${user.login}'s wish list</h2>
 			<t:grid pagerPosition="BOTH" source="user.wishes" row="wish" rowsPerPage="20"

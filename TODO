@@ -12,14 +12,9 @@ Trouver un icone pour les plateformes
 
 Remplir la page About
 
-tiens, une fonction qui serait sympa, ce serait de pouvoir changer entre Jap et Us sans retirer la cartouche de sa collection
-
 Deplacer les ressources statiques js, css, ico, images, dans Apache
 
-Poser le tracker de navigation de mix panel
-
-Manque un <hr> dans la page userView pour separer current orders et wishlist
-
+?? Poser le tracker de navigation de mix panel
 
 -------
 BUGS
@@ -39,3 +34,6 @@ Et éventuellement, le passage possible en mode liste pour pouvoir trier
 ou exporter la liste vers excel.
 
 Avoir un panier d'achat
+
+tiens, une fonction qui serait sympa, ce serait de pouvoir changer entre Jap et Us sans retirer la cartouche de sa collection
+
