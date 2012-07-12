@@ -23,13 +23,12 @@ public class LoginForm {
 	@Component(id = "loginForm")
 	private Form form;
 
-	Object onSuccess() {
+	void onSuccess() {
 		try {
 			userSession.login(login, password);
 		} catch (AuthenticationException authException) {
 			form.recordError("Invalid credentials");
 		}
-		return this;
 	}
 
 	public User getUser() {
