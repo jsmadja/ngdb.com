@@ -1,10 +1,9 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
-	<div>
-		<div class="row">
-		<div class="page-header">
-				<h1 class="black-bar rounded-bar big-bar">Contact</h1>
-			</div>
-			
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<div class="page-header">
+		<h1 class="black-bar rounded-bar big-bar">Contact</h1>
+	</div>
+	<div class="row">
 		<div class="span3" />
 		<div class="span9">
 			<t:if test="message">
@@ -15,15 +14,22 @@
 				<div class="control-group">
 					<fieldset>
 						<div class="control-group">
-							<t:label for="title" class="control-label"><b>Title</b>* : </t:label>
+							<t:label for="title" class="control-label">
+								<b>Title</b>
+								* :
+							</t:label>
 							<div class="controls">
 								<t:textfield value="title" t:id="title" />
 							</div>
 						</div>
 						<div class="control-group">
-							<t:label for="comment" class="control-label"><b>Comment</b>* : </t:label>
+							<t:label for="comment" class="control-label">
+								<b>Comment</b>
+								* :
+							</t:label>
 							<div class="controls">
-								<t:textarea rows="6" value="comment" t:id="comment" style="width:60%" />
+								<t:textarea rows="6" value="comment" t:id="comment"
+									style="width:60%" />
 							</div>
 						</div>
 						<div class="form-actions">
@@ -34,6 +40,5 @@
 			</t:form>
 		</div>
 		<div class="span3" />
-	</div>
 	</div>
 </t:layout>
