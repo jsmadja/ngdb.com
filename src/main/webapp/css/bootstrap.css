@@ -1453,7 +1453,7 @@ legend + .control-group {
 }
 
 .form-horizontal .control-group {
-  margin-bottom: 18px;
+/*  margin-bottom: 18px;*/
   *zoom: 1;
 }
 
@@ -5232,3 +5232,7 @@ TABLE.t-data-grid THEAD TR TH {
 .price-label:hover {
 	color:white;	
 }
+
+.tjq-error-popup {
+	display:none;
+	}

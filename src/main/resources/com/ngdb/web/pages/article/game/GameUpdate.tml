@@ -1,7 +1,7 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 	xmlns:p="tapestry:parameter">
 	<div class="page-header">
-		<h1>
+		<h1 class="blue-bar rounded-bar big-bar">
 			<t:if test="editMode">
 				Edit ${game.title}
 				<p:else>
@@ -13,100 +13,167 @@
 	<div class="row-fluid show-grid article">
 		<div class="span3">
 			<t:if test="editMode">
-				<t:article.thumbnail article="game" noClick="true" size="literal:medium" />
+				<t:article.thumbnail article="game" noClick="true"
+					size="literal:medium" />
 			</t:if>
 		</div>
 		<div class="span9">
 			<t:form t:id="gameForm" class="form-horizontal" context="game">
 				<t:if test="game">
-                    <t:hidden value="game"/>
-            	</t:if>
+					<t:hidden value="game" />
+				</t:if>
 				<t:errors />
 				<div class="control-group">
-					<fieldset>
-						<div class="control-group">
-							<t:label for="title" class="control-label">Title* : 
-							</t:label>
-							<div class="controls">
-								<t:textfield value="title" t:id="title" />
-							</div>
-						</div>
-						<div class="control-group">
-							<t:label for="mainPicture" class="control-label">Cover : </t:label>
-							<div class="controls">
-								<input t:type="upload" t:id="mainPicture" t:value="mainPicture">upload file</input>
-							</div>
-						</div>
-						<div class="control-group">
-							<span class="control-label">Pictures : </span>
-							<div class="controls">
-								<t:jquery.ajaxUpload t:id="uploadImage" t:multiple="true"
-									t:allowedExtensions="[jpg, png, gif, jpeg, bmp]" t:sizeLimit="3M" />
-								<t:if test="storedPictures">
-									<div class="alert alert-info">Click on a picture to delete it.</div>
-									<t:loop source="storedPictures" value="picture">
-										<span>
-								    		<t:actionLink context="picture" t:id="deletePicture" ><img src="${message:image.host.url}${smallPictureUrl}" height="75" width="75" style="margin-left:2px;border-radius:5px" /></t:actionLink>
-								    	</span>
-									</t:loop>
-								</t:if>
-							</div>
-						</div>
-						<div class="control-group">
-							<t:label for="releaseDate" class="control-label">Release Date* : </t:label>
-							<div class="controls">
-								<t:datefield value="releaseDate" t:id="releaseDate" />
-							</div>
-						</div>
-						<div class="control-group">
-							<t:label for="platform" class="control-label">Platform* : </t:label>
-							<div class="controls">
-								<t:select value="platform" model="platforms" t:id="platform" />
-							</div>
-						</div>
-						<div class="control-group">
-							<t:label for="origin" class="control-label">Origin* : </t:label>
-							<div class="controls">
-								<t:select value="origin" model="origins" t:id="origin" />
-							</div>
-						</div>
-						<div class="control-group">
-							<t:label for="megaCount" class="control-label">Mega Count* : </t:label>
-							<div class="controls">
-								<t:textfield value="megaCount" t:id="megaCount" />
-							</div>
-						</div>
-						<div class="control-group">
-							<t:label for="ngh" class="control-label">NGH : </t:label>
-							<div class="controls">
-								<t:textfield value="ngh" t:id="ngh" />
-							</div>
-						</div>
-						<div class="control-group">
-							<t:label for="publisher" class="control-label">Publisher* : </t:label>
-							<div class="controls">
-								<t:select value="publisher" model="publishers"
-									t:id="publisher" />
-							</div>
-						</div>
-						<div class="control-group">
-							<t:label for="details" class="control-label">Details : </t:label>
-							<div class="controls">
-								<t:textarea rows="6" value="details" t:id="details" style="width:60%" />
-							</div>
-						</div>
-						<div class="form-actions">
-							<button class="btn btn-primary" type="submit">
-								<t:if test="editMode">
-									Update
-									<p:else>
-										Add new game in database
+					<table>
+						<tr>
+							<td colspan="2">
+								<div class="control-group">
+									<t:label for="title" class="control-label">
+										<b>Title</b>
+										*
+									</t:label>
+									<div class="controls">
+										<t:textfield value="title" t:id="title" />
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="control-group">
+									<t:label for="releaseDate" class="control-label">
+										<b>Release Date</b>
+										*
+									</t:label>
+									<div class="controls">
+										<t:datefield value="releaseDate" t:id="releaseDate" />
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="control-group">
+									<t:label for="platform" class="control-label">
+										<b>Platform</b>
+										*
+									</t:label>
+									<div class="controls">
+										<t:select value="platform" model="platforms" t:id="platform" />
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="control-group">
+									<t:label for="origin" class="control-label">
+										<b>Origin</b>
+										*
+									</t:label>
+									<div class="controls">
+										<t:select value="origin" model="origins" t:id="origin" />
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="control-group">
+									<t:label for="publisher" class="control-label">
+										<b>Publisher</b>
+										*
+									</t:label>
+									<div class="controls">
+										<t:select value="publisher" model="publishers" t:id="publisher" />
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="control-group">
+									<t:label for="megaCount" class="control-label">
+										<b>Mega Count</b>
+										*
+									</t:label>
+									<div class="controls">
+										<t:textfield value="megaCount" t:id="megaCount" />
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="control-group">
+									<t:label for="ngh" class="control-label">
+										<b>NGH</b>
+									</t:label>
+									<div class="controls">
+										<t:textfield value="ngh" t:id="ngh" />
+									</div>
+								</div>
+							</td>
+							<td></td>
+						</tr>
+						<tr style="vertical-align:top">
+							<td>
+								<div class="control-group">
+									<t:label for="mainPicture" class="control-label">
+										<b>Cover</b>
+									</t:label>
+									<div class="controls">
+										<input t:type="upload" t:id="mainPicture" t:value="mainPicture">upload
+											file</input>
+									</div>
+								</div>
+							</td>
+							<td>
+								<div class="control-group">
+									<span class="control-label">
+										<b>Pictures</b>
+									</span>
+									<div class="controls">
+										<t:jquery.ajaxUpload t:id="uploadImage"
+											t:multiple="true" t:allowedExtensions="[jpg, png, gif, jpeg, bmp]"
+											t:sizeLimit="3M" />
+										<t:if test="storedPictures">
+											<div class="alert alert-info">Click on a picture to delete it.</div>
+											<t:loop source="storedPictures" value="picture">
+												<span>
+													<t:actionLink context="picture" t:id="deletePicture">
+														<img src="${message:image.host.url}${smallPictureUrl}"
+															height="75" width="75" style="margin-left:2px;border-radius:5px" />
+													</t:actionLink>
+												</span>
+											</t:loop>
+										</t:if>
+									</div>
+								</div>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								<div class="control-group">
+									<t:label for="details" class="control-label">
+										<b>Details</b>
+									</t:label>
+									<div class="controls">
+										<t:textarea rows="10" value="details" t:id="details"
+											style="width:90%" />
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="form-actions">
+									<button class="btn btn-primary" type="submit">
+										<t:if test="editMode">
+											Update
+											<p:else>
+												Add new game in database
 									</p:else>
-								</t:if>
-							</button>
-							<input type="reset" class="btn" value="Cancel" />
-						</div>
-					</fieldset>
+										</t:if>
+									</button>
+									<input type="reset" class="btn" value="Cancel" />
+								</div>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</t:form>
 		</div>

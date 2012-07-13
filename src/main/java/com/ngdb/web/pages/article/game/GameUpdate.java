@@ -149,7 +149,6 @@ public class GameUpdate {
 
 	@OnEvent(component = "uploadImage", value = JQueryEventConstants.AJAX_UPLOAD)
 	void onImageUpload(UploadedFile uploadedFile) {
-		System.err.println("insert:" + uploadedFile.getFileName());
 		this.pictures.add(uploadedFile);
 	}
 
