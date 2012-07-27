@@ -1,5 +1,4 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-	xmlns:p="tapestry:parameter">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<div class="page-header">
 		<h1>
 		<t:if test="editMode">
@@ -18,9 +17,6 @@
 		</div>
 		<div class="span9">
 			<t:form t:id="hardwareForm" class="form-horizontal" context="hardware">
-				<t:if test="hardware">
-                    <t:hidden value="hardware"/>
-            	</t:if>
 				<t:errors />
 				<div class="control-group">
 					<fieldset>

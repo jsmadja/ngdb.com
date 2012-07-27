@@ -35,8 +35,8 @@ import com.ngdb.web.services.infrastructure.PictureService;
 @RequiresAuthentication
 public class HardwareUpdate {
 
+    @Persist
 	@Property
-	@Parameter(allowNull = true)
 	private Hardware hardware;
 
 	@Property

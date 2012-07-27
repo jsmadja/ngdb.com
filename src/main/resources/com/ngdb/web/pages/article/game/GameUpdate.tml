@@ -1,5 +1,4 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-	xmlns:p="tapestry:parameter">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<div class="page-header">
 		<h1 class="blue-bar rounded-bar big-bar">
 			<t:if test="editMode">
@@ -13,8 +12,7 @@
 	<div class="row-fluid show-grid article">
 		<div class="span3">
 			<t:if test="editMode">
-				<t:article.thumbnail article="game" noClick="true"
-					size="literal:medium" />
+				<t:article.thumbnail article="game" noClick="true" size="literal:medium" />
 			</t:if>
 		</div>
 		<div class="span9">
