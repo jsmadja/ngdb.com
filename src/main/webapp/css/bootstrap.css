@@ -5235,4 +5235,12 @@ TABLE.t-data-grid THEAD TR TH {
 
 .tjq-error-popup {
 	display:none;
-	}
+}
+
+#museum_filters {
+
+}
+
+#museum_filters p {
+    padding-left: 5px;
+}

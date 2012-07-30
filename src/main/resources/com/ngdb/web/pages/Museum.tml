@@ -2,18 +2,22 @@
 
     <div class="row-fluid">
 
-    <div class="span2 well">
+    <div class="span2 well"  id="museum_filters">
         <div class="blue-bar half-rounded-bar small-bar">Type</div>
         <t:if test="filteredByGames">
-            <span class="selected-link">
+            <p class="selected-link">
                 <b>Games<span class="counter" >(${numGames})</span></b>
-            </span>
-            <t:actionLink class="btn-mini" t:id="selectHardwares">Hardwares<span class="counter">(${numHardwares})</span></t:actionLink>
+            </p>
+            <p>
+                <t:actionLink class="btn-mini" t:id="selectHardwares">Hardwares<span class="counter">(${numHardwares})</span></t:actionLink>
+            </p>
             <p:else>
-                <t:actionLink class="btn-mini" t:id="selectGames">Games (${numGames})</t:actionLink>
-                <span class="selected-link">
+                <p>
+                    <t:actionLink class="btn-mini" t:id="selectGames">Games (${numGames})</t:actionLink>
+                </p>
+                <p class="selected-link">
                     <b>Hardwares <span class="counter"> (${numHardwares})</span></b>
-                </span>
+                </p>
             </p:else>
         </t:if>
         <div class="blue-bar half-rounded-bar small-bar">Platform</div>
@@ -38,7 +42,7 @@
         <t:loop source="origins" value="origin">
             <p>
                 <t:if test="filteredByThisOrigin">
-                    ${origin} <span class="counter"> (${numArticlesInThisOrigin})</span>
+                    <p class="selected-link">${origin} <span class="counter"> (${numArticlesInThisOrigin})</span></p>
                     <p:else>
                         <t:if test="articleInThisOrigin">
                             <t:actionLink t:id="filterOrigin" context="origin.id">
