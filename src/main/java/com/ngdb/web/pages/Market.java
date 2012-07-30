@@ -3,6 +3,9 @@ package com.ngdb.web.pages;
 import java.util.Collection;
 import java.util.List;
 
+import com.ngdb.entities.MuseumFilter;
+import com.ngdb.entities.Population;
+import com.ngdb.web.Filter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -28,6 +31,9 @@ public class Market {
 	@Inject
 	private ReferenceService referenceService;
 
+    @Inject
+    private Population population;
+
 	@Persist
 	private MarketFilter marketFilter;
 
@@ -42,6 +48,22 @@ public class Market {
 			marketFilter = new MarketFilter(market);
 		}
 	}
+
+    boolean onActivate(String filterName, String value) {
+        if (value == null) {
+            onActivate();
+            return true;
+        }
+        marketFilter = new MarketFilter(market);
+        Filter filter = Filter.valueOf(Filter.class, filterName);
+        switch (filter) {
+            case byUser:
+                User user = population.findById(Long.valueOf(value));
+                marketFilter.filterByUser(user);
+                break;
+        }
+        return true;
+    }
 
 	public Collection<ShopItem> getShopItems() {
 		return marketFilter.getShopItems();

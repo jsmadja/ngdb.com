@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import com.ngdb.entities.ArticleFactory;
+import com.ngdb.entities.GameFactory;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectPage;
@@ -50,6 +52,9 @@ public class GameUpdate {
 
 	@Inject
 	private PictureService pictureService;
+
+    @Inject
+    private ArticleFactory articleFactory;
 
 	@Property
 	private String details;
