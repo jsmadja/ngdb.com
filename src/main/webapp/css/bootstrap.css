@@ -5237,10 +5237,12 @@ TABLE.t-data-grid THEAD TR TH {
 	display:none;
 }
 
-#museum_filters {
-
+#filters p {
+    padding-left: 5px;
+    line-height: 10px;
+    font-size: 9pt;
 }
 
-#museum_filters p {
-    padding-left: 5px;
+#filters .btn-mini {
+    font-size: 9pt;
 }
