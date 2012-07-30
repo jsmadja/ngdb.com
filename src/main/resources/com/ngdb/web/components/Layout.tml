@@ -60,12 +60,19 @@
     <t:common.layout.navbar />
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span2">
-            <t:common.layout.menu />
-        </div>
-        <div class="span8">
-            <t:body />
-        </div>
+          <t:if test="showLeftContent">
+            <div class="span2">
+                <t:common.layout.menu />
+            </div>
+            <div class="span8">
+                <t:body />
+            </div>
+            <p:else>
+                <div class="span10">
+                    <t:body />
+                </div>
+            </p:else>
+          </t:if>
         <div class="span2">
         	<div class="well sidebar-events" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
         	    <t:common.layout.events />
