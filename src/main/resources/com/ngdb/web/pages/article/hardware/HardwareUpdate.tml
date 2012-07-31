@@ -21,20 +21,20 @@
 				<div class="control-group">
 					<fieldset>
 						<div class="control-group">
-							<t:label for="title" class="control-label">Title* : 
+							<t:label for="title" class="control-label"><b>Title</b> <span class="star">*</span>
 							</t:label>
 							<div class="controls">
 								<t:textfield value="title" t:id="title" />
 							</div>
 						</div>
 						<div class="control-group">
-							<t:label for="mainPicture" class="control-label">Picture : </t:label>
+							<t:label for="mainPicture" class="control-label"><b>Cover</b></t:label>
 							<div class="controls">
 								<input t:type="upload" t:id="mainPicture" t:value="mainPicture">upload file</input>
 							</div>
 						</div>
 						<div class="control-group">
-							<span class="control-label">Pictures : </span>
+							<span class="control-label"><b>Pictures</b></span>
 							<div class="controls">
 								<t:jquery.ajaxUpload t:id="uploadImage" t:multiple="true"
 									t:allowedExtensions="[jpg, png, gif, jpeg, bmp]" t:sizeLimit="3M" />
@@ -49,25 +49,25 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<t:label for="releaseDate" class="control-label">Release Date* : </t:label>
+							<t:label for="releaseDate" class="control-label"><b>Release Date</b> <span class="star">*</span></t:label>
 							<div class="controls">
 								<t:datefield value="releaseDate" t:id="releaseDate" />
 							</div>
 						</div>
 						<div class="control-group">
-							<t:label for="platform" class="control-label">Platform* : </t:label>
+							<t:label for="platform" class="control-label"><b>Platform</b> <span class="star">*</span></t:label>
 							<div class="controls">
 								<t:select value="platform" model="platforms" t:id="platform" />
 							</div>
 						</div>
 						<div class="control-group">
-							<t:label for="origin" class="control-label">Origin* : </t:label>
+							<t:label for="origin" class="control-label"><b>Origin</b> <span class="star">*</span></t:label>
 							<div class="controls">
 								<t:select value="origin" model="origins" t:id="origin" />
 							</div>
 						</div>
 						<div class="control-group">
-							<t:label for="details" class="control-label">Details : </t:label>
+							<t:label for="details" class="control-label"><b>Details</b></t:label>
 							<div class="controls">
 								<t:textarea rows="6" value="details" t:id="details" style="width:60%" />
 							</div>
