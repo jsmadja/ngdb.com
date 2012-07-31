@@ -25,7 +25,7 @@
                     <div class="control-group">
                         <t:label for="title" class="control-label">
                             <b>Title</b>
-                            *
+                            <span class="star">*</span>
                         </t:label>
                         <div class="controls">
                             <t:textfield value="title" t:id="title" />
@@ -34,7 +34,7 @@
                     <div class="control-group">
                         <t:label for="releaseDate" class="control-label">
                             <b>Release Date</b>
-                            *
+                            <span class="star">*</span>
                         </t:label>
                         <div class="controls">
                             <t:datefield value="releaseDate" t:id="releaseDate" />
@@ -43,7 +43,7 @@
                     <div class="control-group">
                         <t:label for="platform" class="control-label">
                             <b>Platform</b>
-                            *
+                            <span class="star">*</span>
                         </t:label>
                         <div class="controls">
                             <t:select value="platform" model="platforms" t:id="platform" />
@@ -52,7 +52,7 @@
                     <div class="control-group">
                         <t:label for="origin" class="control-label">
                             <b>Origin</b>
-                            *
+                            <span class="star">*</span>
                         </t:label>
                         <div class="controls">
                             <t:select value="origin" model="origins" t:id="origin" />
@@ -61,7 +61,7 @@
                     <div class="control-group">
                         <t:label for="publisher" class="control-label">
                             <b>Publisher</b>
-                            *
+                            <span class="star">*</span>
                         </t:label>
                         <div class="controls">
                             <t:select value="publisher" model="publishers" t:id="publisher" />
@@ -70,7 +70,7 @@
                     <div class="control-group">
                         <t:label for="megaCount" class="control-label">
                             <b>Mega Count</b>
-                            *
+                            <span class="star">*</span>
                         </t:label>
                         <div class="controls">
                             <t:textfield value="megaCount" t:id="megaCount" />

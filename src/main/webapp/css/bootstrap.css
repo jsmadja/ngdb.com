@@ -5255,3 +5255,9 @@ TABLE.t-data-grid THEAD TR TH {
 #filters .btn-mini {
     font-size: 9pt;
 }
+
+.star {
+    color: red;
+    margin-left: 3px;
+    font-size: 11pt;
+}
