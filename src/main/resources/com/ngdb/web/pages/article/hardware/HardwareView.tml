@@ -12,7 +12,7 @@
 				<div class="page-header">
 					<h1 class="header">${hardware.title} 
 						<span style="font-size:15px">
-							(<t:pagelink page="museum" context="[byReleaseDate,hardware.releaseDate]">${hardware.releaseDate}</t:pagelink>) <t:pagelink page="museum" context="[byOrigin,hardware.origin]"><img src="/img/flags/${hardware.origin}.png" alt="${hardware.origin}" /></t:pagelink>
+							(<t:pagelink page="museum" context="[byReleaseDate,hardware.releaseDate]">${hardware.releaseDate}</t:pagelink>) <t:pagelink page="museum" context="[byOrigin,hardware.origin]"><img style="margin-bottom:5px" src="/img/flags/${hardware.origin}.png" alt="${hardware.origin}" /></t:pagelink>
 						</span>
 						<t:article.actionBlock article="hardware" />
 					</h1>
