@@ -22,9 +22,6 @@
 				</t:if>
 				<t:errors />
 				<div class="control-group">
-					<table>
-						<tr>
-							<td colspan="2">
 								<div class="control-group">
 									<t:label for="title" class="control-label">
 										<b>Title</b>
@@ -34,8 +31,6 @@
 										<t:textfield value="title" t:id="title" />
 									</div>
 								</div>
-							</td>
-							<td>
 								<div class="control-group">
 									<t:label for="releaseDate" class="control-label">
 										<b>Release Date</b>
@@ -45,10 +40,6 @@
 										<t:datefield value="releaseDate" t:id="releaseDate" />
 									</div>
 								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
 								<div class="control-group">
 									<t:label for="platform" class="control-label">
 										<b>Platform</b>
@@ -58,8 +49,6 @@
 										<t:select value="platform" model="platforms" t:id="platform" />
 									</div>
 								</div>
-							</td>
-							<td>
 								<div class="control-group">
 									<t:label for="origin" class="control-label">
 										<b>Origin</b>
@@ -69,8 +58,6 @@
 										<t:select value="origin" model="origins" t:id="origin" />
 									</div>
 								</div>
-							</td>
-							<td>
 								<div class="control-group">
 									<t:label for="publisher" class="control-label">
 										<b>Publisher</b>
@@ -80,10 +67,6 @@
 										<t:select value="publisher" model="publishers" t:id="publisher" />
 									</div>
 								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
 								<div class="control-group">
 									<t:label for="megaCount" class="control-label">
 										<b>Mega Count</b>
@@ -93,8 +76,6 @@
 										<t:textfield value="megaCount" t:id="megaCount" />
 									</div>
 								</div>
-							</td>
-							<td>
 								<div class="control-group">
 									<t:label for="ngh" class="control-label">
 										<b>NGH</b>
@@ -103,11 +84,6 @@
 										<t:textfield value="ngh" t:id="ngh" />
 									</div>
 								</div>
-							</td>
-							<td></td>
-						</tr>
-						<tr style="vertical-align:top">
-							<td>
 								<div class="control-group">
 									<t:label for="mainPicture" class="control-label">
 										<b>Cover</b>
@@ -117,8 +93,6 @@
 											file</input>
 									</div>
 								</div>
-							</td>
-							<td>
 								<div class="control-group">
 									<span class="control-label">
 										<b>Pictures</b>
@@ -140,11 +114,6 @@
 										</t:if>
 									</div>
 								</div>
-							</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td colspan="3">
 								<div class="control-group">
 									<t:label for="details" class="control-label">
 										<b>Details</b>
@@ -154,10 +123,6 @@
 											style="width:90%" />
 									</div>
 								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
 								<div class="form-actions">
 									<button class="btn btn-primary" type="submit">
 										<t:if test="editMode">
@@ -169,9 +134,6 @@
 									</button>
 									<input type="reset" class="btn" value="Cancel" />
 								</div>
-							</td>
-						</tr>
-					</table>
 				</div>
 			</t:form>
 		</div>
