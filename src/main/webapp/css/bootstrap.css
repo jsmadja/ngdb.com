@@ -5120,6 +5120,15 @@ TABLE.t-data-grid THEAD TR TH {
 
 .subtitle {
 	font-size:9t;
+    margin-top: 5px;
+}
+
+.subtitle a {
+    margin-right:10px;
+}
+
+.subtitle span {
+    margin-left:10px;
 }
 
 .shop_item {

@@ -24,12 +24,12 @@
 							<t:if test="game.releaseDate">
 								(<t:pagelink page="museum" context="[byReleaseDate,game.releaseDate]">${game.releaseDate}</t:pagelink>)
 							</t:if>
-							 <t:pagelink page="museum" context="[byOrigin,game.origin]"><img src="/img/flags/${game.origin}.png" alt="${game.origin}" /></t:pagelink>
+							 <t:pagelink page="museum" context="[byOrigin,game.origin]"><img style="margin-bottom:5px" src="/img/flags/${game.origin}.png" alt="${game.origin}" /></t:pagelink>
 						</span>
 						<t:article.actionBlock article="game" />
 					</h1>
 					<div class="subtitle">
-						#${game.id}<t:pagelink page="museum" context="[byPlatform,game.platform]"><t:common.platform platform="game.platform"/><t:pagelink page="museum" context="[byNgh,game.ngh]">${ngh}</t:pagelink> </t:pagelink><span class="pipe"> - </span><t:pagelink page="museum" context="[byPublisher,game.publisher]"> ${game.publisher?.name} </t:pagelink> 
+						#${game.id}<t:pagelink page="museum" context="[byPlatform,game.platform]"><t:common.platform platform="game.platform"/><t:pagelink page="museum" context="[byNgh,game.ngh]">${ngh}</t:pagelink> </t:pagelink><t:pagelink page="museum" context="[byPublisher,game.publisher]"> ${game.publisher?.name} </t:pagelink>
 					</div>
 				</div>
 				
