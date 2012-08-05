@@ -9,7 +9,7 @@
 				</tr>
 			</t:loop>
 		</t:if>
-		<t:if test="user">
+		<t:if test="user?.contributor">
 			<t:form t:id="noteForm" id="noteForm" t:autofocus="false"
 				style="height:10px;margin:none;">
 				<tr>

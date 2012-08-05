@@ -72,7 +72,7 @@
 				</t:if>
 			</h1>
 		</div>
-		<t:if test="!user">
+		<t:if test="!logged">
 			<div class="alert alert-info">You must be registered to buy an article.</div>
 		</t:if>
 		<p>

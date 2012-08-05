@@ -237,4 +237,7 @@ public class User extends AbstractEntity implements Comparable<User> {
 		return shop.getAllHardwaresForSale();
 	}
 
+    public boolean isContributor() {
+        return login.equalsIgnoreCase("anzymus") || login.equalsIgnoreCase("takou");
+    }
 }

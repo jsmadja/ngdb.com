@@ -256,4 +256,11 @@ public class CurrentUser {
 		return country.equalsIgnoreCase("fr") || language.equalsIgnoreCase("fr");
 	}
 
+    public boolean isContributor() {
+        if (isAnonymous()) {
+            return false;
+        }
+        return getUser().isContributor();
+    }
+
 }

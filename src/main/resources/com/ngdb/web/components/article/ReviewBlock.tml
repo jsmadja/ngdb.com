@@ -10,7 +10,7 @@
 				</td>
 			</tr>
 		</t:loop>
-		<t:if test="user">
+		<t:if test="user?.contributor">
 				<t:form t:id="reviewForm" id="reviewForm" t:autofocus="false">
 					<tr>
 						<td>

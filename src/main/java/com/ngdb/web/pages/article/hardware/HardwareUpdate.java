@@ -160,10 +160,12 @@ public class HardwareUpdate {
 
 	@CommitAfter
 	Object onActionFromDeletePicture(Picture picture) {
-		hardware.removePicture(picture);
-		pictureService.delete(picture);
-		this.storedPictures = hardware.getPictures().all();
-		return this;
+        if(hardware.getPictures().count()>1) {
+            hardware.removePicture(picture);
+            pictureService.delete(picture);
+            this.storedPictures = hardware.getPictures().all();
+        }
+        return this;
 	}
 
 	public String getSmallPictureUrl() {

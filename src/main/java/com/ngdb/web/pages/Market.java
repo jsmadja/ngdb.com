@@ -6,6 +6,7 @@ import java.util.List;
 import com.ngdb.entities.MuseumFilter;
 import com.ngdb.entities.Population;
 import com.ngdb.web.Filter;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -42,6 +43,9 @@ public class Market {
 
 	@Property
 	private Origin origin;
+
+    @Inject
+    private CurrentUser currentUser;
 
 	void onActivate() {
 		if (marketFilter == null) {
@@ -159,5 +163,9 @@ public class Market {
 	public int getNumResults() {
 		return getShopItems().size();
 	}
+
+    public boolean isLogged()  {
+        return currentUser.isLogged();
+    }
 
 }

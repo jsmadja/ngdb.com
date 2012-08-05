@@ -197,10 +197,12 @@ public class GameUpdate {
 
 	@CommitAfter
 	Object onActionFromDeletePicture(Picture picture) {
-		game.removePicture(picture);
-		pictureService.delete(picture);
-		game = (Game) session.merge(game);
-		this.storedPictures = game.getPictures().all();
+        if(game.getPictures().count()>1) {
+            game.removePicture(picture);
+            pictureService.delete(picture);
+            game = (Game) session.merge(game);
+            this.storedPictures = game.getPictures().all();
+        }
 		return this;
 	}
 

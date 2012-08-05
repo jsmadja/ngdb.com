@@ -54,4 +54,7 @@ public class ArticlePictures implements Iterable<Picture> {
 		pictures.remove(picture);
 	}
 
+    public int count() {
+        return pictures.size();
+    }
 }

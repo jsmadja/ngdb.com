@@ -9,7 +9,7 @@
 				</t:if>
 			</td>
 			<td>
-				<t:if test="user">
+				<t:if test="user?.contributor">
 					<t:form t:id="tagForm" id="tagForm" t:autofocus="false" style="height:10px;margin:none;">
 						<t:textfield value="search" t:id="search" t:mixins="jquery/Autocomplete" style="width:100px" placeholder="add a new tag" />
 					</t:form>
