@@ -20,12 +20,11 @@ Deplacer les ressources statiques js, css, ico, images, dans Apache
 BUGS
 -------
 
-Ne pas afficher deux fois le meme jeu dans la home
-
-DB
-***
-
-Il manque métal slug 5, SVC Chaos dans la liste des MVS
+Caused by: java.lang.NullPointerException: Property 'state' (within property expression 'shopItem.state.title', of com.ngdb.web.pages.shop.ShopItemView@c4a8f8) is null.
+	at org.apache.tapestry5.internal.services.PropertyConduitSourceImpl.nullTerm(PropertyConduitSourceImpl.java:1495)
+	at $InternalPropertyConduit_103fdda6e57064.navigate(Unknown Source) Ne pas afficher deux fois le meme jeu dans la home
+	at $InternalPropertyConduit_103fdda6e57064.get(Unknown Source) DB ***
+	at org.apache.tapestry5.internal.bindings.PropBinding.get(PropBinding.java:59) Il manque métal slug 5, SVC Chaos dans la liste des MVS
 
 -------------------
 V1.1

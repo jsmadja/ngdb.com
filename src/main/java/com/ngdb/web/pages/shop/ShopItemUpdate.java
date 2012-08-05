@@ -58,7 +58,8 @@ public class ShopItemUpdate {
 
 	@Persist
 	@Property
-	private State state;
+    @Validate("required")
+    private State state;
 
 	@Property
 	@Persist("entity")

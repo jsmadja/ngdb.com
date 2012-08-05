@@ -67,7 +67,8 @@ public class ShopItemCreate {
 
 	@Persist
 	@Property
-	private State state;
+    @Validate("required")
+    private State state;
 
 	@InjectPage
 	private ShopItemView shopItemView;
