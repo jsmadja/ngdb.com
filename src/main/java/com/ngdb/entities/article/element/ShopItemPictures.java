@@ -43,4 +43,7 @@ public class ShopItemPictures implements Iterable<Picture> {
 		return Collections.unmodifiableSet(pictures);
 	}
 
+    public int getCount() {
+        return pictures.size();
+    }
 }

@@ -7,14 +7,9 @@ import static org.hibernate.criterion.Order.desc;
 import static org.hibernate.criterion.Projections.count;
 import static org.hibernate.criterion.Restrictions.eq;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
+import org.apache.commons.lang.math.RandomUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.hibernate.Criteria;
@@ -29,6 +24,8 @@ import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.services.MailService;
 import com.ngdb.web.services.infrastructure.CurrentUser;
+
+import javax.annotation.Nullable;
 
 public class Market {
 
@@ -58,7 +55,22 @@ public class Market {
 	}
 
 	public List<ShopItem> findLastForSaleItems(int count) {
-		return session.createQuery("SELECT si FROM ShopItem si WHERE si.sold = false ORDER BY modificationDate DESC").setCacheable(true).setCacheRegion("cacheCount").setMaxResults(count).list();
+        List<ShopItem> items = session.createQuery("SELECT si FROM ShopItem si WHERE si.sold = false").list();
+        List<ShopItem> forSaleItems = new ArrayList<ShopItem>(Collections2.filter(items, new Predicate<ShopItem>() {
+            @Override
+            public boolean apply(@Nullable ShopItem input) {
+                return input.hasCover();
+            }
+        }));
+        List<ShopItem> randomItems = new ArrayList<ShopItem>();
+        Set<Integer> ids = new HashSet<Integer>();
+        while(ids.size() <count) {
+            int randomIdx = RandomUtils.nextInt(forSaleItems.size());
+            if(ids.add(randomIdx)) {
+                randomItems.add(forSaleItems.get(randomIdx));
+            }
+        }
+        return randomItems;
 	}
 
 	public Long getNumForSaleItems() {

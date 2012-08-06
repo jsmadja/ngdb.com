@@ -207,4 +207,11 @@ public class ShopItem implements Comparable<ShopItem> {
 		return potentialBuyers.all();
 	}
 
+    public int getPicturesCount() {
+        return pictures.getCount();
+    }
+
+    public boolean hasCover() {
+        return getArticle().getMainPicture() != Picture.EMPTY;
+    }
 }
