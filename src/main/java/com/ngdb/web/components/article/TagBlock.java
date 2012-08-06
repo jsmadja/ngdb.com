@@ -87,15 +87,6 @@ public class TagBlock {
 	}
 
 	public Set<Tag> getTags() {
-		if (article instanceof Game) {
-			Game game = (Game) article;
-			Set<Tag> tags = new TreeSet<Tag>(game.getTags().all());
-			List<Game> relatedGames = gameFactory.findAllByNgh(game.getNgh());
-			for (Game relatedGame : relatedGames) {
-				tags.addAll(relatedGame.getTags().all());
-			}
-			return tags;
-		}
 		return article.getTags().all();
 	}
 
