@@ -55,15 +55,11 @@ public class Museum {
 	void onActivate() {
 		if (museumFilter == null) {
 			museumFilter = new MuseumFilter(gameFactory, hardwareFactory);
-			museumFilter.filterByOrigin(referenceService.findOriginByTitle("Japan"));
-			museumFilter.filterByPlatform(referenceService.findPlatformByName("Neo·Geo CD"));
 		}
 	}
 
 	boolean onActivate(User user) {
 		museumFilter = new MuseumFilter(gameFactory, hardwareFactory);
-		museumFilter.filterByOrigin(referenceService.findOriginByTitle("Japan"));
-		museumFilter.filterByPlatform(referenceService.findPlatformByName("Neo·Geo CD"));
 		museumFilter.filterByUser(user);
 		return true;
 	}
