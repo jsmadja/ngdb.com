@@ -212,6 +212,6 @@ public class ShopItem implements Comparable<ShopItem> {
     }
 
     public boolean hasCover() {
-        return getArticle().getMainPicture() != Picture.EMPTY;
+        return article.hasCover();
     }
 }

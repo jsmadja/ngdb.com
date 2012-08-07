@@ -9,6 +9,11 @@
 			<tr><td>Members</td><td>${userCount}</td></tr>
             <tr><td>Most owned article</td><td>${mostOwnedArticle} (${mostOwnedArticleCount})</td></tr>
             <tr><td>Most wished article</td><td>${mostWishedArticle} (${mostWishedArticleCount})</td></tr>
+            <tr><td>Most for sale article</td><td>${mostForSaleArticle} (${mostForSaleArticleCount})</td></tr>
+            <tr><td>Biggest owner</td><td>${biggestCollectionner} (${biggestCollectionnerCount})</td></tr>
+            <tr><td>Biggest wisher</td><td>${biggestWisher} (${biggestWisherCount})</td></tr>
+            <tr><td>Most used tag</td><td>${mostUsedTag} (${mostUsedTagCount})</td></tr>
+            <tr><td>Missing covers</td><td>${missingCovers}</td></tr>
         </tbody>
 	</table>
 </t:layout>

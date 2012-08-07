@@ -5,6 +5,8 @@ import org.hibernate.Session;
 
 import com.ngdb.entities.article.Article;
 
+import java.util.List;
+
 public class ArticleFactory {
 
 	@Inject
@@ -14,4 +16,7 @@ public class ArticleFactory {
 		return (Article) session.load(Article.class, id);
 	}
 
+    public List<Article> findAll() {
+        return session.createCriteria(Article.class).list();
+    }
 }

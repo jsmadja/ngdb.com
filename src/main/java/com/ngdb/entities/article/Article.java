@@ -327,4 +327,7 @@ public abstract class Article implements Comparable<Article>, Serializable {
 		this.publisher = publisher;
 	}
 
+    public boolean hasCover() {
+        return getMainPicture() != Picture.EMPTY;
+    }
 }

@@ -2,7 +2,8 @@ package com.ngdb.web.pages;
 
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.article.Article;
-import com.ngdb.entities.user.CollectionObject;
+import com.ngdb.entities.article.element.Tag;
+import com.ngdb.entities.user.User;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -10,11 +11,26 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import com.ngdb.entities.Population;
 import com.ngdb.entities.WishBox;
 import org.hibernate.Session;
-import org.hibernate.criterion.Order;
 
 import java.math.BigInteger;
+import java.util.List;
 
 public class Stats {
+
+    @Inject
+    private com.ngdb.entities.Market market;
+
+    @Inject
+    private Population population;
+
+    @Inject
+    private WishBox wishBox;
+
+    @Inject
+    private Session session;
+
+    @Inject
+    private ArticleFactory articleFactory;
 
 	@Property
 	private Long wishListCount;
@@ -25,32 +41,25 @@ public class Stats {
 	@Property
 	private Long soldCount;
 
-    @Property
-    private Article mostOwnedArticle;
+    @Property private Article mostOwnedArticle;
+    @Property private Long mostOwnedArticleCount;
 
-    @Property
-    private Long mostOwnedArticleCount;
+    @Property private Article mostWishedArticle;
+    @Property private Long mostWishedArticleCount;
 
-    @Property
-    private Article mostWishedArticle;
+    @Property private Article mostForSaleArticle;
+    @Property private Long mostForSaleArticleCount;
+    
+    @Property private User biggestCollectionner;
+    @Property private Long biggestCollectionnerCount;
 
-    @Property
-    private Long mostWishedArticleCount;
+    @Property private User biggestWisher;
+    @Property private Long biggestWisherCount;
 
-    @Inject
-	private com.ngdb.entities.Market market;
+    @Property private Tag mostUsedTag;
+    @Property private Long mostUsedTagCount;
 
-	@Inject
-	private Population population;
-
-	@Inject
-	private WishBox wishBox;
-
-    @Inject
-    private Session session;
-
-    @Inject
-    private ArticleFactory articleFactory;
+    @Property private Integer missingCovers;
 
     @SetupRender
 	public void init() {
@@ -58,13 +67,53 @@ public class Stats {
 		this.wishListCount = wishBox.getNumWishes();
 		this.soldCount = market.getNumSoldItems();
 
-        Object[] result = (Object[]) session.createSQLQuery("SELECT article_id,COUNT(*) FROM CollectionObject GROUP BY article_id ORDER BY COUNT(*) DESC").setMaxResults(1).list().get(0);
-        this.mostOwnedArticle =  articleFactory.findById(((BigInteger)result[0]).longValue());
-	    this.mostOwnedArticleCount = ((BigInteger)result[1]).longValue();
+        EntityCount entityCount = entityCountQuery("SELECT article_id,COUNT(*) FROM CollectionObject GROUP BY article_id ORDER BY COUNT(*) DESC");
+        this.mostOwnedArticle =  articleFactory.findById(entityCount.entityId);
+	    this.mostOwnedArticleCount = entityCount.count;
 
-        result = (Object[]) session.createSQLQuery("SELECT article_id,COUNT(*) FROM Wish GROUP BY article_id ORDER BY COUNT(*) DESC").setMaxResults(1).list().get(0);
-        this.mostWishedArticle =  articleFactory.findById(((BigInteger)result[0]).longValue());
-        this.mostWishedArticleCount = ((BigInteger)result[1]).longValue();
+        entityCount = entityCountQuery("SELECT article_id,COUNT(*) FROM Wish GROUP BY article_id ORDER BY COUNT(*) DESC");
+        this.mostWishedArticle =  articleFactory.findById(entityCount.entityId);
+        this.mostWishedArticleCount = entityCount.count;
+
+        entityCount = entityCountQuery("SELECT article_id,COUNT(*) FROM ShopItem GROUP BY article_id ORDER BY COUNT(*) DESC");
+        this.mostForSaleArticle = articleFactory.findById(entityCount.entityId);
+        this.mostForSaleArticleCount = entityCount.count;
+
+        entityCount = entityCountQuery("SELECT user_id,COUNT(*) FROM CollectionObject GROUP BY user_id ORDER BY COUNT(*) DESC");
+        this.biggestCollectionner = population.findById(entityCount.entityId);
+        this.biggestCollectionnerCount = entityCount.count;
+
+        entityCount = entityCountQuery("SELECT user_id,COUNT(*) FROM Wish GROUP BY user_id ORDER BY COUNT(*) DESC");
+        this.biggestWisher = population.findById(entityCount.entityId);
+        this.biggestWisherCount = entityCount.count;
+
+        entityCount = entityCountQuery("SELECT id,COUNT(*) FROM Tag GROUP BY name ORDER BY COUNT(*) DESC");
+        this.mostUsedTag = (Tag)session.load(Tag.class, entityCount.entityId);
+        this.mostUsedTagCount = entityCount.count;
+
+        int cover=0;
+        List<Article> articles = articleFactory.findAll();
+        for (Article article : articles) {
+            if(article.hasCover()) {
+               cover++;
+            }
+        }
+        this.missingCovers = articles.size() - cover;
+    }
+
+    private EntityCount entityCountQuery(String query) {
+        return new EntityCount(session.createSQLQuery(query).setMaxResults(1).list().get(0));
+    }
+
+    class EntityCount {
+        Long entityId;
+        Long count;
+        EntityCount(Object o) {
+            Object[] data = (Object[]) o;
+            entityId = ((BigInteger)data[0]).longValue();
+            count = ((BigInteger)data[1]).longValue();
+        }
     }
 
 }
+
