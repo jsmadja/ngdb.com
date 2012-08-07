@@ -52,10 +52,6 @@ public class Market {
         cache = create.getCache("index.random.shopitem");
     }
 
-	public List<ShopItem> findAllItemsSold() {
-		return allShopItems().add(eq("sold", true)).list();
-	}
-
 	public List<ShopItem> findAllItemsForSale() {
 		return allShopItems().add(eq("sold", false)).list();
 	}
@@ -114,20 +110,6 @@ public class Market {
 
 	public void remove(ShopItem shopItem) {
 		session.delete(shopItem);
-	}
-
-	public Collection<ShopItem> findAllByOriginAndPlatform(final Origin origin, final Platform platform) {
-		Collection<ShopItem> list = allShopItems().list();
-		list = Collections2.filter(list, new Predicate<ShopItem>() {
-			@Override
-			public boolean apply(ShopItem input) {
-				Article article = input.getArticle();
-				Origin articleOrigin = article.getOrigin();
-				Platform articlePlatform = article.getPlatform();
-				return articleOrigin.equals(origin) && articlePlatform.equals(platform);
-			}
-		});
-		return list;
 	}
 
 	public String getPriceOf(com.ngdb.entities.shop.ShopItem shopItem) {
