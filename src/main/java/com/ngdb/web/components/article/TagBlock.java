@@ -53,14 +53,13 @@ public class TagBlock {
 	}
 
 	@CommitAfter
-	public Object onSuccess() {
+	public void onSuccess() {
 		if (isNotBlank(search)) {
 			Set<String> tags = extractTags();
 			for (String tag : tags) {
 				addTag(tag);
 			}
 		}
-		return this;
 	}
 
 	private void addTag(String tag) {

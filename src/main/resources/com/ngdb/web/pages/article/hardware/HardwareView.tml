@@ -20,20 +20,12 @@
 						#${hardware.id}<t:pagelink page="museum" context="[byPlatform,hardware.platform]"><t:common.platform platform="hardware.platform"/></t:pagelink> 
 					</div>
 				</div>
-					<table>
-						<t:loop source="hardware.notes" value="note">
-							<tr>
-								<td class="grey">
-									<b>${note.name}</b>
-								</td>
-								<td>
-									${note.text}
-								</td>
-							</tr>
-						</t:loop>
-					</table>
-					<hr/>
-				<t:if test="${hardware.details}">
+
+                <t:article.tagBlock article="hardware" />
+
+                <t:article.noteBlock article="hardware" />
+
+                <t:if test="${hardware.details}">
 					<h3>Details</h3>
 					<p>
 						<t:OutputRaw value="${hardware.details}"/>
@@ -41,8 +33,6 @@
 					<hr />
 				</t:if>
 				
-				<t:article.tagBlock article="hardware" />
-
 				<p>
 					<t:pagelink class="pull-right label label-important" page="contact" context="hardware.title">
 						<i class="icon-flag icon-white"></i>

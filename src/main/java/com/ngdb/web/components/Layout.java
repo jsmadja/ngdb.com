@@ -33,7 +33,7 @@ public class Layout {
 	}
 
 	public boolean isProductionServer() {
-		return "88.179.37.215".equals(request.getRemoteHost());
+		return "true".equalsIgnoreCase(System.getProperty("production"));
 	}
 
 }
