@@ -3,8 +3,10 @@ package com.ngdb.web.pages;
 import java.util.Collection;
 import java.util.List;
 
+import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.MuseumFilter;
 import com.ngdb.entities.Population;
+import com.ngdb.entities.article.Article;
 import com.ngdb.web.Filter;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.tapestry5.annotations.Persist;
@@ -35,6 +37,9 @@ public class Market {
     @Inject
     private Population population;
 
+    @Inject
+    private ArticleFactory articleFactory;
+
 	@Persist
 	private MarketFilter marketFilter;
 
@@ -64,6 +69,10 @@ public class Market {
             case byUser:
                 User user = population.findById(Long.valueOf(value));
                 marketFilter.filterByUser(user);
+                break;
+            case byArticle:
+                Article article = articleFactory.findById(Long.valueOf(value));
+                marketFilter.filterByArticle(article);
                 break;
         }
         return true;

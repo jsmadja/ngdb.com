@@ -105,6 +105,9 @@ public class MarketFilter {
 		if (filteredPlatform != null) {
 			filters.add(new ShopItemPredicates.PlatformPredicate(filteredPlatform));
 		}
+        if (filteredArticle != null) {
+            filters.add(new ShopItemPredicates.ArticlePredicate(filteredArticle));
+        }
 	}
 
 	public List<ShopItem> getShopItems() {

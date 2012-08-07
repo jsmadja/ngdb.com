@@ -1,6 +1,7 @@
 package com.ngdb;
 
 import com.google.common.base.Predicate;
+import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.reference.Origin;
@@ -24,6 +25,22 @@ public class ShopItemPredicates {
 		}
 
 	}
+
+    public static class ArticlePredicate implements Predicate<ShopItem> {
+        private Long id;
+
+        public ArticlePredicate(Article article) {
+            this.id = article.getId();
+        }
+
+        @Override
+        public boolean apply(ShopItem shopItem) {
+            Article article = shopItem.getArticle();
+            Long articleId = article.getId();
+            return id.equals(articleId);
+        }
+
+    }
 
 	public static class OriginPredicate implements Predicate<ShopItem> {
 		private Long id;
