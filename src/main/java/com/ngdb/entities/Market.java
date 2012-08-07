@@ -9,6 +9,9 @@ import static org.hibernate.criterion.Restrictions.eq;
 
 import java.util.*;
 
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
@@ -42,6 +45,13 @@ public class Market {
 	@Inject
 	private CurrentUser currentUser;
 
+    private static Cache cache;
+
+    static {
+        CacheManager create = CacheManager.create();
+        cache = create.getCache("index.random.shopitem");
+    }
+
 	public List<ShopItem> findAllItemsSold() {
 		return allShopItems().add(eq("sold", true)).list();
 	}
@@ -54,14 +64,8 @@ public class Market {
 		return session.createCriteria(ShopItem.class).addOrder(desc("modificationDate"));
 	}
 
-	public List<ShopItem> findLastForSaleItems(int count) {
-        List<ShopItem> items = session.createQuery("SELECT si FROM ShopItem si WHERE si.sold = false").list();
-        List<ShopItem> forSaleItems = new ArrayList<ShopItem>(Collections2.filter(items, new Predicate<ShopItem>() {
-            @Override
-            public boolean apply(@Nullable ShopItem input) {
-                return input.hasCover();
-            }
-        }));
+	public List<ShopItem> findRandomForSaleItems(int count) {
+        List<ShopItem> forSaleItems = getShopItemsWithCover();
         List<ShopItem> randomItems = new ArrayList<ShopItem>();
         Set<Integer> ids = new HashSet<Integer>();
         while(ids.size() <count) {
@@ -73,7 +77,22 @@ public class Market {
         return randomItems;
 	}
 
-	public Long getNumForSaleItems() {
+    private List<ShopItem> getShopItemsWithCover() {
+        if(cache.get("all") == null) {
+            List<ShopItem> items = session.createQuery("SELECT si FROM ShopItem si WHERE si.sold = false").list();
+            items = new ArrayList<ShopItem>(Collections2.filter(items, new Predicate<ShopItem>() {
+                @Override
+                public boolean apply(@Nullable ShopItem input) {
+                    return input.hasCover();
+                }
+            }));
+            cache.put(new Element("all", items));
+            return items;
+        }
+        return (List<ShopItem>) cache.get("all").getValue();
+    }
+
+    public Long getNumForSaleItems() {
 		return (Long) session.createCriteria(ShopItem.class).setProjection(count("id")).add(eq("sold", false)).setCacheable(true).setCacheRegion("cacheCount").uniqueResult();
 	}
 

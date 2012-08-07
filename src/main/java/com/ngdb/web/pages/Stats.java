@@ -28,7 +28,16 @@ public class Stats {
     @Property
     private Article mostOwnedArticle;
 
-	@Inject
+    @Property
+    private Long mostOwnedArticleCount;
+
+    @Property
+    private Article mostWishedArticle;
+
+    @Property
+    private Long mostWishedArticleCount;
+
+    @Inject
 	private com.ngdb.entities.Market market;
 
 	@Inject
@@ -43,9 +52,6 @@ public class Stats {
     @Inject
     private ArticleFactory articleFactory;
 
-    @Property
-    private Long mostOwnedArticleCount;
-
     @SetupRender
 	public void init() {
 		this.userCount = population.getNumUsers();
@@ -55,6 +61,10 @@ public class Stats {
         Object[] result = (Object[]) session.createSQLQuery("SELECT article_id,COUNT(*) FROM CollectionObject GROUP BY article_id ORDER BY COUNT(*) DESC").setMaxResults(1).list().get(0);
         this.mostOwnedArticle =  articleFactory.findById(((BigInteger)result[0]).longValue());
 	    this.mostOwnedArticleCount = ((BigInteger)result[1]).longValue();
+
+        result = (Object[]) session.createSQLQuery("SELECT article_id,COUNT(*) FROM Wish GROUP BY article_id ORDER BY COUNT(*) DESC").setMaxResults(1).list().get(0);
+        this.mostWishedArticle =  articleFactory.findById(((BigInteger)result[0]).longValue());
+        this.mostWishedArticleCount = ((BigInteger)result[1]).longValue();
     }
 
 }

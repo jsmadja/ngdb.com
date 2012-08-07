@@ -8,6 +8,7 @@
 			<tr><td>Wishes</td><td>${wishListCount}</td></tr>
 			<tr><td>Members</td><td>${userCount}</td></tr>
             <tr><td>Most owned article</td><td>${mostOwnedArticle} (${mostOwnedArticleCount})</td></tr>
+            <tr><td>Most wished article</td><td>${mostWishedArticle} (${mostWishedArticleCount})</td></tr>
         </tbody>
 	</table>
 </t:layout>
