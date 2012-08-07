@@ -7,6 +7,7 @@
 		<tbody>
 			<tr><td>Wishes</td><td>${wishListCount}</td></tr>
 			<tr><td>Members</td><td>${userCount}</td></tr>
-		</tbody>
+            <tr><td>Most owned article</td><td>${mostOwnedArticle} (${mostOwnedArticleCount})</td></tr>
+        </tbody>
 	</table>
 </t:layout>
