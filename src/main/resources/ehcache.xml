@@ -24,10 +24,7 @@
 	<cache name="index.random.games" maxElementsInMemory="3"
 		eternal="false" timeToLiveSeconds="3600" overflowToDisk="false" statistics="true" />
 
-    <cache name="index.random.shopitem" maxElementsInMemory="3"
-           eternal="false" timeToLiveSeconds="600" overflowToDisk="false" statistics="true" />
-
-    <cache name="com.ngdb.entities.article.Article"
+	<cache name="com.ngdb.entities.article.Article"
 		maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="120"
 		timeToLiveSeconds="120" overflowToDisk="false" statistics="true" />
 
