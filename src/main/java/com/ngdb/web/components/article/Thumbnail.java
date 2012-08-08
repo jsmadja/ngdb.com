@@ -26,9 +26,6 @@ public class Thumbnail {
 	@Parameter
 	private boolean center;
 
-	@Inject
-	private Session session;
-
 	public String getViewPage() {
 		if (article instanceof Game) {
 			return "article/game/gameView";
@@ -37,7 +34,6 @@ public class Thumbnail {
 	}
 
 	public String getUrl() {
-		session.refresh(article);
 		if (size == null) {
 			return article.getMainPicture().getUrl();
 		}
