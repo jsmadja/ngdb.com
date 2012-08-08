@@ -1,6 +1,7 @@
 package com.ngdb.entities.shop;
 
 import static java.text.MessageFormat.format;
+import static javax.persistence.FetchType.LAZY;
 
 import java.util.Date;
 import java.util.Locale;
@@ -32,7 +33,14 @@ import com.ngdb.entities.user.User;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ShopItem implements Comparable<ShopItem> {
 
-	private static final int MAX_DETAIL_LENGTH = 1024;
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private Long id;
+
+    @ManyToOne(optional = false, fetch = LAZY)
+    private User seller;
+
+    private static final int MAX_DETAIL_LENGTH = 1024;
 
 	@Column(name = "creation_date", nullable = false)
 	private Date creationDate;
@@ -40,21 +48,14 @@ public class ShopItem implements Comparable<ShopItem> {
 	@Column(name = "modification_date", nullable = false)
 	private Date modificationDate;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	private Long id;
-
 	@Embedded
 	private ShopItemPictures pictures = new ShopItemPictures();
 
 	@OneToOne
 	private State state;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = LAZY)
 	private Article article;
-
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	private User seller;
 
 	private String details;
 
