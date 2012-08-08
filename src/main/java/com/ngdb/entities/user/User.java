@@ -229,6 +229,10 @@ public class User extends AbstractEntity implements Comparable<User> {
 		return shop.getNumGamesForSale();
 	}
 
+    public int getNumArticleForSale() {
+        return shop.getNumArticlesToSell();
+    }
+
 	public Collection<ShopItem> getAllGamesForSale() {
 		return shop.getAllGamesForSale();
 	}

@@ -2,6 +2,7 @@ package com.ngdb.web.pages;
 
 import java.util.Collection;
 
+import com.ngdb.web.Filter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -24,4 +25,10 @@ public class Users {
 	void init() {
 		this.users = population.findEverybody();
 	}
+
+    public String getByUser() {
+        return Filter.byUser.name();
+    }
+
+
 }

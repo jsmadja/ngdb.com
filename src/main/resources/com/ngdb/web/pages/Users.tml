@@ -4,7 +4,7 @@
 			<h1 class="black-bar rounded-bar big-bar">Members</h1>
 		</div>
 		<div>
-			<t:grid pagerPosition="BOTH" source="users" class="table table-striped table-bordered table-condensed" row="user" include="login,creationDate">
+			<t:grid pagerPosition="BOTH" source="users" class="table table-striped table-bordered table-condensed" row="user" add="articlesInWishList,articlesInMarket,articlesInCollection" include="login,creationDate">
 				<p:CreationDateHeader>
 					Subscription date
 	            </p:CreationDateHeader>
@@ -14,6 +14,15 @@
 	            <p:LoginCell>
 	            	<t:pageLink page="user/UserView" context="user"><b>${user.login}</b></t:pageLink>
 	            </p:LoginCell>
+                <p:articlesInWishListCell>
+                    <t:pageLink page="wishBox" context="[byUser,user.id]">${user.numArticlesInWishList}</t:pageLink>
+                </p:articlesInWishListCell>
+                <p:articlesInMarketCell>
+                    <t:pageLink page="market" context="[byUser,user.id]">${user.numArticleForSale}</t:pageLink>
+                </p:articlesInMarketCell>
+                <p:articlesInCollectionCell>
+                    <t:pageLink page="museum" context="${user.id}">${user.numArticlesInCollection}</t:pageLink>
+                </p:articlesInCollectionCell>
 			</t:grid>
 		</div>
 	</div>
