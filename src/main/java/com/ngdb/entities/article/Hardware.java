@@ -16,4 +16,9 @@ public class Hardware extends Article {
 		return Hardware.class;
 	}
 
+    @Override
+    public boolean isGame() {
+        return false;
+    }
+
 }

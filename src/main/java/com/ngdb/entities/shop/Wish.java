@@ -89,7 +89,11 @@ public class Wish implements Comparable<Wish> {
 		return new PrettyTime(Locale.UK).format(getCreationDate());
 	}
 
-	@Embeddable
+    public boolean isGame() {
+        return article.isGame();
+    }
+
+    @Embeddable
 	private static class WishId implements Serializable {
 
 		@Column(name = "user_id", nullable = false, updatable = false)
@@ -131,7 +135,7 @@ public class Wish implements Comparable<Wish> {
 
 	@Override
 	public int compareTo(Wish o) {
-		return getCreationDate().compareTo(o.getCreationDate());
+		return getArticle().getTitle().compareTo(o.getArticle().getTitle());
 	}
 
 	public void setArticle(Article article) {

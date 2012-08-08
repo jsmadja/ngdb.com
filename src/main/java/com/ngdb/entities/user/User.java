@@ -41,9 +41,6 @@ public class User extends AbstractEntity implements Comparable<User> {
 	@Embedded
 	private Shop shop;
 
-	@Embedded
-	private Set<Profile> profiles;
-
 	@OneToMany(mappedBy = "user")
 	private Set<Token> tokens;
 
@@ -118,14 +115,6 @@ public class User extends AbstractEntity implements Comparable<User> {
 
 	public Shop getShop() {
 		return shop;
-	}
-
-	public Set<Permission> getPermissions() {
-		Set<Permission> permissions = new HashSet<Permission>();
-		for (Profile profile : profiles) {
-			permissions.addAll(profile.getPermissions());
-		}
-		return permissions;
 	}
 
 	public Wish addToWishes(Article article) {
@@ -243,5 +232,21 @@ public class User extends AbstractEntity implements Comparable<User> {
 
     public boolean isContributor() {
         return login.equalsIgnoreCase("anzymus") || login.equalsIgnoreCase("takou");
+    }
+
+    public Collection<Wish> getAllWishedGames() {
+        return wishList.getAllGames();
+    }
+
+    public Collection<Wish> getAllWishedHardwares() {
+        return wishList.getAllHardwares();
+    }
+
+    public int getNumWishedHardwares() {
+        return wishList.getNumWishedHardwares();
+    }
+
+    public int getNumWishedGames() {
+        return wishList.getNumWishedGames();
     }
 }

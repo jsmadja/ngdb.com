@@ -2,6 +2,7 @@ package com.ngdb;
 
 import java.util.Date;
 
+import com.ngdb.entities.shop.Wish;
 import org.joda.time.DateTime;
 
 import com.google.common.base.Predicate;
@@ -13,6 +14,8 @@ import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
 import com.ngdb.entities.shop.ShopItem;
+
+import javax.annotation.Nullable;
 
 public class Predicates {
 
@@ -51,7 +54,21 @@ public class Predicates {
 		}
 	};
 
-	public static class PlatformPredicate implements Predicate<Article> {
+    public static Predicate<Wish> isGameWish =new Predicate<Wish>() {
+        @Override
+        public boolean apply(@Nullable Wish input) {
+            return input.isGame();
+        }
+    };
+
+    public static Predicate<Wish> isHardwareWish =new Predicate<Wish>() {
+        @Override
+        public boolean apply(@Nullable Wish input) {
+            return !input.isGame();
+        }
+    };
+
+    public static class PlatformPredicate implements Predicate<Article> {
 		private Long id;
 
 		public PlatformPredicate(Platform platform) {

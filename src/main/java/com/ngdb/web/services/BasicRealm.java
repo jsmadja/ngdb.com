@@ -45,9 +45,6 @@ public class BasicRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		Set<Permission> permissions = new HashSet<Permission>();
 		User user = getUser(principals.getPrimaryPrincipal().toString());
-		if (user != null) {
-			permissions.addAll(user.getPermissions());
-		}
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		info.addObjectPermissions(permissions);
 		return info;

@@ -69,4 +69,9 @@ public class Game extends Article {
 		return Game.class;
 	}
 
+    @Override
+    public boolean isGame() {
+        return true;
+    }
+
 }

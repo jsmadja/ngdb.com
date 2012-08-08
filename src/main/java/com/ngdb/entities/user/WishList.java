@@ -1,15 +1,23 @@
 package com.ngdb.entities.user;
 
+import static com.google.common.collect.Collections2.filter;
+import static com.google.common.collect.Collections2.transform;
+import static com.ngdb.Functions.fromWishToArticle;
+import static com.ngdb.Predicates.isGameWish;
+import static com.ngdb.Predicates.isHardwareWish;
 import static javax.persistence.FetchType.LAZY;
 
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
+import javax.annotation.Nullable;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
 
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.ngdb.Functions;
+import com.ngdb.Predicates;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -64,4 +72,19 @@ public class WishList implements Iterable<Wish> {
 		}
 	}
 
+    public Collection<Wish> getAllGames() {
+        return filter(wishes, isGameWish);
+    }
+
+    public int getNumWishedHardwares() {
+        return getAllHardwares().size();
+    }
+
+    public int getNumWishedGames() {
+        return getAllGames().size();
+    }
+
+    public Collection<Wish> getAllHardwares() {
+        return filter(wishes, isHardwareWish);
+    }
 }

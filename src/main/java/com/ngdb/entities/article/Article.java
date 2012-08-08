@@ -330,4 +330,6 @@ public abstract class Article implements Comparable<Article>, Serializable {
     public boolean hasCover() {
         return getMainPicture() != Picture.EMPTY;
     }
+
+    public abstract boolean isGame();
 }
