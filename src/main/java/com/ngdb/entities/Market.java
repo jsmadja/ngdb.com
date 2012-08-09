@@ -68,7 +68,7 @@ public class Market {
             int randomIdx = RandomUtils.nextInt(forSaleItems.size());
             if(ids.add(randomIdx)) {
                 ShopItem shopItem = forSaleItems.get(randomIdx);
-                session.refresh(shopItem);
+                shopItem = (ShopItem) session.load(ShopItem.class, shopItem.getId());
                 randomItems.add(shopItem);
             }
         }
