@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.ioc.annotations.Inject;
-import org.hibernate.Session;
 
 public class Platform {
 
@@ -13,9 +11,6 @@ public class Platform {
 	private com.ngdb.entities.reference.Platform platform;
 
 	private static final Map<String, String> shortNames = new HashMap<String, String>();
-
-    @Inject
-    private Session session;
 
 	static {
 		shortNames.put("Neo·Geo CD", "NGCD");
@@ -27,7 +22,6 @@ public class Platform {
 	}
 
 	public String getPlatformName() {
-        session.refresh(platform);
 		return shortNames.get(platform.getName());
 	}
 
