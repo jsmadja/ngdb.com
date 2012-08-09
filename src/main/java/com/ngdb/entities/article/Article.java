@@ -79,10 +79,13 @@ public abstract class Article implements Comparable<Article>, Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date releaseDate;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	private Origin origin;
 
-	@Embedded
+    @OneToOne(fetch = FetchType.EAGER)
+    private Platform platform;
+
+    @Embedded
 	@XmlTransient
 	private Notes notes;
 
@@ -115,9 +118,6 @@ public abstract class Article implements Comparable<Article>, Serializable {
 	private Set<CollectionObject> owners;
 
 	private String details;
-
-	@OneToOne(fetch = FetchType.LAZY)
-	private Platform platform;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	private Publisher publisher;

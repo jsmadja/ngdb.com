@@ -80,7 +80,7 @@ public class UserView {
 	}
 
 	public Set<User> getPotentialBuyers() {
-		return shopItem.getPotentialBuyers();
+        return shopItem.getPotentialBuyers();
 	}
 
 	public String getPrice() {
