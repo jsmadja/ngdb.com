@@ -1,8 +1,6 @@
 package com.ngdb.entities.user;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -127,8 +125,15 @@ public class User extends AbstractEntity implements Comparable<User> {
 		wishList.removeFromWishList(article);
 	}
 
-	public Collection<ShopItem> getShopItemsForSale() {
-		return shop.getShopItemsToSell();
+	public List<ShopItem> getShopItemsForSale() {
+        List<ShopItem> shopItemsToSell = new ArrayList<ShopItem>(shop.getShopItemsToSell());
+        Collections.sort(shopItemsToSell, new Comparator<ShopItem>() {
+            @Override
+            public int compare(ShopItem shopItem1, ShopItem shopItem2) {
+                return shopItem1.getArticle().getTitle().compareToIgnoreCase(shopItem2.getArticle().getTitle());
+            }
+        });
+        return shopItemsToSell;
 	}
 
 	public boolean canAddInCollection(Article article) {

@@ -63,7 +63,7 @@ public class UserView {
 		return "article/hardware/hardwareView";
 	}
 
-	public User getUser() {
+    public User getUser() {
 		return user;
 	}
 
