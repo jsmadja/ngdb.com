@@ -29,7 +29,7 @@ public class Menu {
 
 	@SetupRender
 	void onInit() {
-		this.shopItems = market.findRandomForSaleItems(5);
+		this.shopItems = market.findRandomForSaleItems(3);
 		this.forSaleCount = market.getNumForSaleItems();
 	}
 
