@@ -24,12 +24,12 @@
 						</t:actionLink>				
 					</t:if>
 					<t:if test="addableToCollection">
-						<t:actionLink class="btn btn-success" zone="prop:zoneId" t:id="addToCollection" context="article">
+						<t:actionLink class="btn btn-success" zone="prop:zoneId" t:id="addToCollection" context="article" title="Add to your collection">
 							<i class="icon-plus icon-white" />
 						</t:actionLink>
 					</t:if>
 					<t:if test="removeableFromCollection">
-						<t:actionLink class="btn btn-danger"  zone="prop:zoneId" t:id="removeCollection" context="article">
+						<t:actionLink class="btn btn-danger"  zone="prop:zoneId" t:id="removeCollection" context="article" title="Remove from your collection">
 							<i class="icon-minus icon-white" />
 						</t:actionLink>
 					</t:if>
