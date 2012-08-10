@@ -1,11 +1,10 @@
 package com.ngdb.web.components.common.layout;
 
 import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -21,6 +20,8 @@ import com.ngdb.entities.article.element.Comment;
 import com.ngdb.web.pages.Market;
 import com.ngdb.web.pages.article.game.GameView;
 import com.ngdb.web.pages.article.hardware.HardwareView;
+
+import javax.annotation.Nullable;
 
 public class Events {
 
@@ -53,8 +54,19 @@ public class Events {
 	@Inject
 	private Registry registry;
 
-	public List<Game> getUpdates() {
-		return registry.findLastUpdates();
+	public Collection<Game> getUpdates() {
+        final Set<String> added = new HashSet<String>();
+        List<Game> lastUpdates = registry.findLastUpdates();
+        return Collections2.filter(lastUpdates, new Predicate<Game>() {
+            @Override
+            public boolean apply(@Nullable Game input) {
+                if(added.contains(input.getTitle())) {
+                    return false;
+                }
+                added.add(input.getTitle());
+                return true;
+            }
+        });
 	}
 
 	@SuppressWarnings("unchecked")

@@ -21,6 +21,7 @@ import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Tag;
+import org.hibernate.criterion.Projections;import org.hibernate.criterion.Restrictions;
 
 public class Registry {
 
@@ -53,7 +54,7 @@ public class Registry {
 	}
 
 	public List<Game> findLastUpdates() {
-		return session.createCriteria(Game.class).setCacheable(true).setMaxResults(7).addOrder(desc("modificationDate")).list();
+		return session.createCriteria(Game.class).setCacheable(true).setMaxResults(10).addOrder(desc("modificationDate")).list();
 	}
 
 	public Collection<String> findAllTags() {
