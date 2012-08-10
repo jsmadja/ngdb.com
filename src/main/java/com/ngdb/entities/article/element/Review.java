@@ -79,6 +79,9 @@ public class Review extends AbstractEntity implements Comparable<Review> {
 
 	@Override
 	public int compareTo(Review review) {
-		return getMark().compareToIgnoreCase(review.getMark());
+        if(getMark().compareToIgnoreCase(review.getMark()) == 0) {
+            return getLabel().compareTo(review.getLabel());
+        }
+        return review.getMark().compareToIgnoreCase(getMark());
 	}
 }

@@ -1,10 +1,14 @@
 package com.ngdb.entities.article.element;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import com.ngdb.entities.article.Article;
+
+import java.util.Set;
+import java.util.TreeSet;
 
 public class ReviewTest {
 
@@ -52,5 +56,27 @@ public class ReviewTest {
 	private String toStars(String mark) {
 		return new Review("", "", mark, article).getMark();
 	}
+
+    @Test
+    public void should_order_review_by_mark_then_name() {
+        Review review1 = new Review("neogeokult", "http://url", "4/5", null);
+        Review review2 = new Review("neogeospirit", "http://url", "4/5", null);
+
+        assertTrue(0 > review1.compareTo(review2));
+
+        Set<Review> reviews = new TreeSet<Review>();
+        reviews.add(review1);
+        reviews.add(review2);
+        reviews.add(new Review("site1", "http://url", "5/5", null));
+        reviews.add(new Review("site2", "http://url", "4/5", null));
+        reviews.add(new Review("asite1", "http://url", "4/5", null));
+
+        Review[] sortedReviews = reviews.toArray(new Review[0]);
+        assertEquals("site1", sortedReviews[0].getLabel());
+        assertEquals("asite1", sortedReviews[1].getLabel());
+        assertEquals("neogeokult", sortedReviews[2].getLabel());
+        assertEquals("neogeospirit", sortedReviews[3].getLabel());
+        assertEquals("site2", sortedReviews[4].getLabel());
+    }
 
 }
