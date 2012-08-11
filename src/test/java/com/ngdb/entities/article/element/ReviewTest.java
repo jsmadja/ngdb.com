@@ -16,16 +16,17 @@ public class ReviewTest {
 
 	@Test
 	public void should_convert_percent_in_stars() {
-		assertEquals("00", toStars("0%"));
+        assertEquals("45", toStars("90%"));
+
+        assertEquals("00", toStars("0%"));
 		assertEquals("10", toStars("20%"));
 		assertEquals("20", toStars("40%"));
 		assertEquals("30", toStars("60%"));
 		assertEquals("40", toStars("80%"));
-		assertEquals("50", toStars("90%"));
-		assertEquals("50", toStars("91%"));
-		assertEquals("50", toStars("92%"));
-		assertEquals("50", toStars("93%"));
-		assertEquals("50", toStars("94%"));
+		assertEquals("45", toStars("91%"));
+		assertEquals("45", toStars("92%"));
+		assertEquals("45", toStars("93%"));
+		assertEquals("45", toStars("94%"));
 		assertEquals("50", toStars("95%"));
 		assertEquals("50", toStars("96%"));
 		assertEquals("50", toStars("97%"));
@@ -46,7 +47,11 @@ public class ReviewTest {
 		assertEquals("10", toStars("2/10"));
 		assertEquals("15", toStars("2.5/10"));
 		assertEquals("50", toStars("10/10"));
-	}
+
+        assertEquals("45", toStars("9/10"));
+        assertEquals("15", toStars("1/3"));
+
+    }
 
 	@Test
 	public void should_convert_errors_in_0_star() {
