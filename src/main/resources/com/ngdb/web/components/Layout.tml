@@ -5,7 +5,9 @@
     <title>www.neogeodb.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta name="author" content="Takou - Anzymus" />
+    <meta name="description" content="neogeodb.com - The NeoGeo Database - Collections, Wishlists, Marketplace of many formats (AES/MVS/CD/NGP/NGPC/H64)" />
+    <meta name="keywords" content="neogeo mvs aes neogeocd arcade fighting shoot sell buy database list listing japanese games shop market retro retrogaming snk snkp snkplaymore" />
 
     <link href="/css/bootstrap.css" rel="stylesheet" />
     <link href="/css/colorbox.css" rel="stylesheet" />
