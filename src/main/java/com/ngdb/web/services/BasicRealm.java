@@ -23,45 +23,46 @@ import com.ngdb.entities.user.User;
 
 public class BasicRealm extends AuthorizingRealm {
 
-	private static final String NAME = "ngdb-realm";
+    private static final String NAME = "ngdb-realm";
 
-	private Population population;
+    private Population population;
 
-	public BasicRealm(Population population) {
-		super.setCacheManager(new MemoryConstrainedCacheManager());
-		super.setName(NAME);
-		super.setAuthenticationTokenClass(UsernamePasswordToken.class);
-		this.population = population;
-		configureCredentialsMatcher();
-	}
+    public BasicRealm(Population population) {
+        super.setCacheManager(new MemoryConstrainedCacheManager());
+        super.setName(NAME);
+        super.setAuthenticationTokenClass(UsernamePasswordToken.class);
+        this.population = population;
+        configureCredentialsMatcher();
+    }
 
-	private void configureCredentialsMatcher() {
-		HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(Sha1Hash.ALGORITHM_NAME);
-		matcher.setStoredCredentialsHexEncoded(false);
-		super.setCredentialsMatcher(matcher);
-	}
+    private void configureCredentialsMatcher() {
+        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(Sha1Hash.ALGORITHM_NAME);
+        matcher.setStoredCredentialsHexEncoded(false);
+        super.setCredentialsMatcher(matcher);
+    }
 
-	@Override
-	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		Set<Permission> permissions = new HashSet<Permission>();
-		User user = getUser(principals.getPrimaryPrincipal().toString());
-		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		info.addObjectPermissions(permissions);
-		return info;
-	}
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        Set<Permission> permissions = new HashSet<Permission>();
+        User user = getUser(principals.getPrimaryPrincipal().toString());
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        info.addObjectPermissions(permissions);
+        return info;
+    }
 
-	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
-		String login = usernamePasswordToken.getUsername();
-		User user = getUser(login);
-		if (user == null) {
-			throw new UnknownAccountException();
-		}
-		return new SimpleAuthenticationInfo(user.getLogin(), user.getPassword(), null, BasicRealm.NAME);
-	}
+    @Override
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+        UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
+        usernamePasswordToken.setRememberMe(true);
+        String login = usernamePasswordToken.getUsername();
+        User user = getUser(login);
+        if (user == null) {
+            throw new UnknownAccountException();
+        }
+        return new SimpleAuthenticationInfo(user.getLogin(), user.getPassword(), null, BasicRealm.NAME);
+    }
 
-	private User getUser(String login) {
-		return population.findByLogin(login);
-	}
+    private User getUser(String login) {
+        return population.findByLogin(login);
+    }
 }
