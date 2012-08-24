@@ -21,6 +21,8 @@ public class Game extends Article {
 
     private String ngh;
 
+    private String imdbId;
+
     @Column(name = "mega_count")
     private Long megaCount;
 
@@ -52,6 +54,14 @@ public class Game extends Article {
 
     public Box getBox() {
         return box;
+    }
+
+    public String getImdbId() {
+        return imdbId;
+    }
+
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
     }
 
     @Override

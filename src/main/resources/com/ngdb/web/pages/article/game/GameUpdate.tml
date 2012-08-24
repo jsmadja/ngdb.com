@@ -93,6 +93,14 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        <t:label for="imdbId" class="control-label">
+                            <b>IMDB id</b>
+                        </t:label>
+                        <div class="controls">
+                            <t:textfield value="imdbId" t:id="imdbId" />
+                        </div>
+                    </div>
+                    <div class="control-group">
                         <t:label for="mainPicture" class="control-label">
                             <b>Cover</b>
                         </t:label>
