@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.Request;
 
 import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.HardwareFactory;
@@ -24,219 +25,222 @@ import com.ngdb.web.pages.base.Redirections;
 
 public class Museum {
 
-	@Property
-	private Article article;
+    @Property
+    private Article article;
 
-	@Property
-	private Platform platform;
+    @Property
+    private Platform platform;
 
-	@Property
-	private Origin origin;
+    @Property
+    private Origin origin;
 
-	@Property
-	private Publisher publisher;
+    @Property
+    private Publisher publisher;
 
-	@Inject
-	private ReferenceService referenceService;
+    @Inject
+    private ReferenceService referenceService;
 
-	@Persist
-	private MuseumFilter museumFilter;
+    @Persist
+    private MuseumFilter museumFilter;
 
-	@Inject
-	private GameFactory gameFactory;
+    @Inject
+    private GameFactory gameFactory;
 
-	@Inject
-	private HardwareFactory hardwareFactory;
+    @Inject
+    private HardwareFactory hardwareFactory;
 
-	@Persist
-	@Property
-	private boolean thumbnailMode;
+    @Persist
+    @Property
+    private boolean thumbnailMode;
 
-	void onActivate() {
-		if (museumFilter == null) {
-			museumFilter = new MuseumFilter(gameFactory, hardwareFactory);
-		}
-	}
+    @Inject
+    private Request request;
 
-	boolean onActivate(User user) {
-		museumFilter = new MuseumFilter(gameFactory, hardwareFactory);
-		museumFilter.filterByUser(user);
-		return true;
-	}
+    void onActivate() {
+        if (museumFilter == null || !"false".equals(request.getParameter("display-all"))) {
+            museumFilter = new MuseumFilter(gameFactory, hardwareFactory);
+        }
+    }
 
-	boolean onActivate(String filterName, String value) {
-		if (value == null) {
-			onActivate();
-			return true;
-		}
-		museumFilter = new MuseumFilter(gameFactory, hardwareFactory);
-		Filter filter = Filter.valueOf(Filter.class, filterName);
-		switch (filter) {
-		case byOrigin:
-			museumFilter.filterByOrigin(referenceService.findOriginById(Long.valueOf(value)));
-			break;
-		case byPlatform:
-			museumFilter.filterByPlatform(referenceService.findPlatformById(Long.valueOf(value)));
-			break;
-		case byPublisher:
-			museumFilter.filterByPublisher(referenceService.findPublisherBy(Long.valueOf(value)));
-			break;
-		case byTag:
-			museumFilter.filterByTag(referenceService.findTagById(Long.valueOf(value)));
-			break;
-		case byNgh:
-			museumFilter.filterByNgh(value);
-			break;
-		case byReleaseDate:
-			museumFilter.filterByReleaseDate(toReleaseDate(value));
-			break;
-		}
-		return true;
-	}
+    boolean onActivate(User user) {
+        museumFilter = new MuseumFilter(gameFactory, hardwareFactory);
+        museumFilter.filterByUser(user);
+        return true;
+    }
 
-	private Date toReleaseDate(String value) {
-		try {
-			return new SimpleDateFormat("yyyy-MM-dd").parse(value);
-		} catch (ParseException e) {
-			return new Date();
-		}
-	}
+    boolean onActivate(String filterName, String value) {
+        if (value == null) {
+            onActivate();
+            return true;
+        }
+        museumFilter = new MuseumFilter(gameFactory, hardwareFactory);
+        Filter filter = Filter.valueOf(Filter.class, filterName);
+        switch (filter) {
+        case byOrigin:
+            museumFilter.filterByOrigin(referenceService.findOriginById(Long.valueOf(value)));
+            break;
+        case byPlatform:
+            museumFilter.filterByPlatform(referenceService.findPlatformById(Long.valueOf(value)));
+            break;
+        case byPublisher:
+            museumFilter.filterByPublisher(referenceService.findPublisherBy(Long.valueOf(value)));
+            break;
+        case byTag:
+            museumFilter.filterByTag(referenceService.findTagById(Long.valueOf(value)));
+            break;
+        case byNgh:
+            museumFilter.filterByNgh(value);
+            break;
+        case byReleaseDate:
+            museumFilter.filterByReleaseDate(toReleaseDate(value));
+            break;
+        }
+        return true;
+    }
 
-	public List<Article> getArticles() {
-		return museumFilter.getArticles();
-	}
+    private Date toReleaseDate(String value) {
+        try {
+            return new SimpleDateFormat("yyyy-MM-dd").parse(value);
+        } catch (ParseException e) {
+            return new Date();
+        }
+    }
 
-	Object onActionFromClearFilters() {
-		museumFilter.clear();
-		return this;
-	}
+    public List<Article> getArticles() {
+        return museumFilter.getArticles();
+    }
 
-	public int getNumResults() {
-		return getArticles().size();
-	}
+    Object onActionFromClearFilters() {
+        museumFilter.clear();
+        return this;
+    }
 
-	public long getNumHardwares() {
-		return museumFilter.getNumHardwares();
-	}
+    public int getNumResults() {
+        return getArticles().size();
+    }
 
-	Object onActionFromSelectHardwares() {
-		museumFilter.filterByHardwares();
-		return this;
-	}
+    public long getNumHardwares() {
+        return museumFilter.getNumHardwares();
+    }
 
-	Object onActionFromSelectGames() {
-		museumFilter.filterByGames();
-		return this;
-	}
+    Object onActionFromSelectHardwares() {
+        museumFilter.filterByHardwares();
+        return this;
+    }
 
-	public long getNumGames() {
-		return museumFilter.getNumGames();
-	}
+    Object onActionFromSelectGames() {
+        museumFilter.filterByGames();
+        return this;
+    }
 
-	public List<Platform> getPlatforms() {
-		return referenceService.getPlatforms();
-	}
+    public long getNumGames() {
+        return museumFilter.getNumGames();
+    }
 
-	public boolean isArticleInThisPlatform() {
-		return getNumArticlesInThisPlatform() > 0;
-	}
+    public List<Platform> getPlatforms() {
+        return referenceService.getPlatforms();
+    }
 
-	public boolean isFilteredByThisPlatform() {
-		if (platform == null) {
-			return false;
-		}
-		return museumFilter.isFilteredBy(platform);
-	}
+    public boolean isArticleInThisPlatform() {
+        return getNumArticlesInThisPlatform() > 0;
+    }
 
-	Object onActionFromFilterPlatform(Platform platform) {
-		museumFilter.filterByPlatform(platform);
-		return this;
-	}
+    public boolean isFilteredByThisPlatform() {
+        if (platform == null) {
+            return false;
+        }
+        return museumFilter.isFilteredBy(platform);
+    }
 
-	public int getNumArticlesInThisPlatform() {
-		return museumFilter.getNumArticlesInThisPlatform(platform);
-	}
+    Object onActionFromFilterPlatform(Platform platform) {
+        museumFilter.filterByPlatform(platform);
+        return this;
+    }
 
-	public List<Origin> getOrigins() {
-		return referenceService.getOrigins();
-	}
+    public int getNumArticlesInThisPlatform() {
+        return museumFilter.getNumArticlesInThisPlatform(platform);
+    }
 
-	public boolean isFilteredByThisOrigin() {
-		return museumFilter.isFilteredBy(origin);
-	}
+    public List<Origin> getOrigins() {
+        return referenceService.getOrigins();
+    }
 
-	public boolean isArticleInThisOrigin() {
-		if (origin == null) {
-			return false;
-		}
-		return museumFilter.getNumArticlesInThisOrigin(origin) > 0;
-	}
+    public boolean isFilteredByThisOrigin() {
+        return museumFilter.isFilteredBy(origin);
+    }
 
-	Object onActionFromThumbnailMode() {
-		this.thumbnailMode = true;
-		return this;
-	}
+    public boolean isArticleInThisOrigin() {
+        if (origin == null) {
+            return false;
+        }
+        return museumFilter.getNumArticlesInThisOrigin(origin) > 0;
+    }
 
-	Object onActionFromGridMode() {
-		this.thumbnailMode = false;
-		return this;
-	}
+    Object onActionFromThumbnailMode() {
+        this.thumbnailMode = true;
+        return this;
+    }
 
-	Object onActionFromFilterOrigin(Origin origin) {
-		museumFilter.filterByOrigin(origin);
-		return this;
-	}
+    Object onActionFromGridMode() {
+        this.thumbnailMode = false;
+        return this;
+    }
 
-	public int getNumArticlesInThisOrigin() {
-		return museumFilter.getNumArticlesInThisOrigin(origin);
-	}
+    Object onActionFromFilterOrigin(Origin origin) {
+        museumFilter.filterByOrigin(origin);
+        return this;
+    }
 
-	public boolean isArticleInThisPublisher() {
-		return museumFilter.getNumArticlesInThisPublisher(publisher) > 0;
-	}
+    public int getNumArticlesInThisOrigin() {
+        return museumFilter.getNumArticlesInThisOrigin(origin);
+    }
 
-	public boolean isFilteredByThisPublisher() {
-		if (publisher == null) {
-			return false;
-		}
-		return museumFilter.isFilteredBy(publisher);
-	}
+    public boolean isArticleInThisPublisher() {
+        return museumFilter.getNumArticlesInThisPublisher(publisher) > 0;
+    }
 
-	Object onActionFromFilterPublisher(Publisher publisher) {
-		museumFilter.filterByPublisher(publisher);
-		return this;
-	}
+    public boolean isFilteredByThisPublisher() {
+        if (publisher == null) {
+            return false;
+        }
+        return museumFilter.isFilteredBy(publisher);
+    }
 
-	public List<Publisher> getPublishers() {
-		return referenceService.getPublishers();
-	}
+    Object onActionFromFilterPublisher(Publisher publisher) {
+        museumFilter.filterByPublisher(publisher);
+        return this;
+    }
 
-	public User getUser() {
-		return museumFilter.getFilteredUser();
-	}
+    public List<Publisher> getPublishers() {
+        return referenceService.getPublishers();
+    }
 
-	public boolean isFilteredByGames() {
-		return museumFilter.isFilteredByGames();
-	}
+    public User getUser() {
+        return museumFilter.getFilteredUser();
+    }
 
-	public int getNumArticlesInThisPublisher() {
-		return museumFilter.getNumArticlesInThisPublisher(publisher);
-	}
+    public boolean isFilteredByGames() {
+        return museumFilter.isFilteredByGames();
+    }
 
-	public Tag getTag() {
-		return museumFilter.getFilteredTag();
-	}
+    public int getNumArticlesInThisPublisher() {
+        return museumFilter.getNumArticlesInThisPublisher(publisher);
+    }
 
-	public Date getReleaseDate() {
-		return museumFilter.getFilteredReleaseDate();
-	}
+    public Tag getTag() {
+        return museumFilter.getFilteredTag();
+    }
 
-	public String getQueryLabel() {
-		return museumFilter.getQueryLabel();
-	}
+    public Date getReleaseDate() {
+        return museumFilter.getFilteredReleaseDate();
+    }
 
-	public String getViewPage() {
-		return Redirections.toViewPage(article);
-	}
+    public String getQueryLabel() {
+        return museumFilter.getQueryLabel();
+    }
+
+    public String getViewPage() {
+        return Redirections.toViewPage(article);
+    }
 
 }

@@ -12,8 +12,8 @@
             </div>
 			<div class="nav-collapse">
 	            <ul class="nav pull-left" style="margin-left:20px">
-	              <li><a href="/market">Market</a></li>
-	              <li><a href="/museum">Museum</a></li>
+	              <li><a href="/market?display-all=true">Market</a></li>
+	              <li><a href="/museum?display-all=true">Museum</a></li>
 	              <li><a href="/users">Members</a></li>
 	            </ul>
           	</div>

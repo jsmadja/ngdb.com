@@ -1,5 +1,6 @@
 package com.ngdb.entities.article.element;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
@@ -13,22 +14,22 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Comments implements Iterable<Comment> {
+public class Comments implements Iterable<Comment>, Serializable {
 
-	@OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
-	private Set<Comment> comments;
+    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
+    private Set<Comment> comments;
 
-	@Override
-	public Iterator<Comment> iterator() {
-		return comments.iterator();
-	}
+    @Override
+    public Iterator<Comment> iterator() {
+        return comments.iterator();
+    }
 
-	public boolean isEmpty() {
-		return comments == null || comments.isEmpty();
-	}
+    public boolean isEmpty() {
+        return comments == null || comments.isEmpty();
+    }
 
-	public Set<Comment> all() {
-		return Collections.unmodifiableSet(comments);
-	}
+    public Set<Comment> all() {
+        return Collections.unmodifiableSet(comments);
+    }
 
 }
