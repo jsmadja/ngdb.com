@@ -148,7 +148,6 @@ public class Stats {
     public String getPictureContributors() {
         StringBuilder sb = new StringBuilder();
         List<Object> list = session.createQuery("SELECT DISTINCT(text) FROM Note n WHERE name = 'Picture courtesy of' ORDER BY text").list();
-        System.err.println(list.size());
         for (Object object : list) {
             sb.append("<li>");
             sb.append(object);

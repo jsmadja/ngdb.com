@@ -1,13 +1,19 @@
 package com.ngdb.entities.user;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlTransient;
 
-import org.apache.shiro.authz.Permission;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -21,111 +27,115 @@ import com.ngdb.entities.shop.Wish;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractEntity implements Comparable<User> {
 
-	@Column(nullable = false)
-	private String login;
+    @XmlTransient
+    @Column(name = "last_login_date")
+    private Date lastLoginDate;
 
-	@Column(nullable = false)
-	private String password;
+    @Column(nullable = false)
+    private String login;
 
-	@Column(nullable = false)
-	private String email;
+    @Column(nullable = false)
+    private String password;
 
-	@Embedded
-	private WishList wishList;
+    @Column(nullable = false)
+    private String email;
 
-	@Embedded
-	private ArticleCollection collection;
+    @Embedded
+    private WishList wishList;
 
-	@Embedded
-	private Shop shop;
+    @Embedded
+    private ArticleCollection collection;
 
-	@OneToMany(mappedBy = "user")
-	private Set<Token> tokens;
+    @Embedded
+    private Shop shop;
 
-	@Embedded
-	private PotentialBuys potentialBuys;
+    @OneToMany(mappedBy = "user")
+    private Set<Token> tokens;
 
-	User() {
-	}
+    @Embedded
+    private PotentialBuys potentialBuys;
 
-	public User(String login, String email) {
-		this.login = login;
-		this.email = email;
-	}
+    User() {
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof User) {
-			String login2 = ((User) o).login;
-			return login.equalsIgnoreCase(login2);
-		}
-		return false;
-	}
+    public User(String login, String email) {
+        this.login = login;
+        this.email = email;
+    }
 
-	@Override
-	public int hashCode() {
-		return login.hashCode();
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof User) {
+            String login2 = ((User) o).login;
+            return login.equalsIgnoreCase(login2);
+        }
+        return false;
+    }
 
-	@Override
-	public String toString() {
-		return login;
-	}
+    @Override
+    public int hashCode() {
+        return login.hashCode();
+    }
 
-	public String getLogin() {
-		return login;
-	}
+    @Override
+    public String toString() {
+        return login;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getLogin() {
+        return login;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public boolean canSell(Article article) {
-		if (collection == null) {
-			return false;
-		}
-		return collection.contains(article);
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public Set<Wish> getWishes() {
-		return wishList.getWishes();
-	}
+    public boolean canSell(Article article) {
+        if (collection == null) {
+            return false;
+        }
+        return collection.contains(article);
+    }
 
-	public Set<ShopItem> getShopItems() {
-		return shop.getShopItems();
-	}
+    public Set<Wish> getWishes() {
+        return wishList.getWishes();
+    }
 
-	public Collection<Article> getArticlesInCollection() {
-		return collection.getArticles();
-	}
+    public Set<ShopItem> getShopItems() {
+        return shop.getShopItems();
+    }
 
-	public ArticleCollection getCollection() {
-		return collection;
-	}
+    public Collection<Article> getArticlesInCollection() {
+        return collection.getArticles();
+    }
 
-	public Shop getShop() {
-		return shop;
-	}
+    public ArticleCollection getCollection() {
+        return collection;
+    }
 
-	public Wish addToWishes(Article article) {
-		Wish wish = new Wish(this, article);
-		wishList.addInWishList(wish);
-		return wish;
-	}
+    public Shop getShop() {
+        return shop;
+    }
 
-	public void removeFromWishes(Article article) {
-		wishList.removeFromWishList(article);
-	}
+    public Wish addToWishes(Article article) {
+        Wish wish = new Wish(this, article);
+        wishList.addInWishList(wish);
+        return wish;
+    }
 
-	public List<ShopItem> getShopItemsForSale() {
+    public void removeFromWishes(Article article) {
+        wishList.removeFromWishList(article);
+    }
+
+    public List<ShopItem> getShopItemsForSale() {
         List<ShopItem> shopItemsToSell = new ArrayList<ShopItem>(shop.getShopItemsToSell());
         Collections.sort(shopItemsToSell, new Comparator<ShopItem>() {
             @Override
@@ -134,106 +144,106 @@ public class User extends AbstractEntity implements Comparable<User> {
             }
         });
         return shopItemsToSell;
-	}
+    }
 
-	public boolean canAddInCollection(Article article) {
-		if (collection == null) {
-			return true;
-		}
-		return !collection.contains(article);
-	}
+    public boolean canAddInCollection(Article article) {
+        if (collection == null) {
+            return true;
+        }
+        return !collection.contains(article);
+    }
 
-	public boolean canRemoveFromCollection(Article article) {
-		if (collection == null) {
-			return false;
-		}
-		return collection.contains(article);
-	}
+    public boolean canRemoveFromCollection(Article article) {
+        if (collection == null) {
+            return false;
+        }
+        return collection.contains(article);
+    }
 
-	public boolean canWish(Article article) {
-		if (wishList == null) {
-			return true;
-		}
-		return !wishList.contains(article);
-	}
+    public boolean canWish(Article article) {
+        if (wishList == null) {
+            return true;
+        }
+        return !wishList.contains(article);
+    }
 
-	public boolean canUnwish(Article article) {
-		if (wishList == null) {
-			return false;
-		}
-		return wishList.contains(article);
-	}
+    public boolean canUnwish(Article article) {
+        if (wishList == null) {
+            return false;
+        }
+        return wishList.contains(article);
+    }
 
-	public CollectionObject addInCollection(Article article) {
-		CollectionObject collectionObject = new CollectionObject(this, article);
-		collection.addInCollection(collectionObject);
-		return collectionObject;
-	}
+    public CollectionObject addInCollection(Article article) {
+        CollectionObject collectionObject = new CollectionObject(this, article);
+        collection.addInCollection(collectionObject);
+        return collectionObject;
+    }
 
-	public void removeFromCollection(Article article) {
-		collection.removeFromCollection(article);
-	}
+    public void removeFromCollection(Article article) {
+        collection.removeFromCollection(article);
+    }
 
-	public Collection<Article> getGamesInCollection() {
-		return collection.getGames();
-	}
+    public Collection<Article> getGamesInCollection() {
+        return collection.getGames();
+    }
 
-	public Collection<Article> getHardwaresInCollection() {
-		return collection.getHardwares();
-	}
+    public Collection<Article> getHardwaresInCollection() {
+        return collection.getHardwares();
+    }
 
-	public int getNumArticlesInCollection() {
-		return collection.getNumArticles();
-	}
+    public int getNumArticlesInCollection() {
+        return collection.getNumArticles();
+    }
 
-	public int getNumArticlesInWishList() {
-		return wishList.getNumWishes();
-	}
+    public int getNumArticlesInWishList() {
+        return wishList.getNumWishes();
+    }
 
-	public int getNumArticlesInShop() {
-		return shop.getNumArticlesToSell();
-	}
+    public int getNumArticlesInShop() {
+        return shop.getNumArticlesToSell();
+    }
 
-	public boolean canMarkAsSold(ShopItem shopItem) {
-		return shop.contains(shopItem);
-	}
+    public boolean canMarkAsSold(ShopItem shopItem) {
+        return shop.contains(shopItem);
+    }
 
-	public boolean canRemove(ShopItem shopItem) {
-		return canMarkAsSold(shopItem);
-	}
+    public boolean canRemove(ShopItem shopItem) {
+        return canMarkAsSold(shopItem);
+    }
 
-	public boolean owns(Article article) {
-		return collection.contains(article);
-	}
+    public boolean owns(Article article) {
+        return collection.contains(article);
+    }
 
-	@Override
-	public int compareTo(User user) {
-		return login.compareToIgnoreCase(user.getLogin());
-	}
+    @Override
+    public int compareTo(User user) {
+        return login.compareToIgnoreCase(user.getLogin());
+    }
 
-	public Set<ShopItem> getPotentialBuys() {
-		return potentialBuys.all();
-	}
+    public Set<ShopItem> getPotentialBuys() {
+        return potentialBuys.all();
+    }
 
-	public long getNumHardwaresForSale() {
-		return shop.getNumHardwaresForSale();
-	}
+    public long getNumHardwaresForSale() {
+        return shop.getNumHardwaresForSale();
+    }
 
-	public long getNumGamesForSale() {
-		return shop.getNumGamesForSale();
-	}
+    public long getNumGamesForSale() {
+        return shop.getNumGamesForSale();
+    }
 
     public int getNumArticleForSale() {
         return shop.getNumArticlesToSell();
     }
 
-	public Collection<ShopItem> getAllGamesForSale() {
-		return shop.getAllGamesForSale();
-	}
+    public Collection<ShopItem> getAllGamesForSale() {
+        return shop.getAllGamesForSale();
+    }
 
-	public Collection<ShopItem> getAllHardwaresForSale() {
-		return shop.getAllHardwaresForSale();
-	}
+    public Collection<ShopItem> getAllHardwaresForSale() {
+        return shop.getAllHardwaresForSale();
+    }
 
     public boolean isContributor() {
         return login.equalsIgnoreCase("anzymus") || login.equalsIgnoreCase("takou");
@@ -253,5 +263,13 @@ public class User extends AbstractEntity implements Comparable<User> {
 
     public int getNumWishedGames() {
         return wishList.getNumWishedGames();
+    }
+
+    public Date getLastLoginDate() {
+        return lastLoginDate;
+    }
+
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
     }
 }
