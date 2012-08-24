@@ -34,7 +34,7 @@
 				</t:if>
 				
 				<p>
-					<t:pagelink class="pull-right label label-important" page="contact" context="hardware.title">
+					<t:pagelink class="pull-right label label-important" page="contact" context="[hardware.title, hardware.id]">
 						<i class="icon-flag icon-white"></i>
 						Something's wrong ?
 					</t:pagelink>
