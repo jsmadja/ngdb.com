@@ -71,6 +71,7 @@ public class Contact {
         }
         LOG.info("Sending feedback : \n" + body);
         mailService.sendMail("anzymus@neogeodb.com", body, title);
+        mailService.sendMail("takou@neogeodb.com", body, title);
         message = "Your comment has been successfully sent";
         return this;
     }
