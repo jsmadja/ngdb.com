@@ -19,55 +19,45 @@ import com.ngdb.entities.reference.Box;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Game extends Article {
 
-	private String ngh;
+    private String ngh;
 
-	@Column(name = "mega_count")
-	private Long megaCount;
+    @Column(name = "mega_count")
+    private Long megaCount;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	private Box box;
+    @OneToOne(fetch = FetchType.LAZY)
+    private Box box;
 
-	private String upc;
+    public Game() {
+    }
 
-	public Game() {
-	}
+    public String getNgh() {
+        return ngh;
+    }
 
-	public String getNgh() {
-		return ngh;
-	}
+    public void setNgh(String ngh) {
+        this.ngh = ngh;
+    }
 
-	public void setNgh(String ngh) {
-		this.ngh = ngh;
-	}
+    public Long getMegaCount() {
+        return megaCount;
+    }
 
-	public Long getMegaCount() {
-		return megaCount;
-	}
+    public void setMegaCount(Long megaCount) {
+        this.megaCount = megaCount;
+    }
 
-	public void setMegaCount(Long megaCount) {
-		this.megaCount = megaCount;
-	}
+    public void setBox(Box box) {
+        this.box = box;
+    }
 
-	public void setBox(Box box) {
-		this.box = box;
-	}
+    public Box getBox() {
+        return box;
+    }
 
-	public Box getBox() {
-		return box;
-	}
-
-	public void setUpc(String upc) {
-		this.upc = upc;
-	}
-
-	public String getUpc() {
-		return upc;
-	}
-
-	@Override
-	public Class<?> getType() {
-		return Game.class;
-	}
+    @Override
+    public Class<?> getType() {
+        return Game.class;
+    }
 
     @Override
     public boolean isGame() {

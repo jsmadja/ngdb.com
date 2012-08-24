@@ -13,6 +13,12 @@
 						MEGS
 					</span>
 				</div>
+				<t:if test="game.upc">
+					<div style="text-align:center;margin-top:10px;width:101px">
+						<img src="data:image/gif;base64,${upc}" />
+						${game.upc}
+					</div>
+				</t:if>
 				<t:article.history article="game" />
 				<br/>
 				<t:article.gallery article="game" />

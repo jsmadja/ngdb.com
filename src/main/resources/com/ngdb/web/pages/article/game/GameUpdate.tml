@@ -85,6 +85,14 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        <t:label for="upc" class="control-label">
+                            <b>UPC</b>
+                        </t:label>
+                        <div class="controls">
+                            <t:textfield value="upc" t:id="upc" />
+                        </div>
+                    </div>
+                    <div class="control-group">
                         <t:label for="mainPicture" class="control-label">
                             <b>Cover</b>
                         </t:label>

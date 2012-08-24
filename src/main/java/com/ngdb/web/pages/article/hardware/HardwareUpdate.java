@@ -9,7 +9,6 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.OnEvent;
-import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
@@ -36,152 +35,157 @@ import com.ngdb.web.services.infrastructure.PictureService;
 public class HardwareUpdate {
 
     @Persist
-	@Property
-	private Hardware hardware;
+    @Property
+    private Hardware hardware;
 
-	@Property
-	@Validate("required,maxLength=255")
-	private String title;
+    @Property
+    @Validate("required,maxLength=255")
+    private String title;
 
-	@Property
-	private UploadedFile mainPicture;
+    @Property
+    private UploadedFile mainPicture;
 
-	@Inject
-	private Session session;
+    @Inject
+    private Session session;
 
-	@Property
-	private String details;
+    @Property
+    private String details;
 
-	@Property
-	@Validate("required")
-	private Origin origin;
+    @Property
+    private String upc;
 
-	@Property
-	@Validate("required")
-	private Date releaseDate;
+    @Property
+    private Origin origin;
 
-	@Property
-	@Validate("required")
-	private Platform platform;
+    @Property
+    @Validate("required")
+    private Date releaseDate;
 
-	@InjectPage
-	private HardwareView hardwareView;
+    @Property
+    @Validate("required")
+    private Platform platform;
 
-	@Inject
-	private PictureService pictureService;
+    @InjectPage
+    private HardwareView hardwareView;
 
-	@Inject
-	private ReferenceService referenceService;
+    @Inject
+    private PictureService pictureService;
 
-	@Inject
-	private History history;
+    @Inject
+    private ReferenceService referenceService;
 
-	@Inject
-	private CurrentUser currentUser;
+    @Inject
+    private History history;
 
-	@Persist
-	@Property
-	private List<UploadedFile> pictures;
+    @Inject
+    private CurrentUser currentUser;
 
-	@Persist
-	@Property
-	private Set<Picture> storedPictures;
+    @Persist
+    @Property
+    private List<UploadedFile> pictures;
 
-	@Property
-	private Picture picture;
+    @Persist
+    @Property
+    private Set<Picture> storedPictures;
 
-	public void onActivate(Hardware hardware) {
-		this.hardware = hardware;
-		if (pictures == null) {
-			pictures = new ArrayList<UploadedFile>();
-		}
-	}
+    @Property
+    private Picture picture;
 
-	@SetupRender
-	public void setup() {
-		if (hardware == null) {
-			this.details = null;
-			this.origin = null;
-			this.releaseDate = new DateTime().withYear(1990).toDate();
-			this.details = null;
-			this.title = null;
-			this.platform = null;
-		} else {
-			this.details = hardware.getDetails();
-			this.origin = hardware.getOrigin();
-			this.releaseDate = hardware.getReleaseDate();
-			this.details = hardware.getDetails();
-			this.title = hardware.getTitle();
-			this.platform = hardware.getPlatform();
-			this.storedPictures = hardware.getPictures().all();
-		}
-	}
+    public void onActivate(Hardware hardware) {
+        this.hardware = hardware;
+        if (pictures == null) {
+            pictures = new ArrayList<UploadedFile>();
+        }
+    }
 
-	@OnEvent(component = "uploadImage", value = JQueryEventConstants.AJAX_UPLOAD)
-	void onImageUpload(UploadedFile uploadedFile) {
-		if (uploadedFile != null) {
-			this.pictures.add(uploadedFile);
-		}
-	}
+    @SetupRender
+    public void setup() {
+        if (hardware == null) {
+            this.details = null;
+            this.origin = null;
+            this.releaseDate = new DateTime().withYear(1990).toDate();
+            this.details = null;
+            this.title = null;
+            this.platform = null;
+            this.upc = null;
+        } else {
+            this.details = hardware.getDetails();
+            this.origin = hardware.getOrigin();
+            this.releaseDate = hardware.getReleaseDate();
+            this.details = hardware.getDetails();
+            this.title = hardware.getTitle();
+            this.platform = hardware.getPlatform();
+            this.upc = hardware.getUpc();
+            this.storedPictures = hardware.getPictures().all();
+        }
+    }
 
-	@CommitAfter
-	Object onSuccess() {
-		Hardware hardware = new Hardware();
-		if (isEditMode()) {
-			hardware = this.hardware;
-			hardware.updateModificationDate();
-		}
-		hardware.setDetails(details);
-		hardware.setOrigin(origin);
-		hardware.setReleaseDate(releaseDate);
-		hardware.setTitle(title);
-		hardware.setPlatform(platform);
-		hardware = (Hardware) session.merge(hardware);
-		if (this.mainPicture != null) {
-			Picture picture = pictureService.store(mainPicture, hardware);
-			hardware.addPicture(picture);
-			if (isEditMode()) {
-				session.merge(picture);
-			}
-		}
-		if (pictures != null) {
-			for (UploadedFile uploadedPicture : pictures) {
-				Picture picture = pictureService.store(uploadedPicture, hardware);
-				hardware.addPicture(picture);
-				if (isEditMode()) {
-					session.merge(picture);
-				}
-			}
-		}
-		hardwareView.setHardware(hardware);
-		history.add(hardware, currentUser.getUser());
-		return hardwareView;
-	}
+    @OnEvent(component = "uploadImage", value = JQueryEventConstants.AJAX_UPLOAD)
+    void onImageUpload(UploadedFile uploadedFile) {
+        if (uploadedFile != null) {
+            this.pictures.add(uploadedFile);
+        }
+    }
 
-	@CommitAfter
-	Object onActionFromDeletePicture(Picture picture) {
-        if(hardware.getPictures().count()>1) {
+    @CommitAfter
+    Object onSuccess() {
+        Hardware hardware = new Hardware();
+        if (isEditMode()) {
+            hardware = this.hardware;
+            hardware.updateModificationDate();
+        }
+        hardware.setDetails(details);
+        hardware.setOrigin(origin);
+        hardware.setReleaseDate(releaseDate);
+        hardware.setTitle(title);
+        hardware.setPlatform(platform);
+        hardware.setUpc(upc);
+        hardware = (Hardware) session.merge(hardware);
+        if (this.mainPicture != null) {
+            Picture picture = pictureService.store(mainPicture, hardware);
+            hardware.addPicture(picture);
+            if (isEditMode()) {
+                session.merge(picture);
+            }
+        }
+        if (pictures != null) {
+            for (UploadedFile uploadedPicture : pictures) {
+                Picture picture = pictureService.store(uploadedPicture, hardware);
+                hardware.addPicture(picture);
+                if (isEditMode()) {
+                    session.merge(picture);
+                }
+            }
+        }
+        hardwareView.setHardware(hardware);
+        history.add(hardware, currentUser.getUser());
+        return hardwareView;
+    }
+
+    @CommitAfter
+    Object onActionFromDeletePicture(Picture picture) {
+        if (hardware.getPictures().count() > 1) {
             hardware.removePicture(picture);
             pictureService.delete(picture);
             this.storedPictures = hardware.getPictures().all();
         }
         return this;
-	}
+    }
 
-	public String getSmallPictureUrl() {
-		return picture.getUrl("small");
-	}
+    public String getSmallPictureUrl() {
+        return picture.getUrl("small");
+    }
 
-	public boolean isEditMode() {
-		return this.hardware != null;
-	}
+    public boolean isEditMode() {
+        return this.hardware != null;
+    }
 
-	public SelectModel getOrigins() {
-		return new OriginList(referenceService.getOrigins());
-	}
+    public SelectModel getOrigins() {
+        return new OriginList(referenceService.getOrigins());
+    }
 
-	public SelectModel getPlatforms() {
-		return new PlatformList(referenceService.getPlatforms());
-	}
+    public SelectModel getPlatforms() {
+        return new PlatformList(referenceService.getPlatforms());
+    }
 
 }

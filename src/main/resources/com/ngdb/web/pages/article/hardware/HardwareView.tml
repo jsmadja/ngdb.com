@@ -3,6 +3,12 @@
 		<div class="row-fluid show-grid article">
 			<div class="span3">
 				<t:article.thumbnail article="hardware" noClick="true" size="literal:medium" />
+				<t:if test="hardware.upc">
+					<div style="text-align:center;margin-top:10px;width:101px">
+						<img src="data:image/gif;base64,${upc}" />
+						${hardware.upc}
+					</div>
+				</t:if>
 				<br/>
 				<t:article.history article="hardware" />
 				<br/>

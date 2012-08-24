@@ -57,7 +57,7 @@ public class Museum {
     private Request request;
 
     void onActivate() {
-        if (museumFilter == null || !"false".equals(request.getParameter("display-all"))) {
+        if (museumFilter == null || "true".equals(request.getParameter("display-all"))) {
             museumFilter = new MuseumFilter(gameFactory, hardwareFactory);
         }
     }

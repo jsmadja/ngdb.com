@@ -56,7 +56,7 @@ public class Market {
     private Request request;
 
     void onActivate() {
-        if (marketFilter == null || !"false".equals(request.getParameter("display-all"))) {
+        if (marketFilter == null || "true".equals(request.getParameter("display-all"))) {
             marketFilter = new MarketFilter(market);
         }
     }

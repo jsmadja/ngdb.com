@@ -58,277 +58,287 @@ import com.ngdb.entities.user.User;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public abstract class Article implements Comparable<Article>, Serializable {
 
-	private static final int MAX_DETAIL_LENGTH = 1024;
+    private static final int MAX_DETAIL_LENGTH = 1024;
 
-	@XmlTransient
-	@Column(name = "creation_date", nullable = false)
-	private Date creationDate;
+    @XmlTransient
+    @Column(name = "creation_date", nullable = false)
+    private Date creationDate;
 
-	@XmlTransient
-	@Column(name = "modification_date", nullable = false)
-	private Date modificationDate;
+    @XmlTransient
+    @Column(name = "modification_date", nullable = false)
+    private Date modificationDate;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private Long id;
 
-	@Column(nullable = false)
-	private String title;
+    @Column(nullable = false)
+    private String title;
 
-	@Column(name = "release_date")
-	@Temporal(TemporalType.DATE)
-	private Date releaseDate;
+    @Column(name = "release_date")
+    @Temporal(TemporalType.DATE)
+    private Date releaseDate;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	private Origin origin;
+    @OneToOne(fetch = FetchType.EAGER)
+    private Origin origin;
 
     @OneToOne(fetch = FetchType.EAGER)
     private Platform platform;
 
     @Embedded
-	@XmlTransient
-	private Notes notes;
+    @XmlTransient
+    private Notes notes;
 
-	@Embedded
-	@XmlTransient
-	private Tags tags;
+    @Embedded
+    @XmlTransient
+    private Tags tags;
 
-	@Embedded
-	@XmlTransient
-	private ArticlePictures pictures = new ArticlePictures();
+    @Embedded
+    @XmlTransient
+    private ArticlePictures pictures = new ArticlePictures();
 
-	@Embedded
-	@XmlTransient
-	private Reviews reviews;
+    @Embedded
+    @XmlTransient
+    private Reviews reviews;
 
-	@Embedded
-	@XmlTransient
-	private Comments comments;
+    @Embedded
+    @XmlTransient
+    private Comments comments;
 
-	@XmlTransient
-	@OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
-	private Set<Wish> wishList;
+    @XmlTransient
+    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
+    private Set<Wish> wishList;
 
-	@Embedded
-	@XmlTransient
-	private ShopItems shopItems;
+    @Embedded
+    @XmlTransient
+    private ShopItems shopItems;
 
-	@XmlTransient
-	@OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
-	private Set<CollectionObject> owners;
+    @XmlTransient
+    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
+    private Set<CollectionObject> owners;
 
-	private String details;
+    private String details;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	private Publisher publisher;
+    private String upc;
 
-	public Article() {
-		creationDate = modificationDate = new Date();
-	}
+    @OneToOne(fetch = FetchType.LAZY)
+    private Publisher publisher;
 
-	public void updateModificationDate() {
-		modificationDate = new Date();
-	}
+    public Article() {
+        creationDate = modificationDate = new Date();
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof Article) {
-			Article a = (Article) obj;
-			if (id.equals(a.id)) {
-				return true;
-			}
-		}
-		return super.equals(obj);
-	}
+    public void updateModificationDate() {
+        modificationDate = new Date();
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hashCode(id, title);
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Article) {
+            Article a = (Article) obj;
+            if (id.equals(a.id)) {
+                return true;
+            }
+        }
+        return super.equals(obj);
+    }
 
-	public void setOrigin(Origin origin) {
-		this.origin = origin;
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id, title);
+    }
 
-	public Origin getOrigin() {
-		return origin;
-	}
+    public void setOrigin(Origin origin) {
+        this.origin = origin;
+    }
 
-	public void addPicture(Picture picture) {
-		if (pictures == null) {
-			pictures = new ArticlePictures();
-		}
-		pictures.add(picture);
-	}
+    public Origin getOrigin() {
+        return origin;
+    }
 
-	public ArticlePictures getPictures() {
-		return pictures;
-	}
+    public void addPicture(Picture picture) {
+        if (pictures == null) {
+            pictures = new ArticlePictures();
+        }
+        pictures.add(picture);
+    }
 
-	public Notes getNotes() {
-		return notes;
-	}
+    public ArticlePictures getPictures() {
+        return pictures;
+    }
 
-	public Tags getTags() {
-		return tags;
-	}
+    public Notes getNotes() {
+        return notes;
+    }
 
-	public Set<User> getOwners() {
-		Set<User> users = new HashSet<User>();
-		for (CollectionObject owner : owners) {
-			users.add(owner.getOwner());
-		}
-		return users;
-	}
+    public Tags getTags() {
+        return tags;
+    }
 
-	public Picture getMainPicture() {
-		return pictures.first();
-	}
+    public Set<User> getOwners() {
+        Set<User> users = new HashSet<User>();
+        for (CollectionObject owner : owners) {
+            users.add(owner.getOwner());
+        }
+        return users;
+    }
 
-	public void setDetails(String details) {
-		details = StringUtils.defaultString(details);
-		int end = details.length() < MAX_DETAIL_LENGTH ? details.length() : MAX_DETAIL_LENGTH;
-		this.details = details.substring(0, end);
-	}
+    public Picture getMainPicture() {
+        return pictures.first();
+    }
 
-	public String getDetails() {
-		return details;
-	}
+    public void setDetails(String details) {
+        details = StringUtils.defaultString(details);
+        int end = details.length() < MAX_DETAIL_LENGTH ? details.length() : MAX_DETAIL_LENGTH;
+        this.details = details.substring(0, end);
+    }
 
-	public int getOwnersCount() {
-		return owners.size();
-	}
+    public String getDetails() {
+        return details;
+    }
 
-	public int getWishersCount() {
-		return wishList.size();
-	}
+    public int getOwnersCount() {
+        return owners.size();
+    }
 
-	public Reviews getReviews() {
-		return reviews;
-	}
+    public int getWishersCount() {
+        return wishList.size();
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public Reviews getReviews() {
+        return reviews;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public Comments getComments() {
-		return comments;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setReleaseDate(Date releaseDate) {
-		this.releaseDate = releaseDate;
-	}
+    public Comments getComments() {
+        return comments;
+    }
 
-	public Date getReleaseDate() {
-		return releaseDate;
-	}
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
 
-	public boolean isBuyable() {
-		return getAvailableCopyCount() > 0;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public int getAvailableCopyCount() {
-		return shopItems.getAvailableCopyCount();
-	}
+    public boolean isBuyable() {
+        return getAvailableCopyCount() > 0;
+    }
 
-	public ShopItems getShopItems() {
-		return shopItems;
-	}
+    public int getAvailableCopyCount() {
+        return shopItems.getAvailableCopyCount();
+    }
 
-	@Override
-	public int compareTo(Article article) {
-		return title.compareToIgnoreCase(StringUtils.defaultString(article.title));
-	}
+    public ShopItems getShopItems() {
+        return shopItems;
+    }
 
-	@Override
-	public String toString() {
-		return title;
-	}
+    @Override
+    public int compareTo(Article article) {
+        return title.compareToIgnoreCase(StringUtils.defaultString(article.title));
+    }
 
-	public Collection<ShopItem> getShopItemsForSale() {
-		return shopItems.getShopItemsForSale();
-	}
+    @Override
+    public String toString() {
+        return title;
+    }
 
-	public abstract Class<?> getType();
+    public Collection<ShopItem> getShopItemsForSale() {
+        return shopItems.getShopItemsForSale();
+    }
 
-	public boolean hasShopItemInState(State state) {
-		return shopItems.hasShopItemInState(state);
-	}
+    public abstract Class<?> getType();
 
-	public int getAvailableCopyInState(State state) {
-		return shopItems.getAvailableCopyInState(state);
-	}
+    public boolean hasShopItemInState(State state) {
+        return shopItems.hasShopItemInState(state);
+    }
 
-	public double getAveragePriceInState(State state) {
-		return shopItems.getAveragePriceInState(state);
-	}
+    public int getAvailableCopyInState(State state) {
+        return shopItems.getAvailableCopyInState(state);
+    }
 
-	public double getMaxPriceInState(State state) {
-		return shopItems.getMaxPriceInState(state);
-	}
+    public double getAveragePriceInState(State state) {
+        return shopItems.getAveragePriceInState(state);
+    }
 
-	public double getMinPriceInState(State state) {
-		return shopItems.getMinPriceInState(state);
-	}
+    public double getMaxPriceInState(State state) {
+        return shopItems.getMaxPriceInState(state);
+    }
 
-	public void setPlatform(Platform platform) {
-		this.platform = platform;
-	}
+    public double getMinPriceInState(State state) {
+        return shopItems.getMinPriceInState(state);
+    }
 
-	public Platform getPlatform() {
-		return platform;
-	}
+    public void setPlatform(Platform platform) {
+        this.platform = platform;
+    }
 
-	public String getLastUpdateDate() {
-		return new PrettyTime(Locale.UK).format(modificationDate);
-	}
+    public Platform getPlatform() {
+        return platform;
+    }
 
-	public boolean containsTag(String tag) {
-		return tags.contains(tag);
-	}
+    public String getLastUpdateDate() {
+        return new PrettyTime(Locale.UK).format(modificationDate);
+    }
 
-	public void addTag(Tag tag) {
-		tags.add(tag);
-	}
+    public boolean containsTag(String tag) {
+        return tags.contains(tag);
+    }
 
-	public void addReview(Review review) {
-		reviews.add(review);
-	}
+    public void addTag(Tag tag) {
+        tags.add(tag);
+    }
 
-	public void removePicture(Picture picture) {
-		pictures.remove(picture);
-	}
+    public void addReview(Review review) {
+        reviews.add(review);
+    }
 
-	public boolean containsTag(Tag tag) {
-		return tags.contains(tag);
-	}
+    public void removePicture(Picture picture) {
+        pictures.remove(picture);
+    }
 
-	public boolean containsProperty(String name) {
-		return notes.contains(name);
-	}
+    public boolean containsTag(Tag tag) {
+        return tags.contains(tag);
+    }
 
-	public void addNote(Note note) {
-		notes.add(note);
-	}
+    public boolean containsProperty(String name) {
+        return notes.contains(name);
+    }
 
-	public Publisher getPublisher() {
-		return publisher;
-	}
+    public void addNote(Note note) {
+        notes.add(note);
+    }
 
-	public void setPublisher(Publisher publisher) {
-		this.publisher = publisher;
-	}
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
 
     public boolean hasCover() {
         return getMainPicture() != Picture.EMPTY;
+    }
+
+    public void setUpc(String upc) {
+        this.upc = upc;
+    }
+
+    public String getUpc() {
+        return upc;
     }
 
     public abstract boolean isGame();

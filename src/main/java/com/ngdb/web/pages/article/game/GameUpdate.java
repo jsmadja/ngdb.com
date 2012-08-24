@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import com.ngdb.entities.ArticleFactory;
-import com.ngdb.entities.GameFactory;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.InjectPage;
@@ -22,6 +20,7 @@ import org.got5.tapestry5.jquery.JQueryEventConstants;
 import org.hibernate.Session;
 import org.joda.time.DateTime;
 
+import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.History;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Picture;
@@ -40,194 +39,200 @@ import com.ngdb.web.services.infrastructure.PictureService;
 @RequiresAuthentication
 public class GameUpdate {
 
-	@Property
-	@Persist("entity")
-	private Game game;
+    @Property
+    @Persist("entity")
+    private Game game;
 
-	@Property
-	private UploadedFile mainPicture;
+    @Property
+    private UploadedFile mainPicture;
 
-	@Inject
-	private ReferenceService referenceService;
+    @Inject
+    private ReferenceService referenceService;
 
-	@Inject
-	private PictureService pictureService;
+    @Inject
+    private PictureService pictureService;
 
     @Inject
     private ArticleFactory articleFactory;
 
-	@Property
-	private String details;
+    @Property
+    private String details;
 
-	@Property
-	private String ngh;
+    @Property
+    private String ngh;
 
-	@Property
-	@Validate("required")
-	private Origin origin;
+    @Property
+    private String upc;
 
-	@Property
-	@Validate("required")
-	private Date releaseDate;
+    @Property
+    @Validate("required")
+    private Origin origin;
 
-	@Property
-	@Validate("required")
-	private Publisher publisher;
+    @Property
+    @Validate("required")
+    private Date releaseDate;
 
-	@Property
-	@Validate("required")
-	private Platform platform;
+    @Property
+    @Validate("required")
+    private Publisher publisher;
 
-	@Property
-	@Validate("required")
-	private Long megaCount;
+    @Property
+    @Validate("required")
+    private Platform platform;
 
-	@Property
-	@Validate("required")
-	private Box box;
+    @Property
+    @Validate("required")
+    private Long megaCount;
 
-	@Property
-	@Validate("required,maxLength=255")
-	private String title;
+    @Property
+    @Validate("required")
+    private Box box;
 
-	@InjectPage
-	private GameView gameView;
+    @Property
+    @Validate("required,maxLength=255")
+    private String title;
 
-	@Inject
-	private Session session;
+    @InjectPage
+    private GameView gameView;
 
-	@Inject
-	private History history;
+    @Inject
+    private Session session;
 
-	@Inject
-	private CurrentUser userSession;
+    @Inject
+    private History history;
 
-	@Persist
-	@Property
-	private List<UploadedFile> pictures;
+    @Inject
+    private CurrentUser userSession;
 
-	@Persist
-	@Property
-	private Set<Picture> storedPictures;
+    @Persist
+    @Property
+    private List<UploadedFile> pictures;
 
-	@Property
-	private Picture picture;
+    @Persist
+    @Property
+    private Set<Picture> storedPictures;
 
-	public void onActivate(Game game) {
-		this.game = game;
-		if (pictures == null) {
-			pictures = new ArrayList<UploadedFile>();
-		}
-	}
+    @Property
+    private Picture picture;
 
-	Game onPassivate() {
-		return game;
-	}
+    public void onActivate(Game game) {
+        this.game = game;
+        if (pictures == null) {
+            pictures = new ArrayList<UploadedFile>();
+        }
+    }
 
-	@SetupRender
-	public void setup() {
-		if (game == null) {
-			this.publisher = null;
-			this.platform = null;
-			this.megaCount = null;
-			this.box = null;
-			this.details = null;
-			this.origin = null;
-			this.releaseDate = new DateTime().withYear(1990).toDate();
-			this.details = null;
-			this.title = null;
-			this.ngh = null;
-		} else {
-			this.publisher = game.getPublisher();
-			this.platform = game.getPlatform();
-			this.megaCount = game.getMegaCount();
-			this.box = game.getBox();
-			this.details = game.getDetails();
-			this.origin = game.getOrigin();
-			this.releaseDate = game.getReleaseDate();
-			this.details = game.getDetails();
-			this.title = game.getTitle();
-			this.ngh = game.getNgh();
-			this.storedPictures = game.getPictures().all();
-		}
-	}
+    Game onPassivate() {
+        return game;
+    }
 
-	@OnEvent(component = "uploadImage", value = JQueryEventConstants.AJAX_UPLOAD)
-	void onImageUpload(UploadedFile uploadedFile) {
-		this.pictures.add(uploadedFile);
-	}
+    @SetupRender
+    public void setup() {
+        if (game == null) {
+            this.publisher = null;
+            this.platform = null;
+            this.megaCount = null;
+            this.box = null;
+            this.details = null;
+            this.origin = null;
+            this.releaseDate = new DateTime().withYear(1990).toDate();
+            this.details = null;
+            this.title = null;
+            this.ngh = null;
+            this.upc = null;
+        } else {
+            this.publisher = game.getPublisher();
+            this.platform = game.getPlatform();
+            this.megaCount = game.getMegaCount();
+            this.box = game.getBox();
+            this.details = game.getDetails();
+            this.origin = game.getOrigin();
+            this.releaseDate = game.getReleaseDate();
+            this.details = game.getDetails();
+            this.title = game.getTitle();
+            this.ngh = game.getNgh();
+            this.upc = game.getUpc();
+            this.storedPictures = game.getPictures().all();
+        }
+    }
 
-	@CommitAfter
-	public Object onSuccess() {
-		Game game = new Game();
-		if (isEditMode()) {
-			game = this.game;
-			game.updateModificationDate();
-		}
-		game.setDetails(details);
-		game.setOrigin(origin);
-		game.setReleaseDate(releaseDate);
-		game.setTitle(title);
-		game.setPublisher(publisher);
-		game.setPlatform(platform);
-		game.setMegaCount(megaCount);
-		game.setBox(box);
-		game.setNgh(ngh);
-		game = (Game) session.merge(game);
-		if (this.mainPicture != null) {
-			Picture picture = pictureService.store(mainPicture, game);
-			game.addPicture(picture);
-			if (isEditMode()) {
-				session.merge(picture);
-			}
-		}
-		if (pictures != null) {
-			for (UploadedFile uploadedPicture : pictures) {
-				Picture picture = pictureService.store(uploadedPicture, game);
-				game.addPicture(picture);
-				if (isEditMode()) {
-					session.merge(picture);
-				}
-			}
-		}
-		gameView.setGame(game);
-		history.add(game, userSession.getUser());
-		return gameView;
-	}
+    @OnEvent(component = "uploadImage", value = JQueryEventConstants.AJAX_UPLOAD)
+    void onImageUpload(UploadedFile uploadedFile) {
+        this.pictures.add(uploadedFile);
+    }
 
-	@CommitAfter
-	Object onActionFromDeletePicture(Picture picture) {
-        if(game.getPictures().count()>1) {
+    @CommitAfter
+    public Object onSuccess() {
+        Game game = new Game();
+        if (isEditMode()) {
+            game = this.game;
+            game.updateModificationDate();
+        }
+        game.setDetails(details);
+        game.setOrigin(origin);
+        game.setReleaseDate(releaseDate);
+        game.setTitle(title);
+        game.setPublisher(publisher);
+        game.setPlatform(platform);
+        game.setMegaCount(megaCount);
+        game.setBox(box);
+        game.setNgh(ngh);
+        game.setUpc(upc);
+        game = (Game) session.merge(game);
+        if (this.mainPicture != null) {
+            Picture picture = pictureService.store(mainPicture, game);
+            game.addPicture(picture);
+            if (isEditMode()) {
+                session.merge(picture);
+            }
+        }
+        if (pictures != null) {
+            for (UploadedFile uploadedPicture : pictures) {
+                Picture picture = pictureService.store(uploadedPicture, game);
+                game.addPicture(picture);
+                if (isEditMode()) {
+                    session.merge(picture);
+                }
+            }
+        }
+        gameView.setGame(game);
+        history.add(game, userSession.getUser());
+        return gameView;
+    }
+
+    @CommitAfter
+    Object onActionFromDeletePicture(Picture picture) {
+        if (game.getPictures().count() > 1) {
             game.removePicture(picture);
             pictureService.delete(picture);
             game = (Game) session.merge(game);
             this.storedPictures = game.getPictures().all();
         }
-		return this;
-	}
+        return this;
+    }
 
-	public String getSmallPictureUrl() {
-		return picture.getUrl("small");
-	}
+    public String getSmallPictureUrl() {
+        return picture.getUrl("small");
+    }
 
-	public boolean isEditMode() {
-		return this.game != null;
-	}
+    public boolean isEditMode() {
+        return this.game != null;
+    }
 
-	public SelectModel getPlatforms() {
-		return new PlatformList(referenceService.getPlatforms());
-	}
+    public SelectModel getPlatforms() {
+        return new PlatformList(referenceService.getPlatforms());
+    }
 
-	public SelectModel getPublishers() {
-		return new PublisherList(referenceService.getPublishers());
-	}
+    public SelectModel getPublishers() {
+        return new PublisherList(referenceService.getPublishers());
+    }
 
-	public SelectModel getBoxes() {
-		return new BoxList(referenceService.getBoxes());
-	}
+    public SelectModel getBoxes() {
+        return new BoxList(referenceService.getBoxes());
+    }
 
-	public SelectModel getOrigins() {
-		return new OriginList(referenceService.getOrigins());
-	}
+    public SelectModel getOrigins() {
+        return new OriginList(referenceService.getOrigins());
+    }
 
 }
