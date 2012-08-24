@@ -15,6 +15,7 @@
             <tr><td>Most used tag</td><td>${mostUsedTag} (${mostUsedTagCount})</td></tr>
             <tr><td>Missing covers</td><td>${missingCovers}</td></tr>
             <tr><td>Cover progress</td><td><ul><t:outputRaw value="${coverProgress}"/></ul></td></tr>
+            <tr><td>Contributors</td><td><ul><t:outputRaw value="${pictureContributors}"/></ul></td></tr>
         </tbody>
 	</table>
 </t:layout>

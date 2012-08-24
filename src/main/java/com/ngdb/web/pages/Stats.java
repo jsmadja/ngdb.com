@@ -145,6 +145,18 @@ public class Stats {
         return sb.toString();
     }
 
+    public String getPictureContributors() {
+        StringBuilder sb = new StringBuilder();
+        List<Object> list = session.createQuery("SELECT DISTINCT(text) FROM Note n WHERE name = 'Picture courtesy of' ORDER BY text").list();
+        System.err.println(list.size());
+        for (Object object : list) {
+            sb.append("<li>");
+            sb.append(object);
+            sb.append("</li>");
+        }
+        return sb.toString();
+    }
+
     private EntityCount entityCountQuery(String query) {
         return new EntityCount(session.createSQLQuery(query).setMaxResults(1).list().get(0));
     }
