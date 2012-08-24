@@ -21,6 +21,8 @@ public class Game extends Article {
 
     private String ngh;
 
+    private String reference;
+
     private String imdbId;
 
     @Column(name = "mega_count")
@@ -72,6 +74,14 @@ public class Game extends Article {
     @Override
     public boolean isGame() {
         return true;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
 }

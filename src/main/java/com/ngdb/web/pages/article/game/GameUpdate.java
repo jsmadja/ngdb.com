@@ -68,6 +68,9 @@ public class GameUpdate {
     private String imdbId;
 
     @Property
+    private String reference;
+
+    @Property
     @Validate("required")
     private Origin origin;
 
@@ -144,6 +147,7 @@ public class GameUpdate {
             this.ngh = null;
             this.upc = null;
             this.imdbId = null;
+            this.reference = null;
         } else {
             this.publisher = game.getPublisher();
             this.platform = game.getPlatform();
@@ -157,6 +161,7 @@ public class GameUpdate {
             this.ngh = game.getNgh();
             this.upc = game.getUpc();
             this.imdbId = game.getImdbId();
+            this.reference = game.getReference();
             this.storedPictures = game.getPictures().all();
         }
     }
@@ -184,6 +189,7 @@ public class GameUpdate {
         game.setNgh(ngh);
         game.setUpc(upc);
         game.setImdbId(imdbId);
+        game.setReference(reference);
         game = (Game) session.merge(game);
         if (this.mainPicture != null) {
             Picture picture = pictureService.store(mainPicture, game);

@@ -1,5 +1,6 @@
 package com.ngdb.entities.article.element;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -14,35 +15,35 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Notes implements Iterable<Note> {
+public class Notes implements Iterable<Note>, Serializable {
 
-	@OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
-	private Set<Note> notes = new HashSet<Note>();
+    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
+    private Set<Note> notes = new HashSet<Note>();
 
-	@Override
-	public Iterator<Note> iterator() {
-		return notes.iterator();
-	}
+    @Override
+    public Iterator<Note> iterator() {
+        return notes.iterator();
+    }
 
-	public boolean contains(String name) {
-		for (Note note : notes) {
-			if (note.hasName(name)) {
-				return true;
-			}
-		}
-		return false;
-	}
+    public boolean contains(String name) {
+        for (Note note : notes) {
+            if (note.hasName(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	public void add(Note note) {
-		notes.add(note);
-	}
+    public void add(Note note) {
+        notes.add(note);
+    }
 
-	public boolean isEmpty() {
-		return notes.isEmpty();
-	}
+    public boolean isEmpty() {
+        return notes.isEmpty();
+    }
 
-	public Set<Note> all() {
-		return Collections.unmodifiableSet(notes);
-	}
+    public Set<Note> all() {
+        return Collections.unmodifiableSet(notes);
+    }
 
 }

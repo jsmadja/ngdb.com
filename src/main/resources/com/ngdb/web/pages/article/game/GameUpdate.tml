@@ -85,6 +85,14 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        <t:label for="reference" class="control-label">
+                            <b>Reference</b>
+                        </t:label>
+                        <div class="controls">
+                            <t:textfield value="reference" t:id="reference" />
+                        </div>
+                    </div>
+                    <div class="control-group">
                         <t:label for="upc" class="control-label">
                             <b>UPC</b>
                         </t:label>
