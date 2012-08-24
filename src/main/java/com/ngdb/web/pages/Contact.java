@@ -1,5 +1,6 @@
 package com.ngdb.web.pages;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.Validate;
@@ -60,19 +61,21 @@ public class Contact {
     }
 
     public Object onSuccess() {
-        String body = "[CONTACT] " + comment + " - ";
-        if (id != null) {
-            body += " article #" + id + ", ";
+        if (StringUtils.isNotEmpty(comment)) {
+            String body = "[CONTACT] " + comment + " - ";
+            if (id != null) {
+                body += " article #" + id + ", ";
+            }
+            if (currentUser.isAnonymous()) {
+                body += " from " + from;
+            } else {
+                body += " from " + currentUser.getUsername() + " (" + currentUser.getUser().getEmail() + ")";
+            }
+            LOG.info("Sending feedback : \n" + body);
+            mailService.sendMail("anzymus@neogeodb.com", body, title);
+            mailService.sendMail("takou@neogeodb.com", body, title);
+            message = "Your comment has been successfully sent";
         }
-        if (currentUser.isAnonymous()) {
-            body += " from " + from;
-        } else {
-            body += " from " + currentUser.getUsername() + " (" + currentUser.getUser().getEmail() + ")";
-        }
-        LOG.info("Sending feedback : \n" + body);
-        mailService.sendMail("anzymus@neogeodb.com", body, title);
-        mailService.sendMail("takou@neogeodb.com", body, title);
-        message = "Your comment has been successfully sent";
         return this;
     }
 
