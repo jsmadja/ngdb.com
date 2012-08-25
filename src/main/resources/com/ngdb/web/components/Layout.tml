@@ -2,7 +2,12 @@
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
   <head>
     <meta charset="utf-8" />
-    <title>www.neogeodb.com</title>
+    <t:if test="title">
+    	<title>${title}</title>
+    	<p:else>
+    		<title>www.neogeodb.com</title>
+    	</p:else>
+    </t:if>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="" />
     <meta name="author" content="Takou - Anzymus" />

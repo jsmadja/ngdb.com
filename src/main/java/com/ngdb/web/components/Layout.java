@@ -15,25 +15,29 @@ public class Layout {
     @Parameter
     private Boolean showLeftContent;
 
-	@Inject
-	private CurrentUser userSession;
+    @Inject
+    private CurrentUser userSession;
 
-	@Inject
-	private Request request;
+    @Inject
+    private Request request;
+
+    @Property
+    @Parameter
+    private String title;
 
     @SetupRender
     public void init() {
-        if(showLeftContent == null) {
+        if (showLeftContent == null) {
             showLeftContent = true;
         }
     }
 
-	public User getUser() {
-		return userSession.getUser();
-	}
+    public User getUser() {
+        return userSession.getUser();
+    }
 
-	public boolean isProductionServer() {
-		return "true".equalsIgnoreCase(System.getProperty("production"));
-	}
+    public boolean isProductionServer() {
+        return "true".equalsIgnoreCase(System.getProperty("production"));
+    }
 
 }
