@@ -75,6 +75,18 @@
 		<t:if test="!logged">
 			<div class="alert alert-info">You must be registered to buy an article.</div>
 		</t:if>
+		
+		<t:jquery.dialog t:clientId="myDialog" t:params="params">
+			<t:zone t:id="myZone" id="myZone">
+            	<textarea rows="20" value="details" cols="80" style="width:100%">
+		    		${forumCode}
+		    	</textarea>
+    		</t:zone>
+		</t:jquery.dialog>
+		<t:jquery.dialogajaxlink t:id="link2" t:dialog="myDialog" t:zone="myZone" class="label pull-right">
+			Export to forums
+		</t:jquery.dialogajaxlink>
+		
 		<p>
 			<b>${numResults}</b> item(s) found for query <b><i><t:outputRaw value="${queryLabel}" /></i></b>
 		</p>

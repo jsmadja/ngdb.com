@@ -3,11 +3,17 @@ package com.ngdb.web.pages;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.tapestry5.EventConstants;
+import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.Request;
 
+import com.ngdb.ForumCode;
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.MarketFilter;
 import com.ngdb.entities.Population;
@@ -55,10 +61,37 @@ public class Market {
     @Inject
     private Request request;
 
+    @Component
+    private Zone myZone;
+
+    @Property
+    private JSONObject params;
+
+    @OnEvent(EventConstants.ACTIVATE)
+    void init() {
+        params = new JSONObject();
+        params.put("width", 800);
+        params.put("title", "Export to forums");
+    }
+
+    @OnEvent(EventConstants.ACTION)
+    Object updateCount() {
+        if (!request.isXHR()) {
+            return this;
+        }
+        return myZone;
+    }
+
     void onActivate() {
         if (marketFilter == null || "true".equals(request.getParameter("display-all"))) {
             marketFilter = new MarketFilter(market);
         }
+    }
+
+    boolean onActivate(User user) {
+        marketFilter = new MarketFilter(market);
+        marketFilter.filterByUser(user);
+        return true;
     }
 
     boolean onActivate(String filterName, String value) {
@@ -178,6 +211,11 @@ public class Market {
 
     public boolean isLogged() {
         return currentUser.isLogged();
+    }
+
+    public String getForumCode() {
+        List<ShopItem> shopItems = marketFilter.getShopItems();
+        return ForumCode.asVBulletinCode(shopItems);
     }
 
 }
