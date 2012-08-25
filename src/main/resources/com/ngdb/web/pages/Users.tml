@@ -4,7 +4,7 @@
 			<h1 class="black-bar rounded-bar big-bar">Members</h1>
 		</div>
 		<div>
-			<t:grid pagerPosition="BOTH" source="users" class="table table-striped table-bordered table-condensed" row="user" add="articlesInWishList,articlesInMarket,articlesInCollection" include="login,creationDate">
+			<t:grid pagerPosition="BOTH" rowsPerPage="10" source="users" class="table table-striped table-bordered table-condensed" row="user" add="articlesInWishList,articlesInMarket,articlesInCollection" include="login,creationDate">
 				<p:CreationDateHeader>
 					Subscription date
 	            </p:CreationDateHeader>

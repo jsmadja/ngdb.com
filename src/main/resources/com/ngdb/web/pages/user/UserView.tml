@@ -49,6 +49,18 @@
 			<hr />
 
 			<h2>${user.login}'s shop</h2>
+		    
+			<t:jquery.dialog t:clientId="myDialog" t:params="params">
+				<t:zone t:id="myZone" id="myZone">
+	            	<textarea rows="20" value="details" cols="80" style="width:100%">
+			    		${forumCode}
+			    	</textarea>
+	    		</t:zone>
+   			</t:jquery.dialog>
+			<t:jquery.dialogajaxlink t:id="link2" t:dialog="myDialog" t:zone="myZone" class="label pull-right">
+				Export to forums
+			</t:jquery.dialogajaxlink>
+			
 			<t:grid pagerPosition="BOTH" inPlace="true" source="user.shopItemsForSale" row="shopItem"
 				rowsPerPage="10" include="title, details" add="price, potentialBuyers"
 				reorder="title,details,price,potentialBuyers" class="table table-striped table-bordered table-condensed">
