@@ -2,33 +2,55 @@ package com.ngdb.web.pages;
 
 import java.util.Collection;
 
-import com.ngdb.web.Filter;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
+import org.apache.tapestry5.beaneditor.BeanModel;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.BeanModelSource;
 
 import com.ngdb.entities.Population;
 import com.ngdb.entities.user.User;
+import com.ngdb.web.Filter;
 
 public class Users {
 
-	@Property
-	private User user;
+    @Property
+    private User user;
 
-	@Property
-	private Collection<User> users;
+    @Property
+    private Collection<User> users;
 
-	@Inject
-	private Population population;
+    @Inject
+    private Population population;
 
-	@SetupRender
-	void init() {
-		this.users = population.findEverybody();
-	}
+    @Persist
+    @Property
+    private BeanModel<User> model;
+
+    @Inject
+    private BeanModelSource beanModelSource;
+
+    @Inject
+    private Messages messages;
+
+    @SetupRender
+    void init() {
+        this.users = population.findEverybody();
+
+        model = beanModelSource.createDisplayModel(User.class, messages);
+        model.get("numArticlesInWishList").sortable(true);
+        model.get("numArticleForSale").sortable(true);
+        model.get("numArticlesInCollection").sortable(true);
+        model.get("login").sortable(true);
+        model.get("creationDate").sortable(true);
+
+        model.include("login", "creationDate", "lastLoginDate", "numArticlesInWishList", "numArticleForSale", "numArticlesInCollection");
+    }
 
     public String getByUser() {
         return Filter.byUser.name();
     }
-
 
 }
