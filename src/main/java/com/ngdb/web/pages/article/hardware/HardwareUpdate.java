@@ -20,12 +20,14 @@ import org.got5.tapestry5.jquery.JQueryEventConstants;
 import org.hibernate.Session;
 import org.joda.time.DateTime;
 
+import com.ngdb.entities.ActionLogger;
 import com.ngdb.entities.History;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
+import com.ngdb.entities.user.User;
 import com.ngdb.web.model.OriginList;
 import com.ngdb.web.model.PlatformList;
 import com.ngdb.web.services.infrastructure.CurrentUser;
@@ -90,6 +92,9 @@ public class HardwareUpdate {
 
     @Property
     private Picture picture;
+
+    @Inject
+    private ActionLogger actionLogger;
 
     public void onActivate(Hardware hardware) {
         this.hardware = hardware;
@@ -158,7 +163,9 @@ public class HardwareUpdate {
             }
         }
         hardwareView.setHardware(hardware);
-        history.add(hardware, currentUser.getUser());
+        User user = currentUser.getUser();
+        history.add(hardware, user);
+        actionLogger.addEditAction(user, hardware);
         return hardwareView;
     }
 

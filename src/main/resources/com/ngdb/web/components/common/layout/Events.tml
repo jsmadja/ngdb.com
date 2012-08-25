@@ -1,17 +1,8 @@
 <ul class="events events-list" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<li class="blue-bar half-rounded-bar small-bar">Updates</li>
 	<t:loop value="update" source="updates">
-		<li style="line-height:24px">
-			<t:pageLink page="article/game/gameview" context="update.id"><b>${update.title}</b></t:pageLink> ${update.lastUpdateDate}
+		<li style="margin-bottom:10px;line-height:12px">
+			<t:pageLink page="user/UserView" context="update.user"><b>${update.user}</b></t:pageLink> ${update.message} <t:pageLink page="${update.article.viewPage}" context="update.article"><b>${update.article}</b></t:pageLink> ${update.lastUpdateDate}
 		</li>
 	</t:loop>
-	<t:if test="lastComments">
-		<br/>
-		<li class="blue-bar half-rounded-bar small-bar">Comments</li>
-		<t:loop value="comment" source="lastComments">
-			<li style="margin-bottom:10px">
-				<t:actionLink t:id="comment" id="comment" context="${comment.article.id}"><b>${comment.article.title}</b></t:actionLink> ${comment.postDate} by <t:pageLink page="user/UserView" context="comment.author"> ${comment.author.login}</t:pageLink>
-			</li>
-		</t:loop>
-	</t:if>
 </ul>

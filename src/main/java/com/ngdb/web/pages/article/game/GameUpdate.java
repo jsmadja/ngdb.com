@@ -20,6 +20,7 @@ import org.got5.tapestry5.jquery.JQueryEventConstants;
 import org.hibernate.Session;
 import org.joda.time.DateTime;
 
+import com.ngdb.entities.ActionLogger;
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.History;
 import com.ngdb.entities.article.Game;
@@ -29,6 +30,7 @@ import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
 import com.ngdb.entities.reference.ReferenceService;
+import com.ngdb.entities.user.User;
 import com.ngdb.web.model.BoxList;
 import com.ngdb.web.model.OriginList;
 import com.ngdb.web.model.PlatformList;
@@ -108,7 +110,7 @@ public class GameUpdate {
     private History history;
 
     @Inject
-    private CurrentUser userSession;
+    private CurrentUser currentUser;
 
     @Persist
     @Property
@@ -120,6 +122,9 @@ public class GameUpdate {
 
     @Property
     private Picture picture;
+
+    @Inject
+    private ActionLogger actionLogger;
 
     public void onActivate(Game game) {
         this.game = game;
@@ -208,7 +213,9 @@ public class GameUpdate {
             }
         }
         gameView.setGame(game);
-        history.add(game, userSession.getUser());
+        User user = currentUser.getUser();
+        history.add(game, user);
+        actionLogger.addEditAction(user, game);
         return gameView;
     }
 

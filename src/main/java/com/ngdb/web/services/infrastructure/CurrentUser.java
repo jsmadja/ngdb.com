@@ -13,6 +13,7 @@ import org.apache.tapestry5.services.Request;
 import org.hibernate.Session;
 import org.tynamo.security.services.SecurityService;
 
+import com.ngdb.entities.ActionLogger;
 import com.ngdb.entities.Population;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Comment;
@@ -41,6 +42,9 @@ public class CurrentUser {
 
     @Inject
     private Session session;
+
+    @Inject
+    private ActionLogger actionLogger;
 
     public User login(String login, String password) {
         Subject currentUser = securityService.getSubject();
@@ -226,6 +230,7 @@ public class CurrentUser {
     public void addCommentOn(Article article, String commentText) {
         User user = getUser();
         session.merge(new Comment(commentText, user, article));
+        actionLogger.addCommentAction(user, article);
     }
 
     public void addTagOn(Article article, String tagText) {
@@ -238,12 +243,14 @@ public class CurrentUser {
         Review review = new Review(label, url, mark, article);
         session.persist(review);
         getArticleFromDb(article).addReview(review);
+        actionLogger.addReviewAction(getUser(), article);
     }
 
     public void addPropertyOn(Article article, String name, String text) {
         Note note = new Note(name, text, article);
         session.persist(note);
         getArticleFromDb(article).addNote(note);
+        actionLogger.addPropertyAction(getUser(), article);
     }
 
     private Article getArticleFromDb(Article article) {

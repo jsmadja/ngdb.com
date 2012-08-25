@@ -84,4 +84,9 @@ public class Game extends Article {
         this.reference = reference;
     }
 
+    @Override
+    public String getViewPage() {
+        return "article/game/gameView";
+    }
+
 }

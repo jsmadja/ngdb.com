@@ -5,6 +5,10 @@
 <web-app>
 	<display-name>ngdb</display-name>
 
+    <session-config>
+      <session-timeout>3600</session-timeout> 
+    </session-config>
+    
 	<listener>
 		<listener-class>net.bull.javamelody.SessionListener</listener-class>
 	</listener>

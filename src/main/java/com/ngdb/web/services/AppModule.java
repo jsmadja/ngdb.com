@@ -26,6 +26,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 
+import com.ngdb.entities.ActionLogger;
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.HardwareFactory;
@@ -44,65 +45,66 @@ import com.ngdb.web.services.infrastructure.PictureService;
 @SubModule({ SecurityModule.class })
 public class AppModule {
 
-	public static void contributeFactoryDefaults(MappedConfiguration<String, Object> configuration) {
-		String version = ResourceBundle.getBundle("ngdb").getString("version");
-		configuration.override(APPLICATION_VERSION, version + "-" + RandomStringUtils.randomNumeric(5));
-	}
+    public static void contributeFactoryDefaults(MappedConfiguration<String, Object> configuration) {
+        String version = ResourceBundle.getBundle("ngdb").getString("version");
+        configuration.override(APPLICATION_VERSION, version + "-" + RandomStringUtils.randomNumeric(5));
+    }
 
-	public static void contributeComponentMessagesSource(AssetSource assetSource, OrderedConfiguration<Resource> configuration) {
-		configuration.add("GlobalCatalogue", assetSource.resourceForPath("ngdb.properties"), "after:AppCatalog");
-	}
+    public static void contributeComponentMessagesSource(AssetSource assetSource, OrderedConfiguration<Resource> configuration) {
+        configuration.add("GlobalCatalogue", assetSource.resourceForPath("ngdb.properties"), "after:AppCatalog");
+    }
 
-	public static void contributeHibernateEntityPackageManager(Configuration<String> configuration) {
-		configuration.add("com.ngdb.entities");
-	}
+    public static void contributeHibernateEntityPackageManager(Configuration<String> configuration) {
+        configuration.add("com.ngdb.entities");
+    }
 
-	public static void bind(ServiceBinder binder) {
-		binder.bind(CurrentUser.class);
-		binder.bind(PictureService.class);
-		binder.bind(WishBox.class);
-		binder.bind(Museum.class);
-		binder.bind(ReferenceService.class);
-		binder.bind(Market.class);
-		binder.bind(GameFactory.class);
-		binder.bind(HardwareFactory.class);
-		binder.bind(ArticleFactory.class);
-		binder.bind(Population.class);
-		binder.bind(Registry.class);
-		binder.bind(EmailBuilderService.class);
-		binder.bind(TokenService.class);
-		binder.bind(MailService.class);
-		binder.bind(History.class);
-		binder.bind(CurrencyService.class);
-		binder.bind(Suggestionner.class);
-	}
+    public static void bind(ServiceBinder binder) {
+        binder.bind(CurrentUser.class);
+        binder.bind(PictureService.class);
+        binder.bind(WishBox.class);
+        binder.bind(Museum.class);
+        binder.bind(ReferenceService.class);
+        binder.bind(Market.class);
+        binder.bind(GameFactory.class);
+        binder.bind(HardwareFactory.class);
+        binder.bind(ArticleFactory.class);
+        binder.bind(Population.class);
+        binder.bind(Registry.class);
+        binder.bind(EmailBuilderService.class);
+        binder.bind(TokenService.class);
+        binder.bind(MailService.class);
+        binder.bind(History.class);
+        binder.bind(CurrencyService.class);
+        binder.bind(Suggestionner.class);
+        binder.bind(ActionLogger.class);
+    }
 
-	public static VelocityEngine buildVelocityEngine() {
-		try {
-			VelocityEngineFactoryBean factoryBean = new VelocityEngineFactoryBean();
-			Properties velocityProperties = new Properties();
-			velocityProperties.setProperty("resource.loader", "class");
-			velocityProperties.setProperty("class.resource.loader.path", ".");
-			velocityProperties.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-			factoryBean.setVelocityProperties(velocityProperties);
-			return factoryBean.createVelocityEngine();
-		} catch (IOException e) {
-			throw new TapestryException("Cannot create velocity engine", e);
-		} catch (VelocityException e) {
-			throw new TapestryException("Cannot create velocity engine", e);
-		}
-	}
+    public static VelocityEngine buildVelocityEngine() {
+        try {
+            VelocityEngineFactoryBean factoryBean = new VelocityEngineFactoryBean();
+            Properties velocityProperties = new Properties();
+            velocityProperties.setProperty("resource.loader", "class");
+            velocityProperties.setProperty("class.resource.loader.path", ".");
+            velocityProperties.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+            factoryBean.setVelocityProperties(velocityProperties);
+            return factoryBean.createVelocityEngine();
+        } catch (IOException e) {
+            throw new TapestryException("Cannot create velocity engine", e);
+        } catch (VelocityException e) {
+            throw new TapestryException("Cannot create velocity engine", e);
+        }
+    }
 
-	public static JavaMailSender buildMailSender() {
-		JavaMailSenderImpl sender = new JavaMailSenderImpl();
-		sender.setDefaultEncoding("UTF-8");
-		sender.setHost("localhost");
-		return sender;
-	}
+    public static JavaMailSender buildMailSender() {
+        JavaMailSenderImpl sender = new JavaMailSenderImpl();
+        sender.setDefaultEncoding("UTF-8");
+        sender.setHost("localhost");
+        return sender;
+    }
 
-	@Contribute(SymbolSource.class)
-	public static void contributeSymbolSource(OrderedConfiguration<SymbolProvider> configuration) {
-		configuration.add("NGDB Properties", new ResourceSymbolProvider(new ClasspathResource("ngdb.properties")));
-	}
+    @Contribute(SymbolSource.class)
+    public static void contributeSymbolSource(OrderedConfiguration<SymbolProvider> configuration) {
+        configuration.add("NGDB Properties", new ResourceSymbolProvider(new ClasspathResource("ngdb.properties")));
+    }
 
 }

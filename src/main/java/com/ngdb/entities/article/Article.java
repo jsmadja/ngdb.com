@@ -342,4 +342,6 @@ public abstract class Article implements Comparable<Article>, Serializable {
     }
 
     public abstract boolean isGame();
+
+    public abstract String getViewPage();
 }
