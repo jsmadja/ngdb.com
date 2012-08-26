@@ -1,7 +1,9 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 	xmlns:p="tapestry:parameter">
 	<div class="page-header">
-		<h1>Add ${article.title} in the market</h1>
+		<h1 class="orange-bar rounded-bar big-bar">
+			Add ${article.title} in the market
+		</h1>
 	</div>
 	<div class="row">
 		<div class="span3" />
