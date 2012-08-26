@@ -99,7 +99,7 @@ public abstract class Article implements Comparable<Article>, Serializable {
 
     @Embedded
     @XmlTransient
-    private Reviews reviews;
+    private Reviews reviews = new Reviews();
 
     @Embedded
     @XmlTransient
@@ -344,4 +344,19 @@ public abstract class Article implements Comparable<Article>, Serializable {
     public abstract boolean isGame();
 
     public abstract String getViewPage();
+
+    public String getAverageMark() {
+        if (!getHasReviews()) {
+            return "0";
+        }
+        int sum = 0;
+        for (Review review : reviews) {
+            sum += review.getMarkInPercent();
+        }
+        return Integer.toString((sum / reviews.count()) / 2);
+    }
+
+    public boolean getHasReviews() {
+        return reviews.count() > 0;
+    }
 }

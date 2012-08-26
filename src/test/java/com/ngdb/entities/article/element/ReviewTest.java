@@ -12,55 +12,55 @@ import com.ngdb.entities.article.Article;
 
 public class ReviewTest {
 
-	private Article article = null;
+    private Article article = null;
 
-	@Test
-	public void should_convert_percent_in_stars() {
+    @Test
+    public void should_convert_percent_in_stars() {
         assertEquals("45", toStars("90%"));
 
         assertEquals("00", toStars("0%"));
-		assertEquals("10", toStars("20%"));
-		assertEquals("20", toStars("40%"));
-		assertEquals("30", toStars("60%"));
-		assertEquals("40", toStars("80%"));
-		assertEquals("45", toStars("91%"));
-		assertEquals("45", toStars("92%"));
-		assertEquals("45", toStars("93%"));
-		assertEquals("45", toStars("94%"));
-		assertEquals("50", toStars("95%"));
-		assertEquals("50", toStars("96%"));
-		assertEquals("50", toStars("97%"));
-		assertEquals("50", toStars("98%"));
-		assertEquals("50", toStars("99%"));
-		assertEquals("50", toStars("100%"));
-	}
+        assertEquals("10", toStars("20%"));
+        assertEquals("20", toStars("40%"));
+        assertEquals("30", toStars("60%"));
+        assertEquals("40", toStars("80%"));
+        assertEquals("45", toStars("91%"));
+        assertEquals("45", toStars("92%"));
+        assertEquals("45", toStars("93%"));
+        assertEquals("45", toStars("94%"));
+        assertEquals("50", toStars("95%"));
+        assertEquals("50", toStars("96%"));
+        assertEquals("50", toStars("97%"));
+        assertEquals("50", toStars("98%"));
+        assertEquals("50", toStars("99%"));
+        assertEquals("50", toStars("100%"));
+    }
 
-	@Test
-	public void should_convert_quotient_in_stars() {
-		assertEquals("00", toStars("0/0"));
-		assertEquals("10", toStars("1/5"));
-		assertEquals("20", toStars("2/5"));
-		assertEquals("30", toStars("3/5"));
-		assertEquals("40", toStars("4/5"));
-		assertEquals("50", toStars("5/5"));
+    @Test
+    public void should_convert_quotient_in_stars() {
+        assertEquals("00", toStars("0/0"));
+        assertEquals("10", toStars("1/5"));
+        assertEquals("20", toStars("2/5"));
+        assertEquals("30", toStars("3/5"));
+        assertEquals("40", toStars("4/5"));
+        assertEquals("50", toStars("5/5"));
 
-		assertEquals("10", toStars("2/10"));
-		assertEquals("15", toStars("2.5/10"));
-		assertEquals("50", toStars("10/10"));
+        assertEquals("10", toStars("2/10"));
+        assertEquals("15", toStars("2.5/10"));
+        assertEquals("50", toStars("10/10"));
 
         assertEquals("45", toStars("9/10"));
         assertEquals("15", toStars("1/3"));
 
     }
 
-	@Test
-	public void should_convert_errors_in_0_star() {
-		assertEquals("00", toStars("fdfds"));
-	}
+    @Test
+    public void should_convert_errors_in_0_star() {
+        assertEquals("00", toStars("fdfds"));
+    }
 
-	private String toStars(String mark) {
-		return new Review("", "", mark, article).getMark();
-	}
+    private String toStars(String mark) {
+        return new Review("", "", mark, article).getMark();
+    }
 
     @Test
     public void should_order_review_by_mark_then_name() {
@@ -82,6 +82,26 @@ public class ReviewTest {
         assertEquals("neogeokult", sortedReviews[2].getLabel());
         assertEquals("neogeospirit", sortedReviews[3].getLabel());
         assertEquals("site2", sortedReviews[4].getLabel());
+    }
+
+    @Test
+    public void should_convert_in_percent() {
+        assertEquals(100, new Review("neogeokult", "http://url", "5/5", null).getMarkInPercent());
+        assertEquals(80, new Review("neogeokult", "http://url", "4/5", null).getMarkInPercent());
+        assertEquals(60, new Review("neogeokult", "http://url", "3/5", null).getMarkInPercent());
+        assertEquals(40, new Review("neogeokult", "http://url", "2/5", null).getMarkInPercent());
+        assertEquals(20, new Review("neogeokult", "http://url", "1/5", null).getMarkInPercent());
+        assertEquals(0, new Review("neogeokult", "http://url", "0/5", null).getMarkInPercent());
+    }
+
+    @Test
+    public void should_convert_in_percent_from_percent() {
+        assertEquals(100, new Review("neogeokult", "http://url", "100%", null).getMarkInPercent());
+        assertEquals(80, new Review("neogeokult", "http://url", "80%", null).getMarkInPercent());
+        assertEquals(60, new Review("neogeokult", "http://url", "60%", null).getMarkInPercent());
+        assertEquals(40, new Review("neogeokult", "http://url", "40%", null).getMarkInPercent());
+        assertEquals(20, new Review("neogeokult", "http://url", "20%", null).getMarkInPercent());
+        assertEquals(0, new Review("neogeokult", "http://url", "0%", null).getMarkInPercent());
     }
 
 }

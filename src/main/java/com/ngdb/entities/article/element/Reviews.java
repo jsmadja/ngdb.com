@@ -16,20 +16,24 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Reviews implements Iterable<Review> {
 
-	@OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
-	private Set<Review> reviews = new HashSet<Review>();
+    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
+    private Set<Review> reviews = new HashSet<Review>();
 
-	@Override
-	public Iterator<Review> iterator() {
-		return reviews.iterator();
-	}
+    @Override
+    public Iterator<Review> iterator() {
+        return reviews.iterator();
+    }
 
-	public Set<Review> all() {
-		return Collections.unmodifiableSet(reviews);
-	}
+    public Set<Review> all() {
+        return Collections.unmodifiableSet(reviews);
+    }
 
-	public void add(Review review) {
-		this.reviews.add(review);
-	}
+    public void add(Review review) {
+        this.reviews.add(review);
+    }
+
+    public int count() {
+        return reviews.size();
+    }
 
 }

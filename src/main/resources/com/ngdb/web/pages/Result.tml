@@ -7,10 +7,23 @@
 		<div>
 			<t:grid pagerPosition="BOTH" source="results" row="result" include="Title" add="actions" class="table table-striped table-bordered table-condensed" >
 				<p:titleCell>
-					<t:article.thumbnail article="result" size="literal:small" />
-          			<t:pageLink page="${viewPage}" context="result.id">${result.title}</t:pageLink>
-          			<br/><br/>
-            		<img src="/img/flags/${result.origin}.png" alt="${result.origin}" /> <t:common.platform platform="result.platform"/>
+					<div class="pull-left">
+						<t:article.thumbnail article="result" size="literal:small" />
+          			</div>
+          			<div style="margin-left:5px">
+	          			<p>
+		          			<t:pageLink page="${viewPage}" context="result.id">${result.title}</t:pageLink>
+		          		</p>
+		          		<p>
+		          			<img src="/img/flags/${result.origin}.png" alt="${result.origin}" /> <t:common.platform platform="result.platform"/>
+	          			</p>
+	          			<p>
+	          				${result.publisher}
+	          			</p>
+          				<p>
+	          				<t:OutputRaw value="${stars}" />
+	          			</p>
+          			</div>
                 </p:titleCell>
                 <p:actionsCell>
 					<t:article.actionBlock asButton="true" article="result" />
