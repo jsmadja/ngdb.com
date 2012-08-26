@@ -28,118 +28,118 @@ import com.ngdb.entities.user.User;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Wish implements Comparable<Wish> {
 
-	@EmbeddedId
-	private WishId id;
+    @EmbeddedId
+    private WishId id;
 
-	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "user_id", insertable = false, updatable = false, nullable = false)
-	private User wisher;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false, nullable = false)
+    private User wisher;
 
-	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "article_id", insertable = false, updatable = false, nullable = false)
-	private Article article;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "article_id", insertable = false, updatable = false, nullable = false)
+    private Article article;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date creationDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creationDate;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date modificationDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modificationDate;
 
-	public Wish() {
-		creationDate = modificationDate = new Date();
-	}
+    public Wish() {
+        creationDate = modificationDate = new Date();
+    }
 
-	public Wish(User wisher, Article article) {
-		this();
-		this.wisher = wisher;
-		this.article = article;
-		this.id = new WishId(wisher.getId(), article.getId());
-	}
+    public Wish(User wisher, Article article) {
+        this();
+        this.wisher = wisher;
+        this.article = article;
+        this.id = new WishId(wisher.getId(), article.getId());
+    }
 
-	@PreUpdate
-	public void preUpdate() {
-		this.modificationDate = new Date();
-	}
+    @PreUpdate
+    public void preUpdate() {
+        this.modificationDate = new Date();
+    }
 
-	public Article getArticle() {
-		return article;
-	}
+    public Article getArticle() {
+        return article;
+    }
 
-	public User getWisher() {
-		return wisher;
-	}
+    public User getWisher() {
+        return wisher;
+    }
 
-	public String getTitle() {
-		return article.getTitle();
-	}
+    public String getTitle() {
+        return article.getTitle();
+    }
 
-	public String getUser() {
-		return wisher.getLogin();
-	}
+    public String getUser() {
+        return wisher.getLogin();
+    }
 
-	public Date getCreationDate() {
-		return creationDate;
-	}
+    public Date getCreationDate() {
+        return creationDate;
+    }
 
-	public Date getModificationDate() {
-		return modificationDate;
-	}
+    public Date getModificationDate() {
+        return modificationDate;
+    }
 
-	public String getWishDate() {
-		return new PrettyTime(Locale.UK).format(getCreationDate());
-	}
+    public String getWishDate() {
+        return new PrettyTime(Locale.UK).format(getCreationDate());
+    }
 
     public boolean isGame() {
         return article.isGame();
     }
 
     @Embeddable
-	private static class WishId implements Serializable {
+    private static class WishId implements Serializable {
 
-		@Column(name = "user_id", nullable = false, updatable = false)
-		private Long userId;
+        @Column(name = "user_id", nullable = false, updatable = false)
+        private Long userId;
 
-		@Column(name = "article_id", nullable = false, updatable = false)
-		private Long articleId;
+        @Column(name = "article_id", nullable = false, updatable = false)
+        private Long articleId;
 
-		public WishId() {
-		}
+        public WishId() {
+        }
 
-		WishId(Long userId, Long articleId) {
-			this.userId = userId;
-			this.articleId = articleId;
-		}
+        WishId(Long userId, Long articleId) {
+            this.userId = userId;
+            this.articleId = articleId;
+        }
 
-		public boolean equals(Object o) {
-			if (o == null)
-				return false;
+        public boolean equals(Object o) {
+            if (o == null)
+                return false;
 
-			if (!(o instanceof WishId))
-				return false;
+            if (!(o instanceof WishId))
+                return false;
 
-			WishId other = (WishId) o;
-			if (!(other.articleId.equals(articleId)))
-				return false;
+            WishId other = (WishId) o;
+            if (!(other.articleId.equals(articleId)))
+                return false;
 
-			if (!(other.userId.equals(userId)))
-				return false;
+            if (!(other.userId.equals(userId)))
+                return false;
 
-			return true;
-		}
+            return true;
+        }
 
-		@Override
-		public int hashCode() {
-			return Objects.hashCode(articleId, userId);
-		}
-	}
+        @Override
+        public int hashCode() {
+            return Objects.hashCode(articleId, userId);
+        }
+    }
 
-	@Override
-	public int compareTo(Wish o) {
-		return getArticle().getTitle().compareTo(o.getArticle().getTitle());
-	}
+    @Override
+    public int compareTo(Wish o) {
+        return getArticle().getTitle().compareTo(o.getArticle().getTitle());
+    }
 
-	public void setArticle(Article article) {
-		this.article = article;
-	}
+    public void setArticle(Article article) {
+        this.article = article;
+    }
 
 }

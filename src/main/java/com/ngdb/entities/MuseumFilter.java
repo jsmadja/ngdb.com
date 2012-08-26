@@ -5,6 +5,7 @@ import static com.google.common.collect.Collections2.filter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -20,272 +21,274 @@ import com.ngdb.entities.user.User;
 
 public class MuseumFilter {
 
-	private boolean filteredByGames;
+    private boolean filteredByGames;
 
-	private Publisher filteredPublisher;
+    private Publisher filteredPublisher;
 
-	private Origin filteredOrigin;
+    private Origin filteredOrigin;
 
-	private Platform filteredPlatform;
+    private Platform filteredPlatform;
 
-	private User filteredUser;
+    private User filteredUser;
 
-	private GameFactory gameFactory;
+    private GameFactory gameFactory;
 
-	private HardwareFactory hardwareFactory;
+    private HardwareFactory hardwareFactory;
 
-	private Tag filteredTag;
+    private Tag filteredTag;
 
-	private String filteredNgh;
+    private String filteredNgh;
 
-	private Date filteredReleaseDate;
+    private Date filteredReleaseDate;
 
-	private boolean consolidated;
+    private boolean consolidated;
 
-	private List<Article> initialArticleList;
+    private List<Article> initialArticleList;
 
-	public MuseumFilter(GameFactory gameFactory, HardwareFactory hardwareFactory) {
-		this.gameFactory = gameFactory;
-		this.hardwareFactory = hardwareFactory;
-		clear();
-	}
+    public MuseumFilter(GameFactory gameFactory, HardwareFactory hardwareFactory) {
+        this.gameFactory = gameFactory;
+        this.hardwareFactory = hardwareFactory;
+        clear();
+    }
 
-	public void clear() {
-		this.filteredOrigin = null;
-		this.filteredPlatform = null;
-		this.filteredPublisher = null;
-		this.filteredNgh = null;
-		this.filteredReleaseDate = null;
-		this.filteredTag = null;
-		this.filteredByGames = true;
-		this.filteredUser = null;
-		this.consolidated = false;
-	}
+    public void clear() {
+        this.filteredOrigin = null;
+        this.filteredPlatform = null;
+        this.filteredPublisher = null;
+        this.filteredNgh = null;
+        this.filteredReleaseDate = null;
+        this.filteredTag = null;
+        this.filteredByGames = true;
+        this.filteredUser = null;
+        this.consolidated = false;
+    }
 
-	public String getQueryLabel() {
-		String queryLabel = "all ";
-		if (filteredByGames) {
-			queryLabel += orange("games");
-		} else {
-			queryLabel += orange("hardwares");
-		}
-		if (filteredOrigin != null) {
-			queryLabel += " from " + orange(filteredOrigin.getTitle());
-		}
-		if (filteredPublisher != null) {
-			queryLabel += " published by " + orange(filteredPublisher.getName());
-		}
-		if (filteredPlatform != null) {
-			queryLabel += " on " + orange(filteredPlatform.getName());
-		}
-		if (filteredNgh != null) {
-			queryLabel += " with ngh " + orange(filteredNgh);
-		}
-		if (filteredReleaseDate != null) {
-			queryLabel += " released at " + orange(new SimpleDateFormat("MM/dd/yyyy").format(filteredReleaseDate));
-		}
-		if (filteredTag != null) {
-			queryLabel += " with tag " + orange(filteredTag.getName());
-		}
-		if (filteredUser != null) {
-			queryLabel += " owned by " + orange(filteredUser.getLogin());
-		}
-		return queryLabel;
-	}
+    public String getQueryLabel() {
+        String queryLabel = "all ";
+        if (filteredByGames) {
+            queryLabel += orange("games");
+        } else {
+            queryLabel += orange("hardwares");
+        }
+        if (filteredOrigin != null) {
+            queryLabel += " from " + orange(filteredOrigin.getTitle());
+        }
+        if (filteredPublisher != null) {
+            queryLabel += " published by " + orange(filteredPublisher.getName());
+        }
+        if (filteredPlatform != null) {
+            queryLabel += " on " + orange(filteredPlatform.getName());
+        }
+        if (filteredNgh != null) {
+            queryLabel += " with ngh " + orange(filteredNgh);
+        }
+        if (filteredReleaseDate != null) {
+            queryLabel += " released at " + orange(new SimpleDateFormat("MM/dd/yyyy").format(filteredReleaseDate));
+        }
+        if (filteredTag != null) {
+            queryLabel += " with tag " + orange(filteredTag.getName());
+        }
+        if (filteredUser != null) {
+            queryLabel += " owned by " + orange(filteredUser.getLogin());
+        }
+        return queryLabel;
+    }
 
-	private String orange(String name) {
-		return "<span class=\"orange\">" + name + "</span>";
-	}
+    private String orange(String name) {
+        return "<span class=\"orange\">" + name + "</span>";
+    }
 
-	public void filterByUser(User user) {
-		this.filteredUser = user;
-	}
+    public void filterByUser(User user) {
+        this.filteredUser = user;
+    }
 
-	public void filterByOrigin(Origin origin) {
-		this.filteredOrigin = origin;
-	}
+    public void filterByOrigin(Origin origin) {
+        this.filteredOrigin = origin;
+    }
 
-	public void filterByPublisher(Publisher publisher) {
-		this.filteredPublisher = publisher;
-	}
+    public void filterByPublisher(Publisher publisher) {
+        this.filteredPublisher = publisher;
+    }
 
-	public void filterByPlatform(Platform platform) {
-		this.filteredPlatform = platform;
-	}
+    public void filterByPlatform(Platform platform) {
+        this.filteredPlatform = platform;
+    }
 
-	private Collection<Article> applyFilters(List<Predicate<Article>> filters) {
-		Collection<Article> filteredArticles = newInitialArticleList();
-		buildFilters(filters);
-		for (Predicate<Article> filter : filters) {
-			filteredArticles = filter(filteredArticles, filter);
-		}
-		return filteredArticles;
-	}
+    private Collection<Article> applyFilters(List<Predicate<Article>> filters) {
+        Collection<Article> filteredArticles = newInitialArticleList();
+        buildFilters(filters);
+        for (Predicate<Article> filter : filters) {
+            filteredArticles = filter(filteredArticles, filter);
+        }
+        return filteredArticles;
+    }
 
-	private void buildInitialArticleList() {
-		if (!consolidated) {
-			if (filteredByGames) {
-				if (filteredUser == null) {
-					initialArticleList = new ArrayList<Article>(gameFactory.findAll());
-				} else {
-					initialArticleList = gameFactory.findAllOwnedBy(filteredUser);
-				}
-			} else {
-				if (filteredUser == null) {
-					initialArticleList = new ArrayList<Article>(hardwareFactory.findAll());
-				} else {
-					initialArticleList = hardwareFactory.findAllOwnedBy(filteredUser);
-				}
-			}
-			validateArticles();
-		}
-	}
+    private void buildInitialArticleList() {
+        if (!consolidated) {
+            if (filteredByGames) {
+                if (filteredUser == null) {
+                    initialArticleList = new ArrayList<Article>(gameFactory.findAll());
+                } else {
+                    initialArticleList = gameFactory.findAllOwnedBy(filteredUser);
+                }
+            } else {
+                if (filteredUser == null) {
+                    initialArticleList = new ArrayList<Article>(hardwareFactory.findAll());
+                } else {
+                    initialArticleList = hardwareFactory.findAllOwnedBy(filteredUser);
+                }
+            }
+            validateArticles();
+        }
+    }
 
-	private void buildFilters(List<Predicate<Article>> filters) {
-		if (filteredOrigin != null) {
-			filters.add(new Predicates.OriginPredicate(filteredOrigin));
-		}
-		if (filteredPlatform != null) {
-			filters.add(new Predicates.PlatformPredicate(filteredPlatform));
-		}
-		if (filteredPublisher != null) {
-			filters.add(new Predicates.PublisherPredicate(filteredPublisher));
-		}
-		if (filteredTag != null) {
-			filters.add(new Predicates.TagPredicate(filteredTag));
-		}
-		if (filteredNgh != null) {
-			filters.add(new Predicates.NghPredicate(filteredNgh));
-		}
-		if (filteredReleaseDate != null) {
-			filters.add(new Predicates.ReleaseDatePredicate(filteredReleaseDate));
-		}
-	}
+    private void buildFilters(List<Predicate<Article>> filters) {
+        if (filteredOrigin != null) {
+            filters.add(new Predicates.OriginPredicate(filteredOrigin));
+        }
+        if (filteredPlatform != null) {
+            filters.add(new Predicates.PlatformPredicate(filteredPlatform));
+        }
+        if (filteredPublisher != null) {
+            filters.add(new Predicates.PublisherPredicate(filteredPublisher));
+        }
+        if (filteredTag != null) {
+            filters.add(new Predicates.TagPredicate(filteredTag));
+        }
+        if (filteredNgh != null) {
+            filters.add(new Predicates.NghPredicate(filteredNgh));
+        }
+        if (filteredReleaseDate != null) {
+            filters.add(new Predicates.ReleaseDatePredicate(filteredReleaseDate));
+        }
+    }
 
-	public List<Article> getArticles() {
-		List<Predicate<Article>> filters = Lists.newArrayList();
-		Collection<Article> filteredArticles = applyFilters(filters);
-		return new ArrayList<Article>(filteredArticles);
-	}
+    public List<Article> getArticles() {
+        List<Predicate<Article>> filters = Lists.newArrayList();
+        Collection<Article> filteredArticles = applyFilters(filters);
+        List<Article> arrayList = new ArrayList<Article>(filteredArticles);
+        Collections.sort(arrayList);
+        return arrayList;
+    }
 
-	public void filterByGames() {
-		this.filteredByGames = true;
-		invalidateArticles();
-	}
+    public void filterByGames() {
+        this.filteredByGames = true;
+        invalidateArticles();
+    }
 
-	public void filterByHardwares() {
-		this.filteredByGames = false;
-		invalidateArticles();
-	}
+    public void filterByHardwares() {
+        this.filteredByGames = false;
+        invalidateArticles();
+    }
 
-	public boolean isFilteredBy(Publisher publisher) {
-		if (filteredPublisher == null) {
-			return false;
-		}
-		return publisher.getId().equals(filteredPublisher.getId());
-	}
+    public boolean isFilteredBy(Publisher publisher) {
+        if (filteredPublisher == null) {
+            return false;
+        }
+        return publisher.getId().equals(filteredPublisher.getId());
+    }
 
-	public boolean isFilteredBy(Platform platform) {
-		if (filteredPlatform == null) {
-			return false;
-		}
-		return platform.getId().equals(filteredPlatform.getId());
-	}
+    public boolean isFilteredBy(Platform platform) {
+        if (filteredPlatform == null) {
+            return false;
+        }
+        return platform.getId().equals(filteredPlatform.getId());
+    }
 
-	public boolean isFilteredBy(Origin origin) {
-		if (filteredOrigin == null) {
-			return false;
-		}
-		return origin.getId().equals(filteredOrigin.getId());
-	}
+    public boolean isFilteredBy(Origin origin) {
+        if (filteredOrigin == null) {
+            return false;
+        }
+        return origin.getId().equals(filteredOrigin.getId());
+    }
 
-	private void invalidateArticles() {
-		this.consolidated = false;
-	}
+    private void invalidateArticles() {
+        this.consolidated = false;
+    }
 
-	private void validateArticles() {
-		this.consolidated = true;
-	}
+    private void validateArticles() {
+        this.consolidated = true;
+    }
 
-	public int getNumArticlesInThisOrigin(Origin origin) {
-		Collection<Article> articles = newInitialArticleList();
-		if (filteredPlatform != null) {
-			Predicates.PlatformPredicate filterByPlatform = new Predicates.PlatformPredicate(filteredPlatform);
-			articles = filter(articles, filterByPlatform);
-		}
-		Predicates.OriginPredicate filterByOrigin = new Predicates.OriginPredicate(origin);
-		articles = filter(articles, filterByOrigin);
-		return articles.size();
-	}
+    public int getNumArticlesInThisOrigin(Origin origin) {
+        Collection<Article> articles = newInitialArticleList();
+        if (filteredPlatform != null) {
+            Predicates.PlatformPredicate filterByPlatform = new Predicates.PlatformPredicate(filteredPlatform);
+            articles = filter(articles, filterByPlatform);
+        }
+        Predicates.OriginPredicate filterByOrigin = new Predicates.OriginPredicate(origin);
+        articles = filter(articles, filterByOrigin);
+        return articles.size();
+    }
 
-	public int getNumArticlesInThisPublisher(Publisher publisher) {
-		Collection<Article> articles = newInitialArticleList();
-		if (filteredPlatform != null) {
-			Predicates.PlatformPredicate filterByPlatform = new Predicates.PlatformPredicate(filteredPlatform);
-			articles = filter(articles, filterByPlatform);
-		}
-		if (filteredOrigin != null) {
-			Predicates.OriginPredicate filterByOrigin = new Predicates.OriginPredicate(filteredOrigin);
-			articles = filter(articles, filterByOrigin);
-		}
-		Predicates.PublisherPredicate filterByPublisher = new Predicates.PublisherPredicate(publisher);
-		articles = filter(articles, filterByPublisher);
-		return articles.size();
-	}
+    public int getNumArticlesInThisPublisher(Publisher publisher) {
+        Collection<Article> articles = newInitialArticleList();
+        if (filteredPlatform != null) {
+            Predicates.PlatformPredicate filterByPlatform = new Predicates.PlatformPredicate(filteredPlatform);
+            articles = filter(articles, filterByPlatform);
+        }
+        if (filteredOrigin != null) {
+            Predicates.OriginPredicate filterByOrigin = new Predicates.OriginPredicate(filteredOrigin);
+            articles = filter(articles, filterByOrigin);
+        }
+        Predicates.PublisherPredicate filterByPublisher = new Predicates.PublisherPredicate(publisher);
+        articles = filter(articles, filterByPublisher);
+        return articles.size();
+    }
 
-	public int getNumArticlesInThisPlatform(Platform platform) {
-		Collection<Article> articles = newInitialArticleList();
-		articles = filter(articles, new Predicates.PlatformPredicate(platform));
-		return articles.size();
-	}
+    public int getNumArticlesInThisPlatform(Platform platform) {
+        Collection<Article> articles = newInitialArticleList();
+        articles = filter(articles, new Predicates.PlatformPredicate(platform));
+        return articles.size();
+    }
 
-	private Collection<Article> newInitialArticleList() {
-		buildInitialArticleList();
-		Collection<Article> articles = new ArrayList<Article>(initialArticleList);
-		return articles;
-	}
+    private Collection<Article> newInitialArticleList() {
+        buildInitialArticleList();
+        Collection<Article> articles = new ArrayList<Article>(initialArticleList);
+        return articles;
+    }
 
-	public void filterByTag(Tag tag) {
-		invalidateArticles();
-		this.filteredTag = tag;
-	}
+    public void filterByTag(Tag tag) {
+        invalidateArticles();
+        this.filteredTag = tag;
+    }
 
-	public void filterByNgh(String ngh) {
-		this.filteredNgh = ngh;
-	}
+    public void filterByNgh(String ngh) {
+        this.filteredNgh = ngh;
+    }
 
-	public void filterByReleaseDate(Date releaseDate) {
-		this.filteredReleaseDate = releaseDate;
-	}
+    public void filterByReleaseDate(Date releaseDate) {
+        this.filteredReleaseDate = releaseDate;
+    }
 
-	public User getFilteredUser() {
-		return filteredUser;
-	}
+    public User getFilteredUser() {
+        return filteredUser;
+    }
 
-	public boolean isFilteredByGames() {
-		return filteredByGames;
-	}
+    public boolean isFilteredByGames() {
+        return filteredByGames;
+    }
 
-	public Tag getFilteredTag() {
-		return filteredTag;
-	}
+    public Tag getFilteredTag() {
+        return filteredTag;
+    }
 
-	public Date getFilteredReleaseDate() {
-		return filteredReleaseDate;
-	}
+    public Date getFilteredReleaseDate() {
+        return filteredReleaseDate;
+    }
 
-	public long getNumHardwares() {
-		if (filteredUser != null) {
-			return filteredUser.getHardwaresInCollection().size();
-		}
-		return hardwareFactory.getNumHardwares();
-	}
+    public long getNumHardwares() {
+        if (filteredUser != null) {
+            return filteredUser.getHardwaresInCollection().size();
+        }
+        return hardwareFactory.getNumHardwares();
+    }
 
-	public long getNumGames() {
-		if (filteredUser != null) {
-			return filteredUser.getGamesInCollection().size();
-		}
-		return gameFactory.getNumGames();
-	}
+    public long getNumGames() {
+        if (filteredUser != null) {
+            return filteredUser.getGamesInCollection().size();
+        }
+        return gameFactory.getNumGames();
+    }
 
 }
