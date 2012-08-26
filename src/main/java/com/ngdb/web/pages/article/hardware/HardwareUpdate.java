@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.SelectModel;
+import org.apache.tapestry5.annotations.DiscardAfter;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Persist;
@@ -133,6 +134,7 @@ public class HardwareUpdate {
     }
 
     @CommitAfter
+    @DiscardAfter
     Object onSuccess() {
         Hardware hardware = new Hardware();
         if (isEditMode()) {

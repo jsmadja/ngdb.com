@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.SelectModel;
+import org.apache.tapestry5.annotations.DiscardAfter;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Persist;
@@ -177,6 +178,7 @@ public class GameUpdate {
     }
 
     @CommitAfter
+    @DiscardAfter
     public Object onSuccess() {
         Game game = new Game();
         if (isEditMode()) {
