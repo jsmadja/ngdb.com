@@ -19,62 +19,62 @@ import com.ngdb.web.services.TokenService;
 
 public class Population {
 
-	@Inject
-	private Session session;
+    @Inject
+    private Session session;
 
-	@Inject
-	private TokenService tokenService;
+    @Inject
+    private TokenService tokenService;
 
-	@Inject
-	private MailService mailService;
+    @Inject
+    private MailService mailService;
 
-	@Inject
-	@Symbol("host.url")
-	private String host;
+    @Inject
+    @Symbol("host.url")
+    private String host;
 
-	public User findById(Long id) {
-		return (User) session.load(User.class, id);
-	}
+    public User findById(Long id) {
+        return (User) session.load(User.class, id);
+    }
 
-	public Collection<User> findEverybody() {
-		return session.createCriteria(User.class).addOrder(asc("login")).list();
-	}
+    public Collection<User> findEverybody() {
+        return session.createCriteria(User.class).setCacheable(true).addOrder(asc("login")).list();
+    }
 
-	public Long getNumUsers() {
-		return (Long) session.createCriteria(User.class).setProjection(count("id")).setCacheable(true).setCacheRegion("cacheCount").uniqueResult();
-	}
+    public Long getNumUsers() {
+        return (Long) session.createCriteria(User.class).setProjection(count("id")).setCacheable(true).setCacheRegion("cacheCount").uniqueResult();
+    }
 
-	public User findByLogin(String login) {
-		return (User) session.createCriteria(User.class).add(eq("login", login)).uniqueResult();
-	}
+    public User findByLogin(String login) {
+        return (User) session.createCriteria(User.class).add(eq("login", login)).uniqueResult();
+    }
 
-	public void addUser(User user) {
-		session.persist(user);
-		sendSubscriptionConfirmationEmail(user);
-	}
+    public void addUser(User user) {
+        session.persist(user);
+        sendSubscriptionConfirmationEmail(user);
+    }
 
-	private void sendSubscriptionConfirmationEmail(User user) {
-		Token token = tokenService.createToken(user);
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("recipient", user.getEmail());
-		params.put("url", host + "user/validation?token=" + token.getValue() + "&email=" + user.getEmail());
-		mailService.sendMail(user, "subscription", params);
-	}
+    private void sendSubscriptionConfirmationEmail(User user) {
+        Token token = tokenService.createToken(user);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("recipient", user.getEmail());
+        params.put("url", host + "user/validation?token=" + token.getValue() + "&email=" + user.getEmail());
+        mailService.sendMail(user, "subscription", params);
+    }
 
-	public boolean exists(String login) {
-		return findByLogin(login) != null;
-	}
+    public boolean exists(String login) {
+        return findByLogin(login) != null;
+    }
 
-	public void resetPasswordOf(User user) {
-		sendResetPasswordEmail(user);
-	}
+    public void resetPasswordOf(User user) {
+        sendResetPasswordEmail(user);
+    }
 
-	private void sendResetPasswordEmail(User user) {
-		Token token = tokenService.createToken(user);
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("login", user.getLogin());
-		params.put("url", host + "user/changePassword?token=" + token.getValue() + "&email=" + user.getEmail() + "&login=" + user.getLogin());
-		mailService.sendMail(user, "reset_password", params);
-	}
+    private void sendResetPasswordEmail(User user) {
+        Token token = tokenService.createToken(user);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("login", user.getLogin());
+        params.put("url", host + "user/changePassword?token=" + token.getValue() + "&email=" + user.getEmail() + "&login=" + user.getLogin());
+        mailService.sendMail(user, "reset_password", params);
+    }
 
 }
