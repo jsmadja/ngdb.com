@@ -4,6 +4,7 @@ import static com.google.common.collect.Collections2.filter;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import com.google.common.base.Predicate;
@@ -113,7 +114,9 @@ public class MarketFilter {
     public List<ShopItem> getShopItems() {
         List<Predicate<ShopItem>> filters = Lists.newArrayList();
         Collection<ShopItem> filteredShopItems = applyFilters(filters);
-        return new ArrayList<ShopItem>(filteredShopItems);
+        List<ShopItem> arrayList = new ArrayList<ShopItem>(filteredShopItems);
+        Collections.sort(arrayList);
+        return arrayList;
     }
 
     public void filterByGames() {
