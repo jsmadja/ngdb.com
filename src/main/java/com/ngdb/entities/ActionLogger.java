@@ -16,7 +16,7 @@ public class ActionLogger {
     private Session session;
 
     public void addTagAction(User user, Article article) {
-        createAction(user, article, "add a tag on");
+        createAction(user, article, "added a tag on");
     }
 
     public void addCommentAction(User user, Article article) {
@@ -24,11 +24,11 @@ public class ActionLogger {
     }
 
     public void addReviewAction(User user, Article article) {
-        createAction(user, article, "add a review on");
+        createAction(user, article, "added a review on");
     }
 
     public void addPropertyAction(User user, Article article) {
-        createAction(user, article, "add a property on");
+        createAction(user, article, "added a property on");
     }
 
     public void addEditAction(User user, Article article) {
