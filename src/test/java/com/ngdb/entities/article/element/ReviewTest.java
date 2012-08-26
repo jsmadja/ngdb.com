@@ -23,6 +23,16 @@ public class ReviewTest {
         assertEquals("20", toStars("40%"));
         assertEquals("30", toStars("60%"));
         assertEquals("40", toStars("80%"));
+        assertEquals("40", toStars("81%"));
+        assertEquals("40", toStars("82%"));
+        assertEquals("40", toStars("83%"));
+        assertEquals("40", toStars("84%"));
+        assertEquals("40", toStars("85%"));
+        assertEquals("40", toStars("86%"));
+        assertEquals("40", toStars("87%"));
+        assertEquals("40", toStars("88%"));
+        assertEquals("40", toStars("89%"));
+        assertEquals("45", toStars("90%"));
         assertEquals("45", toStars("91%"));
         assertEquals("45", toStars("92%"));
         assertEquals("45", toStars("93%"));

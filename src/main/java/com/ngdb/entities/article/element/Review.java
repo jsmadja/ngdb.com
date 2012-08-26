@@ -96,7 +96,7 @@ public class Review extends AbstractEntity implements Comparable<Review> {
         } else if (diff >= 0.75) {
             value = v + 1;
         } else if (diff >= 0.25 && diff < 0.5) {
-            value = v + 0.5;
+            value = v;
         } else if (diff >= 0.5 && diff <= 0.74) {
             value = v + 0.5;
         }
