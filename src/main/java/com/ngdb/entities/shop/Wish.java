@@ -31,11 +31,11 @@ public class Wish implements Comparable<Wish> {
     @EmbeddedId
     private WishId id;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(optional = false, fetch = LAZY)
     @JoinColumn(name = "user_id", insertable = false, updatable = false, nullable = false)
     private User wisher;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(optional = false, fetch = LAZY)
     @JoinColumn(name = "article_id", insertable = false, updatable = false, nullable = false)
     private Article article;
 
