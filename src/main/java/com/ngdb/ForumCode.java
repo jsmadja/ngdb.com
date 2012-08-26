@@ -22,11 +22,13 @@ public class ForumCode {
             String url = "http://neogeodb.com/shop/itemview/" + id;
             String origin = article.getOrigin().getTitle();
             String originImageUrl = "http://neogeodb.com/img/flags/" + origin + ".png";
-            String imageUrl = "http://www.neogeodb.com" + article.getMainPicture().getUrl("small");
+            String imageUrl = "http://www.neogeodb.com" + shopItem.getMainPicture().getUrl("small");
 
             sb.append(format("[IMG]%s[/IMG] [URL=%s]%s[/URL] - [B][COLOR=Red]%s[/COLOR][/B] - [B][COLOR=SeaGreen]%s euros[/COLOR][/B]", originImageUrl, url, title, state, priceInEuros));
             sb.append(format("\n[I]%s[/I]", details));
-            if (article.hasCover()) {
+            if (shopItem.hasNoPicture() && shopItem.hasCover()) {
+                sb.append(format("\n[URL=%s][IMG]%s[/IMG][/URL]", url, "http://www.neogeodb.com" + article.getMainPicture().getUrl("small")));
+            } else {
                 sb.append(format("\n[URL=%s][IMG]%s[/IMG][/URL]", url, imageUrl));
             }
             sb.append("\n\n");
