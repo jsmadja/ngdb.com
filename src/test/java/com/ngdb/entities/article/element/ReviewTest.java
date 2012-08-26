@@ -3,12 +3,12 @@ package com.ngdb.entities.article.element;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.junit.Test;
 
 import com.ngdb.entities.article.Article;
-
-import java.util.Set;
-import java.util.TreeSet;
 
 public class ReviewTest {
 

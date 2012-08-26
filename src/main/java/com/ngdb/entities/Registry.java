@@ -21,7 +21,6 @@ import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Tag;
-import org.hibernate.criterion.Projections;import org.hibernate.criterion.Restrictions;
 
 public class Registry {
 

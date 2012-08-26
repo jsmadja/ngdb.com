@@ -3,7 +3,6 @@ package com.ngdb.entities.article.element;
 import static java.math.RoundingMode.HALF_UP;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;

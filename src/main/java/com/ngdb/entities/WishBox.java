@@ -1,19 +1,20 @@
 package com.ngdb.entities;
 
-import com.ngdb.entities.article.Article;
-import com.ngdb.entities.shop.Wish;
-import org.apache.tapestry5.ioc.annotations.Inject;
-import org.hibernate.Session;
-
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
-
 import static com.google.common.collect.Collections2.filter;
 import static com.ngdb.Predicates.isGameWish;
 import static com.ngdb.Predicates.isHardwareWish;
 import static org.hibernate.criterion.Order.desc;
 import static org.hibernate.criterion.Projections.countDistinct;
+
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.Session;
+
+import com.ngdb.entities.article.Article;
+import com.ngdb.entities.shop.Wish;
 
 public class WishBox {
 

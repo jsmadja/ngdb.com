@@ -2,11 +2,8 @@ package com.ngdb;
 
 import com.google.common.base.Predicate;
 import com.ngdb.entities.article.Article;
-import com.ngdb.entities.article.Game;
-import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
-import com.ngdb.entities.shop.ShopItem;
 
 public class ArticlePredicates {
 

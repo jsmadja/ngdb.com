@@ -2,8 +2,6 @@ package com.ngdb.web.components.article;
 
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.ioc.annotations.Inject;
-import org.hibernate.Session;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;

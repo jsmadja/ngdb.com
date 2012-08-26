@@ -1,11 +1,11 @@
 package com.ngdb.entities;
 
+import java.util.List;
+
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
 import com.ngdb.entities.article.Article;
-
-import java.util.List;
 
 public class ArticleFactory {
 
