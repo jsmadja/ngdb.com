@@ -93,11 +93,11 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <t:label for="upc" class="control-label">
-                            <b>UPC</b>
+                        <t:label for="ean" class="control-label">
+                            <b>EAN</b>
                         </t:label>
                         <div class="controls">
-                            <t:textfield value="upc" t:id="upc" />
+                            <t:textfield value="ean" t:id="ean" />
                         </div>
                     </div>
                     <div class="control-group">

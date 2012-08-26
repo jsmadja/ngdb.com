@@ -7,13 +7,13 @@ import org.apache.commons.codec.binary.Base64;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
-import com.google.zxing.oned.UPCAWriter;
+import com.google.zxing.oned.EAN13Writer;
 
-public class UPCUtil {
+public class EANUtil {
 
-    public static String toUpcBase64Image(String upc) {
+    public static String toEanBase64Image(String ean) {
         try {
-            BitMatrix bitMatrix = new UPCAWriter().encode(upc, BarcodeFormat.UPC_A, 80, 37);
+            BitMatrix bitMatrix = new EAN13Writer().encode(ean, BarcodeFormat.EAN_13, 80, 37);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             MatrixToImageWriter.writeToStream(bitMatrix, "gif", stream);
             byte[] byteArray = stream.toByteArray();

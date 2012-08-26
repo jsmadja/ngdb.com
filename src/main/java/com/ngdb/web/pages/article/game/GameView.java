@@ -6,7 +6,7 @@ import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import com.ngdb.UPCUtil;
+import com.ngdb.EANUtil;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.user.User;
@@ -76,7 +76,7 @@ public class GameView {
     }
 
     public String getUpc() {
-        return UPCUtil.toUpcBase64Image(game.getUpc());
+        return EANUtil.toEanBase64Image(game.getUpc());
     }
 
 }

@@ -64,7 +64,7 @@ public class GameUpdate {
     private String ngh;
 
     @Property
-    private String upc;
+    private String ean;
 
     @Property
     private String imdbId;
@@ -150,7 +150,7 @@ public class GameUpdate {
             this.details = null;
             this.title = null;
             this.ngh = null;
-            this.upc = null;
+            this.ean = null;
             this.imdbId = null;
             this.reference = null;
         } else {
@@ -164,7 +164,7 @@ public class GameUpdate {
             this.details = game.getDetails();
             this.title = game.getTitle();
             this.ngh = game.getNgh();
-            this.upc = game.getUpc();
+            this.ean = game.getUpc();
             this.imdbId = game.getImdbId();
             this.reference = game.getReference();
             this.storedPictures = game.getPictures().all();
@@ -192,7 +192,7 @@ public class GameUpdate {
         game.setMegaCount(megaCount);
         game.setBox(box);
         game.setNgh(ngh);
-        game.setUpc(upc);
+        game.setUpc(ean);
         game.setImdbId(imdbId);
         game.setReference(reference);
         game = (Game) session.merge(game);
