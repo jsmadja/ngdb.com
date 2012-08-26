@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Cache;
@@ -17,10 +18,10 @@ import com.ngdb.entities.user.User;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ArticleAction extends AbstractEntity {
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Article article;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private User user;
 
     @Column(nullable = false)
