@@ -38,9 +38,9 @@
 				<tr>
 					<td><b>${sellItemHistory.stateName}</b></td>
 					<td>${sellItemHistory.forSaleQuantity}</td>
-					<td>${sellItemHistory.averagePrice}</td>
-					<td>${sellItemHistory.maxPrice}</td>
-					<td>${sellItemHistory.minPrice}</td>
+					<td>$${sellItemHistory.averagePrice}</td>
+					<td>$${sellItemHistory.maxPrice}</td>
+					<td>$${sellItemHistory.minPrice}</td>
 				</tr>
 			</t:loop>
 		</table>
