@@ -1,6 +1,7 @@
 package com.ngdb.web.pages.shop;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -26,6 +27,7 @@ import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.reference.State;
 import com.ngdb.entities.shop.ShopItem;
+import com.ngdb.web.model.CustomCurrenciesList;
 import com.ngdb.web.model.StateList;
 import com.ngdb.web.services.infrastructure.CurrencyService;
 import com.ngdb.web.services.infrastructure.PictureService;
@@ -48,6 +50,10 @@ public class ShopItemUpdate {
 
     @Persist
     @Property
+    private Double priceInCustomCurrency;
+
+    @Persist
+    @Property
     @Validate("required")
     private String details;
 
@@ -61,6 +67,10 @@ public class ShopItemUpdate {
     @Property
     @Validate("required")
     private State state;
+
+    @Persist
+    @Property
+    private String customCurrency;
 
     @Property
     @Persist("entity")
@@ -106,6 +116,8 @@ public class ShopItemUpdate {
         this.state = shopItem.getState();
         this.shopItem.updateModificationDate();
         this.storedPictures = shopItem.getPictures().all();
+        this.customCurrency = shopItem.getCustomCurrency();
+        this.priceInCustomCurrency = shopItem.getPriceInCustomCurrency();
         if (pictures == null) {
             pictures = new ArrayList<UploadedFile>();
         }
@@ -126,6 +138,8 @@ public class ShopItemUpdate {
         shopItem.setPriceInDollars(priceInDollars);
         shopItem.setPriceInEuros(priceInEuros);
         shopItem.setState(state);
+        shopItem.setPriceInCustomCurrency(priceInCustomCurrency);
+        shopItem.setCustomCurrency(customCurrency);
         shopItem = (ShopItem) session.merge(shopItem);
         for (UploadedFile uploadedPicture : pictures) {
             Picture picture = pictureService.store(uploadedPicture, shopItem);
@@ -138,6 +152,11 @@ public class ShopItemUpdate {
 
     public SelectModel getStates() {
         return new StateList(referenceService.getStates());
+    }
+
+    public SelectModel getCustomCurrencies() {
+        Collection<String> currencies = currencyService.allCurrenciesWithout("USD", "EUR");
+        return new CustomCurrenciesList(currencies);
     }
 
     public Object onDollarsChanged() {

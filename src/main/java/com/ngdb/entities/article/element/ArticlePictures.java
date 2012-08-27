@@ -2,6 +2,7 @@ package com.ngdb.entities.article.element;
 
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
@@ -24,7 +25,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @XmlAccessorType(FIELD)
 @XmlRootElement(name = "pictures")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ArticlePictures implements Iterable<Picture> {
+public class ArticlePictures implements Iterable<Picture>, Serializable {
 
     @ElementCollection
     @OrderBy("creationDate")

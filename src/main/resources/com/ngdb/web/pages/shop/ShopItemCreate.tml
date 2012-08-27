@@ -16,7 +16,8 @@
 
 						<t:zone t:id="priceZone" id="priceZone">
 							<div class="control-group">
-								<t:label for="priceInDollars" class="control-label">Price in USD * :
+								<t:label for="priceInDollars" class="control-label">
+									Price in USD * :
 								</t:label>
 								<div class="controls">
 									<div class="input-prepend input-append">
@@ -29,7 +30,8 @@
 								</div>
 							</div>
 							<div class="control-group">
-								<t:label for="priceInDollars" class="control-label">Price in EUR * :
+								<t:label for="priceInDollars" class="control-label">
+									Price in EUR * :
 								</t:label>
 								
 								<div class="controls">
@@ -44,6 +46,18 @@
 							</div>
 						</t:zone>
 
+						<div class="control-group">
+							<t:label for="priceInCustomCurrency" class="control-label">
+								Price in :
+							</t:label>
+							
+							<div class="controls">
+								<t:select style="width:70px" value="customCurrency" model="customCurrencies" t:id="customCurrency" />
+							    <t:textfield style="max-width:50px" value="priceInCustomCurrency" placeholder="0.00"
+									t:id="priceInCustomCurrency" />
+							</div>
+						</div>
+							
 						<div class="control-group">
 							<t:label for="state" class="control-label">State * : </t:label>
 							<div class="controls">

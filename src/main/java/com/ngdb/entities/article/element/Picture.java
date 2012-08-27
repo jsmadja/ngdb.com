@@ -1,6 +1,7 @@
 package com.ngdb.entities.article.element;
 
 import java.io.File;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +16,7 @@ import com.ngdb.entities.shop.ShopItem;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Picture extends AbstractEntity implements Comparable<Picture> {
+public class Picture extends AbstractEntity implements Comparable<Picture>, Serializable {
 
     public static final Picture EMPTY = new Picture("/ngdb/unknown.png");
 

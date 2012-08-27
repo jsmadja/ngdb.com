@@ -3,6 +3,7 @@ package com.ngdb.entities.shop;
 import static java.text.MessageFormat.format;
 import static javax.persistence.FetchType.LAZY;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Set;
@@ -30,7 +31,7 @@ import com.ngdb.entities.user.User;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ShopItem implements Comparable<ShopItem> {
+public class ShopItem implements Comparable<ShopItem>, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -63,6 +64,10 @@ public class ShopItem implements Comparable<ShopItem> {
     private Double priceInDollars;
 
     private Double priceInEuros;
+
+    private Double priceInCustomCurrency;
+
+    private String customCurrency;
 
     @Embedded
     private PotentialBuyers potentialBuyers;
@@ -213,5 +218,21 @@ public class ShopItem implements Comparable<ShopItem> {
 
     public boolean hasCover() {
         return article.hasCover();
+    }
+
+    public Double getPriceInCustomCurrency() {
+        return priceInCustomCurrency;
+    }
+
+    public void setPriceInCustomCurrency(Double priceInCustomCurrency) {
+        this.priceInCustomCurrency = priceInCustomCurrency;
+    }
+
+    public String getCustomCurrency() {
+        return customCurrency;
+    }
+
+    public void setCustomCurrency(String customCurrency) {
+        this.customCurrency = customCurrency;
     }
 }
