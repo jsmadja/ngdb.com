@@ -123,6 +123,12 @@ public class Market {
 
     public String getPriceOf(ShopItem shopItem) {
         String preferedCurrency = currentUser.getPreferedCurrency();
+        if ("USD".equalsIgnoreCase(preferedCurrency)) {
+            return "$" + shopItem.getPriceInDollars();
+        }
+        if ("EUR".equalsIgnoreCase(preferedCurrency)) {
+            return shopItem.getPriceInEuros() + " €";
+        }
         if (shopItem.getPriceIn(preferedCurrency) != null) {
             return shopItem.getPriceIn(preferedCurrency) + " " + preferedCurrency;
         }
