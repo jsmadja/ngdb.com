@@ -37,18 +37,22 @@ public class CurrencyService {
     }
 
     public Collection<String> allCurrenciesWithout(String... currenciesToRemove) {
+        Collection<String> currencies = allCurrencies();
+        for (String removeCurrency : currenciesToRemove) {
+            currencies.remove(removeCurrency);
+        }
+        return currencies;
+    }
+
+    public Collection<String> allCurrencies() {
         List<CurrencyUnit> registereCurrencies = CurrencyUnit.registeredCurrencies();
-        Collection<String> currencies = transform(registereCurrencies, new Function<CurrencyUnit, String>() {
+        return transform(registereCurrencies, new Function<CurrencyUnit, String>() {
             @Override
             @Nullable
             public String apply(@Nullable CurrencyUnit input) {
                 return input.getCurrencyCode();
             }
         });
-        for (String removeCurrency : currenciesToRemove) {
-            currencies.remove(removeCurrency);
-        }
-        return currencies;
     }
 
 }

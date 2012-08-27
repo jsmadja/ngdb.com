@@ -11,6 +11,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.ApplicationStateManager;
 import org.apache.tapestry5.services.Request;
 import org.hibernate.Session;
+import org.joda.money.CurrencyUnit;
 import org.tynamo.security.services.SecurityService;
 
 import com.ngdb.entities.ActionLogger;
@@ -90,6 +91,10 @@ public class CurrentUser {
 
     private void init(User user) {
         store(User.class, user);
+    }
+
+    public void refresh() {
+        store(User.class, getUserFromDb());
     }
 
     public User getUser() {
@@ -272,6 +277,26 @@ public class CurrentUser {
             return false;
         }
         return getUser().isContributor();
+    }
+
+    public String getPreferedCurrency() {
+        Locale locale = request.getLocale();
+        if (isAnonymous()) {
+            if (locale != null) {
+                return CurrencyUnit.of(locale).getCode();
+            } else {
+                return "USD";
+            }
+        } else {
+            User user = getUser();
+            if (user.getPreferedCurrency() != null) {
+                return user.getPreferedCurrency();
+            }
+            if (locale != null) {
+                return CurrencyUnit.of(locale).getCode();
+            }
+            return "USD";
+        }
     }
 
 }

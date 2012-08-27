@@ -1,0 +1,50 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<div class="page-header">
+		<h1 class="black-bar rounded-bar big-bar">My profile</h1>
+	</div>
+	<div class="row">
+		<div class="span3" />
+		<div class="span6">
+			<t:if test="message">
+				<div class="alert alert-info" >${message}</div>
+			</t:if>
+			<t:form t:id="profileForm" class="form-horizontal">
+				<t:errors />
+				<div class="control-group">
+					<fieldset>
+						<div class="control-group">
+							<t:label for="email" class="control-label">
+								<b>Email</b>
+								* :
+							</t:label>
+							<div class="controls">
+								<t:textfield value="email" t:id="email" />
+							</div>
+						</div>
+						<div class="control-group">
+							<t:label for="country" class="control-label">
+								<b>Country</b> :
+							</t:label>
+							<div class="controls">
+								<t:select value="country" model="countries" t:id="country" />
+							</div>
+						</div>
+						<div class="control-group">
+							<t:label for="preferedCurrency" class="control-label">
+								<b>Prefered currency</b> :
+							</t:label>
+							<div class="controls">
+								<t:select style="width:70px" value="preferedCurrency" model="currencies" t:id="preferedCurrency" />
+							</div>
+						</div>
+						<div class="form-actions">
+							<button class="btn btn-primary" type="submit">Submit</button>
+						</div>
+					</fieldset>
+				</div>
+			</t:form>
+		</div>
+		<div class="span3" />
+	</div>
+</t:layout>

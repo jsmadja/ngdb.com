@@ -40,6 +40,9 @@ public class User extends AbstractEntity implements Comparable<User> {
     @Column(nullable = false)
     private String email;
 
+    @Column(name = "preferend_currency")
+    private String preferedCurrency;
+
     @Embedded
     private WishList wishList;
 
@@ -54,6 +57,14 @@ public class User extends AbstractEntity implements Comparable<User> {
 
     @Embedded
     private PotentialBuys potentialBuys;
+
+    @Column(name = "shop_policy")
+    private String shopPolicy;
+
+    @Column(name = "about_me")
+    private String aboutMe;
+
+    private String country;
 
     User() {
     }
@@ -271,5 +282,41 @@ public class User extends AbstractEntity implements Comparable<User> {
 
     public void setLastLoginDate(Date lastLoginDate) {
         this.lastLoginDate = lastLoginDate;
+    }
+
+    public String getPreferedCurrency() {
+        return preferedCurrency;
+    }
+
+    public void setPreferedCurrency(String preferedCurrency) {
+        this.preferedCurrency = preferedCurrency;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getShopPolicy() {
+        return shopPolicy;
+    }
+
+    public void setShopPolicy(String shopPolicy) {
+        this.shopPolicy = shopPolicy;
+    }
+
+    public String getAboutMe() {
+        return aboutMe;
+    }
+
+    public void setAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

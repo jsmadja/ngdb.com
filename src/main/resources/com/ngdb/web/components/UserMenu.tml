@@ -7,6 +7,9 @@
 		</a>
 		<ul class="dropdown-menu">
 			<li>
+				<a href="/profile"><i class="icon-user" /> My profile</a>
+			</li>
+			<li>
 				<a href="/wishbox/byUser/${userId}"><i class="icon-heart" /> My whishes (${numArticlesInWishList})</a>
 			</li>
 			<li>
