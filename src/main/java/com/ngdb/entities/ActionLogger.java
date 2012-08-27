@@ -44,7 +44,7 @@ public class ActionLogger {
     }
 
     public List<ArticleAction> listLastActions() {
-        return session.createCriteria(ArticleAction.class).setMaxResults(15).addOrder(Order.desc("creationDate")).list();
+        return session.createCriteria(ArticleAction.class).setMaxResults(15).addOrder(Order.desc("creationDate")).setCacheable(true).list();
     }
 
 }
