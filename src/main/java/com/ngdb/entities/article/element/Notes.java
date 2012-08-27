@@ -27,7 +27,7 @@ public class Notes implements Iterable<Note>, Serializable {
 
     public boolean contains(String name) {
         for (Note note : notes) {
-            if (note.hasName(name)) {
+            if (note.hasName(name) || note.hasValue(name)) {
                 return true;
             }
         }

@@ -24,44 +24,44 @@ import com.ngdb.entities.article.element.Tag;
 
 public class Registry {
 
-	@Inject
-	private GameFactory gameFactory;
+    @Inject
+    private GameFactory gameFactory;
 
-	@Inject
-	private HardwareFactory hardwareFactory;
+    @Inject
+    private HardwareFactory hardwareFactory;
 
-	@Inject
-	private Session session;
+    @Inject
+    private Session session;
 
-	public List<Article> findGamesMatching(final String search) {
-		List<Article> articles = new ArrayList<Article>();
-		if (isNotBlank(search)) {
-			final String searchItem = search.toLowerCase().trim();
-			List<Article> allArticles = findAllArticles();
-			Collection<Article> matchingArticles = filter(allArticles, new Predicates.Matching(searchItem));
-			articles.addAll(matchingArticles);
-			sort(articles, byTitlePlatformOrigin);
-		}
-		return articles;
-	}
+    public List<Article> findGamesMatching(final String search) {
+        List<Article> articles = new ArrayList<Article>();
+        if (isNotBlank(search)) {
+            final String searchItem = search.toLowerCase().trim();
+            List<Article> allArticles = findAllArticles();
+            Collection<Article> matchingArticles = filter(allArticles, new Predicates.Matching(searchItem));
+            articles.addAll(matchingArticles);
+            sort(articles, byTitlePlatformOrigin);
+        }
+        return articles;
+    }
 
-	public List<Article> findAllArticles() {
-		List<Article> articles = new ArrayList<Article>();
-		articles.addAll(gameFactory.findAll());
-		articles.addAll(hardwareFactory.findAll());
-		return articles;
-	}
+    public List<Article> findAllArticles() {
+        List<Article> articles = new ArrayList<Article>();
+        articles.addAll(gameFactory.findAll());
+        articles.addAll(hardwareFactory.findAll());
+        return articles;
+    }
 
-	public List<Game> findLastUpdates() {
-		return session.createCriteria(Game.class).setCacheable(true).setMaxResults(10).addOrder(desc("modificationDate")).list();
-	}
+    public List<Game> findLastUpdates() {
+        return session.createCriteria(Game.class).setCacheable(true).setMaxResults(10).addOrder(desc("modificationDate")).list();
+    }
 
-	public Collection<String> findAllTags() {
-		return session.createCriteria(Tag.class).setProjection(distinct(property("name"))).addOrder(asc("name")).list();
-	}
+    public Collection<String> findAllTags() {
+        return session.createCriteria(Tag.class).setProjection(distinct(property("name"))).addOrder(asc("name")).list();
+    }
 
-	public Collection<String> findAllPropertyNames() {
-		return session.createCriteria(Note.class).setProjection(distinct(property("name"))).addOrder(asc("name")).list();
-	}
+    public Collection<String> findAllPropertyNames() {
+        return session.createCriteria(Note.class).setProjection(distinct(property("name"))).addOrder(asc("name")).list();
+    }
 
 }

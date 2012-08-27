@@ -19,28 +19,28 @@ import com.ngdb.entities.user.User;
 @SuppressWarnings("unchecked")
 public class HardwareFactory {
 
-	@Inject
-	private Session session;
+    @Inject
+    private Session session;
 
-	public Long getNumHardwares() {
-		return (Long) session.createCriteria(Hardware.class).setProjection(rowCount()).setCacheable(true).setCacheRegion("cacheCount").uniqueResult();
-	}
+    public Long getNumHardwares() {
+        return (Long) session.createCriteria(Hardware.class).setProjection(rowCount()).setCacheable(true).setCacheRegion("cacheCount").uniqueResult();
+    }
 
-	public List<Hardware> findAll() {
-		return allHardwares().list();
-	}
+    public List<Hardware> findAll() {
+        return allHardwares().list();
+    }
 
-	private Criteria allHardwares() {
-		return session.createCriteria(Hardware.class).addOrder(asc("title"));
-	}
+    private Criteria allHardwares() {
+        return session.createCriteria(Hardware.class).setCacheable(true).addOrder(asc("title"));
+    }
 
-	public List<Article> findAllOwnedBy(final User owner) {
-		return new ArrayList<Article>(Collections2.filter(findAll(), new Predicate<Article>() {
-			@Override
-			public boolean apply(Article input) {
-				return owner.owns(input);
-			}
-		}));
-	}
+    public List<Article> findAllOwnedBy(final User owner) {
+        return new ArrayList<Article>(Collections2.filter(findAll(), new Predicate<Article>() {
+            @Override
+            public boolean apply(Article input) {
+                return owner.owns(input);
+            }
+        }));
+    }
 
 }

@@ -13,41 +13,45 @@ import com.ngdb.entities.article.Article;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Note extends AbstractEntity implements Comparable<Note> {
 
-	private String name;
+    private String name;
 
-	private String text;
+    private String text;
 
-	@ManyToOne
-	private Article article;
+    @ManyToOne
+    private Article article;
 
-	Note() {
-	}
+    Note() {
+    }
 
-	public Note(String name, String text, Article article) {
-		this.article = article;
-		this.name = name;
-		this.text = text;
-	}
+    public Note(String name, String text, Article article) {
+        this.article = article;
+        this.name = name;
+        this.text = text;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getText() {
-		return text;
-	}
+    public String getText() {
+        return text;
+    }
 
-	public void setArticle(Article article) {
-		this.article = article;
-	}
+    public void setArticle(Article article) {
+        this.article = article;
+    }
 
-	public boolean hasName(String name) {
-		return this.name.equalsIgnoreCase(name);
-	}
+    public boolean hasName(String name) {
+        return this.name.equalsIgnoreCase(name);
+    }
 
-	@Override
-	public int compareTo(Note note) {
-		return name.compareToIgnoreCase(note.name);
-	}
+    @Override
+    public int compareTo(Note note) {
+        return name.compareToIgnoreCase(note.name);
+    }
+
+    public boolean hasValue(String value) {
+        return this.text.equalsIgnoreCase(value);
+    }
 
 }
