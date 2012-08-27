@@ -94,7 +94,7 @@
                     </div>
                     <div class="control-group">
                         <t:label for="ean" class="control-label">
-                            <b>EAN</b>
+                            <b>EAN/UPC</b>
                         </t:label>
                         <div class="controls">
                             <t:textfield value="ean" t:id="ean" />

@@ -3,7 +3,7 @@ package com.ngdb.web.pages.article.hardware;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 
-import com.ngdb.EANUtil;
+import com.ngdb.BarcodeUtil;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Review;
@@ -63,7 +63,7 @@ public class HardwareView {
     }
 
     public String getUpc() {
-        return EANUtil.toEanBase64Image(hardware.getUpc());
+        return BarcodeUtil.toBarcodeBase64Image(hardware.getUpc());
     }
 
 }
