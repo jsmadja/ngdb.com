@@ -235,4 +235,11 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
     public void setCustomCurrency(String customCurrency) {
         this.customCurrency = customCurrency;
     }
+
+    public Double getPriceIn(String currency) {
+        if (currency.equalsIgnoreCase(customCurrency)) {
+            return priceInCustomCurrency;
+        }
+        return null;
+    }
 }
