@@ -13,51 +13,47 @@ import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class ShopItemView {
 
-	@Persist("entity")
-	private ShopItem shopItem;
+    @Persist("entity")
+    private ShopItem shopItem;
 
-	@Inject
-	private CurrentUser currentUser;
+    @Inject
+    private CurrentUser currentUser;
 
-	@Property
-	private String message;
+    @Property
+    private String message;
 
-	@Inject
-	private Market market;
+    @Inject
+    private Market market;
 
-	void onActivate(ShopItem shopItem) {
-		this.shopItem = shopItem;
-	}
+    void onActivate(ShopItem shopItem) {
+        this.shopItem = shopItem;
+    }
 
-	@SetupRender
-	void onInit() {
-		User potentialBuyer = currentUser.getUser();
-		if (currentUser.isAnonymous()) {
-			this.message = "You have to register to buy this item.";
-		} else if (currentUser.isSeller(shopItem)) {
-			this.message = "You are the seller of this item.";
-		} else if (!shopItem.isNotAlreadyWantedBy(potentialBuyer)) {
-			this.message = shopItem.getSeller().getLogin() + " has been contacted, he/she will send you an email as soon as possible.";
-		}
-	}
+    @SetupRender
+    void onInit() {
+        User potentialBuyer = currentUser.getUser();
+        if (currentUser.isAnonymous()) {
+            this.message = "You have to register to buy this item.";
+        } else if (currentUser.isSeller(shopItem)) {
+            this.message = "You are the seller of this item.";
+        } else if (!shopItem.isNotAlreadyWantedBy(potentialBuyer)) {
+            this.message = shopItem.getSeller().getLogin() + " has been contacted, he/she will send you an email as soon as possible.";
+        }
+    }
 
-	public void setShopItem(ShopItem shopItem) {
-		this.shopItem = shopItem;
-	}
+    public void setShopItem(ShopItem shopItem) {
+        this.shopItem = shopItem;
+    }
 
-	public ShopItem getShopItem() {
-		return shopItem;
-	}
+    public ShopItem getShopItem() {
+        return shopItem;
+    }
 
-	public String getShopItemMainPicture() {
-		return shopItem.getArticle().getMainPicture().getUrl("medium");
-	}
+    public String getShopItemMainPicture() {
+        return shopItem.getArticle().getMainPicture().getUrl("medium");
+    }
 
-	public String getPrice() {
-		return market.getPriceOf(shopItem);
-	}
-
-	public String getViewPage() {
-		return Redirections.toViewPage(shopItem.getArticle());
-	}
+    public String getViewPage() {
+        return Redirections.toViewPage(shopItem.getArticle());
+    }
 }

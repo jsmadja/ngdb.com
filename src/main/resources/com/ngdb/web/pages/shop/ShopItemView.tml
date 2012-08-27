@@ -20,49 +20,40 @@
 				</t:if>
 				<table>
 					<tr>
+						<td class="grey">
+							<b>State</b>
+						</td>
 						<td>
-							<table>
-								<tr>
-									<td class="grey">
-										<b>Price</b>
-									</td>
-									<td>
-										<span class="price-label">${price}</span>
-									</td>
-								</tr>
-								<tr>
-									<td class="grey">
-										<b>For sale date</b>
-									</td>
-									<td>
-										${shopItem.forSaleDate}
-									</td>
-								</tr>
-								<tr>
-									<td class="grey">
-										<b>State</b>
-									</td>
-									<td>
-										<a href="#">${shopItem.state.title}</a>
-									</td>
-								</tr>
-								<tr>
-									<td class="grey">
-										<b>Seller</b>
-									</td>
-									<td>
-										<t:pageLink page="user/UserView" context="shopItem.seller">
-											${shopItem.seller.login}</t:pageLink>
-									</td>
-								</tr>
-							</table>
+							<a href="#">${shopItem.state.title}</a>
 						</td>
 					</tr>
+					<tr>
+						<td class="grey">
+							<b>Price</b>
+						</td>
+						<td>
+							<t:if test="shopItem.priceInCustomCurrency">
+								${shopItem.customCurrency} ${shopItem.priceInCustomCurrency} /
+							</t:if>
+							$${shopItem.priceInDollars} / ${shopItem.priceInEuros} €
+							
+						</td>
+					</tr>
+					<tr>
+						<td class="grey">
+							<b>Seller</b>
+						</td>
+						<td>
+							<t:pageLink page="user/UserView" context="shopItem.seller">
+								${shopItem.seller.login}</t:pageLink>
+						</td>
+					</tr>
+					<tr>
+						<td class="grey"><b>Description</b></td>
+						<td><t:OutputRaw value="${shopItem.details}" /></td>
+					</tr>
 				</table>
-				<h2>Description</h2>
-				<p>
-					<t:OutputRaw value="${shopItem.details}" />
-				</p>
+				
 				<t:shopitem.gallery shopItem="shopItem" />
 				
 				<p>

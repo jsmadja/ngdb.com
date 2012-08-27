@@ -121,7 +121,7 @@ public class Market {
         session.delete(shopItem);
     }
 
-    public String getPriceOf(com.ngdb.entities.shop.ShopItem shopItem) {
+    public String getPriceOf(ShopItem shopItem) {
         if (currentUser.isFrench()) {
             return shopItem.getPriceInEuros() + " €";
         }
