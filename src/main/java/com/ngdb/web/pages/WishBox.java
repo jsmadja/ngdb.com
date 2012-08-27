@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.Session;
 
 import com.ngdb.entities.Population;
 import com.ngdb.entities.WishBoxFilter;
@@ -19,14 +20,14 @@ import com.ngdb.web.pages.base.Redirections;
 
 public class WishBox {
 
-	@Property
-	private Wish wish;
+    @Property
+    private Wish wish;
 
-	@Inject
-	private com.ngdb.entities.WishBox wishBox;
+    @Inject
+    private com.ngdb.entities.WishBox wishBox;
 
-	@Inject
-	private Population population;
+    @Inject
+    private Population population;
 
     @Persist
     private WishBoxFilter wishBoxFilter;
@@ -54,10 +55,10 @@ public class WishBox {
         wishBoxFilter = new WishBoxFilter(wishBox);
         Filter filter = Filter.valueOf(Filter.class, filterName);
         switch (filter) {
-            case byUser:
-                User user = population.findById(Long.valueOf(value));
-                wishBoxFilter.filterByUser(user);
-                break;
+        case byUser:
+            User user = population.findById(Long.valueOf(value));
+            wishBoxFilter.filterByUser(user);
+            break;
         }
         return true;
     }
@@ -66,13 +67,17 @@ public class WishBox {
         return wishBoxFilter.getWishes();
     }
 
-	public String getViewPage() {
-		return Redirections.toViewPage(wish.getArticle());
-	}
+    public String getViewPage() {
+        return Redirections.toViewPage(wish.getArticle());
+    }
 
-	public String getMainPictureUrl() {
-		return wish.getArticle().getMainPicture().getUrl("small");
-	}
+    @Inject
+    private Session session;
+
+    public String getMainPictureUrl() {
+        wish = (Wish) session.load(Wish.class, wish.getId());
+        return wish.getCover("small");
+    }
 
     Object onActionFromClearFilters() {
         wishBoxFilter.clear();

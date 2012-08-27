@@ -135,11 +135,19 @@ public class Wish implements Comparable<Wish> {
 
     @Override
     public int compareTo(Wish o) {
-        return getArticle().getTitle().compareToIgnoreCase(o.getArticle().getTitle());
+        return article.getTitle().compareToIgnoreCase(o.article.getTitle());
     }
 
     public void setArticle(Article article) {
         this.article = article;
+    }
+
+    public String getCover(String size) {
+        return article.getMainPicture().getUrl(size);
+    }
+
+    public Serializable getId() {
+        return id;
     }
 
 }

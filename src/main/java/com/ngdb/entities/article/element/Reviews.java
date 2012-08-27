@@ -1,5 +1,6 @@
 package com.ngdb.entities.article.element;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -14,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Reviews implements Iterable<Review> {
+public class Reviews implements Iterable<Review>, Serializable {
 
     @OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
     private Set<Review> reviews = new HashSet<Review>();

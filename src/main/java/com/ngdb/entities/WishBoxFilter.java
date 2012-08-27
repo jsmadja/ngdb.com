@@ -29,8 +29,6 @@ public class WishBoxFilter {
 
     private boolean consolidated;
 
-    private Collection<Wish> initialWishList;
-
     public WishBoxFilter(WishBox wishBox) {
         this.wishBox = wishBox;
         clear();
@@ -107,12 +105,10 @@ public class WishBoxFilter {
 
     public void filterByGames() {
         this.filteredByGames = true;
-        invalidateWishes();
     }
 
     public void filterByHardwares() {
         this.filteredByGames = false;
-        invalidateWishes();
     }
 
     public boolean isFilteredBy(Platform platform) {
@@ -127,14 +123,6 @@ public class WishBoxFilter {
             return false;
         }
         return origin.getId().equals(filteredOrigin.getId());
-    }
-
-    private void invalidateWishes() {
-        this.consolidated = false;
-    }
-
-    private void validateWishes() {
-        this.consolidated = true;
     }
 
     public int getNumWishesInThisOrigin(Origin origin) {
@@ -155,23 +143,23 @@ public class WishBoxFilter {
     }
 
     private Collection<Wish> newInitialWishesList() {
+        Collection<Wish> wishes = new ArrayList<Wish>();
         if (!consolidated) {
             if (filteredByGames) {
                 if (filteredUser == null) {
-                    initialWishList = new ArrayList<Wish>(wishBox.findAllGames());
+                    wishes.addAll(wishBox.findAllGames());
                 } else {
-                    initialWishList = filteredUser.getAllWishedGames();
+                    wishes.addAll(filteredUser.getAllWishedGames());
                 }
             } else {
                 if (filteredUser == null) {
-                    initialWishList = new ArrayList<Wish>(wishBox.findAllHardwares());
+                    wishes.addAll(new ArrayList<Wish>(wishBox.findAllHardwares()));
                 } else {
-                    initialWishList = filteredUser.getAllWishedHardwares();
+                    wishes.addAll(filteredUser.getAllWishedHardwares());
                 }
             }
-            validateWishes();
         }
-        return new ArrayList<Wish>(initialWishList);
+        return wishes;
     }
 
     public User getFilteredUser() {
