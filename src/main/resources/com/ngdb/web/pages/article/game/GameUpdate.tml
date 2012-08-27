@@ -143,8 +143,7 @@
                             <b>Details</b>
                         </t:label>
                         <div class="controls">
-                            <t:textarea rows="10" value="details" t:id="details"
-                                style="width:90%" />
+                            <t:textarea rows="10" value="details" t:id="details" style="width:90%" />
                         </div>
                     </div>
                     <div class="form-actions">

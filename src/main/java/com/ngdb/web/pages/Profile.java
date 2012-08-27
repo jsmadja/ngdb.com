@@ -28,6 +28,14 @@ public class Profile {
 
     @Persist
     @Property
+    private String aboutMe;
+
+    @Persist
+    @Property
+    private String shopPolicy;
+
+    @Persist
+    @Property
     private String preferedCurrency;
 
     @Persist
@@ -50,6 +58,8 @@ public class Profile {
         this.email = user.getEmail();
         this.country = user.getCountry();
         this.preferedCurrency = currentUser.getPreferedCurrency();
+        this.aboutMe = user.getAboutMe();
+        this.shopPolicy = user.getShopPolicy();
     }
 
     @CommitAfter
@@ -58,6 +68,8 @@ public class Profile {
         user.setPreferedCurrency(preferedCurrency);
         user.setEmail(email);
         user.setCountry(country);
+        user.setAboutMe(aboutMe);
+        user.setShopPolicy(shopPolicy);
         session.persist(user);
         currentUser.refresh();
         message = "Your profile has been updated";

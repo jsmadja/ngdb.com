@@ -49,8 +49,12 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="grey"><b>Description</b></td>
+						<td class="grey" style="vertical-align:top"><b>Description</b></td>
 						<td><t:OutputRaw value="${shopItem.details}" /></td>
+					</tr>
+					<tr>
+						<td class="grey" width="15%" style="vertical-align:top"><b>Shop policy</b></td>
+						<td><t:OutputRaw value="${shopItem.seller.shopPolicy}" /></td>
 					</tr>
 				</table>
 				

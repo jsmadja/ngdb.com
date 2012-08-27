@@ -38,6 +38,22 @@
 								<t:select style="width:70px" value="preferedCurrency" model="currencies" t:id="preferedCurrency" />
 							</div>
 						</div>
+						<div class="control-group">
+							<t:label for="aboutMe" class="control-label">
+								<b>About me</b> :
+							</t:label>
+							<div class="controls">
+								<t:textarea rows="10" value="aboutMe" t:id="aboutMe" style="width:100%" />
+							</div>
+						</div>
+						<div class="control-group">
+							<t:label for="shopPolicy" class="control-label">
+								<b>Shop policy</b> :
+							</t:label>
+							<div class="controls">
+								<t:textarea rows="10" value="shopPolicy" t:id="shopPolicy" style="width:100%" />
+							</div>
+						</div>
 						<div class="form-actions">
 							<button class="btn btn-primary" type="submit">Submit</button>
 						</div>
