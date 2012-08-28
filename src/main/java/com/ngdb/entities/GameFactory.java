@@ -13,6 +13,7 @@ import java.util.List;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Session;
 
 import com.google.common.base.Predicate;
@@ -48,12 +49,7 @@ public class GameFactory {
     }
 
     private Criteria allGames() {
-        return session.createCriteria(Game.class).setCacheable(true).addOrder(asc("title"));
-    }
-
-    public Collection<Game> findAllByReleasedThisMonth() {
-        List<Game> games = findAll();
-        return filter(games, releasedThisMonth);
+        return session.createCriteria(Game.class).setFetchMode("tags", FetchMode.SELECT).setFetchMode("reviews", FetchMode.SELECT).setCacheable(true).addOrder(asc("title"));
     }
 
     public Game getRandomGameWithMainPicture() {

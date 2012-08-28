@@ -80,18 +80,6 @@ public class UserView {
         this.user = user;
     }
 
-    public String getViewPage() {
-        if (wish == null) {
-            return "";
-        }
-        Article article = wish.getArticle();
-        Class<?> type = article.getType();
-        if (type.equals(Game.class)) {
-            return "article/game/gameView";
-        }
-        return "article/hardware/hardwareView";
-    }
-
     public User getUser() {
         return user;
     }

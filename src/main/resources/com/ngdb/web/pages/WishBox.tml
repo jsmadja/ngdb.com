@@ -59,6 +59,11 @@
             Clear filters
         </t:actionLink>
     </div>
+
+    <style type="text/css">
+        #resultTable th.thumbnailColumn {width: 90px;}
+    </style>
+
     <div class="wishBox span10">
     <div class="wishes">
 		<div class="page-header">
@@ -67,28 +72,34 @@
         <p>
             <b>${numResults}</b> item(s) found for query <b><i><t:outputRaw value="${queryLabel}" /></i></b>
         </p>
-        <t:grid pagerPosition="BOTH" source="wishes"
+        <t:grid id="resultTable"
+                pagerPosition="BOTH"
+                source="wishes"
 				row="wish"
+                add="thumbnailColumn"
 				inPlace="true"
-				include="title, user, wishDate"
+				include="title, user"
 				rowsPerPage="20"
+                reorder="thumbnailColumn,title,user"
 				class="table table-striped table-bordered table-condensed">
-				<p:titleCell>
-					<img class="picture" style="float:left" src="${message:image.host.url}${mainPictureUrl}" title="${wish.article.title}" />
-            		<t:pageLink page="${viewPage}" context="wish.article">${wish.article.title}</t:pageLink>
-            		<br/><br/>
-            		<img src="/img/flags/${wish.article.origin}.png" alt="${wish.article.origin}" /> <t:common.platform platform="wish.article.platform"/>
-                </p:titleCell>
-                <p:userCell>
-                	<t:pageLink page="user/userView" context="wish.wisher"><b>${wish.wisher.login}</b></t:pageLink>
-                </p:userCell>
-       			<p:wishDateHeader>
-					Wished since
-				</p:wishDateHeader>
-				<p:wishDateCell>
-					${wish.wishDate}
-				</p:wishDateCell>
-		</t:grid>
+            <p:thumbnailColumnHeader></p:thumbnailColumnHeader>
+            <p:thumbnailColumnCell>
+                <t:pageLink page="${wish.article.viewPage}" context="wish.article">
+                    <img src="${message:image.host.url}${wish.article.mainPicture.urlSmall}" title="${wish.article.title}" />
+                </t:pageLink>
+            </p:thumbnailColumnCell>
+            <p:titleCell>
+                <p>
+                    <t:pageLink page="${wish.article.viewPage}" context="wish.article">${wish.article.title}</t:pageLink>
+                </p>
+                <p>
+                    <img src="/img/flags/${wish.article.origin}.png" alt="${wish.article.origin}" /> <t:common.platform platform="wish.article.platform"/>
+                </p>
+            </p:titleCell>
+            <p:userCell>
+                <t:pageLink page="user/userView" context="wish.wisher"><b>${wish.wisher.login}</b></t:pageLink>
+            </p:userCell>
+        </t:grid>
 	</div>
     </div>
     </div>

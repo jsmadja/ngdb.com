@@ -11,6 +11,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import com.ngdb.entities.Suggestionner;
 import com.ngdb.web.pages.Result;
 
+import static org.apache.commons.lang.StringUtils.isNotBlank;
+
 public class SearchForm {
 
 	@Property
@@ -23,7 +25,7 @@ public class SearchForm {
 	private Suggestionner suggestionner;
 
 	Object onSuccess() {
-		if (StringUtils.isNotBlank(search)) {
+		if (isNotBlank(search)) {
 			result.setSearch(search);
 			return result;
 		}

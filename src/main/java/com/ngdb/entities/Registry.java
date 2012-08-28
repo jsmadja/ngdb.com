@@ -9,9 +9,7 @@ import static org.hibernate.criterion.Order.desc;
 import static org.hibernate.criterion.Projections.distinct;
 import static org.hibernate.criterion.Projections.property;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
@@ -33,27 +31,32 @@ public class Registry {
     @Inject
     private Session session;
 
-    public List<Article> findGamesMatching(final String search) {
-        List<Article> articles = new ArrayList<Article>();
+    public List<Game> findGamesMatching(final String search) {
+        List<Game> foundGames = new ArrayList<Game>();
+
+        Set<Long> ids = new TreeSet<Long>();
+
         if (isNotBlank(search)) {
             final String searchItem = search.toLowerCase().trim();
-            List<Article> allArticles = findAllArticles();
-            Collection<Article> matchingArticles = filter(allArticles, new Predicates.Matching(searchItem));
-            articles.addAll(matchingArticles);
-            sort(articles, byTitlePlatformOrigin);
+            List<Game> allGames = gameFactory.findAll();
+            Collection<Game> matchingGames = filter(allGames, new Predicates.Matching(searchItem));
+            for (Article matchingArticle : matchingGames) {
+                if(!ids.contains(matchingArticle.getId())) {
+                    Game game = (Game) matchingArticle;
+                    foundGames.add(game);
+                    ids.add(game.getId());
+                    List<Game> linkedGames = gameFactory.findAllByNgh(game.getNgh());
+                    for (Game linkedGame : linkedGames) {
+                        if(!ids.contains(linkedGame.getId())) {
+                            foundGames.add(linkedGame);
+                            ids.add(linkedGame.getId());
+                        }
+                    }
+                }
+            }
+            sort(foundGames, byTitlePlatformOrigin);
         }
-        return articles;
-    }
-
-    public List<Article> findAllArticles() {
-        List<Article> articles = new ArrayList<Article>();
-        articles.addAll(gameFactory.findAll());
-        articles.addAll(hardwareFactory.findAll());
-        return articles;
-    }
-
-    public List<Game> findLastUpdates() {
-        return session.createCriteria(Game.class).setCacheable(true).setMaxResults(10).addOrder(desc("modificationDate")).list();
+        return foundGames;
     }
 
     public Collection<String> findAllTags() {

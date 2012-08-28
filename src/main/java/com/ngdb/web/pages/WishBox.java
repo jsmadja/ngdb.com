@@ -39,6 +39,9 @@ public class WishBox {
     @Inject
     private ReferenceService referenceService;
 
+    @Inject
+    private Session session;
+
     void onActivate() {
         if (wishBoxFilter == null) {
             wishBoxFilter = new WishBoxFilter(wishBox);
@@ -64,13 +67,6 @@ public class WishBox {
     public Collection<Wish> getWishes() {
         return wishBoxFilter.getWishes();
     }
-
-    public String getViewPage() {
-        return wish.getArticle().getViewPage();
-    }
-
-    @Inject
-    private Session session;
 
     public String getMainPictureUrl() {
         wish = (Wish) session.load(Wish.class, wish.getId());

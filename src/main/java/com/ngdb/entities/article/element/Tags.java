@@ -1,16 +1,9 @@
 package com.ngdb.entities.article.element;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
-import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OrderBy;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -20,9 +13,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class Tags implements Iterable<Tag>, Serializable {
 
     @OrderBy("name")
-    @ManyToMany
-    @JoinTable(name = "ArticleTags", inverseJoinColumns = { @JoinColumn(name = "tag_id") }, joinColumns = { @JoinColumn(name = "article_id") })
-    private Set<Tag> tags = new TreeSet<Tag>();
+    @OneToMany(mappedBy = "article")
+    private Set<Tag> tags = new LinkedHashSet<Tag>();
 
     public Set<Tag> all() {
         return Collections.unmodifiableSet(tags);

@@ -186,11 +186,7 @@ public class Predicates {
 
         @Override
         public boolean apply(Article article) {
-            return foundInTitle(article) || foundInTags(article) || foundInNotes(article);
-        }
-
-        private boolean foundInNotes(Article article) {
-            return article.containsProperty(pattern);
+            return foundInTitle(article) || foundInTags(article);
         }
 
         private boolean foundInTags(Article article) {

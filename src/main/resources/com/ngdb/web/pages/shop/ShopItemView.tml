@@ -19,33 +19,33 @@
 					<div class="alert alert-info">${message}</div>
 				</t:if>
 				<table>
-					<tr>
+                    <tr>
+                        <td class="grey">
+                            <b>Seller</b>
+                        </td>
+                        <td>
+                            <t:pageLink page="user/UserView" context="shopItem.seller">
+                                ${shopItem.seller.login}</t:pageLink>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="grey">
+                            <b>Price</b>
+                        </td>
+                        <td>
+                            <t:if test="shopItem.priceInCustomCurrency">
+                                ${shopItem.customCurrency} ${shopItem.priceInCustomCurrency} /
+                            </t:if>
+                            $${shopItem.priceInDollars} / ${shopItem.priceInEuros} €
+
+                        </td>
+                    </tr>
+                    <tr>
 						<td class="grey">
 							<b>State</b>
 						</td>
 						<td>
-							<a href="#">${shopItem.state.title}</a>
-						</td>
-					</tr>
-					<tr>
-						<td class="grey">
-							<b>Price</b>
-						</td>
-						<td>
-							<t:if test="shopItem.priceInCustomCurrency">
-								${shopItem.customCurrency} ${shopItem.priceInCustomCurrency} /
-							</t:if>
-							$${shopItem.priceInDollars} / ${shopItem.priceInEuros} €
-							
-						</td>
-					</tr>
-					<tr>
-						<td class="grey">
-							<b>Seller</b>
-						</td>
-						<td>
-							<t:pageLink page="user/UserView" context="shopItem.seller">
-								${shopItem.seller.login}</t:pageLink>
+							${shopItem.state.title}
 						</td>
 					</tr>
 					<tr>

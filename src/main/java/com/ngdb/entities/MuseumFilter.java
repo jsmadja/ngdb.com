@@ -110,7 +110,7 @@ public class MuseumFilter {
     }
 
     private Collection<Article> applyFilters(List<Predicate<Article>> filters) {
-        Collection<Article> filteredArticles = newInitialArticleList();
+        Collection<Article> filteredArticles = buildInitialArticleList();
         buildFilters(filters);
         for (Predicate<Article> filter : filters) {
             filteredArticles = filter(filteredArticles, filter);
@@ -195,7 +195,7 @@ public class MuseumFilter {
     }
 
     public int getNumArticlesInThisOrigin(Origin origin) {
-        Collection<Article> articles = newInitialArticleList();
+        Collection<Article> articles = buildInitialArticleList();
         if (filteredPlatform != null) {
             Predicates.PlatformPredicate filterByPlatform = new Predicates.PlatformPredicate(filteredPlatform);
             articles = filter(articles, filterByPlatform);
@@ -206,7 +206,7 @@ public class MuseumFilter {
     }
 
     public int getNumArticlesInThisPublisher(Publisher publisher) {
-        Collection<Article> articles = newInitialArticleList();
+        Collection<Article> articles = buildInitialArticleList();
         if (filteredPlatform != null) {
             Predicates.PlatformPredicate filterByPlatform = new Predicates.PlatformPredicate(filteredPlatform);
             articles = filter(articles, filterByPlatform);
@@ -221,13 +221,9 @@ public class MuseumFilter {
     }
 
     public int getNumArticlesInThisPlatform(Platform platform) {
-        Collection<Article> articles = newInitialArticleList();
+        Collection<Article> articles = buildInitialArticleList();
         articles = filter(articles, new Predicates.PlatformPredicate(platform));
         return articles.size();
-    }
-
-    private Collection<Article> newInitialArticleList() {
-        return buildInitialArticleList();
     }
 
     public void filterByTag(Tag tag) {
