@@ -22,7 +22,6 @@ import org.hibernate.Session;
 import org.joda.time.DateTime;
 
 import com.ngdb.entities.ActionLogger;
-import com.ngdb.entities.History;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.Origin;
@@ -76,9 +75,6 @@ public class HardwareUpdate {
 
     @Inject
     private ReferenceService referenceService;
-
-    @Inject
-    private History history;
 
     @Inject
     private CurrentUser currentUser;
@@ -166,7 +162,6 @@ public class HardwareUpdate {
         }
         hardwareView.setHardware(hardware);
         User user = currentUser.getUser();
-        history.add(hardware, user);
         actionLogger.addEditAction(user, hardware);
         return hardwareView;
     }

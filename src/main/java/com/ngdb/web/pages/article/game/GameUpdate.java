@@ -23,7 +23,6 @@ import org.joda.time.DateTime;
 
 import com.ngdb.entities.ActionLogger;
 import com.ngdb.entities.ArticleFactory;
-import com.ngdb.entities.History;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.Box;
@@ -106,9 +105,6 @@ public class GameUpdate {
 
     @Inject
     private Session session;
-
-    @Inject
-    private History history;
 
     @Inject
     private CurrentUser currentUser;
@@ -216,7 +212,6 @@ public class GameUpdate {
         }
         gameView.setGame(game);
         User user = currentUser.getUser();
-        history.add(game, user);
         actionLogger.addEditAction(user, game);
         return gameView;
     }

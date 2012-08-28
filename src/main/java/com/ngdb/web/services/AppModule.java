@@ -30,7 +30,6 @@ import com.ngdb.entities.ActionLogger;
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.HardwareFactory;
-import com.ngdb.entities.History;
 import com.ngdb.entities.Market;
 import com.ngdb.entities.Museum;
 import com.ngdb.entities.Population;
@@ -73,7 +72,6 @@ public class AppModule {
         binder.bind(EmailBuilderService.class);
         binder.bind(TokenService.class);
         binder.bind(MailService.class);
-        binder.bind(History.class);
         binder.bind(CurrencyService.class);
         binder.bind(Suggestionner.class);
         binder.bind(ActionLogger.class);
