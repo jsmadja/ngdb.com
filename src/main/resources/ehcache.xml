@@ -3,7 +3,7 @@
 
 	<diskStore path="java.io.tmpdir" />
 	
-	<defaultCache maxElementsInMemory="10000" eternal="false"
+	<defaultCache maxElementsInMemory="2000" eternal="false"
 		timeToIdleSeconds="300" timeToLiveSeconds="120" overflowToDisk="true"
 		statistics="true" />
 
@@ -11,7 +11,7 @@
 		maxElementsInMemory="100000" eternal="false" timeToIdleSeconds="120"
 		timeToLiveSeconds="120" statistics="true" />
 
-	<cache name="org.hibernate.cache.UpdateTimestampsCache" maxElementsInMemory="10000" eternal="false"
+	<cache name="org.hibernate.cache.UpdateTimestampsCache" maxElementsInMemory="2000" eternal="false"
 		timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="false"
 		statistics="true" />
 
@@ -19,7 +19,7 @@
 		timeToIdleSeconds="3600" />
 	
 	<cache name="search.all.suggestions" maxElementsInMemory="1"
-		eternal="false" timeToLiveSeconds="3600" overflowToDisk="false" statistics="true" />
+		eternal="false" timeToLiveSeconds="86400" overflowToDisk="false" statistics="true" />
 		
 	<cache name="index.random.games" maxElementsInMemory="3"
 		eternal="false" timeToLiveSeconds="3600" overflowToDisk="false" statistics="true" />
@@ -28,54 +28,54 @@
            eternal="false" timeToLiveSeconds="600" overflowToDisk="false" statistics="true" />
 
     <cache name="com.ngdb.entities.article.Article"
-		maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="120"
+		maxElementsInMemory="2000" eternal="false" timeToIdleSeconds="120"
 		timeToLiveSeconds="120" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.article.element.Comment"
-		maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="120"
+		maxElementsInMemory="2000" eternal="false" timeToIdleSeconds="120"
 		timeToLiveSeconds="120" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.article.element.Note"
-		maxElementsInMemory="10000" eternal="true" overflowToDisk="false" statistics="true" />
+		maxElementsInMemory="2000" eternal="true" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.article.element.Picture"
-		maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="120"
+		maxElementsInMemory="2000" eternal="false" timeToIdleSeconds="120"
 		timeToLiveSeconds="120" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.article.element.Review"
-		maxElementsInMemory="10000" eternal="true" overflowToDisk="false" statistics="true" />
+		maxElementsInMemory="2000" eternal="true" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.article.element.Tag"
-		maxElementsInMemory="10000" eternal="true" overflowToDisk="false" statistics="true" />
+		maxElementsInMemory="2000" eternal="true" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.reference.Box"
-		maxElementsInMemory="10000" eternal="true" overflowToDisk="false" statistics="true" />
+		maxElementsInMemory="10" eternal="true" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.reference.Origin"
-		maxElementsInMemory="10000" eternal="true" overflowToDisk="false" statistics="true" />
+		maxElementsInMemory="10" eternal="true" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.reference.Platform"
-		maxElementsInMemory="10000" eternal="true" overflowToDisk="false" statistics="true" />
+		maxElementsInMemory="20" eternal="true" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.reference.Publisher"
-		maxElementsInMemory="10000" eternal="true" overflowToDisk="false" statistics="true" />
+		maxElementsInMemory="200" eternal="true" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.reference.State"
-		maxElementsInMemory="10000" eternal="true" overflowToDisk="false" statistics="true" />
+		maxElementsInMemory="10" eternal="true" overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.shop.ShopItem"
 		maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="120"
 		timeToLiveSeconds="120" overflowToDisk="false" statistics="true" />
 
-	<cache name="com.ngdb.entities.shop.Wish" maxElementsInMemory="10000"
+	<cache name="com.ngdb.entities.shop.Wish" maxElementsInMemory="2000"
 		eternal="false" timeToIdleSeconds="120" timeToLiveSeconds="120"
 		overflowToDisk="false" statistics="true" />
 
 	<cache name="com.ngdb.entities.user.CollectionObject"
-		maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="120"
+		maxElementsInMemory="2000" eternal="false" timeToIdleSeconds="120"
 		timeToLiveSeconds="120" overflowToDisk="true" statistics="true" />
 
-	<cache name="com.ngdb.entities.user.User" maxElementsInMemory="10000"
+	<cache name="com.ngdb.entities.user.User" maxElementsInMemory="2000"
 		eternal="false" timeToIdleSeconds="120" timeToLiveSeconds="120"
 		overflowToDisk="true" statistics="true" />
 
