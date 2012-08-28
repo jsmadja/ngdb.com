@@ -1,8 +1,7 @@
 package com.ngdb.web.pages.user;
 
-import org.apache.tapestry5.annotations.Persist;
-
 import com.ngdb.entities.user.User;
+import org.apache.tapestry5.annotations.Persist;
 
 public class ConfirmationPage {
 

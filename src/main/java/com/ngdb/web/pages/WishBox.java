@@ -1,13 +1,5 @@
 package com.ngdb.web.pages;
 
-import java.util.Collection;
-import java.util.List;
-
-import org.apache.tapestry5.annotations.Persist;
-import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.ioc.annotations.Inject;
-import org.hibernate.Session;
-
 import com.ngdb.entities.Population;
 import com.ngdb.entities.WishBoxFilter;
 import com.ngdb.entities.reference.Origin;
@@ -16,7 +8,13 @@ import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.Filter;
-import com.ngdb.web.pages.base.Redirections;
+import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.Session;
+
+import java.util.Collection;
+import java.util.List;
 
 public class WishBox {
 
@@ -68,7 +66,7 @@ public class WishBox {
     }
 
     public String getViewPage() {
-        return Redirections.toViewPage(wish.getArticle());
+        return wish.getArticle().getViewPage();
     }
 
     @Inject

@@ -1,8 +1,8 @@
 package com.ngdb.web.pages.user;
 
-import static org.apache.commons.lang.StringUtils.isBlank;
-import static org.apache.commons.lang.StringUtils.isNotBlank;
-
+import com.ngdb.entities.user.Token;
+import com.ngdb.entities.user.User;
+import com.ngdb.web.services.TokenService;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.RequestParameter;
 import org.apache.tapestry5.annotations.SetupRender;
@@ -11,9 +11,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ngdb.entities.user.Token;
-import com.ngdb.entities.user.User;
-import com.ngdb.web.services.TokenService;
+import static org.apache.commons.lang.StringUtils.isBlank;
+import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 public class Validation {
 

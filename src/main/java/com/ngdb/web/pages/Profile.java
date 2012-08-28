@@ -1,9 +1,8 @@
 package com.ngdb.web.pages;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Locale;
-
+import com.ngdb.entities.user.User;
+import com.ngdb.web.services.infrastructure.CurrencyService;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -12,9 +11,9 @@ import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
-import com.ngdb.entities.user.User;
-import com.ngdb.web.services.infrastructure.CurrencyService;
-import com.ngdb.web.services.infrastructure.CurrentUser;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Locale;
 
 @RequiresAuthentication
 public class Profile {

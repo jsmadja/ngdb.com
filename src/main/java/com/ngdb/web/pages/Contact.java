@@ -1,5 +1,8 @@
 package com.ngdb.web.pages;
 
+import com.ngdb.entities.Population;
+import com.ngdb.web.services.MailService;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -7,10 +10,6 @@ import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.ngdb.entities.Population;
-import com.ngdb.web.services.MailService;
-import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class Contact {
 

@@ -1,7 +1,12 @@
 package com.ngdb.web.pages.user;
 
-import java.util.Set;
-
+import com.ngdb.entities.Market;
+import com.ngdb.entities.article.Article;
+import com.ngdb.entities.article.Game;
+import com.ngdb.entities.shop.ShopItem;
+import com.ngdb.entities.shop.Wish;
+import com.ngdb.entities.user.User;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.OnEvent;
@@ -13,13 +18,7 @@ import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.Request;
 import org.hibernate.Session;
 
-import com.ngdb.entities.Market;
-import com.ngdb.entities.article.Article;
-import com.ngdb.entities.article.Game;
-import com.ngdb.entities.shop.ShopItem;
-import com.ngdb.entities.shop.Wish;
-import com.ngdb.entities.user.User;
-import com.ngdb.web.services.infrastructure.CurrentUser;
+import java.util.Set;
 
 public class UserView {
 

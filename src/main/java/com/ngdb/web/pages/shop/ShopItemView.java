@@ -1,15 +1,13 @@
 package com.ngdb.web.pages.shop;
 
+import com.ngdb.entities.Market;
+import com.ngdb.entities.shop.ShopItem;
+import com.ngdb.entities.user.User;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
-
-import com.ngdb.entities.Market;
-import com.ngdb.entities.shop.ShopItem;
-import com.ngdb.entities.user.User;
-import com.ngdb.web.pages.base.Redirections;
-import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class ShopItemView {
 
@@ -54,6 +52,6 @@ public class ShopItemView {
     }
 
     public String getViewPage() {
-        return Redirections.toViewPage(shopItem.getArticle());
+        return shopItem.getArticle().getViewPage();
     }
 }

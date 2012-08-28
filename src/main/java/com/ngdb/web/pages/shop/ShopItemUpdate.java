@@ -1,19 +1,17 @@
 package com.ngdb.web.pages.shop;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
+import com.ngdb.entities.article.element.Picture;
+import com.ngdb.entities.reference.ReferenceService;
+import com.ngdb.entities.reference.State;
+import com.ngdb.entities.shop.ShopItem;
+import com.ngdb.web.model.CustomCurrenciesList;
+import com.ngdb.web.model.StateList;
+import com.ngdb.web.services.infrastructure.CurrencyService;
+import com.ngdb.web.services.infrastructure.PictureService;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.SelectModel;
-import org.apache.tapestry5.annotations.DiscardAfter;
-import org.apache.tapestry5.annotations.InjectComponent;
-import org.apache.tapestry5.annotations.InjectPage;
-import org.apache.tapestry5.annotations.OnEvent;
-import org.apache.tapestry5.annotations.Persist;
-import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
@@ -23,14 +21,10 @@ import org.apache.tapestry5.upload.services.UploadedFile;
 import org.got5.tapestry5.jquery.JQueryEventConstants;
 import org.hibernate.Session;
 
-import com.ngdb.entities.article.element.Picture;
-import com.ngdb.entities.reference.ReferenceService;
-import com.ngdb.entities.reference.State;
-import com.ngdb.entities.shop.ShopItem;
-import com.ngdb.web.model.CustomCurrenciesList;
-import com.ngdb.web.model.StateList;
-import com.ngdb.web.services.infrastructure.CurrencyService;
-import com.ngdb.web.services.infrastructure.PictureService;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @RequiresAuthentication
 public class ShopItemUpdate {

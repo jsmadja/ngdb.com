@@ -1,5 +1,7 @@
 package com.ngdb.web.pages.user;
 
+import com.ngdb.entities.Population;
+import com.ngdb.entities.user.User;
 import org.apache.shiro.crypto.hash.Sha1Hash;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.InjectPage;
@@ -8,9 +10,6 @@ import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
-
-import com.ngdb.entities.Population;
-import com.ngdb.entities.user.User;
 
 public class UserCreate {
 

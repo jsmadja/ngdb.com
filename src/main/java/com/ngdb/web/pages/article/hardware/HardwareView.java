@@ -1,14 +1,13 @@
 package com.ngdb.web.pages.article.hardware;
 
-import org.apache.tapestry5.annotations.Persist;
-import org.apache.tapestry5.annotations.Property;
-
 import com.ngdb.BarcodeUtil;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.web.Filter;
+import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Property;
 
 public class HardwareView {
 

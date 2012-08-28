@@ -1,7 +1,8 @@
 package com.ngdb.web.pages;
 
-import java.util.Collection;
-
+import com.ngdb.entities.Population;
+import com.ngdb.entities.user.User;
+import com.ngdb.web.Filter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
@@ -10,9 +11,7 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.BeanModelSource;
 
-import com.ngdb.entities.Population;
-import com.ngdb.entities.user.User;
-import com.ngdb.web.Filter;
+import java.util.Collection;
 
 public class Users {
 

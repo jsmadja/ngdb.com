@@ -1,8 +1,12 @@
 package com.ngdb.web.pages;
 
-import java.util.Collection;
-import java.util.List;
-
+import com.ngdb.StarsUtil;
+import com.ngdb.entities.GameFactory;
+import com.ngdb.entities.Registry;
+import com.ngdb.entities.article.Article;
+import com.ngdb.entities.article.Game;
+import com.ngdb.web.Filter;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
@@ -10,14 +14,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ngdb.StarsUtil;
-import com.ngdb.entities.GameFactory;
-import com.ngdb.entities.Registry;
-import com.ngdb.entities.article.Article;
-import com.ngdb.entities.article.Game;
-import com.ngdb.web.Filter;
-import com.ngdb.web.pages.base.Redirections;
-import com.ngdb.web.services.infrastructure.CurrentUser;
+import java.util.Collection;
+import java.util.List;
 
 public class Result {
 
@@ -64,7 +62,7 @@ public class Result {
     }
 
     public String getViewPage() {
-        return Redirections.toViewPage(result);
+        return result.getViewPage();
     }
 
     public String getStars() {

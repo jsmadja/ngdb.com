@@ -1,5 +1,10 @@
 package com.ngdb.web.pages.user;
 
+import com.ngdb.entities.Population;
+import com.ngdb.entities.user.User;
+import com.ngdb.web.pages.Index;
+import com.ngdb.web.services.TokenService;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.crypto.hash.Sha1Hash;
 import org.apache.tapestry5.annotations.InjectComponent;
@@ -11,12 +16,6 @@ import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
-
-import com.ngdb.entities.Population;
-import com.ngdb.entities.user.User;
-import com.ngdb.web.pages.Index;
-import com.ngdb.web.services.TokenService;
-import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class ChangePassword {
 

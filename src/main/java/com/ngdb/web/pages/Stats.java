@@ -1,14 +1,5 @@
 package com.ngdb.web.pages;
 
-import java.math.BigInteger;
-import java.util.Collection;
-import java.util.List;
-
-import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.annotations.SetupRender;
-import org.apache.tapestry5.ioc.annotations.Inject;
-import org.hibernate.Session;
-
 import com.google.common.collect.Collections2;
 import com.ngdb.Predicates;
 import com.ngdb.entities.ArticleFactory;
@@ -21,6 +12,14 @@ import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.user.User;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SetupRender;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.Session;
+
+import java.math.BigInteger;
+import java.util.Collection;
+import java.util.List;
 
 public class Stats {
 

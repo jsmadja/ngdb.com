@@ -1,18 +1,5 @@
 package com.ngdb.web.pages;
 
-import java.util.Collection;
-import java.util.List;
-
-import org.apache.tapestry5.EventConstants;
-import org.apache.tapestry5.annotations.Component;
-import org.apache.tapestry5.annotations.OnEvent;
-import org.apache.tapestry5.annotations.Persist;
-import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.corelib.components.Zone;
-import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.json.JSONObject;
-import org.apache.tapestry5.services.Request;
-
 import com.ngdb.ForumCode;
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.MarketFilter;
@@ -25,6 +12,18 @@ import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.Filter;
 import com.ngdb.web.services.infrastructure.CurrentUser;
+import org.apache.tapestry5.EventConstants;
+import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.annotations.OnEvent;
+import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.json.JSONObject;
+import org.apache.tapestry5.services.Request;
+
+import java.util.Collection;
+import java.util.List;
 
 public class Market {
 

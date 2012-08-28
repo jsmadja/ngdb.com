@@ -1,15 +1,5 @@
 package com.ngdb.web.pages;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import org.apache.tapestry5.annotations.Persist;
-import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.Request;
-
 import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.HardwareFactory;
 import com.ngdb.entities.MuseumFilter;
@@ -21,7 +11,15 @@ import com.ngdb.entities.reference.Publisher;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.Filter;
-import com.ngdb.web.pages.base.Redirections;
+import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.Request;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class Museum {
 
@@ -240,7 +238,7 @@ public class Museum {
     }
 
     public String getViewPage() {
-        return Redirections.toViewPage(article);
+        return article.getViewPage();
     }
 
 }
