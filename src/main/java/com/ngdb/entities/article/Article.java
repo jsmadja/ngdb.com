@@ -99,7 +99,7 @@ public abstract class Article implements Comparable<Article>, Serializable {
 
     @Embedded
     @XmlTransient
-    private Reviews reviews;
+    private Reviews reviews = new Reviews();
 
     @Embedded
     @XmlTransient
