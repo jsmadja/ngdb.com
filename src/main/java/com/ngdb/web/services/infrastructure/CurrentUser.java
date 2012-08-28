@@ -12,6 +12,8 @@ import org.apache.tapestry5.services.ApplicationStateManager;
 import org.apache.tapestry5.services.Request;
 import org.hibernate.Session;
 import org.joda.money.CurrencyUnit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tynamo.security.services.SecurityService;
 
 import com.ngdb.entities.ActionLogger;
@@ -46,6 +48,8 @@ public class CurrentUser {
 
     @Inject
     private ActionLogger actionLogger;
+
+    private static final Logger LOG = LoggerFactory.getLogger(CurrentUser.class);
 
     public User login(String login, String password) {
         Subject currentUser = securityService.getSubject();
@@ -280,6 +284,7 @@ public class CurrentUser {
     }
 
     public String getPreferedCurrency() {
+        try {
         Locale locale = request.getLocale();
         if (isAnonymous()) {
             if (locale != null) {
@@ -296,6 +301,10 @@ public class CurrentUser {
                 return CurrencyUnit.of(locale).getCode();
             }
             return "USD";
+        }
+        } catch(Throwable t) {
+            LOG.error(t.getMessage(), t);
+            return "EUR";
         }
     }
 
