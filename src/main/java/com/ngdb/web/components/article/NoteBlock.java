@@ -56,10 +56,8 @@ public class NoteBlock {
 	@CommitAfter
 	public void onSuccess() {
 		if (isNotBlank(name) && isNotBlank(text)) {
-			if (!article.containsProperty(name)) {
-				article.updateModificationDate();
-				currentUser.addPropertyOn(article, name, text);
-			}
+            article.updateModificationDate();
+            currentUser.addPropertyOn(article, name, text);
 		}
 	}
 
