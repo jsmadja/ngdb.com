@@ -15,6 +15,7 @@ import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.Registry;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
+import com.ngdb.web.Filter;
 import com.ngdb.web.pages.base.Redirections;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 
@@ -81,5 +82,9 @@ public class Result {
             }
         }
         return StarsUtil.toStarsHtml("0");
+    }
+
+    public String getByPublisher() {
+        return Filter.byPublisher.name();
     }
 }

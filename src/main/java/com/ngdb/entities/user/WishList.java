@@ -5,6 +5,7 @@ import static com.ngdb.Predicates.isGameWish;
 import static com.ngdb.Predicates.isHardwareWish;
 import static javax.persistence.FetchType.LAZY;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -22,51 +23,51 @@ import com.ngdb.entities.shop.Wish;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class WishList implements Iterable<Wish> {
+public class WishList implements Iterable<Wish>, Serializable {
 
-	@OneToMany(mappedBy = "wisher", fetch = LAZY, orphanRemoval = true)
-	private Set<Wish> wishes;
+    @OneToMany(mappedBy = "wisher", fetch = LAZY, orphanRemoval = true)
+    private Set<Wish> wishes;
 
-	boolean contains(Article article) {
-		for (Wish wish : wishes) {
-			Long searchId = article.getId();
-			Long idInWishList = wish.getArticle().getId();
-			if (searchId.equals(idInWishList)) {
-				return true;
-			}
-		}
-		return false;
-	}
+    boolean contains(Article article) {
+        for (Wish wish : wishes) {
+            Long searchId = article.getId();
+            Long idInWishList = wish.getArticle().getId();
+            if (searchId.equals(idInWishList)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	@Override
-	public Iterator<Wish> iterator() {
-		return wishes.iterator();
-	}
+    @Override
+    public Iterator<Wish> iterator() {
+        return wishes.iterator();
+    }
 
-	public Set<Wish> getWishes() {
-		return Collections.unmodifiableSet(new TreeSet<Wish>(wishes));
-	}
+    public Set<Wish> getWishes() {
+        return Collections.unmodifiableSet(new TreeSet<Wish>(wishes));
+    }
 
-	void addInWishList(Wish wish) {
-		wishes.add(wish);
-	}
+    void addInWishList(Wish wish) {
+        wishes.add(wish);
+    }
 
-	public int getNumWishes() {
-		return wishes.size();
-	}
+    public int getNumWishes() {
+        return wishes.size();
+    }
 
-	public void removeFromWishList(Article article) {
-		if (contains(article)) {
-			Wish wishToRemove = null;
-			for (Wish wish : wishes) {
-				if (wish.getArticle().getId().equals(article.getId())) {
-					wishToRemove = wish;
-					break;
-				}
-			}
-			wishes.remove(wishToRemove);
-		}
-	}
+    public void removeFromWishList(Article article) {
+        if (contains(article)) {
+            Wish wishToRemove = null;
+            for (Wish wish : wishes) {
+                if (wish.getArticle().getId().equals(article.getId())) {
+                    wishToRemove = wish;
+                    break;
+                }
+            }
+            wishes.remove(wishToRemove);
+        }
+    }
 
     public Collection<Wish> getAllGames() {
         return filter(wishes, isGameWish);

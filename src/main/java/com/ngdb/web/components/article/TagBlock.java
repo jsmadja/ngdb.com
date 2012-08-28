@@ -32,6 +32,10 @@ public class TagBlock {
     private Article article;
 
     @Property
+    @Parameter
+    private boolean hideForm;
+
+    @Property
     private Tag tag;
 
     @Inject

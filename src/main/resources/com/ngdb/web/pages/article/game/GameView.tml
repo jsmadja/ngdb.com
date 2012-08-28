@@ -42,7 +42,7 @@
 					</div>
 				</div>
 				
-				<t:article.tagBlock article="game" />
+				<t:article.tagBlock article="game" hideForm="false"/>
 				
 				<t:article.noteBlock article="game" />
 				
