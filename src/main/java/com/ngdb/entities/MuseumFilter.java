@@ -41,6 +41,8 @@ public class MuseumFilter {
 
     private Date filteredReleaseDate;
 
+    private Collection<Article> initialArticleList;
+
     public MuseumFilter(GameFactory gameFactory, HardwareFactory hardwareFactory) {
         this.gameFactory = gameFactory;
         this.hardwareFactory = hardwareFactory;
@@ -110,12 +112,19 @@ public class MuseumFilter {
     }
 
     private Collection<Article> applyFilters(List<Predicate<Article>> filters) {
-        Collection<Article> filteredArticles = buildInitialArticleList();
+        Collection<Article> filteredArticles = getInitialArticleList();
         buildFilters(filters);
         for (Predicate<Article> filter : filters) {
             filteredArticles = filter(filteredArticles, filter);
         }
         return filteredArticles;
+    }
+
+    private Collection<Article> getInitialArticleList() {
+        if(initialArticleList == null) {
+            initialArticleList = buildInitialArticleList();
+        }
+        return initialArticleList;
     }
 
     private Collection<Article> buildInitialArticleList() {
@@ -166,10 +175,12 @@ public class MuseumFilter {
     }
 
     public void filterByGames() {
+        this.initialArticleList = null;
         this.filteredByGames = true;
     }
 
     public void filterByHardwares() {
+        this.initialArticleList = null;
         this.filteredByGames = false;
     }
 
@@ -195,7 +206,7 @@ public class MuseumFilter {
     }
 
     public int getNumArticlesInThisOrigin(Origin origin) {
-        Collection<Article> articles = buildInitialArticleList();
+        Collection<Article> articles = getInitialArticleList();
         if (filteredPlatform != null) {
             Predicates.PlatformPredicate filterByPlatform = new Predicates.PlatformPredicate(filteredPlatform);
             articles = filter(articles, filterByPlatform);
@@ -206,7 +217,7 @@ public class MuseumFilter {
     }
 
     public int getNumArticlesInThisPublisher(Publisher publisher) {
-        Collection<Article> articles = buildInitialArticleList();
+        Collection<Article> articles = getInitialArticleList();
         if (filteredPlatform != null) {
             Predicates.PlatformPredicate filterByPlatform = new Predicates.PlatformPredicate(filteredPlatform);
             articles = filter(articles, filterByPlatform);
@@ -221,7 +232,7 @@ public class MuseumFilter {
     }
 
     public int getNumArticlesInThisPlatform(Platform platform) {
-        Collection<Article> articles = buildInitialArticleList();
+        Collection<Article> articles = getInitialArticleList();
         articles = filter(articles, new Predicates.PlatformPredicate(platform));
         return articles.size();
     }
