@@ -222,11 +222,9 @@ public class GameUpdate {
 
     @CommitAfter
     Object onActionFromDeletePicture(Picture picture) {
-        if (game.getPictures().count() > 1) {
-            game.removePicture(picture);
-            pictureService.delete(picture);
-            this.storedPictures = game.getPictures().all();
-        }
+        game.removePicture(picture);
+        pictureService.delete(picture);
+        this.storedPictures = game.getPictures().all();
         return this;
     }
 

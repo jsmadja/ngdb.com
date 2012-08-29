@@ -162,11 +162,9 @@ public class HardwareUpdate {
 
     @CommitAfter
     Object onActionFromDeletePicture(Picture picture) {
-        if (hardware.getPictures().count() > 1) {
-            hardware.removePicture(picture);
-            pictureService.delete(picture);
-            this.storedPictures = hardware.getPictures().all();
-        }
+        hardware.removePicture(picture);
+        pictureService.delete(picture);
+        this.storedPictures = hardware.getPictures().all();
         return this;
     }
 
