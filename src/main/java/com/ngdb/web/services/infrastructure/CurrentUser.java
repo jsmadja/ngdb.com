@@ -2,6 +2,7 @@ package com.ngdb.web.services.infrastructure;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
@@ -28,6 +29,9 @@ import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.Shop;
 import com.ngdb.entities.user.User;
+
+import static org.apache.commons.lang.StringUtils.defaultIfBlank;
+import static org.apache.commons.lang.StringUtils.defaultString;
 
 public class CurrentUser {
 
@@ -271,8 +275,8 @@ public class CurrentUser {
     }
 
     private boolean isFrench(Locale locale) {
-        String country = StringUtils.defaultString(locale.getCountry());
-        String language = StringUtils.defaultString(locale.getLanguage());
+        String country = defaultString(locale.getCountry());
+        String language = defaultString(locale.getLanguage());
         return country.equalsIgnoreCase("fr") || language.equalsIgnoreCase("fr");
     }
 
@@ -284,27 +288,34 @@ public class CurrentUser {
     }
 
     public String getPreferedCurrency() {
+        String currency = "USD";
         try {
-        Locale locale = request.getLocale();
-        if (isAnonymous()) {
-            if (locale != null) {
-                return CurrencyUnit.of(locale).getCode();
+            Locale locale = request.getLocale();
+            if (isAnonymous()) {
+                String currencyFromLocale = getCurrencyOf(locale);
+                if(currencyFromLocale != null) {
+                    currency = currencyFromLocale;
+                }
             } else {
-                return "USD";
+                String userCurrency = getUser().getPreferedCurrency();
+                if(userCurrency != null) {
+                    currency = userCurrency;
+                }
             }
-        } else {
-            User user = getUser();
-            if (user.getPreferedCurrency() != null) {
-                return user.getPreferedCurrency();
-            }
-            if (locale != null) {
-                return CurrencyUnit.of(locale).getCode();
-            }
-            return "USD";
-        }
         } catch(Throwable t) {
-            LOG.error(t.getMessage(), t);
-            return "EUR";
+            LOG.warn(t.getMessage());
+        }
+        return currency;
+    }
+
+    private String getCurrencyOf(Locale locale) {
+        if(locale == null) {
+            return null;
+        }
+        try {
+            return CurrencyUnit.of(locale).getCode();
+        } catch(Throwable t) {
+            return CurrencyUnit.of(new Locale(locale.getLanguage(),locale.getLanguage())).getCode();
         }
     }
 
