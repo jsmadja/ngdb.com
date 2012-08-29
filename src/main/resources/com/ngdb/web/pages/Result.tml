@@ -27,7 +27,10 @@
           				<t:pagelink page="museum" context="[byPublisher,result.publisher]"> ${result.publisher?.name} </t:pagelink>
           			</p>
           			<p>
-          				<t:OutputRaw value="${stars}" />
+                          <t:if test="result.hasFiles()">
+          				    ${result.files.count} files
+                          </t:if>
+                          <t:OutputRaw value="${stars}" />
           			</p>
           			<p>
           				<t:article.tagBlock article="result" hideForm="true" />

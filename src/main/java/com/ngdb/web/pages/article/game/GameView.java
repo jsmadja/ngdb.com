@@ -2,15 +2,23 @@ package com.ngdb.web.pages.article.game;
 
 import com.ngdb.BarcodeUtil;
 import com.ngdb.entities.article.Game;
+import com.ngdb.entities.article.element.File;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.Filter;
 import com.ngdb.web.services.infrastructure.CurrentUser;
+import com.ngdb.web.services.infrastructure.FileService;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.tapestry5.EventConstants;
+import org.apache.tapestry5.annotations.InjectComponent;
+import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 public class GameView {
 

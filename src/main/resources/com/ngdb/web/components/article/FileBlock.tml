@@ -1,0 +1,38 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+	<br/>
+	<table class="${cssClass}" style="font-size:8pt">
+		<t:if test="files">
+            <h3>Resources</h3>
+            <t:loop source="files" value="resourceFile">
+                <tr>
+                    <td width="15%"><b>${resourceFile.type}</b></td>
+                    <td><a href="${resourceFile.url}" target="blank">${resourceFile.name}</a></td>
+                </tr>
+            </t:loop>
+		</t:if>
+		<t:if test="user?.contributor">
+			<t:form t:id="fileForm"
+                    id="fileForm"
+                    t:autofocus="false">
+				<tr>
+					<td>
+						<t:textfield value="name" t:id="name" placeholder="name" />
+					</td>
+					<td>
+						<t:select style="width:120px" model="types" value="type" t:id="type" blankLabel="NEVER" />
+                    </td>
+                    <td>
+                        <input t:type="upload"
+                               t:id="file"
+                               t:value="file">
+                            upload file
+                        </input>
+                        <p>
+                            <button class="btn btn-primary pull-right btn-mini" type="submit">Add file</button>
+                        </p>
+                    </td>
+				</tr>
+			</t:form>
+		</t:if>
+	</table>
+</div>

@@ -3,6 +3,7 @@ package com.ngdb.web.pages.article.game;
 import com.ngdb.entities.ActionLogger;
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.article.Game;
+import com.ngdb.entities.article.element.File;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.*;
 import com.ngdb.entities.user.User;
@@ -11,13 +12,17 @@ import com.ngdb.web.model.OriginList;
 import com.ngdb.web.model.PlatformList;
 import com.ngdb.web.model.PublisherList;
 import com.ngdb.web.services.infrastructure.CurrentUser;
+import com.ngdb.web.services.infrastructure.FileService;
 import com.ngdb.web.services.infrastructure.PictureService;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.beaneditor.Validate;
+import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.apache.tapestry5.upload.services.UploadedFile;
 import org.got5.tapestry5.jquery.JQueryEventConstants;
 import org.hibernate.Session;
@@ -112,6 +117,15 @@ public class GameUpdate {
 
     @Inject
     private ActionLogger actionLogger;
+
+    @Inject
+    private AjaxResponseRenderer ajaxResponseRenderer;
+
+    @InjectComponent
+    private Zone fileZone;
+
+    @Inject
+    private FileService fileService;
 
     public void onActivate(Game game) {
         this.game = game;

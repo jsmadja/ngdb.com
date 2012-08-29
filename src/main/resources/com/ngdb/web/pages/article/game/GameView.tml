@@ -56,7 +56,9 @@
 				
 				<t:article.reviewBlock article="game" />
 
-				<p>
+                <t:article.fileBlock article="game" />
+
+                <p>
 					<t:pagelink class="pull-right label label-important" page="contact" context="[game.title, game.id]">
 						<i class="icon-flag icon-white"></i>
 						Something's wrong ?

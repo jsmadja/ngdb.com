@@ -26,21 +26,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.ngdb.entities.article.element.*;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.ocpsoft.pretty.time.PrettyTime;
 
 import com.google.common.base.Objects;
-import com.ngdb.entities.article.element.ArticlePictures;
-import com.ngdb.entities.article.element.Comments;
-import com.ngdb.entities.article.element.Note;
-import com.ngdb.entities.article.element.Notes;
-import com.ngdb.entities.article.element.Picture;
-import com.ngdb.entities.article.element.Review;
-import com.ngdb.entities.article.element.Reviews;
-import com.ngdb.entities.article.element.Tag;
-import com.ngdb.entities.article.element.Tags;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
@@ -92,6 +84,9 @@ public abstract class Article implements Comparable<Article>, Serializable {
     @Embedded
     @XmlTransient
     private Tags tags;
+
+    @Embedded
+    private Files files;
 
     @Embedded
     @XmlTransient
@@ -173,6 +168,14 @@ public abstract class Article implements Comparable<Article>, Serializable {
 
     public Tags getTags() {
         return tags;
+    }
+
+    public Files getFiles() {
+        return files;
+    }
+
+    public boolean hasFiles() {
+        return files.getCount() > 0;
     }
 
     public Set<User> getOwners() {
@@ -358,5 +361,9 @@ public abstract class Article implements Comparable<Article>, Serializable {
 
     public boolean getHasReviews() {
         return reviews.count() > 0;
+    }
+
+    public void addFile(File file) {
+        files.add(file);
     }
 }

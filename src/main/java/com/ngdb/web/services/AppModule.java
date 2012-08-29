@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+import com.ngdb.web.services.infrastructure.FileService;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.tapestry5.ioc.Configuration;
 import org.apache.tapestry5.ioc.MappedConfiguration;
@@ -60,6 +61,7 @@ public class AppModule {
     public static void bind(ServiceBinder binder) {
         binder.bind(CurrentUser.class);
         binder.bind(PictureService.class);
+        binder.bind(FileService.class);
         binder.bind(WishBox.class);
         binder.bind(Museum.class);
         binder.bind(ReferenceService.class);
