@@ -121,9 +121,6 @@ public class GameUpdate {
     @Inject
     private AjaxResponseRenderer ajaxResponseRenderer;
 
-    @InjectComponent
-    private Zone fileZone;
-
     @Inject
     private FileService fileService;
 
