@@ -18,7 +18,7 @@
                     <td>
                         <t:select style="width:120px" model="types" value="type" t:id="type" blankLabel="NEVER" />
                     </td>
-                    g<td>
+                    <td>
 						<t:textfield value="name" t:id="name" placeholder="name" />
 					</td>
 					<td>
