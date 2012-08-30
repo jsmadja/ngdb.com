@@ -49,7 +49,7 @@ public class GameFactory {
     }
 
     private Criteria allGames() {
-        return session.createCriteria(Game.class).setFetchMode("tags", FetchMode.SELECT).setFetchMode("reviews", FetchMode.SELECT).setCacheable(true).addOrder(asc("title"));
+        return session.createCriteria(Game.class).setCacheable(true).setCacheRegion("cacheCount").addOrder(asc("title"));
     }
 
     public Game getRandomGameWithMainPicture() {

@@ -1,5 +1,6 @@
 package com.ngdb.entities.shop;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Set;
 
@@ -16,7 +17,7 @@ import com.ngdb.entities.user.User;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class PotentialBuyers {
+public class PotentialBuyers implements Serializable {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "PotentialBuyers", inverseJoinColumns = { @JoinColumn(name = "user_id") }, joinColumns = { @JoinColumn(name = "shop_item_id") })
