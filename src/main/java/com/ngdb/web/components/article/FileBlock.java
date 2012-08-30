@@ -2,7 +2,9 @@ package com.ngdb.web.components.article;
 
 import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.article.Article;
+import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.File;
+import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.FileService;
@@ -14,8 +16,7 @@ import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.upload.services.UploadedFile;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 
 public class FileBlock {
 
@@ -57,8 +58,17 @@ public class FileBlock {
 	}
 
 	public Collection<File> getFiles() {
-		return article.getFiles().all();
-	}
+		if (article.isGame()) {
+            Game game = (Game) article;
+            Set<File> files = new TreeSet<File>(game.getFiles().all());
+            List<Game> relatedGames = gameFactory.findAllByNgh(game.getNgh());
+            for (Game relatedGame : relatedGames) {
+                files.addAll(relatedGame.getFiles().all());
+            }
+            return files;
+        }
+        return article.getFiles().all();
+    }
 
     public Collection<String> getTypes() {
         return Arrays.asList("Cheat code", "Move list", "Technical infos", "Other");

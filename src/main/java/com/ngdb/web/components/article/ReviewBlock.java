@@ -67,7 +67,7 @@ public class ReviewBlock {
     }
 
     public Set<Review> getReviews() {
-        if (article instanceof Game) {
+        if (article.isGame()) {
             Game game = (Game) article;
             Set<Review> reviews = new TreeSet<Review>(game.getReviews().all());
             List<Game> relatedGames = gameFactory.findAllByNgh(game.getNgh());
