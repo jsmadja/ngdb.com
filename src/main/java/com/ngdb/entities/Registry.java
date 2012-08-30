@@ -19,9 +19,12 @@ import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Registry {
 
+    public static final int MAX_RESULT_TO_RETURN = 100;
     @Inject
     private GameFactory gameFactory;
 
@@ -31,11 +34,14 @@ public class Registry {
     @Inject
     private Session session;
 
+    private static final Logger LOG = LoggerFactory.getLogger(Registry.class);
+
     public List<Game> findGamesMatching(final String search) {
         List<Game> foundGames = new ArrayList<Game>();
 
         Set<Long> ids = new TreeSet<Long>();
 
+        long t = System.currentTimeMillis();
         if (isNotBlank(search)) {
             final String searchItem = search.toLowerCase().trim();
             List<Game> allGames = gameFactory.findAll();
@@ -45,17 +51,20 @@ public class Registry {
                     Game game = (Game) matchingArticle;
                     foundGames.add(game);
                     ids.add(game.getId());
-                    List<Game> linkedGames = gameFactory.findAllByNgh(game.getNgh());
-                    for (Game linkedGame : linkedGames) {
-                        if(!ids.contains(linkedGame.getId())) {
-                            foundGames.add(linkedGame);
-                            ids.add(linkedGame.getId());
+                    if(ids.size() < MAX_RESULT_TO_RETURN) {
+                        List<Game> linkedGames = gameFactory.findAllByNgh(game.getNgh());
+                        for (Game linkedGame : linkedGames) {
+                            if(!ids.contains(linkedGame.getId())) {
+                                foundGames.add(linkedGame);
+                                ids.add(linkedGame.getId());
+                            }
                         }
                     }
                 }
             }
             sort(foundGames, byTitlePlatformOrigin);
         }
+        LOG.info("execution time: "+(System.currentTimeMillis()-t)+" ms");
         return foundGames;
     }
 

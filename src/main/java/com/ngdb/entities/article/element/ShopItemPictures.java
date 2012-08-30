@@ -1,5 +1,6 @@
 package com.ngdb.entities.article.element;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -14,9 +15,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ShopItemPictures implements Iterable<Picture> {
+public class ShopItemPictures implements Iterable<Picture>, Serializable {
 
-	@OneToMany(mappedBy = "shopItem", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "shopItem", orphanRemoval = true)
 	private Set<Picture> pictures = new HashSet<Picture>();
 
 	public Picture first() {
