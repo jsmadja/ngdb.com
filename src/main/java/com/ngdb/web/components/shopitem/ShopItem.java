@@ -23,7 +23,7 @@ public class ShopItem {
 	private Market market;
 
 	public String getShopItemMainPicture() {
-		return shopItem.getArticle().getCover().getUrl("medium");
+		return shopItem.getMainPicture().getUrl("medium");
 	}
 
 	public User getUser() {
