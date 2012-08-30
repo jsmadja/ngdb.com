@@ -21,6 +21,7 @@ import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.user.User;
+import org.hibernate.criterion.Restrictions;
 
 @SuppressWarnings("unchecked")
 public class GameFactory {
@@ -45,7 +46,7 @@ public class GameFactory {
     }
 
     public List<Game> findAllWithMainPicture() {
-        return session.createQuery("SELECT g FROM Game g WHERE g.pictures.pictures is not empty").list();
+        return session.createCriteria(Game.class).add(Restrictions.isNotNull("coverUrl")).setCacheable(true).list();
     }
 
     private Criteria allGames() {

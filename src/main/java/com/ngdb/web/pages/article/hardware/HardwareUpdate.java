@@ -141,7 +141,7 @@ public class HardwareUpdate {
         if (this.mainPicture != null) {
             Picture picture = pictureService.store(mainPicture, hardware);
             currentUser.addPictureOn(hardware);
-            hardware.addPicture(picture);
+            hardware.setCover(picture);
             if (isEditMode()) {
                 session.merge(picture);
             }

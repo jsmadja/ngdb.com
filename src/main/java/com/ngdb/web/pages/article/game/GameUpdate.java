@@ -198,7 +198,7 @@ public class GameUpdate {
         if (this.mainPicture != null) {
             currentUser.addPictureOn(game);
             Picture picture = pictureService.store(mainPicture, game);
-            game.addPicture(picture);
+            game.setCover(picture);
             if (isEditMode()) {
                 session.merge(picture);
             }

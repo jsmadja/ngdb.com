@@ -1,8 +1,12 @@
 package com.ngdb.base;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public aspect Chrono {
+
+    private static final Logger LOG = LoggerFactory.getLogger(Chrono.class);
 
     Object around() : execution(public * com.ngdb..*(..)) {
         long start = System.currentTimeMillis();
@@ -20,7 +24,7 @@ public aspect Chrono {
             if(duration > 1000)
                 prefix = "ULTRA SLOW METHOD";
             if(StringUtils.isNotBlank(prefix))
-                System.err.print("Chronometer "+prefix+" "+method+" "+duration+" ms\r\n");
+                LOG.info(prefix+" "+method+" "+duration+" ms");
         }
     }
 

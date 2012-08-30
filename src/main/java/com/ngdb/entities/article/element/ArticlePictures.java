@@ -29,7 +29,7 @@ public class ArticlePictures implements Iterable<Picture>, Serializable {
 
     @ElementCollection
     @OrderBy("creationDate")
-    @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "article", orphanRemoval = true)
     @XmlElements({ @XmlElement(name = "picture") })
     private Set<Picture> pictures = new TreeSet<Picture>();
 

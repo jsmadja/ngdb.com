@@ -33,9 +33,9 @@ public class Thumbnail {
 
 	public String getUrl() {
 		if (size == null) {
-			return article.getMainPicture().getUrl();
+			return article.getCover().getUrl();
 		}
-		return article.getMainPicture().getUrl(size);
+		return article.getCover().getUrl(size);
 	}
 
 }

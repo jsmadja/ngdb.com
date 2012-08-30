@@ -80,15 +80,15 @@ public class Index {
 	}
 
 	public String getRandomGame1MainPicture() {
-		return getRandomGame1().getMainPicture().getUrl("medium");
+		return getRandomGame1().getCover().getUrl("medium");
 	}
 
 	public String getRandomGame2MainPicture() {
-		return getRandomGame2().getMainPicture().getUrl("medium");
+		return getRandomGame2().getCover().getUrl("medium");
 	}
 
 	public String getRandomGame3MainPicture() {
-		return getRandomGame3().getMainPicture().getUrl("medium");
+		return getRandomGame3().getCover().getUrl("medium");
 	}
 
 }

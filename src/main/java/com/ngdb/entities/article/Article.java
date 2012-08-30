@@ -95,6 +95,9 @@ public abstract class Article implements Comparable<Article>, Serializable {
     @XmlTransient
     private ArticlePictures pictures = new ArticlePictures();
 
+    @Column(name = "cover_url", nullable = true)
+    private String coverUrl;
+
     @Embedded
     @XmlTransient
     private Reviews reviews = new Reviews();
@@ -152,9 +155,6 @@ public abstract class Article implements Comparable<Article>, Serializable {
     }
 
     public void addPicture(Picture picture) {
-        if (pictures == null) {
-            pictures = new ArticlePictures();
-        }
         pictures.add(picture);
     }
 
@@ -186,8 +186,15 @@ public abstract class Article implements Comparable<Article>, Serializable {
         return users;
     }
 
-    public Picture getMainPicture() {
-        return pictures.first();
+    public void setCover(Picture picture) {
+        this.coverUrl = picture.getUrl();
+    }
+
+    public Picture getCover() {
+        if(coverUrl == null) {
+            return Picture.EMPTY;
+        }
+        return new Picture(coverUrl);
     }
 
     public void setDetails(String details) {
@@ -333,7 +340,7 @@ public abstract class Article implements Comparable<Article>, Serializable {
     }
 
     public boolean hasCover() {
-        return getMainPicture() != Picture.EMPTY;
+        return getCover() != Picture.EMPTY;
     }
 
     public void setUpc(String upc) {

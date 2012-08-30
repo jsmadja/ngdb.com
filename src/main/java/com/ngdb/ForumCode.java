@@ -27,7 +27,7 @@ public class ForumCode {
             sb.append(format("[IMG]%s[/IMG] [URL=%s]%s[/URL] - [B][COLOR=Red]%s[/COLOR][/B] - [B][COLOR=SeaGreen]%s euros[/COLOR][/B]", originImageUrl, url, title, state, priceInEuros));
             sb.append(format("\n[I]%s[/I]", details));
             if (shopItem.hasNoPicture() && shopItem.hasCover()) {
-                sb.append(format("\n[URL=%s][IMG]%s[/IMG][/URL]", url, "http://www.neogeodb.com" + article.getMainPicture().getUrl("small")));
+                sb.append(format("\n[URL=%s][IMG]%s[/IMG][/URL]", url, "http://www.neogeodb.com" + article.getCover().getUrl("small")));
             } else {
                 sb.append(format("\n[URL=%s][IMG]%s[/IMG][/URL]", url, imageUrl));
             }

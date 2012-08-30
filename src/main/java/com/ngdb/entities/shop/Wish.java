@@ -144,7 +144,7 @@ public class Wish implements Comparable<Wish>, Serializable {
     }
 
     public String getCover(String size) {
-        return article.getMainPicture().getUrl(size);
+        return article.getCover().getUrl(size);
     }
 
     public Serializable getId() {
