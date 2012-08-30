@@ -19,14 +19,16 @@
                         <t:select style="width:120px" model="types" value="type" t:id="type" blankLabel="NEVER" />
                     </td>
                     <td>
-						<t:textfield value="name" t:id="name" placeholder="name" />
-					</td>
+						<t:textfield value="name" t:id="name" style="width:90%" placeholder="name" />
+                        <p>
+                            <input t:type="upload"
+                                   t:id="file"
+                                   t:value="file">
+                                upload file
+                            </input>
+                        </p>
+                    </td>
 					<td>
-                        <input t:type="upload"
-                               t:id="file"
-                               t:value="file">
-                            upload file
-                        </input>
                         <p>
                             <button class="btn btn-primary pull-right btn-mini" type="submit">Add file</button>
                         </p>
