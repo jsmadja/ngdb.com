@@ -2,7 +2,7 @@ package com.ngdb;
 
 public class StarsUtil {
 
-    public static String toStarsHtml(String mark) {
+    public static String toStarsHtml(String mark, int size) {
         if (mark.length() == 1) {
             mark = "0" + mark;
         }
@@ -12,16 +12,20 @@ public class StarsUtil {
         String stars = "";
         int numGreyStars = 5 - numStars;
         for (int i = 0; i < numStars; i++) {
-            stars += "<img width=\"20px\" src=\"/img/stars/star.png\">";
+            stars += "<img width=\""+size+"px\" src=\"/img/stars/star.png\">";
         }
         if (halfStar) {
-            stars += "<img width=\"20px\" src=\"/img/stars/half_star.png\">";
+            stars += "<img width=\""+size+"px\" src=\"/img/stars/half_star.png\">";
             numGreyStars--;
         }
         for (int i = 0; i < numGreyStars; i++) {
-            stars += "<img width=\"20px\" src=\"/img/stars/grey_star.png\">";
+            stars += "<img width=\""+size+"px\" src=\"/img/stars/grey_star.png\">";
         }
         return stars;
+    }
+
+    public static String toStarsHtml(String mark) {
+        return toStarsHtml(mark, 20);
     }
 
 }

@@ -21,6 +21,7 @@ import java.util.List;
 
 public class Result {
 
+    public static final int STAR_SIZE = 15;
     @Persist
     @Property
     private List<Game> results;
@@ -51,26 +52,22 @@ public class Result {
         results = registry.findGamesMatching(search);
     }
 
-    public String getViewPage() {
-        return result.getViewPage();
-    }
-
     public String getStars() {
         result = (Game) session.load(Game.class, result.getId());
         if (result.getHasReviews()) {
             String mark = result.getAverageMark();
-            return StarsUtil.toStarsHtml(mark);
+            return StarsUtil.toStarsHtml(mark, 15);
         } else {
             String ngh = result.getNgh();
             List<Game> games = gameFactory.findAllByNgh(ngh);
             for (Game game : games) {
                 if (game.getHasReviews()) {
                     String mark = game.getAverageMark();
-                    return StarsUtil.toStarsHtml(mark);
+                    return StarsUtil.toStarsHtml(mark, 15);
                 }
             }
         }
-        return StarsUtil.toStarsHtml("0");
+        return StarsUtil.toStarsHtml("0", STAR_SIZE);
     }
 
     public String getByPublisher() {
