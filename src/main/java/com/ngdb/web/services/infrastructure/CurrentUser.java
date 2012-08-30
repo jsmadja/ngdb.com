@@ -1,11 +1,14 @@
 package com.ngdb.web.services.infrastructure;
 
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import com.ngdb.entities.article.Game;
+import com.ngdb.entities.user.ArticleCollection;
+import com.ngdb.web.base.EntityCount;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -189,7 +192,12 @@ public class CurrentUser {
     }
 
     public int getNumArticlesInCollection() {
-        return getUserFromDb().getNumArticlesInCollection();
+        String queryString = "SELECT COUNT(*) FROM CollectionObject WHERE user_id = " + getUserId();
+        return count(queryString);
+    }
+
+    private int count(String queryString) {
+        return ((BigInteger)session.createSQLQuery(queryString).uniqueResult()).intValue();
     }
 
     public User getUserFromDb() {
