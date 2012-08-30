@@ -77,9 +77,6 @@ public class Stats {
     @Property
     private Long mostUsedTagCount;
 
-    @Property
-    private Integer missingCovers;
-
     @Inject
     private ReferenceService referenceService;
 
@@ -115,15 +112,6 @@ public class Stats {
         entityCount = entityCountQuery("SELECT id,COUNT(*) FROM Tag GROUP BY name ORDER BY COUNT(*) DESC");
         this.mostUsedTag = (Tag) session.load(Tag.class, entityCount.entityId);
         this.mostUsedTagCount = entityCount.count;
-
-        int cover = 0;
-        List<Article> articles = articleFactory.findAll();
-        for (Article article : articles) {
-            if (article.hasCover()) {
-                cover++;
-            }
-        }
-        this.missingCovers = articles.size() - cover;
     }
 
     public String getCoverProgress() {
@@ -135,13 +123,49 @@ public class Stats {
             Collection<Game> gamesWithPictures = Collections2.filter(games, Predicates.hasPicture);
             int numGamesWithPictures = gamesWithPictures.size();
             int numGames = games.size();
-            sb.append("<li>");
-            sb.append("<b>").append(platform.getName()).append("</b> : ").append(numGamesWithPictures).append("/").append(numGames);
-            sb.append(" - ");
-            sb.append((int) ((float) (numGamesWithPictures / (float) numGames) * 100)).append("%");
-            sb.append("</li>");
+            int percent = (int) ((numGamesWithPictures / (float) numGames) * 100);
+            sb.append("<tr>");
+            sb.append("<td><b>").append(platform.getName()).append("</b></td>");
+            sb.append("<td>").append(progressBar(percent)).append("</td>");
+            sb.append("</tr>");
         }
         return sb.toString();
+    }
+
+    public String getReviewProgress() {
+        StringBuilder sb = new StringBuilder();
+        List<Game> noReviewGames = gameFactory.findAll();
+        List<Game> games = gameFactory.findAll();
+        for (Game game : games) {
+            if(game.getHasReviews()) {
+                noReviewGames.removeAll(gameFactory.findAllByNgh(game.getNgh()));
+            }
+        }
+        int numTotalGames = games.size();
+        int numReviewedGames = numTotalGames - noReviewGames.size();
+        int percent = (int) ((numReviewedGames / (float) numTotalGames) * 100);
+        sb.append(progressBar(percent));
+        return sb.toString();
+    }
+
+    public String getTagProgress() {
+        StringBuilder sb = new StringBuilder();
+        List<Game> noTagGames = gameFactory.findAll();
+        List<Game> games = gameFactory.findAll();
+        for (Game game : games) {
+            if(game.hasTags()) {
+                noTagGames.remove(game);
+            }
+        }
+        int numTotalGames = games.size();
+        int numTagGames = numTotalGames - noTagGames.size();
+        int percent = (int) ((numTagGames / (float) numTotalGames) * 100);
+        sb.append(progressBar(percent));
+        return sb.toString();
+    }
+
+    private String progressBar(int percent) {
+        return "<div class=\"progress\" style=\"width:100px\" ><div class=\"bar\" style=\"width: "+percent+"%;\"></div></div>";
     }
 
     public String getPictureContributors() {

@@ -1,26 +1,5 @@
 package com.ngdb.web.services.infrastructure;
 
-import java.math.BigInteger;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
-import com.ngdb.entities.article.Game;
-import com.ngdb.entities.user.ArticleCollection;
-import com.ngdb.web.base.EntityCount;
-import org.apache.commons.lang.StringUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
-import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.ApplicationStateManager;
-import org.apache.tapestry5.services.Request;
-import org.hibernate.Session;
-import org.joda.money.CurrencyUnit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.tynamo.security.services.SecurityService;
-
 import com.ngdb.entities.ActionLogger;
 import com.ngdb.entities.Population;
 import com.ngdb.entities.article.Article;
@@ -33,8 +12,22 @@ import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.Shop;
 import com.ngdb.entities.user.User;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.ApplicationStateManager;
+import org.apache.tapestry5.services.Request;
+import org.hibernate.Session;
+import org.joda.money.CurrencyUnit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.tynamo.security.services.SecurityService;
 
-import static org.apache.commons.lang.StringUtils.defaultIfBlank;
+import java.math.BigInteger;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Locale;
+
 import static org.apache.commons.lang.StringUtils.defaultString;
 
 public class CurrentUser {

@@ -373,4 +373,8 @@ public abstract class Article implements Comparable<Article>, Serializable {
     public void addFile(File file) {
         files.add(file);
     }
+
+    public boolean hasTags() {
+        return tags.count() > 0;
+    }
 }

@@ -42,4 +42,7 @@ public class Tags implements Iterable<Tag>, Serializable {
         return tags.contains(tag);
     }
 
+    public int count() {
+        return tags.size();
+    }
 }

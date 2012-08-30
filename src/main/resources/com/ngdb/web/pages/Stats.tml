@@ -13,8 +13,9 @@
             <tr><td>Biggest owner</td><td>${biggestCollectionner} (${biggestCollectionnerCount})</td></tr>
             <tr><td>Biggest wisher</td><td>${biggestWisher} (${biggestWisherCount})</td></tr>
             <tr><td>Most used tag</td><td>${mostUsedTag} (${mostUsedTagCount})</td></tr>
-            <tr><td>Missing covers</td><td>${missingCovers}</td></tr>
-            <tr><td>Cover progress</td><td><ul><t:outputRaw value="${coverProgress}"/></ul></td></tr>
+            <tr><td>Review progress</td><td><t:outputRaw value="${reviewProgress}"/></td></tr>
+            <tr><td>Tagging progress</td><td><t:outputRaw value="${tagProgress}"/></td></tr>
+            <tr><td>Cover progress</td><td><table><t:outputRaw value="${coverProgress}"/></table></td></tr>
             <tr><td>Contributors</td><td><ul><t:outputRaw value="${pictureContributors}"/></ul></td></tr>
         </tbody>
 	</table>
