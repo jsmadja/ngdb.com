@@ -6,11 +6,7 @@ import static com.ngdb.Predicates.isHardwareWish;
 import static javax.persistence.FetchType.LAZY;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
@@ -20,13 +16,14 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.shop.Wish;
+import org.hibernate.annotations.OrderBy;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class WishList implements Iterable<Wish>, Serializable {
 
-    @OneToMany(mappedBy = "wisher", fetch = LAZY, orphanRemoval = true)
-    private Set<Wish> wishes;
+    @OneToMany(mappedBy = "wisher", orphanRemoval = true)
+    private List<Wish> wishes;
 
     boolean contains(Article article) {
         for (Wish wish : wishes) {
@@ -44,8 +41,9 @@ public class WishList implements Iterable<Wish>, Serializable {
         return wishes.iterator();
     }
 
-    public Set<Wish> getWishes() {
-        return Collections.unmodifiableSet(new TreeSet<Wish>(wishes));
+    public Collection<Wish> getWishes() {
+        Collections.sort(wishes);
+        return Collections.unmodifiableList(wishes);
     }
 
     void addInWishList(Wish wish) {

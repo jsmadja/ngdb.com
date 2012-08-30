@@ -116,7 +116,7 @@ public class User extends AbstractEntity implements Comparable<User> {
         return collection.contains(article);
     }
 
-    public Set<Wish> getWishes() {
+    public Collection<Wish> getWishes() {
         return wishList.getWishes();
     }
 

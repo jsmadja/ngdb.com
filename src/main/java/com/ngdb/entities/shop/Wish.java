@@ -1,5 +1,6 @@
 package com.ngdb.entities.shop;
 
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
 
 import java.io.Serializable;
@@ -26,7 +27,7 @@ import com.ngdb.entities.user.User;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Wish implements Comparable<Wish> {
+public class Wish implements Comparable<Wish>, Serializable {
 
     @EmbeddedId
     private WishId id;
@@ -35,7 +36,7 @@ public class Wish implements Comparable<Wish> {
     @JoinColumn(name = "user_id", insertable = false, updatable = false, nullable = false)
     private User wisher;
 
-    @ManyToOne(optional = false, fetch = LAZY)
+    @ManyToOne(optional = false, fetch = EAGER)
     @JoinColumn(name = "article_id", insertable = false, updatable = false, nullable = false)
     private Article article;
 

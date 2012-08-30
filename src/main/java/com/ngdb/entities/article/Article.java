@@ -77,6 +77,9 @@ public abstract class Article implements Comparable<Article>, Serializable {
     @OneToOne(fetch = FetchType.EAGER)
     private Platform platform;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    private Publisher publisher;
+
     @Embedded
     @XmlTransient
     private Notes notes;
@@ -101,7 +104,7 @@ public abstract class Article implements Comparable<Article>, Serializable {
     private Comments comments;
 
     @XmlTransient
-    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "article")
     private Set<Wish> wishList;
 
     @Embedded
@@ -109,15 +112,12 @@ public abstract class Article implements Comparable<Article>, Serializable {
     private ShopItems shopItems;
 
     @XmlTransient
-    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "article")
     private Set<CollectionObject> owners;
 
     private String details;
 
     private String upc;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    private Publisher publisher;
 
     public Article() {
         creationDate = modificationDate = new Date();
