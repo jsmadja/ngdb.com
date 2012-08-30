@@ -1,16 +1,20 @@
 package com.ngdb.entities;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.ArticleAction;
 import com.ngdb.entities.user.User;
+
+import static org.hibernate.criterion.Order.desc;
 
 public class ActionLogger {
 
@@ -53,8 +57,12 @@ public class ActionLogger {
         session.merge(articleAction);
     }
 
-    public Set<ArticleAction> listLastActions() {
-        return new TreeSet<ArticleAction>(session.createCriteria(ArticleAction.class).setMaxResults(15).addOrder(Order.desc("creationDate")).setCacheable(true).list());
+    public Collection<ArticleAction> listLastActions() {
+        Criteria criteria = session.createCriteria(ArticleAction.class).
+                setMaxResults(15).
+                addOrder(desc("creationDate")).
+                setCacheable(true);
+        return criteria.list();
     }
 
 }
