@@ -1,19 +1,17 @@
 package com.ngdb.web.services.infrastructure;
 
 import com.ngdb.entities.article.Article;
-import com.ngdb.entities.article.element.Picture;
+import com.ngdb.entities.article.element.File;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.upload.services.UploadedFile;
 import org.hibernate.Session;
 
-import com.ngdb.entities.article.element.File;
 import java.io.IOException;
 import java.io.InputStream;
 
 import static com.google.common.io.ByteStreams.toByteArray;
 import static com.google.common.io.Files.createParentDirs;
 import static com.google.common.io.Files.write;
-import static java.util.UUID.randomUUID;
 
 public class FileService {
 
@@ -21,6 +19,9 @@ public class FileService {
 
     @Inject
     private Session session;
+
+    @Inject
+    private CurrentUser currentUser;
 
     public File store(UploadedFile uploadedFile, Article article, String name, String type) {
 		try {
@@ -30,6 +31,7 @@ public class FileService {
             file.setArticle(article);
             article.addFile(file);
             file = (File) session.merge(file);
+            currentUser.addFile(article);
             return file;
 		} catch (IOException e) {
 			throw new IllegalStateException("Cannot create file with name '" + uploadedFile.getFileName() + "' for article " + article.getId(), e);

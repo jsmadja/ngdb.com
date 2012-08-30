@@ -140,6 +140,7 @@ public class HardwareUpdate {
         hardware = (Hardware) session.merge(hardware);
         if (this.mainPicture != null) {
             Picture picture = pictureService.store(mainPicture, hardware);
+            currentUser.addPictureOn(hardware);
             hardware.addPicture(picture);
             if (isEditMode()) {
                 session.merge(picture);
@@ -148,6 +149,7 @@ public class HardwareUpdate {
         if (pictures != null) {
             for (UploadedFile uploadedPicture : pictures) {
                 Picture picture = pictureService.store(uploadedPicture, hardware);
+                currentUser.addPictureOn(hardware);
                 hardware.addPicture(picture);
                 if (isEditMode()) {
                     session.merge(picture);

@@ -1,6 +1,8 @@
 package com.ngdb.entities;
 
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
@@ -16,7 +18,7 @@ public class ActionLogger {
     private Session session;
 
     public void addTagAction(User user, Article article) {
-        createAction(user, article, "added a tag on");
+        createAction(user, article, "added a new tag on");
     }
 
     public void addCommentAction(User user, Article article) {
@@ -24,11 +26,19 @@ public class ActionLogger {
     }
 
     public void addReviewAction(User user, Article article) {
-        createAction(user, article, "added a review on");
+        createAction(user, article, "added a new review on");
     }
 
     public void addPropertyAction(User user, Article article) {
-        createAction(user, article, "added a property on");
+        createAction(user, article, "added a new property on");
+    }
+
+    public void addFileAction(User user, Article article) {
+        createAction(user, article, "added a new file on");
+    }
+
+    public void addPictureAction(User user, Article article) {
+        createAction(user, article, "added a new picture on");
     }
 
     public void addEditAction(User user, Article article) {
@@ -43,8 +53,8 @@ public class ActionLogger {
         session.merge(articleAction);
     }
 
-    public List<ArticleAction> listLastActions() {
-        return session.createCriteria(ArticleAction.class).setMaxResults(15).addOrder(Order.desc("creationDate")).setCacheable(true).list();
+    public Set<ArticleAction> listLastActions() {
+        return new TreeSet<ArticleAction>(session.createCriteria(ArticleAction.class).setMaxResults(15).addOrder(Order.desc("creationDate")).setCacheable(true).list());
     }
 
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import com.ngdb.entities.article.Game;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -264,6 +265,14 @@ public class CurrentUser {
         session.persist(note);
         getArticleFromDb(article).addNote(note);
         actionLogger.addPropertyAction(getUser(), article);
+    }
+
+    public void addFile(Article article) {
+        actionLogger.addFileAction(getUser(), article);
+    }
+
+    public void addPictureOn(Article article) {
+        actionLogger.addPictureAction(getUser(), article);
     }
 
     private Article getArticleFromDb(Article article) {
