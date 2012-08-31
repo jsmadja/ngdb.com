@@ -589,7 +589,6 @@ dd {
 }
 
 hr {
-  margin: 18px 0;
   border: 0;
   border-top: 1px solid #eeeeee;
   border-bottom: 1px solid #ffffff;
@@ -3322,9 +3321,6 @@ input[type="submit"].btn.btn-mini {
 }
 
 .nav-tabs > li > a {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  line-height: 18px;
   border: 1px solid transparent;
   -webkit-border-radius: 4px 4px 0 0;
      -moz-border-radius: 4px 4px 0 0;
@@ -3752,7 +3748,7 @@ input[type="submit"].btn.btn-mini {
   position: fixed;
   z-index: 1030;
   margin-bottom: 0;
-  min-width: 98%;
+  min-width: 70%;
 }
 
 .navbar-fixed-top .navbar-inner,
@@ -4491,8 +4487,6 @@ input[type="submit"].btn.btn-mini {
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
      -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
           box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
-   /* max-height:165px;
-   max-width: 165px; */
 }
 
 a.thumbnail:hover {
@@ -4947,7 +4941,6 @@ a.badge:hover {
 
 .hero-unit {
   padding: 10px;
-  margin-bottom: 30px;
   -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
           border-radius: 6px;
@@ -5148,11 +5141,19 @@ TABLE.t-data-grid THEAD TR TH {
 	list-style: none;	
 }
 
-.rounded-bar, .platformLabel, .price-label {
+.rounded-bar, .platformLabel {
     border-radius: 5px 5px 5px 5px;
     color: white;
     height: 30px;
     text-shadow: 0 0 0 #333333;
+}
+
+.price-label {
+    border-radius: 5px 5px 5px 5px;
+    color: white;
+    height: 30px;
+    text-shadow: 0 0 0 #333333;
+    min-width: 30px;
 }
 
 .big-bar {
@@ -5260,4 +5261,8 @@ TABLE.t-data-grid THEAD TR TH {
     color: red;
     margin-left: 3px;
     font-size: 11pt;
+}
+
+.nav {
+    margin-bottom: 0px;
 }

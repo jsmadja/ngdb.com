@@ -31,7 +31,7 @@
 		<div class="span4">
 			<p>
 				<t:pageLink page="article/game/gameView" context="randomGame1">
-					<img class="thumbnail" src="${message:image.host.url}${randomGame1MainPicture}" title="${randomGame1.title}" />
+					<img style="max-width:220px;" class="thumbnail" src="${message:image.host.url}${randomGame1MainPicture}" title="${randomGame1.title}" />
 				</t:pageLink>
 			</p>
 			<p>
@@ -41,7 +41,7 @@
 		<div class="span4">
 			<p>
 				<t:pageLink page="article/game/gameView" context="randomGame2">
-					<img class="thumbnail" src="${message:image.host.url}${randomGame2MainPicture}" title="${randomGame2.title}" />
+					<img style="max-width:220px;" class="thumbnail" src="${message:image.host.url}${randomGame2MainPicture}" title="${randomGame2.title}" />
 				</t:pageLink>
 			</p>
 			<p>
@@ -51,7 +51,7 @@
 		<div class="span4">
 			<p>
 				<t:pageLink page="article/game/gameView" context="randomGame3">
-					<img class="thumbnail" src="${message:image.host.url}${randomGame3MainPicture}" title="${randomGame3.title}" />
+					<img style="max-width:220px;" class="thumbnail" src="${message:image.host.url}${randomGame3MainPicture}" title="${randomGame3.title}" />
 				</t:pageLink>
 			</p>
 			<p>

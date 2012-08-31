@@ -1,7 +1,12 @@
 package com.ngdb.web.components.common.layout;
 
+import java.util.Collection;
 import java.util.List;
 
+import com.ngdb.entities.ActionLogger;
+import com.ngdb.entities.article.ArticleAction;
+import com.ngdb.web.pages.article.game.GameView;
+import com.ngdb.web.pages.article.hardware.HardwareView;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
@@ -27,11 +32,27 @@ public class Menu {
 	@Inject
 	private com.ngdb.entities.Market market;
 
-	@SetupRender
+    @InjectPage
+    private GameView gameView;
+
+    @InjectPage
+    private HardwareView hardwareView;
+
+    @Inject
+    private ActionLogger actionLogger;
+
+    @Property
+    private ArticleAction update;
+
+    @SetupRender
 	void onInit() {
-		this.shopItems = market.findRandomForSaleItems(3);
+		this.shopItems = market.findRandomForSaleItems(6);
 		this.forSaleCount = market.getNumForSaleItems();
 	}
+
+    public Collection<ArticleAction> getUpdates() {
+        return actionLogger.listLastActions();
+    }
 
 	public String getPrice() {
 		return market.getPriceOf(shopItem);

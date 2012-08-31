@@ -19,8 +19,8 @@
     <style type="text/css">
       body {
         padding-top: 40px;
-        margin-left:1%;
-        margin-right:1%;
+        margin-left:15%;
+        margin-right:15%;
       }
       .sidebar-nav {
         padding: 0px 0;
@@ -58,24 +58,19 @@
     <div class="container-fluid">
       <div class="row-fluid">
           <t:if test="showLeftContent">
-            <div class="span2">
+            <div class="span3">
                 <t:common.layout.menu />
             </div>
-            <div class="span8">
+            <div class="span9">
                 <t:body />
             </div>
             <p:else>
-                <div class="span10">
+                <div class="span12">
                     <t:body />
                 </div>
             </p:else>
           </t:if>
-        <div class="span2">
-        	<div class="well sidebar-events" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
-        	    <t:common.layout.events />
-			</div>
-        </div>
-	  </div>
+      </div>
       <hr />
       <t:common.layout.footer />
     </div>

@@ -1,8 +1,0 @@
-<ul class="events events-list" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
-	<li class="blue-bar half-rounded-bar small-bar">What's new</li>
-	<t:loop value="update" source="updates">
-		<li style="margin-bottom:10px;line-height:12px">
-			<t:pageLink page="user/UserView" context="update.user"><b>${update.user}</b></t:pageLink> ${update.message} <t:pageLink page="${update.article.viewPage}" context="update.article"><b>${update.article}</b></t:pageLink> ${update.lastUpdateDate}
-		</li>
-	</t:loop>
-</ul>
