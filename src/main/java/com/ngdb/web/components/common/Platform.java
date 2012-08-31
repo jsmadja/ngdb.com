@@ -10,7 +10,7 @@ public class Platform {
 	@Parameter
 	private com.ngdb.entities.reference.Platform platform;
 
-	private static final Map<String, String> shortNames = new HashMap<String, String>();
+	public static final Map<String, String> shortNames = new HashMap<String, String>();
 
 	static {
 		shortNames.put("Neo·Geo CD", "NGCD");

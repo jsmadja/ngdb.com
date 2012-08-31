@@ -53,12 +53,25 @@ public class ReferenceService {
 		return (Publisher) session.load(Publisher.class, id);
 	}
 
-	public Platform findPlatformByName(String platform) {
-		return (Platform) session.createCriteria(Platform.class).add(eq("name", platform)).setCacheable(true).uniqueResult();
+	public Platform findPlatformByName(String platformName) {
+        List<Platform> platforms = session.createCriteria(Platform.class).setCacheable(true).list();
+        for (Platform platform : platforms) {
+            String shortName = com.ngdb.web.components.common.Platform.shortNames.get(platform.getName());
+            if(shortName.equalsIgnoreCase(platformName)) {
+                return platform;
+            }
+        }
+        return null;
 	}
 
-	public Origin findOriginByTitle(String origin) {
-		return (Origin) session.createCriteria(Origin.class).add(eq("title", origin)).setCacheable(true).uniqueResult();
+	public Origin findOriginByTitle(String originTitle) {
+        List<Origin> origins = session.createCriteria(Origin.class).setCacheable(true).list();
+        for (Origin origin : origins) {
+            if(origin.getTitle().equalsIgnoreCase(originTitle)) {
+                return origin;
+            }
+        }
+        return null;
 	}
 
 	public Publisher findPublisherByName(String publisher) {

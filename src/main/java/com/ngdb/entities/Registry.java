@@ -53,7 +53,8 @@ public class Registry {
                     foundGames.add(game);
                     ids.add(game.getId());
                     String ngh = game.getNgh();
-                    if(ids.size() < MAX_RESULT_TO_RETURN && StringUtils.isNotBlank(ngh)) {
+                    boolean shouldLinkWithOtherGames = ids.size() < MAX_RESULT_TO_RETURN && StringUtils.isNotBlank(ngh);
+                    if(shouldLinkWithOtherGames) {
                         List<Game> linkedGames = gameFactory.findAllByNgh(ngh);
                         for (Game linkedGame : linkedGames) {
                             if(!ids.contains(linkedGame.getId())) {

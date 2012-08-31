@@ -1,10 +1,15 @@
 package com.ngdb.web.pages;
 
+import com.google.common.collect.Collections2;
+import com.ngdb.Predicates;
 import com.ngdb.StarsUtil;
 import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.Registry;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
+import com.ngdb.entities.reference.Origin;
+import com.ngdb.entities.reference.Platform;
+import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.web.Filter;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.tapestry5.annotations.Parameter;
@@ -18,13 +23,18 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static com.google.common.collect.Collections2.filter;
 
 public class Result {
 
     public static final int STAR_SIZE = 15;
+
     @Persist
     @Property
-    private List<Game> results;
+    private Collection<Game> results;
 
     @Property
     private Game result;
@@ -44,12 +54,58 @@ public class Result {
     @Inject
     private Session session;
 
+    @Inject
+    private ReferenceService referenceService;
+
     private static final Logger LOG = LoggerFactory.getLogger(Result.class);
 
     @SetupRender
     public void setup() {
         LOG.info(currentUser.getUsername() + " is searching for '" + search + "'");
-        results = registry.findGamesMatching(search);
+        String query = search;
+        Platform filterPlatform = null;
+        Origin filterOrigin = null;
+        Matcher matcher = Pattern.compile("(platform:[a-zA-Z]*)").matcher(query);
+        if(matcher.find()) {
+            String filter = matcher.group(1);
+            String platformFilter = filter.split(":")[1];
+            filterPlatform = referenceService.findPlatformByName(platformFilter);
+            query = query.replaceAll(filter, "");
+        }
+        matcher = Pattern.compile("(p:[a-zA-Z]*)").matcher(query);
+        if(matcher.find()) {
+            String filter = matcher.group(1);
+            String platformFilter = filter.split(":")[1];
+            filterPlatform = referenceService.findPlatformByName(platformFilter);
+            query = query.replaceAll(filter, "");
+        }
+
+        matcher = Pattern.compile("(origin:[a-zA-Z]*)").matcher(query);
+        if(matcher.find()) {
+            String filter = matcher.group(1);
+            String originFilter = filter.split(":")[1];
+            filterOrigin = referenceService.findOriginByTitle(originFilter);
+            query = query.replaceAll(filter, "");
+        }
+
+        matcher = Pattern.compile("(o:[a-zA-Z]*)").matcher(query);
+        if(matcher.find()) {
+            String filter = matcher.group(1);
+            String originFilter = filter.split(":")[1];
+            filterOrigin = referenceService.findOriginByTitle(originFilter);
+            query = query.replaceAll(filter, "");
+        }
+
+        query = query.trim();
+        results = registry.findGamesMatching(query);
+
+        if(filterPlatform != null) {
+            results = filter(results, new Predicates.PlatformPredicate(filterPlatform));
+        }
+        if(filterOrigin != null) {
+            results = filter(results, new Predicates.OriginPredicate(filterOrigin));
+        }
+
     }
 
     public String getStars() {
