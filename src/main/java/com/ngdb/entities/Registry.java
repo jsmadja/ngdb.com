@@ -11,6 +11,7 @@ import static org.hibernate.criterion.Projections.property;
 
 import java.util.*;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
@@ -51,8 +52,9 @@ public class Registry {
                     Game game = (Game) matchingArticle;
                     foundGames.add(game);
                     ids.add(game.getId());
-                    if(ids.size() < MAX_RESULT_TO_RETURN) {
-                        List<Game> linkedGames = gameFactory.findAllByNgh(game.getNgh());
+                    String ngh = game.getNgh();
+                    if(ids.size() < MAX_RESULT_TO_RETURN && StringUtils.isNotBlank(ngh)) {
+                        List<Game> linkedGames = gameFactory.findAllByNgh(ngh);
                         for (Game linkedGame : linkedGames) {
                             if(!ids.contains(linkedGame.getId())) {
                                 foundGames.add(linkedGame);
@@ -64,7 +66,7 @@ public class Registry {
             }
             sort(foundGames, byTitlePlatformOrigin);
         }
-        LOG.info("execution time: "+(System.currentTimeMillis()-t)+" ms");
+        LOG.info("execution time: " + (System.currentTimeMillis() - t) + " ms");
         return foundGames;
     }
 
