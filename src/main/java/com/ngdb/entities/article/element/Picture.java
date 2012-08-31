@@ -100,4 +100,17 @@ public class Picture extends AbstractEntity implements Comparable<Picture>, Seri
         return getCreationDate().compareTo(p.getCreationDate());
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if(o instanceof Picture) {
+            Picture p = (Picture)o;
+            return url.equals(p.url);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return url != null ? url.hashCode() : 0;
+    }
 }

@@ -77,7 +77,6 @@ public class HardwareUpdate {
     @Property
     private List<UploadedFile> pictures;
 
-    @Persist
     @Property
     private Set<Picture> storedPictures;
 
