@@ -23,7 +23,7 @@
 						<t:article.actionBlock article="hardware" />
 					</h1>
 					<div class="subtitle">
-						#${hardware.id}<t:pagelink page="museum" context="[byPlatform,hardware.platform]"><t:common.platform platform="hardware.platform"/></t:pagelink> 
+						#${hardware.id}<t:pagelink page="museum" context="[byPlatform,hardware.platform]"><span class="platformLabel">${hardware.platformShortName}</span></t:pagelink>
 					</div>
 				</div>
 

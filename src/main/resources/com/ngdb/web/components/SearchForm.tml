@@ -1,5 +1,5 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" >
-	<t:form t:id="searchForm" class="navbar-search pull-left" t:autofocus="false">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" class="pull-right">
+	<t:form t:id="searchForm" class="navbar-search" t:autofocus="false">
 		<t:textfield value="search" t:id="search" class="search-query"
 			t:mixins="jquery/Autocomplete" placeholder="${placeholder}" />
 	</t:form>

@@ -7,19 +7,21 @@
 				<span class="icon-bar"></span>
 			</a>
 			<a class="brand" href="/"><span class="orange">neogeo</span><span class="blue">db</span>.com <span class="label label-important">BETA</span></a>
-			<div class="btn-group pull-right" style="margin-top:5px">
-				<t:userMenu />
+
+            <div class="btn-group pull-right" style="margin-top:5px">
+                <t:userMenu />
             </div>
-			<div class="nav-collapse">
-	            <ul class="nav pull-left">
-	              <li><a href="/market?display-all=true">Market</a></li>
-	              <li><a href="/museum?display-all=true">Museum</a></li>
-	              <li><a href="/users">Members</a></li>
-	            </ul>
-          	</div>
-			<div class="pull-right">
-				<t:searchForm />
-			</div>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-left">
+                    <li><a href="/market?display-all=true">Market</a></li>
+                    <li><a href="/museum?display-all=true">Museum</a></li>
+                    <li><a href="/users">Members</a></li>
+                </ul>
+            </div>
+
+            <t:searchForm />
+
 		</div>
 	</div>
 </div>
