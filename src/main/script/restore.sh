@@ -1,21 +1,32 @@
 #!/bin/bash
 
+rm -rf *.tar.gz
 
-# dl le targ gz
+home=/home/neogeodb-admin 
+home_script=$home/src/main/script 
 
-# decompresser
+filename=`date "+%Y_%m_%d"`
 
-#  sauvegarder ancien /ngdb
+echo "preparing cadaver input ..." 
+sed s/__filename__/`date "+%Y_%m_%d"`.tar.gz/ <$home_script/restore.cadaver.script > $home_script/restore.cadaver.script.seded
 
-# copier le contenu du tag gz dans /ngdb
+echo "downloading backup file from dumptruck ..." 
+cadaver -t https://dav.dumptruck.goldenfrog.com/r/giganews.com < $home_script/restore.cadaver.script.seded
 
-# importer le sql
+exit 0;
 
-sudo rm -rf ngdb
+echo "unpack backup file ..."
 sudo tar zxf *.tar.gz
+
+echo "removing old backup ..."
 sudo rm -rf /ngdb_bak
-sudo cp -rf /ngdb /ngdb_bak
-sudo rm -rf /ngdb
-sudo mv ngdb/ /
-mysql -uroot -pm1710calos ngdb < sql/2012_08_27.sql
+
+echo "backuping actual data ..."
+sudo mv /ngdb /ngdb_bak
+
+echo "restoring filesystem ..."
+sudo mv ngdb /
+
+echo "restoring database ..."
+mysql -uroot -pm1710calos ngdb < sql/$filename.sql
 
