@@ -3322,9 +3322,10 @@ input[type="submit"].btn.btn-mini {
 
 .nav-tabs > li > a {
   border: 1px solid transparent;
-  -webkit-border-radius: 4px 4px 0 0;
+  /*-webkit-border-radius: 4px 4px 0 0;
      -moz-border-radius: 4px 4px 0 0;
           border-radius: 4px 4px 0 0;
+*/
 }
 
 .nav-tabs > li > a:hover {

@@ -1,27 +1,25 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
     <div class="tabbable">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab1" data-toggle="tab">For sale</a></li>
-            <li><a href="#tab2" data-toggle="tab">What's new</a></li>
+            <li class="active"><a href="#tab1" data-toggle="tab" class="orange-bar" style="color:white">For sale</a></li>
+            <li><a href="#tab2" data-toggle="tab" class="blue-bar" style="color:white">What's new</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane well active" id="tab1">
-                <table style="margin-top:5px">
+                <table>
                 <t:loop value="shopItem" source="shopItems">
                     <tr>
-                        <td width="90px" rowspan="2">
+                        <td width="90px">
                             <t:pageLink page="shop/shopItemView" context="shopItem">
-                                <img src="${message:image.host.url}${shopItem.mainPicture.urlSmall}" title="${shopItem.title}" />
+                                <img style="margin-top:15px" src="${message:image.host.url}${shopItem.mainPicture.urlSmall}" title="${shopItem.title}" />
                             </t:pageLink>
                         </td>
-                        <td align="center" style="vertical-align:middle" height="45px" >
+                        <td align="center" style="vertical-align:middle">
+                            <p>
                             <t:pageLink page="shop/shopItemView" context="shopItem" style="font-size:12px">
                                 ${shopItem.title}
                             </t:pageLink>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="vertical-align:bottom" align="center">
+                            </p>
                             <p class="btn btn-warning">
                                 ${price}
                             </p>
@@ -31,7 +29,7 @@
                 </table>
             </div>
             <div class="tab-pane well sidebar-events" id="tab2">
-                <ul class="events events-list" style="margin-top: 5px;">
+                <ul class="events events-list">
                     <t:loop value="update" source="updates">
                         <li style="margin-bottom:10px;line-height:12px;padding:5px">
                             <t:pageLink page="user/UserView" context="update.user"><b>${update.user}</b></t:pageLink> ${update.message} <t:pageLink page="${update.article.viewPage}" context="update.article"><b>${update.article}</b></t:pageLink> ${update.lastUpdateDate}
