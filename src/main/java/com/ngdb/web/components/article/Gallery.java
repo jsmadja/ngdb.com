@@ -18,7 +18,7 @@ public class Gallery {
 	private Picture picture;
 
 	public JSONObject getParams() {
-		return new JSONObject("maxHeight", "600px", "slideshow", "true", "slideshowSpeed", "5000");
+		return new JSONObject("maxHeight", "600px");
 	}
 
 	public ArticlePictures getPictures() {
