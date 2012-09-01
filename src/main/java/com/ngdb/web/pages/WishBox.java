@@ -11,6 +11,7 @@ import com.ngdb.web.Filter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.Request;
 import org.hibernate.Session;
 
 import java.util.Collection;
@@ -42,8 +43,11 @@ public class WishBox {
     @Inject
     private Session session;
 
+    @Inject
+    private Request request;
+
     void onActivate() {
-        if (wishBoxFilter == null) {
+        if (wishBoxFilter == null  || "true".equals(request.getParameter("display-all"))) {
             wishBoxFilter = new WishBoxFilter(wishBox);
         }
     }

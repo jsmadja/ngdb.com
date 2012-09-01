@@ -15,7 +15,7 @@
 			<h2>WishList</h2>
 			<p>Looking for rare titles? Setup your Wishlist and receive instant notification by Email when one of them is added to a User Shop.</p>
 			<p>
-				<a class="btn" href="/wishBox">View what our <b>${memberCount}</b> members want &raquo;</a>
+				<a class="btn" href="/wishBox?display-all=true">View what our <b>${memberCount}</b> members want &raquo;</a>
 			</p>
 		</div>
 		<div class="span4">
