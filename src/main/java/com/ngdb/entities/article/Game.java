@@ -8,12 +8,11 @@ import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 @Entity
-@XmlRootElement(name = "game")
-@XmlAccessorType(XmlAccessType.FIELD)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Game extends Article {
+public class Game extends Article implements Serializable {
 
     private String ngh;
 

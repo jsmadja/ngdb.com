@@ -21,7 +21,7 @@ import com.ngdb.entities.article.Article;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ArticleCollection implements Serializable {
+public class ArticleCollection {
 
     @OneToMany(mappedBy = "owner", fetch = LAZY, orphanRemoval = true)
     private Set<CollectionObject> collection;

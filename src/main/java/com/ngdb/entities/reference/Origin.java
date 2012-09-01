@@ -15,10 +15,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.ngdb.entities.AbstractEntity;
 
 @Entity
-@XmlRootElement(name = "origin")
-@XmlAccessorType(FIELD)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Origin extends AbstractEntity implements Comparable<Origin>, Serializable {
+public class Origin extends AbstractEntity implements Comparable<Origin> {
 
     @Column(unique = true, nullable = false)
     private String title;

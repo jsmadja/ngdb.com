@@ -15,10 +15,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ShopItemPictures implements Iterable<Picture>, Serializable {
+public class ShopItemPictures implements Iterable<Picture> {
 
 	@OneToMany(mappedBy = "shopItem", orphanRemoval = true)
-	private Set<Picture> pictures = new HashSet<Picture>();
+	private Set<Picture> pictures;
 
 	public Picture first() {
 		if (pictures == null || pictures.isEmpty()) {

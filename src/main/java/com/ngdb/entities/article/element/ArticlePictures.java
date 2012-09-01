@@ -22,16 +22,13 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Embeddable
-@XmlAccessorType(FIELD)
-@XmlRootElement(name = "pictures")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ArticlePictures implements Iterable<Picture>, Serializable {
+public class ArticlePictures implements Iterable<Picture> {
 
     @ElementCollection
     @OrderBy("creationDate")
     @OneToMany(mappedBy = "article", orphanRemoval = true)
-    @XmlElements({ @XmlElement(name = "picture") })
-    private Set<Picture> pictures = new TreeSet<Picture>();
+    private Set<Picture> pictures;
 
     public Picture first() {
         if (pictures == null || pictures.isEmpty()) {

@@ -14,7 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Comments implements Iterable<Comment>, Serializable {
+public class Comments implements Iterable<Comment> {
 
     @OneToMany(mappedBy = "article")
     private Set<Comment> comments;

@@ -1,5 +1,6 @@
 package com.ngdb.web.components.common.layout;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class Menu {
 
     @SetupRender
 	void onInit() {
-		this.shopItems = market.findRandomForSaleItems(6);
+        this.shopItems = market.findRandomForSaleItems(6);
 		this.forSaleCount = market.getNumForSaleItems();
 	}
 

@@ -27,7 +27,6 @@ import com.ngdb.entities.shop.Wish;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractEntity implements Comparable<User> {
 
-    @XmlTransient
     @Column(name = "last_login_date")
     private Date lastLoginDate;
 

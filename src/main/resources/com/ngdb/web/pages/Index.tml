@@ -30,7 +30,7 @@
 	<div class="row-fluid">
 		<div class="span4">
 			<p>
-				<t:pageLink page="article/game/gameView" context="randomGame1">
+				<t:pageLink page="article/game/gameView" context="randomGame1.id">
 					<img style="max-width:175px;" class="thumbnail" src="${message:image.host.url}${randomGame1MainPicture}" title="${randomGame1.title}" />
 				</t:pageLink>
 			</p>

@@ -27,10 +27,8 @@ import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@XmlRootElement(name = "article")
-@XmlAccessorType(FIELD)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public abstract class Article implements Comparable<Article>, Serializable {
+public abstract class Article implements Comparable<Article>{
 
     private static final int MAX_DETAIL_LENGTH = 1024;
 
@@ -75,14 +73,14 @@ public abstract class Article implements Comparable<Article>, Serializable {
 
     @Embedded
     @XmlTransient
-    private ArticlePictures pictures = new ArticlePictures();
+    private ArticlePictures pictures;
 
     @Column(name = "cover_url", nullable = true)
     private String coverUrl;
 
     @Embedded
     @XmlTransient
-    private Reviews reviews = new Reviews();
+    private Reviews reviews;
 
     @Embedded
     @XmlTransient

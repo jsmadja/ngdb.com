@@ -27,7 +27,7 @@ import com.ngdb.entities.user.User;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Wish implements Comparable<Wish>, Serializable {
+public class Wish implements Comparable<Wish> {
 
     @EmbeddedId
     private WishId id;
@@ -36,7 +36,7 @@ public class Wish implements Comparable<Wish>, Serializable {
     @JoinColumn(name = "user_id", insertable = false, updatable = false, nullable = false)
     private User wisher;
 
-    @ManyToOne(optional = false, fetch = EAGER)
+    @ManyToOne(optional = false, fetch = LAZY)
     @JoinColumn(name = "article_id", insertable = false, updatable = false, nullable = false)
     private Article article;
 

@@ -16,7 +16,7 @@ import com.ngdb.entities.shop.ShopItem;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Picture extends AbstractEntity implements Comparable<Picture>, Serializable {
+public class Picture extends AbstractEntity implements Comparable<Picture> {
 
     public static final Picture EMPTY = new Picture("/ngdb/unknown.png");
 

@@ -19,7 +19,7 @@ import com.ngdb.entities.shop.ShopItem;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Shop implements Serializable {
+public class Shop {
 
     @OneToMany(mappedBy = "seller")
     private Set<ShopItem> shopItems;

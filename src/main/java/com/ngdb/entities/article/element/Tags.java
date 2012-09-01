@@ -10,11 +10,11 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Tags implements Iterable<Tag>, Serializable {
+public class Tags implements Iterable<Tag> {
 
     @OrderBy("name")
     @OneToMany(mappedBy = "article")
-    private Set<Tag> tags = new LinkedHashSet<Tag>();
+    private Set<Tag> tags;
 
     public Set<Tag> all() {
         return Collections.unmodifiableSet(tags);

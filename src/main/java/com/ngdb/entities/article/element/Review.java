@@ -6,6 +6,7 @@ import static org.apache.commons.lang.StringUtils.remove;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Cache;
@@ -22,7 +23,7 @@ public class Review extends AbstractEntity implements Comparable<Review> {
     private String url;
     private String mark;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Article article;
 
     /* package */Review() {

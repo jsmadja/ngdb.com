@@ -20,7 +20,7 @@ import org.hibernate.annotations.OrderBy;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class WishList implements Iterable<Wish>, Serializable {
+public class WishList implements Iterable<Wish> {
 
     @OneToMany(mappedBy = "wisher", orphanRemoval = true)
     private List<Wish> wishes;

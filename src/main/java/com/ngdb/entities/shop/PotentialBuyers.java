@@ -19,7 +19,7 @@ import com.ngdb.entities.user.User;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class PotentialBuyers implements Serializable {
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "PotentialBuyers", inverseJoinColumns = { @JoinColumn(name = "user_id") }, joinColumns = { @JoinColumn(name = "shop_item_id") })
 	private Set<User> potentialBuyers;
 

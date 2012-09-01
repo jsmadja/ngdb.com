@@ -8,7 +8,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@XmlRootElement(name = "hardware")
 public class Hardware extends Article {
 
     @Override

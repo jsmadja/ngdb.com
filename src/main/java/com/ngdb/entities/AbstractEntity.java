@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
 @XmlAccessorType(FIELD)
-public abstract class AbstractEntity implements Serializable {
+public abstract class AbstractEntity {
 
     @XmlTransient
     @Column(name = "creation_date", nullable = false)

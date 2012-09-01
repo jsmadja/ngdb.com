@@ -12,10 +12,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Reviews implements Iterable<Review>, Serializable {
+public class Reviews implements Iterable<Review> {
 
     @OneToMany(mappedBy = "article")
-    private Set<Review> reviews = new LinkedHashSet<Review>();
+    private Set<Review> reviews;
 
     @Override
     public Iterator<Review> iterator() {

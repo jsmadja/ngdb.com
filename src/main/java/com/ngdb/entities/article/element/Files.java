@@ -15,11 +15,11 @@ import java.util.Set;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Files implements Iterable<File>, Serializable {
+public class Files implements Iterable<File> {
 
     @OrderBy("name")
     @OneToMany(mappedBy = "article")
-    private Set<File> files = new LinkedHashSet<File>();
+    private Set<File> files;
 
     public Set<File> all() {
         return Collections.unmodifiableSet(files);
