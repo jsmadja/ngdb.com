@@ -16,143 +16,153 @@
 			</t:if>
 		</div>
 		<div class="span9">
-			<t:form t:id="gameForm" class="form-horizontal" context="game">
+			<t:form t:id="gameForm" class="form-horizontal well" context="game">
 				<t:if test="game">
 					<t:hidden value="game" />
 				</t:if>
 				<t:errors />
-				<div class="control-group">
-                    <div class="control-group">
-                        <t:label for="title" class="control-label">
-                            <b>Title</b>
-                            <span class="star">*</span>
-                        </t:label>
-                        <div class="controls">
-                            <t:textfield value="title" t:id="title" />
+
+                <div class="row-fluid">
+                    <div class="span6 well">
+                        <div class="control-group">
+                            <t:label for="title" class="control-label">
+                                <b>Title</b>
+                                <span class="star">*</span>
+                            </t:label>
+                            <div class="controls">
+                                <t:textfield value="title" t:id="title" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <t:label for="platform" class="control-label">
+                                <b>Platform</b>
+                                <span class="star">*</span>
+                            </t:label>
+                            <div class="controls">
+                                <t:select value="platform" model="platforms" t:id="platform" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <t:label for="origin" class="control-label">
+                                <b>Origin</b>
+                                <span class="star">*</span>
+                            </t:label>
+                            <div class="controls">
+                                <t:select value="origin" model="origins" t:id="origin" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <t:label for="publisher" class="control-label">
+                                <b>Publisher</b>
+                                <span class="star">*</span>
+                            </t:label>
+                            <div class="controls">
+                                <t:select value="publisher" model="publishers" t:id="publisher" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <t:label for="releaseDate" class="control-label">
+                                <b>Release Date</b>
+                                <span class="star">*</span>
+                            </t:label>
+                            <div class="controls">
+                                <t:datefield value="releaseDate" t:id="releaseDate" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <t:label for="megaCount" class="control-label">
+                                <b>Mega Count</b>
+                                <span class="star">*</span>
+                            </t:label>
+                            <div class="controls">
+                                <t:textfield value="megaCount" t:id="megaCount" />
+                            </div>
                         </div>
                     </div>
-                    <div class="control-group">
-                        <t:label for="releaseDate" class="control-label">
-                            <b>Release Date</b>
-                            <span class="star">*</span>
-                        </t:label>
-                        <div class="controls">
-                            <t:datefield value="releaseDate" t:id="releaseDate" />
+
+                    <div class="span6 well">
+                        <div class="control-group">
+                            <t:label for="ngh" class="control-label">
+                                <b>NGH</b>
+                            </t:label>
+                            <div class="controls">
+                                <t:textfield value="ngh" t:id="ngh" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="control-group">
-                        <t:label for="platform" class="control-label">
-                            <b>Platform</b>
-                            <span class="star">*</span>
-                        </t:label>
-                        <div class="controls">
-                            <t:select value="platform" model="platforms" t:id="platform" />
+                        <div class="control-group">
+                            <t:label for="ean" class="control-label">
+                                <b>EAN/UPC</b>
+                            </t:label>
+                            <div class="controls">
+                                <t:textfield value="ean" t:id="ean" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="control-group">
-                        <t:label for="origin" class="control-label">
-                            <b>Origin</b>
-                            <span class="star">*</span>
-                        </t:label>
-                        <div class="controls">
-                            <t:select value="origin" model="origins" t:id="origin" />
+                        <div class="control-group">
+                            <t:label for="reference" class="control-label">
+                                <b>Reference</b>
+                            </t:label>
+                            <div class="controls">
+                                <t:textfield value="reference" t:id="reference" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="control-group">
-                        <t:label for="publisher" class="control-label">
-                            <b>Publisher</b>
-                            <span class="star">*</span>
-                        </t:label>
-                        <div class="controls">
-                            <t:select value="publisher" model="publishers" t:id="publisher" />
+                        <div class="control-group">
+                            <t:label for="imdbId" class="control-label">
+                                <b>IMDB id</b>
+                            </t:label>
+                            <div class="controls">
+                                <t:textfield value="imdbId" t:id="imdbId" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="control-group">
-                        <t:label for="megaCount" class="control-label">
-                            <b>Mega Count</b>
-                            <span class="star">*</span>
-                        </t:label>
-                        <div class="controls">
-                            <t:textfield value="megaCount" t:id="megaCount" />
+                        <div class="control-group">
+                            <t:label for="mainPicture" class="control-label">
+                                <b>Cover</b>
+                            </t:label>
+                            <div class="controls">
+                                <input t:type="upload" t:id="mainPicture" t:value="mainPicture">upload
+                                    file</input>
+                            </div>
                         </div>
-                    </div>
-                    <div class="control-group">
-                        <t:label for="ngh" class="control-label">
-                            <b>NGH</b>
-                        </t:label>
-                        <div class="controls">
-                            <t:textfield value="ngh" t:id="ngh" />
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <t:label for="reference" class="control-label">
-                            <b>Reference</b>
-                        </t:label>
-                        <div class="controls">
-                            <t:textfield value="reference" t:id="reference" />
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <t:label for="ean" class="control-label">
-                            <b>EAN/UPC</b>
-                        </t:label>
-                        <div class="controls">
-                            <t:textfield value="ean" t:id="ean" />
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <t:label for="imdbId" class="control-label">
-                            <b>IMDB id</b>
-                        </t:label>
-                        <div class="controls">
-                            <t:textfield value="imdbId" t:id="imdbId" />
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <t:label for="mainPicture" class="control-label">
-                            <b>Cover</b>
-                        </t:label>
-                        <div class="controls">
-                            <input t:type="upload" t:id="mainPicture" t:value="mainPicture">upload
-                                file</input>
-                        </div>
-                    </div>
-                    <div class="control-group">
+                        <div class="control-group">
                         <span class="control-label">
                             <b>Pictures</b>
                         </span>
-                        <div class="controls">
-                            <t:jquery.ajaxUpload t:id="uploadImage"
-                                t:multiple="true" t:allowedExtensions="[jpg, png, gif, jpeg, bmp]"
-                                t:sizeLimit="3M" />
-                            <t:if test="storedPictures">
-                                <div class="alert alert-info">Click on a picture to delete it.</div>
-                                <t:loop source="storedPictures" value="picture">
+                            <div class="controls">
+                                <t:jquery.ajaxUpload t:id="uploadImage"
+                                                     t:multiple="true" t:allowedExtensions="[jpg, png, gif, jpeg, bmp]"
+                                                     t:sizeLimit="3M" />
+                                <t:if test="storedPictures">
+                                    <div class="alert alert-info">Click on a picture to delete it.</div>
+                                    <t:loop source="storedPictures" value="picture">
                                     <span>
                                         <t:actionLink context="picture" t:id="deletePicture">
                                             <img src="${message:image.host.url}${smallPictureUrl}"
-                                                height="75" width="75" style="margin-left:2px;border-radius:5px" />
+                                                 height="75" width="75" style="margin-left:2px;border-radius:5px" />
                                         </t:actionLink>
                                     </span>
-                                </t:loop>
-                            </t:if>
+                                    </t:loop>
+                                </t:if>
+                            </div>
                         </div>
                     </div>
-                    <div class="control-group">
-                        <t:label for="details" class="control-label">
-                            <b>Details</b>
-                        </t:label>
-                        <div class="controls">
-                            <t:textarea rows="10" value="details" t:id="details" style="width:90%" />
-                        </div>
+                </div>
+
+                <div class="control-group">
+                    <t:label for="details" class="control-label">
+                        <b>Details</b>
+                    </t:label>
+                    <div class="controls">
+                        <t:textarea rows="10" value="details" t:id="details" style="width:90%" />
                     </div>
+                </div>
+
+                <div class="control-group">
                     <div class="form-actions">
                         <button class="btn btn-primary" type="submit">
                             <t:if test="editMode">
                                 Update
                                 <p:else>
                                     Add new game in database
-                        </p:else>
+                                </p:else>
                             </t:if>
                         </button>
                         <input type="reset" class="btn" value="Cancel" />
