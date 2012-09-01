@@ -76,33 +76,31 @@ public class Predicates {
     };
 
     public static class PlatformPredicate implements Predicate<Article> {
-        private Long id;
+        private String platformShortName;
 
         public PlatformPredicate(Platform platform) {
-            this.id = platform.getId();
+            this.platformShortName = platform.getShortName();
         }
 
         @Override
         public boolean apply(Article article) {
-            Platform platform = article.getPlatform();
-            Long platformId = platform.getId();
-            return id.equals(platformId);
+            String platform = article.getPlatformShortName();
+            return platformShortName.equals(platform);
         }
 
     }
 
     public static class OriginPredicate implements Predicate<Article> {
-        private Long id;
+        private String originTitle;
 
         public OriginPredicate(Origin origin) {
-            this.id = origin.getId();
+            this.originTitle = origin.getTitle();
         }
 
         @Override
         public boolean apply(Article article) {
-            Origin origin = article.getOrigin();
-            Long originId = origin.getId();
-            return id.equals(originId);
+            String origin = article.getOriginTitle();
+            return originTitle.equals(origin);
         }
 
     }

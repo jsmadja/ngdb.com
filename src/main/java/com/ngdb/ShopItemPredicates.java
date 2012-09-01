@@ -2,8 +2,6 @@ package com.ngdb;
 
 import com.google.common.base.Predicate;
 import com.ngdb.entities.article.Article;
-import com.ngdb.entities.article.Game;
-import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.shop.ShopItem;
@@ -11,19 +9,16 @@ import com.ngdb.entities.shop.ShopItem;
 public class ShopItemPredicates {
 
 	public static class PlatformPredicate implements Predicate<ShopItem> {
-		private Long id;
+		private Predicates.PlatformPredicate predicate;
 
 		public PlatformPredicate(Platform platform) {
-			this.id = platform.getId();
+			this.predicate =  new Predicates.PlatformPredicate(platform);
 		}
 
 		@Override
 		public boolean apply(ShopItem shopItem) {
-			Platform platform = shopItem.getArticle().getPlatform();
-			Long platformId = platform.getId();
-			return id.equals(platformId);
+            return predicate.apply(shopItem.getArticle());
 		}
-
 	}
 
     public static class ArticlePredicate implements Predicate<ShopItem> {
@@ -39,50 +34,46 @@ public class ShopItemPredicates {
             Long articleId = article.getId();
             return id.equals(articleId);
         }
-
     }
 
 	public static class OriginPredicate implements Predicate<ShopItem> {
-		private Long id;
+		private Predicates.OriginPredicate predicate;
 
 		public OriginPredicate(Origin origin) {
-			this.id = origin.getId();
+			this.predicate = new Predicates.OriginPredicate(origin);
 		}
 
 		@Override
 		public boolean apply(ShopItem shopItem) {
-			Origin origin = shopItem.getArticle().getOrigin();
-			Long originId = origin.getId();
-			return id.equals(originId);
+			return predicate.apply(shopItem.getArticle());
 		}
-
 	}
 
 	public static final Predicate<ShopItem> hardwaresForSale = new Predicate<ShopItem>() {
 		@Override
 		public boolean apply(ShopItem input) {
-			return !input.isSold() && input.getArticle().getType().equals(Hardware.class);
+			return !input.isSold() && !input.getArticle().isGame();
 		}
 	};
 
 	public static final Predicate<ShopItem> gamesForSale = new Predicate<ShopItem>() {
 		@Override
 		public boolean apply(ShopItem input) {
-			return !input.isSold() && input.getArticle().getType().equals(Game.class);
+			return !input.isSold() && input.getArticle().isGame();
 		}
 	};
 
 	public static Predicate<ShopItem> isGameShopItem = new Predicate<ShopItem>() {
 		@Override
 		public boolean apply(ShopItem input) {
-			return input.getArticle().getType().equals(Game.class);
+			return input.getArticle().isGame();
 		}
 	};
 
 	public static Predicate<ShopItem> isHardwareShopItem = new Predicate<ShopItem>() {
 		@Override
 		public boolean apply(ShopItem input) {
-			return input.getArticle().getType().equals(Hardware.class);
+			return !input.getArticle().isGame();
 		}
 	};
 

@@ -75,10 +75,10 @@ public class Museum {
         Filter filter = Filter.valueOf(Filter.class, filterName);
         switch (filter) {
         case byOrigin:
-            museumFilter.filterByOrigin(referenceService.findOriginById(Long.valueOf(value)));
+            museumFilter.filterByOrigin(referenceService.findOriginByTitle(value));
             break;
         case byPlatform:
-            museumFilter.filterByPlatform(referenceService.findPlatformById(Long.valueOf(value)));
+            museumFilter.filterByPlatform(referenceService.findPlatformByName(value));
             break;
         case byPublisher:
             museumFilter.filterByPublisher(referenceService.findPublisherBy(Long.valueOf(value)));

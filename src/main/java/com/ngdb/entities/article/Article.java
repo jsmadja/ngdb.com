@@ -1,38 +1,7 @@
 package com.ngdb.entities.article;
 
-import static javax.xml.bind.annotation.XmlAccessType.FIELD;
-
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
-import com.ngdb.entities.article.element.*;
-import org.apache.commons.lang.StringUtils;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.ocpsoft.pretty.time.PrettyTime;
-
 import com.google.common.base.Objects;
+import com.ngdb.entities.article.element.*;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
@@ -42,6 +11,19 @@ import com.ngdb.entities.shop.ShopItems;
 import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.User;
+import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.ocpsoft.pretty.time.PrettyTime;
+
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.util.*;
+
+import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -71,11 +53,11 @@ public abstract class Article implements Comparable<Article>, Serializable {
     @Temporal(TemporalType.DATE)
     private Date releaseDate;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    private Origin origin;
+    @Column(name = "origin_title")
+    private String originTitle;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    private Platform platform;
+    @Column(name = "platform_short_name")
+    private String platformShortName;
 
     @OneToOne(fetch = FetchType.LAZY)
     private Publisher publisher;
@@ -147,11 +129,7 @@ public abstract class Article implements Comparable<Article>, Serializable {
     }
 
     public void setOrigin(Origin origin) {
-        this.origin = origin;
-    }
-
-    public Origin getOrigin() {
-        return origin;
+        this.originTitle = origin.getTitle();
     }
 
     public void addPicture(Picture picture) {
@@ -292,11 +270,7 @@ public abstract class Article implements Comparable<Article>, Serializable {
     }
 
     public void setPlatform(Platform platform) {
-        this.platform = platform;
-    }
-
-    public Platform getPlatform() {
-        return platform;
+        this.platformShortName = platform.getShortName();
     }
 
     public String getLastUpdateDate() {
@@ -376,5 +350,13 @@ public abstract class Article implements Comparable<Article>, Serializable {
 
     public boolean hasTags() {
         return tags.count() > 0;
+    }
+
+    public String getOriginTitle() {
+        return originTitle;
+    }
+
+    public String getPlatformShortName() {
+        return platformShortName;
     }
 }

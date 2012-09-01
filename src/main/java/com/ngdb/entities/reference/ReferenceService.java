@@ -1,15 +1,14 @@
 package com.ngdb.entities.reference;
 
-import static java.util.Arrays.asList;
-import static org.hibernate.criterion.Order.asc;
-import static org.hibernate.criterion.Restrictions.eq;
-
-import java.util.List;
-
+import com.ngdb.entities.article.element.Tag;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
-import com.ngdb.entities.article.element.Tag;
+import java.util.List;
+
+import static java.util.Arrays.asList;
+import static org.hibernate.criterion.Order.asc;
+import static org.hibernate.criterion.Restrictions.eq;
 
 @SuppressWarnings("unchecked")
 public class ReferenceService {
@@ -52,7 +51,7 @@ public class ReferenceService {
 	public Platform findPlatformByName(String platformName) {
         List<Platform> platforms = session.createCriteria(Platform.class).setCacheable(true).list();
         for (Platform platform : platforms) {
-            String shortName = com.ngdb.web.components.common.Platform.shortNames.get(platform.getName());
+            String shortName = platform.getShortName();
             if(shortName.equalsIgnoreCase(platformName)) {
                 return platform;
             }
@@ -68,10 +67,6 @@ public class ReferenceService {
             }
         }
         return null;
-	}
-
-	public Publisher findPublisherByName(String publisher) {
-		return (Publisher) session.createCriteria(Publisher.class).add(eq("name", publisher)).setCacheable(true).uniqueResult();
 	}
 
 	public State findStateByTitle(String title) {

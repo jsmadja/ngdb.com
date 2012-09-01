@@ -30,12 +30,12 @@
 							<t:if test="game.releaseDate">
 								(<t:pagelink page="museum" context="[byReleaseDate,game.releaseDate]">${game.releaseDate}</t:pagelink>)
 							</t:if>
-							 <t:pagelink page="museum" context="[byOrigin,game.origin]"><img style="margin-bottom:5px" src="/img/flags/${game.origin}.png" alt="${game.origin}" /></t:pagelink>
+							 <t:pagelink page="museum" context="[byOrigin,game.originTitle]"><img style="margin-bottom:5px" src="/img/flags/${game.originTitle}.png" alt="${game.originTitle}" /></t:pagelink>
 						</span>
 						<t:article.actionBlock article="game" />
 					</h1>
 					<div class="subtitle">
-						#${game.id}<t:pageLink page="museum" context="[byPlatform,game.platform]"><t:common.platform platform="game.platform"/></t:pageLink><t:pagelink page="museum" context="[byNgh,game.ngh]">${ngh}</t:pagelink> <t:if test="game.reference">${game.reference}</t:if> <t:pagelink page="museum" context="[byPublisher,game.publisher]"> ${game.publisher?.name} </t:pagelink>
+						#${game.id}<t:pageLink page="museum" context="[byPlatform,game.platformShortName]"><span class="platformLabel">${game.platformShortName}</span></t:pageLink><t:pagelink page="museum" context="[byNgh,game.ngh]">${ngh}</t:pagelink> <t:if test="game.reference">${game.reference}</t:if> <t:pagelink page="museum" context="[byPublisher,game.publisher]"> ${game.publisher?.name} </t:pagelink>
 						<t:if test="game.imdbId">
 							<a href="http://www.imdb.com/title/${game.imdbId}" target="blank"><img src="/img/imdb.gif" width="35px"/></a>
 						</t:if>

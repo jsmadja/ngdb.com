@@ -34,7 +34,7 @@ public class GameFactory {
     }
 
     public Collection<Game> findAllByPlatform(Platform platform) {
-        return allGames().add(eq("platform", platform)).list();
+        return allGames().add(eq("platformShortName", platform.getShortName())).list();
     }
 
     public Long getNumGames() {

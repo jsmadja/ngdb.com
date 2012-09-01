@@ -147,10 +147,10 @@ public class GameUpdate {
             this.reference = null;
         } else {
             this.publisher = game.getPublisher();
-            this.platform = game.getPlatform();
+            this.platform = referenceService.findPlatformByName(game.getPlatformShortName());
             this.megaCount = game.getMegaCount();
             this.details = game.getDetails();
-            this.origin = game.getOrigin();
+            this.origin = referenceService.findOriginByTitle(game.getOriginTitle());
             this.releaseDate = game.getReleaseDate();
             this.details = game.getDetails();
             this.title = game.getTitle();

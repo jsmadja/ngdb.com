@@ -10,7 +10,7 @@
 					<h1 class="header">
 						<t:pageLink page="${viewPage}" context="shopItem.article">${shopItem.title}</t:pageLink>
 						<span style="margin-left:10px;font-size:15px">
-							<img src="/img/flags/${shopItem.article.origin}.png" alt="${shopItem.article.origin}" /> <t:common.platform platform="shopitem.article.platform"/>
+							<img src="/img/flags/${shopItem.article.originTitle}.png" alt="${shopItem.article.originTitle}" /> <span class="platformLabel">${shopitem.article.platformShortName}</span>
 						</span>
 						<t:shopitem.shopActionBlock shopItem="shopItem" />
 					</h1>

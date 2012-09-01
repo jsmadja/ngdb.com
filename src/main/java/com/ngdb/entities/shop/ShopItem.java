@@ -167,7 +167,7 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
     }
 
     public boolean hasNoPicture() {
-        return pictures.first().equals(Picture.EMPTY);
+        return pictures.getCount() == 0;
     }
 
     public void updateModificationDate() {

@@ -127,10 +127,10 @@
                             <t:pageLink page="${viewPage}" context="article.id">${article.title}</t:pageLink>
                         </p:titleCell>
                         <p:originCell>
-                            <img src="/img/flags/${article.origin}.png" alt="${article.origin}" />
+                            <img src="/img/flags/${article.originTitle}.png" alt="${article.originTitle}" />
                         </p:originCell>
                         <p:platformCell>
-                            <t:common.platform platform="article.platform"/>
+                            <span class="platformLabel">${article.platformShortName}</span>
                         </p:platformCell>
                         <p:actionCell>
                             <t:article.actionBlock article="article" asButton="true" />

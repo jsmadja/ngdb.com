@@ -17,6 +17,9 @@ public class Platform extends AbstractEntity implements Comparable<Platform>, Se
     @Column(nullable = false, unique = true)
     private String name;
 
+    @Column(name="short_name")
+    private String shortName;
+
     public Platform() {
     }
 
@@ -41,4 +44,11 @@ public class Platform extends AbstractEntity implements Comparable<Platform>, Se
         return name;
     }
 
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
 }

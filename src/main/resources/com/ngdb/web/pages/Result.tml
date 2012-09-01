@@ -22,8 +22,8 @@
 	          			<t:pageLink page="${result.viewPage}" context="result.id">${result.title}</t:pageLink>
 	          		</p>
 	          		<p>
-	          			<img src="/img/flags/${result.origin}.png" alt="${result.origin}" /> 
-	          			<span style="margin-left:5px"><t:common.platform platform="result.platform"/></span>
+	          			<img src="/img/flags/${result.originTitle}.png" alt="${result.originTitle}" />
+	          			<span style="margin-left:5px"><span class="platformLabel">${result.platformShortName}</span></span>
           			</p>
           			<p>
                           <t:OutputRaw value="${stars}" />

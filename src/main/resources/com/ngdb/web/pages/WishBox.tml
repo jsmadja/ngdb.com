@@ -93,7 +93,7 @@
                     <t:pageLink page="${wish.article.viewPage}" context="wish.article">${wish.article.title}</t:pageLink>
                 </p>
                 <p>
-                    <img src="/img/flags/${wish.article.origin}.png" alt="${wish.article.origin}" /> <t:common.platform platform="wish.article.platform"/>
+                    <img src="/img/flags/${wish.article.originTitle}.png" alt="${wish.article.originTitle}" /> <span class="platformLabel">${wish.article.platformShortName}</span>
                 </p>
             </p:titleCell>
             <p:userCell>

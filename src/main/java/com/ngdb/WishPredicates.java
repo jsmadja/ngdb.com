@@ -8,35 +8,30 @@ import com.ngdb.entities.shop.Wish;
 public class WishPredicates {
 
 	public static class PlatformPredicate implements Predicate<Wish> {
-		private Long id;
+		private Predicates.PlatformPredicate predicate;
 
 		public PlatformPredicate(Platform platform) {
-			this.id = platform.getId();
+			this.predicate = new Predicates.PlatformPredicate(platform);
 		}
 
 		@Override
 		public boolean apply(Wish wish) {
-			Platform platform = wish.getArticle().getPlatform();
-			Long platformId = platform.getId();
-			return id.equals(platformId);
+            return predicate.apply(wish.getArticle());
 		}
 
 	}
 
     public static class OriginPredicate implements Predicate<Wish> {
-		private Long id;
+		private Predicates.OriginPredicate predicate;
 
 		public OriginPredicate(Origin origin) {
-			this.id = origin.getId();
+			this.predicate = new Predicates.OriginPredicate(origin);
 		}
 
 		@Override
 		public boolean apply(Wish wish) {
-			Origin origin = wish.getArticle().getOrigin();
-			Long originId = origin.getId();
-			return id.equals(originId);
+			return predicate.apply(wish.getArticle());
 		}
-
 	}
 
 }

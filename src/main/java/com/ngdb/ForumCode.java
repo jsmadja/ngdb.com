@@ -20,7 +20,7 @@ public class ForumCode {
             String state = shopItem.getState().getTitle();
             Long id = shopItem.getId();
             String url = "http://neogeodb.com/shop/itemview/" + id;
-            String origin = article.getOrigin().getTitle();
+            String origin = article.getOriginTitle();
             String originImageUrl = "http://neogeodb.com/img/flags/" + origin + ".png";
             String imageUrl = "http://www.neogeodb.com" + shopItem.getMainPicture().getUrl("small");
 

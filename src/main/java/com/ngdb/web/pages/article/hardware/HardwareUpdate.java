@@ -105,11 +105,11 @@ public class HardwareUpdate {
             this.ean = null;
         } else {
             this.details = hardware.getDetails();
-            this.origin = hardware.getOrigin();
+            this.origin = referenceService.findOriginByTitle(hardware.getOriginTitle());
             this.releaseDate = hardware.getReleaseDate();
             this.details = hardware.getDetails();
             this.title = hardware.getTitle();
-            this.platform = hardware.getPlatform();
+            this.platform = referenceService.findPlatformByName(hardware.getPlatformShortName());
             this.ean = hardware.getUpc();
             this.storedPictures = hardware.getPictures().all();
         }
