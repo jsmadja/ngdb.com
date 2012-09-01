@@ -3,11 +3,12 @@ package com.ngdb.web.pages.article.game;
 import com.ngdb.entities.ActionLogger;
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.article.Game;
-import com.ngdb.entities.article.element.File;
 import com.ngdb.entities.article.element.Picture;
-import com.ngdb.entities.reference.*;
+import com.ngdb.entities.reference.Origin;
+import com.ngdb.entities.reference.Platform;
+import com.ngdb.entities.reference.Publisher;
+import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.user.User;
-import com.ngdb.web.model.BoxList;
 import com.ngdb.web.model.OriginList;
 import com.ngdb.web.model.PlatformList;
 import com.ngdb.web.model.PublisherList;
@@ -15,11 +16,9 @@ import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.FileService;
 import com.ngdb.web.services.infrastructure.PictureService;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.beaneditor.Validate;
-import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
@@ -88,10 +87,6 @@ public class GameUpdate {
     private Long megaCount;
 
     @Property
-    @Validate("required")
-    private Box box;
-
-    @Property
     @Validate("required,maxLength=255")
     private String title;
 
@@ -141,7 +136,6 @@ public class GameUpdate {
             this.publisher = null;
             this.platform = null;
             this.megaCount = null;
-            this.box = null;
             this.details = null;
             this.origin = null;
             this.releaseDate = new DateTime().withYear(1990).toDate();
@@ -155,7 +149,6 @@ public class GameUpdate {
             this.publisher = game.getPublisher();
             this.platform = game.getPlatform();
             this.megaCount = game.getMegaCount();
-            this.box = game.getBox();
             this.details = game.getDetails();
             this.origin = game.getOrigin();
             this.releaseDate = game.getReleaseDate();
@@ -189,7 +182,6 @@ public class GameUpdate {
         game.setPublisher(publisher);
         game.setPlatform(platform);
         game.setMegaCount(megaCount);
-        game.setBox(box);
         game.setNgh(ngh);
         game.setUpc(ean);
         game.setImdbId(imdbId);
@@ -241,10 +233,6 @@ public class GameUpdate {
 
     public SelectModel getPublishers() {
         return new PublisherList(referenceService.getPublishers());
-    }
-
-    public SelectModel getBoxes() {
-        return new BoxList(referenceService.getBoxes());
     }
 
     public SelectModel getOrigins() {

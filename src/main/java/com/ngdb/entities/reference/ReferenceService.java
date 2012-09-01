@@ -25,10 +25,6 @@ public class ReferenceService {
 		return session.createCriteria(Publisher.class).setCacheable(true).addOrder(asc("name")).list();
 	}
 
-	public List<Box> getBoxes() {
-		return session.createCriteria(Box.class).setCacheable(true).list();
-	}
-
 	public List<Origin> getOrigins() {
 		return session.createCriteria(Origin.class).setCacheable(true).addOrder(asc("title")).list();
 	}

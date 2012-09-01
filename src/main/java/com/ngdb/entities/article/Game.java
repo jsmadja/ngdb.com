@@ -1,17 +1,13 @@
 package com.ngdb.entities.article;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.ngdb.entities.reference.Box;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement(name = "game")
@@ -27,9 +23,6 @@ public class Game extends Article {
 
     @Column(name = "mega_count")
     private Long megaCount;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    private Box box;
 
     public Game() {
     }
@@ -48,14 +41,6 @@ public class Game extends Article {
 
     public void setMegaCount(Long megaCount) {
         this.megaCount = megaCount;
-    }
-
-    public void setBox(Box box) {
-        this.box = box;
-    }
-
-    public Box getBox() {
-        return box;
     }
 
     public String getImdbId() {
