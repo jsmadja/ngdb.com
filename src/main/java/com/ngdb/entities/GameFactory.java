@@ -42,10 +42,7 @@ public class GameFactory {
     }
 
     public List<Game> findAll() {
-        long t = System.currentTimeMillis();
-        List list = allGames().list();
-        System.err.println("----> "+(System.currentTimeMillis() - t)+" ms");
-        return list;
+        return allGames().list();
     }
 
     public List<Game> findAllWithMainPicture() {
