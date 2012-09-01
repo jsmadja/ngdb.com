@@ -66,7 +66,15 @@
 								<t:select value="origin" model="origins" t:id="origin" />
 							</div>
 						</div>
-						<div class="control-group">
+                        <div class="control-group">
+                            <t:label for="reference" class="control-label">
+                                <b>Reference</b>
+                            </t:label>
+                            <div class="controls">
+                                <t:textfield value="reference" t:id="reference" />
+                            </div>
+                        </div>
+                        <div class="control-group">
 	                        <t:label for="ean" class="control-label">
 	                            <b>EAN/UPC</b>
 	                        </t:label>

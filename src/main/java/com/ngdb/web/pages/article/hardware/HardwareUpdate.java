@@ -51,6 +51,9 @@ public class HardwareUpdate {
     private String ean;
 
     @Property
+    private String reference;
+
+    @Property
     private Origin origin;
 
     @Property
@@ -103,6 +106,7 @@ public class HardwareUpdate {
             this.title = null;
             this.platform = null;
             this.ean = null;
+            this.reference = reference;
         } else {
             this.details = hardware.getDetails();
             this.origin = referenceService.findOriginByTitle(hardware.getOriginTitle());
@@ -111,6 +115,7 @@ public class HardwareUpdate {
             this.title = hardware.getTitle();
             this.platform = referenceService.findPlatformByName(hardware.getPlatformShortName());
             this.ean = hardware.getUpc();
+            this.reference = hardware.getReference();
             this.storedPictures = hardware.getPictures().all();
         }
     }
@@ -136,6 +141,7 @@ public class HardwareUpdate {
         hardware.setTitle(title);
         hardware.setPlatform(platform);
         hardware.setUpc(ean);
+        hardware.setReference(reference);
         hardware = (Hardware) session.merge(hardware);
         if (this.mainPicture != null) {
             Picture picture = pictureService.store(mainPicture, hardware);

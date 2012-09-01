@@ -102,6 +102,8 @@ public abstract class Article implements Comparable<Article>{
 
     private String upc;
 
+    private String reference;
+
     public Article() {
         creationDate = modificationDate = new Date();
     }
@@ -360,4 +362,13 @@ public abstract class Article implements Comparable<Article>{
     public String getPlatformShortName() {
         return platformShortName;
     }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
 }

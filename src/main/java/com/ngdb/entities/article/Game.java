@@ -16,8 +16,6 @@ public class Game extends Article implements Serializable {
 
     private String ngh;
 
-    private String reference;
-
     private String imdbId;
 
     @Column(name = "mega_count")
@@ -58,14 +56,6 @@ public class Game extends Article implements Serializable {
     @Override
     public boolean isGame() {
         return true;
-    }
-
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
-        this.reference = reference;
     }
 
     @Override
