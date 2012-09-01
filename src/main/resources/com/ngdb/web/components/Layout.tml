@@ -14,8 +14,8 @@
     <meta name="description" content="neogeodb.com - The NeoGeo Database - Collections, Wishlists, Marketplace of many formats (AES/MVS/CD/NGP/NGPC/H64)" />
     <meta name="keywords" content="NeoGeo, NeoGeo games, NeoGeo videogames, NeoGeo MVS, NeoGeo AES, arcade, retro video games, retro videogames, SNK, Playmore, SNK Playmore, pocket color, price guides, neogeo, mvs, aes, neogeocd, arcade, fighting, shoot, sell, buy, database, list, listing, japanese games, shop, market, retro, retrogaming, snk, snkp, snkplaymore" />
 
-    <link href="/css/bootstrap.css" rel="stylesheet" />
     <link href="/css/colorbox.css" rel="stylesheet" />
+    <link href="/css/bootstrap.css" rel="stylesheet" />
     <style type="text/css">
       body {
         padding-top: 40px;

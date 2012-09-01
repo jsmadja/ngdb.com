@@ -5272,3 +5272,7 @@ TABLE.t-data-grid THEAD TR TH {
 .progress{
     margin-bottom:0px;
 }
+
+#cboxOverlay {
+    background:none;
+}
