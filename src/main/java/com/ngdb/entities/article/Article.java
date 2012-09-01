@@ -284,6 +284,9 @@ public abstract class Article implements Comparable<Article>{
     }
 
     public void addReview(Review review) {
+        if(reviews == null) {
+            reviews = new Reviews();
+        }
         reviews.add(review);
     }
 

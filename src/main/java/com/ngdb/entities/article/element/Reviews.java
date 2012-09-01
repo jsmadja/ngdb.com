@@ -27,6 +27,9 @@ public class Reviews implements Iterable<Review> {
     }
 
     public void add(Review review) {
+        if(reviews == null) {
+            reviews = new TreeSet<Review>();
+        }
         this.reviews.add(review);
     }
 
