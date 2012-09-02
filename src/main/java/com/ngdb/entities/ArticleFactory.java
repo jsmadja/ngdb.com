@@ -1,11 +1,10 @@
 package com.ngdb.entities;
 
-import java.util.List;
-
+import com.ngdb.entities.article.Article;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
-import com.ngdb.entities.article.Article;
+import static org.hibernate.criterion.Projections.rowCount;
 
 public class ArticleFactory {
 
@@ -16,7 +15,7 @@ public class ArticleFactory {
 		return (Article) session.load(Article.class, id);
 	}
 
-    public List<Article> findAll() {
-        return session.createCriteria(Article.class).list();
+    public Long getNumArticles() {
+        return (Long) session.createCriteria(Article.class).setProjection(rowCount()).setCacheable(true).setCacheRegion("cacheCount").uniqueResult();
     }
 }

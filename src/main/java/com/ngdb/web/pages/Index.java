@@ -1,8 +1,6 @@
 package com.ngdb.web.pages;
 
-import com.ngdb.entities.GameFactory;
-import com.ngdb.entities.HardwareFactory;
-import com.ngdb.entities.Population;
+import com.ngdb.entities.*;
 import com.ngdb.entities.WishBox;
 import com.ngdb.entities.article.Game;
 import net.sf.ehcache.Cache;
@@ -32,6 +30,9 @@ public class Index {
 	@Inject
 	private com.ngdb.entities.Market market;
 
+    @Inject
+    private ArticleFactory articleFactory;
+
 	private static Cache cache;
 
 	static {
@@ -41,11 +42,7 @@ public class Index {
 
 	@SetupRender
 	public void init() {
-		this.articleCount = gameFactory.getNumGames() + hardwareFactory.getNumHardwares();
-	}
-
-	public Long getNumWhishes() {
-		return wishBox.getNumWishes();
+		this.articleCount = articleFactory.getNumArticles();
 	}
 
 	public Long getMemberCount() {
