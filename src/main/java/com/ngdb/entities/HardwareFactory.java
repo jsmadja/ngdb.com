@@ -3,6 +3,7 @@ package com.ngdb.entities;
 import static org.hibernate.criterion.Order.asc;
 import static org.hibernate.criterion.Projections.rowCount;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,16 +32,11 @@ public class HardwareFactory {
     }
 
     private Criteria allHardwares() {
-        return session.createCriteria(Hardware.class).setCacheable(true).addOrder(asc("title"));
+        return session.createCriteria(Hardware.class).setCacheable(true);
     }
 
-    public List<Article> findAllOwnedBy(final User owner) {
-        return new ArrayList<Article>(Collections2.filter(findAll(), new Predicate<Article>() {
-            @Override
-            public boolean apply(Article input) {
-                return owner.owns(input);
-            }
-        }));
+    public List<Hardware> findAllOwnedBy(final User user) {
+        return session.createSQLQuery("SELECT h.* FROM CollectionObject co, Hardware h WHERE user_id = "+user.getId()+" AND co.article_id = h.id").addEntity(Hardware.class).setCacheable(true).list();
     }
 
 }

@@ -272,11 +272,4 @@ public class MuseumFilter {
         return hardwareFactory.getNumHardwares();
     }
 
-    public long getNumGames() {
-        if (filteredUser != null) {
-            return filteredUser.getGamesInCollection().size();
-        }
-        return gameFactory.getNumGames();
-    }
-
 }

@@ -15,7 +15,9 @@ import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
+import org.hibernate.Session;
 
+import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -54,6 +56,9 @@ public class Museum {
     @Inject
     private Request request;
 
+    @Persist
+    private User user;
+
     void onActivate() {
         if (museumFilter == null || "true".equals(request.getParameter("display-all"))) {
             museumFilter = new MuseumFilter(gameFactory, hardwareFactory);
@@ -63,6 +68,7 @@ public class Museum {
     boolean onActivate(User user) {
         museumFilter = new MuseumFilter(gameFactory, hardwareFactory);
         museumFilter.filterByUser(user);
+        this.user = user;
         return true;
     }
 
@@ -118,7 +124,10 @@ public class Museum {
     }
 
     public long getNumHardwares() {
-        return museumFilter.getNumHardwares();
+        if (user != null) {
+            return ((BigInteger)session.createSQLQuery("SELECT COUNT(article_id) FROM CollectionObject WHERE user_id = "+user.getId()+" AND article_id IN (SELECT id FROM Hardware);").uniqueResult()).longValue();
+        }
+        return hardwareFactory.getNumHardwares();
     }
 
     Object onActionFromSelectHardwares() {
@@ -131,8 +140,14 @@ public class Museum {
         return this;
     }
 
+    @Inject
+    private Session session;
+
     public long getNumGames() {
-        return museumFilter.getNumGames();
+        if (user != null) {
+            return ((BigInteger)session.createSQLQuery("SELECT COUNT(article_id) FROM CollectionObject WHERE user_id = "+user.getId()+" AND article_id IN (SELECT id FROM Game);").uniqueResult()).longValue();
+        }
+        return gameFactory.getNumGames();
     }
 
     public List<Platform> getPlatforms() {
