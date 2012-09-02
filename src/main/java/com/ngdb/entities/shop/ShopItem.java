@@ -195,6 +195,9 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
 
     @Override
     public int compareTo(ShopItem shopItem) {
+        if(shopItem == null || shopItem.article == null) {
+            return 0;
+        }
         return article.getTitle().compareToIgnoreCase(shopItem.article.getTitle());
     }
 
