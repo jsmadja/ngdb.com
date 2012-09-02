@@ -94,11 +94,11 @@
                     <p:titleCell>
                         <img src="/img/flags/${shopItem.article.originTitle}.png" alt="${shopItem.article.originTitle}" />
                         <span class="subtitle"><span class="platformLabel">${shopitem.article.platformShortName}</span></span>
-                        <t:pageLink page="shop/itemview" context="shopItem.id">${shopItem.article.title}</t:pageLink>
+                        <t:pageLink page="shop/itemview" context="shopItem">${shopItem.article.title}</t:pageLink>
                     </p:titleCell>
                     <p:priceCell>
                         <t:if test="buyable">
-                            <t:common.action.buyButton shopItem="shopItem.id" asButton="true" />
+                            <t:common.action.buyButton shopItem="shopItem" asButton="true" />
                             <p:else>
                                 <span style="font-size:10pt">${price}</span>
                             </p:else>
