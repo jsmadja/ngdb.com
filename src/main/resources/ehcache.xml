@@ -8,11 +8,11 @@
 		statistics="true" />
 
 	<cache name="org.hibernate.cache.StandardQueryCache"
-		maxElementsInMemory="100000" eternal="false" timeToIdleSeconds="120"
-		timeToLiveSeconds="120" />
+		maxElementsInMemory="100000" eternal="false" timeToIdleSeconds="1200"
+		timeToLiveSeconds="1200" />
 
 	<cache name="org.hibernate.cache.UpdateTimestampsCache" maxElementsInMemory="2000" eternal="false"
-		timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="false"
+		timeToIdleSeconds="1200" timeToLiveSeconds="1200" overflowToDisk="false"
 		statistics="true" />
 
 	<cache name="cacheCount" maxElementsInMemory="100000" eternal="false"

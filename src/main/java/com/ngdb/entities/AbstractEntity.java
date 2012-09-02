@@ -16,13 +16,11 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
 @XmlAccessorType(FIELD)
-public abstract class AbstractEntity {
+public abstract class AbstractEntity implements Serializable {
 
-    @XmlTransient
     @Column(name = "creation_date", nullable = false)
     private Date creationDate;
 
-    @XmlTransient
     @Column(name = "modification_date", nullable = false)
     private Date modificationDate;
 

@@ -23,7 +23,7 @@ public aspect Chrono {
                 prefix = "VERY SLOW METHOD";
             if(duration > 1000)
                 prefix = "ULTRA SLOW METHOD";
-            if(StringUtils.isNotBlank(prefix))
+            if(StringUtils.isNotBlank(prefix) && !method.toString().contains("MDCFilter"))
                 LOG.info(prefix+" "+method+" "+duration+" ms");
         }
     }
