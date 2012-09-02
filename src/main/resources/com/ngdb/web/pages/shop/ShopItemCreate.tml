@@ -1,92 +1,86 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-	xmlns:p="tapestry:parameter">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<div class="page-header">
 		<h1 class="orange-bar rounded-bar big-bar">
 			Add ${article.title} in the market
 		</h1>
 	</div>
-	<div class="row">
-		<div class="span3" />
-		<div class="span9">
-			<t:form t:id="shopItemForm" id="shopItemForm" class="form-horizontal"
-				t:autofocus="false">
-				<t:errors />
-				<div class="control-group">
-					<fieldset>
+    <t:form t:id="shopItemForm" id="shopItemForm" class="form-horizontal"
+        t:autofocus="false">
+        <t:errors />
+        <div class="row-fluid">
+            <div class="span6 well" style="padding-left:5px">
+                <t:zone t:id="priceZone" id="priceZone">
+                    <div class="control-group">
+                        <t:label for="priceInDollars" class="control-label">
+                            <b>Price in USD </b><span class="star">*</span>
+                        </t:label>
+                        <div class="controls">
+                            <div class="input-prepend input-append">
+                                <span class="add-on">$</span>
+                                <t:textfield style="max-width:50px" value="priceInDollars"
+                                             t:id="priceInDollars" placeholder="0.00" t:mixins="jquery/zoneUpdater"
+                                             t:clientEvent="blur" t:event="dollarsChanged" t:zone="priceZone" />
+                            </div>
+                            ${suggestedPriceInDollars}
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <t:label for="priceInDollars" class="control-label">
+                            <b>Price in EUR </b><span class="star">*</span>
+                        </t:label>
 
-						<t:zone t:id="priceZone" id="priceZone">
-							<div class="control-group">
-								<t:label for="priceInDollars" class="control-label">
-									Price in USD * :
-								</t:label>
-								<div class="controls">
-									<div class="input-prepend input-append">
-										<span class="add-on">$</span>
-	    						        <t:textfield style="max-width:50px" value="priceInDollars"
-											t:id="priceInDollars" placeholder="0.00" t:mixins="jquery/zoneUpdater"
-											t:clientEvent="blur" t:event="dollarsChanged" t:zone="priceZone" />
-									</div>
-									${suggestedPriceInDollars}
-								</div>
-							</div>
-							<div class="control-group">
-								<t:label for="priceInDollars" class="control-label">
-									Price in EUR * :
-								</t:label>
-								
-								<div class="controls">
-									<div class="input-prepend input-append">
-    						            <t:textfield style="max-width:50px" value="priceInEuros"
-											t:id="priceInEuros" placeholder="0.00" t:mixins="jquery/zoneUpdater"
-											t:clientEvent="blur" t:event="eurosChanged" t:zone="priceZone" />
-											<span class="add-on">€</span>
-              						</div>
-              						${suggestedPriceInEuros}
-								</div>
-							</div>
-						</t:zone>
+                        <div class="controls">
+                            <div class="input-prepend input-append">
+                                <t:textfield style="max-width:50px" value="priceInEuros"
+                                             t:id="priceInEuros" placeholder="0.00" t:mixins="jquery/zoneUpdater"
+                                             t:clientEvent="blur" t:event="eurosChanged" t:zone="priceZone" />
+                                <span class="add-on">€</span>
+                            </div>
+                            ${suggestedPriceInEuros}
+                        </div>
+                    </div>
+                </t:zone>
+                <div class="control-group">
+                    <t:label for="state" class="control-label">State <span class="star">*</span> : </t:label>
+                    <div class="controls">
+                        <t:select value="state" model="states" t:id="state" />
+                    </div>
+                </div>
+            </div>
 
-						<div class="control-group">
-							<t:label for="priceInCustomCurrency" class="control-label">
-								Price in :
-							</t:label>
-							
-							<div class="controls">
-								<t:select style="width:70px" value="customCurrency" model="customCurrencies" t:id="customCurrency" />
-							    <t:textfield style="max-width:50px" value="priceInCustomCurrency" placeholder="0.00"
-									t:id="priceInCustomCurrency" />
-							</div>
-						</div>
-							
-						<div class="control-group">
-							<t:label for="state" class="control-label">State * : </t:label>
-							<div class="controls">
-								<t:select value="state" model="states" t:id="state" />
-							</div>
-						</div>
-						<div class="control-group">
-							<t:label for="details" class="control-label">Details * : </t:label>
-							<div class="controls">
-								<t:textarea style="width:70%" rows="6" value="details"
-									t:id="details" />
-							</div>
-						</div>
-						<div class="control-group">
-							<span class="control-label">Pictures : </span>
-							<div class="controls">
-								<t:jquery.ajaxUpload t:id="uploadImage" t:multiple="true"
-									t:allowedExtensions="[jpg, png, gif, jpeg, bmp]" t:sizeLimit="3M" />
-							</div>
-						</div>
-						<div class="form-actions">
-							<button class="btn btn-primary" type="submit">
-								Add to market
-							</button>
-							<input type="reset" class="btn" value="Cancel" />
-						</div>
-					</fieldset>
-				</div>
-			</t:form>
-		</div>
-	</div>
+            <div class="span6 well" style="padding-left:5px">
+                <div class="control-group">
+                    <t:label for="priceInCustomCurrency" class="control-label">
+                        <b>Price in </b>
+                    </t:label>
+                    <div class="controls">
+                        <t:select style="width:70px" value="customCurrency" model="customCurrencies" t:id="customCurrency" />
+                        <t:textfield style="max-width:50px" value="priceInCustomCurrency" placeholder="0.00"
+                                     t:id="priceInCustomCurrency" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <span class="control-label"><b>Pictures</b></span>
+                    <div class="controls">
+                        <t:jquery.ajaxUpload t:id="uploadImage" t:multiple="true"
+                                             t:allowedExtensions="[jpg, png, gif, jpeg, bmp]" t:sizeLimit="3M" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <t:label for="details" class="control-label"><b>Details</b> <span class="star">*</span></t:label>
+            <div class="controls">
+                <t:textarea style="width:90%" rows="6" value="details"
+                    t:id="details" />
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">
+                Add to market
+            </button>
+            <input type="reset" class="btn" value="Cancel" />
+        </div>
+    </t:form>
 </t:layout>
