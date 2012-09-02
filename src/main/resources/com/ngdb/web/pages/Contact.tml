@@ -1,12 +1,10 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-	xmlns:p="tapestry:parameter">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<div class="page-header">
 		<h1 class="black-bar rounded-bar big-bar">Contact</h1>
 	</div>
-	<div class="row">
-		<div class="span3" />
-		<div class="span9">
-			<t:if test="message">
+    <div class="row-fluid">
+        <div class="span12 well" style="padding-left:5px">
+            <t:if test="message">
 				<div class="alert alert-info">${message}</div>
 			</t:if>
 			<t:form t:id="contactForm" class="form-horizontal">
@@ -15,8 +13,7 @@
 					<fieldset>
 						<div class="control-group">
 							<t:label for="title" class="control-label">
-								<b>Title</b>
-								* :
+								<b>Title</b><span class="star">*</span>
 							</t:label>
 							<div class="controls">
 								<t:textfield value="title" t:id="title" />
@@ -25,8 +22,7 @@
 						<t:if test="anonymous">
 							<div class="control-group">
 								<t:label for="title" class="control-label">
-									<b>Your name or email</b>
-									* :
+									<b>Your name or email</b> <span class="star">*</span>
 								</t:label>
 								<div class="controls">
 									<t:textfield value="from" t:id="from" />
@@ -35,12 +31,10 @@
 						</t:if>
 						<div class="control-group">
 							<t:label for="comment" class="control-label">
-								<b>Comment</b>
-								* :
+								<b>Comment</b> <span class="star">*</span>
 							</t:label>
 							<div class="controls">
-								<t:textarea rows="6" value="comment" t:id="comment"
-									style="width:60%" />
+								<t:textarea rows="6" value="comment" t:id="comment" style="width:60%" />
 							</div>
 						</div>
 						<div class="form-actions">
@@ -50,6 +44,5 @@
 				</div>
 			</t:form>
 		</div>
-		<div class="span3" />
 	</div>
 </t:layout>
