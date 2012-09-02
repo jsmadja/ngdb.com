@@ -88,7 +88,7 @@ public class MarketFilter {
     }
 
     private Collection<ShopItem> applyFilters(List<Predicate<ShopItem>> filters) {
-        Collection<ShopItem> filteredShopItems = newInitialShopItemsList();
+        Collection<ShopItem> filteredShopItems = allShopITems();
         buildFilters(filters);
         for (Predicate<ShopItem> filter : filters) {
             filteredShopItems = filter(filteredShopItems, filter);
@@ -139,7 +139,7 @@ public class MarketFilter {
     }
 
     public int getNumShopItemsInThisOrigin(Origin origin) {
-        Collection<ShopItem> articles = newInitialShopItemsList();
+        Collection<ShopItem> articles = allShopITems();
         if (filteredPlatform != null) {
             ShopItemPredicates.PlatformPredicate filterByPlatform = new ShopItemPredicates.PlatformPredicate(filteredPlatform);
             articles = filter(articles, filterByPlatform);
@@ -150,12 +150,12 @@ public class MarketFilter {
     }
 
     public int getNumShopItemsInThisPlatform(Platform platform) {
-        Collection<ShopItem> shopItems = newInitialShopItemsList();
+        Collection<ShopItem> shopItems = allShopITems();
         shopItems = filter(shopItems, new ShopItemPredicates.PlatformPredicate(platform));
         return shopItems.size();
     }
 
-    private Collection<ShopItem> newInitialShopItemsList() {
+    private Collection<ShopItem> allShopITems() {
         if (filteredByGames) {
             if (filteredUser == null) {
                 allShopItems = new ArrayList<ShopItem>(market.findAllGamesForSale());
