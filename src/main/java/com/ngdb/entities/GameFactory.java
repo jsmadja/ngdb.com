@@ -44,7 +44,7 @@ public class GameFactory {
     }
 
     private Criteria allGames() {
-        return session.createCriteria(Game.class).setCacheable(true);
+        return session.createCriteria(Game.class).setFetchSize(100).setCacheable(true);
     }
 
     public Game getRandomGameWithMainPicture() {

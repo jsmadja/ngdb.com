@@ -265,11 +265,4 @@ public class MuseumFilter {
         return filteredReleaseDate;
     }
 
-    public long getNumHardwares() {
-        if (filteredUser != null) {
-            return filteredUser.getHardwaresInCollection().size();
-        }
-        return hardwareFactory.getNumHardwares();
-    }
-
 }

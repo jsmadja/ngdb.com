@@ -101,23 +101,12 @@ public class User extends AbstractEntity implements Comparable<User> {
         this.password = password;
     }
 
-    public boolean canSell(Article article) {
-        if (collection == null) {
-            return false;
-        }
-        return collection.contains(article);
-    }
-
     public Collection<Wish> getWishes() {
         return wishList.getWishes();
     }
 
     public Set<ShopItem> getShopItems() {
         return shop.getShopItems();
-    }
-
-    public Collection<Article> getArticlesInCollection() {
-        return collection.getArticles();
     }
 
     public ArticleCollection getCollection() {
@@ -138,34 +127,6 @@ public class User extends AbstractEntity implements Comparable<User> {
         wishList.removeFromWishList(article);
     }
 
-    public boolean canAddInCollection(Article article) {
-        if (collection == null) {
-            return true;
-        }
-        return !collection.contains(article);
-    }
-
-    public boolean canRemoveFromCollection(Article article) {
-        if (collection == null) {
-            return false;
-        }
-        return collection.contains(article);
-    }
-
-    public boolean canWish(Article article) {
-        if (wishList == null) {
-            return true;
-        }
-        return !wishList.contains(article);
-    }
-
-    public boolean canUnwish(Article article) {
-        if (wishList == null) {
-            return false;
-        }
-        return wishList.contains(article);
-    }
-
     public CollectionObject addInCollection(Article article) {
         CollectionObject collectionObject = new CollectionObject(this, article);
         collection.addInCollection(collectionObject);
@@ -176,28 +137,8 @@ public class User extends AbstractEntity implements Comparable<User> {
         collection.removeFromCollection(article);
     }
 
-    public Collection<Article> getGamesInCollection() {
-        return collection.getGames();
-    }
-
-    public Collection<Article> getHardwaresInCollection() {
-        return collection.getHardwares();
-    }
-
-    public int getNumArticlesInCollection() {
-        return collection.getNumArticles();
-    }
-
     public int getNumArticlesInWishList() {
         return wishList.getNumWishes();
-    }
-
-    public boolean canMarkAsSold(ShopItem shopItem) {
-        return shop.contains(shopItem);
-    }
-
-    public boolean canRemove(ShopItem shopItem) {
-        return canMarkAsSold(shopItem);
     }
 
     public boolean owns(Article article) {

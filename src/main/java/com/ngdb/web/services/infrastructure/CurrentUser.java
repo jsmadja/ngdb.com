@@ -140,14 +140,22 @@ public class CurrentUser {
         if (isAnonymous()) {
             return false;
         }
-        return getUserFromDb().canAddInCollection(article);
+        return session.createCriteria(CollectionObject.class).
+                add(eq("owner", getUser())).
+                add(eq("article", article)).
+                setCacheable(true).
+                list().isEmpty();
     }
 
     public boolean canRemoveFromCollection(Article article) {
         if (isAnonymous()) {
             return false;
         }
-        return getUserFromDb().canRemoveFromCollection(article);
+        return session.createCriteria(CollectionObject.class).
+                add(eq("owner", getUser())).
+                add(eq("article", article)).
+                setCacheable(true).
+                uniqueResult() != null;
     }
 
     public void addToCollection(Article article) {
@@ -164,14 +172,22 @@ public class CurrentUser {
         if (isAnonymous()) {
             return false;
         }
-        return getUserFromDb().canWish(article);
+        return session.createCriteria(Wish.class).
+                add(eq("wisher", getUser())).
+                add(eq("article", article)).
+                setCacheable(true).
+                list().isEmpty();
     }
 
     public boolean canUnwish(Article article) {
         if (isAnonymous()) {
             return false;
         }
-        return getUserFromDb().canUnwish(article);
+        return session.createCriteria(Wish.class).
+                add(eq("wisher", getUser())).
+                add(eq("article", article)).
+                setCacheable(true).
+                uniqueResult() != null;
     }
 
     public void wish(Article article) {
@@ -226,11 +242,17 @@ public class CurrentUser {
     }
 
     public boolean canMarkAsSold(ShopItem shopItem) {
-        return isLogged() && getUserFromDb().canMarkAsSold(shopItem);
+        if(isAnonymous()) {
+            return false;
+        }
+        return shopItem.getSeller().equals(getUser());
     }
 
     public boolean canRemove(ShopItem shopItem) {
-        return isLogged() && getUserFromDb().canRemove(shopItem);
+        if(isAnonymous()) {
+            return false;
+        }
+        return shopItem.getSeller().equals(getUser());
     }
 
     public boolean canEdit(ShopItem shopItem) {
