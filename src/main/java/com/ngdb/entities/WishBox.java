@@ -1,20 +1,14 @@
 package com.ngdb.entities;
 
-import static com.google.common.collect.Collections2.filter;
-import static com.ngdb.Predicates.isGameWish;
-import static com.ngdb.Predicates.isHardwareWish;
-import static org.hibernate.criterion.Order.desc;
-import static org.hibernate.criterion.Projections.countDistinct;
-
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.ngdb.entities.article.Article;
+import com.ngdb.entities.shop.Wish;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
-import com.ngdb.entities.article.Article;
-import com.ngdb.entities.shop.Wish;
+import java.math.BigInteger;
+import java.util.List;
+
+import static org.hibernate.criterion.Projections.countDistinct;
 
 public class WishBox {
 
@@ -38,23 +32,12 @@ public class WishBox {
 		return Integer.MAX_VALUE;
 	}
 
-	public List<Wish> findAllWishes() {
-		return session.createCriteria(Wish.class).addOrder(desc("modificationDate")).setCacheable(true).list();
-	}
-
     public List<Wish> findAllGames() {
-        return new ArrayList<Wish>(filter(findAllWishes(), isGameWish));
+        return session.createSQLQuery("SELECT w.* FROM Wish w, Game g WHERE g.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
     }
 
     public List<Wish> findAllHardwares() {
-        return new ArrayList<Wish>(filter(findAllWishes(), isHardwareWish));
+        return session.createSQLQuery("SELECT w.* FROM Wish w, Hardware h WHERE h.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
     }
 
-    public int getNumWishedHardwares() {
-        return findAllHardwares().size();
-    }
-
-    public int getNumWishedGames() {
-        return findAllGames().size();
-    }
 }

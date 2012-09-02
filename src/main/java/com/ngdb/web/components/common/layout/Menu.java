@@ -45,7 +45,7 @@ public class Menu {
     @Property
     private ArticleAction update;
 
-    private static boolean goEmpty = true;
+    private static boolean goEmpty = false;
     @SetupRender
 	void onInit() {
         if(goEmpty) {

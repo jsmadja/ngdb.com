@@ -174,14 +174,14 @@ public class WishBoxFilter {
         if (filteredUser != null) {
             return filteredUser.getNumWishedHardwares();
         }
-        return wishBox.getNumWishedHardwares();
+        return wishBox.findAllHardwares().size();
     }
 
     public long getNumGames() {
         if (filteredUser != null) {
             return filteredUser.getNumWishedGames();
         }
-        return wishBox.getNumWishedGames();
+        return wishBox.findAllGames().size();
     }
 
 }
