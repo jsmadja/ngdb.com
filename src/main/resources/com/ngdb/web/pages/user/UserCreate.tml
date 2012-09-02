@@ -2,45 +2,44 @@
 	<div class="page-header">
 		<h1 class="black-bar rounded-bar big-bar">New account</h1>
 	</div>
-	<div class="row">
-		<div class="span3" />
-		<div class="span9">
-			<t:form t:id="userForm" class="form-horizontal">
-				<t:errors />
-				<div class="control-group">
-					<fieldset>
-						<div class="control-group">
-							<t:label for="login" class="control-label">Login* : </t:label>
-							<div class="controls">
-								<t:textfield value="login" t:id="login" />
-							</div>
-						</div>
-						<div class="control-group">
-							<t:label for="email" class="control-label">Email address* : </t:label>
-							<div class="controls">
-								<t:textfield value="email" t:id="email" />
-							</div>
-						</div>
-						<div class="control-group">
-							<t:label for="password" class="control-label">Password* : </t:label>
-							<div class="controls">
-								<t:passwordfield value="password" t:id="password" />
-							</div>
-						</div>
-						<div class="control-group">
-							<t:label for="confirmPassword" class="control-label">Confirm Password* :
-							</t:label>
-							<div class="controls">
-								<t:passwordfield value="confirmPassword" t:id="confirmPassword" />
-							</div>
-						</div>
-						<div class="form-actions">
-							<button class="btn btn-primary" type="submit">Sign up!</button>
-						</div>
-					</fieldset>
-				</div>
-			</t:form>
-		</div>
-		<div class="span3" />
-	</div>
+    <t:form t:id="userForm" class="form-horizontal">
+        <t:errors />
+        <div class="row-fluid">
+        <div class="span12 well" style="padding-left:5px">
+            <div class="control-group">
+                <t:label for="login" class="control-label"><b>Login</b> <span class="star">*</span></t:label>
+                <div class="controls">
+                    <t:textfield value="login" t:id="login" />
+                </div>
+            </div>
+            <div class="control-group">
+                <t:label for="email" class="control-label"><b>Email address</b> <span class="star">*</span></t:label>
+                <div class="controls">
+                    <t:textfield value="email" t:id="email" />
+                </div>
+            </div>
+            <div class="control-group">
+                <t:label for="password" class="control-label"><b>Password</b> <span class="star">*</span></t:label>
+                <div class="controls">
+                    <t:passwordfield value="password" t:id="password" />
+                </div>
+            </div>
+            <div class="control-group">
+                <t:label for="confirmPassword" class="control-label"><b>Confirm Password</b> <span class="star">*</span>
+                </t:label>
+                <div class="controls">
+                    <t:passwordfield value="confirmPassword" t:id="confirmPassword" />
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <fieldset>
+                <div class="form-actions">
+                    <button class="btn btn-primary" type="submit">Sign up!</button>
+                </div>
+            </fieldset>
+        </div>
+        </div>
+    </t:form>
 </t:layout>
