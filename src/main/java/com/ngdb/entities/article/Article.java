@@ -28,15 +28,13 @@ import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public abstract class Article implements Comparable<Article>{
+public abstract class Article implements Comparable<Article>, Serializable{
 
     private static final int MAX_DETAIL_LENGTH = 1024;
 
-    @XmlTransient
     @Column(name = "creation_date", nullable = false)
     private Date creationDate;
 
-    @XmlTransient
     @Column(name = "modification_date", nullable = false)
     private Date modificationDate;
 
@@ -61,40 +59,32 @@ public abstract class Article implements Comparable<Article>{
     private Publisher publisher;
 
     @Embedded
-    @XmlTransient
     private Notes notes;
 
     @Embedded
-    @XmlTransient
     private Tags tags;
 
     @Embedded
     private Files files;
 
     @Embedded
-    @XmlTransient
     private ArticlePictures pictures;
 
     @Column(name = "cover_url", nullable = true)
     private String coverUrl;
 
     @Embedded
-    @XmlTransient
     private Reviews reviews;
 
     @Embedded
-    @XmlTransient
     private Comments comments;
 
-    @XmlTransient
     @OneToMany(mappedBy = "article")
     private Set<Wish> wishList;
 
     @Embedded
-    @XmlTransient
     private ShopItems shopItems;
 
-    @XmlTransient
     @OneToMany(mappedBy = "article")
     private Set<CollectionObject> owners;
 
