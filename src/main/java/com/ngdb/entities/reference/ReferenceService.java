@@ -1,6 +1,9 @@
 package com.ngdb.entities.reference;
 
 import com.ngdb.entities.article.element.Tag;
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
@@ -18,36 +21,46 @@ public class ReferenceService {
 	@Inject
 	private Session session;
 
-	public List<Platform> getPlatforms() {
-		return session.createCriteria(Platform.class).setCacheable(true).addOrder(asc("name")).list();
-	}
+    private static Cache cache;
+
+    static {
+        CacheManager create = CacheManager.create();
+        cache = create.getCache("eternal");
+    }
+
+    public List<Platform> getPlatforms() {
+        Element platforms = cache.get("platforms");
+        if(platforms == null) {
+            cache.put(new Element("platforms", session.createCriteria(Platform.class).setCacheable(true).addOrder(asc("name")).list()));
+            return (List<Platform>) cache.get("platforms").getValue();
+        }
+        return (List<Platform>) platforms.getValue();
+    }
 
 	public List<Publisher> getPublishers() {
-        List list = session.createCriteria(Publisher.class).setCacheable(true).list();
-        Collections.sort(list);
-        return list;
-	}
+        Element publishers = cache.get("publishers");
+        if(publishers == null) {
+            List list = session.createCriteria(Publisher.class).setCacheable(true).list();
+            Collections.sort(list);
+            cache.put(new Element("publishers", list));
+            return (List<Publisher>) cache.get("publishers").getValue();
+        }
+        return (List<Publisher>) publishers.getValue();
+    }
 
 	public List<Origin> getOrigins() {
-        List list = session.createCriteria(Origin.class).setCacheable(true).list();
-        Collections.sort(list);
-        return list;
+        Element origins = cache.get("origins");
+        if(origins == null) {
+            List list = session.createCriteria(Origin.class).setCacheable(true).list();
+            Collections.sort(list);
+            cache.put(new Element("origins", list));
+            return (List<Origin>) cache.get("origins").getValue();
+        }
+        return (List<Origin>) origins.getValue();
 	}
 
 	public List<State> getStates() {
 		return session.createCriteria(State.class).setCacheable(true).list();
-	}
-
-	public List<String> getCurrencies() {
-		return asList("$");
-	}
-
-	public Origin findOriginById(Long id) {
-		return (Origin) session.load(Origin.class, id);
-	}
-
-	public Platform findPlatformById(Long id) {
-		return (Platform) session.load(Platform.class, id);
 	}
 
 	public Publisher findPublisherBy(Long id) {
