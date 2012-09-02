@@ -22,7 +22,7 @@
 		<t:form t:id="commentForm" class="form-horizontal" autofocus="false">
 			<fieldset>
 				<legend>Add a comment</legend>
-				<t:textarea rows="6" id="textarea" style="width:100%" value="commentText" />
+				<t:textarea rows="6" id="textarea" style="width:90%" value="commentText" />
 			</fieldset>
 			<button class="btn btn-primary" style="margin-top:10px" type="submit">Submit</button>
 		</t:form>

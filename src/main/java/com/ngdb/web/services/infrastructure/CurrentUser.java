@@ -280,10 +280,6 @@ public class CurrentUser {
         actionLogger.addFileAction(getUser(), article);
     }
 
-    public void addPictureOn(Article article) {
-        actionLogger.addPictureAction(getUser(), article);
-    }
-
     private Article getArticleFromDb(Article article) {
         return (Article) session.load(Article.class, article.getId());
     }

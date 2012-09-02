@@ -188,7 +188,6 @@ public class GameUpdate {
         game.setReference(reference);
         game = (Game) session.merge(game);
         if (this.mainPicture != null) {
-            currentUser.addPictureOn(game);
             Picture picture = pictureService.store(mainPicture, game);
             game.setCover(picture);
             if (isEditMode()) {
@@ -196,7 +195,6 @@ public class GameUpdate {
             }
         }
         if (pictures != null) {
-            currentUser.addPictureOn(game);
             for (UploadedFile uploadedPicture : pictures) {
                 Picture picture = pictureService.store(uploadedPicture, game);
                 game.addPicture(picture);

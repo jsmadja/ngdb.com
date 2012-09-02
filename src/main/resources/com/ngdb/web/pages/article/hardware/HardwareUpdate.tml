@@ -94,7 +94,7 @@
 						<div class="control-group">
 							<t:label for="details" class="control-label"><b>Details</b></t:label>
 							<div class="controls">
-								<t:textarea rows="6" value="details" t:id="details" style="width:60%" />
+								<t:textarea rows="10" value="details" t:id="details" style="width:90%" />
 							</div>
 						</div>
 						<div class="form-actions">
