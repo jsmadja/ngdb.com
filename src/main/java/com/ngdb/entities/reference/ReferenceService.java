@@ -23,7 +23,9 @@ public class ReferenceService {
 	}
 
 	public List<Publisher> getPublishers() {
-		return session.createCriteria(Publisher.class).setCacheable(true).addOrder(asc("name")).list();
+        List list = session.createCriteria(Publisher.class).setCacheable(true).list();
+        Collections.sort(list);
+        return list;
 	}
 
 	public List<Origin> getOrigins() {

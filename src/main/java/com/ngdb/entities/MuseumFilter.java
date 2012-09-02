@@ -188,7 +188,7 @@ public class MuseumFilter {
         if (filteredPublisher == null) {
             return false;
         }
-        return publisher.getId().equals(filteredPublisher.getId());
+        return publisher.equals(filteredPublisher);
     }
 
     public boolean isFilteredBy(Platform platform) {
