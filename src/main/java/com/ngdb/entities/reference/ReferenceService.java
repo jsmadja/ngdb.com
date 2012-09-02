@@ -3,7 +3,9 @@ package com.ngdb.entities.reference;
 import com.ngdb.entities.article.element.Tag;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 
+import java.util.Collections;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -25,7 +27,9 @@ public class ReferenceService {
 	}
 
 	public List<Origin> getOrigins() {
-		return session.createCriteria(Origin.class).setCacheable(true).addOrder(asc("title")).list();
+        List list = session.createCriteria(Origin.class).setCacheable(true).list();
+        Collections.sort(list);
+        return list;
 	}
 
 	public List<State> getStates() {

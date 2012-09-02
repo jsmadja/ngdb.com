@@ -122,7 +122,7 @@ public class WishBoxFilter {
         if (filteredOrigin == null) {
             return false;
         }
-        return origin.getId().equals(filteredOrigin.getId());
+        return origin.equals(filteredOrigin);
     }
 
     public int getNumWishesInThisOrigin(Origin origin) {

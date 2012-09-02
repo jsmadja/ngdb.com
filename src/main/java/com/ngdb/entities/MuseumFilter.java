@@ -202,7 +202,7 @@ public class MuseumFilter {
         if (filteredOrigin == null) {
             return false;
         }
-        return origin.getId().equals(filteredOrigin.getId());
+        return origin.equals(filteredOrigin);
     }
 
     public int getNumArticlesInThisOrigin(Origin origin) {
