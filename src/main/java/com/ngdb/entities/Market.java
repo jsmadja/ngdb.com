@@ -36,6 +36,7 @@ import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.services.MailService;
 import com.ngdb.web.services.infrastructure.CurrentUser;
+import org.hibernate.criterion.Projections;
 
 public class Market {
 
@@ -64,7 +65,7 @@ public class Market {
     }
 
     private Criteria allShopItems() {
-        return session.createCriteria(ShopItem.class).addOrder(desc("modificationDate"));
+        return session.createCriteria(ShopItem.class).setCacheable(true);
     }
 
     public List<ShopItem> findRandomForSaleItems(int count) {
@@ -172,4 +173,10 @@ public class Market {
         return ForumCode.asVBulletinCode(shopItems);
     }
 
+    public List<ShopItem> getShopItemsForSaleOf(User user) {
+        return session.createCriteria(ShopItem.class).
+            add(eq("seller", user)).
+            add(eq("sold", false)).
+            setCacheable(true).list();
+    }
 }

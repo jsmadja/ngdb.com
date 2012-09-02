@@ -18,6 +18,9 @@ import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.Request;
 import org.hibernate.Session;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 public class UserView {
@@ -88,6 +91,10 @@ public class UserView {
         return currentUser.canBuy(getShopItemFromDb());
     }
 
+    public Collection<ShopItem> shopItemsForSale() {
+        return market.getShopItemsForSaleOf(user);
+    }
+
     private ShopItem getShopItemFromDb() {
         return (ShopItem) session.load(ShopItem.class, shopItem.getId());
     }
@@ -114,6 +121,12 @@ public class UserView {
 
     public String getForumCode() {
         return market.asVBulletinCode();
+    }
+
+    public Collection<ShopItem> getShopItemsForSale() {
+        List<ShopItem> shopItems = market.getShopItemsForSaleOf(user);
+        Collections.sort(shopItems);
+        return shopItems;
     }
 
 }

@@ -18,6 +18,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.ApplicationStateManager;
 import org.apache.tapestry5.services.Request;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.joda.money.CurrencyUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +31,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import static org.apache.commons.lang.StringUtils.defaultString;
+import static org.hibernate.criterion.Projections.count;
+import static org.hibernate.criterion.Restrictions.eq;
 
 public class CurrentUser {
 
@@ -213,8 +217,12 @@ public class CurrentUser {
         return getUserFromDb().getCollection().getHardwares();
     }
 
-    public int getNumArticlesInShop() {
-        return getUserFromDb().getNumArticlesInShop();
+    public long getNumArticlesInShop() {
+        return (Long)session.createCriteria(ShopItem.class).
+                setProjection(Projections.count("id")).
+                add(eq("seller", getUser())).
+                add(eq("sold", false)).
+                setCacheable(true).uniqueResult();
     }
 
     public boolean canMarkAsSold(ShopItem shopItem) {

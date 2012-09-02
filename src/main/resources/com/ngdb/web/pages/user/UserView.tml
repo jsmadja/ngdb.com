@@ -77,13 +77,14 @@
 			</t:jquery.dialogajaxlink>
 
             <style type="text/css">
-                #wishes th.price {width: 90px;}
+                #wishes th.title {width: 35%;}
+                #wishes th.price {width: 60px;}
             </style>
 
             <t:grid pagerPosition="BOTH"
                 id="wishes"
                 inPlace="true"
-                source="user.shopItemsForSale"
+                source="shopItemsForSale"
                 row="shopItem"
 				rowsPerPage="10"
                 include="title, details"

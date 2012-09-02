@@ -1,27 +1,20 @@
 package com.ngdb.entities.user;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.xml.bind.annotation.XmlTransient;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import com.ngdb.entities.AbstractEntity;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.shop.PotentialBuys;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.Wish;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -145,17 +138,6 @@ public class User extends AbstractEntity implements Comparable<User> {
         wishList.removeFromWishList(article);
     }
 
-    public List<ShopItem> getShopItemsForSale() {
-        List<ShopItem> shopItemsToSell = new ArrayList<ShopItem>(shop.getShopItemsToSell());
-        Collections.sort(shopItemsToSell, new Comparator<ShopItem>() {
-            @Override
-            public int compare(ShopItem shopItem1, ShopItem shopItem2) {
-                return shopItem1.getArticle().getTitle().compareToIgnoreCase(shopItem2.getArticle().getTitle());
-            }
-        });
-        return shopItemsToSell;
-    }
-
     public boolean canAddInCollection(Article article) {
         if (collection == null) {
             return true;
@@ -210,10 +192,6 @@ public class User extends AbstractEntity implements Comparable<User> {
         return wishList.getNumWishes();
     }
 
-    public int getNumArticlesInShop() {
-        return shop.getNumArticlesToSell();
-    }
-
     public boolean canMarkAsSold(ShopItem shopItem) {
         return shop.contains(shopItem);
     }
@@ -241,10 +219,6 @@ public class User extends AbstractEntity implements Comparable<User> {
 
     public long getNumGamesForSale() {
         return shop.getNumGamesForSale();
-    }
-
-    public int getNumArticleForSale() {
-        return shop.getNumArticlesToSell();
     }
 
     public Collection<ShopItem> getAllGamesForSale() {

@@ -1,21 +1,17 @@
 package com.ngdb.entities.user;
 
-import static com.google.common.collect.Collections2.filter;
-import static com.ngdb.Predicates.shopItemsForSale;
+import com.ngdb.ShopItemPredicates;
+import com.ngdb.entities.shop.ShopItem;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import java.io.Serializable;
+import javax.persistence.Embeddable;
+import javax.persistence.OneToMany;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
-import javax.persistence.Embeddable;
-import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import com.ngdb.ShopItemPredicates;
-import com.ngdb.entities.shop.ShopItem;
+import static com.google.common.collect.Collections2.filter;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -26,14 +22,6 @@ public class Shop {
 
     public Set<ShopItem> getShopItems() {
         return Collections.unmodifiableSet(shopItems);
-    }
-
-    public Collection<ShopItem> getShopItemsToSell() {
-        return filter(shopItems, shopItemsForSale);
-    }
-
-    public int getNumArticlesToSell() {
-        return getShopItemsToSell().size();
     }
 
     public boolean contains(ShopItem shopItem) {

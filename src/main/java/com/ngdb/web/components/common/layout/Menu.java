@@ -45,14 +45,24 @@ public class Menu {
     @Property
     private ArticleAction update;
 
+    private static boolean goEmpty = true;
     @SetupRender
 	void onInit() {
-        this.shopItems = market.findRandomForSaleItems(6);
-		this.forSaleCount = market.getNumForSaleItems();
+        if(goEmpty) {
+            this.shopItems = new ArrayList<ShopItem>();
+            this.forSaleCount = 0L;
+        } else {
+            this.shopItems = market.findRandomForSaleItems(6);
+            this.forSaleCount = market.getNumForSaleItems();
+        }
 	}
 
     public Collection<ArticleAction> getUpdates() {
-        return actionLogger.listLastActions();
+        if(goEmpty) {
+            return new ArrayList<ArticleAction>();
+        } else {
+            return actionLogger.listLastActions();
+        }
     }
 
 	public String getPrice() {

@@ -32,7 +32,7 @@ public class UserMenu {
 		return currentUser.getNumArticlesInCollection();
 	}
 
-	public int getNumArticlesInShop() {
+	public long getNumArticlesInShop() {
 		return currentUser.getNumArticlesInShop();
 	}
 
