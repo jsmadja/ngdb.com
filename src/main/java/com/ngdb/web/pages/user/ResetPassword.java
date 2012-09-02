@@ -34,7 +34,7 @@ public class ResetPassword {
 
 	void onValidateFromResetPasswordForm() {
 		User user = population.findByLogin(login);
-		if (!user.getEmail().equalsIgnoreCase(email)) {
+		if (user == null || !user.getEmail().equalsIgnoreCase(email)) {
 			resetPasswordForm.recordError("No user found for these login and email");
 		}
 	}
