@@ -58,7 +58,6 @@ public class CurrentUser {
 
     public User login(String login, String password) {
         Subject currentUser = securityService.getSubject();
-        doLogout(currentUser);
 
         UsernamePasswordToken token = new UsernamePasswordToken(login, password);
         token.setRememberMe(true);
