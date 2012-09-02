@@ -7,6 +7,7 @@ import static org.hibernate.criterion.Order.desc;
 import static org.hibernate.criterion.Projections.count;
 import static org.hibernate.criterion.Restrictions.eq;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -150,22 +151,20 @@ public class Market {
         return sellers;
     }
 
-    public Collection<ShopItem> findAllGamesForSale() {
-        List<ShopItem> allItemsForSale = findAllItemsForSale();
-        return new ArrayList<ShopItem>(filter(allItemsForSale, isGameShopItem));
-    }
-
-    public Collection<ShopItem> findAllHardwaresForSale() {
-        List<ShopItem> allItemsForSale = findAllItemsForSale();
-        return new ArrayList<ShopItem>(filter(allItemsForSale, isHardwareShopItem));
-    }
-
-    public long getNumHardwaresForSale() {
-        return findAllHardwaresForSale().size();
+    public List<ShopItem> findAllGamesForSale() {
+        return session.createSQLQuery("SELECT * FROM ShopItem WHERE article_id IN (SELECT id FROM Game)").addEntity(ShopItem.class).list();
     }
 
     public long getNumGamesForSale() {
-        return findAllGamesForSale().size();
+        return ((BigInteger) session.createSQLQuery("SELECT COUNT(id) FROM ShopItem WHERE article_id IN (SELECT id FROM Game)").uniqueResult()).longValue();
+    }
+
+    public List<ShopItem> findAllHardwaresForSale() {
+        return session.createSQLQuery("SELECT * FROM ShopItem WHERE article_id IN (SELECT id FROM Hardware)").addEntity(ShopItem.class).list();
+    }
+
+    public long getNumHardwaresForSale() {
+        return ((BigInteger) session.createSQLQuery("SELECT COUNT(id) FROM ShopItem WHERE article_id IN (SELECT id FROM Hardware)").uniqueResult()).longValue();
     }
 
     public String asVBulletinCode() {

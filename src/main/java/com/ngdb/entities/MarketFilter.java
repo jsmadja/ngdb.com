@@ -30,9 +30,7 @@ public class MarketFilter {
 
     private Article filteredArticle;
 
-    private boolean consolidated;
-
-    private Collection<ShopItem> initialShopItemList;
+    private Collection<ShopItem> allShopItems;
 
     public MarketFilter(com.ngdb.entities.Market market) {
         this.market = market;
@@ -44,7 +42,6 @@ public class MarketFilter {
         this.filteredPlatform = null;
         this.filteredUser = null;
         this.filteredArticle = null;
-        this.consolidated = false;
         this.filteredByGames = true;
     }
 
@@ -121,12 +118,10 @@ public class MarketFilter {
 
     public void filterByGames() {
         this.filteredByGames = true;
-        invalidateArticles();
     }
 
     public void filterByHardwares() {
         this.filteredByGames = false;
-        invalidateArticles();
     }
 
     public boolean isFilteredBy(Platform platform) {
@@ -141,14 +136,6 @@ public class MarketFilter {
             return false;
         }
         return origin.equals(filteredOrigin);
-    }
-
-    private void invalidateArticles() {
-        this.consolidated = false;
-    }
-
-    private void validateShopItems() {
-        this.consolidated = true;
     }
 
     public int getNumShopItemsInThisOrigin(Origin origin) {
@@ -169,23 +156,20 @@ public class MarketFilter {
     }
 
     private Collection<ShopItem> newInitialShopItemsList() {
-        if (!consolidated) {
-            if (filteredByGames) {
-                if (filteredUser == null) {
-                    initialShopItemList = new ArrayList<ShopItem>(market.findAllGamesForSale());
-                } else {
-                    initialShopItemList = filteredUser.getAllGamesForSale();
-                }
+        if (filteredByGames) {
+            if (filteredUser == null) {
+                allShopItems = new ArrayList<ShopItem>(market.findAllGamesForSale());
             } else {
-                if (filteredUser == null) {
-                    initialShopItemList = new ArrayList<ShopItem>(market.findAllHardwaresForSale());
-                } else {
-                    initialShopItemList = filteredUser.getAllHardwaresForSale();
-                }
+                allShopItems = filteredUser.getAllGamesForSale();
             }
-            validateShopItems();
+        } else {
+            if (filteredUser == null) {
+                allShopItems = new ArrayList<ShopItem>(market.findAllHardwaresForSale());
+            } else {
+                allShopItems = filteredUser.getAllHardwaresForSale();
+            }
         }
-        return new ArrayList<ShopItem>(initialShopItemList);
+        return new ArrayList<ShopItem>(allShopItems);
     }
 
     public User getFilteredUser() {

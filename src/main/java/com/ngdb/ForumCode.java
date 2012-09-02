@@ -22,7 +22,7 @@ public class ForumCode {
             String url = "http://neogeodb.com/shop/itemview/" + id;
             String origin = article.getOriginTitle();
             String originImageUrl = "http://neogeodb.com/img/flags/" + origin + ".png";
-            String imageUrl = "http://www.neogeodb.com" + shopItem.getMainPicture().getUrl("small");
+            String imageUrl = "http://www.neogeodb.com" + shopItem.getMainPicture().getUrlSmall();
 
             sb.append(format("[IMG]%s[/IMG] [URL=%s]%s[/URL] - [B][COLOR=Red]%s[/COLOR][/B] - [B][COLOR=SeaGreen]%s euros[/COLOR][/B]", originImageUrl, url, title, state, priceInEuros));
             sb.append(format("\n[I]%s[/I]", details));

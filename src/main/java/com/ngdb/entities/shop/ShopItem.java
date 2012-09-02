@@ -1,33 +1,23 @@
 package com.ngdb.entities.shop;
 
-import static java.text.MessageFormat.format;
-import static javax.persistence.FetchType.LAZY;
-
-import java.io.Serializable;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.PreUpdate;
-
-import org.apache.commons.lang.StringUtils;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.ocpsoft.pretty.time.PrettyTime;
-
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.article.element.ShopItemPictures;
 import com.ngdb.entities.reference.State;
 import com.ngdb.entities.user.User;
+import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.ocpsoft.pretty.time.PrettyTime;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Set;
+
+import static java.text.MessageFormat.format;
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -149,7 +139,7 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
 
     public Picture getMainPicture() {
         if (hasNoPicture()) {
-            return article.getPictures().first();
+            return article.getCover();
         }
         return pictures.first();
     }
