@@ -1,34 +1,5 @@
 package com.ngdb.entities;
 
-import static com.google.common.collect.Collections2.filter;
-import static com.ngdb.ShopItemPredicates.isGameShopItem;
-import static com.ngdb.ShopItemPredicates.isHardwareShopItem;
-import static org.hibernate.criterion.Order.desc;
-import static org.hibernate.criterion.Projections.count;
-import static org.hibernate.criterion.Restrictions.eq;
-
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-
-import javax.annotation.Nullable;
-
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
-
-import org.apache.commons.lang.math.RandomUtils;
-import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.ioc.annotations.Symbol;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.ngdb.ForumCode;
@@ -37,7 +8,21 @@ import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.services.MailService;
 import com.ngdb.web.services.infrastructure.CurrentUser;
-import org.hibernate.criterion.Projections;
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
+import org.apache.commons.lang.math.RandomUtils;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.ioc.annotations.Symbol;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+
+import javax.annotation.Nullable;
+import java.math.BigInteger;
+import java.util.*;
+
+import static org.hibernate.criterion.Projections.count;
+import static org.hibernate.criterion.Restrictions.eq;
 
 public class Market {
 
@@ -165,6 +150,22 @@ public class Market {
 
     public long getNumHardwaresForSale() {
         return ((BigInteger) session.createSQLQuery("SELECT COUNT(id) FROM ShopItem WHERE article_id IN (SELECT id FROM Hardware)").uniqueResult()).longValue();
+    }
+
+    public long getNumHardwaresForSaleBy(User user) {
+        return ((BigInteger) session.createSQLQuery("SELECT COUNT(id) FROM ShopItem WHERE seller_id = "+user.getId()+" AND article_id IN (SELECT id FROM Hardware)").uniqueResult()).longValue();
+    }
+
+    public long getNumGamesForSaleBy(User user) {
+        return ((BigInteger) session.createSQLQuery("SELECT COUNT(id) FROM ShopItem WHERE seller_id = "+user.getId()+" AND article_id IN (SELECT id FROM Game)").uniqueResult()).longValue();
+    }
+
+    public List<ShopItem> getAllHardwaresForSaleBy(User user) {
+        return session.createSQLQuery("SELECT * FROM ShopItem WHERE seller_id = "+user.getId()+" AND article_id IN (SELECT id FROM Hardware)").addEntity(ShopItem.class).list();
+    }
+
+    public List<ShopItem> getAllGamesForSaleBy(User user) {
+        return session.createSQLQuery("SELECT * FROM ShopItem WHERE seller_id = "+user.getId()+" AND article_id IN (SELECT id FROM Game)").addEntity(ShopItem.class).list();
     }
 
     public String asVBulletinCode() {

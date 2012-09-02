@@ -105,10 +105,6 @@ public class User extends AbstractEntity implements Comparable<User> {
         return wishList.getWishes();
     }
 
-    public Set<ShopItem> getShopItems() {
-        return shop.getShopItems();
-    }
-
     public ArticleCollection getCollection() {
         return collection;
     }
@@ -153,23 +149,6 @@ public class User extends AbstractEntity implements Comparable<User> {
     public Set<ShopItem> getPotentialBuys() {
         return potentialBuys.all();
     }
-
-    public long getNumHardwaresForSale() {
-        return shop.getNumHardwaresForSale();
-    }
-
-    public long getNumGamesForSale() {
-        return shop.getNumGamesForSale();
-    }
-
-    public Collection<ShopItem> getAllGamesForSale() {
-        return shop.getAllGamesForSale();
-    }
-
-    public Collection<ShopItem> getAllHardwaresForSale() {
-        return shop.getAllHardwaresForSale();
-    }
-
     public boolean isContributor() {
         return login.equalsIgnoreCase("anzymus") || login.equalsIgnoreCase("takou");
     }

@@ -160,13 +160,13 @@ public class MarketFilter {
             if (filteredUser == null) {
                 allShopItems = new ArrayList<ShopItem>(market.findAllGamesForSale());
             } else {
-                allShopItems = filteredUser.getAllGamesForSale();
+                allShopItems = market.getAllGamesForSaleBy(filteredUser);
             }
         } else {
             if (filteredUser == null) {
                 allShopItems = new ArrayList<ShopItem>(market.findAllHardwaresForSale());
             } else {
-                allShopItems = filteredUser.getAllHardwaresForSale();
+                allShopItems = market.getAllHardwaresForSaleBy(filteredUser);
             }
         }
         return new ArrayList<ShopItem>(allShopItems);
@@ -182,14 +182,14 @@ public class MarketFilter {
 
     public long getNumHardwares() {
         if (filteredUser != null) {
-            return filteredUser.getNumHardwaresForSale();
+            return market.getNumHardwaresForSaleBy(filteredUser);
         }
         return market.getNumHardwaresForSale();
     }
 
     public long getNumGames() {
         if (filteredUser != null) {
-            return filteredUser.getNumGamesForSale();
+            return market.getNumGamesForSaleBy(filteredUser);
         }
         return market.getNumGamesForSale();
     }

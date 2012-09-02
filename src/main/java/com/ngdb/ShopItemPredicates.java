@@ -49,32 +49,4 @@ public class ShopItemPredicates {
 		}
 	}
 
-	public static final Predicate<ShopItem> hardwaresForSale = new Predicate<ShopItem>() {
-		@Override
-		public boolean apply(ShopItem input) {
-			return !input.isSold() && !input.getArticle().isGame();
-		}
-	};
-
-	public static final Predicate<ShopItem> gamesForSale = new Predicate<ShopItem>() {
-		@Override
-		public boolean apply(ShopItem input) {
-			return !input.isSold() && input.getArticle().isGame();
-		}
-	};
-
-	public static Predicate<ShopItem> isGameShopItem = new Predicate<ShopItem>() {
-		@Override
-		public boolean apply(ShopItem input) {
-			return input.getArticle().isGame();
-		}
-	};
-
-	public static Predicate<ShopItem> isHardwareShopItem = new Predicate<ShopItem>() {
-		@Override
-		public boolean apply(ShopItem input) {
-			return !input.getArticle().isGame();
-		}
-	};
-
 }

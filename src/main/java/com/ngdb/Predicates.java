@@ -47,20 +47,6 @@ public class Predicates {
         }
     };
 
-    public static Predicate<Article> releasedThisMonth = new Predicate<Article>() {
-
-        public boolean apply(Article game) {
-            if (game == null) {
-                return false;
-            }
-            if (game.getReleaseDate() == null) {
-                return false;
-            }
-            final int month = new DateTime().getMonthOfYear();
-            return (game.getReleaseDate().getMonth() + 1) == month;
-        }
-    };
-
     public static Predicate<Wish> isGameWish = new Predicate<Wish>() {
         @Override
         public boolean apply(@Nullable Wish input) {

@@ -6,12 +6,10 @@ import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
-import org.hibernate.criterion.Order;
 
 import java.util.Collections;
 import java.util.List;
 
-import static java.util.Arrays.asList;
 import static org.hibernate.criterion.Order.asc;
 import static org.hibernate.criterion.Restrictions.eq;
 
@@ -31,7 +29,8 @@ public class ReferenceService {
     public List<Platform> getPlatforms() {
         Element platforms = cache.get("platforms");
         if(platforms == null) {
-            cache.put(new Element("platforms", session.createCriteria(Platform.class).setCacheable(true).addOrder(asc("name")).list()));
+            List list = session.createCriteria(Platform.class).setCacheable(true).addOrder(asc("name")).list();
+            cache.put(new Element("platforms", list));
             return (List<Platform>) cache.get("platforms").getValue();
         }
         return (List<Platform>) platforms.getValue();
