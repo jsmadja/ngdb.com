@@ -49,7 +49,7 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
     private Date modificationDate;
 
     @Embedded
-    private ShopItemPictures pictures = new ShopItemPictures();
+    private ShopItemPictures pictures;
 
     @OneToOne
     private State state;

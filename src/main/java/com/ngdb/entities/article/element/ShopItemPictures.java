@@ -17,7 +17,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ShopItemPictures implements Iterable<Picture> {
 
-	@OneToMany(mappedBy = "shopItem", orphanRemoval = true)
+	@OneToMany(mappedBy = "shopItem", orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<Picture> pictures;
 
 	public Picture first() {
