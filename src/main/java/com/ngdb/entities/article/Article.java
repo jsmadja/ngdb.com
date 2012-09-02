@@ -104,10 +104,6 @@ public abstract class Article implements Comparable<Article>{
 
     private String reference;
 
-    public Article() {
-        creationDate = modificationDate = new Date();
-    }
-
     public void updateModificationDate() {
         modificationDate = new Date();
     }
@@ -273,10 +269,6 @@ public abstract class Article implements Comparable<Article>{
         this.platformShortName = platform.getShortName();
     }
 
-    public String getLastUpdateDate() {
-        return new PrettyTime(Locale.UK).format(modificationDate);
-    }
-
     public boolean containsTag(String tag) {
         return tags.contains(tag);
     }
@@ -298,10 +290,6 @@ public abstract class Article implements Comparable<Article>{
 
     public boolean containsTag(Tag tag) {
         return tags.contains(tag);
-    }
-
-    public boolean containsProperty(String name) {
-        return notes.contains(name);
     }
 
     public void addNote(Note note) {
