@@ -4,22 +4,15 @@
     <div class="span2 well"  id="filters">
 
         <div class="orange-bar half-rounded-bar small-bar">Article</div>
-        <t:if test="filteredByGames">
-            <p class="selected-link">
-                    Games<span class="counter" > (${numGames})</span>
-            </p>
-            <p>
-                <t:actionLink class="btn-mini" t:id="selectHardwares">Hardwares <span class="counter">(${numHardwares})</span></t:actionLink>
-            </p>
-            <p:else>
-                <p>
-                    <t:actionLink class="btn-mini" t:id="selectGames">Games (${numGames})</t:actionLink>
-                </p>
-                <p class="selected-link">
-                    Hardwares <span class="counter"> (${numHardwares})</span>
-                </p>
-            </p:else>
-        </t:if>
+        <p class="selected-link">
+            <t:actionLink class="btn-mini" t:id="selectGames">Games <span class="counter">(${numGames})</span></t:actionLink>
+        </p>
+        <p>
+            <t:actionLink class="btn-mini" t:id="selectHardwares">Hardwares <span class="counter">(${numHardwares})</span></t:actionLink>
+        </p>
+        <p>
+            <t:actionLink class="btn-mini" t:id="selectAccessories">Accessories <span class="counter">(${numAccessories})</span></t:actionLink>
+        </p>
 
         <div class="orange-bar half-rounded-bar small-bar">Platform</div>
         <t:loop source="platforms" value="platform">

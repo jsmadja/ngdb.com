@@ -140,6 +140,10 @@ public class Market {
         return session.createSQLQuery("SELECT * FROM ShopItem WHERE article_id IN (SELECT id FROM Game)").addEntity(ShopItem.class).list();
     }
 
+    public List<ShopItem> findAllAccessoriesForSale() {
+        return session.createSQLQuery("SELECT * FROM ShopItem WHERE article_id IN (SELECT id FROM Accessory)").addEntity(ShopItem.class).list();
+    }
+
     public long getNumGamesForSale() {
         return ((BigInteger) session.createSQLQuery("SELECT COUNT(id) FROM ShopItem WHERE article_id IN (SELECT id FROM Game)").uniqueResult()).longValue();
     }
@@ -152,8 +156,16 @@ public class Market {
         return ((BigInteger) session.createSQLQuery("SELECT COUNT(id) FROM ShopItem WHERE article_id IN (SELECT id FROM Hardware)").uniqueResult()).longValue();
     }
 
+    public long getNumAccessoriesForSale() {
+        return ((BigInteger) session.createSQLQuery("SELECT COUNT(id) FROM ShopItem WHERE article_id IN (SELECT id FROM Accessory)").uniqueResult()).longValue();
+    }
+
     public long getNumHardwaresForSaleBy(User user) {
         return ((BigInteger) session.createSQLQuery("SELECT COUNT(id) FROM ShopItem WHERE seller_id = "+user.getId()+" AND article_id IN (SELECT id FROM Hardware)").uniqueResult()).longValue();
+    }
+
+    public long getNumAccessoriesForSaleBy(User user) {
+        return ((BigInteger) session.createSQLQuery("SELECT COUNT(id) FROM ShopItem WHERE seller_id = "+user.getId()+" AND article_id IN (SELECT id FROM Accessory)").uniqueResult()).longValue();
     }
 
     public long getNumGamesForSaleBy(User user) {
@@ -168,6 +180,10 @@ public class Market {
         return session.createSQLQuery("SELECT * FROM ShopItem WHERE seller_id = "+user.getId()+" AND article_id IN (SELECT id FROM Game)").addEntity(ShopItem.class).list();
     }
 
+    public List<ShopItem> getAllAccessoriesForSaleBy(User user) {
+        return session.createSQLQuery("SELECT * FROM ShopItem WHERE seller_id = "+user.getId()+" AND article_id IN (SELECT id FROM Accessory)").addEntity(ShopItem.class).list();
+    }
+
     public String asVBulletinCode() {
         List<ShopItem> shopItems = findAllItemsForSale();
         return ForumCode.asVBulletinCode(shopItems);
@@ -179,4 +195,5 @@ public class Market {
             add(eq("sold", false)).
             setCacheable(true).list();
     }
+
 }

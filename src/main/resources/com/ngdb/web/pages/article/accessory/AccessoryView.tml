@@ -1,0 +1,56 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" title="${accessory?.title}">
+	<t:if test="accessory">
+		<div class="row-fluid show-grid article">
+			<div class="span3">
+				<t:article.thumbnail article="accessory" noClick="true" size="literal:medium" />
+				<t:if test="accessory.upc">
+					<div style="text-align:center;margin-top:10px;width:101px">
+						<img src="data:image/gif;base64,${upc}" />
+						${accessory.upc}
+					</div>
+				</t:if>
+				<br/>
+				<t:article.history article="accessory" />
+				<br/>
+				<t:article.gallery article="accessory" />
+			</div>
+			<div class="span9">
+				<div class="page-header">
+					<h1 class="header">${accessory.title} 
+						<span style="font-size:15px">
+							(<t:pagelink page="museum" context="[byReleaseDate,accessory.releaseDate]">${accessory.releaseDate}</t:pagelink>) <t:pagelink page="museum" context="[byOrigin,accessory.originTitle]"><img style="margin-bottom:5px" src="/img/flags/${accessory.originTitle}.png" alt="${accessory.originTitle}" /></t:pagelink>
+						</span>
+						<t:article.actionBlock article="accessory" />
+					</h1>
+					<div class="subtitle">
+						#${accessory.id}<t:pagelink page="museum" context="[byPlatform,accessory.platformShortName]"><span class="platformLabel">${accessory.platformShortName}</span></t:pagelink> <t:if test="accessory.reference">${accessory.reference}</t:if>
+					</div>
+				</div>
+
+                <t:article.tagBlock article="accessory" />
+
+                <t:article.noteBlock article="accessory" />
+
+                <t:if test="${accessory.details}">
+					<h3>Details</h3>
+					<p>
+						<t:OutputRaw value="${accessory.details}"/>
+					</p>
+					<hr />
+				</t:if>
+
+                <t:article.fileBlock article="accessory" />
+
+                <p>
+					<t:pagelink class="pull-right label label-important" page="contact" context="[accessory.title, accessory.id]">
+						<i class="icon-flag icon-white"></i>
+						Something's wrong ?
+					</t:pagelink>
+				</p>
+				
+				<h3>Comments</h3>
+				<t:article.commentBlock article="accessory" />
+			</div>
+		</div>
+	</t:if>
+</t:layout>

@@ -1,14 +1,14 @@
 package com.ngdb.entities.article;
 
-import javax.persistence.Entity;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.Entity;
+import java.io.Serializable;
+
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Hardware extends Article {
+public class Accessory extends Article implements Serializable {
 
     @Override
     public boolean isGame() {
@@ -17,17 +17,16 @@ public class Hardware extends Article {
 
     @Override
     public boolean isHardware() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccessory() {
         return false;
     }
 
     @Override
-    public String getViewPage() {
-        return "article/hardware/hardwareView";
+    public boolean isAccessory() {
+        return true;
     }
 
+    @Override
+    public String getViewPage() {
+        return "article/accessory/accessoryView";
+    }
 }

@@ -36,14 +36,14 @@ public class Predicates {
     public static Predicate<Article> isGame = new Predicate<Article>() {
         @Override
         public boolean apply(Article input) {
-            return input.getType().equals(Game.class);
+            return input.isGame();
         }
     };
 
     public static Predicate<Article> isHardware = new Predicate<Article>() {
         @Override
         public boolean apply(Article input) {
-            return input.getType().equals(Hardware.class);
+            return input.isHardware();
         }
     };
 
@@ -119,7 +119,7 @@ public class Predicates {
 
         @Override
         public boolean apply(Article input) {
-            if (input.getType().equals(Game.class)) {
+            if (input.isGame()) {
                 Game game = (Game) input;
                 String ngh = game.getNgh();
                 if (ngh != null) {

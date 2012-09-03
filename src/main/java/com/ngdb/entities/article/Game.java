@@ -49,13 +49,18 @@ public class Game extends Article implements Serializable {
     }
 
     @Override
-    public Class<?> getType() {
-        return Game.class;
+    public boolean isGame() {
+        return true;
     }
 
     @Override
-    public boolean isGame() {
-        return true;
+    public boolean isHardware() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccessory() {
+        return false;
     }
 
     @Override

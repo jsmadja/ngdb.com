@@ -54,7 +54,7 @@ public class CommentBlock {
 
     public Collection<Comment> getComments() {
         Set<Comment> comments;
-        if (article.getType().equals(Game.class)) {
+        if (article.isGame()) {
             Game game = (Game) article;
             comments = new TreeSet<Comment>(game.getComments().all());
             List<Game> relatedGames = gameFactory.findAllByNgh(game.getNgh());

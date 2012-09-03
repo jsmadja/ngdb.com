@@ -127,6 +127,11 @@ public class Market {
         return this;
     }
 
+    Object onActionFromSelectAccessories() {
+        marketFilter.filterByAccessories();
+        return this;
+    }
+
     Object onActionFromSelectGames() {
         marketFilter.filterByGames();
         return this;
@@ -138,6 +143,10 @@ public class Market {
 
     public long getNumHardwares() {
         return marketFilter.getNumHardwares();
+    }
+
+    public long getNumAccessories() {
+        return marketFilter.getNumAccessories();
     }
 
     public List<Platform> getPlatforms() {
@@ -194,6 +203,14 @@ public class Market {
 
     public boolean isFilteredByGames() {
         return marketFilter.isFilteredByGames();
+    }
+
+    public boolean isFilteredByHardwares() {
+        return marketFilter.isFilteredByHardwares();
+    }
+
+    public boolean isFilteredByAccessories() {
+        return marketFilter.isFilteredByAccessories();
     }
 
     public String getQueryLabel() {

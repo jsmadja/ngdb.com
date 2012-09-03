@@ -1,8 +1,7 @@
-package com.ngdb.web.pages.article.hardware;
+package com.ngdb.web.pages.article.accessory;
 
 import com.ngdb.BarcodeUtil;
-import com.ngdb.entities.article.Game;
-import com.ngdb.entities.article.Hardware;
+import com.ngdb.entities.article.Accessory;
 import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Tag;
@@ -10,10 +9,10 @@ import com.ngdb.web.Filter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 
-public class HardwareView {
+public class AccessoryView {
 
     @Persist("entity")
-    private Hardware hardware;
+    private Accessory accessory;
 
     @Property
     private Note property;
@@ -30,20 +29,20 @@ public class HardwareView {
     @Property
     private Note note;
 
-    public void onActivate(Hardware hardware) {
-        this.hardware = hardware;
+    public void onActivate(Accessory accessory) {
+        this.accessory = accessory;
     }
 
-    public Hardware onPassivate() {
-        return hardware;
+    public Accessory onPassivate() {
+        return accessory;
     }
 
-    public void setHardware(Hardware hardware) {
-        this.hardware = hardware;
+    public void setAccessory(Accessory accessory) {
+        this.accessory = accessory;
     }
 
-    public Hardware getHardware() {
-        return hardware;
+    public Accessory getAccessory() {
+        return accessory;
     }
 
     public String getByOrigin() {
@@ -63,7 +62,7 @@ public class HardwareView {
     }
 
     public String getUpc() {
-        return BarcodeUtil.toBarcodeBase64Image(hardware.getUpc());
+        return BarcodeUtil.toBarcodeBase64Image(accessory.getUpc());
     }
 
 }

@@ -94,6 +94,10 @@ public abstract class Article implements Comparable<Article>, Serializable{
 
     private String reference;
 
+    Article() {
+        this.creationDate = this.modificationDate = new Date();
+    }
+
     public void updateModificationDate() {
         modificationDate = new Date();
     }
@@ -233,8 +237,6 @@ public abstract class Article implements Comparable<Article>, Serializable{
         return shopItems.getShopItemsForSale();
     }
 
-    public abstract Class<?> getType();
-
     public boolean hasShopItemInState(State state) {
         return shopItems.hasShopItemInState(state);
     }
@@ -307,6 +309,8 @@ public abstract class Article implements Comparable<Article>, Serializable{
     }
 
     public abstract boolean isGame();
+    public abstract boolean isHardware();
+    public abstract boolean isAccessory();
 
     public abstract String getViewPage();
 

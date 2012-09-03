@@ -21,6 +21,8 @@ public class MarketFilter {
     private Market market;
 
     private boolean filteredByGames;
+    private boolean filteredByAccessories;
+    private boolean filteredByHardwares;
 
     private Origin filteredOrigin;
 
@@ -43,14 +45,18 @@ public class MarketFilter {
         this.filteredUser = null;
         this.filteredArticle = null;
         this.filteredByGames = true;
+        this.filteredByHardwares = false;
+        this.filteredByAccessories = false;
     }
 
     public String getQueryLabel() {
         String queryLabel = "all ";
         if (filteredByGames) {
             queryLabel += orange("games for sale");
-        } else {
+        } else if(filteredByHardwares){
             queryLabel += orange("hardwares for sale");
+        } else {
+            queryLabel += orange("accessories for sale");
         }
         if (filteredOrigin != null) {
             queryLabel += " from " + orange(filteredOrigin.getTitle());
@@ -118,10 +124,20 @@ public class MarketFilter {
 
     public void filterByGames() {
         this.filteredByGames = true;
+        this.filteredByHardwares = false;
+        this.filteredByAccessories = false;
     }
 
     public void filterByHardwares() {
         this.filteredByGames = false;
+        this.filteredByHardwares = true;
+        this.filteredByAccessories = false;
+    }
+
+    public void filterByAccessories() {
+        this.filteredByGames = false;
+        this.filteredByHardwares = false;
+        this.filteredByAccessories = true;
     }
 
     public boolean isFilteredBy(Platform platform) {
@@ -162,11 +178,17 @@ public class MarketFilter {
             } else {
                 allShopItems = market.getAllGamesForSaleBy(filteredUser);
             }
-        } else {
+        } else if(filteredByHardwares){
             if (filteredUser == null) {
                 allShopItems = new ArrayList<ShopItem>(market.findAllHardwaresForSale());
             } else {
                 allShopItems = market.getAllHardwaresForSaleBy(filteredUser);
+            }
+        } else {
+            if (filteredUser == null) {
+                allShopItems = new ArrayList<ShopItem>(market.findAllAccessoriesForSale());
+            } else {
+                allShopItems = market.getAllAccessoriesForSaleBy(filteredUser);
             }
         }
         return new ArrayList<ShopItem>(allShopItems);
@@ -180,11 +202,26 @@ public class MarketFilter {
         return filteredByGames;
     }
 
+    public boolean isFilteredByHardwares() {
+        return filteredByHardwares;
+    }
+
+    public boolean isFilteredByAccessories() {
+        return filteredByAccessories;
+    }
+
     public long getNumHardwares() {
         if (filteredUser != null) {
             return market.getNumHardwaresForSaleBy(filteredUser);
         }
         return market.getNumHardwaresForSale();
+    }
+
+    public long getNumAccessories() {
+        if (filteredUser != null) {
+            return market.getNumAccessoriesForSaleBy(filteredUser);
+        }
+        return market.getNumAccessoriesForSale();
     }
 
     public long getNumGames() {
