@@ -11,7 +11,7 @@
                     <tr>
                         <td width="90px">
                             <t:pageLink page="shop/shopItemView" context="shopItem">
-                                <img style="margin-top:15px" src="${message:image.host.url}${shopItem.mainPicture.urlSmall}" title="${shopItem.title}" />
+                                <img alt="${shopItem.title}" style="margin-top:15px" src="${message:image.host.url}${shopItem.mainPicture.urlSmall}" title="${shopItem.title}" />
                             </t:pageLink>
                         </td>
                         <td align="center" style="vertical-align:middle">
@@ -21,7 +21,9 @@
                             </t:pageLink>
                             </p>
                             <p class="btn btn-warning">
-                                ${price}
+                                <t:pageLink page="shop/shopItemView" context="shopItem" style="font-size:12px;color:white">
+                                    ${price}
+                                </t:pageLink>
                             </p>
                         </td>
                     </tr>
