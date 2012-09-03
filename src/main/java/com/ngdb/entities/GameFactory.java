@@ -1,6 +1,7 @@
 package com.ngdb.entities;
 
 import static com.google.common.collect.Collections2.filter;
+import static java.util.Arrays.asList;
 import static org.hibernate.criterion.Projections.rowCount;
 import static org.hibernate.criterion.Restrictions.eq;
 
@@ -8,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
+import com.ngdb.entities.reference.Publisher;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Criteria;
@@ -18,8 +22,11 @@ import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.user.User;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+
+import javax.annotation.Nullable;
 
 @SuppressWarnings("unchecked")
 public class GameFactory {
@@ -41,6 +48,26 @@ public class GameFactory {
 
     public List<Game> findAll() {
         return allGames().list();
+    }
+
+    public Collection<Game> findAllLight() {
+        ProjectionList projectionList = Projections.projectionList();
+        for(String property: asList("id", "title", "originTitle", "platformShortName", "publisher")) {
+            projectionList.add(Projections.property(property));
+        }
+        List<Object[]> list = allGames().setProjection(projectionList).list();
+        return Collections2.transform(list, new Function<Object[], Game>() {
+            @Override
+            public Game apply(@Nullable Object[] input) {
+                Game game = new Game();
+                game.setId((Long) input[0]);
+                game.setTitle(input[1].toString());
+                game.setOriginTitle(input[2].toString());
+                game.setPlatformShortName(input[3].toString());
+                game.setPublisher((Publisher) input[4]);
+                return game;
+            }
+        });
     }
 
     private Criteria allGames() {

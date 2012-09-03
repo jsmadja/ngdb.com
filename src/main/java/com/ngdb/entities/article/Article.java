@@ -353,4 +353,15 @@ public abstract class Article implements Comparable<Article>, Serializable{
         this.reference = reference;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setOriginTitle(String originTitle) {
+        this.originTitle = originTitle;
+    }
+
+    public void setPlatformShortName(g platformShortName) {
+        this.platformShortName = platformShortName;
+    }
 }
