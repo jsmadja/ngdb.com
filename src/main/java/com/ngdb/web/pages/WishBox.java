@@ -92,12 +92,21 @@ public class WishBox {
         return this;
     }
 
+    Object onActionFromSelectAccessories() {
+        wishBoxFilter.filterByAccessories();
+        return this;
+    }
+
     public long getNumGames() {
         return wishBoxFilter.getNumGames();
     }
 
     public long getNumHardwares() {
         return wishBoxFilter.getNumHardwares();
+    }
+
+    public long getNumAccessories() {
+        return wishBoxFilter.getNumAccessories();
     }
 
     public List<Platform> getPlatforms() {
@@ -162,5 +171,17 @@ public class WishBox {
 
     public int getNumResults() {
         return getWishes().size();
+    }
+
+    public String getGameSelected() {
+        return wishBoxFilter.isFilteredByGames() ? "selected":"";
+    }
+
+    public String getHardwareSelected() {
+        return wishBoxFilter.isFilteredByHardwares() ? "selected":"";
+    }
+
+    public String getAccessorySelected() {
+        return wishBoxFilter.isFilteredByAccessories() ? "selected":"";
     }
 }

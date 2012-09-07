@@ -3,9 +3,7 @@ package com.ngdb.entities.user;
 import static com.google.common.collect.Collections2.filter;
 import static com.ngdb.Predicates.isGameWish;
 import static com.ngdb.Predicates.isHardwareWish;
-import static javax.persistence.FetchType.LAZY;
-
-import java.io.Serializable;
+import static com.ngdb.Predicates.isAccessoryWish;
 import java.util.*;
 
 import javax.persistence.Embeddable;
@@ -16,7 +14,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.shop.Wish;
-import org.hibernate.annotations.OrderBy;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -79,7 +76,16 @@ public class WishList implements Iterable<Wish> {
         return getAllGames().size();
     }
 
+    public long getNumWishedAccessories() {
+        return getAllAccessories().size();
+    }
+
     public Collection<Wish> getAllHardwares() {
         return filter(wishes, isHardwareWish);
     }
+
+    public Collection<Wish> getAllAccessories() {
+        return filter(wishes, isAccessoryWish);
+    }
+
 }

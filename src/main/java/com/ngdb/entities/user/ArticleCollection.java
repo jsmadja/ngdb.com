@@ -3,6 +3,7 @@ package com.ngdb.entities.user;
 import static com.google.common.collect.Collections2.filter;
 import static com.google.common.collect.Collections2.transform;
 import static com.ngdb.Functions.fromCollectionObjectToArticle;
+import static com.ngdb.Predicates.isAccessory;
 import static com.ngdb.Predicates.isGame;
 import static com.ngdb.Predicates.isHardware;
 import static javax.persistence.FetchType.LAZY;
@@ -14,6 +15,7 @@ import java.util.Set;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
 
+import com.ngdb.Predicates;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -66,8 +68,23 @@ public class ArticleCollection {
         return filter(getArticles(), isHardware);
     }
 
+    public Collection<Article> getAccessories() {
+        return filter(getArticles(), isAccessory);
+    }
+
     public int getNumArticles() {
         return collection.size();
     }
 
+    public long getNumHardwares() {
+        return getHardwares().size();
+    }
+
+    public long getNumGames() {
+        return getGames().size();
+    }
+
+    public long getNumAccessories() {
+        return getAccessories().size();
+    }
 }

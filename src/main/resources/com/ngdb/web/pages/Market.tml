@@ -5,13 +5,13 @@
 
         <div class="orange-bar half-rounded-bar small-bar">Article</div>
         <p class="selected-link">
-            <t:actionLink class="btn-mini" t:id="selectGames">Games <span class="counter">(${numGames})</span></t:actionLink>
+            <t:actionLink class="btn-mini" t:id="selectGames"><span class="${gameSelected}">Games</span> <span class="counter">(${numGames})</span></t:actionLink>
         </p>
         <p>
-            <t:actionLink class="btn-mini" t:id="selectHardwares">Hardwares <span class="counter">(${numHardwares})</span></t:actionLink>
+            <t:actionLink class="btn-mini" t:id="selectHardwares"><span class="${hardwareSelected}">Hardwares</span> <span class="counter">(${numHardwares})</span></t:actionLink>
         </p>
         <p>
-            <t:actionLink class="btn-mini" t:id="selectAccessories">Accessories <span class="counter">(${numAccessories})</span></t:actionLink>
+            <t:actionLink class="btn-mini" t:id="selectAccessories"><span class="${accessorySelected}">Accessories</span> <span class="counter">(${numAccessories})</span></t:actionLink>
         </p>
 
         <div class="orange-bar half-rounded-bar small-bar">Platform</div>

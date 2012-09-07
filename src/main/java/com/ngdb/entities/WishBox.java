@@ -40,4 +40,7 @@ public class WishBox {
         return session.createSQLQuery("SELECT w.* FROM Wish w, Hardware h WHERE h.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
     }
 
+    public List<Wish> findAllAccessories() {
+        return session.createSQLQuery("SELECT w.* FROM Wish w, Accessory a WHERE a.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
+    }
 }

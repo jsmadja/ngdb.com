@@ -361,7 +361,7 @@ public abstract class Article implements Comparable<Article>, Serializable{
         this.originTitle = originTitle;
     }
 
-    public void setPlatformShortName(g platformShortName) {
+    public void setPlatformShortName(String platformShortName) {
         this.platformShortName = platformShortName;
     }
 }

@@ -5220,7 +5220,7 @@ TABLE.t-data-grid THEAD TR TH {
 	color:grey;
 	font-size:8pt;
 	padding-left:1px;
-	margin-left:0px;
+	margin-left:2px;
 }
 
 .selected-link {
@@ -5276,4 +5276,8 @@ TABLE.t-data-grid THEAD TR TH {
 
 #cboxOverlay {
     background:none;
+}
+
+.selected {
+    color: orange;
 }

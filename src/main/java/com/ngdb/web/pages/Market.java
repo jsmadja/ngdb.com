@@ -46,7 +46,7 @@ public class Market {
     private ArticleFactory articleFactory;
 
     @Persist
-    private MarketFilter marketFilter;
+    private MarketFilter filter;
 
     @Property
     private Platform platform;
@@ -82,14 +82,14 @@ public class Market {
     }
 
     void onActivate() {
-        if (marketFilter == null || "true".equals(request.getParameter("display-all"))) {
-            marketFilter = new MarketFilter(market);
+        if (filter == null || "true".equals(request.getParameter("display-all"))) {
+            filter = new MarketFilter(market);
         }
     }
 
     boolean onActivate(User user) {
-        marketFilter = new MarketFilter(market);
-        marketFilter.filterByUser(user);
+        filter = new MarketFilter(market);
+        filter.filterByUser(user);
         return true;
     }
 
@@ -98,55 +98,58 @@ public class Market {
             onActivate();
             return true;
         }
-        marketFilter = new MarketFilter(market);
+        filter = new MarketFilter(market);
         Filter filter = Filter.valueOf(Filter.class, filterName);
         switch (filter) {
         case byUser:
             User user = population.findById(Long.valueOf(value));
-            marketFilter.filterByUser(user);
+            this.filter.filterByUser(user);
             break;
         case byArticle:
             Article article = articleFactory.findById(Long.valueOf(value));
-            marketFilter.filterByArticle(article);
+            this.filter.filterByArticle(article);
             break;
         }
         return true;
     }
 
     public Collection<ShopItem> getShopItems() {
-        return marketFilter.getShopItems();
+        return filter.getShopItems();
     }
 
     Object onActionFromClearFilters() {
-        marketFilter.clear();
-        return this;
-    }
-
-    Object onActionFromSelectHardwares() {
-        marketFilter.filterByHardwares();
-        return this;
-    }
-
-    Object onActionFromSelectAccessories() {
-        marketFilter.filterByAccessories();
+        filter.clear();
         return this;
     }
 
     Object onActionFromSelectGames() {
-        marketFilter.filterByGames();
+        filter.clear();
+        filter.filterByGames();
+        return this;
+    }
+
+    Object onActionFromSelectHardwares() {
+        filter.clear();
+        filter.filterByHardwares();
+        return this;
+    }
+
+    Object onActionFromSelectAccessories() {
+        filter.clear();
+        filter.filterByAccessories();
         return this;
     }
 
     public long getNumGames() {
-        return marketFilter.getNumGames();
+        return filter.getNumGames();
     }
 
     public long getNumHardwares() {
-        return marketFilter.getNumHardwares();
+        return filter.getNumHardwares();
     }
 
     public long getNumAccessories() {
-        return marketFilter.getNumAccessories();
+        return filter.getNumAccessories();
     }
 
     public List<Platform> getPlatforms() {
@@ -161,16 +164,16 @@ public class Market {
         if (platform == null) {
             return false;
         }
-        return marketFilter.isFilteredBy(platform);
+        return filter.isFilteredBy(platform);
     }
 
     Object onActionFromFilterPlatform(Platform platform) {
-        marketFilter.filterByPlatform(platform);
+        filter.filterByPlatform(platform);
         return this;
     }
 
     public int getNumArticlesInThisPlatform() {
-        return marketFilter.getNumShopItemsInThisPlatform(platform);
+        return filter.getNumShopItemsInThisPlatform(platform);
     }
 
     public List<Origin> getOrigins() {
@@ -178,7 +181,7 @@ public class Market {
     }
 
     public boolean isFilteredByThisOrigin() {
-        return marketFilter.isFilteredBy(origin);
+        return filter.isFilteredBy(origin);
     }
 
     public boolean isArticleInThisOrigin() {
@@ -189,32 +192,32 @@ public class Market {
     }
 
     Object onActionFromFilterOrigin(Origin origin) {
-        marketFilter.filterByOrigin(origin);
+        filter.filterByOrigin(origin);
         return this;
     }
 
     public int getNumArticlesInThisOrigin() {
-        return marketFilter.getNumShopItemsInThisOrigin(origin);
+        return filter.getNumShopItemsInThisOrigin(origin);
     }
 
     public User getUser() {
-        return marketFilter.getFilteredUser();
+        return filter.getFilteredUser();
     }
 
     public boolean isFilteredByGames() {
-        return marketFilter.isFilteredByGames();
+        return filter.isFilteredByGames();
     }
 
     public boolean isFilteredByHardwares() {
-        return marketFilter.isFilteredByHardwares();
+        return filter.isFilteredByHardwares();
     }
 
     public boolean isFilteredByAccessories() {
-        return marketFilter.isFilteredByAccessories();
+        return filter.isFilteredByAccessories();
     }
 
     public String getQueryLabel() {
-        return marketFilter.getQueryLabel();
+        return filter.getQueryLabel();
     }
 
     public String getViewPage() {
@@ -230,8 +233,20 @@ public class Market {
     }
 
     public String getForumCode() {
-        List<ShopItem> shopItems = marketFilter.getShopItems();
+        List<ShopItem> shopItems = filter.getShopItems();
         return ForumCode.asVBulletinCode(shopItems);
+    }
+
+    public String getGameSelected() {
+        return filter.isFilteredByGames() ? "selected":"";
+    }
+
+    public String getHardwareSelected() {
+        return filter.isFilteredByHardwares() ? "selected":"";
+    }
+
+    public String getAccessorySelected() {
+        return filter.isFilteredByAccessories() ? "selected":"";
     }
 
 }

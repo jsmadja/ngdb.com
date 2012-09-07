@@ -169,6 +169,10 @@ public class User extends AbstractEntity implements Comparable<User> {
         return wishList.getNumWishedGames();
     }
 
+    public long getNumWishedAccessories() {
+        return wishList.getNumWishedAccessories();
+    }
+
     public Date getLastLoginDate() {
         return lastLoginDate;
     }
@@ -212,4 +216,7 @@ public class User extends AbstractEntity implements Comparable<User> {
     public void setCountry(String country) {
         this.country = country;
     }
+
+
+
 }

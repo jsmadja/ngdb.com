@@ -1,29 +1,18 @@
 package com.ngdb.entities.shop;
 
-import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.FetchType.LAZY;
-
-import java.io.Serializable;
-import java.util.Date;
-import java.util.Locale;
-
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.PreUpdate;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
+import com.google.common.base.Objects;
+import com.ngdb.entities.article.Article;
+import com.ngdb.entities.user.User;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.ocpsoft.pretty.time.PrettyTime;
 
-import com.google.common.base.Objects;
-import com.ngdb.entities.article.Article;
-import com.ngdb.entities.user.User;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Locale;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -88,10 +77,6 @@ public class Wish implements Comparable<Wish> {
 
     public String getWishDate() {
         return new PrettyTime(Locale.UK).format(getCreationDate());
-    }
-
-    public boolean isGame() {
-        return article.isGame();
     }
 
     @Embeddable

@@ -1,5 +1,6 @@
 package com.ngdb.web.pages;
 
+import com.ngdb.entities.AccessoryFactory;
 import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.HardwareFactory;
 import com.ngdb.entities.MuseumFilter;
@@ -41,13 +42,16 @@ public class Museum {
     private ReferenceService referenceService;
 
     @Persist
-    private MuseumFilter museumFilter;
+    private MuseumFilter filter;
 
     @Inject
     private GameFactory gameFactory;
 
     @Inject
     private HardwareFactory hardwareFactory;
+
+    @Inject
+    private AccessoryFactory accessoryFactory;
 
     @Persist
     @Property
@@ -60,14 +64,14 @@ public class Museum {
     private User user;
 
     void onActivate() {
-        if (museumFilter == null || "true".equals(request.getParameter("display-all"))) {
-            museumFilter = new MuseumFilter(gameFactory, hardwareFactory);
+        if (filter == null || "true".equals(request.getParameter("display-all"))) {
+            filter = new MuseumFilter(gameFactory, hardwareFactory, accessoryFactory);
         }
     }
 
     boolean onActivate(User user) {
-        museumFilter = new MuseumFilter(gameFactory, hardwareFactory);
-        museumFilter.filterByUser(user);
+        filter = new MuseumFilter(gameFactory, hardwareFactory, accessoryFactory);
+        filter.filterByUser(user);
         this.user = user;
         return true;
     }
@@ -77,26 +81,26 @@ public class Museum {
             onActivate();
             return true;
         }
-        museumFilter = new MuseumFilter(gameFactory, hardwareFactory);
+        filter = new MuseumFilter(gameFactory, hardwareFactory, accessoryFactory);
         Filter filter = Filter.valueOf(Filter.class, filterName);
         switch (filter) {
         case byOrigin:
-            museumFilter.filterByOrigin(referenceService.findOriginByTitle(value));
+            this.filter.filterByOrigin(referenceService.findOriginByTitle(value));
             break;
         case byPlatform:
-            museumFilter.filterByPlatform(referenceService.findPlatformByName(value));
+            this.filter.filterByPlatform(referenceService.findPlatformByName(value));
             break;
         case byPublisher:
-            museumFilter.filterByPublisher(referenceService.findPublisherBy(Long.valueOf(value)));
+            this.filter.filterByPublisher(referenceService.findPublisherBy(Long.valueOf(value)));
             break;
         case byTag:
-            museumFilter.filterByTag(referenceService.findTagById(Long.valueOf(value)));
+            this.filter.filterByTag(referenceService.findTagById(Long.valueOf(value)));
             break;
         case byNgh:
-            museumFilter.filterByNgh(value);
+            this.filter.filterByNgh(value);
             break;
         case byReleaseDate:
-            museumFilter.filterByReleaseDate(toReleaseDate(value));
+            this.filter.filterByReleaseDate(toReleaseDate(value));
             break;
         }
         return true;
@@ -111,11 +115,11 @@ public class Museum {
     }
 
     public List<Article> getArticles() {
-        return museumFilter.getArticles();
+        return filter.getArticles();
     }
 
     Object onActionFromClearFilters() {
-        museumFilter.clear();
+        filter.clear();
         return this;
     }
 
@@ -131,12 +135,20 @@ public class Museum {
     }
 
     Object onActionFromSelectHardwares() {
-        museumFilter.filterByHardwares();
+        filter.clear();
+        filter.filterByHardwares();
         return this;
     }
 
     Object onActionFromSelectGames() {
-        museumFilter.filterByGames();
+        filter.clear();
+        filter.filterByGames();
+        return this;
+    }
+
+    Object onActionFromSelectAccessories() {
+        filter.clear();
+        filter.filterByAccessories();
         return this;
     }
 
@@ -148,6 +160,13 @@ public class Museum {
             return ((BigInteger)session.createSQLQuery("SELECT COUNT(article_id) FROM CollectionObject WHERE user_id = "+user.getId()+" AND article_id IN (SELECT id FROM Game);").uniqueResult()).longValue();
         }
         return gameFactory.getNumGames();
+    }
+
+    public long getNumAccessories() {
+        if (user != null) {
+            return ((BigInteger)session.createSQLQuery("SELECT COUNT(article_id) FROM CollectionObject WHERE user_id = "+user.getId()+" AND article_id IN (SELECT id FROM Accessory);").uniqueResult()).longValue();
+        }
+        return accessoryFactory.getNumAccessories();
     }
 
     public List<Platform> getPlatforms() {
@@ -162,16 +181,16 @@ public class Museum {
         if (platform == null) {
             return false;
         }
-        return museumFilter.isFilteredBy(platform);
+        return filter.isFilteredBy(platform);
     }
 
     Object onActionFromFilterPlatform(Platform platform) {
-        museumFilter.filterByPlatform(platform);
+        filter.filterByPlatform(platform);
         return this;
     }
 
     public int getNumArticlesInThisPlatform() {
-        return museumFilter.getNumArticlesInThisPlatform(platform);
+        return filter.getNumArticlesInThisPlatform(platform);
     }
 
     public List<Origin> getOrigins() {
@@ -179,14 +198,14 @@ public class Museum {
     }
 
     public boolean isFilteredByThisOrigin() {
-        return museumFilter.isFilteredBy(origin);
+        return filter.isFilteredBy(origin);
     }
 
     public boolean isArticleInThisOrigin() {
         if (origin == null) {
             return false;
         }
-        return museumFilter.getNumArticlesInThisOrigin(origin) > 0;
+        return filter.getNumArticlesInThisOrigin(origin) > 0;
     }
 
     Object onActionFromThumbnailMode() {
@@ -200,27 +219,27 @@ public class Museum {
     }
 
     Object onActionFromFilterOrigin(Origin origin) {
-        museumFilter.filterByOrigin(origin);
+        filter.filterByOrigin(origin);
         return this;
     }
 
     public int getNumArticlesInThisOrigin() {
-        return museumFilter.getNumArticlesInThisOrigin(origin);
+        return filter.getNumArticlesInThisOrigin(origin);
     }
 
     public boolean isArticleInThisPublisher() {
-        return museumFilter.getNumArticlesInThisPublisher(publisher) > 0;
+        return filter.getNumArticlesInThisPublisher(publisher) > 0;
     }
 
     public boolean isFilteredByThisPublisher() {
         if (publisher == null) {
             return false;
         }
-        return museumFilter.isFilteredBy(publisher);
+        return filter.isFilteredBy(publisher);
     }
 
     Object onActionFromFilterPublisher(Publisher publisher) {
-        museumFilter.filterByPublisher(publisher);
+        filter.filterByPublisher(publisher);
         return this;
     }
 
@@ -229,31 +248,43 @@ public class Museum {
     }
 
     public User getUser() {
-        return museumFilter.getFilteredUser();
+        return filter.getFilteredUser();
     }
 
     public boolean isFilteredByGames() {
-        return museumFilter.isFilteredByGames();
+        return filter.isFilteredByGames();
     }
 
     public int getNumArticlesInThisPublisher() {
-        return museumFilter.getNumArticlesInThisPublisher(publisher);
+        return filter.getNumArticlesInThisPublisher(publisher);
     }
 
     public Tag getTag() {
-        return museumFilter.getFilteredTag();
+        return filter.getFilteredTag();
     }
 
     public Date getReleaseDate() {
-        return museumFilter.getFilteredReleaseDate();
+        return filter.getFilteredReleaseDate();
     }
 
     public String getQueryLabel() {
-        return museumFilter.getQueryLabel();
+        return filter.getQueryLabel();
     }
 
     public String getViewPage() {
         return article.getViewPage();
+    }
+
+    public String getGameSelected() {
+        return filter.isFilteredByGames() ? "selected":"";
+    }
+
+    public String getHardwareSelected() {
+        return filter.isFilteredByHardwares() ? "selected":"";
+    }
+
+    public String getAccessorySelected() {
+        return filter.isFilteredByAccessories() ? "selected":"";
     }
 
 }

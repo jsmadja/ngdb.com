@@ -47,17 +47,30 @@ public class Predicates {
         }
     };
 
+    public static Predicate<Article> isAccessory = new Predicate<Article>() {
+        @Override
+        public boolean apply(Article input) {
+            return input.isAccessory();
+        }
+    };
+
     public static Predicate<Wish> isGameWish = new Predicate<Wish>() {
         @Override
         public boolean apply(@Nullable Wish input) {
-            return input.isGame();
+            return input.getArticle().isGame();
         }
     };
 
     public static Predicate<Wish> isHardwareWish = new Predicate<Wish>() {
         @Override
         public boolean apply(@Nullable Wish input) {
-            return !input.isGame();
+            return input.getArticle().isHardware();
+        }
+    };
+    public static Predicate<Wish> isAccessoryWish = new Predicate<Wish>() {
+        @Override
+        public boolean apply(@Nullable Wish input) {
+            return input.getArticle().isAccessory();
         }
     };
 

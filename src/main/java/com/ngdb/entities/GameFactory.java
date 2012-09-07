@@ -1,7 +1,10 @@
 package com.ngdb.entities;
 
 import static com.google.common.collect.Collections2.filter;
+import static com.google.common.collect.Collections2.transform;
 import static java.util.Arrays.asList;
+import static org.hibernate.criterion.Projections.projectionList;
+import static org.hibernate.criterion.Projections.property;
 import static org.hibernate.criterion.Projections.rowCount;
 import static org.hibernate.criterion.Restrictions.eq;
 
@@ -51,12 +54,12 @@ public class GameFactory {
     }
 
     public Collection<Game> findAllLight() {
-        ProjectionList projectionList = Projections.projectionList();
+        ProjectionList projectionList = projectionList();
         for(String property: asList("id", "title", "originTitle", "platformShortName", "publisher")) {
-            projectionList.add(Projections.property(property));
+            projectionList.add(property(property));
         }
         List<Object[]> list = allGames().setProjection(projectionList).list();
-        return Collections2.transform(list, new Function<Object[], Game>() {
+        return transform(list, new Function<Object[], Game>() {
             @Override
             public Game apply(@Nullable Object[] input) {
                 Game game = new Game();
