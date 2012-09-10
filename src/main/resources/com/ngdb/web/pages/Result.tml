@@ -2,7 +2,7 @@
 	xmlns:p="tapestry:parameter">
 	<div class="result">
 		<div class="page-header">
-			<h1 class="blue-bar rounded-bar big-bar">Results for '${search}'</h1>
+			Results for '${search}'
 		</div>
 
         <style type="text/css">
