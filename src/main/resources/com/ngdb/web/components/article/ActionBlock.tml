@@ -4,7 +4,7 @@
 			<t:if test="asButton">
 				<div class="btn-group">
 		  			<t:if test="buyable">
-						<t:pageLink t:id="buy" class="btn btn-warning" page="market" context="literal:byArticle,article.id" title="View items for sale">
+						<t:pageLink t:id="buy" class="btn btn-warning" page="market" context="[byArticle, article]" title="View items for sale">
 							<i class="icon-shopping-cart icon-white"></i>
 						</t:pageLink>
 					</t:if>
@@ -46,7 +46,7 @@
 							</li>
 							<t:if test="buyable">
 								<li>
-									<t:pageLink t:id="buyLink" page="market" context="literal:byArticle,article.id">
+									<t:pageLink t:id="buyLink" page="market" context="[byArticle, article]">
 										<i class="icon-shopping-cart"/> View items for sale
 									</t:pageLink>
 								</li>

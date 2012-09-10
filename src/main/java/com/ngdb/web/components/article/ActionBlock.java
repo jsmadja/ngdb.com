@@ -124,4 +124,8 @@ public class ActionBlock {
 		return "actionBlockZone_" + article.getId().toString();
 	}
 
+    public String getByArticle() {
+        return "byArticle";
+    }
+
 }
