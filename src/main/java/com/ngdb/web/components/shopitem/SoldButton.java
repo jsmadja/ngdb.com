@@ -1,11 +1,14 @@
 package com.ngdb.web.components.shopitem;
 
+import com.ngdb.entities.Market;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 
 import com.ngdb.entities.shop.ShopItem;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.Session;
 
 public class SoldButton {
 
@@ -20,10 +23,16 @@ public class SoldButton {
 	@Parameter
 	private boolean asButton;
 
+    @Inject
+    private Session session;
+
+    @Inject
+    private Market market;
+
 	@CommitAfter
 	Object onActionFromSold(ShopItem shopItem) {
-		shopItem.sold();
-		return marketPage;
+        market.sell(shopItem);
+        return marketPage;
 	}
 
 	@CommitAfter

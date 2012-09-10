@@ -244,7 +244,7 @@ public class CurrentUser {
         if(isAnonymous()) {
             return false;
         }
-        return shopItem.getSeller().equals(getUser());
+        return shopItem.getSeller().getId().equals(getUserId());
     }
 
     public boolean canRemove(ShopItem shopItem) {

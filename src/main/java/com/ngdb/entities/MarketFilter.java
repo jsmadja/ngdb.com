@@ -18,8 +18,6 @@ public class MarketFilter extends AbstractFilter {
 
     private Market market;
 
-    private Collection<ShopItem> allShopItems;
-
     public MarketFilter(com.ngdb.entities.Market market) {
         this.market = market;
         clear();
@@ -72,6 +70,7 @@ public class MarketFilter extends AbstractFilter {
     }
 
     private Collection<ShopItem> allShopItems() {
+        Collection<ShopItem> allShopItems;
         if (filteredByGames) {
             if (filteredUser == null) {
                 allShopItems = new ArrayList<ShopItem>(market.findAllGamesForSale());

@@ -47,11 +47,12 @@ public class Market {
     }
 
     public List<ShopItem> findAllItemsForSale() {
-        return allShopItems().add(eq("sold", false)).list();
+        List sold = allShopItems().add(eq("sold", false)).list();
+        return sold;
     }
 
     private Criteria allShopItems() {
-        return session.createCriteria(ShopItem.class).setCacheable(true);
+        return session.createCriteria(ShopItem.class);
     }
 
     public List<ShopItem> findRandomForSaleItems(int count) {
@@ -137,51 +138,55 @@ public class Market {
     }
 
     public List<ShopItem> findAllGamesForSale() {
-        return session.createSQLQuery("SELECT * FROM ShopItem WHERE article_id IN (SELECT id FROM Game)").addEntity(ShopItem.class).list();
+        return findAll("Game");
+    }
+
+    private List findAll(String tableName) {
+        return session.createSQLQuery("SELECT * FROM ShopItem WHERE sold = 0 AND article_id IN (SELECT id FROM "+tableName+")").addEntity(ShopItem.class).list();
     }
 
     public List<ShopItem> findAllAccessoriesForSale() {
-        return session.createSQLQuery("SELECT * FROM ShopItem WHERE article_id IN (SELECT id FROM Accessory)").addEntity(ShopItem.class).list();
-    }
-
-    public long getNumGamesForSale() {
-        return ((BigInteger) session.createSQLQuery("SELECT COUNT(id) FROM ShopItem WHERE article_id IN (SELECT id FROM Game)").uniqueResult()).longValue();
+        return findAll("Accessory");
     }
 
     public List<ShopItem> findAllHardwaresForSale() {
-        return session.createSQLQuery("SELECT * FROM ShopItem WHERE article_id IN (SELECT id FROM Hardware)").addEntity(ShopItem.class).list();
+        return findAll("Hardware");
+    }
+
+    public long getNumGamesForSale() {
+        return getNumAll("Game");
     }
 
     public long getNumHardwaresForSale() {
-        return ((BigInteger) session.createSQLQuery("SELECT COUNT(id) FROM ShopItem WHERE article_id IN (SELECT id FROM Hardware)").uniqueResult()).longValue();
+        return getNumAll("Hardware");
     }
 
     public long getNumAccessoriesForSale() {
-        return ((BigInteger) session.createSQLQuery("SELECT COUNT(id) FROM ShopItem WHERE article_id IN (SELECT id FROM Accessory)").uniqueResult()).longValue();
+        return getNumAll("Accessory");
     }
 
     public long getNumHardwaresForSaleBy(User user) {
-        return ((BigInteger) session.createSQLQuery("SELECT COUNT(id) FROM ShopItem WHERE seller_id = "+user.getId()+" AND article_id IN (SELECT id FROM Hardware)").uniqueResult()).longValue();
+        return getNum(user, "Hardware");
     }
 
     public long getNumAccessoriesForSaleBy(User user) {
-        return ((BigInteger) session.createSQLQuery("SELECT COUNT(id) FROM ShopItem WHERE seller_id = "+user.getId()+" AND article_id IN (SELECT id FROM Accessory)").uniqueResult()).longValue();
+        return getNum(user, "Accessory");
     }
 
     public long getNumGamesForSaleBy(User user) {
-        return ((BigInteger) session.createSQLQuery("SELECT COUNT(id) FROM ShopItem WHERE seller_id = "+user.getId()+" AND article_id IN (SELECT id FROM Game)").uniqueResult()).longValue();
+        return getNum(user, "Game");
     }
 
     public List<ShopItem> getAllHardwaresForSaleBy(User user) {
-        return session.createSQLQuery("SELECT * FROM ShopItem WHERE seller_id = "+user.getId()+" AND article_id IN (SELECT id FROM Hardware)").addEntity(ShopItem.class).list();
+        return getAll(user, "Hardware");
     }
 
     public List<ShopItem> getAllGamesForSaleBy(User user) {
-        return session.createSQLQuery("SELECT * FROM ShopItem WHERE seller_id = "+user.getId()+" AND article_id IN (SELECT id FROM Game)").addEntity(ShopItem.class).list();
+        return getAll(user, "Game");
     }
 
     public List<ShopItem> getAllAccessoriesForSaleBy(User user) {
-        return session.createSQLQuery("SELECT * FROM ShopItem WHERE seller_id = "+user.getId()+" AND article_id IN (SELECT id FROM Accessory)").addEntity(ShopItem.class).list();
+        return getAll(user, "Accessory");
     }
 
     public String asVBulletinCode() {
@@ -194,6 +199,24 @@ public class Market {
             add(eq("seller", user)).
             add(eq("sold", false)).
             setCacheable(true).list();
+    }
+
+    public void sell(ShopItem shopItem) {
+        shopItem.sold();
+        session.merge(shopItem);
+        cache.flush();
+    }
+
+    private long getNumAll(String tableName) {
+        return ((BigInteger) session.createSQLQuery("SELECT COUNT(id) FROM ShopItem WHERE sold = 0 AND article_id IN (SELECT id FROM "+tableName+")").uniqueResult()).longValue();
+    }
+
+    private long getNum(User user, String tableName) {
+        return ((BigInteger) session.createSQLQuery("SELECT COUNT(id) FROM ShopItem WHERE sold = 0 AND seller_id = "+user.getId()+" AND article_id IN (SELECT id FROM "+tableName+")").uniqueResult()).longValue();
+    }
+
+    private List getAll(User user, String tableName) {
+        return session.createSQLQuery("SELECT * FROM ShopItem WHERE sold = 0 AND seller_id = "+user.getId()+" AND article_id IN (SELECT id FROM "+tableName+")").addEntity(ShopItem.class).list();
     }
 
 }
