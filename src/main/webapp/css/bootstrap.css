@@ -339,8 +339,7 @@ a:hover {
 }
 
 .row-fluid .span10 {
-
-    width: 82.97872339599999%;
+  width: 82.97872339599999%;
   *width: 82.92553190663828%;
 }
 
@@ -5179,7 +5178,7 @@ TABLE.t-data-grid THEAD TR TH {
 }
 
 .half-rounded-bar {
-    border-radius: 0px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
     color: white;
     text-shadow: 0 0 0 #333333;
 }

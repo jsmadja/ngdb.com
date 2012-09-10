@@ -309,13 +309,9 @@
     float: left;
     width: 100%;
     min-height: 28px;
-    /*
-      margin-left: 2.762430939%;
+    margin-left: 2.762430939%;
     *margin-left: 2.709239449638298%;
-    */
-      margin-left: 1%;
-      *margin-left: 1%;
-      -webkit-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
         -ms-box-sizing: border-box;
             box-sizing: border-box;
@@ -332,13 +328,8 @@
     *width: 91.38327259263829%;
   }
   .row-fluid .span10 {
-    /*
-      width: 82.87292817100001%;
+    width: 82.87292817100001%;
     *width: 82.8197366816383%;
-    */
-      width: 83.5%;
-      *width: 83.5%;
-
   }
   .row-fluid .span9 {
     width: 74.30939226%;
@@ -554,13 +545,9 @@
     float: left;
     width: 100%;
     min-height: 28px;
-      /*
     margin-left: 2.564102564%;
     *margin-left: 2.510911074638298%;
-    */
-      margin-left: 1%;
-      *margin-left: 1%;
-      -webkit-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
         -ms-box-sizing: border-box;
             box-sizing: border-box;
@@ -577,13 +564,8 @@
     *width: 91.3997999636383%;
   }
   .row-fluid .span10 {
-    /*
-      width: 82.905982906%;
+    width: 82.905982906%;
     *width: 82.8527914166383%;
-    */
-      width: 83.5%;
-      *width: 823.5%;
-
   }
   .row-fluid .span9 {
     width: 77%;
