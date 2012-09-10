@@ -54,7 +54,7 @@
         </t:actionLink>
     </div>
 
-    <div class="market span10">
+    <div class="market span10" style="">
 		<div class="page-header">
 			<h1 class="orange-bar rounded-bar big-bar">
 				<t:if test="username">
