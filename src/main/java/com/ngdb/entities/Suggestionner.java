@@ -23,8 +23,9 @@ public class Suggestionner {
 	private static final Logger LOG = LoggerFactory.getLogger(Suggestionner.class);
 
 	private static Cache cache;
+    public static final int MAX_SUGGESTIONS = 10;
 
-	static {
+    static {
 		CacheManager create = CacheManager.create();
 		cache = create.getCache("search.all.suggestions");
 	}
@@ -80,7 +81,7 @@ public class Suggestionner {
                 return input.toLowerCase().startsWith(partial);
             }
         });
-		return new ArrayList<String>(suggestions);
+		return new ArrayList<String>(suggestions).subList(0, suggestions.size()> MAX_SUGGESTIONS ? MAX_SUGGESTIONS :suggestions.size());
 	}
 
 }

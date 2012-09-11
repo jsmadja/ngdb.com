@@ -5281,3 +5281,7 @@ TABLE.t-data-grid THEAD TR TH {
 .selected {
     color: orange;
 }
+
+.ui-menu .ui-menu-item a {
+    font-size: 11px;
+}
