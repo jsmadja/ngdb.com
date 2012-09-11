@@ -35,7 +35,7 @@ public class Thumbnail {
 		if (size == null) {
 			return article.getCover().getUrl();
 		}
-		return article.getCover().getUrl(size);
-	}
+        return article.getCover().getUrl(size);
+    }
 
 }

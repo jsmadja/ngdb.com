@@ -70,7 +70,7 @@ public class GameFactory {
                 game.setPlatformShortName(input[3].toString());
                 game.setPublisher((Publisher) input[4]);
                 if(input[5] != null) {
-                    game.setCover(new Picture(input[5].toString()));
+                    game.setCover(input[5].toString());
                 }
                 return game;
             }

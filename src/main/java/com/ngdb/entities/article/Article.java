@@ -158,6 +158,10 @@ public abstract class Article implements Comparable<Article>, Serializable{
         this.coverUrl = picture.getUrl();
     }
 
+    public void setCover(String url) {
+        this.coverUrl = url;
+    }
+
     public Picture getCover() {
         if(coverUrl == null) {
             return Picture.EMPTY;
