@@ -165,6 +165,10 @@ public class User extends AbstractEntity implements Comparable<User> {
         return wishList.getAllHardwares();
     }
 
+    public Collection<Wish> getAllWishedAccessories() {
+        return wishList.getAllAccessories();
+    }
+
     public int getNumWishedHardwares() {
         return wishList.getNumWishedHardwares();
     }

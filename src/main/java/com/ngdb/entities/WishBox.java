@@ -35,31 +35,52 @@ public class WishBox {
 		return Integer.MAX_VALUE;
 	}
 
+    private List<Wish> findAll(String tableName) {
+        return session.createSQLQuery("SELECT w.* FROM Wish w, "+tableName+" g WHERE g.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
+    }
+
+    private List<Wish> findAllOn(Platform platform, String tableName) {
+        return session.createSQLQuery("SELECT w.* FROM Wish w, "+tableName+" g WHERE g.platform_short_name = '"+platform.getShortName()+"' AND g.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
+    }
+
+    private List<Wish> findAllFrom(Origin origin, String tableName) {
+        return session.createSQLQuery("SELECT w.* FROM Wish w, "+tableName+" g WHERE g.origin_title = '"+origin.getTitle()+"' AND g.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
+    }
+
     public List<Wish> findAllGames() {
-        return session.createSQLQuery("SELECT w.* FROM Wish w, Game g WHERE g.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
+        return findAll("Game");
     }
 
     public List<Wish> findAllHardwares() {
-        return session.createSQLQuery("SELECT w.* FROM Wish w, Hardware h WHERE h.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
+        return findAll("Hardware");
     }
 
     public List<Wish> findAllAccessories() {
-        return session.createSQLQuery("SELECT w.* FROM Wish w, Accessory a WHERE a.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
+        return findAll("Accessory");
     }
 
     public List<Wish> findAllGamesOn(Platform platform) {
-        return session.createSQLQuery("SELECT w.* FROM Wish w, Game g WHERE g.platform_short_name = '"+platform.getShortName()+"' AND g.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
+        return findAllOn(platform, "Game");
     }
 
     public List<Wish> findAllHardwaresOn(Platform platform){
-        return session.createSQLQuery("SELECT w.* FROM Wish w, Hardware h WHERE h.platform_short_name = '"+platform.getShortName()+"' AND h.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
+        return findAllOn(platform, "Hardware");
     }
 
     public List<Wish> findAllGamesFrom(Origin origin) {
-        return session.createSQLQuery("SELECT w.* FROM Wish w, Game g WHERE g.origin_title = '"+origin.getTitle()+"' AND g.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
+        return findAllFrom(origin, "Game");
     }
 
     public List<Wish> findAllHardwaresFrom(Origin origin) {
-        return session.createSQLQuery("SELECT w.* FROM Wish w, Hardware h WHERE h.origin_title = '"+origin.getTitle()+"' AND g.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
+        return findAllFrom(origin, "Hardware");
     }
+
+    public List<Wish> findAllAccessoriesFrom(Origin origin) {
+        return findAllFrom(origin, "Accessory");
+    }
+
+    public List<Wish> findAllAccessoriesOn(Platform platform) {
+        return findAllOn(platform, "Accessory");
+    }
+
 }

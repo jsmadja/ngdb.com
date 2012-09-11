@@ -58,11 +58,17 @@ public class WishBoxFilter extends AbstractFilter {
             } else {
                 wishes.addAll(Collections2.filter(filteredUser.getAllWishedGames(), new WishPredicates.OriginPredicate(origin)));
             }
-        } else {
+        } else if(filteredByHardwares) {
             if (filteredUser == null) {
                 wishes.addAll(new ArrayList<Wish>(wishBox.findAllHardwaresFrom(origin)));
             } else {
                 wishes.addAll(Collections2.filter(filteredUser.getAllWishedHardwares(), new WishPredicates.OriginPredicate(origin)));
+            }
+        } else {
+            if (filteredUser == null) {
+                wishes.addAll(new ArrayList<Wish>(wishBox.findAllAccessoriesFrom(origin)));
+            } else {
+                wishes.addAll(Collections2.filter(filteredUser.getAllWishedAccessories(), new WishPredicates.OriginPredicate(origin)));
             }
         }
 
@@ -79,13 +85,19 @@ public class WishBoxFilter extends AbstractFilter {
             if (filteredUser == null) {
                 wishes.addAll(wishBox.findAllGamesOn(platform));
             } else {
-                wishes.addAll(Collections2.filter(filteredUser.getAllWishedGames(), new WishPredicates.PlatformPredicate(platform)));
+                wishes.addAll(filter(filteredUser.getAllWishedGames(), new WishPredicates.PlatformPredicate(platform)));
+            }
+        } else if(filteredByHardwares) {
+            if (filteredUser == null) {
+                wishes.addAll(wishBox.findAllHardwaresOn(platform));
+            } else {
+                wishes.addAll(filter(filteredUser.getAllWishedHardwares(), new WishPredicates.PlatformPredicate(platform)));
             }
         } else {
             if (filteredUser == null) {
-                wishes.addAll(new ArrayList<Wish>(wishBox.findAllHardwaresOn(platform)));
+                wishes.addAll(new ArrayList<Wish>(wishBox.findAllAccessoriesOn(platform)));
             } else {
-                wishes.addAll(Collections2.filter(filteredUser.getAllWishedHardwares(), new WishPredicates.PlatformPredicate(platform)));
+                wishes.addAll(filter(filteredUser.getAllWishedAccessories(), new WishPredicates.PlatformPredicate(platform)));
             }
         }
         return wishes.size();

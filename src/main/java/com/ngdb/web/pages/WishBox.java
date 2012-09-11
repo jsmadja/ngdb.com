@@ -29,7 +29,7 @@ public class WishBox {
     private Population population;
 
     @Persist
-    private WishBoxFilter wishBoxFilter;
+    private WishBoxFilter filter;
 
     @Property
     private Platform platform;
@@ -47,8 +47,11 @@ public class WishBox {
     private Request request;
 
     void onActivate() {
-        if (wishBoxFilter == null  || "true".equals(request.getParameter("display-all"))) {
-            wishBoxFilter = new WishBoxFilter(wishBox);
+        if (filter == null  || "true".equals(request.getParameter("display-all"))) {
+            filter = new WishBoxFilter(wishBox);
+            filter.filterByGames();
+            filter.filterByOrigin(referenceService.findOriginByTitle("Japan"));
+            filter.filterByPlatform(referenceService.findPlatformByName("AES"));
         }
     }
 
@@ -57,19 +60,19 @@ public class WishBox {
             onActivate();
             return true;
         }
-        wishBoxFilter = new WishBoxFilter(wishBox);
+        filter = new WishBoxFilter(wishBox);
         Filter filter = Filter.valueOf(Filter.class, filterName);
         switch (filter) {
         case byUser:
             User user = population.findById(Long.valueOf(value));
-            wishBoxFilter.filterByUser(user);
+            this.filter.filterByUser(user);
             break;
         }
         return true;
     }
 
     public Collection<Wish> getWishes() {
-        return wishBoxFilter.getWishes();
+        return filter.getWishes();
     }
 
     public String getMainPictureUrl() {
@@ -78,35 +81,35 @@ public class WishBox {
     }
 
     Object onActionFromClearFilters() {
-        wishBoxFilter.clear();
+        filter.clear();
         return this;
     }
 
     Object onActionFromSelectHardwares() {
-        wishBoxFilter.filterByHardwares();
+        filter.filterByHardwares();
         return this;
     }
 
     Object onActionFromSelectGames() {
-        wishBoxFilter.filterByGames();
+        filter.filterByGames();
         return this;
     }
 
     Object onActionFromSelectAccessories() {
-        wishBoxFilter.filterByAccessories();
+        filter.filterByAccessories();
         return this;
     }
 
     public long getNumGames() {
-        return wishBoxFilter.getNumGames();
+        return filter.getNumGames();
     }
 
     public long getNumHardwares() {
-        return wishBoxFilter.getNumHardwares();
+        return filter.getNumHardwares();
     }
 
     public long getNumAccessories() {
-        return wishBoxFilter.getNumAccessories();
+        return filter.getNumAccessories();
     }
 
     public List<Platform> getPlatforms() {
@@ -121,16 +124,16 @@ public class WishBox {
         if (platform == null) {
             return false;
         }
-        return wishBoxFilter.isFilteredBy(platform);
+        return filter.isFilteredBy(platform);
     }
 
     Object onActionFromFilterPlatform(Platform platform) {
-        wishBoxFilter.filterByPlatform(platform);
+        filter.filterByPlatform(platform);
         return this;
     }
 
     public int getNumWishesInThisPlatform() {
-        return wishBoxFilter.getNumWishesInThisPlatform(platform);
+        return filter.getNumWishesInThisPlatform(platform);
     }
 
     public List<Origin> getOrigins() {
@@ -138,7 +141,7 @@ public class WishBox {
     }
 
     public boolean isFilteredByThisOrigin() {
-        return wishBoxFilter.isFilteredBy(origin);
+        return filter.isFilteredBy(origin);
     }
 
     public boolean isWishInThisOrigin() {
@@ -149,24 +152,24 @@ public class WishBox {
     }
 
     Object onActionFromFilterOrigin(Origin origin) {
-        wishBoxFilter.filterByOrigin(origin);
+        filter.filterByOrigin(origin);
         return this;
     }
 
     public int getNumWishesInThisOrigin() {
-        return wishBoxFilter.getNumWishesInThisOrigin(origin);
+        return filter.getNumWishesInThisOrigin(origin);
     }
 
     public User getUser() {
-        return wishBoxFilter.getFilteredUser();
+        return filter.getFilteredUser();
     }
 
     public boolean isFilteredByGames() {
-        return wishBoxFilter.isFilteredByGames();
+        return filter.isFilteredByGames();
     }
 
     public String getQueryLabel() {
-        return wishBoxFilter.getQueryLabel();
+        return filter.getQueryLabel();
     }
 
     public int getNumResults() {
@@ -174,14 +177,14 @@ public class WishBox {
     }
 
     public String getGameSelected() {
-        return wishBoxFilter.isFilteredByGames() ? "selected":"";
+        return filter.isFilteredByGames() ? "selected":"";
     }
 
     public String getHardwareSelected() {
-        return wishBoxFilter.isFilteredByHardwares() ? "selected":"";
+        return filter.isFilteredByHardwares() ? "selected":"";
     }
 
     public String getAccessorySelected() {
-        return wishBoxFilter.isFilteredByAccessories() ? "selected":"";
+        return filter.isFilteredByAccessories() ? "selected":"";
     }
 }
