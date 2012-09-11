@@ -98,7 +98,7 @@ public class MuseumFilter extends AbstractFilter {
             if (filteredUser == null) {
                 articles.addAll(gameFactory.findAllLight());
             } else {
-                articles.addAll(gameFactory.findAllOwnedBy(filteredUser));
+                articles.addAll(gameFactory.findAllGamesOwnedBy(filteredUser));
             }
         } else if(filteredByHardwares){
             if (filteredUser == null) {

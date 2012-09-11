@@ -141,10 +141,6 @@ public class User extends AbstractEntity implements Comparable<User> {
         return wishList.getNumWishes();
     }
 
-    public boolean owns(Article article) {
-        return collection.contains(article);
-    }
-
     @Override
     public int compareTo(User user) {
         return login.compareToIgnoreCase(user.getLogin());

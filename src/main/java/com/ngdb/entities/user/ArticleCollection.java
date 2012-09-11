@@ -28,32 +28,19 @@ public class ArticleCollection {
     @OneToMany(mappedBy = "owner", fetch = LAZY, orphanRemoval = true)
     private Set<CollectionObject> collection;
 
-    public boolean contains(Article article) {
-        for (CollectionObject collectionObject : collection) {
-            Long searchId = article.getId();
-            Long idInCollection = collectionObject.getArticle().getId();
-            if (searchId.equals(idInCollection)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void addInCollection(CollectionObject collectionObject) {
         collection.add(collectionObject);
     }
 
     public void removeFromCollection(Article article) {
-        if (contains(article)) {
-            CollectionObject collectionObjectToRemove = null;
-            for (CollectionObject collectionObject : collection) {
-                if (collectionObject.getArticle().getId().equals(article.getId())) {
-                    collectionObjectToRemove = collectionObject;
-                    break;
-                }
+        CollectionObject collectionObjectToRemove = null;
+        for (CollectionObject collectionObject : collection) {
+            if (collectionObject.getArticle().getId().equals(article.getId())) {
+                collectionObjectToRemove = collectionObject;
+                break;
             }
-            collection.remove(collectionObjectToRemove);
         }
+        collection.remove(collectionObjectToRemove);
     }
 
     public Collection<Article> getArticles() {

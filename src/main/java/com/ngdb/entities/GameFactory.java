@@ -1,36 +1,28 @@
 package com.ngdb.entities;
 
-import static com.google.common.collect.Collections2.filter;
-import static com.google.common.collect.Collections2.transform;
-import static java.util.Arrays.asList;
-import static org.hibernate.criterion.Projections.projectionList;
-import static org.hibernate.criterion.Projections.property;
-import static org.hibernate.criterion.Projections.rowCount;
-import static org.hibernate.criterion.Restrictions.eq;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import com.google.common.base.Function;
-import com.google.common.collect.Collections2;
-import com.ngdb.entities.article.element.Picture;
+import com.ngdb.entities.article.Game;
+import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
+import com.ngdb.entities.user.User;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-
-import com.google.common.base.Predicate;
-import com.ngdb.entities.article.Article;
-import com.ngdb.entities.article.Game;
-import com.ngdb.entities.reference.Platform;
-import com.ngdb.entities.user.User;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import javax.annotation.Nullable;
+import java.math.BigInteger;
+import java.util.Collection;
+import java.util.List;
+
+import static com.google.common.collect.Collections2.transform;
+import static java.util.Arrays.asList;
+import static org.hibernate.criterion.Projections.projectionList;
+import static org.hibernate.criterion.Projections.property;
+import static org.hibernate.criterion.Restrictions.eq;
 
 @SuppressWarnings("unchecked")
 public class GameFactory {
@@ -60,21 +52,7 @@ public class GameFactory {
             projectionList.add(property(property));
         }
         List<Object[]> list = allGames().setProjection(projectionList).list();
-        return transform(list, new Function<Object[], Game>() {
-            @Override
-            public Game apply(@Nullable Object[] input) {
-                Game game = new Game();
-                game.setId((Long) input[0]);
-                game.setTitle(input[1].toString());
-                game.setOriginTitle(input[2].toString());
-                game.setPlatformShortName(input[3].toString());
-                game.setPublisher((Publisher) input[4]);
-                if(input[5] != null) {
-                    game.setCover(input[5].toString());
-                }
-                return game;
-            }
-        });
+        return transform(list, toGame);
     }
 
     private Criteria allGames() {
@@ -88,13 +66,38 @@ public class GameFactory {
         return (Game) session.load(Game.class, randomGameId);
     }
 
-    public List<Article> findAllOwnedBy(final User owner) {
-        return new ArrayList<Article>(filter(findAll(), new Predicate<Article>() {
+    public Collection<Game> findAllGamesOwnedBy(final User owner) {
+        String sql = "SELECT id,title,origin_title,platform_short_name,cover_url FROM Game WHERE id IN (SELECT article_id FROM CollectionObject WHERE user_id = "+owner.getId()+")";
+        List<Object[]> list = session.createSQLQuery(sql).list();
+        return transform(list, new Function<Object[], Game>() {
             @Override
-            public boolean apply(Article input) {
-                return owner.owns(input);
-            }
-        }));
+            public Game apply(@Nullable Object[] input) {
+                Game game = new Game();
+                game.setId(((BigInteger) input[0]).longValue());
+                game.setTitle(input[1].toString());
+                game.setOriginTitle(input[2].toString());
+                game.setPlatformShortName(input[3].toString());
+                if(input[4] != null) {
+                    game.setCover(input[4].toString());
+                }
+                return game;
+            }});
     }
+
+    private static Function<Object[], Game> toGame = new Function<Object[], Game>() {
+        @Override
+        public Game apply(@Nullable Object[] input) {
+            Game game = new Game();
+            game.setId((Long) input[0]);
+            game.setTitle(input[1].toString());
+            game.setOriginTitle(input[2].toString());
+            game.setPlatformShortName(input[3].toString());
+            game.setPublisher((Publisher) input[4]);
+            if(input[5] != null) {
+                game.setCover(input[5].toString());
+            }
+            return game;
+        }
+    };
 
 }
