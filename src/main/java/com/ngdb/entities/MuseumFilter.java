@@ -96,7 +96,7 @@ public class MuseumFilter extends AbstractFilter {
         Collection<Article> articles = new ArrayList<Article>();
         if (filteredByGames) {
             if (filteredUser == null) {
-                articles.addAll(gameFactory.findAll());
+                articles.addAll(gameFactory.findAllLight());
             } else {
                 articles.addAll(gameFactory.findAllOwnedBy(filteredUser));
             }

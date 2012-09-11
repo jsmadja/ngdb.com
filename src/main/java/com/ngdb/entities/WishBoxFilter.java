@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import com.ngdb.WishPredicates;
 import com.ngdb.entities.reference.Origin;
@@ -50,19 +51,43 @@ public class WishBoxFilter extends AbstractFilter {
     }
 
     public int getNumWishesInThisOrigin(Origin origin) {
-        Collection<Wish> articles = allWishes();
+        Collection<Wish> wishes = new ArrayList<Wish>();
+        if (filteredByGames) {
+            if (filteredUser == null) {
+                wishes.addAll(wishBox.findAllGamesFrom(origin));
+            } else {
+                wishes.addAll(Collections2.filter(filteredUser.getAllWishedGames(), new WishPredicates.OriginPredicate(origin)));
+            }
+        } else {
+            if (filteredUser == null) {
+                wishes.addAll(new ArrayList<Wish>(wishBox.findAllHardwaresFrom(origin)));
+            } else {
+                wishes.addAll(Collections2.filter(filteredUser.getAllWishedHardwares(), new WishPredicates.OriginPredicate(origin)));
+            }
+        }
+
         if (filteredPlatform != null) {
             WishPredicates.PlatformPredicate filterByPlatform = new WishPredicates.PlatformPredicate(filteredPlatform);
-            articles = filter(articles, filterByPlatform);
+            wishes = filter(wishes, filterByPlatform);
         }
-        WishPredicates.OriginPredicate filterByOrigin = new WishPredicates.OriginPredicate(origin);
-        articles = filter(articles, filterByOrigin);
-        return articles.size();
+        return wishes.size();
     }
 
     public int getNumWishesInThisPlatform(Platform platform) {
-        Collection<Wish> wishes = allWishes();
-        wishes = filter(wishes, new WishPredicates.PlatformPredicate(platform));
+        Collection<Wish> wishes = new ArrayList<Wish>();
+        if (filteredByGames) {
+            if (filteredUser == null) {
+                wishes.addAll(wishBox.findAllGamesOn(platform));
+            } else {
+                wishes.addAll(Collections2.filter(filteredUser.getAllWishedGames(), new WishPredicates.PlatformPredicate(platform)));
+            }
+        } else {
+            if (filteredUser == null) {
+                wishes.addAll(new ArrayList<Wish>(wishBox.findAllHardwaresOn(platform)));
+            } else {
+                wishes.addAll(Collections2.filter(filteredUser.getAllWishedHardwares(), new WishPredicates.PlatformPredicate(platform)));
+            }
+        }
         return wishes.size();
     }
 

@@ -1,7 +1,10 @@
 package com.ngdb.entities.user;
 
+import com.google.common.collect.Collections2;
+import com.ngdb.Predicates;
 import com.ngdb.entities.AbstractEntity;
 import com.ngdb.entities.article.Article;
+import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.shop.PotentialBuys;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.Wish;
@@ -14,6 +17,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -216,7 +220,5 @@ public class User extends AbstractEntity implements Comparable<User> {
     public void setCountry(String country) {
         this.country = country;
     }
-
-
 
 }

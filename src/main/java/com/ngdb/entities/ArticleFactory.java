@@ -3,6 +3,8 @@ package com.ngdb.entities;
 import com.ngdb.entities.article.Article;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 import static org.hibernate.criterion.Projections.rowCount;
 
@@ -15,7 +17,7 @@ public class ArticleFactory {
 		return (Article) session.load(Article.class, id);
 	}
 
-    public Long getNumArticles() {
-        return (Long) session.createCriteria(Article.class).setProjection(rowCount()).setCacheable(true).setCacheRegion("cacheCount").uniqueResult();
+    public long getNumArticles() {
+        return session.createCriteria(Article.class).setProjection(Projections.property("id")).list().size();
     }
 }

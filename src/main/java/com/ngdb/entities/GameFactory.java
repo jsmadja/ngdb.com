@@ -45,8 +45,8 @@ public class GameFactory {
         return allGames().add(eq("platformShortName", platform.getShortName())).list();
     }
 
-    public Long getNumGames() {
-        return (Long) session.createCriteria(Game.class).setProjection(rowCount()).setCacheable(true).setCacheRegion("cacheCount").uniqueResult();
+    public long getNumGames() {
+        return findAllLight().size();
     }
 
     public List<Game> findAll() {

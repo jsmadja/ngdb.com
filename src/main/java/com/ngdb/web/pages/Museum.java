@@ -66,6 +66,9 @@ public class Museum {
     void onActivate() {
         if (filter == null || "true".equals(request.getParameter("display-all"))) {
             filter = new MuseumFilter(gameFactory, hardwareFactory, accessoryFactory);
+            filter.filterByGames();
+            filter.filterByOrigin(referenceService.findOriginByTitle("Japan"));
+            filter.filterByPlatform(referenceService.findPlatformByName("AES"));
         }
     }
 

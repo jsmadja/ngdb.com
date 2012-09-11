@@ -1,11 +1,14 @@
 package com.ngdb.entities;
 
 import com.ngdb.entities.article.Article;
+import com.ngdb.entities.reference.Origin;
+import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.shop.Wish;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.List;
 
 import static org.hibernate.criterion.Projections.countDistinct;
@@ -42,5 +45,21 @@ public class WishBox {
 
     public List<Wish> findAllAccessories() {
         return session.createSQLQuery("SELECT w.* FROM Wish w, Accessory a WHERE a.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
+    }
+
+    public List<Wish> findAllGamesOn(Platform platform) {
+        return session.createSQLQuery("SELECT w.* FROM Wish w, Game g WHERE g.platform_short_name = '"+platform.getShortName()+"' AND g.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
+    }
+
+    public List<Wish> findAllHardwaresOn(Platform platform){
+        return session.createSQLQuery("SELECT w.* FROM Wish w, Hardware h WHERE h.platform_short_name = '"+platform.getShortName()+"' AND h.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
+    }
+
+    public List<Wish> findAllGamesFrom(Origin origin) {
+        return session.createSQLQuery("SELECT w.* FROM Wish w, Game g WHERE g.origin_title = '"+origin.getTitle()+"' AND g.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
+    }
+
+    public List<Wish> findAllHardwaresFrom(Origin origin) {
+        return session.createSQLQuery("SELECT w.* FROM Wish w, Hardware h WHERE h.origin_title = '"+origin.getTitle()+"' AND g.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
     }
 }
