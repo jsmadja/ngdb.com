@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
+import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.Publisher;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -55,7 +56,7 @@ public class GameFactory {
 
     public Collection<Game> findAllLight() {
         ProjectionList projectionList = projectionList();
-        for(String property: asList("id", "title", "originTitle", "platformShortName", "publisher")) {
+        for(String property: asList("id", "title", "originTitle", "platformShortName", "publisher", "coverUrl")) {
             projectionList.add(property(property));
         }
         List<Object[]> list = allGames().setProjection(projectionList).list();
@@ -68,6 +69,9 @@ public class GameFactory {
                 game.setOriginTitle(input[2].toString());
                 game.setPlatformShortName(input[3].toString());
                 game.setPublisher((Publisher) input[4]);
+                if(input[5] != null) {
+                    game.setCover(new Picture(input[5].toString()));
+                }
                 return game;
             }
         });
