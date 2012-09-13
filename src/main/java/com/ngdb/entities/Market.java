@@ -102,7 +102,6 @@ public class Market {
         params.put("shopItemTitle", shopItem.getTitle());
         params.put("shopItemUrl", hostUrl + "market.shopitem/" + shopItem.getId());
         params.put("potentialBuyerEmail", potentialBuyer.getEmail());
-        mailService.sendMail(seller, "potential_buyer", params);
     }
 
     public void remove(ShopItem shopItem) {

@@ -6,7 +6,9 @@ import com.ngdb.entities.reference.State;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.web.model.CustomCurrenciesList;
 import com.ngdb.web.model.StateList;
+import com.ngdb.web.pages.Market;
 import com.ngdb.web.services.infrastructure.CurrencyService;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.PictureService;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.ComponentResources;
@@ -16,6 +18,7 @@ import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.upload.services.UploadedFile;
 import org.got5.tapestry5.jquery.JQueryEventConstants;
@@ -70,9 +73,6 @@ public class ShopItemUpdate {
     @Persist("entity")
     private ShopItem shopItem;
 
-    @InjectPage
-    private ShopItemView shopItemView;
-
     @Inject
     private CurrencyService currencyService;
 
@@ -101,6 +101,12 @@ public class ShopItemUpdate {
 
     @Property
     private Picture picture;
+
+    @Inject
+    private PageRenderLinkSource pageRenderLinkSource;
+
+    @Inject
+    private CurrentUser currentUser;
 
     boolean onActivate(ShopItem shopItem) {
         this.shopItem = shopItem;
@@ -140,8 +146,7 @@ public class ShopItemUpdate {
             shopItem.addPicture(picture);
             session.merge(picture);
         }
-        shopItemView.setShopItem(shopItem);
-        return shopItemView;
+        return pageRenderLinkSource.createPageRenderLinkWithContext(Market.class, "byUser", currentUser.getUser());
     }
 
     public SelectModel getStates() {

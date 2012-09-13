@@ -1,6 +1,6 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<t:if test="user">
-		<a class="btn dropdown-toggle pull-right" data-toggle="dropdown" href="#">
+        <a class="btn dropdown-toggle pull-right" data-toggle="dropdown" href="#">
 				<i class="icon-user"></i>
 					${username}
 				<span class="caret"></span>
@@ -9,16 +9,20 @@
 			<li>
 				<a href="/profile"><i class="icon-user" /> My profile</a>
 			</li>
-			<li>
+            <li>
+                <t:pageLink page="museum" context="user"><i class="icon-plus" /> My collection (${numArticlesInCollection})</t:pageLink>
+            </li>
+            <li class="divider"></li>
+            <li>
 				<a href="/wishbox/byUser/${userId}"><i class="icon-heart" /> My whishes (${numArticlesInWishList})</a>
 			</li>
 			<li>
-				<a href="/market/byUser/${userId}"><i class="icon-share" /> My Shop (${numArticlesInShop})</a>
+				<a href="/market/byUser/${userId}"><i class="icon-share" /> My shop (${numArticlesInShop})</a>
 			</li>
 			<li>
-				<t:pageLink page="museum" context="user"><i class="icon-plus" /> My Collection (${numArticlesInCollection})</t:pageLink>
-			</li>
-			<li class="divider"></li>
+                <a href="#"><i class="icon-shopping-cart" /> My basket (${numArticlesInBasket})</a>
+            </li>
+            <li class="divider"></li>
 			<li>
 				<t:actionLink t:id="logout" id="logout" >Logout</t:actionLink>
 			</li>

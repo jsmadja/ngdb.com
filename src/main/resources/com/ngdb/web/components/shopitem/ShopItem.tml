@@ -1,19 +1,27 @@
 <span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 	xmlns:p="tapestry:parameter" class="shop_item">
+
+    <t:jquery.dialog t:clientId="myDialog" t:params="params">
+        <t:zone t:id="myZone" id="myZone">
+            <t:shopitem.view t:shopItem="shopItem" />
+        </t:zone>
+    </t:jquery.dialog>
+
 	<table>
 		<tr>
 			<td>
-				<t:pageLink page="shop/shopItemView" context="shopItem.id">
-					<img class="thumbnail" width="150px"
-						src="${message:image.host.url}${shopItemMainPicture}" alt="${shopItem.title}" />
-				</t:pageLink>
+                <t:jquery.dialogajaxlink t:id="link1" t:dialog="myDialog" t:zone="myZone" t:context="shopItem" >
+                    <img class="thumbnail" width="150px"
+                            src="${message:image.host.url}${shopItemMainPicture}" alt="${shopItem.title}" />
+				</t:jquery.dialogajaxlink>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<span style="text-align:center;margin-top:10px">
-					<t:pageLink page="shop/shopItemView" context="shopItem.id">${title}
-					</t:pageLink>
+                    <t:jquery.dialogajaxlink t:id="link2" t:dialog="myDialog" t:zone="myZone" t:context="shopItem" >
+                	    ${title}
+					</t:jquery.dialogajaxlink>
 				</span>
 			</td>
 		</tr>
@@ -21,8 +29,10 @@
 			<td>
 				<span style="text-align:left">
 					<t:if test="user">
-						<t:common.action.buyButton shopItem="shopItem" />
-						<p:else>
+                        <t:jquery.dialogajaxlink t:id="link3" t:dialog="myDialog" t:zone="myZone" t:context="shopItem" >
+                            <span class="price-label">${price}</span>
+                        </t:jquery.dialogajaxlink>
+                        <p:else>
 							<span class="price-label">${price}</span>
 						</p:else>
 					</t:if>

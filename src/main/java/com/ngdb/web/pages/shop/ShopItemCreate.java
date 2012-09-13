@@ -7,6 +7,7 @@ import com.ngdb.entities.reference.State;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.web.model.CustomCurrenciesList;
 import com.ngdb.web.model.StateList;
+import com.ngdb.web.pages.Market;
 import com.ngdb.web.services.infrastructure.CurrencyService;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.PictureService;
@@ -18,6 +19,7 @@ import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.upload.services.UploadedFile;
 import org.got5.tapestry5.jquery.JQueryEventConstants;
@@ -63,7 +65,7 @@ public class ShopItemCreate {
     private PictureService pictureService;
 
     @Inject
-    private CurrentUser userSession;
+    private CurrentUser currentUser;
 
     @Persist
     @Property
@@ -73,9 +75,6 @@ public class ShopItemCreate {
     @Persist
     @Property
     private String customCurrency;
-
-    @InjectPage
-    private ShopItemView shopItemView;
 
     @Inject
     private CurrencyService currencyService;
@@ -98,6 +97,9 @@ public class ShopItemCreate {
     @Persist
     @Property
     private List<UploadedFile> pictures;
+
+    @Inject
+    private PageRenderLinkSource pageRenderLinkSource;
 
     boolean onActivate(Article article) {
         this.article = article;
@@ -124,7 +126,7 @@ public class ShopItemCreate {
         shopItem.setDetails(details);
         shopItem.setPriceInDollars(priceInDollars);
         shopItem.setPriceInEuros(priceInEuros);
-        shopItem.setSeller(userSession.getUser());
+        shopItem.setSeller(currentUser.getUser());
         shopItem.setState(state);
         shopItem.setPriceInCustomCurrency(priceInCustomCurrency);
         shopItem.setCustomCurrency(customCurrency);
@@ -134,8 +136,7 @@ public class ShopItemCreate {
             shopItem.addPicture(picture);
             session.merge(picture);
         }
-        shopItemView.setShopItem(shopItem);
-        return shopItemView;
+        return pageRenderLinkSource.createPageRenderLinkWithContext(Market.class, "byUser", currentUser.getUser());
     }
 
     public SelectModel getStates() {

@@ -1,20 +1,22 @@
 package com.ngdb.web.components.common.layout;
 
+import com.ngdb.entities.ActionLogger;
+import com.ngdb.entities.article.ArticleAction;
+import com.ngdb.entities.shop.ShopItem;
+import com.ngdb.web.pages.article.game.GameView;
+import com.ngdb.web.pages.article.hardware.HardwareView;
+import org.apache.tapestry5.annotations.*;
+import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.json.JSONObject;
+import org.apache.tapestry5.services.Request;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.ngdb.entities.ActionLogger;
-import com.ngdb.entities.article.ArticleAction;
-import com.ngdb.web.pages.article.game.GameView;
-import com.ngdb.web.pages.article.hardware.HardwareView;
-import org.apache.tapestry5.annotations.InjectPage;
-import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.annotations.SetupRender;
-import org.apache.tapestry5.ioc.annotations.Inject;
-
-import com.ngdb.entities.shop.ShopItem;
-import com.ngdb.web.pages.shop.ShopItemView;
+import static org.apache.tapestry5.EventConstants.ACTION;
 
 public class Menu {
 
@@ -26,9 +28,6 @@ public class Menu {
 
 	@Property
 	private Long forSaleCount;
-
-	@InjectPage
-	private ShopItemView shopItemView;
 
 	@Inject
 	private com.ngdb.entities.Market market;
@@ -46,6 +45,17 @@ public class Menu {
     private ArticleAction update;
 
     private static boolean goEmpty = false;
+
+    @Component
+    private Zone myZone;
+
+    @Inject
+    private AjaxResponseRenderer ajaxResponseRenderer;
+
+    public JSONObject getParams() {
+        return new JSONObject("width", "750", "modal", "false", "dialogClass", "dialog-edition", "zIndex", "1002", "title", "Buy this item");
+    }
+
     @SetupRender
 	void onInit() {
         if(goEmpty) {
@@ -56,6 +66,24 @@ public class Menu {
             this.forSaleCount = market.getNumForSaleItems();
         }
 	}
+
+    @OnEvent(component = "link1", value = ACTION)
+    public void onActionFromLink1(ShopItem shopItem) {
+        this.shopItem = shopItem;
+        ajaxResponseRenderer.addRender(myZone);
+    }
+
+    @OnEvent(component = "link2", value = ACTION)
+    public void onActionFromLink2(ShopItem shopItem) {
+        this.shopItem = shopItem;
+        ajaxResponseRenderer.addRender(myZone);
+    }
+
+    @OnEvent(component = "link3", value = ACTION)
+    public void onActionFromLink3(ShopItem shopItem) {
+        this.shopItem = shopItem;
+        ajaxResponseRenderer.addRender(myZone);
+    }
 
     public Collection<ArticleAction> getUpdates() {
         if(goEmpty) {

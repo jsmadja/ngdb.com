@@ -354,4 +354,7 @@ public class CurrentUser {
         }
     }
 
+    public long getNumArticlesInBasket() {
+        return getUserFromDb().getPotentialBuys().size();
+    }
 }

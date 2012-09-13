@@ -21,9 +21,12 @@ import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.Request;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import java.util.Collection;
 import java.util.List;
+
+import static org.apache.tapestry5.EventConstants.ACTION;
 
 public class Market {
 
@@ -61,10 +64,13 @@ public class Market {
     private Request request;
 
     @Component
-    private Zone myZone;
+    private Zone forumCodeZone;
 
     @Property
     private JSONObject params;
+
+    @Inject
+    private AjaxResponseRenderer ajaxResponseRenderer;
 
     @OnEvent(EventConstants.ACTIVATE)
     void init() {
@@ -73,12 +79,9 @@ public class Market {
         params.put("title", "Export to forums");
     }
 
-    @OnEvent(EventConstants.ACTION)
-    Object updateCount() {
-        if (!request.isXHR()) {
-            return this;
-        }
-        return myZone;
+    @OnEvent(component = "forumCodeLink", value = ACTION)
+    void onActionFromForumCodeLink() {
+        ajaxResponseRenderer.addRender(forumCodeZone);
     }
 
     void onActivate() {
@@ -218,10 +221,6 @@ public class Market {
 
     public String getQueryLabel() {
         return filter.getQueryLabel();
-    }
-
-    public String getViewPage() {
-        return "/shopitem/ShopItemView";
     }
 
     public int getNumResults() {

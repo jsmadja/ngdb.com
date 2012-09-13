@@ -1,7 +1,5 @@
 package com.ngdb.service.security;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.MDC;
 
 import javax.servlet.*;
@@ -12,8 +10,6 @@ import java.io.IOException;
 import static org.apache.shiro.subject.support.DefaultSubjectContext.PRINCIPALS_SESSION_KEY;
 
 public class MDCFilter implements Filter {
-
-    private static Log logger = LogFactory.getLog(MDCFilter.class);
 
     private FilterConfig config;
 
@@ -39,12 +35,10 @@ public class MDCFilter implements Filter {
     }
 
     public void init(FilterConfig config) throws ServletException {
-        logger.debug("Création du filtre MDCFilter");
         this.config = config;
     }
 
     public void destroy() {
-        logger.debug("Destruction du filtre MDCFilter");
     }
 
 }

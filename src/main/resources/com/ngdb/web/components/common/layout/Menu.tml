@@ -1,4 +1,11 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+
+    <t:jquery.dialog t:clientId="myDialog" t:params="params">
+        <t:zone t:id="myZone" id="myZone">
+            <t:shopitem.view t:shopItem="shopItem" />
+        </t:zone>
+    </t:jquery.dialog>
+
     <div class="tabbable">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#tab1" data-toggle="tab" class="orange-bar" style="color:white">For sale</a></li>
@@ -10,20 +17,20 @@
                 <t:loop value="shopItem" source="shopItems">
                     <tr>
                         <td width="90px">
-                            <t:pageLink page="shop/shopItemView" context="shopItem">
+                            <t:jquery.dialogajaxlink t:id="link1" t:dialog="myDialog" t:zone="myZone" t:context="shopItem" >
                                 <img alt="${shopItem.title}" style="margin-top:15px" src="${message:image.host.url}${shopItem.mainPicture.urlSmall}" title="${shopItem.title}" />
-                            </t:pageLink>
+                            </t:jquery.dialogajaxlink>
                         </td>
-                        <td align="center" style="vertical-align:middle">
+                        <td align="center" style="vertical-align:bottom">
                             <p>
-                            <t:pageLink page="shop/shopItemView" context="shopItem" style="font-size:12px">
-                                ${shopItem.title}
-                            </t:pageLink>
+                                <t:jquery.dialogajaxlink t:id="link2" t:dialog="myDialog" t:zone="myZone" t:context="shopItem" >
+                                    ${shopItem.title}
+                                </t:jquery.dialogajaxlink>
                             </p>
                             <p class="btn btn-warning">
-                                <t:pageLink page="shop/shopItemView" context="shopItem" style="font-size:12px;color:white">
-                                    ${price}
-                                </t:pageLink>
+                                <t:jquery.dialogajaxlink t:id="link3" t:dialog="myDialog" t:zone="myZone" t:context="shopItem" >
+                                    <span style="color:white">${price}</span>
+                                </t:jquery.dialogajaxlink>
                             </p>
                         </td>
                     </tr>

@@ -26,12 +26,13 @@ public class BuyButton {
 	private boolean asButton;
 
 	@CommitAfter
-	Object onActionFromBuyButton() {
-		return onActionFromBuy();
+	Object onActionFromBuyButton(ShopItem shopItem) {
+		return onActionFromBuy(shopItem);
 	}
 
-	@CommitAfter
-	Object onActionFromBuy() {
+    @CommitAfter
+	Object onActionFromBuy(ShopItem shopItem) {
+        this.shopItem = shopItem;
 		market.potentialBuyer(shopItem, currentUser.getUser());
 		return this;
 	}

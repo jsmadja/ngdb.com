@@ -36,6 +36,10 @@ public class UserMenu {
 		return currentUser.getNumArticlesInShop();
 	}
 
+    public long getNumArticlesInBasket() {
+        return currentUser.getNumArticlesInBasket();
+    }
+
 	public int getNumArticlesInWishList() {
 		return currentUser.getNumArticlesInWishList();
 	}

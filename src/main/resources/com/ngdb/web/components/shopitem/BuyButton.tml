@@ -5,9 +5,11 @@
 			<i class="icon-shopping-cart icon-white" />
 		</t:actionLink>
 		<p:else>
-			<t:actionlink t:id="buy" id="buy" context="shopItem">
-				<i class="icon-shopping-cart"/> Buy it
-			</t:actionlink>
+            <p class="btn btn-warning pull-right" style="border-radius:5px">
+                <t:actionlink t:id="buy" id="buy" context="shopItem" style="color:white">
+                    <i class="icon-shopping-cart icon-white"/> Add to basket
+                </t:actionlink>
+            </p>
 		</p:else>
 	</t:if>
 </span>
