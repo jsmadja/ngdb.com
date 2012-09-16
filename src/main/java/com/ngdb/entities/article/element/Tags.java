@@ -45,4 +45,12 @@ public class Tags implements Iterable<Tag> {
     public int count() {
         return tags.size();
     }
+
+    @Override
+    public String toString() {
+        if(tags == null) {
+            return "";
+        }
+        return Arrays.toString(tags.toArray());
+    }
 }

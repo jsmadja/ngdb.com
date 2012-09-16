@@ -285,6 +285,9 @@ public abstract class Article implements Comparable<Article>, Serializable{
     }
 
     public boolean containsTag(Tag tag) {
+        if(tags == null) {
+            return false;
+        }
         return tags.contains(tag);
     }
 
