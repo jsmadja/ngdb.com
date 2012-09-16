@@ -2,7 +2,6 @@ package com.ngdb.web.pages.user;
 
 import com.ngdb.entities.Market;
 import com.ngdb.entities.article.Article;
-import com.ngdb.entities.article.Game;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.User;
@@ -16,12 +15,15 @@ import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.Request;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.hibernate.Session;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+
+import static org.apache.tapestry5.EventConstants.ACTION;
 
 public class UserView {
 
@@ -56,13 +58,16 @@ public class UserView {
     private Market market;
 
     @Component
-    private Zone myZone;
+    private Zone codeForumZone;
 
     @Inject
     private Request request;
 
     @Property
     private JSONObject params;
+
+    @Inject
+    private AjaxResponseRenderer ajaxResponseRenderer;
 
     @OnEvent(EventConstants.ACTIVATE)
     void init() {
@@ -76,7 +81,7 @@ public class UserView {
         if (!request.isXHR()) {
             return this;
         }
-        return myZone;
+        return codeForumZone;
     }
 
     void onActivate(User user) {

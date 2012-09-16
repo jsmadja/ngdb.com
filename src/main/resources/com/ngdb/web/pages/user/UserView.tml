@@ -1,7 +1,8 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 	xmlns:p="tapestry:parameter">
 	<t:if test="user">
-		<div class="user">
+
+        <div class="user">
 			<div class="page-header">
 				<h1 class="black-bar rounded-bar big-bar">${user.login}</h1>
 			</div>
@@ -65,14 +66,14 @@
 
 			<h2>${user.login}'s shop</h2>
 		    
-			<t:jquery.dialog t:clientId="myDialog" t:params="params">
-				<t:zone t:id="myZone" id="myZone">
+			<t:jquery.dialog t:clientId="codeForumDialog" t:params="params">
+				<t:zone t:id="codeForumZone" id="codeForumZone">
 	            	<textarea rows="20" value="details" cols="80" style="width:100%">
 			    		${forumCode}
 			    	</textarea>
 	    		</t:zone>
    			</t:jquery.dialog>
-			<t:jquery.dialogajaxlink t:id="link2" t:dialog="myDialog" t:zone="myZone" class="label pull-right">
+			<t:jquery.dialogajaxlink t:id="link2" t:dialog="codeForumDialog" t:zone="codeForumZone" class="label pull-right">
 				Export to forums
 			</t:jquery.dialogajaxlink>
 
@@ -94,16 +95,11 @@
                     <p:titleHeader>Article</p:titleHeader>
                     <p:titleCell>
                         <img src="/img/flags/${shopItem.article.originTitle}.png" alt="${shopItem.article.originTitle}" />
-                        <span class="subtitle"><span class="platformLabel">${shopitem.article.platformShortName}</span></span>
-                        <t:pageLink page="shop/itemview" context="shopItem">${shopItem.article.title}</t:pageLink>
+                        <span class="subtitle"><span class="platformLabel">${shopItem.article.platformShortName}</span></span>
+                        ${shopItem.title}
                     </p:titleCell>
                     <p:priceCell>
-                        <t:if test="buyable">
-                            <t:common.action.buyButton shopItem="shopItem" asButton="true" />
-                            <p:else>
-                                <span style="font-size:10pt">${price}</span>
-                            </p:else>
-                        </t:if>
+                        <span>${price}</span>
                     </p:priceCell>
 			</t:grid>
 		</div>
