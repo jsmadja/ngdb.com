@@ -148,8 +148,16 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
         potentialBuyers.add(potentialBuyer);
     }
 
+    public void removePotentialBuyer(User potentialBuyer) {
+        potentialBuyers.remove(potentialBuyer);
+    }
+
     public boolean isNotAlreadyWantedBy(User potentialBuyer) {
         return !potentialBuyers.contains(potentialBuyer);
+    }
+
+    public boolean isAlreadyWantedBy(User potentialBuyer) {
+        return potentialBuyers.contains(potentialBuyer);
     }
 
     public void sold() {
@@ -235,4 +243,5 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
         }
         return null;
     }
+
 }

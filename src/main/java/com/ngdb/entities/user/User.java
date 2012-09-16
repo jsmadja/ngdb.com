@@ -8,6 +8,7 @@ import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.shop.PotentialBuys;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.Wish;
+import com.ngdb.web.pages.Basket;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -68,15 +69,6 @@ public class User extends AbstractEntity implements Comparable<User> {
     public User(String login, String email) {
         this.login = login;
         this.email = email;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o instanceof User) {
-            String login2 = ((User) o).login;
-            return login.equalsIgnoreCase(login2);
-        }
-        return false;
     }
 
     @Override
@@ -221,4 +213,7 @@ public class User extends AbstractEntity implements Comparable<User> {
         this.country = country;
     }
 
+    public PotentialBuys getBasket() {
+        return potentialBuys;
+    }
 }

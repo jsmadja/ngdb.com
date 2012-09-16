@@ -27,8 +27,8 @@ public class View {
                 this.message = "You have to register to buy this item.";
             } else if (currentUser.isSeller(shopItem)) {
                 this.message = "You are the seller of this item.";
-            } else if (!shopItem.isNotAlreadyWantedBy(potentialBuyer)) {
-                this.message = shopItem.getSeller().getLogin() + " has been contacted, he/she will send you an email as soon as possible.";
+            } else if (shopItem.isAlreadyWantedBy(potentialBuyer)) {
+                this.message = "This item is already in your basket";
             }
         }
     }

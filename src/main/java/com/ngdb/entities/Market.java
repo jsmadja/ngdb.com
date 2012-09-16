@@ -95,13 +95,10 @@ public class Market {
 
     public void potentialBuyer(ShopItem shopItem, User potentialBuyer) {
         shopItem.addPotentialBuyer(potentialBuyer);
-        Map<String, String> params = new HashMap<String, String>();
-        User seller = shopItem.getSeller();
-        params.put("recipient", seller.getLogin());
-        params.put("potentialBuyer", potentialBuyer.getLogin());
-        params.put("shopItemTitle", shopItem.getTitle());
-        params.put("shopItemUrl", hostUrl + "market.shopitem/" + shopItem.getId());
-        params.put("potentialBuyerEmail", potentialBuyer.getEmail());
+    }
+
+    public void removeFromBasket(User potentialBuyer, ShopItem shopItem) {
+        shopItem.removePotentialBuyer(potentialBuyer);
     }
 
     public void remove(ShopItem shopItem) {

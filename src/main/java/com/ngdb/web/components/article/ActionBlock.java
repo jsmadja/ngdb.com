@@ -53,7 +53,7 @@ public class ActionBlock {
 	}
 
 	public boolean isSellable() {
-		return currentUser.canSell(article);
+		return currentUser.canSell();
 	}
 
 	public boolean isWishable() {

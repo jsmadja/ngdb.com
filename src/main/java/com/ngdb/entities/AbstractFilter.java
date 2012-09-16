@@ -32,11 +32,11 @@ public abstract class AbstractFilter {
     public String getQueryLabel() {
         String queryLabel = "all ";
         if (filteredByGames) {
-            queryLabel += orange("games for sale");
+            queryLabel += orange("games");
         } else if(filteredByHardwares){
-            queryLabel += orange("hardwares for sale");
+            queryLabel += orange("hardwares");
         } else {
-            queryLabel += orange("accessories for sale");
+            queryLabel += orange("accessories");
         }
         if (filteredOrigin != null) {
             queryLabel += " from " + orange(filteredOrigin.getTitle());

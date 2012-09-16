@@ -10,8 +10,8 @@ import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.CollectionObject;
-import com.ngdb.entities.user.Shop;
 import com.ngdb.entities.user.User;
+import com.ngdb.web.services.MailService;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -19,7 +19,6 @@ import org.apache.tapestry5.services.ApplicationStateManager;
 import org.apache.tapestry5.services.Request;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.joda.money.CurrencyUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +28,9 @@ import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 import static org.apache.commons.lang.StringUtils.defaultString;
-import static org.hibernate.criterion.Projections.count;
 import static org.hibernate.criterion.Restrictions.eq;
 
 public class CurrentUser {
@@ -53,6 +52,9 @@ public class CurrentUser {
 
     @Inject
     private ActionLogger actionLogger;
+
+    @Inject
+    private MailService mailService;
 
     private static final Logger LOG = LoggerFactory.getLogger(CurrentUser.class);
 
@@ -94,7 +96,7 @@ public class CurrentUser {
     }
 
     public boolean isLogged() {
-        return securityService.isAuthenticated();
+        return securityService.isUser();
     }
 
     private void init(User user) {
@@ -106,7 +108,13 @@ public class CurrentUser {
     }
 
     public User getUser() {
-        return get(User.class);
+        User user = get(User.class);
+        if(user == null && isLogged()) {
+            String username = securityService.getSubject().getPrincipal().toString();
+            user = population.findByLogin(username);
+            store(User.class, user);
+        }
+        return user;
     }
 
     private boolean isLoggedUser(User user) {
@@ -125,10 +133,6 @@ public class CurrentUser {
             return "Anonymous";
         }
         return getUser().getLogin();
-    }
-
-    public Shop getShop() {
-        return getUser().getShop();
     }
 
     public boolean isAnonymous() {
@@ -199,7 +203,7 @@ public class CurrentUser {
         userFromDb.removeFromWishes(article);
     }
 
-    public boolean canSell(Article article) {
+    public boolean canSell() {
         return isLogged();
     }
 
@@ -218,18 +222,6 @@ public class CurrentUser {
 
     public int getNumArticlesInWishList() {
         return getUserFromDb().getNumArticlesInWishList();
-    }
-
-    public void buy(ShopItem shopItem) {
-        shopItem.addPotentialBuyer(getUserFromDb());
-    }
-
-    public Collection<? extends Article> getGamesInMuseum() {
-        return getUserFromDb().getCollection().getGames();
-    }
-
-    public Collection<? extends Article> getHardwaresInMuseum() {
-        return getUserFromDb().getCollection().getHardwares();
     }
 
     public long getNumArticlesInShop() {
@@ -357,4 +349,31 @@ public class CurrentUser {
     public long getNumArticlesInBasket() {
         return getUserFromDb().getPotentialBuys().size();
     }
+
+    public void checkout() {
+        System.err.println("========================================");
+        System.err.println("= Billing                              =");
+        System.err.println("========================================");
+
+        BillFactory billFactory = new BillFactory(getUserFromDb());
+        String buyerBill = billFactory.createBuyerBill();
+        System.err.println("========================================");
+        System.err.println("= Buyer bill                           =");
+        System.err.println("\n---------------------------------------");
+        System.err.println("To "+getUsername());
+        System.err.println("---------------------------------------");
+        System.err.println(buyerBill);
+        System.err.println(" ");
+        Map<User, String> sellersBills = billFactory.createSellerBills();
+        for (Map.Entry<User, String> sellerBill:sellersBills.entrySet()) {
+            System.err.println("========================================");
+            System.err.println("= Seller bill                          =");
+            System.err.println("\nTo "+sellerBill.getKey().getLogin());
+            System.err.println("---------------------------------------");
+            System.err.println("You can contact "+getUsername()+" at "+getUser().getEmail());
+            System.err.println(sellerBill.getValue());
+            System.err.println(" ");
+        }
+    }
+
 }

@@ -27,6 +27,10 @@ public class PotentialBuyers implements Serializable {
 		potentialBuyers.add(potentialBuyer);
 	}
 
+    public void remove(User potentialBuyer) {
+        potentialBuyers.remove(potentialBuyer);
+    }
+
 	boolean contains(User user) {
 		return potentialBuyers.contains(user);
 	}

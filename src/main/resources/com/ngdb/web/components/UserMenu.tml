@@ -20,7 +20,7 @@
 				<a href="/market/byUser/${userId}"><i class="icon-share" /> My shop (${numArticlesInShop})</a>
 			</li>
 			<li>
-                <a href="#"><i class="icon-shopping-cart" /> My basket (${numArticlesInBasket})</a>
+                <a href="/basket"><i class="icon-shopping-cart" /> My basket (${numArticlesInBasket})</a>
             </li>
             <li class="divider"></li>
 			<li>

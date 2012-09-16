@@ -28,13 +28,14 @@ import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 
 import java.io.IOException;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 @SubModule({SecurityModule.class})
 public class AppModule {
 
     public static void contributeFactoryDefaults(MappedConfiguration<String, Object> configuration) {
-        //String version = ResourceBundle.getBundle("ngdb").getString("version");
-        //configuration.override(APPLICATION_VERSION, version);
+        String version = ResourceBundle.getBundle("ngdb").getString("version");
+        configuration.override(SymbolConstants.APPLICATION_VERSION, version);
         configuration.override(HibernateSymbols.EARLY_START_UP, true);
         configuration.override(SymbolConstants.COMBINE_SCRIPTS, true);
         configuration.override(SymbolConstants.MINIFICATION_ENABLED, true);
@@ -69,8 +70,9 @@ public class AppModule {
                     return handler.service(request, response);
                 } finally {
                     long elapsed = System.currentTimeMillis() - startTime;
-
-                    logger.info(String.format("Request "+request.getPath()+",  time: %d ms", elapsed));
+                    if(elapsed > 500) {
+                        logger.info(String.format("Request "+request.getPath()+",  time: %d ms", elapsed));
+                    }
                 }
             }
         };
@@ -83,7 +85,7 @@ public class AppModule {
         // set constraints to precisely control the invocation order of the contributed filter
         // within the pipeline.
 
-        //configuration.add("Timing", filter);
+        configuration.add("Timing", filter);
     }
 
     public static void bind(ServiceBinder binder) {
