@@ -66,11 +66,15 @@ public class CurrentUser {
         currentUser.login(token);
 
         User user = population.findByLogin(login);
+        updateLastLoginDate(user);
+        init(user);
+        return user;
+    }
+
+    private void updateLastLoginDate(User user) {
         user.setLastLoginDate(new Date());
         session.persist(user);
         session.flush();
-        init(user);
-        return user;
     }
 
     public void logout() {
@@ -113,6 +117,7 @@ public class CurrentUser {
             String username = securityService.getSubject().getPrincipal().toString();
             user = population.findByLogin(username);
             store(User.class, user);
+            updateLastLoginDate(user);
         }
         return user;
     }
