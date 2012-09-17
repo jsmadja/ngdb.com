@@ -19,13 +19,13 @@ public class BillFactory {
         sellers = basket.allSellers();
     }
 
-    public String createBuyerBill() {
-        StringBuilder bill = new StringBuilder();
-        for (User seller : sellers) {
-            bill.append("\nSeller: ").append(seller).append("\n");
-            bill.append(prepareBillOf(seller));
+    public Map<User, String> createBills() {
+        Map<User, String> bills = new HashMap<User, String>();
+        for(User seller:sellers) {
+            String bill = prepareBillOf(seller);
+            bills.put(seller, bill);
         }
-        return bill.toString();
+        return bills;
     }
 
     private String prepareBillOf(User seller) {
@@ -33,12 +33,21 @@ public class BillFactory {
         if(seller.getShopPolicy() != null) {
             bill.append(seller.getShopPolicy());
         }
+
         List<ShopItem> shopItems = basket.allItemsForSaleBy(seller);
+        String priceToPay = basket.getTotalFor(seller);
+
+        bill.append("Total article: ").append(shopItems.size()).append("\n");
+        bill.append("Total    : ").append(priceToPay).append("\n");
+
+        bill.append("--------------------------------------\n");
+        bill.append("Order Contents: \n");
+        bill.append("--------------------------------------\n\n");
+
         for (ShopItem shopItem : shopItems) {
             insertArticleLine(bill, shopItem);
         }
-        String priceToPay = basket.getTotalFor(seller);
-        bill.append("\nTotal: ").append(priceToPay);
+
         return bill.toString();
     }
 
@@ -50,20 +59,12 @@ public class BillFactory {
         Double priceInDollars = shopItem.getPriceInDollars();
         String details = shopItem.getDetails();
 
-        bill.append(title).append(" ").append(platform).append(" ").append(origin).append("\n");
+        bill.append(title).append(" (").append(platform).append(" / ").append(origin).append(")\n");
+        bill.append("http://www.neogeodb.com/").append(article.getViewPage()).append("/").append(article.getId()).append("\n");
+        bill.append("Quantity: 1   Condition: ").append(shopItem.getState().getTitle()).append("   Price: $").append(priceInDollars).append("\n");
         if(details != null) {
-            bill.append(details).append("\n");
+            bill.append("Description: ").append(details).append("\n\n");
         }
-        bill.append("$").append(priceInDollars).append("\n");
-        bill.append("---").append("\n");
     }
 
-    public Map<User, String> createSellerBills() {
-        Map<User, String> bills = new HashMap<User, String>();
-        for(User seller:sellers) {
-            String bill = prepareBillOf(seller);
-            bills.put(seller, bill);
-        }
-        return bills;
-    }
 }

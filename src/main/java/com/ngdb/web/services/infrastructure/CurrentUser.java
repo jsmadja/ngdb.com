@@ -11,7 +11,6 @@ import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.User;
-import com.ngdb.web.services.MailService;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -25,10 +24,8 @@ import org.slf4j.LoggerFactory;
 import org.tynamo.security.services.SecurityService;
 
 import java.math.BigInteger;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Map;
 
 import static org.apache.commons.lang.StringUtils.defaultString;
 import static org.hibernate.criterion.Restrictions.eq;
@@ -54,7 +51,7 @@ public class CurrentUser {
     private ActionLogger actionLogger;
 
     @Inject
-    private MailService mailService;
+    private CheckoutService checkoutService;
 
     private static final Logger LOG = LoggerFactory.getLogger(CurrentUser.class);
 
@@ -356,29 +353,6 @@ public class CurrentUser {
     }
 
     public void checkout() {
-        System.err.println("========================================");
-        System.err.println("= Billing                              =");
-        System.err.println("========================================");
-
-        BillFactory billFactory = new BillFactory(getUserFromDb());
-        String buyerBill = billFactory.createBuyerBill();
-        System.err.println("========================================");
-        System.err.println("= Buyer bill                           =");
-        System.err.println("\n---------------------------------------");
-        System.err.println("To "+getUsername());
-        System.err.println("---------------------------------------");
-        System.err.println(buyerBill);
-        System.err.println(" ");
-        Map<User, String> sellersBills = billFactory.createSellerBills();
-        for (Map.Entry<User, String> sellerBill:sellersBills.entrySet()) {
-            System.err.println("========================================");
-            System.err.println("= Seller bill                          =");
-            System.err.println("\nTo "+sellerBill.getKey().getLogin());
-            System.err.println("---------------------------------------");
-            System.err.println("You can contact "+getUsername()+" at "+getUser().getEmail());
-            System.err.println(sellerBill.getValue());
-            System.err.println(" ");
-        }
+        checkoutService.checkout(getUserFromDb());
     }
-
 }

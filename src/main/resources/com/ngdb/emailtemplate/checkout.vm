@@ -1,71 +1,43 @@
-Objet: [LDDb] Order #15290787001080218010 amanohyo buys from Swiss Cheese
-
-The LaserDisc Database (v2.6.4 / 2012-07-31) http://www.lddb.com/
+The NeoGeo database http://www.neogeodb.com/
 
 Unless stated otherwise in the Seller's Shop Policy, Buyer should wait for a followup e-mail from Seller before initiating payment. Buyer and Seller should contact each other and arrange payment within 3 days of this e-mail.
 
 For the Buyer:
 
-Tracking your User orders status: http://www.lddb.com/orders.php Leaving feedback after reception: http://www.lddb.com/feedback.php
+Tracking your User orders status: http://www.neogeodb.com/basket Leaving feedback after reception: http://www.neogeodb.com/feedback
 
 For the Seller:
 
-Tracking your Shop orders status: http://www.lddb.com/shop_orders.php
-Leaving feedback after payment:   http://www.lddb.com/feedback.php
+Tracking your Shop orders status: http://www.neogeodb.com/shopOrders
+Leaving feedback after payment:   http://www.neogeodb.com/feedback
 
 
+--------------------------------------
 Transaction Information
 --------------------------------------
-Order Date  : August 1, 2012 05:56:42
-Order Number: 15290787001080218010
---------------------------------------
-
-Order Batch Summary:
---------------------------------------
-Total LDs: 1
-Total    : $14.99
---------------------------------------
-
-Order Contents:
---------------------------------------
-
-Giant Robo the Animation: Episode 7 [BEAL-743] (NTSC/CAV)
-http://www.lddb.com/laserdisc/13911
-Quantity: 1   Condition: 8/10   Price: $14.99
-Description: Very good condition, with obi and insert.
-
+Order Date  : ${orderDate}
 
 --------------------------------------
+Order Batch Summary
+--------------------------------------
+${orderBatchSummary}
 
+--------------------------------------
 Buyer Information
 --------------------------------------
-Name:  Michael Walker
-Login: amanohyo
-Email: mistwalk77@hotmail.com
+Login: ${buyerUsername}
+Email: ${buyerEmail}
 
-Address:
-Michael Walker
-959 Clopper Road Apt B3
-Gaithersburg, MD 20878
-Gaithersburg - 20878
-United States
+Wish List : http://www.neogeodb.com/wishbox/${buyerId}
 
 --------------------------------------
-
 Seller Information
 --------------------------------------
-Name:  StÃ©phane CROUZAT
-Login: takou
-Email: stephane.crouzat.ch@gmail.com
+Login: ${sellerUsername}
+Email: ${sellerEmail}
 
-Shop : Swiss Cheese
-http://www.lddb.com/shops/takou
-
-Address:
-Sous le cret
-La Ferriere - 2333
-Switzerland
+Shop : http://www.neogeodb.com/market/${sellerId}
 
 
 Regards,
-The LDDb Admin
+The neogeodb admins

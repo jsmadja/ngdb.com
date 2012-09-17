@@ -3,10 +3,7 @@ package com.ngdb.web.services;
 import com.ngdb.entities.*;
 import com.ngdb.entities.Registry;
 import com.ngdb.entities.reference.ReferenceService;
-import com.ngdb.web.services.infrastructure.CurrencyService;
-import com.ngdb.web.services.infrastructure.CurrentUser;
-import com.ngdb.web.services.infrastructure.FileService;
-import com.ngdb.web.services.infrastructure.PictureService;
+import com.ngdb.web.services.infrastructure.*;
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.hibernate.HibernateSymbols;
 import org.apache.tapestry5.ioc.*;
@@ -108,6 +105,7 @@ public class AppModule {
         binder.bind(CurrencyService.class);
         binder.bind(Suggestionner.class);
         binder.bind(ActionLogger.class);
+        binder.bind(CheckoutService.class);
     }
 
     public static VelocityEngine buildVelocityEngine() {

@@ -56,7 +56,7 @@ public class MailService {
 		}
 		checkNotNull(subject, receiver, body);
 		try {
-			MimeMessage mimeMessage = createMessage(receiver, body, subject);
+            MimeMessage mimeMessage = createMessage(receiver, body, subject);
 			mailSender.send(mimeMessage);
 		} catch (MessagingException e) {
 			logger.error(e);
