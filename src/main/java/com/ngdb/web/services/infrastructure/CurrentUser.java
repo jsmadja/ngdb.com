@@ -116,6 +116,7 @@ public class CurrentUser {
             store(User.class, user);
             updateLastLoginDate(user);
         }
+        session.refresh(user);
         return user;
     }
 
@@ -260,7 +261,7 @@ public class CurrentUser {
     }
 
     public boolean canBuy(ShopItem shopItem) {
-        boolean currentUserIsPotentialBuyer = isLogged() && shopItem.isNotAlreadyWantedBy(getUser());
+        boolean currentUserIsPotentialBuyer = isLogged() && shopItem.isNotInBasketOf(getUser());
         boolean currentUserIsNotTheSeller = !isSeller(shopItem);
         return currentUserIsNotTheSeller && currentUserIsPotentialBuyer;
     }
@@ -349,7 +350,7 @@ public class CurrentUser {
     }
 
     public long getNumArticlesInBasket() {
-        return getUserFromDb().getPotentialBuys().size();
+        return getUserFromDb().getBasket().getNumArticles();
     }
 
     public void checkout() {

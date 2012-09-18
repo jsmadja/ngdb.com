@@ -1,7 +1,7 @@
 package com.ngdb.web.services.infrastructure;
 
 import com.ngdb.entities.article.Article;
-import com.ngdb.entities.shop.PotentialBuys;
+import com.ngdb.entities.shop.Basket;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.user.User;
 
@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class BillFactory {
 
-    private PotentialBuys basket;
+    private Basket basket;
     private List<User> sellers;
 
     public BillFactory(User buyer) {
@@ -40,7 +40,7 @@ public class BillFactory {
         bill.append("Total article: ").append(shopItems.size()).append("\n");
         bill.append("Total    : ").append(priceToPay).append("\n");
 
-        bill.append("--------------------------------------\n");
+        bill.append("\n--------------------------------------\n");
         bill.append("Order Contents: \n");
         bill.append("--------------------------------------\n\n");
 

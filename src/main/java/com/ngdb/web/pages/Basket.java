@@ -12,7 +12,7 @@ import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
-import java.util.Set;
+import java.util.Collection;
 
 @RequiresUser
 public class Basket {
@@ -41,17 +41,15 @@ public class Basket {
         currentUser.checkout();
     }
 
-    public Set<ShopItem> getShopItems() {
+    public Collection<ShopItem> getBasket() {
         User user = currentUser.getUserFromDb();
-        return user.getPotentialBuys();
+        return user.getBasket().all();
     }
 
     public String getTotalPrice() {
         double totalInDollars = 0;
         double totalInEuros = 0;
-
-        Set<ShopItem> shopItems = getShopItems();
-        for (ShopItem item : shopItems) {
+        for (ShopItem item : getBasket()) {
             totalInDollars+=item.getPriceInDollars();
             totalInEuros+=item.getPriceInEuros();
         }
@@ -67,6 +65,7 @@ public class Basket {
     @CommitAfter
     Object onActionFromCheckout() {
         currentUser.checkout();
+        market.refresh();
         return Basket.class;
     }
 

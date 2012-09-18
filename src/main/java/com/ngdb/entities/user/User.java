@@ -1,14 +1,10 @@
 package com.ngdb.entities.user;
 
-import com.google.common.collect.Collections2;
-import com.ngdb.Predicates;
 import com.ngdb.entities.AbstractEntity;
 import com.ngdb.entities.article.Article;
-import com.ngdb.entities.reference.Platform;
-import com.ngdb.entities.shop.PotentialBuys;
+import com.ngdb.entities.shop.Basket;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.Wish;
-import com.ngdb.web.pages.Basket;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -18,7 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -53,7 +48,7 @@ public class User extends AbstractEntity implements Comparable<User> {
     private Set<Token> tokens;
 
     @Embedded
-    private PotentialBuys potentialBuys;
+    private Basket basket;
 
     @Column(name = "shop_policy")
     private String shopPolicy;
@@ -133,14 +128,15 @@ public class User extends AbstractEntity implements Comparable<User> {
         return wishList.getNumWishes();
     }
 
+    public void removeFromBasket(ShopItem shopItem) {
+        basket.removeFromBasket(shopItem);
+    }
+
     @Override
     public int compareTo(User user) {
         return login.compareToIgnoreCase(user.getLogin());
     }
 
-    public Set<ShopItem> getPotentialBuys() {
-        return potentialBuys.all();
-    }
     public boolean isContributor() {
         return login.equalsIgnoreCase("anzymus") || login.equalsIgnoreCase("takou");
     }
@@ -213,7 +209,8 @@ public class User extends AbstractEntity implements Comparable<User> {
         this.country = country;
     }
 
-    public PotentialBuys getBasket() {
-        return potentialBuys;
+    public Basket getBasket() {
+        return basket;
     }
+
 }

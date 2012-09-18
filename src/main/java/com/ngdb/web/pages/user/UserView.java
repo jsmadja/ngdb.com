@@ -2,6 +2,7 @@ package com.ngdb.web.pages.user;
 
 import com.ngdb.entities.Market;
 import com.ngdb.entities.article.Article;
+import com.ngdb.entities.shop.Basket;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.User;
@@ -22,8 +23,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-
-import static org.apache.tapestry5.EventConstants.ACTION;
 
 public class UserView {
 
@@ -116,8 +115,8 @@ public class UserView {
         return market.getPriceOf(shopItem);
     }
 
-    public Set<ShopItem> getCurrentOrders() {
-        return user.getPotentialBuys();
+    public Basket getBasket() {
+        return user.getBasket();
     }
 
     public String getOrderPrice() {

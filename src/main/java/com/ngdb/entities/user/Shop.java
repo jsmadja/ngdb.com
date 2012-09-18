@@ -6,6 +6,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 @Embeddable
@@ -14,5 +16,9 @@ public class Shop {
 
     @OneToMany(mappedBy = "seller")
     private Set<ShopItem> shopItems;
+
+    public Collection<ShopItem> all() {
+        return Collections.unmodifiableCollection(shopItems);
+    }
 
 }

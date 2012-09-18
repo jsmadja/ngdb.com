@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 import java.math.BigInteger;
 import java.util.*;
 
+import static com.google.common.collect.Collections2.filter;
 import static org.hibernate.criterion.Projections.count;
 import static org.hibernate.criterion.Restrictions.eq;
 
@@ -56,9 +57,17 @@ public class Market {
     }
 
     public List<ShopItem> findRandomForSaleItems(int count) {
-        List<ShopItem> forSaleItems = getShopItemsWithCover();
+        List<ShopItem> forSaleItems = new ArrayList<ShopItem>(getShopItemsWithCover());
         List<ShopItem> randomItems = new ArrayList<ShopItem>();
         Set<Integer> ids = new HashSet<Integer>();
+
+        forSaleItems.removeAll(currentUser.getUserFromDb().getBasket().all());
+        forSaleItems.removeAll(currentUser.getUserFromDb().getShop().all());
+
+        if(count > forSaleItems.size()) {
+            count = forSaleItems.size();
+        }
+
         while (ids.size() < count) {
             int randomIdx = RandomUtils.nextInt(forSaleItems.size());
             if (ids.add(randomIdx)) {
@@ -70,19 +79,22 @@ public class Market {
         return randomItems;
     }
 
-    private List<ShopItem> getShopItemsWithCover() {
-        if (cache.get("all") == null) {
+    private Collection<ShopItem> getShopItemsWithCover() {
+        if (getCache() == null) {
             List<ShopItem> items = session.createQuery("SELECT si FROM ShopItem si WHERE si.sold = false").list();
-            items = new ArrayList<ShopItem>(Collections2.filter(items, new Predicate<ShopItem>() {
+            items = new ArrayList<ShopItem>(filter(items, new Predicate<ShopItem>() {
                 @Override
                 public boolean apply(@Nullable ShopItem input) {
                     return input.hasCover();
                 }
             }));
-            cache.put(new Element("all", items));
-            return items;
+            cache.put(new Element("all", Collections.unmodifiableCollection(items)));
         }
-        return (List<ShopItem>) cache.get("all").getValue();
+        return (Collection<ShopItem>) getCache().getValue();
+    }
+
+    private Element getCache() {
+        return cache.get("all");
     }
 
     public Long getNumForSaleItems() {
@@ -215,4 +227,7 @@ public class Market {
         return session.createSQLQuery("SELECT * FROM ShopItem WHERE sold = 0 AND seller_id = "+user.getId()+" AND article_id IN (SELECT id FROM "+tableName+")").addEntity(ShopItem.class).list();
     }
 
+    public void refresh() {
+        cache.remove("all");
+    }
 }

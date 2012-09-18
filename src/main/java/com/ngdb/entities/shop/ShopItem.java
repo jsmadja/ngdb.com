@@ -152,7 +152,7 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
         potentialBuyers.remove(potentialBuyer);
     }
 
-    public boolean isNotAlreadyWantedBy(User potentialBuyer) {
+    public boolean isNotInBasketOf(User potentialBuyer) {
         return !potentialBuyers.contains(potentialBuyer);
     }
 

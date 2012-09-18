@@ -4,7 +4,7 @@
 	</div>
 
     <t:zone t:id="basketZone" id="basketZone">
-        <t:grid row="shopItem" source="shopItems" include="title,details,priceInDollars" add="seller,remove" reorder="remove,title,details,seller,priceInDollars" class="table table-striped table-bordered table-condensed">
+        <t:grid row="shopItem" source="basket" include="title,details,priceInDollars" add="seller,remove" reorder="remove,title,details,seller,priceInDollars" class="table table-striped table-bordered table-condensed">
             <p:removeHeader></p:removeHeader>
             <p:sellerCell>
                 <t:pageLink page="market" context="shopItem.seller">${shopItem.seller.login}</t:pageLink>
@@ -22,7 +22,7 @@
             Total: ${totalPrice}
         </p>
         <p class="btn btn-warning pull-right" style="border-radius:5px; margin-bottom:10px">
-            <t:actionLink t:id="checkout" id="checkout">Checkout</t:actionLink>
+            <t:actionLink t:id="checkout" id="checkout" style="color:white">Checkout</t:actionLink>
         </p>
     </div>
 

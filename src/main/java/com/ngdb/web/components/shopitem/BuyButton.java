@@ -26,15 +26,14 @@ public class BuyButton {
 	private boolean asButton;
 
 	@CommitAfter
-	Object onActionFromBuyButton(ShopItem shopItem) {
-		return onActionFromBuy(shopItem);
+	void onActionFromBuyButton(ShopItem shopItem) {
+		onActionFromBuy(shopItem);
 	}
 
     @CommitAfter
-	Object onActionFromBuy(ShopItem shopItem) {
+	void onActionFromBuy(ShopItem shopItem) {
         this.shopItem = shopItem;
 		market.potentialBuyer(shopItem, currentUser.getUser());
-		return this;
 	}
 
 }
