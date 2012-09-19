@@ -20,9 +20,11 @@ import java.util.List;
 
 import static com.google.common.collect.Collections2.transform;
 import static java.util.Arrays.asList;
+import static org.hibernate.criterion.Projections.id;
 import static org.hibernate.criterion.Projections.projectionList;
 import static org.hibernate.criterion.Projections.property;
 import static org.hibernate.criterion.Restrictions.eq;
+import static org.hibernate.criterion.Restrictions.isNotNull;
 
 @SuppressWarnings("unchecked")
 public class GameFactory {
@@ -60,7 +62,7 @@ public class GameFactory {
     }
 
     public Game getRandomGameWithMainPicture() {
-        List<Long> gamesWithMainPicture = session.createCriteria(Game.class).setProjection(Projections.id()).add(Restrictions.isNotNull("coverUrl")).setCacheable(true).list();
+        List<Long> gamesWithMainPicture = session.createCriteria(Game.class).setProjection(id()).add(isNotNull("coverUrl")).add(eq("platformShortName", "AES")).setCacheable(true).list();
         int randomId = RandomUtils.nextInt(gamesWithMainPicture.size());
         Long randomGameId = gamesWithMainPicture.get(randomId);
         return (Game) session.load(Game.class, randomGameId);
