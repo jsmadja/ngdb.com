@@ -47,6 +47,9 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
     @ManyToOne(optional = false, fetch = LAZY)
     private Article article;
 
+    @ManyToOne(optional = true, fetch = LAZY)
+    private ShopOrder order;
+
     private String details;
 
     private Boolean sold = false;
@@ -244,4 +247,7 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
         return null;
     }
 
+    public void setOrder(ShopOrder shopOrder) {
+        this.order = shopOrder;
+    }
 }

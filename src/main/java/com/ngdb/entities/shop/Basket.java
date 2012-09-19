@@ -37,7 +37,7 @@ public class Basket implements Serializable, Iterable<ShopItem> {
 
     public List<ShopItem> allItemsForSaleBy(User seller) {
         List<ShopItem> shopItems = new ArrayList<ShopItem>();
-        for(ShopItem shopItem: shopItems) {
+        for(ShopItem shopItem: this.shopItems) {
             if(seller.getId().equals(shopItem.getSeller().getId())) {
                 shopItems.add(shopItem);
             }

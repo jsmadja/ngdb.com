@@ -3,32 +3,37 @@ package com.ngdb.web.services.infrastructure;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.shop.Basket;
 import com.ngdb.entities.shop.ShopItem;
+import com.ngdb.entities.shop.ShopOrder;
 import com.ngdb.entities.user.User;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class BillFactory {
 
     private Basket basket;
     private List<User> sellers;
+    private User buyer;
 
     public BillFactory(User buyer) {
+        this.buyer = buyer;
         basket = buyer.getBasket();
         sellers = basket.allSellers();
     }
 
-    public Map<User, String> createBills() {
-        Map<User, String> bills = new HashMap<User, String>();
+    public List<ShopOrder> createBills() {
+        List<ShopOrder> bills = new ArrayList<ShopOrder>();
         for(User seller:sellers) {
-            String bill = prepareBillOf(seller);
-            bills.put(seller, bill);
+            ShopOrder order = new ShopOrder();
+            buyer.addOrder(order);
+            String bill = prepareBillOf(seller, order);
+            order.addBill(bill);
+            bills.add(order);
         }
         return bills;
     }
 
-    private String prepareBillOf(User seller) {
+    private String prepareBillOf(User seller, ShopOrder order) {
         StringBuilder bill = new StringBuilder();
         if(seller.getShopPolicy() != null) {
             bill.append(seller.getShopPolicy());
@@ -46,6 +51,7 @@ public class BillFactory {
 
         for (ShopItem shopItem : shopItems) {
             insertArticleLine(bill, shopItem);
+            order.addShopItem(shopItem);
         }
 
         return bill.toString();

@@ -1,8 +1,8 @@
 package com.ngdb.web.services.infrastructure;
 
-import com.ngdb.entities.Market;
 import com.ngdb.entities.shop.Basket;
 import com.ngdb.entities.shop.ShopItem;
+import com.ngdb.entities.shop.ShopOrder;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.services.MailService;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.joda.time.DateMidnight;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -28,26 +29,28 @@ public class CheckoutService {
 
     private void sendBills(User buyer) {
         BillFactory billFactory = new BillFactory(buyer);
-        Map<User, String> bills = billFactory.createBills();
-        for (Map.Entry<User, String> bill:bills.entrySet()) {
-            sendBill(buyer, bill);
+        List<ShopOrder> bills = billFactory.createBills();
+        for (ShopOrder shopOrder:bills) {
+            session.save(shopOrder);
+            sendBill(shopOrder);
         }
     }
 
-    private void sendBill(User buyer, Map.Entry<User, String> bill) {
+    private void sendBill(ShopOrder order) {
         Map<String, String> paramsTemplate = new HashMap<String, String>();
 
+        User buyer = order.getBuyer();
         paramsTemplate.put("buyerUsername", buyer.getLogin());
         paramsTemplate.put("buyerEmail", buyer.getEmail());
         paramsTemplate.put("buyerId", buyer.getId().toString());
 
-        User seller = bill.getKey();
+        User seller = order.getSeller();
         paramsTemplate.put("sellerUsername", seller.getLogin());
         paramsTemplate.put("sellerEmail", seller.getEmail());
         paramsTemplate.put("sellerId", seller.getId().toString());
 
         paramsTemplate.put("orderDate", new DateMidnight().toString());
-        paramsTemplate.put("orderBatchSummary", bill.getValue());
+        paramsTemplate.put("orderBatchSummary", order.getBill());
 
         mailService.sendMail(buyer,"checkout", paramsTemplate);
         mailService.sendMail(seller,"checkout", paramsTemplate);
@@ -55,8 +58,8 @@ public class CheckoutService {
 
     private void confirmCheckout(User buyer) {
         Basket basket = buyer.getBasket();
-        Set<ShopItem> all = basket.all();
-        for (ShopItem shopItem : all) {
+        Set<ShopItem> shopItems = basket.all();
+        for (ShopItem shopItem : shopItems) {
             shopItem.sold();
             shopItem.removePotentialBuyer(buyer);
         }
