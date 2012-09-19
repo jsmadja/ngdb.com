@@ -15,6 +15,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Locale;
 
+import static java.util.Arrays.asList;
+
 @RequiresUser
 public class Profile {
 
@@ -69,7 +71,8 @@ public class Profile {
         user.setCountry(country);
         user.setAboutMe(aboutMe);
         user.setShopPolicy(shopPolicy);
-        session.persist(user);
+        session.saveOrUpdate(user);
+        session.flush();
         currentUser.refresh();
         message = "Your profile has been updated";
     }
@@ -79,7 +82,7 @@ public class Profile {
     }
 
     public Collection<String> getCountries() {
-        return Arrays.asList(Locale.getISOCountries());
+        return asList(Locale.getISOCountries());
     }
 
 }
