@@ -50,6 +50,9 @@ public class Menu {
     private Zone myZone;
 
     @Inject
+    private Request request;
+
+    @Inject
     private AjaxResponseRenderer ajaxResponseRenderer;
 
     public JSONObject getParams() {
@@ -68,21 +71,20 @@ public class Menu {
 	}
 
     @OnEvent(component = "link1", value = ACTION)
-    public void onActionFromLink1(ShopItem shopItem) {
+    public Object onActionFromLink1(ShopItem shopItem) {
         this.shopItem = shopItem;
-        ajaxResponseRenderer.addRender(myZone);
+        if (!request.isXHR()) { return this; }
+        return myZone;
     }
 
     @OnEvent(component = "link2", value = ACTION)
-    public void onActionFromLink2(ShopItem shopItem) {
-        this.shopItem = shopItem;
-        ajaxResponseRenderer.addRender(myZone);
+    public Object onActionFromLink2(ShopItem shopItem) {
+        return onActionFromLink1(shopItem);
     }
 
     @OnEvent(component = "link3", value = ACTION)
-    public void onActionFromLink3(ShopItem shopItem) {
-        this.shopItem = shopItem;
-        ajaxResponseRenderer.addRender(myZone);
+    public Object onActionFromLink3(ShopItem shopItem) {
+        return onActionFromLink1(shopItem);
     }
 
     public Collection<ArticleAction> getUpdates() {
