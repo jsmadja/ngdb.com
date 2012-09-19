@@ -73,8 +73,8 @@ public class MailService {
 			logger.info(String.format("Receiver : %s", receiver));
 			logger.info(String.format("Body : %s", body));
 		}
-		helper.setFrom(sender);
-		helper.setText(HTML_BEGIN + body + HTML_END, HTML_CONTENT);
+        helper.setFrom(sender);
+		helper.setText(body);
 		helper.setSubject(subject);
 		return mimeMessage;
 	}
