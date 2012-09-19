@@ -61,8 +61,11 @@ public class Market {
         List<ShopItem> randomItems = new ArrayList<ShopItem>();
         Set<Integer> ids = new HashSet<Integer>();
 
-        forSaleItems.removeAll(currentUser.getUserFromDb().getBasket().all());
-        forSaleItems.removeAll(currentUser.getUserFromDb().getShop().all());
+        if(currentUser.isLogged()) {
+            User user = currentUser.getUserFromDb();
+            forSaleItems.removeAll(user.getBasket().all());
+            forSaleItems.removeAll(user.getShop().all());
+        }
 
         if(count > forSaleItems.size()) {
             count = forSaleItems.size();
