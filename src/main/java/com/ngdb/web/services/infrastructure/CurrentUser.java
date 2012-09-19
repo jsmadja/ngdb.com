@@ -116,7 +116,6 @@ public class CurrentUser {
             store(User.class, user);
             updateLastLoginDate(user);
         }
-        session.refresh(user);
         return user;
     }
 
