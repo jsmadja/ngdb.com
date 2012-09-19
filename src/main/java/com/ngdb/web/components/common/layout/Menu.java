@@ -3,6 +3,7 @@ package com.ngdb.web.components.common.layout;
 import com.ngdb.entities.ActionLogger;
 import com.ngdb.entities.article.ArticleAction;
 import com.ngdb.entities.shop.ShopItem;
+import com.ngdb.web.pages.Index;
 import com.ngdb.web.pages.article.game.GameView;
 import com.ngdb.web.pages.article.hardware.HardwareView;
 import org.apache.tapestry5.annotations.*;
@@ -73,7 +74,9 @@ public class Menu {
     @OnEvent(component = "link1", value = ACTION)
     public Object onActionFromLink1(ShopItem shopItem) {
         this.shopItem = shopItem;
-        if (!request.isXHR()) { return this; }
+        if (!request.isXHR()) {
+            return Index.class;
+        }
         return myZone;
     }
 
