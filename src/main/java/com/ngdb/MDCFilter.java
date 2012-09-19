@@ -25,11 +25,11 @@ public class MDCFilter implements Filter {
     private String getUserPrincipal(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            return "";
+            return request.getRemoteAddr();
         }
         Object login = session.getAttribute(PRINCIPALS_SESSION_KEY);
         if(login == null) {
-            return "";
+            return request.getRemoteAddr();
         }
         return login.toString();
     }
