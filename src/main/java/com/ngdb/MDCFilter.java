@@ -1,4 +1,4 @@
-package com.ngdbg;
+package com.ngdb;
 
 import org.apache.log4j.MDC;
 
