@@ -1,4 +1,4 @@
-package com.ngdb.service.security;
+package com.ngdbg;
 
 import org.apache.log4j.MDC;
 
