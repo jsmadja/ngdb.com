@@ -1,5 +1,13 @@
 package com.ngdb.entities;
 
+import com.ngdb.services.SentenceTokenizerFactory;
+import org.apache.solr.analysis.ASCIIFoldingFilterFactory;
+import org.apache.solr.analysis.LowerCaseFilterFactory;
+import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.AnalyzerDefs;
+import org.hibernate.search.annotations.TokenFilterDef;
+import org.hibernate.search.annotations.TokenizerDef;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessorType;
 import java.io.Serializable;

@@ -11,9 +11,14 @@ import com.ngdb.entities.shop.ShopItems;
 import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.User;
+import com.ngdb.services.SentenceTokenizerFactory;
+import com.ngdb.services.ToStringBridge;
 import org.apache.commons.lang.StringUtils;
+import org.apache.solr.analysis.ASCIIFoldingFilterFactory;
+import org.apache.solr.analysis.LowerCaseFilterFactory;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,8 +28,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Indexed
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@AnalyzerDefs({
+        @AnalyzerDef(name = "noaccent",
+                tokenizer = @TokenizerDef(factory = SentenceTokenizerFactory.class),
+                filters = {
+                        @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+                        @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class)
+                })
+})
 public abstract class Article implements Comparable<Article>, Serializable{
 
     private static final int MAX_DETAIL_LENGTH = 1024;
@@ -40,28 +54,36 @@ public abstract class Article implements Comparable<Article>, Serializable{
     private Long id;
 
     @Column(nullable = false)
+    @Field(analyzer = @Analyzer(definition = "noaccent"), store = Store.YES)
     private String title;
 
-    @Column(name = "release_date")
     @Temporal(TemporalType.DATE)
+    @Column(name = "release_date")
     private Date releaseDate;
 
     @Column(name = "origin_title")
+    @Field(analyzer = @Analyzer(definition = "noaccent"), store = Store.YES)
     private String originTitle;
 
     @Column(name = "platform_short_name")
+    @Field(analyzer = @Analyzer(definition = "noaccent"), store = Store.YES)
     private String platformShortName;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @FieldBridge(impl = ToStringBridge.class)
+    @Field(analyzer = @Analyzer(definition = "noaccent"), store = Store.YES)
     private Publisher publisher;
 
     @Embedded
+    @IndexedEmbedded
     private Notes notes;
 
     @Embedded
+    @IndexedEmbedded
     private Tags tags;
 
     @Embedded
+    @IndexedEmbedded
     private Files files;
 
     @Embedded
@@ -71,9 +93,11 @@ public abstract class Article implements Comparable<Article>, Serializable{
     private String coverUrl;
 
     @Embedded
+    @IndexedEmbedded
     private Reviews reviews;
 
     @Embedded
+    @IndexedEmbedded
     private Comments comments;
 
     @OneToMany(mappedBy = "article")
@@ -85,10 +109,13 @@ public abstract class Article implements Comparable<Article>, Serializable{
     @OneToMany(mappedBy = "article")
     private Set<CollectionObject> owners;
 
+    @Field(analyzer = @Analyzer(definition = "noaccent"), store = Store.YES)
     private String details;
 
+    @Field(analyzer = @Analyzer(definition = "noaccent"), store = Store.YES)
     private String upc;
 
+    @Field(analyzer = @Analyzer(definition = "noaccent"), store = Store.YES)
     private String reference;
 
     Article() {

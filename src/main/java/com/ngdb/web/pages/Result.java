@@ -1,5 +1,6 @@
 package com.ngdb.web.pages;
 
+import com.ngdb.Comparators;
 import com.ngdb.Predicates;
 import com.ngdb.StarsUtil;
 import com.ngdb.entities.ArticleFactory;
@@ -8,8 +9,10 @@ import com.ngdb.entities.article.Game;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
+import com.ngdb.services.HibernateSearchService;
 import com.ngdb.web.Filter;
 import com.ngdb.web.services.infrastructure.CurrentUser;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
@@ -18,7 +21,9 @@ import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,9 +45,6 @@ public class Result {
     private String search;
 
     @Inject
-    private Registry registry;
-
-    @Inject
     private CurrentUser currentUser;
 
     @Inject
@@ -54,10 +56,22 @@ public class Result {
     @Inject
     private ReferenceService referenceService;
 
+    @Inject
+    private HibernateSearchService hibernateSearchService;
+
+    @Inject
+    private Registry registry;
+
     private static final Logger LOG = LoggerFactory.getLogger(Result.class);
 
     @SetupRender
     public void setup() {
+        if(StringUtils.isNotBlank(search)) {
+            search();
+        }
+    }
+
+    private void search() {
         LOG.info(currentUser.getUsername() + " is searching for '" + search + "'");
         String query = search;
         Platform filterPlatform = null;
@@ -94,7 +108,8 @@ public class Result {
         }
 
         query = query.trim();
-        results = registry.findGamesMatching(query);
+
+        results = hibernateSearchService.searchGames(query);
 
         if(filterPlatform != null) {
             results = filter(results, new Predicates.PlatformPredicate(filterPlatform));
@@ -102,7 +117,8 @@ public class Result {
         if(filterOrigin != null) {
             results = filter(results, new Predicates.OriginPredicate(filterOrigin));
         }
-
+        results = new ArrayList<Game>(results);
+        Collections.sort((List)results, Comparators.gamesByTitlePlatformOrigin);
     }
 
     public String getStars() {

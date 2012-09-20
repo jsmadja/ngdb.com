@@ -2,6 +2,8 @@ package com.ngdb.entities.article.element;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
@@ -9,10 +11,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
 
+@Indexed
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Notes implements Iterable<Note> {
 
+    @IndexedEmbedded
     @OneToMany(mappedBy = "article")
     private Set<Note> notes;
 

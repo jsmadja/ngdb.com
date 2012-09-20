@@ -35,14 +35,14 @@ public class ResultTest {
     public void should_pass_query_without_filter() {
         result.setSearch("search");
         result.setup();
-        Mockito.verify(registry).findGamesMatching("search");
+        Mockito.verify(registry).completeWithRelatedGames("search");
     }
 
     @Test
     public void should_pass_query_without_platform_filter() {
         result.setSearch("search platform:aes");
         result.setup();
-        Mockito.verify(registry).findGamesMatching("search");
+        Mockito.verify(registry).completeWithRelatedGames("search");
         Mockito.verify(referenceService).findPlatformByName("aes");
     }
 
@@ -50,7 +50,7 @@ public class ResultTest {
     public void should_pass_query_without_p_filter() {
         result.setSearch("search p:aes");
         result.setup();
-        Mockito.verify(registry).findGamesMatching("search");
+        Mockito.verify(registry).completeWithRelatedGames("search");
         Mockito.verify(referenceService).findPlatformByName("aes");
     }
 
@@ -58,7 +58,7 @@ public class ResultTest {
     public void should_pass_query_without_origin_filter() {
         result.setSearch("search origin:japan");
         result.setup();
-        Mockito.verify(registry).findGamesMatching("search");
+        Mockito.verify(registry).completeWithRelatedGames("search");
         Mockito.verify(referenceService).findOriginByTitle("japan");
     }
 
@@ -66,7 +66,7 @@ public class ResultTest {
     public void should_pass_query_without_o_filter() {
         result.setSearch("search o:japan");
         result.setup();
-        Mockito.verify(registry).findGamesMatching("search");
+        Mockito.verify(registry).completeWithRelatedGames("search");
         Mockito.verify(referenceService).findOriginByTitle("japan");
     }
 
@@ -74,7 +74,7 @@ public class ResultTest {
     public void should_pass_query_without_o_filter_and_p_filter() {
         result.setSearch("search p:aes o:japan");
         result.setup();
-        Mockito.verify(registry).findGamesMatching("search");
+        Mockito.verify(registry).completeWithRelatedGames("search");
         Mockito.verify(referenceService).findPlatformByName("aes");
         Mockito.verify(referenceService).findOriginByTitle("japan");
     }
@@ -83,7 +83,7 @@ public class ResultTest {
     public void should_pass_query_without_o_filter_and_p_filter_different_order() {
         result.setSearch("p:aes search o:japan");
         result.setup();
-        Mockito.verify(registry).findGamesMatching("search");
+        Mockito.verify(registry).completeWithRelatedGames("search");
         Mockito.verify(referenceService).findPlatformByName("aes");
         Mockito.verify(referenceService).findOriginByTitle("japan");
     }

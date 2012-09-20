@@ -5,6 +5,7 @@ import com.ngdb.web.pages.Result;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.OnEvent;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -14,6 +15,7 @@ import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 public class SearchForm {
 
+    @Persist
     @Property
     private String search;
 

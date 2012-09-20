@@ -4,6 +4,10 @@ import com.ngdb.entities.AbstractEntity;
 import com.ngdb.entities.article.Article;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,11 +15,13 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 @Entity
+@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Tag extends AbstractEntity implements Comparable<Tag> {
 
 	@Column(nullable = false, unique = true)
-	private String name;
+    @Field(analyzer = @Analyzer(definition = "noaccent"), store = Store.YES)
+    private String name;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Article article;

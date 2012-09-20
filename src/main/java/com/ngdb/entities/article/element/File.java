@@ -4,6 +4,10 @@ import com.ngdb.entities.AbstractEntity;
 import com.ngdb.entities.article.Article;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,16 +15,19 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 @Entity
+@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class File  extends AbstractEntity implements Comparable<File> {
 
     @Column(nullable = false)
+    @Field(analyzer = @Analyzer(definition = "noaccent"), store = Store.YES)
     private String name;
 
     @Column(nullable = false)
     private String url;
 
     @Column(nullable = false)
+    @Field(analyzer = @Analyzer(definition = "noaccent"), store = Store.YES)
     private String type;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

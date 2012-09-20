@@ -4,16 +4,23 @@ import com.ngdb.entities.AbstractEntity;
 import com.ngdb.entities.article.Article;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 @Entity
+@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Note extends AbstractEntity implements Comparable<Note> {
 
+    @Field(analyzer = @Analyzer(definition = "noaccent"), store = Store.YES)
     private String name;
 
+    @Field(analyzer = @Analyzer(definition = "noaccent"), store = Store.YES)
     private String text;
 
     @ManyToOne

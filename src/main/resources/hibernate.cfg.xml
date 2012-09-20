@@ -23,7 +23,10 @@
 		<property name="hibernate.generate_statistics">false</property>
 		
 		<property name="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
-		 
+
+        <property name="hibernate.search.default.directory_provider">filesystem</property>
+        <property name="hibernate.search.default.indexBase">/ngdb/index</property>
+
 	</session-factory>
 </hibernate-configuration>
 

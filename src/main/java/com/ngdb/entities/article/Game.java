@@ -2,20 +2,28 @@ package com.ngdb.entities.article;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.io.Serializable;
 
 @Entity
+@Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Game extends Article implements Serializable {
 
+    @Field(analyzer = @Analyzer(definition = "noaccent"), store = Store.YES)
     private String ngh;
 
+    @Field(analyzer = @Analyzer(definition = "noaccent"), store = Store.YES)
     private String imdbId;
 
     @Column(name = "mega_count")
+    @Field(analyzer = @Analyzer(definition = "noaccent"), store = Store.YES)
     private Long megaCount;
 
     public Game() {

@@ -2,6 +2,8 @@ package com.ngdb.entities.article.element;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
@@ -10,10 +12,12 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
+@Indexed
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Reviews implements Iterable<Review> {
 
+    @IndexedEmbedded
     @OneToMany(mappedBy = "article")
     private Set<Review> reviews;
 
