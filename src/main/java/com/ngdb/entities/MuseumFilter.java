@@ -1,18 +1,25 @@
 package com.ngdb.entities;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
-import com.ngdb.Predicates;
+import com.ngdb.entities.article.Accessory;
 import com.ngdb.entities.article.Article;
+import com.ngdb.entities.article.Game;
+import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
+import com.ngdb.entities.user.CollectionObject;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
-import static com.google.common.collect.Collections2.filter;
+import static org.hibernate.criterion.Order.asc;
+import static org.hibernate.criterion.Projections.*;
+import static org.hibernate.criterion.Restrictions.eq;
+import static org.hibernate.criterion.Restrictions.in;
 
 public class MuseumFilter extends AbstractFilter {
 
@@ -21,17 +28,16 @@ public class MuseumFilter extends AbstractFilter {
     private AccessoryFactory accessoryFactory;
 
     private Tag filteredTag;
-
     private String filteredNgh;
-
     private Date filteredReleaseDate;
 
-    private Collection<Article> initialArticleList;
+    private Session session;
 
-    public MuseumFilter(GameFactory gameFactory, HardwareFactory hardwareFactory, AccessoryFactory accessoryFactory) {
+    public MuseumFilter(GameFactory gameFactory, HardwareFactory hardwareFactory, AccessoryFactory accessoryFactory, Session session) {
         this.gameFactory = gameFactory;
         this.hardwareFactory = hardwareFactory;
         this.accessoryFactory = accessoryFactory;
+        this.session = session;
         clear();
     }
 
@@ -83,98 +89,86 @@ public class MuseumFilter extends AbstractFilter {
         return accessoryFactory.getNumAccessories();
     }
 
-    private Collection<Article> applyFilters(List<Predicate<Article>> filters) {
-        Collection<Article> filteredArticles = allArticles();
-        buildFilters(filters);
-        for (Predicate<Article> filter : filters) {
-            filteredArticles = filter(filteredArticles, filter);
-        }
-        return filteredArticles;
-    }
-
-    private Collection<Article> allArticles() {
-        Collection<Article> articles = new ArrayList<Article>();
-        if (filteredByGames) {
-            if (filteredUser == null) {
-                articles.addAll(gameFactory.findAllLight());
-            } else {
-                articles.addAll(gameFactory.findAllGamesOwnedBy(filteredUser));
-            }
-        } else if(filteredByHardwares){
-            if (filteredUser == null) {
-                articles.addAll(hardwareFactory.findAll());
-            } else {
-                articles.addAll(hardwareFactory.findAllOwnedBy(filteredUser));
-            }
-        } else {
-            if (filteredUser == null) {
-                articles.addAll(accessoryFactory.findAll());
-            } else {
-                articles.addAll(accessoryFactory.findAllOwnedBy(filteredUser));
-            }
-        }
-        return articles;
-    }
-
-    private void buildFilters(List<Predicate<Article>> filters) {
-        if (filteredOrigin != null) {
-            filters.add(new Predicates.OriginPredicate(filteredOrigin));
-        }
-        if (filteredPlatform != null) {
-            filters.add(new Predicates.PlatformPredicate(filteredPlatform));
-        }
-        if (filteredPublisher != null) {
-            filters.add(new Predicates.PublisherPredicate(filteredPublisher));
-        }
-        if (filteredTag != null) {
-            filters.add(new Predicates.TagPredicate(filteredTag));
-        }
-        if (filteredNgh != null) {
-            filters.add(new Predicates.NghPredicate(filteredNgh));
-        }
-        if (filteredReleaseDate != null) {
-            filters.add(new Predicates.ReleaseDatePredicate(filteredReleaseDate));
-        }
-    }
-
     public List<Article> getArticles() {
-        List<Predicate<Article>> filters = Lists.newArrayList();
-        Collection<Article> filteredArticles = applyFilters(filters);
-        List<Article> arrayList = new ArrayList<Article>(filteredArticles);
-        Collections.sort(arrayList);
-        return arrayList;
-    }
-
-    public int getNumArticlesInThisOrigin(Origin origin) {
-        Collection<Article> articles = allArticles();
-        if (filteredPlatform != null) {
-            Predicates.PlatformPredicate filterByPlatform = new Predicates.PlatformPredicate(filteredPlatform);
-            articles = filter(articles, filterByPlatform);
-        }
-        Predicates.OriginPredicate filterByOrigin = new Predicates.OriginPredicate(origin);
-        articles = filter(articles, filterByOrigin);
-        return articles.size();
-    }
-
-    public int getNumArticlesInThisPublisher(Publisher publisher) {
-        Collection<Article> articles = allArticles();
-        if (filteredPlatform != null) {
-            Predicates.PlatformPredicate filterByPlatform = new Predicates.PlatformPredicate(filteredPlatform);
-            articles = filter(articles, filterByPlatform);
-        }
-        if (filteredOrigin != null) {
-            Predicates.OriginPredicate filterByOrigin = new Predicates.OriginPredicate(filteredOrigin);
-            articles = filter(articles, filterByOrigin);
-        }
-        Predicates.PublisherPredicate filterByPublisher = new Predicates.PublisherPredicate(publisher);
-        articles = filter(articles, filterByPublisher);
-        return articles.size();
+        Criteria criteria = createCriteria();
+        criteria = addNghFilter(criteria);
+        criteria = addPlatformFilter(criteria);
+        criteria = addOriginFilter(criteria);
+        criteria = addPublisherFilter(criteria);
+        criteria = addTagFilter(criteria);
+        criteria = addUserFilter(criteria);
+        return criteria.addOrder(asc("title")).list();
     }
 
     public int getNumArticlesInThisPlatform(Platform platform) {
-        Collection<Article> articles = allArticles();
-        articles = filter(articles, new Predicates.PlatformPredicate(platform));
-        return articles.size();
+        Criteria criteria = createCriteria().setProjection(countDistinct("id"));
+        criteria = addTagFilter(criteria);
+        criteria = addUserFilter(criteria);
+        criteria = criteria.add(eq("platformShortName", platform.getShortName()));
+        return ((Long)criteria.uniqueResult()).intValue();
+    }
+
+    public int getNumArticlesInThisOrigin(Origin origin) {
+        Criteria criteria = createCriteria().setProjection(countDistinct("id"));
+        criteria = addPlatformFilter(criteria);
+        criteria = addTagFilter(criteria);
+        criteria = addUserFilter(criteria);
+        criteria = criteria.add(eq("originTitle", origin.getTitle()));
+        return ((Long)criteria.uniqueResult()).intValue();
+    }
+
+    public int getNumArticlesInThisPublisher(Publisher publisher) {
+        Criteria criteria = createCriteria().setProjection(countDistinct("id"));
+        criteria = addPlatformFilter(criteria);
+        criteria = addOriginFilter(criteria);
+        criteria = addTagFilter(criteria);
+        criteria = addUserFilter(criteria);
+        criteria = criteria.add(eq("publisher", publisher));
+        return ((Long)criteria.uniqueResult()).intValue();
+    }
+
+    private Criteria addPublisherFilter(Criteria criteria) {
+        if (filteredPublisher != null) {
+            criteria = criteria.add(eq("publisher",filteredPublisher));
+        }
+        return criteria;
+    }
+
+    private Criteria addNghFilter(Criteria criteria) {
+        if (filteredNgh != null) {
+            criteria = criteria.add(eq("ngh", filteredNgh));
+        }
+        return criteria;
+    }
+
+    private Criteria addOriginFilter(Criteria criteria) {
+        if (filteredOrigin != null) {
+            criteria = criteria.add(eq("originTitle", filteredOrigin.getTitle()));
+        }
+        return criteria;
+    }
+
+    private Criteria addTagFilter(Criteria criteria) {
+        if (filteredTag != null) {
+            criteria = criteria.createAlias("tags.tags", "tag");
+            criteria = criteria.add(eq("tag.name", filteredTag.getName()));
+        }
+        return criteria;
+    }
+
+    private Criteria addPlatformFilter(Criteria criteria) {
+        if (filteredPlatform != null) {
+            criteria = criteria.add(eq("platformShortName", filteredPlatform.getShortName()));
+        }
+        return criteria;
+    }
+
+    private Criteria addUserFilter(Criteria criteria) {
+        if(filteredUser != null) {
+            List<CollectionObject> articles = session.createCriteria(CollectionObject.class).setProjection(distinct(property("id.articleId"))).add(eq("owner", filteredUser)).list();
+            criteria = criteria.add(in("id", articles));
+        }
+        return criteria;
     }
 
     public void filterByTag(Tag tag) {
@@ -195,6 +189,16 @@ public class MuseumFilter extends AbstractFilter {
 
     public Date getFilteredReleaseDate() {
         return filteredReleaseDate;
+    }
+
+    private Criteria createCriteria() {
+        Class<?> clazz = Accessory.class;
+        if(filteredByGames) {
+            clazz = Game.class;
+        } else if(filteredByHardwares) {
+            clazz = Hardware.class;
+        }
+        return session.createCriteria(clazz);
     }
 
 }

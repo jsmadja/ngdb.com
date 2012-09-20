@@ -65,7 +65,7 @@ public class Museum {
 
     void onActivate() {
         if (filter == null || "true".equals(request.getParameter("display-all"))) {
-            filter = new MuseumFilter(gameFactory, hardwareFactory, accessoryFactory);
+            filter = new MuseumFilter(gameFactory, hardwareFactory, accessoryFactory, session);
             filter.filterByGames();
             filter.filterByOrigin(referenceService.findOriginByTitle("Japan"));
             filter.filterByPlatform(referenceService.findPlatformByName("AES"));
@@ -73,7 +73,7 @@ public class Museum {
     }
 
     boolean onActivate(User user) {
-        filter = new MuseumFilter(gameFactory, hardwareFactory, accessoryFactory);
+        filter = new MuseumFilter(gameFactory, hardwareFactory, accessoryFactory, session);
         filter.filterByUser(user);
         this.user = user;
         return true;
@@ -84,7 +84,7 @@ public class Museum {
             onActivate();
             return true;
         }
-        filter = new MuseumFilter(gameFactory, hardwareFactory, accessoryFactory);
+        filter = new MuseumFilter(gameFactory, hardwareFactory, accessoryFactory, session);
         Filter filter = Filter.valueOf(Filter.class, filterName);
         switch (filter) {
         case byOrigin:
