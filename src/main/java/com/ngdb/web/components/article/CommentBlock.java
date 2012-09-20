@@ -12,7 +12,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import com.ngdb.entities.GameFactory;
+import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Comment;
@@ -35,7 +35,7 @@ public class CommentBlock {
     private CurrentUser currentUser;
 
     @Inject
-    private GameFactory gameFactory;
+    private ArticleFactory articleFactory;
 
     @CommitAfter
     public void onSuccess() {
@@ -57,7 +57,7 @@ public class CommentBlock {
         if (article.isGame()) {
             Game game = (Game) article;
             comments = new TreeSet<Comment>(game.getComments().all());
-            List<Game> relatedGames = gameFactory.findAllByNgh(game.getNgh());
+            List<Game> relatedGames = articleFactory.findAllGamesByNgh(game.getNgh());
             for (Game relatedGame : relatedGames) {
                 comments.addAll(relatedGame.getComments().all());
             }

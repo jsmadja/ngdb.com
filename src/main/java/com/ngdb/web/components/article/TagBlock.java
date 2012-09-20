@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.ngdb.entities.ArticleFactory;
 import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -17,7 +18,6 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.ngdb.entities.ActionLogger;
-import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.Registry;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Tag;
@@ -42,7 +42,7 @@ public class TagBlock {
     private CurrentUser currentUser;
 
     @Inject
-    private GameFactory gameFactory;
+    private ArticleFactory articleFactory;
 
     private Collection<String> suggestions = new TreeSet<String>();
 

@@ -23,9 +23,7 @@ import static org.hibernate.criterion.Restrictions.in;
 
 public class MuseumFilter extends AbstractFilter {
 
-    private GameFactory gameFactory;
-    private HardwareFactory hardwareFactory;
-    private AccessoryFactory accessoryFactory;
+    private ArticleFactory articleFactory;
 
     private Tag filteredTag;
     private String filteredNgh;
@@ -33,10 +31,8 @@ public class MuseumFilter extends AbstractFilter {
 
     private Session session;
 
-    public MuseumFilter(GameFactory gameFactory, HardwareFactory hardwareFactory, AccessoryFactory accessoryFactory, Session session) {
-        this.gameFactory = gameFactory;
-        this.hardwareFactory = hardwareFactory;
-        this.accessoryFactory = accessoryFactory;
+    public MuseumFilter(ArticleFactory articleFactory, Session session) {
+        this.articleFactory = articleFactory;
         this.session = session;
         clear();
     }
@@ -70,7 +66,7 @@ public class MuseumFilter extends AbstractFilter {
         if (filteredUser != null) {
             return filteredUser.getCollection().getNumHardwares();
         }
-        return hardwareFactory.getNumHardwares();
+        return articleFactory.getNumHardwares();
     }
 
     @Override
@@ -78,7 +74,7 @@ public class MuseumFilter extends AbstractFilter {
         if (filteredUser != null) {
             return filteredUser.getCollection().getNumGames();
         }
-        return gameFactory.getNumGames();
+        return articleFactory.getNumGames();
     }
 
     @Override
@@ -86,7 +82,7 @@ public class MuseumFilter extends AbstractFilter {
         if (filteredUser != null) {
             return filteredUser.getCollection().getNumAccessories();
         }
-        return accessoryFactory.getNumAccessories();
+        return articleFactory.getNumAccessories();
     }
 
     public List<Article> getArticles() {

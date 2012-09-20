@@ -3,7 +3,6 @@ package com.ngdb.web.pages;
 import com.google.common.collect.Collections2;
 import com.ngdb.Predicates;
 import com.ngdb.entities.ArticleFactory;
-import com.ngdb.entities.GameFactory;
 import com.ngdb.entities.Population;
 import com.ngdb.entities.WishBox;
 import com.ngdb.entities.article.Article;
@@ -80,9 +79,6 @@ public class Stats {
     @Inject
     private ReferenceService referenceService;
 
-    @Inject
-    private GameFactory gameFactory;
-
     @SetupRender
     public void init() {
         this.userCount = population.getNumUsers();
@@ -119,7 +115,7 @@ public class Stats {
 
         List<Platform> platforms = referenceService.getPlatforms();
         for (Platform platform : platforms) {
-            Collection<Game> games = gameFactory.findAllByPlatform(platform);
+            Collection<Game> games = articleFactory.findAllGamesByPlatform(platform);
             Collection<Game> gamesWithPictures = Collections2.filter(games, Predicates.hasPicture);
             int numGamesWithPictures = gamesWithPictures.size();
             int numGames = games.size();
@@ -134,11 +130,11 @@ public class Stats {
 
     public String getReviewProgress() {
         StringBuilder sb = new StringBuilder();
-        List<Game> noReviewGames = gameFactory.findAll();
-        List<Game> games = gameFactory.findAll();
+        List<Game> noReviewGames = articleFactory.findAllGames();
+        List<Game> games = articleFactory.findAllGames();
         for (Game game : games) {
             if(game.getHasReviews()) {
-                noReviewGames.removeAll(gameFactory.findAllByNgh(game.getNgh()));
+                noReviewGames.removeAll(articleFactory.findAllGamesByNgh(game.getNgh()));
             }
         }
         int numTotalGames = games.size();
@@ -150,8 +146,8 @@ public class Stats {
 
     public String getTagProgress() {
         StringBuilder sb = new StringBuilder();
-        List<Game> noTagGames = gameFactory.findAll();
-        List<Game> games = gameFactory.findAll();
+        List<Game> noTagGames = articleFactory.findAllGames();
+        List<Game> games = articleFactory.findAllGames();
         for (Game game : games) {
             if(game.hasTags()) {
                 noTagGames.remove(game);

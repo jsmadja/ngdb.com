@@ -16,13 +16,7 @@ import java.util.List;
 public class Index {
 
 	@Inject
-	private GameFactory gameFactory;
-
-	@Inject
 	private WishBox wishBox;
-
-	@Inject
-	private HardwareFactory hardwareFactory;
 
 	@Inject
 	private Population population;
@@ -79,7 +73,7 @@ public class Index {
 		if (elementInCache != null) {
 			return (Game) elementInCache.getValue();
 		}
-		Game randomGame = gameFactory.getRandomGameWithMainPicture();
+		Game randomGame = articleFactory.getRandomGameWithMainPicture();
         String url = randomGame.getCover().getUrl("medium");
         if(urls.contains(url)) {
             return getRandomGameFromCache(index);

@@ -34,7 +34,7 @@ public class Suggestionner {
 	private Registry registry;
 
     @Inject
-    private GameFactory gameFactory;
+    private ArticleFactory articleFactory;
 
 	private Collection<String> populateCache() {
 		Collection<String> suggestions = createAllSuggestions();
@@ -45,7 +45,7 @@ public class Suggestionner {
 
 	private Collection<String> createAllSuggestions() {
 		Collection<String> suggestions = new TreeSet<String>();
-		for (Game game : gameFactory.findAll()) {
+		for (Game game : articleFactory.findAllGames()) {
 			suggestions.addAll(insertGameInformations(game));
 		}
 		return suggestions;

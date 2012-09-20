@@ -93,10 +93,7 @@ public class AppModule {
         binder.bind(Museum.class);
         binder.bind(ReferenceService.class);
         binder.bind(Market.class);
-        binder.bind(GameFactory.class);
-        binder.bind(HardwareFactory.class);
         binder.bind(ArticleFactory.class);
-        binder.bind(AccessoryFactory.class);
         binder.bind(Population.class);
         binder.bind(Registry.class);
         binder.bind(EmailBuilderService.class);

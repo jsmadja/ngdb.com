@@ -13,7 +13,7 @@ import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.ngdb.StarsUtil;
-import com.ngdb.entities.GameFactory;
+import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.Registry;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
@@ -34,7 +34,7 @@ public class ReviewBlock {
     private CurrentUser currentUser;
 
     @Inject
-    private GameFactory gameFactory;
+    private ArticleFactory articleFactory;
 
     private Collection<String> suggestions = new TreeSet<String>();
 
@@ -70,7 +70,7 @@ public class ReviewBlock {
         if (article.isGame()) {
             Game game = (Game) article;
             Set<Review> reviews = new TreeSet<Review>(game.getReviews().all());
-            List<Game> relatedGames = gameFactory.findAllByNgh(game.getNgh());
+            List<Game> relatedGames = articleFactory.findAllGamesByNgh(game.getNgh());
             for (Game relatedGame : relatedGames) {
                 reviews.addAll(relatedGame.getReviews().all());
             }

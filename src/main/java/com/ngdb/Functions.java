@@ -16,10 +16,4 @@ public class Functions {
 		}
 	};
 
-    public static Function<Wish, Article> fromWishToArticle = new Function<Wish, Article>() {
-        @Override
-        public Article apply(@Nullable Wish input) {
-            return input.getArticle();
-        }
-    };
 }

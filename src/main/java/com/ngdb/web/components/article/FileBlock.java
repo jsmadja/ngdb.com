@@ -1,10 +1,9 @@
 package com.ngdb.web.components.article;
 
-import com.ngdb.entities.GameFactory;
+import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.File;
-import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.FileService;
@@ -31,7 +30,7 @@ public class FileBlock {
 	private CurrentUser currentUser;
 
 	@Inject
-	private GameFactory gameFactory;
+	private ArticleFactory articleFactory;
 
     @Property
     @Validate("required")
@@ -61,7 +60,7 @@ public class FileBlock {
 		if (article.isGame()) {
             Game game = (Game) article;
             Set<File> files = new TreeSet<File>(game.getFiles().all());
-            List<Game> relatedGames = gameFactory.findAllByNgh(game.getNgh());
+            List<Game> relatedGames = articleFactory.findAllGamesByNgh(game.getNgh());
             for (Game relatedGame : relatedGames) {
                 files.addAll(relatedGame.getFiles().all());
             }

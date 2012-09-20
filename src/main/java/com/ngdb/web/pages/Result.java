@@ -1,18 +1,15 @@
 package com.ngdb.web.pages;
 
-import com.google.common.collect.Collections2;
 import com.ngdb.Predicates;
 import com.ngdb.StarsUtil;
-import com.ngdb.entities.GameFactory;
+import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.Registry;
-import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.web.Filter;
 import com.ngdb.web.services.infrastructure.CurrentUser;
-import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
@@ -49,7 +46,7 @@ public class Result {
     private CurrentUser currentUser;
 
     @Inject
-    private GameFactory gameFactory;
+    private ArticleFactory articleFactory;
 
     @Inject
     private Session session;
@@ -115,7 +112,7 @@ public class Result {
             return StarsUtil.toStarsHtml(mark, 15);
         } else {
             String ngh = result.getNgh();
-            List<Game> games = gameFactory.findAllByNgh(ngh);
+            List<Game> games = articleFactory.findAllGamesByNgh(ngh);
             for (Game game : games) {
                 if (game.getHasReviews()) {
                     String mark = game.getAverageMark();

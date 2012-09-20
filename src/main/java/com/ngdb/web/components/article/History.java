@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.ngdb.web.Filter;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
@@ -15,7 +16,6 @@ import com.ngdb.entities.WishBox;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.reference.State;
-import com.ngdb.web.Category;
 
 public class History {
 
@@ -91,7 +91,7 @@ public class History {
 	}
 
 	public String getByArticle() {
-		return Category.byArticle.name();
+		return Filter.byArticle.name();
 	}
 
 }

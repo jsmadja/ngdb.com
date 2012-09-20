@@ -1,8 +1,6 @@
 package com.ngdb.web.pages;
 
-import com.ngdb.entities.AccessoryFactory;
-import com.ngdb.entities.GameFactory;
-import com.ngdb.entities.HardwareFactory;
+import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.MuseumFilter;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Tag;
@@ -45,13 +43,7 @@ public class Museum {
     private MuseumFilter filter;
 
     @Inject
-    private GameFactory gameFactory;
-
-    @Inject
-    private HardwareFactory hardwareFactory;
-
-    @Inject
-    private AccessoryFactory accessoryFactory;
+    private ArticleFactory articleFactory;
 
     @Persist
     @Property
@@ -65,7 +57,7 @@ public class Museum {
 
     void onActivate() {
         if (filter == null || "true".equals(request.getParameter("display-all"))) {
-            filter = new MuseumFilter(gameFactory, hardwareFactory, accessoryFactory, session);
+            filter = new MuseumFilter(articleFactory, session);
             filter.filterByGames();
             filter.filterByOrigin(referenceService.findOriginByTitle("Japan"));
             filter.filterByPlatform(referenceService.findPlatformByName("AES"));
@@ -73,7 +65,7 @@ public class Museum {
     }
 
     boolean onActivate(User user) {
-        filter = new MuseumFilter(gameFactory, hardwareFactory, accessoryFactory, session);
+        filter = new MuseumFilter(articleFactory, session);
         filter.filterByUser(user);
         this.user = user;
         return true;
@@ -84,7 +76,7 @@ public class Museum {
             onActivate();
             return true;
         }
-        filter = new MuseumFilter(gameFactory, hardwareFactory, accessoryFactory, session);
+        filter = new MuseumFilter(articleFactory, session);
         Filter filter = Filter.valueOf(Filter.class, filterName);
         switch (filter) {
         case byOrigin:
@@ -134,7 +126,7 @@ public class Museum {
         if (user != null) {
             return ((BigInteger)session.createSQLQuery("SELECT COUNT(article_id) FROM CollectionObject WHERE user_id = "+user.getId()+" AND article_id IN (SELECT id FROM Hardware);").uniqueResult()).longValue();
         }
-        return hardwareFactory.getNumHardwares();
+        return articleFactory.getNumHardwares();
     }
 
     Object onActionFromSelectHardwares() {
@@ -162,14 +154,14 @@ public class Museum {
         if (user != null) {
             return ((BigInteger)session.createSQLQuery("SELECT COUNT(article_id) FROM CollectionObject WHERE user_id = "+user.getId()+" AND article_id IN (SELECT id FROM Game);").uniqueResult()).longValue();
         }
-        return gameFactory.getNumGames();
+        return articleFactory.getNumGames();
     }
 
     public long getNumAccessories() {
         if (user != null) {
             return ((BigInteger)session.createSQLQuery("SELECT COUNT(article_id) FROM CollectionObject WHERE user_id = "+user.getId()+" AND article_id IN (SELECT id FROM Accessory);").uniqueResult()).longValue();
         }
-        return accessoryFactory.getNumAccessories();
+        return articleFactory.getNumAccessories();
     }
 
     public List<Platform> getPlatforms() {

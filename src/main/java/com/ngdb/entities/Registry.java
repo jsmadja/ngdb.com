@@ -5,7 +5,6 @@ import static com.ngdb.Comparators.byTitlePlatformOrigin;
 import static java.util.Collections.sort;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 import static org.hibernate.criterion.Order.asc;
-import static org.hibernate.criterion.Order.desc;
 import static org.hibernate.criterion.Projections.distinct;
 import static org.hibernate.criterion.Projections.property;
 
@@ -26,11 +25,9 @@ import org.slf4j.LoggerFactory;
 public class Registry {
 
     public static final int MAX_RESULT_TO_RETURN = 100;
-    @Inject
-    private GameFactory gameFactory;
 
     @Inject
-    private HardwareFactory hardwareFactory;
+    private ArticleFactory articleFactory;
 
     @Inject
     private Session session;
@@ -45,7 +42,7 @@ public class Registry {
         long t = System.currentTimeMillis();
         if (isNotBlank(search)) {
             final String searchItem = search.toLowerCase().trim();
-            List<Game> allGames = gameFactory.findAll();
+            List<Game> allGames = articleFactory.findAllGames();
             Collection<Game> matchingGames = filter(allGames, new Predicates.Matching(searchItem));
             for (Article matchingArticle : matchingGames) {
                 if(!ids.contains(matchingArticle.getId())) {
@@ -55,7 +52,7 @@ public class Registry {
                     String ngh = game.getNgh();
                     boolean shouldLinkWithOtherGames = ids.size() < MAX_RESULT_TO_RETURN && StringUtils.isNotBlank(ngh);
                     if(shouldLinkWithOtherGames) {
-                        List<Game> linkedGames = gameFactory.findAllByNgh(ngh);
+                        List<Game> linkedGames = articleFactory.findAllGamesByNgh(ngh);
                         for (Game linkedGame : linkedGames) {
                             if(!ids.contains(linkedGame.getId())) {
                                 foundGames.add(linkedGame);
