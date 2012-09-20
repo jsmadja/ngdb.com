@@ -1,6 +1,7 @@
 package com.ngdb.web.pages;
 
-import com.ngdb.entities.*;
+import com.ngdb.entities.ArticleFactory;
+import com.ngdb.entities.Population;
 import com.ngdb.entities.WishBox;
 import com.ngdb.entities.article.Game;
 import net.sf.ehcache.Cache;

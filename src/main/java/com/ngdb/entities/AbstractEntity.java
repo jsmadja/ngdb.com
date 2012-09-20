@@ -1,18 +1,11 @@
 package com.ngdb.entities;
 
-import static javax.xml.bind.annotation.XmlAccessType.FIELD;
-
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.PreUpdate;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlTransient;
+import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
 @MappedSuperclass
 @XmlAccessorType(FIELD)

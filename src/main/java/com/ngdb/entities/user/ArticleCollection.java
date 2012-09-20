@@ -1,25 +1,19 @@
 package com.ngdb.entities.user;
 
-import static com.google.common.collect.Collections2.filter;
-import static com.google.common.collect.Collections2.transform;
-import static com.ngdb.Functions.fromCollectionObjectToArticle;
-import static com.ngdb.Predicates.isAccessory;
-import static com.ngdb.Predicates.isGame;
-import static com.ngdb.Predicates.isHardware;
-import static javax.persistence.FetchType.LAZY;
-
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Set;
-
-import javax.persistence.Embeddable;
-import javax.persistence.OneToMany;
-
-import com.ngdb.Predicates;
+import com.ngdb.entities.article.Article;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.ngdb.entities.article.Article;
+import javax.persistence.Embeddable;
+import javax.persistence.OneToMany;
+import java.util.Collection;
+import java.util.Set;
+
+import static com.google.common.collect.Collections2.filter;
+import static com.google.common.collect.Collections2.transform;
+import static com.ngdb.Functions.fromCollectionObjectToArticle;
+import static com.ngdb.Predicates.*;
+import static javax.persistence.FetchType.LAZY;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

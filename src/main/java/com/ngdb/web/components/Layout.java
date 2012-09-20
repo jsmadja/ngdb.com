@@ -1,13 +1,12 @@
 package com.ngdb.web.components;
 
+import com.ngdb.entities.user.User;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
-
-import com.ngdb.entities.user.User;
-import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class Layout {
 

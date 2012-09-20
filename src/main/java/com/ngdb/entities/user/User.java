@@ -3,13 +3,16 @@ package com.ngdb.entities.user;
 import com.ngdb.entities.AbstractEntity;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.shop.Basket;
-import com.ngdb.entities.shop.ShopOrder;
 import com.ngdb.entities.shop.ShopItem;
+import com.ngdb.entities.shop.ShopOrder;
 import com.ngdb.entities.shop.Wish;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Set;

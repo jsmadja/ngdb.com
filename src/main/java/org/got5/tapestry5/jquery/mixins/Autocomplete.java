@@ -16,23 +16,10 @@
 
 package org.got5.tapestry5.jquery.mixins;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
-import org.apache.tapestry5.BindingConstants;
-import org.apache.tapestry5.ComponentEventCallback;
-import org.apache.tapestry5.ComponentResources;
+import org.apache.tapestry5.*;
 import org.apache.tapestry5.ContentType;
-import org.apache.tapestry5.EventConstants;
-import org.apache.tapestry5.Field;
-import org.apache.tapestry5.Link;
-import org.apache.tapestry5.MarkupWriter;
-import org.apache.tapestry5.annotations.Environmental;
-import org.apache.tapestry5.annotations.Events;
-import org.apache.tapestry5.annotations.Import;
-import org.apache.tapestry5.annotations.InjectContainer;
-import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.internal.util.Holder;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONArray;
@@ -42,6 +29,9 @@ import org.apache.tapestry5.services.ResponseRenderer;
 import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 import org.apache.tapestry5.util.TextStreamResponse;
 import org.got5.tapestry5.jquery.ImportJQueryUI;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * A mixin for a text field that allows for autocompletion of text fields. This is based on Prototype's autocompleter control.

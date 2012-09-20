@@ -1,13 +1,12 @@
 package com.ngdb.web.components;
 
+import com.ngdb.entities.user.User;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.annotations.Inject;
-
-import com.ngdb.entities.user.User;
-import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class LoginForm {
 

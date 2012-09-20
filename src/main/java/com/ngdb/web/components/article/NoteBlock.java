@@ -1,27 +1,22 @@
 package com.ngdb.web.components.article;
 
-import static org.apache.commons.lang.StringUtils.isNotBlank;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.TreeSet;
-
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import com.ngdb.entities.ArticleFactory;
+import com.ngdb.entities.Registry;
+import com.ngdb.entities.article.Article;
+import com.ngdb.entities.article.element.Note;
+import com.ngdb.entities.user.User;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import com.ngdb.entities.Registry;
-import com.ngdb.entities.article.Article;
-import com.ngdb.entities.article.element.Note;
-import com.ngdb.entities.user.User;
-import com.ngdb.web.services.infrastructure.CurrentUser;
+import java.util.*;
+
+import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 public class NoteBlock {
 

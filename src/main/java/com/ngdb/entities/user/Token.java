@@ -1,15 +1,13 @@
 package com.ngdb.entities.user;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Formatter;
+import com.ngdb.entities.AbstractEntity;
+import org.apache.commons.lang.RandomStringUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-
-import org.apache.commons.lang.RandomStringUtils;
-
-import com.ngdb.entities.AbstractEntity;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Formatter;
 
 @Entity
 public class Token extends AbstractEntity {

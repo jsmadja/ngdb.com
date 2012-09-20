@@ -1,10 +1,9 @@
 package com.ngdb.entities.article;
 
-import static org.junit.Assert.assertEquals;
-
+import com.ngdb.entities.article.element.Review;
 import org.junit.Test;
 
-import com.ngdb.entities.article.element.Review;
+import static org.junit.Assert.assertEquals;
 
 public class ArticleTest {
 

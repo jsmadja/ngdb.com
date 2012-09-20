@@ -1,12 +1,5 @@
 package com.ngdb.entities;
 
-import static com.google.common.collect.Collections2.filter;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
@@ -14,6 +7,13 @@ import com.ngdb.WishPredicates;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.shop.Wish;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+import static com.google.common.collect.Collections2.filter;
 
 public class WishBoxFilter extends AbstractFilter {
 

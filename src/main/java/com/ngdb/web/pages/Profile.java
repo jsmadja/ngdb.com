@@ -11,7 +11,6 @@ import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Locale;
 

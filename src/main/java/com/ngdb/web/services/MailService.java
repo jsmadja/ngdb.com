@@ -1,19 +1,17 @@
 package com.ngdb.web.services;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.Map;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
+import com.ngdb.entities.user.User;
 import org.apache.log4j.Logger;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
-import com.ngdb.entities.user.User;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.util.Map;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class MailService {
 

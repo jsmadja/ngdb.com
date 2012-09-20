@@ -1,12 +1,11 @@
 package com.ngdb.web.components.shopitem;
 
 import com.ngdb.entities.Market;
+import com.ngdb.entities.shop.ShopItem;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
-
-import com.ngdb.entities.shop.ShopItem;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 

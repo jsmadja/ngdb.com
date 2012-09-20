@@ -1,20 +1,18 @@
 package com.ngdb.web.services.infrastructure;
 
-import static com.google.common.collect.Collections2.transform;
-import static java.math.RoundingMode.HALF_DOWN;
-import static org.joda.money.CurrencyUnit.EUR;
-import static org.joda.money.CurrencyUnit.USD;
+import com.google.common.base.Function;
+import org.joda.money.CurrencyUnit;
+import org.joda.money.Money;
 
+import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
-import org.joda.money.CurrencyUnit;
-import org.joda.money.Money;
-
-import com.google.common.base.Function;
+import static com.google.common.collect.Collections2.transform;
+import static java.math.RoundingMode.HALF_DOWN;
+import static org.joda.money.CurrencyUnit.EUR;
+import static org.joda.money.CurrencyUnit.USD;
 
 public class CurrencyService {
 

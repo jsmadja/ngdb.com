@@ -1,15 +1,14 @@
 package com.ngdb.web.components.shopitem;
 
+import com.ngdb.entities.Market;
+import com.ngdb.entities.user.User;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
-
-import com.ngdb.entities.Market;
-import com.ngdb.entities.user.User;
-import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 

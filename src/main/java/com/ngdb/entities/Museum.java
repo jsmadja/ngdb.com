@@ -1,12 +1,11 @@
 package com.ngdb.entities;
 
-import java.math.BigInteger;
-import java.util.List;
-
+import com.ngdb.entities.article.Article;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
-import com.ngdb.entities.article.Article;
+import java.math.BigInteger;
+import java.util.List;
 
 @SuppressWarnings("unchecked")
 public class Museum {

@@ -1,18 +1,13 @@
 package com.ngdb.entities;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-
-import org.apache.tapestry5.ioc.annotations.Inject;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Order;
-
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.ArticleAction;
 import com.ngdb.entities.user.User;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+
+import java.util.Collection;
 
 import static org.hibernate.criterion.Order.desc;
 

@@ -1,7 +1,6 @@
 package com.ngdb.entities;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
 import com.ngdb.ForumCode;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.shop.ShopItem;

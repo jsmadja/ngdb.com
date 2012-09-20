@@ -1,4 +1,4 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<h1 class="black-bar rounded-bar big-bar">Stats</h1>
 	<table class="table table-striped table-bordered table-condensed">
 		<thead>

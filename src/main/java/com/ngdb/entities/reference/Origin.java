@@ -1,19 +1,9 @@
 package com.ngdb.entities.reference;
 
-import static javax.xml.bind.annotation.XmlAccessType.FIELD;
-
-import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.ngdb.entities.AbstractEntity;
+import javax.persistence.*;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

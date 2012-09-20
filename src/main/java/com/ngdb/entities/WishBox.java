@@ -8,7 +8,6 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
 import java.math.BigInteger;
-import java.util.Collection;
 import java.util.List;
 
 import static org.hibernate.criterion.Projections.countDistinct;

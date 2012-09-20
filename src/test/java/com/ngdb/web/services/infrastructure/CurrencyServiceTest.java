@@ -1,9 +1,9 @@
 package com.ngdb.web.services.infrastructure;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Ignore;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class CurrencyServiceTest {
 

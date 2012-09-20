@@ -1,15 +1,14 @@
 package com.ngdb.web.model;
 
-import java.util.Collections;
-import java.util.List;
-
+import com.ngdb.entities.reference.Publisher;
 import org.apache.tapestry5.OptionModel;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.internal.OptionModelImpl;
 import org.apache.tapestry5.internal.SelectModelImpl;
 import org.apache.tapestry5.ioc.internal.util.CollectionFactory;
 
-import com.ngdb.entities.reference.Publisher;
+import java.util.Collections;
+import java.util.List;
 
 public class PublisherList extends ModelList {
 

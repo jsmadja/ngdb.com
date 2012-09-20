@@ -1,22 +1,19 @@
 package com.ngdb.entities.shop;
 
-import static com.google.common.collect.Collections2.filter;
-import static java.lang.Double.MAX_VALUE;
-import static java.lang.Double.MIN_VALUE;
-
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Set;
-
-import javax.persistence.Embeddable;
-import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import com.google.common.base.Predicate;
 import com.ngdb.Predicates;
 import com.ngdb.entities.reference.State;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.Embeddable;
+import javax.persistence.OneToMany;
+import java.util.Collection;
+import java.util.Set;
+
+import static com.google.common.collect.Collections2.filter;
+import static java.lang.Double.MAX_VALUE;
+import static java.lang.Double.MIN_VALUE;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

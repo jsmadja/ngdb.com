@@ -1,13 +1,12 @@
 package com.ngdb.entities.shop;
 
-import java.io.Serializable;
-import java.util.*;
-
-import javax.persistence.*;
-
 import com.ngdb.entities.user.User;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.*;
 
 import static java.util.Collections.sort;
 

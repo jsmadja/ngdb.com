@@ -1,11 +1,11 @@
 package com.ngdb.web.model;
 
-import java.util.List;
-
 import org.apache.tapestry5.OptionGroupModel;
 import org.apache.tapestry5.OptionModel;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.SelectModelVisitor;
+
+import java.util.List;
 
 public abstract class ModelList implements SelectModel {
 

@@ -1,10 +1,9 @@
 package com.ngdb.web.components;
 
-import org.apache.tapestry5.ioc.annotations.Inject;
-
 import com.ngdb.entities.user.User;
 import com.ngdb.web.pages.Index;
 import com.ngdb.web.services.infrastructure.CurrentUser;
+import org.apache.tapestry5.ioc.annotations.Inject;
 
 public class UserMenu {
 

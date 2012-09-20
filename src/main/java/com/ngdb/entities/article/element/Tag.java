@@ -1,15 +1,14 @@
 package com.ngdb.entities.article.element;
 
+import com.ngdb.entities.AbstractEntity;
+import com.ngdb.entities.article.Article;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import com.ngdb.entities.AbstractEntity;
-import com.ngdb.entities.article.Article;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

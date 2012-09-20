@@ -1,6 +1,5 @@
 package com.ngdb.entities.shop;
 
-import com.ngdb.entities.AbstractEntity;
 import com.ngdb.entities.user.User;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;

@@ -1,6 +1,11 @@
 package com.ngdb.web.services.infrastructure;
 
-import static org.joda.money.CurrencyUnit.EUR;
+import com.google.common.io.ByteStreams;
+import org.joda.money.CurrencyUnit;
+import org.joda.money.IllegalCurrencyException;
+import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -12,13 +17,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.joda.money.CurrencyUnit;
-import org.joda.money.IllegalCurrencyException;
-import org.joda.time.DateTime;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.io.ByteStreams;
+import static org.joda.money.CurrencyUnit.EUR;
 
 public class ConversionRateService {
 

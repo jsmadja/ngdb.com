@@ -1,10 +1,9 @@
 package com.ngdb.web.components.article;
 
-import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.annotations.Property;
-
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
+import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.Property;
 
 public class Thumbnail {
 

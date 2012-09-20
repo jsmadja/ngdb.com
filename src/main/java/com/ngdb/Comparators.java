@@ -1,8 +1,8 @@
 package com.ngdb;
 
-import java.util.Comparator;
-
 import com.ngdb.entities.article.Article;
+
+import java.util.Comparator;
 
 public class Comparators {
 

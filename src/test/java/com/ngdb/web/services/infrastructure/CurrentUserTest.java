@@ -1,12 +1,10 @@
 package com.ngdb.web.services.infrastructure;
 
 import org.apache.tapestry5.services.Request;
-import org.fest.assertions.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.tynamo.security.services.SecurityService;
 

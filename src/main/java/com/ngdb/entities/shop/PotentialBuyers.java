@@ -1,19 +1,13 @@
 package com.ngdb.entities.shop;
 
-import java.io.Serializable;
-import java.util.Collections;
-import java.util.Set;
-
-import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-
+import com.ngdb.entities.user.User;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.ngdb.entities.user.User;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.Set;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

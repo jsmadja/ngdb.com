@@ -1,13 +1,12 @@
 package com.ngdb.web.components.shopitem;
 
+import com.ngdb.entities.Market;
+import com.ngdb.entities.shop.ShopItem;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
-
-import com.ngdb.entities.Market;
-import com.ngdb.entities.shop.ShopItem;
-import com.ngdb.web.services.infrastructure.CurrentUser;
 
 public class BuyButton {
 

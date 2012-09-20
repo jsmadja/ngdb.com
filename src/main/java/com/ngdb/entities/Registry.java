@@ -1,5 +1,18 @@
 package com.ngdb.entities;
 
+import com.ngdb.Predicates;
+import com.ngdb.entities.article.Article;
+import com.ngdb.entities.article.Game;
+import com.ngdb.entities.article.element.Note;
+import com.ngdb.entities.article.element.Tag;
+import org.apache.commons.lang.StringUtils;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.*;
+
 import static com.google.common.collect.Collections2.filter;
 import static com.ngdb.Comparators.byTitlePlatformOrigin;
 import static java.util.Collections.sort;
@@ -7,20 +20,6 @@ import static org.apache.commons.lang.StringUtils.isNotBlank;
 import static org.hibernate.criterion.Order.asc;
 import static org.hibernate.criterion.Projections.distinct;
 import static org.hibernate.criterion.Projections.property;
-
-import java.util.*;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.tapestry5.ioc.annotations.Inject;
-import org.hibernate.Session;
-
-import com.ngdb.Predicates;
-import com.ngdb.entities.article.Article;
-import com.ngdb.entities.article.Game;
-import com.ngdb.entities.article.element.Note;
-import com.ngdb.entities.article.element.Tag;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class Registry {
 

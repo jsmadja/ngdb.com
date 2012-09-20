@@ -1,21 +1,20 @@
 package com.ngdb.web.services.infrastructure;
 
-import static com.google.common.io.ByteStreams.toByteArray;
-import static com.google.common.io.Files.createParentDirs;
-import static com.google.common.io.Files.write;
-import static java.util.UUID.randomUUID;
+import com.ngdb.entities.article.Article;
+import com.ngdb.entities.article.element.Picture;
+import com.ngdb.entities.shop.ShopItem;
+import org.apache.tapestry5.upload.services.UploadedFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.tapestry5.upload.services.UploadedFile;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.ngdb.entities.article.Article;
-import com.ngdb.entities.article.element.Picture;
-import com.ngdb.entities.shop.ShopItem;
+import static com.google.common.io.ByteStreams.toByteArray;
+import static com.google.common.io.Files.createParentDirs;
+import static com.google.common.io.Files.write;
+import static java.util.UUID.randomUUID;
 
 public class PictureService {
 

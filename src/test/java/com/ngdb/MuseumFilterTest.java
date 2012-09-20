@@ -1,7 +1,10 @@
 package com.ngdb;
 
-import static org.fest.assertions.Assertions.assertThat;
-
+import com.ngdb.entities.MuseumFilter;
+import com.ngdb.entities.article.element.Tag;
+import com.ngdb.entities.reference.Origin;
+import com.ngdb.entities.reference.Platform;
+import com.ngdb.entities.reference.Publisher;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,11 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import com.ngdb.entities.MuseumFilter;
-import com.ngdb.entities.article.element.Tag;
-import com.ngdb.entities.reference.Origin;
-import com.ngdb.entities.reference.Platform;
-import com.ngdb.entities.reference.Publisher;
+import static org.fest.assertions.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MuseumFilterTest {

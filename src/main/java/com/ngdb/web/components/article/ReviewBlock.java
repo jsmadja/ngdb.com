@@ -1,17 +1,5 @@
 package com.ngdb.web.components.article;
 
-import static org.apache.commons.lang.StringUtils.isNotBlank;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-
-import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.hibernate.annotations.CommitAfter;
-import org.apache.tapestry5.ioc.annotations.Inject;
-
 import com.ngdb.StarsUtil;
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.Registry;
@@ -20,6 +8,17 @@ import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.services.infrastructure.CurrentUser;
+import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.hibernate.annotations.CommitAfter;
+import org.apache.tapestry5.ioc.annotations.Inject;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
+import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 public class ReviewBlock {
 

@@ -1,11 +1,11 @@
 package com.ngdb;
 
-import static java.lang.String.format;
+import com.ngdb.entities.article.Article;
+import com.ngdb.entities.shop.ShopItem;
 
 import java.util.List;
 
-import com.ngdb.entities.article.Article;
-import com.ngdb.entities.shop.ShopItem;
+import static java.lang.String.format;
 
 public class ForumCode {
 

@@ -1,13 +1,12 @@
 package com.ngdb.web.services;
 
-import static org.hibernate.criterion.Restrictions.eq;
+import com.ngdb.entities.user.Token;
+import com.ngdb.entities.user.User;
+import org.hibernate.Session;
 
 import javax.inject.Inject;
 
-import org.hibernate.Session;
-
-import com.ngdb.entities.user.Token;
-import com.ngdb.entities.user.User;
+import static org.hibernate.criterion.Restrictions.eq;
 
 public class TokenService {
 

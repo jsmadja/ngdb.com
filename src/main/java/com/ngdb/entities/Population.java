@@ -1,21 +1,20 @@
 package com.ngdb.entities;
 
-import static org.hibernate.criterion.Order.asc;
-import static org.hibernate.criterion.Projections.count;
-import static org.hibernate.criterion.Restrictions.eq;
+import com.ngdb.entities.user.Token;
+import com.ngdb.entities.user.User;
+import com.ngdb.web.services.MailService;
+import com.ngdb.web.services.TokenService;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.ioc.annotations.Symbol;
+import org.hibernate.Session;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.ioc.annotations.Symbol;
-import org.hibernate.Session;
-
-import com.ngdb.entities.user.Token;
-import com.ngdb.entities.user.User;
-import com.ngdb.web.services.MailService;
-import com.ngdb.web.services.TokenService;
+import static org.hibernate.criterion.Order.asc;
+import static org.hibernate.criterion.Projections.count;
+import static org.hibernate.criterion.Restrictions.eq;
 
 public class Population {
 

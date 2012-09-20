@@ -1,18 +1,16 @@
 package com.ngdb.entities.article;
 
-import java.util.Locale;
+import com.ngdb.entities.AbstractEntity;
+import com.ngdb.entities.user.User;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.ocpsoft.pretty.time.PrettyTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.ocpsoft.pretty.time.PrettyTime;
-
-import com.ngdb.entities.AbstractEntity;
-import com.ngdb.entities.user.User;
+import java.util.Locale;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

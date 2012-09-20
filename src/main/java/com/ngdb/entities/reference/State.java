@@ -1,12 +1,11 @@
 package com.ngdb.entities.reference;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-
+import com.ngdb.entities.AbstractEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.ngdb.entities.AbstractEntity;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

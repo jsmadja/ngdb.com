@@ -1,5 +1,5 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-	xmlns:p="tapestry:parameter">
+        >
 	<div class="page-header">
 		<h1 class="black-bar rounded-bar big-bar">My profile</h1>
 	</div>

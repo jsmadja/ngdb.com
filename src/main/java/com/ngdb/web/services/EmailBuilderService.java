@@ -1,12 +1,12 @@
 package com.ngdb.web.services;
 
-import java.io.InputStream;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.ui.velocity.VelocityEngineUtils;
+
+import java.io.InputStream;
+import java.util.Map;
+import java.util.Properties;
 
 public class EmailBuilderService {
 

@@ -1,19 +1,17 @@
 package com.ngdb.entities.article.element;
 
-import static java.math.RoundingMode.HALF_UP;
-import static org.apache.commons.lang.StringUtils.remove;
-
-import java.math.BigDecimal;
+import com.ngdb.entities.AbstractEntity;
+import com.ngdb.entities.article.Article;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import java.math.BigDecimal;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import com.ngdb.entities.AbstractEntity;
-import com.ngdb.entities.article.Article;
+import static java.math.RoundingMode.HALF_UP;
+import static org.apache.commons.lang.StringUtils.remove;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

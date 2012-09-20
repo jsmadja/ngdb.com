@@ -1,14 +1,9 @@
 package com.ngdb.entities.reference;
 
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.ngdb.entities.AbstractEntity;
-
-import java.util.Date;
+import javax.persistence.*;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
