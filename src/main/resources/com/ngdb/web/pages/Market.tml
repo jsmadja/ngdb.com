@@ -70,7 +70,7 @@
 		</t:if>
 		
 		<t:jquery.dialog t:clientId="forumCodeDialog" t:params="params">
-			<t:zone t:id="forumCodeZone" id="forumCodeZone">
+			<t:zone t:id="forumCodeZone" id="forumCodeZone" style="display:none">
             	<textarea rows="20" value="details" cols="80" style="width:100%">
 		    		${forumCode}
 		    	</textarea>
