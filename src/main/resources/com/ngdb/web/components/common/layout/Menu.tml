@@ -13,7 +13,7 @@
         </ul>
         <div class="tab-content" style="border-radius: 0px 10px 10px 0px;">
             <div class="tab-pane well active" id="tab1">
-                <table>
+                <table width="100%">
                 <t:loop value="shopItem" source="shopItems">
                     <tr>
                         <td width="90px">
