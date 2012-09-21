@@ -45,7 +45,7 @@ public abstract class AbstractFilter {
             queryLabel += " on " + orange(filteredPlatform.getName());
         }
         if (filteredUser != null) {
-            queryLabel += " owned by " + orange(filteredUser.getLogin());
+            queryLabel += " (user: " + orange(filteredUser.getLogin())+" )";
         }
         if (filteredArticle != null) {
             queryLabel += " of article " + orange(filteredArticle.getTitle());

@@ -30,8 +30,9 @@
     <div class="alert alert-info">
         <b>September</b> :
         <ul>
-        <li>Focus on the market. You should now be able to buy articles. Emails will be sent to buyers and sellers.</li>
-        <li>New search abilities. You can find games when searching in titles, reference, comments, ngh, tags, notes ...</li>
+            <li>Focus on the market. You should now be able to buy articles. Emails will be sent to buyers and sellers.</li>
+            <li>New search abilities. You can find games when searching in titles, reference, comments, ngh, tags, notes ...</li>
+        </ul>
         <p>
         Don't forget, neogeodb is in BETA. Please report any bug with the <a href="/contact">contact form</a>.
         </p>
