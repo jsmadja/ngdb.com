@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static org.apache.commons.lang.StringUtils.remove;
+
 @RequiresUser
 public class ShopItemCreate {
 
@@ -151,6 +153,7 @@ public class ShopItemCreate {
     public Object onDollarsChanged() {
         String priceToConvert = request.getParameter("param");
         if (priceToConvert != null) {
+            priceInDollars = PriceUtils.stringPriceToDouble(priceToConvert);
             priceInDollars = Double.valueOf(priceToConvert);
             suggestedPriceInEuros = "Suggested EUR price ~ " + currencyService.fromDollarsToEuros(priceInDollars) + " €";
         }
@@ -160,6 +163,7 @@ public class ShopItemCreate {
     public Object onEurosChanged() {
         String priceToConvert = request.getParameter("param");
         if (priceToConvert != null) {
+            priceInEuros = PriceUtils.stringPriceToDouble(priceToConvert);
             priceInEuros = Double.valueOf(priceToConvert);
             suggestedPriceInDollars = "Suggested USD price ~ $" + currencyService.fromEurosToDollars(priceInEuros);
         }

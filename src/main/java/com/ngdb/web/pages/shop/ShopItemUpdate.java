@@ -10,6 +10,8 @@ import com.ngdb.web.pages.Market;
 import com.ngdb.web.services.infrastructure.CurrencyService;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.PictureService;
+import org.apache.commons.lang.CharUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.SelectModel;
@@ -28,6 +30,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+
+import static org.apache.commons.lang.StringUtils.remove;
 
 @RequiresUser
 public class ShopItemUpdate {
@@ -160,9 +164,8 @@ public class ShopItemUpdate {
 
     public Object onDollarsChanged() {
         String priceToConvert = request.getParameter("param");
-        priceToConvert = priceToConvert.replace(',', '.');
         if (priceToConvert != null) {
-            priceInDollars = Double.valueOf(priceToConvert);
+            priceInDollars = PriceUtils.stringPriceToDouble(priceToConvert);
             suggestedPriceInEuros = "Suggested EUR price ~ " + currencyService.fromDollarsToEuros(priceInDollars) + " €";
         }
         return request.isXHR() ? priceZone.getBody() : null;
@@ -170,9 +173,8 @@ public class ShopItemUpdate {
 
     public Object onEurosChanged() {
         String priceToConvert = request.getParameter("param");
-        priceToConvert = priceToConvert.replace(',', '.');
         if (priceToConvert != null) {
-            priceInEuros = Double.valueOf(priceToConvert);
+            priceInEuros = PriceUtils.stringPriceToDouble(priceToConvert);
             suggestedPriceInDollars = "Suggested USD price ~ $" + currencyService.fromEurosToDollars(priceInEuros);
         }
         return request.isXHR() ? priceZone.getBody() : null;
