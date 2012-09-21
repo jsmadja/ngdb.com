@@ -41,7 +41,7 @@
                     </div>
                 </t:zone>
                 <div class="control-group">
-                    <t:label for="state" class="control-label">State <span class="star">*</span> : </t:label>
+                    <t:label for="state" class="control-label"><b>State </b><span class="star">*</span> : </t:label>
                     <div class="controls">
                         <t:select value="state" model="states" t:id="state" />
                     </div>
