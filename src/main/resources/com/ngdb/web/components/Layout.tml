@@ -62,7 +62,7 @@
             <div class="span3">
                 <t:common.layout.menu />
             </div>
-            <div class="span9">
+            <div class="span9" style="margin-left:1%">
                 <t:body />
             </div>
             <p:else>

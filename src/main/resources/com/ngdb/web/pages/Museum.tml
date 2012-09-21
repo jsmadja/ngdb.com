@@ -75,7 +75,7 @@
 
         </div>
 
-        <div class="span10">
+        <div class="span10" style="margin-left:1%">
             <div class="page-header">
                 <h1 class="blue-bar rounded-bar big-bar">
                     <t:if test="user">

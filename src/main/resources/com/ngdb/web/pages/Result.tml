@@ -2,7 +2,9 @@
 	xmlns:p="tapestry:parameter">
 	<div class="result">
 		<div class="page-header">
-			${results.size()} results for '${search}'
+            <p>
+                <b>${results.size()}</b> results for <b><i>${search}</i></b>
+            </p>
 		</div>
 
         <style type="text/css">
