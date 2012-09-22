@@ -22,7 +22,7 @@
                     <t:if test="buyable">
                         <t:shopItem.buyButton shopItem="shopItem" />
                     </t:if>
-                    <t:shopitem.shopactionBlock shopItem="shopItem" />
+                    <t:shopitem.shopactionBlock shopItem="shopItem" asButton="true" />
 
                 </h1>
             </div>

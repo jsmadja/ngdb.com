@@ -48,4 +48,8 @@ public class ShopActionBlock {
 		return (ShopItem) session.load(ShopItem.class, shopItem.getId());
 	}
 
+    public boolean isShowable() {
+        return isSoldable() || isRemoveable() || isEditable();
+    }
+
 }
