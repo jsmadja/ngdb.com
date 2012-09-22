@@ -15,7 +15,6 @@ import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 public class SearchForm {
 
-    @Persist
     @Property
     private String search;
 
