@@ -52,8 +52,8 @@ public class Museum {
     @Inject
     private Request request;
 
-    @Persist
-    private User user;
+    @Inject
+    private Session session;
 
     void onActivate() {
         if (filter == null || "true".equals(request.getParameter("display-all"))) {
@@ -67,7 +67,6 @@ public class Museum {
     boolean onActivate(User user) {
         filter = new MuseumFilter(articleFactory, session);
         filter.filterByUser(user);
-        this.user = user;
         return true;
     }
 
@@ -123,45 +122,30 @@ public class Museum {
     }
 
     public long getNumHardwares() {
-        if (user != null) {
-            return ((BigInteger)session.createSQLQuery("SELECT COUNT(article_id) FROM CollectionObject WHERE user_id = "+user.getId()+" AND article_id IN (SELECT id FROM Hardware);").uniqueResult()).longValue();
-        }
-        return articleFactory.getNumHardwares();
+        return filter.getNumHardwares();
     }
 
     Object onActionFromSelectHardwares() {
-        filter.clear();
         filter.filterByHardwares();
         return this;
     }
 
     Object onActionFromSelectGames() {
-        filter.clear();
         filter.filterByGames();
         return this;
     }
 
     Object onActionFromSelectAccessories() {
-        filter.clear();
         filter.filterByAccessories();
         return this;
     }
 
-    @Inject
-    private Session session;
-
     public long getNumGames() {
-        if (user != null) {
-            return ((BigInteger)session.createSQLQuery("SELECT COUNT(article_id) FROM CollectionObject WHERE user_id = "+user.getId()+" AND article_id IN (SELECT id FROM Game);").uniqueResult()).longValue();
-        }
-        return articleFactory.getNumGames();
+        return filter.getNumGames();
     }
 
     public long getNumAccessories() {
-        if (user != null) {
-            return ((BigInteger)session.createSQLQuery("SELECT COUNT(article_id) FROM CollectionObject WHERE user_id = "+user.getId()+" AND article_id IN (SELECT id FROM Accessory);").uniqueResult()).longValue();
-        }
-        return articleFactory.getNumAccessories();
+        return filter.getNumAccessories();
     }
 
     public List<Platform> getPlatforms() {

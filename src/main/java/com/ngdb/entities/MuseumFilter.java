@@ -12,6 +12,7 @@ import com.ngdb.entities.user.CollectionObject;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -39,9 +40,9 @@ public class MuseumFilter extends AbstractFilter {
 
     public void clear() {
         super.clear();
+        this.filteredTag = null;
         this.filteredNgh = null;
         this.filteredReleaseDate = null;
-        this.filteredTag = null;
     }
 
     public String getQueryLabel() {
@@ -64,7 +65,7 @@ public class MuseumFilter extends AbstractFilter {
     @Override
     public long getNumHardwares() {
         if (filteredUser != null) {
-            return filteredUser.getCollection().getNumHardwares();
+            return ((BigInteger)session.createSQLQuery("SELECT COUNT(article_id) FROM CollectionObject WHERE user_id = "+filteredUser.getId()+" AND article_id IN (SELECT id FROM Hardware)").uniqueResult()).longValue();
         }
         return articleFactory.getNumHardwares();
     }
@@ -72,7 +73,7 @@ public class MuseumFilter extends AbstractFilter {
     @Override
     public long getNumGames() {
         if (filteredUser != null) {
-            return filteredUser.getCollection().getNumGames();
+            return ((BigInteger)session.createSQLQuery("SELECT COUNT(article_id) FROM CollectionObject WHERE user_id = "+filteredUser.getId()+" AND article_id IN (SELECT id FROM Game)").uniqueResult()).longValue();
         }
         return articleFactory.getNumGames();
     }
@@ -80,7 +81,7 @@ public class MuseumFilter extends AbstractFilter {
     @Override
     public long getNumAccessories() {
         if (filteredUser != null) {
-            return filteredUser.getCollection().getNumAccessories();
+            return ((BigInteger)session.createSQLQuery("SELECT COUNT(article_id) FROM CollectionObject WHERE user_id = "+filteredUser.getId()+" AND article_id IN (SELECT id FROM Accessory)").uniqueResult()).longValue();
         }
         return articleFactory.getNumAccessories();
     }
