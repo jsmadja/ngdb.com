@@ -30,7 +30,7 @@ public class HibernateSearchService {
 
     public List<Game> searchGames(String terme) {
         terme = normalize(terme);
-        terme = terme+"*";
+        terme = "*"+terme+"*";
 
         return search(terme, Game.class,
                 "upc",
