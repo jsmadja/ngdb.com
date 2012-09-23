@@ -1,11 +1,14 @@
-<footer>
+<footer xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<center>
 		<p>
 			<ul>
 		   		<li style="display:inline"><a href="/about" style="padding-right:5px">about</a><span class="divider">|</span></li>
 	            <li style="display:inline"><a href="/contact" style="padding-left:5px;padding-right:5px">contact</a><span class="divider">|</span></li>
-	            <li style="display:inline"><a href="/stats" style="padding-left:5px">stats</a></li>
-	        </ul>
+                <li style="display:inline"><a href="/stats" style="padding-left:5px">stats</a></li>
+                <t:if test="contributor">
+                    <li style="display:inline"><span class="divider">|</span><a href="/administration" style="padding-left:5px">administration</a></li>
+                </t:if>
+            </ul>
 		</p>
 		<p style="font-size:10px">&copy;
 			neogeodb 2012 - version ${version} 

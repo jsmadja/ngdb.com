@@ -6,6 +6,7 @@ import com.ngdb.entities.reference.State;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
 import java.util.Collection;
@@ -19,7 +20,7 @@ import static java.lang.Double.MIN_VALUE;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ShopItems {
 
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private Set<ShopItem> shopItems;
 
     public int getAvailableCopyCount() {

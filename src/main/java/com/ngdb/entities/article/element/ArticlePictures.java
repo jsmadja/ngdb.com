@@ -3,10 +3,7 @@ package com.ngdb.entities.article.element;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Embeddable;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
+import javax.persistence.*;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
@@ -17,7 +14,7 @@ public class ArticlePictures implements Iterable<Picture> {
 
     @ElementCollection
     @OrderBy("creationDate")
-    @OneToMany(mappedBy = "article", orphanRemoval = true)
+    @OneToMany(mappedBy = "article", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Picture> pictures;
 
     public Picture first() {

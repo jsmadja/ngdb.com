@@ -100,13 +100,13 @@ public abstract class Article implements Comparable<Article>, Serializable{
     @IndexedEmbedded
     private Comments comments;
 
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private Set<Wish> wishList;
 
     @Embedded
     private ShopItems shopItems;
 
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private Set<CollectionObject> owners;
 
     @Field(analyzer = @Analyzer(definition = "noaccent"), store = Store.YES)
