@@ -16,16 +16,12 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 import org.hibernate.Session;
 
-import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 public class Museum {
-
-    @Property
-    private Article article;
 
     @Property
     private Platform platform;
@@ -44,10 +40,6 @@ public class Museum {
 
     @Inject
     private ArticleFactory articleFactory;
-
-    @Persist
-    @Property
-    private boolean thumbnailMode;
 
     @Inject
     private Request request;
@@ -187,16 +179,6 @@ public class Museum {
         return filter.getNumArticlesInThisOrigin(origin) > 0;
     }
 
-    Object onActionFromThumbnailMode() {
-        this.thumbnailMode = true;
-        return this;
-    }
-
-    Object onActionFromGridMode() {
-        this.thumbnailMode = false;
-        return this;
-    }
-
     Object onActionFromFilterOrigin(Origin origin) {
         filter.filterByOrigin(origin);
         return this;
@@ -248,10 +230,6 @@ public class Museum {
 
     public String getQueryLabel() {
         return filter.getQueryLabel();
-    }
-
-    public String getViewPage() {
-        return article.getViewPage();
     }
 
     public String getGameSelected() {

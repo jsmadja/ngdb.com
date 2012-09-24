@@ -32,8 +32,6 @@ import static com.google.common.collect.Collections2.filter;
 
 public class Result {
 
-    public static final int STAR_SIZE = 15;
-
     @Persist
     @Property
     private Collection<Game> results;
@@ -122,21 +120,7 @@ public class Result {
     }
 
     public String getStars() {
-        result = (Game) session.load(Game.class, result.getId());
-        if (result.getHasReviews()) {
-            String mark = result.getAverageMark();
-            return StarsUtil.toStarsHtml(mark, 15);
-        } else {
-            String ngh = result.getNgh();
-            List<Game> games = articleFactory.findAllGamesByNgh(ngh);
-            for (Game game : games) {
-                if (game.getHasReviews()) {
-                    String mark = game.getAverageMark();
-                    return StarsUtil.toStarsHtml(mark, 15);
-                }
-            }
-        }
-        return StarsUtil.toStarsHtml("0", STAR_SIZE);
+        return StarsUtil.getStars(result, session, articleFactory);
     }
 
     public String getByPublisher() {

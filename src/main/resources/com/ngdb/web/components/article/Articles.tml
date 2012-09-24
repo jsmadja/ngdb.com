@@ -1,0 +1,97 @@
+<div  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+
+    <div style="margin-bottom:10px" class="btn-group">
+        <t:if test="thumbnailMode">
+            <span class="btn btn-small btn-primary disabled"><b>Thumbnail</b></span>
+            <p:else>
+                <t:actionLink class="btn btn-small btn-primary " t:id="thumbnailMode" id="thumbnailMode">Thumbnail</t:actionLink>
+            </p:else>
+        </t:if>
+        <t:if test="gridMode">
+            <span class="btn btn-small btn-primary disabled"><b>Grid</b></span>
+            <p:else>
+                <t:actionLink class="btn btn-small btn-primary" t:id="gridMode" id="gridMode">Grid</t:actionLink>
+            </p:else>
+        </t:if>
+        <t:if test="tableMode">
+            <span class="btn btn-small btn-primary disabled"><b>Table</b></span>
+            <p:else>
+                <t:actionLink class="btn btn-small btn-primary" t:id="tableMode" id="tableMode">Table</t:actionLink>
+            </p:else>
+        </t:if>
+    </div>
+
+    <style type="text/css">
+        #resultTable th.thumbnailColumn {width: 90px;}
+    </style>
+
+    <t:if test="thumbnailMode">
+    <t:loop source="articles" value="article">
+        <span class="museum_item">
+            <t:article.thumbnail article="article" size="literal:medium" />
+        </span>
+    </t:loop>
+    <p:else>
+        <t:if test="gridMode">
+            <t:grid source="articles"
+                    inPlace="true"
+                    include="title"
+                    add="origin,platform,action"
+                    pagerPosition="BOTH"
+                    class="table table-striped table-bordered table-condensed"
+                    rowsPerPage="15"
+                    row="article">
+                <p:titleCell>
+                    <t:pageLink page="${article.viewPage}" context="article.id">${article.title}</t:pageLink>
+                </p:titleCell>
+                <p:originCell>
+                    <img src="/img/flags/${article.originTitle}.png" alt="${article.originTitle}" />
+                </p:originCell>
+                <p:platformCell>
+                    <span class="platformLabel">${article.platformShortName}</span>
+                </p:platformCell>
+                <p:actionCell>
+                    <t:article.actionBlock article="article" asButton="true" />
+                </p:actionCell>
+            </t:grid>
+            <p:else>
+                <t:grid id="resultTable"
+                        rowsPerPage="15"
+                        inPlace="true"
+                        pagerPosition="BOTH"
+                        source="articles"
+                        row="article"
+                        reorder="thumbnailColumn,Title,actions"
+                        include="Title"
+                        add="thumbnailColumn,actions"
+                        class="table table-striped table-bordered table-condensed" >
+                    <p:thumbnailColumnHeader></p:thumbnailColumnHeader>
+                    <p:thumbnailColumnCell>
+                        <t:pageLink page="${article.viewPage}" context="article.id">
+                            <img src="${message:image.host.url}${article.cover.urlSmall}" alt="${article.title}" title="${article.title}" />
+                        </t:pageLink>
+                    </p:thumbnailColumnCell>
+                    <p:titleCell>
+                        <p>
+                            <t:pageLink page="${article.viewPage}" context="article.id">${article.title}</t:pageLink>
+                        </p>
+                        <p>
+                            <img src="/img/flags/${article.originTitle}.png" alt="${article.originTitle}" />
+                            <span style="margin-left:5px"><span class="platformLabel">${article.platformShortName}</span></span>
+                        </p>
+                        <p>
+                            <t:OutputRaw value="${stars}" />
+                            <t:article.tagBlock article="article" hideForm="true" />
+                        </p>
+                    </p:titleCell>
+                    <p:actionsCell>
+                        <t:article.actionBlock asButton="true" article="article" />
+                    </p:actionsCell>
+                    <p:titleHeader></p:titleHeader>
+                    <p:actionsHeader></p:actionsHeader>
+                </t:grid>
+            </p:else>
+        </t:if>
+    </p:else>
+    </t:if>
+</div>

@@ -2,6 +2,7 @@ package com.ngdb;
 
 import com.google.common.base.Function;
 import com.ngdb.entities.article.Article;
+import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.CollectionObject;
 
 public class Functions {
@@ -12,5 +13,12 @@ public class Functions {
 			return input.getArticle();
 		}
 	};
+
+    public static Function<Wish, Article> fromWishToArticle = new Function<Wish, Article>() {
+        @Override
+        public Article apply(Wish input) {
+            return input.getArticle();
+        }
+    };
 
 }

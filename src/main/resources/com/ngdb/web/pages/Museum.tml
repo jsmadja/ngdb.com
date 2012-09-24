@@ -90,47 +90,7 @@
             <p>
                 <b>${numResults}</b> item(s) found for query <b><i><t:outputRaw value="${queryLabel}" /></i></b>
             </p>
-            <div style="margin-bottom:10px">
-                <t:if test="thumbnailMode">
-                    <span class="btn btn-small btn-primary disabled"><b>Thumbnail</b></span>
-                    <t:actionLink class="btn btn-small btn-primary" t:id="gridMode" id="gridMode">Grid</t:actionLink>
-                    <p:else>
-                        <t:actionLink class="btn btn-small btn-primary " t:id="thumbnailMode" id="thumbnailMode">Thumbnail</t:actionLink>
-                        <span class="btn btn-small btn-primary disabled"><b>Grid</b></span>
-                    </p:else>
-                </t:if>
-            </div>
-
-            <t:if test="thumbnailMode">
-                <t:loop source="articles" value="article">
-                <span class="museum_item">
-                    <t:article.thumbnail article="article" size="literal:medium" />
-                </span>
-                </t:loop>
-                <p:else>
-                    <t:grid source="articles"
-                            inPlace="true"
-                            include="title"
-                            add="origin,platform,action"
-                            pagerPosition="BOTH"
-                            class="table table-striped table-bordered table-condensed"
-                            rowsPerPage="15"
-                            row="article">
-                        <p:titleCell>
-                            <t:pageLink page="${viewPage}" context="article.id">${article.title}</t:pageLink>
-                        </p:titleCell>
-                        <p:originCell>
-                            <img src="/img/flags/${article.originTitle}.png" alt="${article.originTitle}" />
-                        </p:originCell>
-                        <p:platformCell>
-                            <span class="platformLabel">${article.platformShortName}</span>
-                        </p:platformCell>
-                        <p:actionCell>
-                            <t:article.actionBlock article="article" asButton="true" />
-                        </p:actionCell>
-                    </t:grid>
-                </p:else>
-            </t:if>
+            <t:article.articles articles="articles" />
         </div>
     </div>
 </t:layout>

@@ -1,43 +1,10 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-	xmlns:p="tapestry:parameter">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<div class="result">
 		<div class="page-header">
             <p>
                 <b>${results.size()}</b> results for <b><i>${search}</i></b>
             </p>
 		</div>
-
-        <style type="text/css">
-            #resultTable th.thumbnailColumn {width: 90px;}
-        </style>
-
-		<div>
-			<t:grid id="resultTable" inPlace="true" pagerPosition="BOTH" source="results" row="result" reorder="thumbnailColumn,Title,actions" include="Title" add="thumbnailColumn,actions" class="table table-striped table-bordered table-condensed" >
-				<p:thumbnailColumnHeader></p:thumbnailColumnHeader>
-				<p:thumbnailColumnCell>
-                    <t:pageLink page="${result.viewPage}" context="result.id">
-                        <img src="${message:image.host.url}${result.cover.urlSmall}" title="${result.title}" />
-                    </t:pageLink>
-				</p:thumbnailColumnCell>
-				<p:titleCell>
-          			<p>
-	          			<t:pageLink page="${result.viewPage}" context="result.id">${result.title}</t:pageLink>
-	          		</p>
-	          		<p>
-	          			<img src="/img/flags/${result.originTitle}.png" alt="${result.originTitle}" />
-	          			<span style="margin-left:5px"><span class="platformLabel">${result.platformShortName}</span></span>
-          			</p>
-          			<p>
-                          <t:OutputRaw value="${stars}" />
-                          <t:article.tagBlock article="result" hideForm="true" />
-          			</p>
-                </p:titleCell>
-                <p:actionsCell>
-					<t:article.actionBlock asButton="true" article="result" />
-                </p:actionsCell>
-                <p:titleHeader></p:titleHeader>
-                <p:actionsHeader></p:actionsHeader>
-			</t:grid>
-		</div>
+        <t:article.articles articles="results" />
 	</div>
 </t:layout>

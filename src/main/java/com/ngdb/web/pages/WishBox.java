@@ -1,7 +1,10 @@
 package com.ngdb.web.pages;
 
+import com.google.common.collect.Collections2;
+import com.ngdb.Functions;
 import com.ngdb.entities.Population;
 import com.ngdb.entities.WishBoxFilter;
+import com.ngdb.entities.article.Article;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
@@ -71,8 +74,8 @@ public class WishBox {
         return true;
     }
 
-    public Collection<Wish> getWishes() {
-        return filter.getWishes();
+    public Collection<Article> getWishes() {
+        return Collections2.transform(filter.getWishes(), Functions.fromWishToArticle);
     }
 
     public String getMainPictureUrl() {

@@ -1,6 +1,35 @@
 package com.ngdb;
 
+import com.ngdb.entities.ArticleFactory;
+import com.ngdb.entities.article.Article;
+import com.ngdb.entities.article.Game;
+import org.hibernate.Session;
+
+import java.util.List;
+
 public class StarsUtil {
+
+    public static final int STAR_SIZE = 15;
+
+    public static String getStars(Article resultX, Session session, ArticleFactory articleFactory) {
+        if(resultX.isGame()) {
+            Game result = (Game) session.load(Game.class, resultX.getId());
+            if (result.getHasReviews()) {
+                String mark = result.getAverageMark();
+                return StarsUtil.toStarsHtml(mark, 15);
+            } else {
+                String ngh = result.getNgh();
+                List<Game> games = articleFactory.findAllGamesByNgh(ngh);
+                for (Game game : games) {
+                    if (game.getHasReviews()) {
+                        String mark = game.getAverageMark();
+                        return StarsUtil.toStarsHtml(mark, 15);
+                    }
+                }
+            }
+        }
+        return StarsUtil.toStarsHtml("0", STAR_SIZE);
+    }
 
     public static String toStarsHtml(String mark, int size) {
         if (mark.length() == 1) {
