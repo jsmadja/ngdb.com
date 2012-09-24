@@ -88,7 +88,7 @@ public class CurrentUser {
     }
 
     private void doLogout(Subject currentUser) {
-        if (securityService.isAuthenticated()) {
+        if (securityService.isUser() || securityService.isAuthenticated()) {
             currentUser.logout();
             try {
                 Cookie[] cookies = cookieSource.getCookies();
@@ -97,6 +97,7 @@ public class CurrentUser {
                 }
                 request.getSession(false).invalidate();
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
