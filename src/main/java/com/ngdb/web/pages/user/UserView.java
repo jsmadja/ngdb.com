@@ -6,6 +6,7 @@ import com.ngdb.entities.shop.Basket;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.User;
+import com.ngdb.web.pages.Index;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.Component;
@@ -23,6 +24,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+
+import static org.apache.tapestry5.EventConstants.ACTION;
 
 public class UserView {
 
@@ -58,6 +61,9 @@ public class UserView {
 
     @Component
     private Zone codeForumZone;
+
+    @Component
+    private Zone shopItemZone;
 
     @Inject
     private Request request;
@@ -131,6 +137,15 @@ public class UserView {
         List<ShopItem> shopItems = market.getShopItemsForSaleOf(user);
         Collections.sort(shopItems);
         return shopItems;
+    }
+
+    @OnEvent(component = "shopItemLink", value = ACTION)
+    public Object onActionFromShopItemKink(ShopItem shopItem) {
+        this.shopItem = shopItem;
+        if (!request.isXHR()) {
+            return Index.class;
+        }
+        return shopItemZone;
     }
 
 }

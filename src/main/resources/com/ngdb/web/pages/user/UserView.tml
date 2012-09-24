@@ -58,6 +58,12 @@
 				Export to forums
 			</t:jquery.dialogajaxlink>
 
+            <t:jquery.dialog t:clientId="shopItemDialog" t:params="params">
+                <t:zone t:id="shopItemZone" id="shopItemZone">
+                    <t:shopitem.view t:shopItem="shopItem" />
+                </t:zone>
+            </t:jquery.dialog>
+
             <style type="text/css">
                 #wishes th.title {width: 35%;}
                 #wishes th.price {width: 60px;}
@@ -77,7 +83,9 @@
                     <p:titleCell>
                         <img src="/img/flags/${shopItem.article.originTitle}.png" alt="${shopItem.article.originTitle}" />
                         <span class="subtitle"><span class="platformLabel">${shopItem.article.platformShortName}</span></span>
-                        ${shopItem.title}
+                        <t:jquery.dialogajaxlink t:id="shopItemLink" t:dialog="shopItemDialog" t:zone="shopItemZone" t:context="shopItem" >
+                            ${shopItem.title}
+                        </t:jquery.dialogajaxlink>
                     </p:titleCell>
                     <p:priceCell>
                         <span>${price}</span>
