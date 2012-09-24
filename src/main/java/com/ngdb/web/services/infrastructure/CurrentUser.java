@@ -370,6 +370,9 @@ public class CurrentUser {
     }
 
     public boolean equalsThis(User user) {
+        if(isAnonymous()) {
+            return false;
+        }
         return user.getId().equals(getUserId());
     }
 }
