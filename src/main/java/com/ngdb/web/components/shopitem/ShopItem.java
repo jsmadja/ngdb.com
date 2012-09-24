@@ -2,6 +2,7 @@ package com.ngdb.web.components.shopitem;
 
 import com.ngdb.entities.Market;
 import com.ngdb.entities.user.User;
+import com.ngdb.web.pages.Index;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.OnEvent;
@@ -10,6 +11,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONObject;
+import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import static org.apache.tapestry5.EventConstants.ACTION;
@@ -30,6 +32,9 @@ public class ShopItem {
 
     @Component
     private Zone myZone;
+
+    @Inject
+    private Request request;
 
     @Inject
     private AjaxResponseRenderer ajaxResponseRenderer;
@@ -58,21 +63,22 @@ public class ShopItem {
 	}
 
     @OnEvent(component = "link1", value = ACTION)
-    public void onActionFromLink1(com.ngdb.entities.shop.ShopItem shopItem) {
-        this.shopItem = shopItem;
-        ajaxResponseRenderer.addRender(myZone);
+    public Object onActionFromLink1(com.ngdb.entities.shop.ShopItem shopItem) {
+        return onActionFromLink3(shopItem);
     }
 
     @OnEvent(component = "link2", value = ACTION)
-    public void onActionFromLink2(com.ngdb.entities.shop.ShopItem shopItem) {
-        this.shopItem = shopItem;
-        ajaxResponseRenderer.addRender(myZone);
+    public Object onActionFromLink2(com.ngdb.entities.shop.ShopItem shopItem) {
+        return onActionFromLink3(shopItem);
     }
 
     @OnEvent(component = "link3", value = ACTION)
-    public void onActionFromLink3(com.ngdb.entities.shop.ShopItem shopItem) {
+    public Object onActionFromLink3(com.ngdb.entities.shop.ShopItem shopItem) {
         this.shopItem = shopItem;
-        ajaxResponseRenderer.addRender(myZone);
+        if (!request.isXHR()) {
+            return Index.class;
+        }
+        return myZone;
     }
 
 }
