@@ -5285,3 +5285,7 @@ TABLE.t-data-grid THEAD TR TH {
 .ui-menu .ui-menu-item a {
     font-size: 11px;
 }
+
+#colorbox {
+    z-index:1000000;
+}
