@@ -13,8 +13,10 @@ import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.User;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.apache.tapestry5.internal.services.CookieSource;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.ApplicationStateManager;
+import org.apache.tapestry5.services.Cookies;
 import org.apache.tapestry5.services.Request;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
@@ -23,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tynamo.security.services.SecurityService;
 
+import javax.servlet.http.Cookie;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.Locale;
@@ -53,6 +56,12 @@ public class CurrentUser {
     @Inject
     private CheckoutService checkoutService;
 
+    @Inject
+    private Cookies cookies;
+
+    @Inject
+    private CookieSource cookieSource;
+
     private static final Logger LOG = LoggerFactory.getLogger(CurrentUser.class);
 
     public User login(String login, String password) {
@@ -82,6 +91,10 @@ public class CurrentUser {
         if (securityService.isAuthenticated()) {
             currentUser.logout();
             try {
+                Cookie[] cookies = cookieSource.getCookies();
+                for (Cookie cookie : cookies) {
+                    this.cookies.removeCookieValue(cookie.getName());
+                }
                 request.getSession(false).invalidate();
             } catch (Exception e) {
             }
