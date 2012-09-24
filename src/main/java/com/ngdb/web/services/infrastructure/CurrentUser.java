@@ -368,4 +368,8 @@ public class CurrentUser {
     public void checkout() {
         checkoutService.checkout(getUserFromDb());
     }
+
+    public boolean equalsThis(User user) {
+        return user.getId().equals(getUserId());
+    }
 }

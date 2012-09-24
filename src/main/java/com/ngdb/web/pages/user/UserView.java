@@ -148,4 +148,8 @@ public class UserView {
         return shopItemZone;
     }
 
+    public boolean isTheCurrentUser() {
+        return currentUser.equalsThis(user);
+    }
+
 }

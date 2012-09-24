@@ -46,17 +46,20 @@
 			<hr />
 
 			<h2>${user.login}'s shop</h2>
-		    
-			<t:jquery.dialog t:clientId="codeForumDialog" t:params="params">
-				<t:zone t:id="codeForumZone" id="codeForumZone" style="display:none">
-	            	<textarea rows="20" value="details" cols="80" style="width:100%">
-			    		${forumCode}
-			    	</textarea>
-	    		</t:zone>
-   			</t:jquery.dialog>
-			<t:jquery.dialogajaxlink t:id="link2" t:dialog="codeForumDialog" t:zone="codeForumZone" class="label pull-right">
-				Export to forums
-			</t:jquery.dialogajaxlink>
+
+            <t:jquery.dialog t:clientId="codeForumDialog" t:params="params">
+                <t:zone t:id="codeForumZone" id="codeForumZone">
+                    <textarea rows="20" value="details" cols="80" style="width:100%">
+                        ${forumCode}
+                    </textarea>
+                </t:zone>
+            </t:jquery.dialog>
+
+            <t:if test="theCurrentUser">
+                <t:jquery.dialogajaxlink t:id="link2" t:dialog="codeForumDialog" t:zone="codeForumZone" class="label pull-right">
+                    Export to forums
+                </t:jquery.dialogajaxlink>
+            </t:if>
 
             <t:jquery.dialog t:clientId="shopItemDialog" t:params="params">
                 <t:zone t:id="shopItemZone" id="shopItemZone">
