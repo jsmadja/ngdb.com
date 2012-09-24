@@ -24,7 +24,7 @@
                         <td align="center" style="vertical-align:bottom">
                             <p>
                                 <t:jquery.dialogajaxlink t:id="link2" t:dialog="myDialog" t:zone="myZone" t:context="shopItem" >
-                                    ${shopItem.title}
+                                    <span style="padding-left:2px;">${shopItem.title}</span>
                                 </t:jquery.dialogajaxlink>
                             </p>
                             <p class="btn btn-warning">
