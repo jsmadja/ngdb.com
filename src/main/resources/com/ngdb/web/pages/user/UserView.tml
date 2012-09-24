@@ -48,7 +48,7 @@
 			<h2>${user.login}'s shop</h2>
 		    
 			<t:jquery.dialog t:clientId="codeForumDialog" t:params="params">
-				<t:zone t:id="codeForumZone" id="codeForumZone">
+				<t:zone t:id="codeForumZone" id="codeForumZone" style="display:none">
 	            	<textarea rows="20" value="details" cols="80" style="width:100%">
 			    		${forumCode}
 			    	</textarea>
