@@ -88,7 +88,9 @@ public class MuseumFilter extends AbstractFilter {
 
     public List<Article> getArticles() {
         Criteria criteria = createCriteria();
-        criteria = addNghFilter(criteria);
+        if(isFilteredByGames()) {
+            criteria = addNghFilter(criteria);
+        }
         criteria = addPlatformFilter(criteria);
         criteria = addOriginFilter(criteria);
         criteria = addPublisherFilter(criteria);
