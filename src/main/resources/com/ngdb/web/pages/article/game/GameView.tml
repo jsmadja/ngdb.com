@@ -1,4 +1,4 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" title="${game?.title}">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" title="${game?.title}" description="${game?.title} ${game?.platformShortName} ${game?.originTitle}">
 	<t:if test="game">
 		<div class="row-fluid show-grid article">
 			<div class="span3">

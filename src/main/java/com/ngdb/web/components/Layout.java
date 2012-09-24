@@ -24,6 +24,10 @@ public class Layout {
     @Parameter
     private String title;
 
+    @Property
+    @Parameter
+    private String description;
+
     @SetupRender
     public void init() {
         if (showLeftContent == null) {
