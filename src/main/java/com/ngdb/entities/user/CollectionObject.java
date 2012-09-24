@@ -54,11 +54,6 @@ public class CollectionObject implements Comparable<CollectionObject> {
 		return false;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hashCode(owner, article);
-	}
-
 	@Embeddable
 	private static class CollectionId implements Serializable {
 

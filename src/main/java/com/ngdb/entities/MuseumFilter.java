@@ -14,6 +14,7 @@ import org.hibernate.Session;
 
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -87,6 +88,9 @@ public class MuseumFilter extends AbstractFilter {
     }
 
     public List<Article> getArticles() {
+        if(isFilteredByAnUserWithoutCollectionObjects()) {
+            return new ArrayList<Article>();
+        }
         Criteria criteria = createCriteria();
         if(isFilteredByGames()) {
             criteria = addNghFilter(criteria);
@@ -100,6 +104,9 @@ public class MuseumFilter extends AbstractFilter {
     }
 
     public int getNumArticlesInThisPlatform(Platform platform) {
+        if(isFilteredByAnUserWithoutCollectionObjects()) {
+            return 0;
+        }
         Criteria criteria = createCriteria().setProjection(countDistinct("id"));
         criteria = addTagFilter(criteria);
         criteria = addUserFilter(criteria);
@@ -108,6 +115,9 @@ public class MuseumFilter extends AbstractFilter {
     }
 
     public int getNumArticlesInThisOrigin(Origin origin) {
+        if(isFilteredByAnUserWithoutCollectionObjects()) {
+            return 0;
+        }
         Criteria criteria = createCriteria().setProjection(countDistinct("id"));
         criteria = addPlatformFilter(criteria);
         criteria = addTagFilter(criteria);
@@ -117,6 +127,9 @@ public class MuseumFilter extends AbstractFilter {
     }
 
     public int getNumArticlesInThisPublisher(Publisher publisher) {
+        if(isFilteredByAnUserWithoutCollectionObjects()) {
+            return 0;
+        }
         Criteria criteria = createCriteria().setProjection(countDistinct("id"));
         criteria = addPlatformFilter(criteria);
         criteria = addOriginFilter(criteria);
@@ -124,6 +137,10 @@ public class MuseumFilter extends AbstractFilter {
         criteria = addUserFilter(criteria);
         criteria = criteria.add(eq("publisher", publisher));
         return ((Long)criteria.uniqueResult()).intValue();
+    }
+
+    private boolean isFilteredByAnUserWithoutCollectionObjects() {
+        return filteredUser != null && filteredUser.getCollection().getNumArticles() == 0;
     }
 
     private Criteria addPublisherFilter(Criteria criteria) {
