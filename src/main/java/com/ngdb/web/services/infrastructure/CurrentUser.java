@@ -260,7 +260,7 @@ public class CurrentUser {
     }
 
     public boolean canBuy(ShopItem shopItem) {
-        boolean currentUserIsPotentialBuyer = isLogged() && shopItem.isNotInBasketOf(getUser());
+        boolean currentUserIsPotentialBuyer = isLogged() && shopItem.isNotInBasketOf(getUserFromDb());
         boolean currentUserIsNotTheSeller = !isSeller(shopItem);
         return currentUserIsNotTheSeller && currentUserIsPotentialBuyer;
     }

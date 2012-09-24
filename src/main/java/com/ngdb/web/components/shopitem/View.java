@@ -20,9 +20,9 @@ public class View {
     private String message;
 
     @SetupRender
-    void onInit() {
+    void onRender() {
         if(shopItem != null) {
-            User potentialBuyer = currentUser.getUser();
+            User potentialBuyer = currentUser.getUserFromDb();
             if (currentUser.isAnonymous()) {
                 this.message = "You have to register to buy this item.";
             } else if (currentUser.isSeller(shopItem)) {
@@ -38,10 +38,6 @@ public class View {
             return "";
         }
         return shopItem.getMainPicture().getUrl("medium");
-    }
-
-    public boolean isBuyable() {
-        return currentUser.canBuy(shopItem);
     }
 
 }

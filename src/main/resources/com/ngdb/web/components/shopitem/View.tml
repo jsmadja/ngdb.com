@@ -19,11 +19,7 @@
                     <span style="margin-left:10px;font-size:15px">
                         <img src="/img/flags/${shopItem.article.originTitle}.png" alt="${shopItem.article.originTitle}" /> <span class="platformLabel">${shopitem.article.platformShortName}</span>
                     </span>
-                    <t:if test="buyable">
-                        <t:shopItem.buyButton shopItem="shopItem" />
-                    </t:if>
                     <t:shopitem.shopactionBlock shopItem="shopItem" asButton="true" />
-
                 </h1>
             </div>
             <t:if test="message">
