@@ -1,7 +1,7 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
     <h1 class="black-bar rounded-bar big-bar">Administration</h1>
     <table class="table table-striped table-bordered table-condensed">
-        <tr><td>Delete an article</td>
+        <tr><td><b>Delete an article</b></td>
             <td>
                 <t:form t:id="deleteAnArticleForm" class="form-horizontal">
                     <t:errors />

@@ -1,7 +1,16 @@
 package com.ngdb.web.pages;
 
 import com.ngdb.entities.ArticleFactory;
+import com.ngdb.entities.article.Article;
+import com.ngdb.entities.article.element.ArticlePictures;
+import com.ngdb.entities.article.element.File;
+import com.ngdb.entities.article.element.Files;
+import com.ngdb.entities.article.element.Picture;
+import com.ngdb.entities.shop.ShopItem;
+import com.ngdb.entities.shop.ShopItems;
 import com.ngdb.web.services.infrastructure.CurrentUser;
+import com.ngdb.web.services.infrastructure.FileService;
+import com.ngdb.web.services.infrastructure.PictureService;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
@@ -28,16 +37,42 @@ public class Administration {
     @Inject
     private com.ngdb.entities.Market market;
 
+    @Inject
+    private FileService fileService;
+
+    @Inject
+    private PictureService pictureService;
+
     private static final Logger LOG = LoggerFactory.getLogger(Administration.class);
 
     @CommitAfter
     public Object onSuccess() {
         if(currentUser.isContributor()) {
-            //session.delete(articleFactory.findById(articleId));
-            //market.refresh();
-            LOG.info(currentUser.getUsername()+" has just deleted "+articleId);
+            deleteArticle();
         }
         return this;
+    }
+
+    private void deleteArticle() {
+        Article article = articleFactory.findById(articleId);
+        ArticlePictures pictures = article.getPictures();
+        for (Picture picture : pictures) {
+            pictureService.delete(picture);
+        }
+        ShopItems shopItems = article.getShopItems();
+        for (ShopItem shopItem:shopItems) {
+            for (Picture picture:shopItem.getPictures()) {
+                pictureService.delete(picture);
+            }
+        }
+        Files files = article.getFiles();
+        for (File file : files) {
+            fileService.delete(file);
+        }
+        session.delete(article);
+        session.flush();
+        market.refresh();
+        LOG.info(currentUser.getUsername()+" has just deleted "+articleId);
     }
 
 }

@@ -3,6 +3,7 @@ package com.ngdb.web.services.infrastructure;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.shop.ShopItem;
+import org.apache.commons.io.FileUtils;
 import org.apache.tapestry5.upload.services.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,7 +85,28 @@ public class PictureService {
 	}
 
 	public void delete(Picture picture) {
-		new File(picture.getUrl()).getParentFile().delete();
-	}
+        try {
+            deletePicture(picture, "small");
+            deletePicture(picture, "medium");
+            deletePicture(picture, "high");
+            File file = new File(picture.getOriginalUrl());
+            if(file.exists()) {
+                FileUtils.forceDelete(file);
+            }
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    private void deletePicture(Picture picture, String size) throws IOException {
+        File file = new File(picture.getUrl(size));
+        if(file.exists()) {
+            FileUtils.forceDelete(file);
+        }
+        File parent = file.getParentFile();
+        if(parent != null && parent.listFiles() != null && parent.listFiles().length == 0) {
+            FileUtils.forceDelete(parent);
+        }
+    }
 
 }

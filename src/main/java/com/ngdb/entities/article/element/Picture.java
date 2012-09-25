@@ -110,4 +110,8 @@ public class Picture extends AbstractEntity implements Comparable<Picture> {
     public int hashCode() {
         return url != null ? url.hashCode() : 0;
     }
+
+    public String getOriginalUrl() {
+        return url;
+    }
 }

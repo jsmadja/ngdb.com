@@ -10,6 +10,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Set;
 
 import static com.google.common.collect.Collections2.filter;
@@ -18,7 +19,7 @@ import static java.lang.Double.MIN_VALUE;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ShopItems {
+public class ShopItems implements Iterable<ShopItem>{
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private Set<ShopItem> shopItems;
@@ -75,6 +76,11 @@ public class ShopItems {
 
     private Collection<ShopItem> shopItemsByState(State state) {
         return filter(shopItems, new StateFilter(state.getTitle()));
+    }
+
+    @Override
+    public Iterator<ShopItem> iterator() {
+        return shopItems.iterator();
     }
 
     private class StateFilter implements Predicate<ShopItem> {

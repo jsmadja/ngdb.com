@@ -2,9 +2,12 @@ package com.ngdb.web.services.infrastructure;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.File;
+import org.apache.commons.io.FileUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.upload.services.UploadedFile;
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +25,8 @@ public class FileService {
 
     @Inject
     private CurrentUser currentUser;
+
+    private static final Logger LOG = LoggerFactory.getLogger(FileService.class);
 
     public File store(UploadedFile uploadedFile, Article article, String name, String type) {
 		try {
@@ -59,7 +64,16 @@ public class FileService {
     }
 
 	public void delete(File file) {
-		new java.io.File(file.getUrl()).getParentFile().delete();
+        try {
+            java.io.File ioFile = new java.io.File(file.getUrl());
+            FileUtils.forceDelete(ioFile);
+            java.io.File parent = ioFile.getParentFile();
+            if(parent.listFiles().length == 0) {
+                FileUtils.forceDelete(parent);
+            }
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
 	}
 
 }

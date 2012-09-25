@@ -7,6 +7,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -25,6 +26,9 @@ public class ShopItemPictures implements Iterable<Picture> {
 	}
 
 	public void add(Picture picture) {
+        if(pictures == null) {
+            pictures = new HashSet<Picture>();
+        }
 		pictures.add(picture);
 	}
 
