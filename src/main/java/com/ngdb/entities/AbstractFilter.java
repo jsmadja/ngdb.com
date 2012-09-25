@@ -1,10 +1,14 @@
 package com.ngdb.entities;
 
+import com.google.common.base.Joiner;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
 import com.ngdb.entities.user.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractFilter {
 
@@ -133,6 +137,32 @@ public abstract class AbstractFilter {
 
     public boolean isFilteredByAccessories() {
         return filteredByAccessories;
+    }
+
+    public String getFilterUrl() {
+        List<String> parameters = new ArrayList<String>();
+        if(filteredOrigin != null) {
+            parameters.add("origin="+filteredOrigin.getTitle());
+        }
+        if(filteredPlatform != null) {
+            parameters.add("platform="+filteredPlatform.getShortName());
+        }
+        if(isFilteredByGames()) {
+            parameters.add("type=games");
+        }
+        if(isFilteredByHardwares()) {
+            parameters.add("type=hardwares");
+        }
+        if(isFilteredByAccessories()) {
+            parameters.add("type=accessories");
+        }
+        if(filteredPublisher != null) {
+            parameters.add("publisher="+filteredPublisher);
+        }
+        if(filteredUser != null) {
+            parameters.add("user="+filteredUser.getLogin());
+        }
+        return "?"+ Joiner.on("&").join(parameters);
     }
 
     public abstract long getNumHardwares();

@@ -2,6 +2,7 @@ package com.ngdb.web.pages;
 
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.MuseumFilter;
+import com.ngdb.entities.Population;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.reference.Origin;
@@ -45,6 +46,9 @@ public class Museum {
     private Request request;
 
     @Inject
+    private Population population;
+
+    @Inject
     private Session session;
 
     void onActivate() {
@@ -62,6 +66,7 @@ public class Museum {
         String platformName = request.getParameter("platform");
         String type = request.getParameter("type");
         String publisherName = request.getParameter("publisher");
+        String userName = request.getParameter("user");
 
         if(originTitle != null || platformName != null || type != null || publisherName != null) {
             filter.clear();
@@ -83,6 +88,12 @@ public class Museum {
             Publisher publisher = referenceService.findPublisherByName(publisherName);
             if(publisher != null) {
                 filter.filterByPublisher(publisher);
+            }
+        }
+        if(userName != null) {
+            User user = population.findByLogin(userName);
+            if(user != null) {
+                filter.filterByUser(user);
             }
         }
         if(type != null) {

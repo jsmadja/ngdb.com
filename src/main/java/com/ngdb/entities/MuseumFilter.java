@@ -218,26 +218,4 @@ public class MuseumFilter extends AbstractFilter {
         return session.createCriteria(clazz);
     }
 
-    public String getFilterUrl() {
-        List<String> parameters = new ArrayList<String>();
-        if(filteredOrigin != null) {
-            parameters.add("origin="+filteredOrigin.getTitle());
-        }
-        if(filteredPlatform != null) {
-            parameters.add("platform="+filteredPlatform.getShortName());
-        }
-        if(isFilteredByGames()) {
-            parameters.add("type=games");
-        }
-        if(isFilteredByHardwares()) {
-            parameters.add("type=hardwares");
-        }
-        if(isFilteredByAccessories()) {
-            parameters.add("type=accessories");
-        }
-        if(filteredPublisher != null) {
-            parameters.add("publisher="+filteredPublisher);
-        }
-        return "?"+ Joiner.on("&").join(parameters);
-    }
 }

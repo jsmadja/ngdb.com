@@ -82,6 +82,9 @@
 		
 		<p>
 			<b>${numResults}</b> item(s) found for query <b><i><t:outputRaw value="${queryLabel}" /></i></b>
+            <span class="pull-right">
+                    <a href="${filterUrl}">Bookmark this filter</a>
+            </span>
 		</p>
 		<t:loop source="shopItems" value="shopItem">
 			<span class="museum_item">
