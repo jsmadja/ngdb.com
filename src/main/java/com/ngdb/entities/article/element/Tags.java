@@ -18,7 +18,7 @@ public class Tags implements Iterable<Tag> {
 
     @OrderBy("name")
     @IndexedEmbedded
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private Set<Tag> tags;
 
     public Set<Tag> all() {

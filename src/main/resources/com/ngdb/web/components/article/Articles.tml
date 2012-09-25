@@ -81,7 +81,6 @@
                         </p>
                         <p>
                             <t:OutputRaw value="${stars}" />
-                            <t:article.tagBlock article="article" hideForm="true" />
                         </p>
                     </p:titleCell>
                     <p:actionsCell>
