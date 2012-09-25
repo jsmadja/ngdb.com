@@ -95,7 +95,6 @@ public class CurrentUser {
                 for (Cookie cookie : cookies) {
                     this.cookies.removeCookieValue(cookie.getName());
                 }
-                request.getSession(false).invalidate();
             } catch (Exception e) {
                 e.printStackTrace();
             }
