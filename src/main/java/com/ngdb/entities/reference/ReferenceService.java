@@ -99,4 +99,13 @@ public class ReferenceService {
 		return (Tag) session.load(Tag.class, id);
 	}
 
+    public Publisher findPublisherByName(String publisherName) {
+        List<Publisher> publishers = session.createCriteria(Publisher.class).setCacheable(true).list();
+        for (Publisher publisher:publishers) {
+            if(publisher.getName().equalsIgnoreCase(publisherName)) {
+                return publisher;
+            }
+        }
+        return null;
+    }
 }

@@ -54,6 +54,46 @@ public class Museum {
             filter.filterByOrigin(referenceService.findOriginByTitle("Japan"));
             filter.filterByPlatform(referenceService.findPlatformByName("AES"));
         }
+        initializeWithUrlParameters();
+    }
+
+    private void initializeWithUrlParameters() {
+        String originTitle = request.getParameter("origin");
+        String platformName = request.getParameter("platform");
+        String type = request.getParameter("type");
+        String publisherName = request.getParameter("publisher");
+
+        if(originTitle != null || platformName != null || type != null || publisherName != null) {
+            filter.clear();
+        }
+
+        if(originTitle != null) {
+            Origin origin = referenceService.findOriginByTitle(originTitle);
+            if(origin != null) {
+                filter.filterByOrigin(origin);
+            }
+        }
+        if(platformName != null) {
+            Platform platform = referenceService.findPlatformByName(platformName);
+            if(platform != null) {
+                filter.filterByPlatform(platform);
+            }
+        }
+        if(publisherName != null) {
+            Publisher publisher = referenceService.findPublisherByName(publisherName);
+            if(publisher != null) {
+                filter.filterByPublisher(publisher);
+            }
+        }
+        if(type != null) {
+            if("hardwares".equals(type)) {
+                filter.filterByHardwares();
+            } else if ("accessories".equals(type)) {
+               filter.filterByAccessories();
+            } else {
+                filter.filterByGames();
+            }
+        }
     }
 
     boolean onActivate(User user) {
@@ -107,6 +147,10 @@ public class Museum {
     Object onActionFromClearFilters() {
         filter.clear();
         return this;
+    }
+
+    public String getFilterUrl() {
+        return filter.getFilterUrl();
     }
 
     public int getNumResults() {
