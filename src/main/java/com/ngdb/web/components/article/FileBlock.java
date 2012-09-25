@@ -17,6 +17,8 @@ import org.apache.tapestry5.upload.services.UploadedFile;
 
 import java.util.*;
 
+import static java.util.Arrays.asList;
+
 public class FileBlock {
 
 	@Property
@@ -43,13 +45,21 @@ public class FileBlock {
     @Property
     private UploadedFile file;
 
+    @Property
+    private String url;
+
     @Inject
     private FileService fileService;
 
     @CommitAfter
     @DiscardAfter
 	public void onSuccess() {
-        fileService.store(this.file, article, name, type);
+        if(this.file != null) {
+            fileService.store(this.file, article, name, type);
+        }
+        if(this.url != null) {
+            fileService.store(this.url, article, name, type);
+        }
     }
 
     public User getUser() {
@@ -70,7 +80,14 @@ public class FileBlock {
     }
 
     public Collection<String> getTypes() {
-        return Arrays.asList("Cheat code", "Move list", "Technical infos", "Other");
+        return asList(
+                "Cheat code",
+                "Move list",
+                "Technical infos",
+                "Video",
+                "Web page",
+                "Other"
+        );
     }
 
 	public String getCssClass() {

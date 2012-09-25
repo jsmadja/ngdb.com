@@ -27,6 +27,9 @@
                                 upload file
                             </input>
                         </p>
+                        <p>
+                            <t:textfield value="url" t:id="url" style="width:80%" placeholder="http://www." />
+                        </p>
                     </td>
 					<td>
                         <p>

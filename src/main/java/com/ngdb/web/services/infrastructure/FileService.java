@@ -26,19 +26,28 @@ public class FileService {
     public File store(UploadedFile uploadedFile, Article article, String name, String type) {
 		try {
 			File file = createFileFromUploadedFile(uploadedFile, article);
-            file.setName(name);
-            file.setType(type);
-            file.setArticle(article);
-            article.addFile(file);
-            file = (File) session.merge(file);
-            currentUser.addFile(article);
-            return file;
+            return addFile(article, name, type, file);
 		} catch (IOException e) {
 			throw new IllegalStateException("Cannot create file with name '" + uploadedFile.getFileName() + "' for article " + article.getId(), e);
 		}
 	}
 
-	private File createFileFromUploadedFile(UploadedFile uploadedFile, Article article) throws IOException {
+    public File store(String url, Article article, String name, String type) {
+        File file = new File(name, url, type);
+        return addFile(article, name, type, file);
+    }
+
+    private File addFile(Article article, String name, String type, File file) {
+        file.setName(name);
+        file.setType(type);
+        file.setArticle(article);
+        article.addFile(file);
+        file = (File) session.merge(file);
+        currentUser.addFile(article);
+        return file;
+    }
+
+    private File createFileFromUploadedFile(UploadedFile uploadedFile, Article article) throws IOException {
 		InputStream fromStream = uploadedFile.getStream();
 		String fileName = uploadedFile.getFileName();
         String parentFolder = FILE_ROOT + article.getId() + "/";
