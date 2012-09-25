@@ -5,7 +5,9 @@ import com.ngdb.entities.article.Article;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
+import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.user.User;
+import org.apache.tapestry5.services.Request;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,52 @@ public abstract class AbstractFilter {
         this.filteredByGames = true;
         this.filteredByHardwares = false;
         this.filteredByAccessories = false;
+    }
+
+    public void initializeWithUrlParameters(Request request, ReferenceService referenceService, Population population) {
+        String originTitle = request.getParameter("origin");
+        String platformName = request.getParameter("platform");
+        String type = request.getParameter("type");
+        String publisherName = request.getParameter("publisher");
+        String userName = request.getParameter("user");
+
+        if(originTitle != null || platformName != null || type != null || publisherName != null) {
+            clear();
+        }
+
+        if(originTitle != null) {
+            Origin origin = referenceService.findOriginByTitle(originTitle);
+            if(origin != null) {
+                filterByOrigin(origin);
+            }
+        }
+        if(platformName != null) {
+            Platform platform = referenceService.findPlatformByName(platformName);
+            if(platform != null) {
+                filterByPlatform(platform);
+            }
+        }
+        if(publisherName != null) {
+            Publisher publisher = referenceService.findPublisherByName(publisherName);
+            if(publisher != null) {
+                filterByPublisher(publisher);
+            }
+        }
+        if(userName != null) {
+            User user = population.findByLogin(userName);
+            if(user != null) {
+                filterByUser(user);
+            }
+        }
+        if(type != null) {
+            if("hardwares".equals(type)) {
+                filterByHardwares();
+            } else if ("accessories".equals(type)) {
+                filterByAccessories();
+            } else {
+                filterByGames();
+            }
+        }
     }
 
     public String getQueryLabel() {
