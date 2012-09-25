@@ -5,10 +5,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Embeddable;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
+import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -21,7 +18,7 @@ public class Tags implements Iterable<Tag> {
 
     @OrderBy("name")
     @IndexedEmbedded
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Tag> tags;
 
     public Set<Tag> all() {
