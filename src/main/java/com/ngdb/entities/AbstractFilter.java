@@ -97,7 +97,7 @@ public abstract class AbstractFilter {
             queryLabel += " on " + orange(filteredPlatform.getName());
         }
         if (filteredUser != null) {
-            queryLabel += " (user: " + orange(filteredUser.getLogin())+")";
+            queryLabel += " with user " + orange(filteredUser.getLogin());
         }
         if (filteredArticle != null) {
             queryLabel += " of article " + orange(filteredArticle.getTitle());
