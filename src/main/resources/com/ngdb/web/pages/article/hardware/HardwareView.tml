@@ -42,7 +42,8 @@
                 <t:article.fileBlock article="hardware" />
 
                 <p>
-					<t:pagelink class="pull-right label label-important" page="contact" context="[hardware.title, hardware.id]">
+                    <span style="font-size:8pt"><i>Last edit <t:common.date value="${hardware.modificationDate}"/></i></span>
+                    <t:pagelink class="pull-right label label-important" page="contact" context="[hardware.title, hardware.id]">
 						<i class="icon-flag icon-white"></i>
 						Something's wrong ?
 					</t:pagelink>

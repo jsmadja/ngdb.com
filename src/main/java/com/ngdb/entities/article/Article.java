@@ -395,4 +395,8 @@ public abstract class Article implements Comparable<Article>, Serializable{
     public void setPlatformShortName(String platformShortName) {
         this.platformShortName = platformShortName;
     }
+
+    public Date getModificationDate() {
+        return modificationDate;
+    }
 }
