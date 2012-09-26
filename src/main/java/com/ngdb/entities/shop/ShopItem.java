@@ -39,7 +39,7 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
     private Date modificationDate;
 
     @Embedded
-    private ShopItemPictures pictures = new ShopItemPictures();
+    private ShopItemPictures pictures;
 
     @OneToOne
     private State state;
@@ -168,7 +168,7 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
     }
 
     public boolean hasNoPicture() {
-        return pictures.getCount() == 0;
+        return pictures == null || pictures.getCount() == 0;
     }
 
     public void updateModificationDate() {

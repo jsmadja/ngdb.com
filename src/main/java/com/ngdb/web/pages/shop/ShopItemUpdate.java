@@ -1,5 +1,6 @@
 package com.ngdb.web.pages.shop;
 
+import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.reference.State;
@@ -190,6 +191,10 @@ public class ShopItemUpdate {
 
     public String getSmallPictureUrl() {
         return picture.getUrl("small");
+    }
+
+    ShopItem onPassivate() {
+        return shopItem;
     }
 
 }
