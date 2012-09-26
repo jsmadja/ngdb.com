@@ -10,7 +10,7 @@
 				<t:outputRaw value="${comment.text}" />
 				<br/>
 				<span style="font-size:11px">
-					<t:pageLink page="user/UserView" context="comment.author">${comment.author.login}</t:pageLink>   ${comment.postDate}
+					<t:pageLink page="user/UserView" context="comment.author">${comment.author.login}</t:pageLink>   ${comment.postDate} - <t:common.date value="${comment.creationDate}"/>
 				</span>
 			</p>
 		</blockquote>
