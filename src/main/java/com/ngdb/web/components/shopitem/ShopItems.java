@@ -83,16 +83,14 @@ public class ShopItems {
         return market.getPriceOf(shopItem);
     }
 
-    Object onActionFromThumbnailMode() {
+    void onActionFromThumbnailMode() {
         this.thumbnailMode = true;
         this.tableMode = false;
-        return this;
     }
 
-    Object onActionFromTableMode() {
+    void onActionFromTableMode() {
         this.thumbnailMode = false;
         this.tableMode = true;
-        return this;
     }
 
     public String getShopItemMainPictureSmall() {

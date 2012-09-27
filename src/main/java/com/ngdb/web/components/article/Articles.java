@@ -46,25 +46,22 @@ public class Articles {
         }
     }
 
-    Object onActionFromThumbnailMode() {
+    void onActionFromThumbnailMode() {
         this.thumbnailMode = true;
         this.gridMode = false;
         this.tableMode = false;
-        return this;
     }
 
-    Object onActionFromGridMode() {
+    void onActionFromGridMode() {
         this.thumbnailMode = false;
         this.gridMode = true;
         this.tableMode = false;
-        return this;
     }
 
-    Object onActionFromTableMode() {
+    void onActionFromTableMode() {
         this.thumbnailMode = false;
         this.gridMode = false;
         this.tableMode = true;
-        return this;
     }
 
     public String getStars() {
