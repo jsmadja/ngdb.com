@@ -1,6 +1,6 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" title="${game?.title}" description="${game?.title} ${game?.platformShortName} ${game?.originTitle}">
 	<t:if test="game">
-        <span itemprop="site_name" content="neogeodb" style="display:none"/>
+        <span itemprop="site_name" style="display:none">neogeodb</span>
         <div class="row-fluid show-grid article" itemscope="" itemtype="http://data-vocabulary.org/Product">
             <div class="span3">
 				<t:article.thumbnail article="game" noClick="true" size="literal:medium" />
