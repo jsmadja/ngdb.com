@@ -37,9 +37,6 @@ public class Market {
     @Property
     private String username;
 
-    @Property
-    private ShopItem shopItem;
-
     @Inject
     private ReferenceService referenceService;
 

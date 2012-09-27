@@ -85,11 +85,9 @@
         <t:jquery.dialogajaxlink t:id="forumCodeLink" t:dialog="forumCodeDialog" t:zone="forumCodeZone" class="label pull-right">
             Export to forums
         </t:jquery.dialogajaxlink>
-        <t:loop source="shopItems" value="shopItem">
-			<span class="museum_item">
-				<t:shopitem.shopitem shopItem="shopItem" />
-			</span>
-		</t:loop>
+
+        <t:shopitem.shopitems items="shopItems"/>
+
 	</div>
     </div>
     
