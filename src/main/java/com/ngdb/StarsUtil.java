@@ -11,9 +11,9 @@ public class StarsUtil {
 
     public static final int STAR_SIZE = 15;
 
-    public static String getStars(Article resultX, Session session, ArticleFactory articleFactory) {
-        if(resultX.isGame()) {
-            Game result = (Game) session.load(Game.class, resultX.getId());
+    public static String getStars(Article article, Session session, ArticleFactory articleFactory) {
+        if(article.isGame()) {
+            Game result = (Game) session.load(Game.class, article.getId());
             if (result.getHasReviews()) {
                 String mark = result.getAverageMark();
                 return StarsUtil.toStarsHtml(mark, 15);

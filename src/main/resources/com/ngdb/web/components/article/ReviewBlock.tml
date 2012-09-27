@@ -10,7 +10,10 @@
 				</td>
 			</tr>
 		</t:loop>
-		<t:if test="user?.contributor">
+        <span style="display:none" itemprop="review" itemscope="" itemtype="http://data-vocabulary.org/Review-aggregate">
+              <span itemprop="rating">${article.AverageMarkAsDouble}</span>
+        </span>
+        <t:if test="user?.contributor">
             <t:form t:id="reviewForm" id="reviewForm" t:autofocus="false">
                 <tr>
                     <td>

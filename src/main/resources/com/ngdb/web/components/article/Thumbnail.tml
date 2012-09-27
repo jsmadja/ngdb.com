@@ -1,14 +1,14 @@
 <span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<t:if test="noClick">
 		<t:if test="center">
-			<img class="thumbnail" style="margin-left:auto;margin-right:auto" src="${message:image.host.url}${url}" title="${article.title}" />
+			<img itemprop="image" class="thumbnail" style="margin-left:auto;margin-right:auto" src="${message:image.host.url}${url}" title="${article.title}" />
 			<p:else>
-				<img class="thumbnail" src="${message:image.host.url}${url}" title="${article.title}" />
+				<img itemprop="image" class="thumbnail" src="${message:image.host.url}${url}" title="${article.title}" />
 			</p:else>
 		</t:if>
 		<p:else>
 			<t:pageLink page="${viewPage}" context="article">
-				<img class="thumbnail" src="${message:image.host.url}${url}" title="${article.title}" />
+				<img itemprop="image" class="thumbnail" src="${message:image.host.url}${url}" alt="${article.title}" title="${article.title}" />
 			</t:pageLink>
 		</p:else>
 	</t:if>
