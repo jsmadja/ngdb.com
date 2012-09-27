@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <t:if test="title">
-    	<title>${title}</title>
+    	<title>NeoGeo Database - ${title}</title>
     	<p:else>
     		<title>www.neogeodb.com</title>
     	</p:else>
