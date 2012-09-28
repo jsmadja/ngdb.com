@@ -65,7 +65,7 @@ public class MuseumFilterTest {
 
 	@Test
 	public void should_create_query_label_with_tag() {
-		museumFilter.filterByTag(new Tag("tagX", null));
+		museumFilter.filterByTag("tagX");
 		assertThat(museumFilter.getQueryLabel()).isEqualTo("all <span class=\"orange\">games</span> with tag <span class=\"orange\">tagX</span>");
 	}
 

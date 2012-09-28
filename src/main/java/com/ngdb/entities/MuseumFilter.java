@@ -28,7 +28,7 @@ public class MuseumFilter extends AbstractFilter {
 
     private ArticleFactory articleFactory;
 
-    private Tag filteredTag;
+    private String filteredTag;
     private String filteredNgh;
     private Date filteredReleaseDate;
 
@@ -59,7 +59,7 @@ public class MuseumFilter extends AbstractFilter {
             queryLabel += " released at " + orange(new SimpleDateFormat("MM/dd/yyyy").format(filteredReleaseDate));
         }
         if (filteredTag != null) {
-            queryLabel += " with tag " + orange(filteredTag.getName());
+            queryLabel += " with tag " + orange(filteredTag);
         }
         return queryLabel;
     }
@@ -168,7 +168,7 @@ public class MuseumFilter extends AbstractFilter {
     private Criteria addTagFilter(Criteria criteria) {
         if (filteredTag != null) {
             criteria = criteria.createAlias("tags.tags", "tag");
-            criteria = criteria.add(eq("tag.name", filteredTag.getName()));
+            criteria = criteria.add(eq("tag.name", filteredTag));
         }
         return criteria;
     }
@@ -188,7 +188,7 @@ public class MuseumFilter extends AbstractFilter {
         return criteria;
     }
 
-    public void filterByTag(Tag tag) {
+    public void filterByTag(String tag) {
         this.filteredTag = tag;
     }
 
@@ -200,7 +200,7 @@ public class MuseumFilter extends AbstractFilter {
         this.filteredReleaseDate = releaseDate;
     }
 
-    public Tag getFilteredTag() {
+    public String getFilteredTag() {
         return filteredTag;
     }
 

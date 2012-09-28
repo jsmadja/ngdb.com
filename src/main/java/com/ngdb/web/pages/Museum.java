@@ -85,7 +85,7 @@ public class Museum {
             this.filter.filterByPublisher(referenceService.findPublisherBy(Long.valueOf(value)));
             break;
         case byTag:
-            this.filter.filterByTag(referenceService.findTagById(Long.valueOf(value)));
+            this.filter.filterByTag(value);
             break;
         case byNgh:
             this.filter.filterByNgh(value);
@@ -229,7 +229,7 @@ public class Museum {
         return filter.getNumArticlesInThisPublisher(publisher);
     }
 
-    public Tag getTag() {
+    public String getTag() {
         return filter.getFilteredTag();
     }
 

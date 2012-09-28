@@ -1,7 +1,7 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<t:if test="tags">
 		<t:loop source="tags" value="tag">
-			<t:pageLink page="museum" context="[byTag, tag]" class="badge badge-info" style="margin-right:3px">${tag.name} </t:pageLink>
+			<t:pageLink page="museum" context="[byTag, tag.name]" class="badge badge-info" style="margin-right:3px">${tag.name} </t:pageLink>
 		</t:loop>
 	</t:if>
 	<t:if test="!hideForm">

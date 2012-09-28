@@ -63,7 +63,7 @@
 
             <div class="blue-bar half-rounded-bar small-bar">Misc</div>
             <p>
-                Tag: ${tag?.name}
+                Tag: ${tag}
             </p>
             <p>
                 Release date: ${releaseDate}
