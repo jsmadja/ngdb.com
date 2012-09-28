@@ -39,7 +39,6 @@ public class Suggestionner {
 	private Collection<String> populateCache() {
 		Collection<String> suggestions = createAllSuggestions();
 		cache.put(new Element("suggestions", suggestions));
-		LOG.info("Populate suggestions with " + suggestions.size() + " words");
 		return suggestions;
 	}
 
