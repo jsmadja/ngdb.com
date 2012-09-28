@@ -205,10 +205,7 @@ public class Market {
     }
 
     public List<ShopItem> getShopItemsForSaleOf(User user) {
-        return session.createCriteria(ShopItem.class).
-            add(eq("seller", user)).
-            add(eq("sold", false)).
-            setCacheable(true).list();
+        return session.createSQLQuery("SELECT * FROM ShopItem WHERE sold=0 AND seller_id = "+user.getId()).addEntity(ShopItem.class).setCacheable(true).list();
     }
 
     public void sell(ShopItem shopItem) {
