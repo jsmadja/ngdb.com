@@ -3,7 +3,8 @@
 		<p>
 			<ul>
 		   		<li style="display:inline"><a href="/about" style="padding-right:5px">about</a><span class="divider">|</span></li>
-	            <li style="display:inline"><a href="/contact" style="padding-left:5px;padding-right:5px">contact</a><span class="divider">|</span></li>
+                <li style="display:inline"><a href="/contact" style="padding-left:5px;padding-right:5px">contact</a><span class="divider">|</span></li>
+                <li style="display:inline"><a href="/contribute" style="padding-left:5px;padding-right:5px">contribute</a><span class="divider">|</span></li>
                 <li style="display:inline"><a href="/stats" style="padding-left:5px">stats</a></li>
                 <t:if test="contributor">
                     <li style="display:inline"><span class="divider"> |</span><a href="/administration" style="padding-left:5px">administration</a></li>

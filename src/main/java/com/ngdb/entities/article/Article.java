@@ -368,6 +368,9 @@ public abstract class Article implements Comparable<Article>, Serializable{
     }
 
     public boolean getHasReviews() {
+        if(reviews == null) {
+            return false;
+        }
         return reviews.count() > 0;
     }
 
@@ -376,6 +379,9 @@ public abstract class Article implements Comparable<Article>, Serializable{
     }
 
     public boolean hasTags() {
+        if(tags == null) {
+            return false;
+        }
         return tags.count() > 0;
     }
 

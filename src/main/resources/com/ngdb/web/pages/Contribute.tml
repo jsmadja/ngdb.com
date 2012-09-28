@@ -1,0 +1,84 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+	<div class="page-header">
+		<h1 class="black-bar rounded-bar big-bar">Contribute</h1>
+	</div>
+    <div class="row-fluid">
+        <div class="span12" style="padding-left:5px">
+            <p>
+                We lack a lot of resources, please help us to gather it.
+            </p>
+            <p>
+                You can send emails to <a href="mailto:takou@neogeodb.com">takou@neogeodb.com</a> or <a href="mailto:anzymus@neogeodb.com">anzymus@neogeodb.com</a>
+            </p>
+            <div class="tabbable">
+
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab_1" data-toggle="tab">Missing covers (${missingCoverArticles.size()})</a></li>
+                    <li><a href="#tab_2" data-toggle="tab">Missing UPC (${missingUPCArticles.size()})</a></li>
+                    <li><a href="#tab_3" data-toggle="tab">Missing tags (${missingTagArticles.size()})</a></li>
+                    <li><a href="#tab_4" data-toggle="tab">Missing reviews (${missingReviewArticles.size()})</a></li>
+                </ul>
+
+                <div class="tab-content" style="border-radius: 0px 10px 10px 0px;">
+
+                    <div class="tab-pane" id="tab_1">
+                        <t:grid source="missingCoverArticles"
+                                include="title,platformShortName,originTitle"
+                                row="article"
+                                inPlace="true"
+                                model="articleModel"
+                                rowsPerPage="10000"
+                                class="table table-striped table-bordered table-condensed">
+                            <p:titleCell>
+                                <t:pageLink page="${article.viewPage}" context="article.id">${article.title}</t:pageLink>
+                            </p:titleCell>
+                        </t:grid>
+                    </div>
+
+                    <div class="tab-pane" id="tab_2">
+                        <t:grid source="missingUPCArticles"
+                                include="title,platformShortName,originTitle"
+                                row="article"
+                                inPlace="true"
+                                model="articleModel"
+                                rowsPerPage="10000"
+                                class="table table-striped table-bordered table-condensed">
+                            <p:titleCell>
+                                <t:pageLink page="${article.viewPage}" context="article.id">${article.title}</t:pageLink>
+                            </p:titleCell>
+                        </t:grid>
+                     </div>
+
+                    <div class="tab-pane" id="tab_3">
+                        <t:grid source="missingTagArticles"
+                                include="title,platformShortName,originTitle"
+                                row="article"
+                                inPlace="true"
+                                model="articleModel"
+                                rowsPerPage="10000"
+                                class="table table-striped table-bordered table-condensed">
+                            <p:titleCell>
+                                <t:pageLink page="${article.viewPage}" context="article.id">${article.title}</t:pageLink>
+                            </p:titleCell>
+                        </t:grid>
+                    </div>
+
+                    <div class="tab-pane" id="tab_4">
+                        <t:grid source="missingReviewArticles"
+                                include="title,platformShortName,originTitle"
+                                row="article"
+                                inPlace="true"
+                                model="articleModel"
+                                rowsPerPage="10000"
+                                class="table table-striped table-bordered table-condensed">
+                            <p:titleCell>
+                                <t:pageLink page="${article.viewPage}" context="article.id">${article.title}</t:pageLink>
+                            </p:titleCell>
+                        </t:grid>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</t:layout>
