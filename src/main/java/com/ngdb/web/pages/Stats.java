@@ -17,6 +17,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -78,9 +79,12 @@ public class Stats {
 
     @Inject
     private ReferenceService referenceService;
+    private List<Game> allGames;
 
     @SetupRender
     public void init() {
+        allGames = articleFactory.findAllGames();
+
         this.userCount = population.getNumUsers();
         this.wishListCount = wishBox.getNumWishes();
         this.soldCount = market.getNumSoldItems();
@@ -130,8 +134,8 @@ public class Stats {
 
     public String getReviewProgress() {
         StringBuilder sb = new StringBuilder();
-        List<Game> noReviewGames = articleFactory.findAllGames();
-        List<Game> games = articleFactory.findAllGames();
+        List<Game> noReviewGames = new ArrayList<Game>(allGames);
+        List<Game> games = new ArrayList<Game>(allGames);
         for (Game game : games) {
             if(game.getHasReviews()) {
                 noReviewGames.removeAll(articleFactory.findAllGamesByNgh(game.getNgh()));
@@ -146,8 +150,8 @@ public class Stats {
 
     public String getTagProgress() {
         StringBuilder sb = new StringBuilder();
-        List<Game> noTagGames = articleFactory.findAllGames();
-        List<Game> games = articleFactory.findAllGames();
+        List<Game> noTagGames = new ArrayList<Game>(allGames);
+        List<Game> games = new ArrayList<Game>(allGames);
         for (Game game : games) {
             if(game.hasTags()) {
                 noTagGames.remove(game);
