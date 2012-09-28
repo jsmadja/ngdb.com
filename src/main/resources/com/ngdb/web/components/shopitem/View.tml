@@ -28,7 +28,7 @@
             <table>
                 <tr>
                     <td class="grey">
-                        <b>Seller</b>
+                        <b>Seller : </b>
                     </td>
                     <td>
                         <t:pageLink page="user/UserView" context="shopItem.seller">
@@ -37,7 +37,7 @@
                 </tr>
                 <tr>
                     <td class="grey">
-                        <b>Price</b>
+                        <b>Price : </b>
                     </td>
                     <td>
                         <t:if test="shopItem.priceInCustomCurrency">
@@ -49,19 +49,19 @@
                 </tr>
                 <tr>
                     <td class="grey">
-                        <b>State</b>
+                        <b>State : </b>
                     </td>
                     <td>
-                        ${shopItem.state.title}
+                        <t:OutputRaw value="${stars}" />
                     </td>
                 </tr>
                 <tr>
-                    <td class="grey" style="vertical-align:top"><b>Description</b></td>
+                    <td class="grey" style="vertical-align:top"><b>Description : </b></td>
                     <td><t:OutputRaw value="${shopItem.details}" /></td>
                 </tr>
                 <t:if test="shopItem.seller.shopPolicy">
                 <tr>
-                    <td class="grey" width="15%" style="vertical-align:top"><b>Shop policy</b></td>
+                    <td class="grey" width="15%" style="vertical-align:top"><b>Shop policy : </b></td>
                     <td><t:OutputRaw value="${shopItem.seller.shopPolicy}" /></td>
                 </tr>
                 </t:if>

@@ -1,5 +1,6 @@
 package com.ngdb.web.components.shopitem;
 
+import com.ngdb.StarsUtil;
 import com.ngdb.entities.Market;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.pages.Index;
@@ -109,6 +110,10 @@ public class ShopItems {
             return Index.class;
         }
         return shopItemZone;
+    }
+
+    public String getStars() {
+        return StarsUtil.getStars(shopItem);
     }
 
 }

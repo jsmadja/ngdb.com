@@ -1,5 +1,6 @@
 package com.ngdb.web.components.shopitem;
 
+import com.ngdb.StarsUtil;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.tapestry5.annotations.Parameter;
@@ -38,6 +39,10 @@ public class View {
             return "";
         }
         return shopItem.getMainPicture().getUrl("medium");
+    }
+
+    public String getStars() {
+        return StarsUtil.getStars(shopItem);
     }
 
 }

@@ -62,10 +62,10 @@
                             <span style="margin-left:5px"><span class="platformLabel">${shopItem.article.platformShortName}</span></span>
                         </p>
                         <p>
-                            in ${shopItem.state.title} condition
+                            for sale by <t:pageLink page="user/UserView" context="shopItem.seller">${shopItem.seller.login}</t:pageLink>
                         </p>
                         <p>
-                            for sale by <t:pageLink page="user/UserView" context="shopItem.seller">${shopItem.seller.login}</t:pageLink>
+                            <t:OutputRaw value="${stars}" />
                         </p>
                     </p:titleCell>
                     <p:priceCell>
