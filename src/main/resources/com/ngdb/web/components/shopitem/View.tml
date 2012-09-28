@@ -28,7 +28,7 @@
             <table>
                 <tr>
                     <td class="grey">
-                        <b>Seller : </b>
+                        <b>${message:common.Seller} : </b>
                     </td>
                     <td>
                         <t:pageLink page="user/UserView" context="shopItem.seller">
@@ -37,7 +37,7 @@
                 </tr>
                 <tr>
                     <td class="grey">
-                        <b>Price : </b>
+                        <b>${message:common.Price} : </b>
                     </td>
                     <td>
                         <t:if test="shopItem.priceInCustomCurrency">
@@ -49,19 +49,19 @@
                 </tr>
                 <tr>
                     <td class="grey">
-                        <b>State : </b>
+                        <b>${message:common.State} : </b>
                     </td>
                     <td>
                         <t:OutputRaw value="${stars}" />
                     </td>
                 </tr>
                 <tr>
-                    <td class="grey" style="vertical-align:top"><b>Description : </b></td>
+                    <td class="grey" style="vertical-align:top"><b>${message:common.Description} : </b></td>
                     <td><t:OutputRaw value="${shopItem.details}" /></td>
                 </tr>
                 <t:if test="shopItem.seller.shopPolicy">
                 <tr>
-                    <td class="grey" width="15%" style="vertical-align:top"><b>Shop policy : </b></td>
+                    <td class="grey" width="15%" style="vertical-align:top"><b>${message:common.ShopPolicy} : </b></td>
                     <td><t:OutputRaw value="${shopItem.seller.shopPolicy}" /></td>
                 </tr>
                 </t:if>
@@ -72,7 +72,7 @@
             <p>
                 <t:pagelink class="pull-right label label-important" page="contact" context="shopItem.title" style="color:white">
                     <i class="icon-flag icon-white"></i>
-                    Something's wrong ?
+                    ${message:common.somethingswrong}
                 </t:pagelink>
             </p>
 

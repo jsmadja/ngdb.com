@@ -2,21 +2,21 @@
 
     <div style="margin-bottom:10px" class="btn-group">
         <t:if test="thumbnailMode">
-            <span class="btn btn-small btn-primary disabled"><b>Thumbnail</b></span>
+            <span class="btn btn-small btn-primary disabled"><b>${message:common.thumbnail}</b></span>
             <p:else>
-                <t:actionLink class="btn btn-small btn-primary " t:id="thumbnailMode" id="thumbnailMode">Thumbnail</t:actionLink>
+                <t:actionLink class="btn btn-small btn-primary " t:id="thumbnailMode" id="thumbnailMode">${message:common.thumbnail}</t:actionLink>
             </p:else>
         </t:if>
         <t:if test="gridMode">
-            <span class="btn btn-small btn-primary disabled"><b>Grid</b></span>
+            <span class="btn btn-small btn-primary disabled"><b>${message:common.grid}</b></span>
             <p:else>
-                <t:actionLink class="btn btn-small btn-primary" t:id="gridMode" id="gridMode">Grid</t:actionLink>
+                <t:actionLink class="btn btn-small btn-primary" t:id="gridMode" id="gridMode">${message:common.grid}</t:actionLink>
             </p:else>
         </t:if>
         <t:if test="tableMode">
-            <span class="btn btn-small btn-primary disabled"><b>Table</b></span>
+            <span class="btn btn-small btn-primary disabled"><b>${message:common.table}</b></span>
             <p:else>
-                <t:actionLink class="btn btn-small btn-primary" t:id="tableMode" id="tableMode">Table</t:actionLink>
+                <t:actionLink class="btn btn-small btn-primary" t:id="tableMode" id="tableMode">${message:common.table}</t:actionLink>
             </p:else>
         </t:if>
     </div>

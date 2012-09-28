@@ -19,6 +19,7 @@ import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.Request;
@@ -69,6 +70,9 @@ public class Market {
 
     @Inject
     private AjaxResponseRenderer ajaxResponseRenderer;
+
+    @Inject
+    private Messages messages;
 
     @OnEvent(EventConstants.ACTIVATE)
     void init() {
@@ -249,6 +253,10 @@ public class Market {
 
     public String getFilterUrl() {
         return filter.getFilterUrl();
+    }
+
+    public String getTitle() {
+        return messages.format("market.usermarket",username);
     }
 
 }

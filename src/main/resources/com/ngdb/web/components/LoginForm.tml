@@ -2,11 +2,11 @@
 	<t:if test="!user">
 		<t:form t:id="loginForm" t:autofocus="true">
 		  	<t:errors />
-			<li><t:textfield style="width:90%;margin-left:2px" class="input-small" value="login" t:id="login" placeholder="login" /></li>
-			<li><t:passwordfield style="width:90%;margin-left:2px" class="input-small" value="password" t:id="password" placeholder="password" /></li>
-			<li><button type="submit" class="btn">Sign in</button></li>
+			<li><t:textfield style="width:90%;margin-left:2px" class="input-small" value="login" t:id="login" placeholder="${message:login.login}" /></li>
+			<li><t:passwordfield style="width:90%;margin-left:2px" class="input-small" value="password" t:id="password" placeholder="${message:login.password}" /></li>
+			<li><button type="submit" class="btn">${message:login.signin}</button></li>
 			<li class="divider"></li>
-			<li><t:pageLink page="user/ResetPassword">Lost password ?</t:pageLink></li>
+			<li><t:pageLink page="user/ResetPassword">${message:login.lostpassword}</t:pageLink></li>
 		</t:form>
 	</t:if>
 </div>

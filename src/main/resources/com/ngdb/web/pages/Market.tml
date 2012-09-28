@@ -1,94 +1,96 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 	xmlns:p="tapestry:parameter" showLeftContent="false">
     <div class="row-fluid">
-    <div class="span2 well"  id="filters">
+        <div class="span2 well"  id="filters">
 
-        <div class="orange-bar half-rounded-bar small-bar">Article</div>
-        <p class="selected-link">
-            <t:actionLink class="btn-mini" t:id="selectGames"><span class="${gameSelected}">Games</span> <span class="counter">(${numGames})</span></t:actionLink>
-        </p>
-        <p>
-            <t:actionLink class="btn-mini" t:id="selectHardwares"><span class="${hardwareSelected}">Hardwares</span> <span class="counter">(${numHardwares})</span></t:actionLink>
-        </p>
-        <p>
-            <t:actionLink class="btn-mini" t:id="selectAccessories"><span class="${accessorySelected}">Accessories</span> <span class="counter">(${numAccessories})</span></t:actionLink>
-        </p>
+            <div class="orange-bar half-rounded-bar small-bar">${message:common.Article}</div>
+            <p class="selected-link">
+                <t:actionLink class="btn-mini" t:id="selectGames"><span class="${gameSelected}">${message:common.Games}</span> <span class="counter">(${numGames})</span></t:actionLink>
+            </p>
+            <p>
+                <t:actionLink class="btn-mini" t:id="selectHardwares"><span class="${hardwareSelected}">${message:common.Hardwares}</span> <span class="counter">(${numHardwares})</span></t:actionLink>
+            </p>
+            <p>
+                <t:actionLink class="btn-mini" t:id="selectAccessories"><span class="${accessorySelected}">${message:common.Accessories}</span> <span class="counter">(${numAccessories})</span></t:actionLink>
+            </p>
 
-        <div class="orange-bar half-rounded-bar small-bar">Platform</div>
-        <t:loop source="platforms" value="platform">
-            <t:if test="filteredByThisPlatform">
-                <p class="selected-link">
-                    ${platform.name} <b><span class="counter"> (${numArticlesInThisPlatform})</span></b>
-                </p>
-                <p:else>
-                    <t:if test="articleInThisPlatform">
-                        <p>
-                            <t:actionLink class="btn-mini" t:id="filterPlatform" id="filterPlatform" context="platform">
-                                ${platform.name} <span class="counter"> (${numArticlesInThisPlatform})</span>
-                            </t:actionLink>
-                        </p>
+            <div class="orange-bar half-rounded-bar small-bar">${message:common.Platform}</div>
+            <t:loop source="platforms" value="platform">
+                <t:if test="filteredByThisPlatform">
+                    <p class="selected-link">
+                        ${platform.name} <b><span class="counter"> (${numArticlesInThisPlatform})</span></b>
+                    </p>
+                    <p:else>
+                        <t:if test="articleInThisPlatform">
+                            <p>
+                                <t:actionLink class="btn-mini" t:id="filterPlatform" id="filterPlatform" context="platform">
+                                    ${platform.name} <span class="counter"> (${numArticlesInThisPlatform})</span>
+                                </t:actionLink>
+                            </p>
+                        </t:if>
+                    </p:else>
+                </t:if>
+            </t:loop>
+
+            <div class="orange-bar half-rounded-bar small-bar">${message:common.Origin}</div>
+            <t:loop source="origins" value="origin">
+                <t:if test="filteredByThisOrigin">
+                    <p class="selected-link">
+                        ${origin} <span class="counter"> (${numArticlesInThisOrigin})</span>
+                    </p>
+                    <p:else>
+                        <t:if test="articleInThisOrigin">
+                            <p>
+                                <t:actionLink t:id="filterOrigin" context="origin.id">
+                                    ${origin} <span class="counter"> (${numArticlesInThisOrigin})</span>
+                                </t:actionLink>
+                            </p>
+                        </t:if>
+                    </p:else>
+                </t:if>
+            </t:loop>
+            <t:actionLink t:id="clearFilters" class="btn btn-small btn-primary pull-left">
+                ${message:common.clearfilters}
+            </t:actionLink>
+        </div>
+
+        <div class="market span10" style="margin-left:1%">
+            <div class="page-header">
+                <h1 class="orange-bar rounded-bar big-bar">
+                    <t:if test="username">
+                        ${title}
+                        <p:else>
+                            ${message:market.title}
+                        </p:else>
                     </t:if>
-                </p:else>
+                </h1>
+            </div>
+            <t:if test="!logged">
+                <div class="alert alert-info">${message:market.alertregistration}</div>
             </t:if>
-        </t:loop>
 
-        <div class="orange-bar half-rounded-bar small-bar">Origin</div>
-        <t:loop source="origins" value="origin">
-            <t:if test="filteredByThisOrigin">
-                <p class="selected-link">
-                    ${origin} <span class="counter"> (${numArticlesInThisOrigin})</span>
-                </p>
-                <p:else>
-                    <t:if test="articleInThisOrigin">
-                        <p>
-                            <t:actionLink t:id="filterOrigin" context="origin.id">
-                                ${origin} <span class="counter"> (${numArticlesInThisOrigin})</span>
-                            </t:actionLink>
-                        </p>
-                    </t:if>
-                </p:else>
-            </t:if>
-        </t:loop>
-        <t:actionLink t:id="clearFilters" class="btn btn-small btn-primary pull-left">
-            Clear filters
-        </t:actionLink>
-    </div>
+            <t:jquery.dialog t:clientId="forumCodeDialog" t:params="params">
+                <t:zone t:id="forumCodeZone" id="forumCodeZone" style="display:none">
+                    <textarea rows="20" value="details" cols="80" style="width:100%">
+                        ${forumCode}
+                    </textarea>
+                </t:zone>
+            </t:jquery.dialog>
 
-    <div class="market span10" style="margin-left:1%">
-		<div class="page-header">
-			<h1 class="orange-bar rounded-bar big-bar">
-				<t:if test="username">
-					${username}'s market
-					<p:else>
-						Market
-					</p:else>
-				</t:if>
-			</h1>
-		</div>
-		<t:if test="!logged">
-			<div class="alert alert-info">You must be registered to buy an article.</div>
-		</t:if>
-		
-		<t:jquery.dialog t:clientId="forumCodeDialog" t:params="params">
-			<t:zone t:id="forumCodeZone" id="forumCodeZone" style="display:none">
-            	<textarea rows="20" value="details" cols="80" style="width:100%">
-		    		${forumCode}
-		    	</textarea>
-    		</t:zone>
-		</t:jquery.dialog>
-		<p>
-			<b>${numResults}</b> item(s) found for query <b><i><t:outputRaw value="${queryLabel}" /></i></b>
-            <span class="pull-right">
-                    <a href="${filterUrl}">Bookmark this filter</a>
-            </span>
-		</p>
-        <t:jquery.dialogajaxlink t:id="forumCodeLink" t:dialog="forumCodeDialog" t:zone="forumCodeZone" class="label pull-right">
-            Export to forums
-        </t:jquery.dialogajaxlink>
+            <p>
+                <b>${numResults}</b> ${message:market.results} <b><i><t:outputRaw value="${queryLabel}" /></i></b>
+                <span class="pull-right">
+                    <a href="${filterUrl}">${message:market.bookmarksearch}</a>
+                </span>
+            </p>
+            <p>
+                <t:jquery.dialogajaxlink t:id="forumCodeLink" t:dialog="forumCodeDialog" t:zone="forumCodeZone">
+                    <span class="label">${message:market.exportforum}</span>
+                </t:jquery.dialogajaxlink>
+            </p>
+            <t:shopitem.shopitems items="shopItems"/>
 
-        <t:shopitem.shopitems items="shopItems"/>
-
-	</div>
+        </div>
     </div>
     
 </t:layout>

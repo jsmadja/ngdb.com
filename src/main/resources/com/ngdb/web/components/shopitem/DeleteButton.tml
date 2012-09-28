@@ -2,13 +2,13 @@
 	xmlns:p="tapestry:parameter">
 	<t:if test="asButton">
 		<t:actionLink t:id="removeButton" class="btn btn-danger" id="removeButton" context="shopItem"
-			t:mixins="jquery/tooltip" title="Delete">
+			t:mixins="jquery/tooltip" title="${message:common.delete}">
 			<i class="icon-trash icon-white" />
 		</t:actionLink>
 		<p:else>
 			<t:actionLink t:id="remove" id="remove" context="shopItem">
 				<i class="icon-trash" />
-				Delete
+                ${message:common.delete}
 			</t:actionLink>
 		</p:else>
 	</t:if>

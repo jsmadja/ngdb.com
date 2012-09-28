@@ -8,15 +8,15 @@
 
     <div style="margin-bottom:10px" class="btn-group">
         <t:if test="thumbnailMode">
-            <span class="btn btn-small btn-primary disabled"><b>Thumbnail</b></span>
+            <span class="btn btn-small btn-primary disabled"><b>${message:common.thumbnail}</b></span>
             <p:else>
-                <t:actionLink class="btn btn-small btn-primary " t:id="thumbnailMode" id="thumbnailMode">Thumbnail</t:actionLink>
+                <t:actionLink class="btn btn-small btn-primary " t:id="thumbnailMode" id="thumbnailMode">${message:common.thumbnail}</t:actionLink>
             </p:else>
         </t:if>
         <t:if test="tableMode">
-            <span class="btn btn-small btn-primary disabled"><b>Table</b></span>
+            <span class="btn btn-small btn-primary disabled"><b>${message:common.table}</b></span>
             <p:else>
-                <t:actionLink class="btn btn-small btn-primary" t:id="tableMode" id="tableMode">Table</t:actionLink>
+                <t:actionLink class="btn btn-small btn-primary" t:id="tableMode" id="tableMode">${message:common.table}</t:actionLink>
             </p:else>
         </t:if>
     </div>
@@ -62,7 +62,7 @@
                             <span style="margin-left:5px"><span class="platformLabel">${shopItem.article.platformShortName}</span></span>
                         </p>
                         <p>
-                            for sale by <t:pageLink page="user/UserView" context="shopItem.seller">${shopItem.seller.login}</t:pageLink>
+                            ${message:shopitem.forsaleby} <t:pageLink page="user/UserView" context="shopItem.seller">${shopItem.seller.login}</t:pageLink>
                         </p>
                         <p>
                             <t:OutputRaw value="${stars}" />

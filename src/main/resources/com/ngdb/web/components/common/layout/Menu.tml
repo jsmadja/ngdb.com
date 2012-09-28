@@ -8,8 +8,8 @@
 
     <div class="tabbable">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab1" data-toggle="tab" class="orange-bar" style="color:white">For sale</a></li>
-            <li><a href="#tab2" data-toggle="tab" class="blue-bar" style="color:white">What's new</a></li>
+            <li class="active"><a href="#tab1" data-toggle="tab" class="orange-bar" style="color:white">${message:menu.forsale}</a></li>
+            <li><a href="#tab2" data-toggle="tab" class="blue-bar" style="color:white">${message:menu.whatsnew}</a></li>
         </ul>
         <div class="tab-content" style="border-radius: 0px 10px 10px 0px;">
             <div class="tab-pane well active" id="tab1">

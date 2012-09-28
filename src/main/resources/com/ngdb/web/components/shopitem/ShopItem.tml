@@ -11,8 +11,7 @@
 		<tr>
 			<td>
                 <t:jquery.dialogajaxlink t:id="link1" t:dialog="myDialog" t:zone="myZone" t:context="shopItem" >
-                    <img class="thumbnail" width="150px"
-                            src="${message:image.host.url}${shopItemMainPicture}" alt="${shopItem.title}" />
+                    <img class="thumbnail" width="150px" src="${message:image.host.url}${shopItemMainPicture}" alt="${shopItem.title}" />
 				</t:jquery.dialogajaxlink>
 			</td>
 		</tr>

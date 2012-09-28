@@ -1,13 +1,13 @@
 <span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<t:if test="asButton">
 		<t:actionLink t:id="buyButton" class="btn btn-success" id="buyButton" context="shopItem"
-			t:mixins="jquery/tooltip" title="Buy it">
+			t:mixins="jquery/tooltip" title="${message:common.addtobasket}">
 			<i class="icon-shopping-cart icon-white" />
 		</t:actionLink>
 		<p:else>
             <p class="btn btn-warning pull-right" style="border-radius:5px">
                 <t:actionlink t:id="buy" id="buy" context="shopItem" style="color:white">
-                    <i class="icon-shopping-cart icon-white"/> Add to basket
+                    <i class="icon-shopping-cart icon-white"/> ${message:common.addtobasket}
                 </t:actionlink>
             </p>
 		</p:else>
