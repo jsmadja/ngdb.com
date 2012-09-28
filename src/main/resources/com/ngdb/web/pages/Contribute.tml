@@ -30,7 +30,7 @@
                                 rowsPerPage="10000"
                                 class="table table-striped table-bordered table-condensed">
                             <p:titleCell>
-                                <t:pageLink page="${article.viewPage}" context="article.id">${article.title}</t:pageLink>
+                                <t:pageLink page="${article.viewPage}" context="[article.id,article.suffix]">${article.title}</t:pageLink>
                             </p:titleCell>
                         </t:grid>
                     </div>
@@ -44,7 +44,7 @@
                                 rowsPerPage="10000"
                                 class="table table-striped table-bordered table-condensed">
                             <p:titleCell>
-                                <t:pageLink page="${article.viewPage}" context="article.id">${article.title}</t:pageLink>
+                                <t:pageLink page="${article.viewPage}" context="[article.id,article.suffix]">${article.title}</t:pageLink>
                             </p:titleCell>
                         </t:grid>
                      </div>
@@ -58,7 +58,7 @@
                                 rowsPerPage="10000"
                                 class="table table-striped table-bordered table-condensed">
                             <p:titleCell>
-                                <t:pageLink page="${article.viewPage}" context="article.id">${article.title}</t:pageLink>
+                                <t:pageLink page="${article.viewPage}" context="[article.id,article.suffix]">${article.title}</t:pageLink>
                             </p:titleCell>
                         </t:grid>
                     </div>
@@ -72,7 +72,7 @@
                                 rowsPerPage="10000"
                                 class="table table-striped table-bordered table-condensed">
                             <p:titleCell>
-                                <t:pageLink page="${article.viewPage}" context="article.id">${article.title}</t:pageLink>
+                                <t:pageLink page="${article.viewPage}" context="[article.id,article.suffix]">${article.title}</t:pageLink>
                             </p:titleCell>
                         </t:grid>
                     </div>

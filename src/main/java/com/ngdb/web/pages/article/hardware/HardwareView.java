@@ -1,6 +1,7 @@
 package com.ngdb.web.pages.article.hardware;
 
 import com.ngdb.BarcodeUtil;
+import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Review;
@@ -31,6 +32,9 @@ public class HardwareView {
 
     public void onActivate(Hardware hardware) {
         this.hardware = hardware;
+    }
+    public void onActivate(Hardware hardware, String suffix) {
+        onActivate(hardware);
     }
 
     public Hardware onPassivate() {

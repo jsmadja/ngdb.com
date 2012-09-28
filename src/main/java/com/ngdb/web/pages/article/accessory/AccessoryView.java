@@ -33,6 +33,10 @@ public class AccessoryView {
         this.accessory = accessory;
     }
 
+    public void onActivate(Accessory accessory, String prefix) {
+        onActivate(accessory);
+    }
+
     public Accessory onPassivate() {
         return accessory;
     }

@@ -28,7 +28,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Indexed
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @AnalyzerDefs({
@@ -337,6 +336,10 @@ public abstract class Article implements Comparable<Article>, Serializable{
 
     public String getUpc() {
         return upc;
+    }
+
+    public String getSuffix() {
+        return getTitle().replaceAll(" ","-")+"-"+getPlatformShortName()+"-"+getOriginTitle();
     }
 
     public abstract boolean isGame();

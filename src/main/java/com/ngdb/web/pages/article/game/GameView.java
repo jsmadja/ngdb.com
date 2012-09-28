@@ -30,6 +30,10 @@ public class GameView {
         this.game = game;
     }
 
+    public void onActivate(Game game, String suffix) {
+        onActivate(game);
+    }
+
     public Game onPassivate() {
         return game;
     }
