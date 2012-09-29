@@ -7,7 +7,7 @@
 	<t:if test="!hideForm">
 		<t:if test="user?.contributor">
 			<t:form t:id="tagForm" id="tagForm" t:autofocus="false" style="height:10px;margin:none;margin-bottom:10px;display:inline-block">
-				<t:textfield value="search" t:id="search" t:mixins="jquery/Autocomplete" style="width:100px" placeholder="add a new tag" />
+				<t:textfield value="search" t:id="search" t:mixins="jquery/Autocomplete" style="width:100px" placeholder="${tag.addtag}" />
 			</t:form>
 		</t:if>
 	</t:if>

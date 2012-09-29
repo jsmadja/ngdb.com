@@ -23,13 +23,6 @@ public class Thumbnail {
 	@Parameter
 	private boolean center;
 
-	public String getViewPage() {
-		if (article instanceof Game) {
-			return "article/game/gameView";
-		}
-		return "article/hardware/hardwareView";
-	}
-
 	public String getUrl() {
 		if (size == null) {
 			return article.getCover().getUrl();

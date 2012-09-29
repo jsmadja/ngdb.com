@@ -2,7 +2,7 @@
 	<br/>
 	<table style="width:100%">
 		<tr>
-			<td>Collection:</td>
+			<td>${message:common.Collection}:</td>
 			<td>
 				<b>${collectionRank}</b>
 			</td>
@@ -11,7 +11,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>Wishlist:</td>
+			<td>${message:common.Wishlist}:</td>
 			<td>
 				<b>${wishRank}</b>
 			</td>
@@ -22,17 +22,17 @@
 	</table>
 	<t:if test="buyable">
 		<br/>
-		<t:pageLink page="market" context="[byArticle,article]"><b>View ${article.availableCopyCount}</b> item(s) in market</t:pageLink>
+		<t:pageLink page="market" context="[byArticle,article]"><b>${article.availableCopyCount}</b> ${message:history.viewinmarket}</t:pageLink>
 	</t:if>
 	<t:if test="notEmpty">
 		<br/>
 		<table style="text-align:center; width:100%">
 			<tr>
 				<td></td>
-				<td><b>Qty</b></td>
-				<td><b>Avg</b></td>
-				<td><b>Max</b></td>
-				<td><b>Min</b></td>
+				<td><b>${message:history.quantity}</b></td>
+				<td><b>${message:history.average}</b></td>
+				<td><b>${message:history.max}</b></td>
+				<td><b>${message:history.min}</b></td>
 			</tr>
 			<t:loop source="sellHistory" value="sellItemHistory" >
 				<tr>

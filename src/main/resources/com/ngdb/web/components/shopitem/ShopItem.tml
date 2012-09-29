@@ -35,7 +35,7 @@
 							<span class="price-label">${price}</span>
 						</p:else>
 					</t:if>
-					by
+					${message:common.by}
 					<t:pageLink page="market" context="shopItem.seller">${shopItem.seller.login}
 					</t:pageLink>
 				</span>

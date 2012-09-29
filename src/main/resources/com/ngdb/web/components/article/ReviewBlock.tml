@@ -23,10 +23,10 @@
                         <t:textfield value="url" t:id="url" style="width:80%" placeholder="http://www." />
                     </td>
                     <td>
-                        <t:textfield value="mark" t:id="mark" placeholder="rate 7/10 or 67%" style="width:80%"/>
+                        <t:textfield value="mark" t:id="mark" placeholder="7/10, 67%, ..." style="width:80%"/>
                     </td>
                     <td>
-                        <button class="btn btn-mini btn-primary pull-right" type="submit">Add review</button>
+                        <button class="btn btn-mini btn-primary pull-right" type="submit">${message:review.addreview}</button>
                     </td>
                 </tr>
             </t:form>

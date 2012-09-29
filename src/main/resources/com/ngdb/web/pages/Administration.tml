@@ -1,7 +1,7 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
-    <h1 class="black-bar rounded-bar big-bar">Administration</h1>
+    <h1 class="black-bar rounded-bar big-bar">${message:administration.title}</h1>
     <table class="table table-striped table-bordered table-condensed">
-        <tr><td><b>Delete an article</b></td>
+        <tr><td><b>${message:administration.deletearticle}</b></td>
             <td>
                 <t:form t:id="deleteAnArticleForm" class="form-horizontal">
                     <t:errors />
@@ -9,14 +9,14 @@
                         <fieldset>
                             <div class="control-group">
                                 <t:label for="articleId" class="control-label">
-                                    <b>Article ID</b><span class="star">*</span>
+                                    <b>${message:administration.articleid}</b><span class="star">*</span>
                                 </t:label>
                                 <div class="controls">
                                     <t:textfield value="articleId" t:id="articleId" />
                                 </div>
                             </div>
                             <div class="form-actions">
-                                <button class="btn btn-primary" type="submit">Submit</button>
+                                <button class="btn btn-primary" type="submit">${message:common.Submit}</button>
                             </div>
                         </fieldset>
                     </div>

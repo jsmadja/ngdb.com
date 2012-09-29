@@ -1,6 +1,6 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<div class="page-header">
-		<h1 class="orange-bar rounded-bar big-bar">My basket</h1>
+		<h1 class="orange-bar rounded-bar big-bar">${basket.title}</h1>
 	</div>
 
     <t:zone t:id="basketZone" id="basketZone">
@@ -19,10 +19,10 @@
 
     <div style="text-align:right">
         <p style="font-weight:bold">
-            Total: ${totalPrice}
+            ${message:common.Total}: ${totalPrice}
         </p>
         <p class="btn btn-warning pull-right" style="border-radius:5px; margin-bottom:10px">
-            <t:actionLink t:id="checkout" id="checkout" style="color:white">Checkout</t:actionLink>
+            <t:actionLink t:id="checkout" id="checkout" style="color:white">${message:basket.checkout}</t:actionLink>
         </p>
     </div>
 

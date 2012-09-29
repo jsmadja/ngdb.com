@@ -19,7 +19,7 @@
 					</td>
 					<td>
 						<t:textfield value="text" t:id="text" style="width:75%" />
-						<button class="btn btn-primary pull-right btn-mini" type="submit">Add note</button>
+						<button class="btn btn-primary pull-right btn-mini" type="submit">${message:note.addnote}</button>
 					</td>
 				</tr>
 			</t:form>

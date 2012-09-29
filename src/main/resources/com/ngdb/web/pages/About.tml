@@ -1,10 +1,10 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<div class="page-header">
-		<h1 class="black-bar rounded-bar big-bar">About</h1>
+		<h1 class="black-bar rounded-bar big-bar">${message:about.title}</h1>
 	</div>
 	
 	<p style="margin-top:20px">
-		The website neogeodb.com is a free site co-created by Takou and Anzymus, two neogeo lovers.
+		${message:about.content}
 	</p>
 	
 </t:layout>

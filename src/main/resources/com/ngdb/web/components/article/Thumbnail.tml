@@ -7,7 +7,7 @@
 			</p:else>
 		</t:if>
 		<p:else>
-			<t:pageLink page="${viewPage}" context="[article.id,article.suffix]">
+			<t:pageLink page="${article.viewPage}" context="[article.id,article.suffix]">
 				<img itemprop="image" class="thumbnail" src="${message:image.host.url}${url}" alt="${article.title}" title="${article.title}" />
 			</t:pageLink>
 		</p:else>
