@@ -1,12 +1,12 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<div class="users">
 		<div class="page-header">
-			<h1 class="black-bar rounded-bar big-bar">Members</h1>
+			<h1 class="black-bar rounded-bar big-bar">${message:members.title}</h1>
 		</div>
 		<div>
 			<t:grid pagerPosition="BOTH" rowsPerPage="17" model="model" source="users" class="table table-striped table-bordered table-condensed" row="user" >
 				<p:LoginHeader>
-					Member
+					${message:members.member}
 	            </p:LoginHeader>
 	            <p:LoginCell>
 	            	<t:pageLink page="user/UserView" context="user"><b>${user.login}</b></t:pageLink>

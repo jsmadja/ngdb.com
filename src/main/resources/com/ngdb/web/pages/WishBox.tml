@@ -2,18 +2,18 @@
     <div class="row-fluid">
         <div class="span2 well"  id="filters">
 
-            <div class="orange-bar half-rounded-bar small-bar">Article</div>
+            <div class="orange-bar half-rounded-bar small-bar">${message:common.Article}</div>
             <p>
-                <t:actionLink class="btn-mini" t:id="selectGames"><span class="${gameSelected}">Games</span> <span class="counter">(${numGames})</span></t:actionLink>
+                <t:actionLink class="btn-mini" t:id="selectGames"><span class="${gameSelected}">${message:common.Games}</span> <span class="counter">(${numGames})</span></t:actionLink>
             </p>
             <p>
-                <t:actionLink class="btn-mini" t:id="selectHardwares"><span class="${hardwareSelected}">Hardwares</span> <span class="counter">(${numHardwares})</span></t:actionLink>
+                <t:actionLink class="btn-mini" t:id="selectHardwares"><span class="${hardwareSelected}">${message:common.Hardwares}</span> <span class="counter">(${numHardwares})</span></t:actionLink>
             </p>
             <p>
-                <t:actionLink class="btn-mini" t:id="selectAccessories"><span class="${accessorySelected}">Accessories</span> <span class="counter">(${numAccessories})</span></t:actionLink>
+                <t:actionLink class="btn-mini" t:id="selectAccessories"><span class="${accessorySelected}">${message:common.Accessories}</span> <span class="counter">(${numAccessories})</span></t:actionLink>
             </p>
 
-            <div class="orange-bar half-rounded-bar small-bar">Platform</div>
+            <div class="orange-bar half-rounded-bar small-bar">${message:common.Platform}</div>
             <t:loop source="platforms" value="platform">
                 <t:if test="filteredByThisPlatform">
                     <p class="selected-link">
@@ -31,7 +31,7 @@
                 </t:if>
             </t:loop>
 
-            <div class="orange-bar half-rounded-bar small-bar">Origin</div>
+            <div class="orange-bar half-rounded-bar small-bar">${message:common.Origin}</div>
             <t:loop source="origins" value="origin">
                 <t:if test="filteredByThisOrigin">
                     <p class="selected-link">
@@ -49,16 +49,16 @@
                 </t:if>
             </t:loop>
             <t:actionLink t:id="clearFilters" class="btn btn-small btn-primary pull-left">
-                Clear filters
+                ${message:common.clearfilters}
             </t:actionLink>
         </div>
 
         <div class="wishBox span10" style="margin-left:1%">
             <div class="page-header">
-                <h1 class="orange-bar rounded-bar big-bar">Wishes</h1>
+                <h1 class="orange-bar rounded-bar big-bar">${message:wishbox.title}</h1>
             </div>
             <p>
-                <b>${numResults}</b> item(s) found for query <b><i><t:outputRaw value="${queryLabel}" /></i></b>
+                <b>${numResults}</b> ${message:wishbox.bookmarksearch} <b><i><t:outputRaw value="${queryLabel}" /></i></b>
             </p>
             <t:article.articles articles="wishes" />
         </div>
