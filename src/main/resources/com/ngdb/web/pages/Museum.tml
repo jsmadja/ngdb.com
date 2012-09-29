@@ -1,17 +1,17 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter" showLeftContent="false">
     <div class="row-fluid">
         <div class="span2 well"  id="filters">
-            <div class="blue-bar half-rounded-bar small-bar">Article</div>
+            <div class="blue-bar half-rounded-bar small-bar">${message:common.Article}</div>
             <p>
-                <t:actionLink class="btn-mini" t:id="selectGames"><span class="${gameSelected}">Games</span> <span class="counter">(${numGames})</span> </t:actionLink>
+                <t:actionLink class="btn-mini" t:id="selectGames"><span class="${gameSelected}">${message:common.Games}</span> <span class="counter">(${numGames})</span> </t:actionLink>
             </p>
             <p>
-                <t:actionLink class="btn-mini" t:id="selectHardwares"><span class="${hardwareSelected}">Hardwares</span> <span class="counter">(${numHardwares})</span></t:actionLink>
+                <t:actionLink class="btn-mini" t:id="selectHardwares"><span class="${hardwareSelected}">${message:common.Hardwares}</span> <span class="counter">(${numHardwares})</span></t:actionLink>
             </p>
             <p>
-                <t:actionLink class="btn-mini" t:id="selectAccessories"><span class="${accessorySelected}">Accessories</span> <span class="counter">(${numAccessories})</span></t:actionLink>
+                <t:actionLink class="btn-mini" t:id="selectAccessories"><span class="${accessorySelected}">${message:common.Accessories}</span> <span class="counter">(${numAccessories})</span></t:actionLink>
             </p>
-            <div class="blue-bar half-rounded-bar small-bar">Platform</div>
+            <div class="blue-bar half-rounded-bar small-bar">${message:common.Platform}</div>
             <t:loop source="platforms" value="platform">
                 <p>
                     <t:if test="filteredByThisPlatform">
@@ -29,7 +29,7 @@
                 </p>
             </t:loop>
 
-            <div class="blue-bar half-rounded-bar small-bar">Origin</div>
+            <div class="blue-bar half-rounded-bar small-bar">${message:common.Origin}</div>
             <t:loop source="origins" value="origin">
                 <p>
                     <t:if test="filteredByThisOrigin">
@@ -45,7 +45,7 @@
                 </p>
             </t:loop>
 
-            <div class="blue-bar half-rounded-bar small-bar">Publisher</div>
+            <div class="blue-bar half-rounded-bar small-bar">${message:common.Publisher}</div>
             <t:loop source="publishers" value="publisher">
                 <p>
                     <t:if test="filteredByThisPublisher">
@@ -61,16 +61,8 @@
                 </p>
             </t:loop>
 
-            <div class="blue-bar half-rounded-bar small-bar">Misc</div>
-            <p>
-                Tag: ${tag}
-            </p>
-            <p>
-                Release date: ${releaseDate}
-            </p>
-
             <t:actionLink t:id="clearFilters" class="btn btn-small btn-info">
-                Clear filters
+                ${message:common.clearfilters}
             </t:actionLink>
 
         </div>
@@ -79,18 +71,18 @@
             <div class="page-header">
                 <h1 class="blue-bar rounded-bar big-bar">
                     <t:if test="user">
-                        ${user.login}'s museum
+                        ${title}
                         <p:else>
-                            Museum
+                            ${message:museum.title}
                         </p:else>
                     </t:if>
                 </h1>
             </div>
 
             <p>
-                <b>${numResults}</b> item(s) found for query <b><i><t:outputRaw value="${queryLabel}" /></i></b>
+                <b>${numResults}</b> ${message:museum.results} <b><i><t:outputRaw value="${queryLabel}" /></i></b>
                 <span class="pull-right">
-                    <a href="${filterUrl}">Bookmark this filter</a>
+                    <a href="${filterUrl}">${message:market.bookmarksearch}</a>
                 </span>
             </p>
             <t:article.articles articles="articles" />

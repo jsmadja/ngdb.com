@@ -13,6 +13,7 @@ import com.ngdb.entities.user.User;
 import com.ngdb.web.Filter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 import org.hibernate.Session;
@@ -50,6 +51,9 @@ public class Museum {
 
     @Inject
     private Session session;
+
+    @Inject
+    private Messages messages;
 
     void onActivate() {
         if (filter == null || "true".equals(request.getParameter("display-all"))) {
@@ -251,6 +255,10 @@ public class Museum {
 
     public String getAccessorySelected() {
         return filter.isFilteredByAccessories() ? "selected":"";
+    }
+
+    public String getTitle() {
+        return messages.format("museum.usermuseum",filter.getFilteredUser().getLogin());
     }
 
 }
