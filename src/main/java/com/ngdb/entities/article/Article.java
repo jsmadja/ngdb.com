@@ -31,12 +31,12 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @AnalyzerDefs({
-        @AnalyzerDef(name = "noaccent",
-                tokenizer = @TokenizerDef(factory = SentenceTokenizerFactory.class),
-                filters = {
-                        @TokenFilterDef(factory = LowerCaseFilterFactory.class),
-                        @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class)
-                })
+    @AnalyzerDef(name = "noaccent",
+        tokenizer = @TokenizerDef(factory = SentenceTokenizerFactory.class),
+        filters = {
+            @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+            @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class)
+        })
 })
 public abstract class Article implements Comparable<Article>, Serializable{
 
@@ -339,7 +339,7 @@ public abstract class Article implements Comparable<Article>, Serializable{
     }
 
     public String getSuffix() {
-        return getTitle().replaceAll(" ","-")+"-"+getPlatformShortName()+"-"+getOriginTitle();
+        return getTitle().replaceAll("/","-").replaceAll(" ","-")+"-"+getPlatformShortName()+"-"+getOriginTitle();
     }
 
     public abstract boolean isGame();
