@@ -72,11 +72,6 @@ public class Stats {
     @Property
     private Long biggestWisherCount;
 
-    @Property
-    private Tag mostUsedTag;
-    @Property
-    private Long mostUsedTagCount;
-
     @Inject
     private ReferenceService referenceService;
     private List<Game> allGames;
@@ -109,9 +104,6 @@ public class Stats {
         this.biggestWisher = population.findById(entityCount.entityId);
         this.biggestWisherCount = entityCount.count;
 
-        entityCount = entityCountQuery("SELECT id,COUNT(*) FROM Tag GROUP BY name ORDER BY COUNT(*) DESC");
-        this.mostUsedTag = (Tag) session.load(Tag.class, entityCount.entityId);
-        this.mostUsedTagCount = entityCount.count;
     }
 
     public String getCoverProgress() {

@@ -16,7 +16,7 @@
 		</blockquote>
 	</t:loop>
 	<t:if test="!user">
-		<div class="alert alert-info"></div>
+		<div class="alert alert-info">${message:comment.alertregistration}</div>
 	</t:if>
 	<t:if test="user">
 		<t:form t:id="commentForm" class="form-horizontal" autofocus="false">

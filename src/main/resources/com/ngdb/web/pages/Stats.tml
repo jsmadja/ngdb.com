@@ -1,22 +1,21 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
-	<h1 class="black-bar rounded-bar big-bar">Stats</h1>
+	<h1 class="black-bar rounded-bar big-bar">${message:stats.title}</h1>
 	<table class="table table-striped table-bordered table-condensed">
 		<thead>
-			<tr><th>Statistic</th><th>Statistic value</th></tr>
+			<tr><th>${message:stats.statistic}</th><th>${message:stats.statisticvalue}</th></tr>
 		</thead>
 		<tbody>
-			<tr><td>Wishes</td><td>${wishListCount}</td></tr>
-			<tr><td>Members</td><td>${userCount}</td></tr>
-            <tr><td>Most owned article</td><td>${mostOwnedArticle} (${mostOwnedArticleCount})</td></tr>
-            <tr><td>Most wished article</td><td>${mostWishedArticle} (${mostWishedArticleCount})</td></tr>
-            <tr><td>Most for sale article</td><td>${mostForSaleArticle} (${mostForSaleArticleCount})</td></tr>
-            <tr><td>Biggest owner</td><td>${biggestCollectionner} (${biggestCollectionnerCount})</td></tr>
-            <tr><td>Biggest wisher</td><td>${biggestWisher} (${biggestWisherCount})</td></tr>
-            <tr><td>Most used tag</td><td>${mostUsedTag} (${mostUsedTagCount})</td></tr>
-            <tr><td>Review progress</td><td><t:outputRaw value="${reviewProgress}"/></td></tr>
-            <tr><td>Tagging progress</td><td><t:outputRaw value="${tagProgress}"/></td></tr>
-            <tr><td>Cover progress</td><td><table><t:outputRaw value="${coverProgress}"/></table></td></tr>
-            <tr><td>Contributors</td><td><ul><t:outputRaw value="${pictureContributors}"/></ul></td></tr>
+			<tr><td>${message:stats.wishes}</td><td>${wishListCount}</td></tr>
+			<tr><td>${message:stats.members}</td><td>${userCount}</td></tr>
+            <tr><td>${message:stats.mostownedarticle}</td><td>${mostOwnedArticle} (${mostOwnedArticleCount})</td></tr>
+            <tr><td>${message:stats.mostwishedarticle}</td><td>${mostWishedArticle} (${mostWishedArticleCount})</td></tr>
+            <tr><td>${message:stats.mostforsalearticle}</td><td>${mostForSaleArticle} (${mostForSaleArticleCount})</td></tr>
+            <tr><td>${message:stats.biggestowner}</td><td>${biggestCollectionner} (${biggestCollectionnerCount})</td></tr>
+            <tr><td>${message:stats.biggestwisher}</td><td>${biggestWisher} (${biggestWisherCount})</td></tr>
+            <tr><td>${message:stats.reviewprogress}</td><td><t:outputRaw value="${reviewProgress}"/></td></tr>
+            <tr><td>${message:stats.taggingprogress}</td><td><t:outputRaw value="${tagProgress}"/></td></tr>
+            <tr><td>${message:stats.coverprogress}</td><td><table><t:outputRaw value="${coverProgress}"/></table></td></tr>
+            <tr><td>${message:stats.contributors}</td><td><ul><t:outputRaw value="${pictureContributors}"/></ul></td></tr>
         </tbody>
 	</table>
 </t:layout>
