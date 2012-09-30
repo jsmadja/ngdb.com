@@ -1,5 +1,6 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
-	<t:if test="hasNoComments">
+    <h3>${message:comment.title}</h3>
+    <t:if test="hasNoComments">
 		<p>
 			${message:comment.nocomment}
 		</p>

@@ -15,7 +15,7 @@
         <div class="span9">
             <div class="page-header">
                 <h1 class="header">
-                    <t:pageLink page="${shopItem.article.viewpage}" context="shopItem.article">${shopItem.title}</t:pageLink>
+                    <t:pageLink page="${shopItem.article.viewpage}" context="[shopItem.article,shopItem.article.suffix]">${shopItem.title}</t:pageLink>
                     <span style="margin-left:10px;font-size:15px">
                         <img src="/img/flags/${shopItem.article.originTitle}.png" alt="${shopItem.article.originTitle}" /> <span class="platformLabel">${shopitem.article.platformShortName}</span>
                     </span>
