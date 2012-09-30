@@ -2,7 +2,7 @@
 	<div class="result">
 		<div class="page-header">
             <p>
-                <b>${results.size()}</b> ${messages:result.resultsfor} <b><i>${search}</i></b>
+                <b>${results.size()}</b> ${message:result.resultsfor} <b><i>${search}</i></b>
             </p>
 		</div>
         <t:article.articles articles="results" />
