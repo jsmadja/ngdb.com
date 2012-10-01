@@ -69,13 +69,15 @@
                 <div class="alert alert-info">${message:market.alertregistration}</div>
             </t:if>
 
-            <t:jquery.dialog t:clientId="forumCodeDialog" t:params="params">
-                <t:zone t:id="forumCodeZone" id="forumCodeZone" style="display:none">
-                    <textarea rows="20" value="details" cols="80" style="width:100%">
-                        ${forumCode}
-                    </textarea>
-                </t:zone>
-            </t:jquery.dialog>
+            <t:if test="logged">
+                <t:jquery.dialog t:clientId="forumCodeDialog" t:params="params">
+                    <t:zone t:id="forumCodeZone" id="forumCodeZone" style="display:none">
+                        <textarea rows="20" value="details" cols="80" style="width:100%">
+                            ${forumCode}
+                        </textarea>
+                    </t:zone>
+                </t:jquery.dialog>
+            </t:if>
 
             <p>
                 <b>${numResults}</b> ${message:market.results} <b><i><t:outputRaw value="${queryLabel}" /></i></b>
@@ -83,11 +85,13 @@
                     <a href="${filterUrl}">${message:market.bookmarksearch}</a>
                 </span>
             </p>
-            <p>
-                <t:jquery.dialogajaxlink t:id="forumCodeLink" t:dialog="forumCodeDialog" t:zone="forumCodeZone">
-                    <span class="label">${message:market.exportforum}</span>
-                </t:jquery.dialogajaxlink>
-            </p>
+            <t:if test="logged">
+                <p>
+                    <t:jquery.dialogajaxlink t:id="forumCodeLink" t:dialog="forumCodeDialog" t:zone="forumCodeZone">
+                        <span class="label">${message:market.exportforum}</span>
+                    </t:jquery.dialogajaxlink>
+                </p>
+            </t:if>
             <t:shopitem.shopitems items="shopItems"/>
 
         </div>
