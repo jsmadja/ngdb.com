@@ -66,7 +66,7 @@ public class ArticleFactory {
     }
 
     private Criteria allGames() {
-        return session.createCriteria(Game.class).setFetchSize(100).setCacheable(true);
+        return session.createCriteria(Game.class).setCacheable(true);
     }
 
     public Game getRandomGameWithMainPicture() {
