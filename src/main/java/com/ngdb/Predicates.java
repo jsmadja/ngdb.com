@@ -76,7 +76,7 @@ public class Predicates {
         @Override
         public boolean apply(Article article) {
             String platform = article.getPlatformShortName();
-            return platformShortName.equals(platform);
+            return platformShortName.equalsIgnoreCase(platform);
         }
 
     }
@@ -91,31 +91,9 @@ public class Predicates {
         @Override
         public boolean apply(Article article) {
             String origin = article.getOriginTitle();
-            return originTitle.equals(origin);
+            return originTitle.equalsIgnoreCase(origin);
         }
 
-    }
-
-    public static class Matching implements Predicate<Article> {
-
-        private String pattern;
-
-        public Matching(String searchItem) {
-            this.pattern = searchItem;
-        }
-
-        @Override
-        public boolean apply(Article article) {
-            return foundInTitle(article) || foundInTags(article);
-        }
-
-        private boolean foundInTags(Article article) {
-            return article.containsTag(pattern);
-        }
-
-        private boolean foundInTitle(Article article) {
-            return article.getTitle().toLowerCase().contains(pattern);
-        }
     }
 
 }
