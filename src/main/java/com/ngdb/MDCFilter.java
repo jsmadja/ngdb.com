@@ -29,6 +29,7 @@ public class MDCFilter implements Filter {
         put("37.59.48.24", "monitis-fr");
         put("78.46.43.234", "monitis-de");
         put("66.249.71.209", "google");
+        put("66.249.66.101", "google");
         put("127.0.0.1", "local");
     }};
 
