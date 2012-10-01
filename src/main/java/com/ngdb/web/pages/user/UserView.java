@@ -1,6 +1,7 @@
 package com.ngdb.web.pages.user;
 
 import com.ngdb.entities.Market;
+import com.ngdb.entities.WishBox;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.shop.Basket;
 import com.ngdb.entities.shop.ShopItem;
@@ -73,6 +74,9 @@ public class UserView {
 
     @Inject
     private AjaxResponseRenderer ajaxResponseRenderer;
+
+    @Inject
+    private WishBox wishBox;
 
     @OnEvent(EventConstants.ACTIVATE)
     void init() {
@@ -150,6 +154,10 @@ public class UserView {
 
     public boolean isTheCurrentUser() {
         return currentUser.equalsThis(user);
+    }
+
+    public List<Wish> getWishes() {
+        return wishBox.findAllOf(user);
     }
 
 }

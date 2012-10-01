@@ -1,16 +1,24 @@
 package com.ngdb.entities;
 
+import com.ngdb.Comparators;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.shop.Wish;
+import com.ngdb.entities.user.User;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import java.math.BigInteger;
+import java.util.Collections;
 import java.util.List;
 
+import static org.hibernate.criterion.Order.asc;
+import static org.hibernate.criterion.Order.desc;
 import static org.hibernate.criterion.Projections.countDistinct;
+import static org.hibernate.criterion.Restrictions.eq;
 
 public class WishBox {
 
@@ -82,4 +90,10 @@ public class WishBox {
         return findAllOn(platform, "Accessory");
     }
 
+    public List<Wish> findAllOf(User user) {
+        List<Wish> list = session.createCriteria(Wish.class).
+                add(eq("wisher", user)).
+                addOrder(desc("creationDate")).list();
+        return list;
+    }
 }

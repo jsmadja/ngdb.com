@@ -96,10 +96,6 @@ public class User extends AbstractEntity implements Comparable<User> {
         this.password = password;
     }
 
-    public Collection<Wish> getWishes() {
-        return wishList.getWishes();
-    }
-
     public ArticleCollection getCollection() {
         return collection;
     }

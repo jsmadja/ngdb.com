@@ -15,7 +15,7 @@
 			<h2>${user.login}'s wish list</h2>
 			<t:grid pagerPosition="BOTH"
                     inPlace="true"
-                    source="user.wishes"
+                    source="wishes"
                     row="wish"
                     rowsPerPage="10"
 				    include="title,wishDate"
