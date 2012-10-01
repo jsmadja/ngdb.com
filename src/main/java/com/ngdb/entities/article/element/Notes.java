@@ -26,15 +26,6 @@ public class Notes implements Iterable<Note> {
         return notes.iterator();
     }
 
-    public boolean contains(String name) {
-        for (Note note : notes) {
-            if (note.hasName(name) || note.hasValue(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void add(Note note) {
         notes.add(note);
     }

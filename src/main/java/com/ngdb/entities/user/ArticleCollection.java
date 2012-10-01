@@ -41,31 +41,8 @@ public class ArticleCollection {
         return transform(collection, fromCollectionObjectToArticle);
     }
 
-    public Collection<Article> getGames() {
-        return filter(getArticles(), isGame);
-    }
-
-    public Collection<Article> getHardwares() {
-        return filter(getArticles(), isHardware);
-    }
-
-    public Collection<Article> getAccessories() {
-        return filter(getArticles(), isAccessory);
-    }
-
     public int getNumArticles() {
         return collection.size();
     }
 
-    public long getNumHardwares() {
-        return getHardwares().size();
-    }
-
-    public long getNumGames() {
-        return getGames().size();
-    }
-
-    public long getNumAccessories() {
-        return getAccessories().size();
-    }
 }

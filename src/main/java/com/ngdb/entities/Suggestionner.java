@@ -20,8 +20,6 @@ import static com.google.common.collect.Collections2.filter;
 
 public class Suggestionner {
 
-	private static final Logger LOG = LoggerFactory.getLogger(Suggestionner.class);
-
 	private static Cache cache;
     public static final int MAX_SUGGESTIONS = 10;
 

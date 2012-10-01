@@ -51,8 +51,4 @@ public class Token extends AbstractEntity {
 		return value;
 	}
 
-	public boolean matches(String token) {
-		return value.equals(token);
-	}
-
 }

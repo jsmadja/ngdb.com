@@ -21,8 +21,6 @@ public class Registry {
     @Inject
     private Session session;
 
-    private static final Logger LOG = LoggerFactory.getLogger(Registry.class);
-
     public Collection<String> findAllTags() {
         return session.createCriteria(Tag.class).setProjection(distinct(property("name"))).addOrder(asc("name")).list();
     }
