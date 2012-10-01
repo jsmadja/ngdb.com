@@ -339,7 +339,12 @@ public abstract class Article implements Comparable<Article>, Serializable{
     }
 
     public String getSuffix() {
-        return getTitle().replaceAll("&","-").replaceAll("/","-").replaceAll(" ","-")+"-"+getPlatformShortName()+"-"+getOriginTitle();
+        String[] toReplace = {",", "&", "/", " ", "!", "\\(", "\\)", "'", "~"};
+        String title = getTitle();
+        for (String s : toReplace) {
+            title = title.replaceAll(s, "-");
+        }
+        return title+"-"+getPlatformShortName()+"-"+getOriginTitle();
     }
 
     public abstract boolean isGame();
