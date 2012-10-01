@@ -307,13 +307,6 @@ public abstract class Article implements Comparable<Article>, Serializable{
         pictures.remove(picture);
     }
 
-    public boolean containsTag(Tag tag) {
-        if(tags == null) {
-            return false;
-        }
-        return tags.contains(tag);
-    }
-
     public void addNote(Note note) {
         notes.add(note);
     }

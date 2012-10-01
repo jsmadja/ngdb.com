@@ -10,6 +10,7 @@ import org.apache.tapestry5.hibernate.HibernateSymbols;
 import org.apache.tapestry5.ioc.*;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.Local;
+import org.apache.tapestry5.ioc.annotations.Match;
 import org.apache.tapestry5.ioc.annotations.SubModule;
 import org.apache.tapestry5.ioc.internal.services.ResourceSymbolProvider;
 import org.apache.tapestry5.ioc.internal.util.ClasspathResource;
@@ -25,6 +26,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -135,5 +137,30 @@ public class AppModule {
     public static void contributeSymbolSource(OrderedConfiguration<SymbolProvider> configuration) {
         configuration.add("NGDB Properties", new ResourceSymbolProvider(new ClasspathResource("ngdb.properties")));
     }
+
+    @Match("ContextPathEncoder")
+    public static void adviseExceptionHandler(MethodAdviceReceiver receiver) throws SecurityException, NoSuchMethodException {
+        MethodAdvice advice = new MethodAdvice() {
+
+            private final String[] toReplace = {",", "&", " ", "!", "\\(", "\\)", "'", "~"};
+
+            public void advise(Invocation invocation) {
+                try {
+                    String param = (String) invocation.getParameter(0);
+                    if(param != null) {
+                        for(String r:toReplace) {
+                            param = param.replace(r, "-");
+                        }
+                        invocation.override(0, param);
+                    }
+                    invocation.proceed();
+                } catch (IllegalArgumentException e) {
+                }
+            }
+        };
+        Method method = ContextPathEncoder.class.getMethod("decodePath", String.class);
+        receiver.adviseMethod(method, advice);
+    }
+
 
 }

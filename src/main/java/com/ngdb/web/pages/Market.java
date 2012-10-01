@@ -22,6 +22,7 @@ import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONObject;
+import org.apache.tapestry5.services.ContextPathEncoder;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.hibernate.Session;
@@ -80,6 +81,7 @@ public class Market {
 
     @OnEvent(EventConstants.ACTIVATE)
     void init() {
+
         params = new JSONObject();
         params.put("width", 800);
         params.put("title", "Export to forums");
