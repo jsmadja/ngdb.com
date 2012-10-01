@@ -142,14 +142,14 @@ public class AppModule {
     public static void adviseExceptionHandler(MethodAdviceReceiver receiver) throws SecurityException, NoSuchMethodException {
         MethodAdvice advice = new MethodAdvice() {
 
-            private final String[] toReplace = {",", "&", " ", "!", "\\(", "\\)", "'", "~"};
+            private final String[] toReplace = {":", ",", "&", " ", "!", "\\(", "\\)", "'", "~"};
 
             public void advise(Invocation invocation) {
                 try {
                     String param = (String) invocation.getParameter(0);
                     if(param != null) {
                         for(String r:toReplace) {
-                            param = param.replace(r, "-");
+                            param = param.replaceAll(r, "-");
                         }
                         invocation.override(0, param);
                     }
