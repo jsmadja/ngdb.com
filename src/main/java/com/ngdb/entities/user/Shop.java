@@ -21,4 +21,10 @@ public class Shop {
         return Collections.unmodifiableCollection(shopItems);
     }
 
+    public int getNumShopItems() {
+        if(shopItems == null) {
+            return 0;
+        }
+        return shopItems.size();
+    }
 }

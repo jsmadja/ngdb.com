@@ -1,96 +1,122 @@
 package com.ngdb.entities;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
-import com.ngdb.ShopItemPredicates;
+import com.ngdb.entities.article.Accessory;
+import com.ngdb.entities.article.Article;
+import com.ngdb.entities.article.Game;
+import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.shop.ShopItem;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
-import static com.google.common.collect.Collections2.filter;
+import static org.hibernate.criterion.Order.asc;
+import static org.hibernate.criterion.Projections.countDistinct;
+import static org.hibernate.criterion.Projections.id;
+import static org.hibernate.criterion.Restrictions.eq;
+import static org.hibernate.criterion.Restrictions.in;
 
 public class MarketFilter extends AbstractFilter {
 
     private Market market;
+    private Session session;
 
-    public MarketFilter(com.ngdb.entities.Market market) {
+    public MarketFilter(com.ngdb.entities.Market market, Session session) {
         this.market = market;
+        this.session = session;
         clear();
     }
 
-    private Collection<ShopItem> applyFilters(List<Predicate<ShopItem>> filters) {
-        Collection<ShopItem> filteredShopItems = allShopItems();
-        buildFilters(filters);
-        for (Predicate<ShopItem> filter : filters) {
-            filteredShopItems = filter(filteredShopItems, filter);
+    public Collection<ShopItem> getShopItems() {
+        if(isFilteredByAnUserWithoutShopItems()) {
+            return new ArrayList<ShopItem>();
         }
-        return filteredShopItems;
+        Criteria articleCriteria = createArticleCriteria();
+        articleCriteria = addPlatformCriteria(articleCriteria, filteredPlatform);
+        articleCriteria = addOriginCriteria(articleCriteria, filteredOrigin);
+        List<Long> articles = articleCriteria.list();
+        if(articles.isEmpty()) {
+            return new ArrayList<ShopItem>();
+        }
+        Criteria criteria = session.createCriteria(ShopItem.class).add(eq("sold", false));
+        criteria = addUserFilter(criteria);
+        return criteria.add(in("article.id", articles)).addOrder(asc("priceInDollars")).list();
     }
 
-    private void buildFilters(List<Predicate<ShopItem>> filters) {
-        if (filteredOrigin != null) {
-            filters.add(new ShopItemPredicates.OriginPredicate(filteredOrigin));
+    private Criteria addPlatformCriteria(Criteria criteria, Platform platform) {
+        if(platform == null) {
+            return criteria;
         }
-        if (filteredPlatform != null) {
-            filters.add(new ShopItemPredicates.PlatformPredicate(filteredPlatform));
-        }
-        if (filteredArticle != null) {
-            filters.add(new ShopItemPredicates.ArticlePredicate(filteredArticle));
-        }
+        return criteria.add(eq("platformShortName", platform.getShortName()));
     }
 
-    public List<ShopItem> getShopItems() {
-        List<Predicate<ShopItem>> filters = Lists.newArrayList();
-        Collection<ShopItem> filteredShopItems = applyFilters(filters);
-        List<ShopItem> arrayList = new ArrayList<ShopItem>(filteredShopItems);
-        Collections.sort(arrayList);
-        return arrayList;
+    private Criteria addOriginCriteria(Criteria criteria, Origin origin) {
+        if(origin == null) {
+            return criteria;
+        }
+        return criteria.add(eq("originTitle", origin.getTitle()));
+    }
+
+    private Criteria createArticleCriteria() {
+        Class<? extends Article> clazz = Accessory.class;
+        if(isFilteredByGames()) {
+            clazz = Game.class;
+        }
+        if(isFilteredByHardwares()) {
+            clazz = Hardware.class;
+        }
+        return session.createCriteria(clazz).setProjection(id());
     }
 
     public int getNumShopItemsInThisOrigin(Origin origin) {
-        Collection<ShopItem> articles = allShopItems();
-        if (filteredPlatform != null) {
-            ShopItemPredicates.PlatformPredicate filterByPlatform = new ShopItemPredicates.PlatformPredicate(filteredPlatform);
-            articles = filter(articles, filterByPlatform);
+        if(isFilteredByAnUserWithoutShopItems()) {
+            return 0;
         }
-        ShopItemPredicates.OriginPredicate filterByOrigin = new ShopItemPredicates.OriginPredicate(origin);
-        articles = filter(articles, filterByOrigin);
-        return articles.size();
+        Criteria articleCriteria = createArticleCriteria();
+        if (filteredPlatform != null) {
+            articleCriteria = addPlatformCriteria(articleCriteria, filteredPlatform);
+        }
+        articleCriteria = addOriginCriteria(articleCriteria, origin);
+        List articles = articleCriteria.list();
+        if(articles.isEmpty()) {
+            return 0;
+        }
+        Criteria criteria = createShopItemCriteria().setProjection(countDistinct("id"));
+        criteria = addUserFilter(criteria);
+        return ((Long)criteria.add(in("article.id", articles)).uniqueResult()).intValue();
     }
 
     public int getNumShopItemsInThisPlatform(Platform platform) {
-        Collection<ShopItem> shopItems = allShopItems();
-        shopItems = filter(shopItems, new ShopItemPredicates.PlatformPredicate(platform));
-        return shopItems.size();
+        if(isFilteredByAnUserWithoutShopItems()) {
+            return 0;
+        }
+        Criteria articleCriteria = createArticleCriteria();
+        articleCriteria = addPlatformCriteria(articleCriteria, platform);
+        List articlesInThisPlatform = articleCriteria.list();
+        if(articlesInThisPlatform.isEmpty()) {
+            return 0;
+        }
+        Criteria criteria = createShopItemCriteria().setProjection(countDistinct("id"));
+        criteria = addUserFilter(criteria);
+        criteria = criteria.add(in("article.id", articlesInThisPlatform));
+        return ((Long)criteria.uniqueResult()).intValue();
     }
 
-    private Collection<ShopItem> allShopItems() {
-        Collection<ShopItem> allShopItems;
-        if (filteredByGames) {
-            if (filteredUser == null) {
-                allShopItems = new ArrayList<ShopItem>(market.findAllGamesForSale());
-            } else {
-                allShopItems = market.getAllGamesForSaleBy(filteredUser);
-            }
-        } else if(filteredByHardwares){
-            if (filteredUser == null) {
-                allShopItems = new ArrayList<ShopItem>(market.findAllHardwaresForSale());
-            } else {
-                allShopItems = market.getAllHardwaresForSaleBy(filteredUser);
-            }
-        } else {
-            if (filteredUser == null) {
-                allShopItems = new ArrayList<ShopItem>(market.findAllAccessoriesForSale());
-            } else {
-                allShopItems = market.getAllAccessoriesForSaleBy(filteredUser);
-            }
+    private Criteria addUserFilter(Criteria criteria) {
+        if(filteredUser != null) {
+            criteria = criteria.add(eq("seller", filteredUser));
         }
-        return new ArrayList<ShopItem>(allShopItems);
+        return criteria;
+    }
+
+    private Criteria createShopItemCriteria() {
+        return session.createCriteria(ShopItem.class);
+    }
+
+    private boolean isFilteredByAnUserWithoutShopItems() {
+        return filteredUser != null && filteredUser.getShop().getNumShopItems() == 0;
     }
 
     public long getNumHardwares() {

@@ -3,6 +3,7 @@ package com.ngdb.entities.article.element;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -15,7 +16,7 @@ import java.util.Set;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ShopItemPictures implements Iterable<Picture> {
 
-	@OneToMany(mappedBy = "shopItem", orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "shopItem", orphanRemoval = true, cascade = CascadeType.ALL)
 	private Set<Picture> pictures;
 
 	public Picture first() {

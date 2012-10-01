@@ -24,6 +24,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
+import org.hibernate.Session;
 
 import java.util.Collection;
 import java.util.List;
@@ -74,6 +75,9 @@ public class Market {
     @Inject
     private Messages messages;
 
+    @Inject
+    private Session session;
+
     @OnEvent(EventConstants.ACTIVATE)
     void init() {
         params = new JSONObject();
@@ -88,13 +92,13 @@ public class Market {
 
     void onActivate() {
         if (filter == null || "true".equals(request.getParameter("display-all"))) {
-            filter = new MarketFilter(market);
+            filter = new MarketFilter(market, session);
         }
         filter.initializeWithUrlParameters(request, referenceService, population);
     }
 
     boolean onActivate(User user) {
-        filter = new MarketFilter(market);
+        filter = new MarketFilter(market, session);
         filter.filterByUser(user);
         return true;
     }
@@ -104,7 +108,7 @@ public class Market {
             onActivate();
             return true;
         }
-        filter = new MarketFilter(market);
+        filter = new MarketFilter(market, session);
         Filter filter = Filter.valueOf(Filter.class, filterName);
         switch (filter) {
         case byUser:
@@ -235,7 +239,7 @@ public class Market {
     }
 
     public String getForumCode() {
-        List<ShopItem> shopItems = filter.getShopItems();
+        Collection<ShopItem> shopItems = filter.getShopItems();
         return ForumCode.asVBulletinCode(shopItems);
     }
 

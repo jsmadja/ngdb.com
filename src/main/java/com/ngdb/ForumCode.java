@@ -3,13 +3,14 @@ package com.ngdb;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.shop.ShopItem;
 
+import java.util.Collection;
 import java.util.List;
 
 import static java.lang.String.format;
 
 public class ForumCode {
 
-    public static String asVBulletinCode(List<ShopItem> shopItems) {
+    public static String asVBulletinCode(Collection<ShopItem> shopItems) {
         StringBuilder sb = new StringBuilder();
 
         for (ShopItem shopItem : shopItems) {
