@@ -1,6 +1,5 @@
 package com.ngdb.entities;
 
-import com.ngdb.Comparators;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
@@ -8,14 +7,10 @@ import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.User;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 
 import java.math.BigInteger;
-import java.util.Collections;
 import java.util.List;
 
-import static org.hibernate.criterion.Order.asc;
 import static org.hibernate.criterion.Order.desc;
 import static org.hibernate.criterion.Projections.countDistinct;
 import static org.hibernate.criterion.Restrictions.eq;
@@ -46,14 +41,6 @@ public class WishBox {
         return session.createSQLQuery("SELECT w.* FROM Wish w, "+tableName+" g WHERE g.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
     }
 
-    private List<Wish> findAllOn(Platform platform, String tableName) {
-        return session.createSQLQuery("SELECT w.* FROM Wish w, "+tableName+" g WHERE g.platform_short_name = '"+platform.getShortName()+"' AND g.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
-    }
-
-    private List<Wish> findAllFrom(Origin origin, String tableName) {
-        return session.createSQLQuery("SELECT w.* FROM Wish w, "+tableName+" g WHERE g.origin_title = '"+origin.getTitle()+"' AND g.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
-    }
-
     public List<Wish> findAllGames() {
         return findAll("Game");
     }
@@ -64,30 +51,6 @@ public class WishBox {
 
     public List<Wish> findAllAccessories() {
         return findAll("Accessory");
-    }
-
-    public List<Wish> findAllGamesOn(Platform platform) {
-        return findAllOn(platform, "Game");
-    }
-
-    public List<Wish> findAllHardwaresOn(Platform platform){
-        return findAllOn(platform, "Hardware");
-    }
-
-    public List<Wish> findAllGamesFrom(Origin origin) {
-        return findAllFrom(origin, "Game");
-    }
-
-    public List<Wish> findAllHardwaresFrom(Origin origin) {
-        return findAllFrom(origin, "Hardware");
-    }
-
-    public List<Wish> findAllAccessoriesFrom(Origin origin) {
-        return findAllFrom(origin, "Accessory");
-    }
-
-    public List<Wish> findAllAccessoriesOn(Platform platform) {
-        return findAllOn(platform, "Accessory");
     }
 
     public List<Wish> findAllOf(User user) {

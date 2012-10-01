@@ -51,7 +51,7 @@ public class WishBox {
 
     void onActivate() {
         if (filter == null  || "true".equals(request.getParameter("display-all"))) {
-            filter = new WishBoxFilter(wishBox);
+            filter = new WishBoxFilter(wishBox, session);
             filter.filterByGames();
             filter.filterByOrigin(referenceService.findOriginByTitle("Japan"));
             filter.filterByPlatform(referenceService.findPlatformByName("AES"));
@@ -63,7 +63,7 @@ public class WishBox {
             onActivate();
             return true;
         }
-        filter = new WishBoxFilter(wishBox);
+        filter = new WishBoxFilter(wishBox, session);
         Filter filter = Filter.valueOf(Filter.class, filterName);
         switch (filter) {
         case byUser:

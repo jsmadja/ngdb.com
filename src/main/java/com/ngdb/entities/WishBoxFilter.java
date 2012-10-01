@@ -1,124 +1,123 @@
 package com.ngdb.entities;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Lists;
-import com.ngdb.WishPredicates;
+import com.ngdb.entities.article.Accessory;
+import com.ngdb.entities.article.Article;
+import com.ngdb.entities.article.Game;
+import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.shop.Wish;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
-import static com.google.common.collect.Collections2.filter;
+import static org.hibernate.criterion.Order.desc;
+import static org.hibernate.criterion.Projections.countDistinct;
+import static org.hibernate.criterion.Projections.id;
+import static org.hibernate.criterion.Restrictions.eq;
+import static org.hibernate.criterion.Restrictions.in;
 
 public class WishBoxFilter extends AbstractFilter {
 
     private WishBox wishBox;
+    private Session session;
 
-    public WishBoxFilter(WishBox wishBox) {
+    public WishBoxFilter(WishBox wishBox, Session session) {
         this.wishBox = wishBox;
+        this.session = session;
         clear();
     }
 
-    private Collection<Wish> applyFilters(List<Predicate<Wish>> filters) {
-        Collection<Wish> filteredWishes = allWishes();
-        buildFilters(filters);
-        for (Predicate<Wish> filter : filters) {
-            filteredWishes = filter(filteredWishes, filter);
-        }
-        return filteredWishes;
-    }
-
-    private void buildFilters(List<Predicate<Wish>> filters) {
-        if (filteredOrigin != null) {
-            filters.add(new WishPredicates.OriginPredicate(filteredOrigin));
-        }
-        if (filteredPlatform != null) {
-            filters.add(new WishPredicates.PlatformPredicate(filteredPlatform));
-        }
-    }
-
     public List<Wish> getWishes() {
-        List<Predicate<Wish>> filters = Lists.newArrayList();
-        Collection<Wish> filteredArticle = applyFilters(filters);
-        List<Wish> wishes = new ArrayList<Wish>(filteredArticle);
-        Collections.sort(wishes);
-        return wishes;
+        if(isFilteredByAnUserWithoutWishes()) {
+            return new ArrayList<Wish>();
+        }
+        Criteria articleCriteria = createArticleCriteria();
+        articleCriteria = addPlatformCriteria(articleCriteria, filteredPlatform);
+        articleCriteria = addOriginCriteria(articleCriteria, filteredOrigin);
+        List<Long> articles = articleCriteria.list();
+        if(articles.isEmpty()) {
+            return new ArrayList<Wish>();
+        }
+        Criteria criteria = session.createCriteria(Wish.class);
+        criteria = addUserFilter(criteria);
+        return criteria.add(in("article.id", articles)).addOrder(desc("modificationDate")).list();
+    }
+
+    private Criteria addUserFilter(Criteria criteria) {
+        if(filteredUser != null) {
+            criteria = criteria.add(eq("wisher", filteredUser));
+        }
+        return criteria;
+    }
+
+    private Criteria createArticleCriteria() {
+        Class<? extends Article> clazz = Accessory.class;
+        if(isFilteredByGames()) {
+            clazz = Game.class;
+        }
+        if(isFilteredByHardwares()) {
+            clazz = Hardware.class;
+        }
+        return session.createCriteria(clazz).setProjection(id());
+    }
+
+    private Criteria addPlatformCriteria(Criteria criteria, Platform platform) {
+        if(platform == null) {
+            return criteria;
+        }
+        return criteria.add(eq("platformShortName", platform.getShortName()));
+    }
+
+    private Criteria addOriginCriteria(Criteria criteria, Origin origin) {
+        if(origin == null) {
+            return criteria;
+        }
+        return criteria.add(eq("originTitle", origin.getTitle()));
+    }
+
+    private boolean isFilteredByAnUserWithoutWishes() {
+        return filteredUser != null && filteredUser.getNumArticlesInWishList() == 0;
     }
 
     public int getNumWishesInThisOrigin(Origin origin) {
-        Collection<Wish> wishes = new ArrayList<Wish>();
-        if (filteredByGames) {
-            if (filteredUser == null) {
-                wishes.addAll(wishBox.findAllGamesFrom(origin));
-            } else {
-                wishes.addAll(Collections2.filter(filteredUser.getAllWishedGames(), new WishPredicates.OriginPredicate(origin)));
-            }
-        } else if(filteredByHardwares) {
-            if (filteredUser == null) {
-                wishes.addAll(new ArrayList<Wish>(wishBox.findAllHardwaresFrom(origin)));
-            } else {
-                wishes.addAll(Collections2.filter(filteredUser.getAllWishedHardwares(), new WishPredicates.OriginPredicate(origin)));
-            }
-        } else {
-            if (filteredUser == null) {
-                wishes.addAll(new ArrayList<Wish>(wishBox.findAllAccessoriesFrom(origin)));
-            } else {
-                wishes.addAll(Collections2.filter(filteredUser.getAllWishedAccessories(), new WishPredicates.OriginPredicate(origin)));
-            }
+        if(isFilteredByAnUserWithoutWishes()) {
+            return 0;
         }
-
+        Criteria articleCriteria = createArticleCriteria();
         if (filteredPlatform != null) {
-            WishPredicates.PlatformPredicate filterByPlatform = new WishPredicates.PlatformPredicate(filteredPlatform);
-            wishes = filter(wishes, filterByPlatform);
+            articleCriteria = addPlatformCriteria(articleCriteria, filteredPlatform);
         }
-        return wishes.size();
+        articleCriteria = addOriginCriteria(articleCriteria, origin);
+        List articles = articleCriteria.list();
+        if(articles.isEmpty()) {
+            return 0;
+        }
+        Criteria criteria = createWishCriteria().setProjection(countDistinct("id"));
+        criteria = addUserFilter(criteria);
+        return ((Long)criteria.add(in("article.id", articles)).uniqueResult()).intValue();
+    }
+
+    private Criteria createWishCriteria() {
+        return session.createCriteria(Wish.class);
     }
 
     public int getNumWishesInThisPlatform(Platform platform) {
-        Collection<Wish> wishes = new ArrayList<Wish>();
-        if (filteredByGames) {
-            if (filteredUser == null) {
-                wishes.addAll(wishBox.findAllGamesOn(platform));
-            } else {
-                wishes.addAll(filter(filteredUser.getAllWishedGames(), new WishPredicates.PlatformPredicate(platform)));
-            }
-        } else if(filteredByHardwares) {
-            if (filteredUser == null) {
-                wishes.addAll(wishBox.findAllHardwaresOn(platform));
-            } else {
-                wishes.addAll(filter(filteredUser.getAllWishedHardwares(), new WishPredicates.PlatformPredicate(platform)));
-            }
-        } else {
-            if (filteredUser == null) {
-                wishes.addAll(new ArrayList<Wish>(wishBox.findAllAccessoriesOn(platform)));
-            } else {
-                wishes.addAll(filter(filteredUser.getAllWishedAccessories(), new WishPredicates.PlatformPredicate(platform)));
-            }
+        if(isFilteredByAnUserWithoutWishes()) {
+            return 0;
         }
-        return wishes.size();
-    }
-
-    private Collection<Wish> allWishes() {
-        Collection<Wish> wishes = new ArrayList<Wish>();
-        if (filteredByGames) {
-            if (filteredUser == null) {
-                wishes.addAll(wishBox.findAllGames());
-            } else {
-                wishes.addAll(filteredUser.getAllWishedGames());
-            }
-        } else {
-            if (filteredUser == null) {
-                wishes.addAll(new ArrayList<Wish>(wishBox.findAllHardwares()));
-            } else {
-                wishes.addAll(filteredUser.getAllWishedHardwares());
-            }
+        Criteria articleCriteria = createArticleCriteria();
+        articleCriteria = addPlatformCriteria(articleCriteria, platform);
+        List articlesInThisPlatform = articleCriteria.list();
+        if(articlesInThisPlatform.isEmpty()) {
+            return 0;
         }
-        return wishes;
+        Criteria criteria = createWishCriteria().setProjection(countDistinct("id"));
+        criteria = addUserFilter(criteria);
+        criteria = criteria.add(in("article.id", articlesInThisPlatform));
+        return ((Long)criteria.uniqueResult()).intValue();
     }
 
     public long getNumHardwares() {
