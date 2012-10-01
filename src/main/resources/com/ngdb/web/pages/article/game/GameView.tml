@@ -14,7 +14,7 @@
 						MEGS
 					</span>
 				</div>
-				<t:if test="game.upc">
+				<t:if test="showUpc">
 					<div style="text-align:center;margin-top:10px;width:101px">
 						<img src="data:image/gif;base64,${upc}" alt="${game.upc}" />
                         <span itemprop="identifier" content="${game.upc}">${game.upc}</span>

@@ -69,4 +69,8 @@ public class HardwareView {
         return BarcodeUtil.toBarcodeBase64Image(hardware.getUpc());
     }
 
+    public boolean getShowUpc() {
+        return hardware.getUpc() != null && !"0000000000000".equals(hardware.getUpc());
+    }
+
 }

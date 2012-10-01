@@ -69,4 +69,8 @@ public class AccessoryView {
         return BarcodeUtil.toBarcodeBase64Image(accessory.getUpc());
     }
 
+    public boolean getShowUpc() {
+        return accessory.getUpc() != null && !"0000000000000".equals(accessory.getUpc());
+    }
+
 }

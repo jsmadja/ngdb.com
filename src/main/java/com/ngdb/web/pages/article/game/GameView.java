@@ -82,4 +82,8 @@ public class GameView {
         return BarcodeUtil.toBarcodeBase64Image(game.getUpc());
     }
 
+    public boolean getShowUpc() {
+        return game.getUpc() != null && !"0000000000000".equals(game.getUpc());
+    }
+
 }

@@ -3,7 +3,7 @@
 		<div class="row-fluid show-grid article">
 			<div class="span3">
 				<t:article.thumbnail article="accessory" noClick="true" size="literal:medium" />
-				<t:if test="accessory.upc">
+				<t:if test="showUpc">
 					<div style="text-align:center;margin-top:10px;width:101px">
 						<img src="data:image/gif;base64,${upc}" />
 						${accessory.upc}
