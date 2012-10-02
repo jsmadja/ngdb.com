@@ -1,7 +1,5 @@
 package com.ngdb.web.pages;
 
-import com.google.common.collect.Collections2;
-import com.ngdb.Predicates;
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.Population;
 import com.ngdb.entities.WishBox;
@@ -14,12 +12,15 @@ import com.ngdb.entities.user.User;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+
+import static org.hibernate.criterion.Projections.countDistinct;
+import static org.hibernate.criterion.Restrictions.eq;
+import static org.hibernate.criterion.Restrictions.isNotNull;
 
 public class Stats {
 
@@ -74,12 +75,9 @@ public class Stats {
 
     @Inject
     private ReferenceService referenceService;
-    private List<Game> allGames;
 
     @SetupRender
     public void init() {
-        allGames = articleFactory.findAllGames();
-
         this.userCount = population.getNumUsers();
         this.wishListCount = wishBox.getNumWishes();
         this.soldCount = market.getNumSoldItems();
@@ -111,10 +109,11 @@ public class Stats {
 
         List<Platform> platforms = referenceService.getPlatforms();
         for (Platform platform : platforms) {
-            Collection<Game> games = articleFactory.findAllGamesByPlatform(platform);
-            Collection<Game> gamesWithPictures = Collections2.filter(games, Predicates.hasPicture);
-            int numGamesWithPictures = gamesWithPictures.size();
-            int numGames = games.size();
+
+            Criteria countCriteria = session.createCriteria(Game.class).setProjection(countDistinct("id")).add(eq("platformShortName", platform.getShortName()));
+            long numGames = (Long) countCriteria.uniqueResult();
+            long numGamesWithPictures = (Long) countCriteria.add(isNotNull("coverUrl")).uniqueResult();
+
             int percent = (int) ((numGamesWithPictures / (float) numGames) * 100);
             sb.append("<tr>");
             sb.append("<td><b>").append(platform.getName()).append("</b></td>");
@@ -125,35 +124,17 @@ public class Stats {
     }
 
     public String getReviewProgress() {
-        StringBuilder sb = new StringBuilder();
-        List<Game> noReviewGames = new ArrayList<Game>(allGames);
-        List<Game> games = new ArrayList<Game>(allGames);
-        for (Game game : games) {
-            if(game.getHasReviews()) {
-                noReviewGames.removeAll(articleFactory.findAllGamesByNgh(game.getNgh()));
-            }
-        }
-        int numTotalGames = games.size();
-        int numReviewedGames = numTotalGames - noReviewGames.size();
+        long numTotalGames = (Long) session.createCriteria(Game.class).setProjection(countDistinct("id")).uniqueResult();
+        long numReviewedGames = ((BigInteger)session.createSQLQuery("SELECT count(id) FROM Game WHERE ngh in (SELECT ngh FROM Game WHERE id in (SELECT distinct article_id FROM Review))").uniqueResult()).longValue();
         int percent = (int) ((numReviewedGames / (float) numTotalGames) * 100);
-        sb.append(progressBar(percent));
-        return sb.toString();
+        return progressBar(percent);
     }
 
     public String getTagProgress() {
-        StringBuilder sb = new StringBuilder();
-        List<Game> noTagGames = new ArrayList<Game>(allGames);
-        List<Game> games = new ArrayList<Game>(allGames);
-        for (Game game : games) {
-            if(game.hasTags()) {
-                noTagGames.remove(game);
-            }
-        }
-        int numTotalGames = games.size();
-        int numTagGames = numTotalGames - noTagGames.size();
+        long numTotalGames = (Long) session.createCriteria(Game.class).setProjection(countDistinct("id")).uniqueResult();
+        long numTagGames = (Long)session.createCriteria(Tag.class).setProjection(countDistinct("article")).uniqueResult();
         int percent = (int) ((numTagGames / (float) numTotalGames) * 100);
-        sb.append(progressBar(percent));
-        return sb.toString();
+        return progressBar(percent);
     }
 
     private String progressBar(int percent) {
