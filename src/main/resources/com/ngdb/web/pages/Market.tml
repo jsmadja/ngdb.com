@@ -69,7 +69,7 @@
                 <div class="alert alert-info">${message:market.alertregistration}</div>
             </t:if>
 
-            <t:if test="logged">
+            <t:if test="me">
                 <t:jquery.dialog t:clientId="forumCodeDialog" t:params="params">
                     <t:zone t:id="forumCodeZone" id="forumCodeZone" style="display:none">
                         <textarea rows="20" value="details" cols="80" style="width:100%">
@@ -85,7 +85,7 @@
                     <a href="${filterUrl}">${message:market.bookmarksearch}</a>
                 </span>
             </p>
-            <t:if test="logged">
+            <t:if test="me">
                 <p>
                     <t:jquery.dialogajaxlink t:id="forumCodeLink" t:dialog="forumCodeDialog" t:zone="forumCodeZone">
                         <span class="label">${message:market.exportforum}</span>

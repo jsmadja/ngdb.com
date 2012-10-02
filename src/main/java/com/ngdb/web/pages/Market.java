@@ -240,6 +240,10 @@ public class Market {
         return currentUser.isLogged();
     }
 
+    public boolean isMe() {
+        return currentUser.equalsThis(filter.getFilteredUser());
+    }
+
     public String getForumCode() {
         Collection<ShopItem> shopItems = filter.getShopItems();
         return ForumCode.asVBulletinCode(shopItems);

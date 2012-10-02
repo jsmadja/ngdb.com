@@ -370,6 +370,9 @@ public class CurrentUser {
     }
 
     public boolean equalsThis(User user) {
+        if(user == null) {
+            return false;
+        }
         if(isAnonymous()) {
             return false;
         }
