@@ -14,15 +14,18 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.BeanModelSource;
 import org.hibernate.Session;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.ngdb.Comparators.byTitlePlatformOrigin;
 import static java.util.Collections.sort;
+import static org.hibernate.criterion.Projections.countDistinct;
 import static org.hibernate.criterion.Restrictions.isNull;
 
 public class Contribute {
 
+    public static final String SELECT_GAME = "SELECT * FROM Game";
     @Inject
     private Session session;
 
@@ -43,8 +46,6 @@ public class Contribute {
     private ArticleFactory articleFactory;
 
     @Persist
-    private List<Game> allGames;
-    @Persist
     private List<Article> coverUrl;
     @Persist
     private List<Article> upc;
@@ -55,7 +56,6 @@ public class Contribute {
 
     @SetupRender
     void init() {
-        allGames = articleFactory.findAllGames();
         articleModel = beanModelSource.createDisplayModel(Article.class, messages);
         articleModel.get("platformShortName").label("Platform").sortable(true);
         articleModel.get("originTitle").label("Origin").sortable(true);
@@ -78,13 +78,9 @@ public class Contribute {
     }
 
     private List<? extends Article> computeMissingReviewArticles() {
-        List<? extends Article> noReviewGames = new ArrayList<Article>(allGames);
-        List<Game> games = new ArrayList<Game>(allGames);
-        for (Game game : games) {
-            if(game.getHasReviews()) {
-                noReviewGames.removeAll(articleFactory.findAllGamesByNgh(game.getNgh()));
-            }
-        }
+        List<Game> reviewedGames = session.createSQLQuery(SELECT_GAME+" WHERE ngh in (SELECT ngh FROM Game WHERE id in (SELECT distinct article_id FROM Review))").addEntity(Game.class).list();
+        List<Game> noReviewGames = session.createSQLQuery(SELECT_GAME).addEntity(Game.class).list();
+        noReviewGames.removeAll(reviewedGames);
         sort(noReviewGames, byTitlePlatformOrigin);
         return noReviewGames;
     }
@@ -94,24 +90,13 @@ public class Contribute {
     }
 
     private List<? extends Article> computeMissingTagArticles() {
-        List<? extends Article> noTagGames = new ArrayList<Game>(allGames);
-        List<Game> games = new ArrayList<Game>(allGames);
-        for (Game game : games) {
-            if(!game.hasTags()) {
-                noTagGames.remove(game);
-            }
-        }
+        List<Game> noTagGames = session.createSQLQuery(SELECT_GAME +" WHERE id not in (SELECT distinct article_id FROM Tag)").addEntity(Game.class).list();
         sort(noTagGames, byTitlePlatformOrigin);
         return noTagGames;
     }
 
     private List<Article> getArticlesWithMissingProperty(String nullProperty) {
         List<Article> articles = new ArrayList<Article>();
-        /*
-        articles.addAll(session.createCriteria(Game.class).add(isNull(nullProperty)).list());
-        articles.addAll(session.createCriteria(Hardware.class).add(isNull(nullProperty)).list());
-        articles.addAll(session.createCriteria(Accessory.class).add(isNull(nullProperty)).list());
-        */
         articles.addAll(session.createCriteria(Article.class).add(isNull(nullProperty)).list());
         sort(articles, byTitlePlatformOrigin);
         return articles;
