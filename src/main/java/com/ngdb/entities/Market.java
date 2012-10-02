@@ -171,15 +171,6 @@ public class Market {
         return getNum(user, "Game");
     }
 
-    public String asVBulletinCode() {
-        List<ShopItem> shopItems = findAllItemsForSale();
-        return ForumCode.asVBulletinCode(shopItems);
-    }
-
-    public List<ShopItem> getShopItemsForSaleOf(User user) {
-        return session.createSQLQuery("SELECT * FROM ShopItem WHERE sold=0 AND seller_id = "+user.getId()).addEntity(ShopItem.class).setCacheable(true).list();
-    }
-
     public void sell(ShopItem shopItem) {
         shopItem.sold();
         session.merge(shopItem);

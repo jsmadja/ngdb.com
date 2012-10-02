@@ -44,10 +44,6 @@ public class ArticleFactory {
         return allGames().add(eq("ngh", ngh)).list();
     }
 
-    public Collection<Game> findAllGamesByPlatform(Platform platform) {
-        return allGames().add(eq("platformShortName", platform.getShortName())).list();
-    }
-
     public long getNumGames() {
         return findAllGamesLight().size();
     }

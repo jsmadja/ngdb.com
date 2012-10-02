@@ -128,10 +128,6 @@ public class User extends AbstractEntity implements Comparable<User> {
         return wishList.getNumWishes();
     }
 
-    public void removeFromBasket(ShopItem shopItem) {
-        basket.removeFromBasket(shopItem);
-    }
-
     @Override
     public int compareTo(User user) {
         return login.compareToIgnoreCase(user.getLogin());
@@ -139,18 +135,6 @@ public class User extends AbstractEntity implements Comparable<User> {
 
     public boolean isContributor() {
         return login.equalsIgnoreCase("anzymus") || login.equalsIgnoreCase("takou");
-    }
-
-    public Collection<Wish> getAllWishedGames() {
-        return wishList.getAllGames();
-    }
-
-    public Collection<Wish> getAllWishedHardwares() {
-        return wishList.getAllHardwares();
-    }
-
-    public Collection<Wish> getAllWishedAccessories() {
-        return wishList.getAllAccessories();
     }
 
     public int getNumWishedHardwares() {
