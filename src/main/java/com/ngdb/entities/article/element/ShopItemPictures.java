@@ -16,7 +16,7 @@ import java.util.Set;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ShopItemPictures implements Iterable<Picture> {
 
-	@OneToMany(mappedBy = "shopItem", orphanRemoval = true, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "shopItem", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Picture> pictures;
 
 	public Picture first() {
