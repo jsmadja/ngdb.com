@@ -11,38 +11,10 @@ import javax.annotation.Nullable;
 
 public class Predicates {
 
-    public static final Predicate<Article> hasPicture = new Predicate<Article>() {
-        @Override
-        public boolean apply(@Nullable Article input) {
-            return input.getPictures().count() > 0;
-        }
-    };
-
     public static Predicate<ShopItem> shopItemsForSale = new Predicate<ShopItem>() {
         @Override
         public boolean apply(ShopItem shopItem) {
             return !shopItem.isSold();
-        }
-    };
-
-    public static Predicate<Article> isGame = new Predicate<Article>() {
-        @Override
-        public boolean apply(Article input) {
-            return input.isGame();
-        }
-    };
-
-    public static Predicate<Article> isHardware = new Predicate<Article>() {
-        @Override
-        public boolean apply(Article input) {
-            return input.isHardware();
-        }
-    };
-
-    public static Predicate<Article> isAccessory = new Predicate<Article>() {
-        @Override
-        public boolean apply(Article input) {
-            return input.isAccessory();
         }
     };
 
