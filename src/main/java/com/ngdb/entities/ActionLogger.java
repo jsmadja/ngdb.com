@@ -36,10 +36,6 @@ public class ActionLogger {
         createAction(user, article, "added a new file on");
     }
 
-    public void addPictureAction(User user, Article article) {
-        createAction(user, article, "added a new picture on");
-    }
-
     public void addEditAction(User user, Article article) {
         createAction(user, article, "changed");
     }
@@ -60,4 +56,19 @@ public class ActionLogger {
         return criteria.list();
     }
 
+    public void addArticleInCollectionAction(User user, Article article) {
+        createAction(user, article, "added in his collection");
+    }
+
+    public void removeArticleFromCollectionAction(User user, Article article) {
+        createAction(user, article, "removed from his collection");
+    }
+
+    public void addArticleInWishlistAction(User user, Article article) {
+        createAction(user, article, "added in his wishlist");
+    }
+
+    public void removeArticleFromWishlistAction(User user, Article article) {
+        createAction(user, article, "removed from his wishlist");
+    }
 }

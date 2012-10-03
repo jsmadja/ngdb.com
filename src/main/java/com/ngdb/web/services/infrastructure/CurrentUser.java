@@ -179,11 +179,13 @@ public class CurrentUser {
     public void addToCollection(Article article) {
         CollectionObject collectionObject = getUserFromDb().addInCollection(article);
         session.merge(collectionObject);
+        actionLogger.addArticleInCollectionAction(getUser(), article);
     }
 
     public void removeFromCollection(Article article) {
         User userFromDb = getUserFromDb();
         userFromDb.removeFromCollection(article);
+        actionLogger.removeArticleFromCollectionAction(getUser(), article);
     }
 
     public boolean canWish(Article article) {
@@ -211,11 +213,13 @@ public class CurrentUser {
     public void wish(Article article) {
         Wish wish = getUserFromDb().addToWishes(article);
         session.merge(wish);
+        actionLogger.addArticleInWishlistAction(getUser(), article);
     }
 
     public void unwish(Article article) {
         User userFromDb = getUserFromDb();
         userFromDb.removeFromWishes(article);
+        actionLogger.removeArticleFromWishlistAction(getUser(), article);
     }
 
     public boolean canSell() {

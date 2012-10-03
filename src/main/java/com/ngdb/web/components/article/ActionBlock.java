@@ -71,7 +71,7 @@ public class ActionBlock {
 	void onActionFromAddToCollection(Article article) {
 		this.article = article;
 		currentUser.addToCollection(article);
-		ajaxResponseRenderer.addRender(getZoneId(), actionBlockZone.getBody());
+        ajaxResponseRenderer.addRender(getZoneId(), actionBlockZone.getBody());
 	}
 
 	@CommitAfter
