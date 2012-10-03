@@ -124,14 +124,14 @@ public class WishBoxFilter extends AbstractFilter {
         if (filteredUser != null) {
             return filteredUser.getNumWishedHardwares();
         }
-        return wishBox.findAllHardwares().size();
+        return wishBox.findNumHardwares();
     }
 
     public long getNumGames() {
         if (filteredUser != null) {
             return filteredUser.getNumWishedGames();
         }
-        return wishBox.findAllGames().size();
+        return wishBox.findNumGames();
     }
 
     @Override
@@ -139,7 +139,7 @@ public class WishBoxFilter extends AbstractFilter {
         if (filteredUser != null) {
             return filteredUser.getNumWishedAccessories();
         }
-        return wishBox.findAllAccessories().size();
+        return wishBox.findNumAccessories();
     }
 
 }

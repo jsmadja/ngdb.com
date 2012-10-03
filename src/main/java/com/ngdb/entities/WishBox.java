@@ -37,20 +37,20 @@ public class WishBox {
 		return Integer.MAX_VALUE;
 	}
 
-    private List<Wish> findAll(String tableName) {
-        return session.createSQLQuery("SELECT w.* FROM Wish w, "+tableName+" g WHERE g.id = w.article_id").addEntity(Wish.class).setCacheable(true).list();
+    private long findNum(String tableName) {
+        return ((BigInteger)session.createSQLQuery("SELECT COUNT(w.article_id) FROM Wish w, "+tableName+" g WHERE g.id = w.article_id").uniqueResult()).longValue();
     }
 
-    public List<Wish> findAllGames() {
-        return findAll("Game");
+    public long findNumGames() {
+        return findNum("Game");
     }
 
-    public List<Wish> findAllHardwares() {
-        return findAll("Hardware");
+    public long findNumAccessories() {
+        return findNum("Accessory");
     }
 
-    public List<Wish> findAllAccessories() {
-        return findAll("Accessory");
+    public long findNumHardwares() {
+        return findNum("Hardware");
     }
 
     public List<Wish> findAllOf(User user) {
