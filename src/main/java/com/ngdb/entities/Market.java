@@ -47,8 +47,7 @@ public class Market {
     }
 
     public List<ShopItem> findAllItemsForSale() {
-        List sold = allShopItems().add(eq("sold", false)).list();
-        return sold;
+        return allShopItems().add(eq("sold", false)).list();
     }
 
     private Criteria allShopItems() {
@@ -121,6 +120,10 @@ public class Market {
 
     public String getPriceOf(ShopItem shopItem) {
         String preferedCurrency = currentUser.getPreferedCurrency();
+        return getPriceOf(shopItem, preferedCurrency);
+    }
+
+    private String getPriceOf(ShopItem shopItem, String preferedCurrency) {
         if ("USD".equalsIgnoreCase(preferedCurrency)) {
             return "$" + shopItem.getPriceInDollars();
         }
@@ -187,5 +190,31 @@ public class Market {
 
     public void refresh() {
         cache.remove("all");
+    }
+
+    public void tellWishers(final ShopItem shopItem) {
+        Collection<User> wishers = shopItem.getWishers();
+        for (User wisher:wishers) {
+            sendEmailToWisher(shopItem, wisher);
+        }
+    }
+
+    private void sendEmailToWisher(final ShopItem shopItem, final User wisher) {
+        Map<String, String> params = new HashMap<String, String>() {{
+            Article article = shopItem.getArticle();
+            User user = shopItem.getSeller();
+            String origin = article.getOriginTitle();
+            String platform = article.getPlatformShortName();
+            put("username", wisher.getLogin());
+            put("seller", user.getLogin());
+            put("articleTitle", shopItem.getTitle());
+            put("articleOrigin", origin);
+            put("articlePlatform", platform);
+            put("description", shopItem.getDetails());
+            put("price", getPriceOf(shopItem, wisher.getPreferedCurrency()));
+            put("state", shopItem.getState().getTitle());
+            put("url", hostUrl + "market/"+user.getId()+"?platform=" + platform + "&origin=" + origin);
+        }};
+        mailService.sendMail(wisher, "new_shopitem", "Your dream comes true, you could buy "+shopItem.getTitle(), params);
     }
 }

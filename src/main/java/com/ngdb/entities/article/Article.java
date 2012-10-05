@@ -1,6 +1,8 @@
 package com.ngdb.entities.article;
 
+import com.google.common.base.Function;
 import com.google.common.base.Objects;
+import com.google.common.collect.Collections2;
 import com.ngdb.entities.article.element.*;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
@@ -20,12 +22,15 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.*;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import static com.google.common.collect.Collections2.transform;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -416,5 +421,14 @@ public abstract class Article implements Comparable<Article>, Serializable{
 
     public Date getModificationDate() {
         return modificationDate;
+    }
+
+    public Collection<User> getWishers() {
+        return new HashSet<User>(transform(wishList, new Function<Wish, User>() {
+            @Override
+            public User apply(@Nullable Wish input) {
+                return input.getWisher();
+            }
+        }));
     }
 }

@@ -1,5 +1,6 @@
 package com.ngdb.web.pages.shop;
 
+import com.ngdb.entities.Population;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.ReferenceService;
@@ -103,6 +104,9 @@ public class ShopItemCreate {
     @Inject
     private PageRenderLinkSource pageRenderLinkSource;
 
+    @Inject
+    private com.ngdb.entities.Market market;
+
     boolean onActivate(Article article) {
         this.article = article;
         this.state = referenceService.findStateByTitle("Used");
@@ -138,6 +142,7 @@ public class ShopItemCreate {
             shopItem.addPicture(picture);
             session.merge(picture);
         }
+        market.tellWishers(shopItem);
         return pageRenderLinkSource.createPageRenderLinkWithContext(Market.class, "byUser", currentUser.getUser());
     }
 

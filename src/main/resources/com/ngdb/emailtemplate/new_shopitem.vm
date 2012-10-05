@@ -1,0 +1,19 @@
+The NeoGeo database http://www.neogeodb.com/
+
+Hello ${username},
+
+${seller} has just put ${articleTitle} - ${articleOrigin} ${articlePlatform} in the market.
+
+--------------------------------------
+Detail
+--------------------------------------
+${description}
+
+In ${state} condition
+
+Price: ${price}
+
+You can access the market <a href="${url}">here</a> and buy this brand new article.
+
+Regards,
+The neogeodb admins

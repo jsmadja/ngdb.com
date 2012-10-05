@@ -35,15 +35,16 @@ public class MailService {
 
 	private Logger logger = Logger.getLogger(MailService.class);
 
-	private static final String HTML_BEGIN = "<html><body>";
-	private static final String HTML_END = "</body></html>";
-	private static final boolean HTML_CONTENT = true;
-
 	public void sendMail(User receiver, String template, Map<String, String> paramsTemplate) {
 		String body = emailBuilderService.build(template, paramsTemplate);
 		String subject = emailBuilderService.subject(template);
 		sendMail(receiver.getEmail(), body, subject);
 	}
+
+    public void sendMail(User receiver, String template, String subject, Map<String,String> paramsTemplate) {
+        String body = emailBuilderService.build(template, paramsTemplate);
+        sendMail(receiver.getEmail(), body, subject);
+    }
 
 	public void sendMail(String receiver, String body, String subject) {
         if (disable) {

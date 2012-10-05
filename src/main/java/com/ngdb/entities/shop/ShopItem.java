@@ -12,6 +12,7 @@ import org.ocpsoft.pretty.time.PrettyTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Set;
@@ -90,10 +91,6 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
         return details;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
     public User getSeller() {
         return seller;
     }
@@ -106,10 +103,6 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
         return id;
     }
 
-    public Date getModificationDate() {
-        return modificationDate;
-    }
-
     public void setState(State state) {
         this.state = state;
     }
@@ -118,10 +111,6 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
         details = StringUtils.defaultString(details);
         int end = details.length() < MAX_DETAIL_LENGTH ? details.length() : MAX_DETAIL_LENGTH;
         this.details = details.substring(0, end);
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
     }
 
     public void setArticle(Article article) {
@@ -180,10 +169,6 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
         return format("{0} by {1} for ${2} ({3}e)", getArticle().getTitle(), seller.getLogin(), getPriceInDollars(), getPriceInEuros());
     }
 
-    public String getForSaleDate() {
-        return new PrettyTime(Locale.UK).format(getCreationDate());
-    }
-
     public void setPriceInDollars(Double priceInDollars) {
         this.priceInDollars = priceInDollars;
     }
@@ -210,14 +195,6 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
             return 0;
         }
         return article.getTitle().compareToIgnoreCase(shopItem.article.getTitle());
-    }
-
-    public Set<User> getPotentialBuyers() {
-        return potentialBuyers.all();
-    }
-
-    public int getPicturesCount() {
-        return pictures.getCount();
     }
 
     public boolean hasCover() {
@@ -249,5 +226,9 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
 
     public void setOrder(ShopOrder shopOrder) {
         this.order = shopOrder;
+    }
+
+    public Collection<User> getWishers() {
+        return article.getWishers();
     }
 }
