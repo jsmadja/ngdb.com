@@ -1,6 +1,5 @@
 package com.ngdb.web.pages.shop;
 
-import com.ngdb.entities.Population;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.ReferenceService;
@@ -15,9 +14,11 @@ import com.ngdb.web.services.infrastructure.PictureService;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.SelectModel;
-import org.apache.tapestry5.annotations.*;
+import org.apache.tapestry5.annotations.DiscardAfter;
+import org.apache.tapestry5.annotations.OnEvent;
+import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.Validate;
-import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
@@ -30,8 +31,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static org.apache.commons.lang.StringUtils.remove;
-
 @RequiresUser
 public class ShopItemCreate {
 
@@ -41,15 +40,6 @@ public class ShopItemCreate {
     @Persist
     @Property
     @Validate("required")
-    private Double priceInDollars;
-
-    @Persist
-    @Property
-    @Validate("required")
-    private Double priceInEuros;
-
-    @Persist
-    @Property
     private Double priceInCustomCurrency;
 
     @Persist
@@ -88,15 +78,6 @@ public class ShopItemCreate {
     @Inject
     private ComponentResources componentResources;
 
-    @InjectComponent
-    private Zone priceZone;
-
-    @Property
-    private String suggestedPriceInEuros;
-
-    @Property
-    private String suggestedPriceInDollars;
-
     @Persist
     @Property
     private List<UploadedFile> pictures;
@@ -110,7 +91,11 @@ public class ShopItemCreate {
     boolean onActivate(Article article) {
         this.article = article;
         this.state = referenceService.findStateByTitle("Used");
-        this.customCurrency = "CHF";
+        if(currentUser.isAnonymous()) {
+            this.customCurrency = "USD";
+        } else {
+            this.customCurrency = currentUser.getPreferedCurrency();
+        }
         if (pictures == null) {
             pictures = new ArrayList<UploadedFile>();
         }
@@ -130,8 +115,6 @@ public class ShopItemCreate {
         ShopItem shopItem = new ShopItem();
         shopItem.setArticle(article);
         shopItem.setDetails(details);
-        shopItem.setPriceInDollars(priceInDollars);
-        shopItem.setPriceInEuros(priceInEuros);
         shopItem.setSeller(currentUser.getUser());
         shopItem.setState(state);
         shopItem.setPriceInCustomCurrency(priceInCustomCurrency);
@@ -151,28 +134,8 @@ public class ShopItemCreate {
     }
 
     public SelectModel getCustomCurrencies() {
-        Collection<String> currencies = currencyService.allCurrenciesWithout("USD", "EUR");
+        Collection<String> currencies = currencyService.allCurrencies();
         return new CustomCurrenciesList(currencies);
-    }
-
-    public Object onDollarsChanged() {
-        String priceToConvert = request.getParameter("param");
-        if (priceToConvert != null) {
-            priceInDollars = PriceUtils.stringPriceToDouble(priceToConvert);
-            priceInDollars = Double.valueOf(priceToConvert);
-            suggestedPriceInEuros = "Suggested EUR price ~ " + currencyService.fromDollarsToEuros(priceInDollars) + " €";
-        }
-        return request.isXHR() ? priceZone.getBody() : null;
-    }
-
-    public Object onEurosChanged() {
-        String priceToConvert = request.getParameter("param");
-        if (priceToConvert != null) {
-            priceInEuros = PriceUtils.stringPriceToDouble(priceToConvert);
-            priceInEuros = Double.valueOf(priceToConvert);
-            suggestedPriceInDollars = "Suggested USD price ~ $" + currencyService.fromEurosToDollars(priceInEuros);
-        }
-        return request.isXHR() ? priceZone.getBody() : null;
     }
 
 }

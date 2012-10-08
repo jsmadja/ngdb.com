@@ -1,10 +1,12 @@
 package com.ngdb.web.pages;
 
+import com.google.common.base.Predicate;
 import com.ngdb.Comparators;
 import com.ngdb.Predicates;
 import com.ngdb.StarsUtil;
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.Registry;
+import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
@@ -110,10 +112,10 @@ public class Result {
         results = hibernateSearchService.searchGames(query);
 
         if(filterPlatform != null) {
-            results = filter(results, new Predicates.PlatformPredicate(filterPlatform));
+            results = filter(results, new PlatformPredicate(filterPlatform));
         }
         if(filterOrigin != null) {
-            results = filter(results, new Predicates.OriginPredicate(filterOrigin));
+            results = filter(results, new OriginPredicate(filterOrigin));
         }
         results = new ArrayList<Game>(results);
         Collections.sort((List)results, Comparators.gamesByTitlePlatformOrigin);
@@ -133,5 +135,35 @@ public class Result {
 
     public void setSearch(String search) {
         this.search = search;
+    }
+
+    public static class PlatformPredicate implements Predicate<Article> {
+        private String platformShortName;
+
+        public PlatformPredicate(Platform platform) {
+            this.platformShortName = platform.getShortName();
+        }
+
+        @Override
+        public boolean apply(Article article) {
+            String platform = article.getPlatformShortName();
+            return platformShortName.equalsIgnoreCase(platform);
+        }
+
+    }
+
+    public static class OriginPredicate implements Predicate<Article> {
+        private String originTitle;
+
+        public OriginPredicate(Origin origin) {
+            this.originTitle = origin.getTitle();
+        }
+
+        @Override
+        public boolean apply(Article article) {
+            String origin = article.getOriginTitle();
+            return originTitle.equalsIgnoreCase(origin);
+        }
+
     }
 }

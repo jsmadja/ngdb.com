@@ -48,10 +48,11 @@ public class Basket implements Serializable, Iterable<ShopItem> {
     public String getTotalFor(User seller) {
         double sum = 0;
         List<ShopItem> shopItems = allItemsForSaleBy(seller);
+        String preferredCurrency = seller.getPreferedCurrency();
         for (ShopItem shopItem : shopItems) {
-            sum += shopItem.getPriceInDollars();
+            sum += shopItem.getPriceIn(preferredCurrency);
         }
-        return "$"+sum;
+        return preferredCurrency +" "+sum;
     }
 
     public void removeFromBasket(ShopItem shopItem) {

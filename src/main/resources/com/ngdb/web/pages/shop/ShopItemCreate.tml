@@ -9,46 +9,6 @@
         <t:errors />
         <div class="row-fluid">
             <div class="span6 well" style="padding-left:5px">
-                <t:zone t:id="priceZone" id="priceZone">
-                    <div class="control-group">
-                        <t:label for="priceInDollars" class="control-label">
-                            <b>Price in USD </b><span class="star">*</span>
-                        </t:label>
-                        <div class="controls">
-                            <div class="input-prepend input-append">
-                                <span class="add-on">$</span>
-                                <t:textfield style="max-width:50px" value="priceInDollars"
-                                             t:id="priceInDollars" placeholder="0.00" t:mixins="jquery/zoneUpdater"
-                                             t:clientEvent="blur" t:event="dollarsChanged" t:zone="priceZone" />
-                            </div>
-                            ${suggestedPriceInDollars}
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <t:label for="priceInDollars" class="control-label">
-                            <b>Price in EUR </b><span class="star">*</span>
-                        </t:label>
-
-                        <div class="controls">
-                            <div class="input-prepend input-append">
-                                <t:textfield style="max-width:50px" value="priceInEuros"
-                                             t:id="priceInEuros" placeholder="0.00" t:mixins="jquery/zoneUpdater"
-                                             t:clientEvent="blur" t:event="eurosChanged" t:zone="priceZone" />
-                                <span class="add-on">€</span>
-                            </div>
-                            ${suggestedPriceInEuros}
-                        </div>
-                    </div>
-                </t:zone>
-                <div class="control-group">
-                    <t:label for="state" class="control-label"><b>State </b><span class="star">*</span> : </t:label>
-                    <div class="controls">
-                        <t:select value="state" model="states" t:id="state" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="span6 well" style="padding-left:5px">
                 <div class="control-group">
                     <t:label for="priceInCustomCurrency" class="control-label">
                         <b>Price in </b>
@@ -59,6 +19,15 @@
                                      t:id="priceInCustomCurrency" />
                     </div>
                 </div>
+                <div class="control-group">
+                    <t:label for="state" class="control-label"><b>State </b><span class="star">*</span> : </t:label>
+                    <div class="controls">
+                        <t:select value="state" model="states" t:id="state" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="span6 well" style="padding-left:5px">
                 <div class="control-group">
                     <span class="control-label"><b>Pictures</b></span>
                     <div class="controls">

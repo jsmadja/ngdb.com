@@ -4,8 +4,11 @@
 	</div>
 
     <t:zone t:id="basketZone" id="basketZone">
-        <t:grid row="shopItem" source="basket" include="title,details,priceInDollars" add="seller,remove" reorder="remove,title,details,seller,priceInDollars" class="table table-striped table-bordered table-condensed">
+        <t:grid row="shopItem" source="basket" include="title,details,priceInCustomCurrency" add="seller,remove" reorder="remove,title,details,seller,priceInCustomCurrency" class="table table-striped table-bordered table-condensed">
             <p:removeHeader></p:removeHeader>
+            <p:TitleHeader>${message:common.Article}</p:TitleHeader>
+            <p:SellerHeader>${message:common.Seller}</p:SellerHeader>
+            <p:priceInCustomCurrencyHeader>${message:common.Price}</p:priceInCustomCurrencyHeader>
             <p:sellerCell>
                 <t:pageLink page="market" context="shopItem.seller">${shopItem.seller.login}</t:pageLink>
             </p:sellerCell>

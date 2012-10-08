@@ -6,6 +6,8 @@ import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.services.HibernateSearchService;
 import com.ngdb.web.services.infrastructure.*;
 import org.apache.tapestry5.SymbolConstants;
+import org.apache.tapestry5.hibernate.HibernateConfigurer;
+import org.apache.tapestry5.hibernate.HibernateSessionSource;
 import org.apache.tapestry5.hibernate.HibernateSymbols;
 import org.apache.tapestry5.ioc.*;
 import org.apache.tapestry5.ioc.annotations.Contribute;
@@ -49,6 +51,20 @@ public class AppModule {
     public static void contributeHibernateEntityPackageManager(Configuration<String> configuration) {
         configuration.add("com.ngdb.entities");
     }
+
+    @Contribute(HibernateSessionSource.class)
+    public static void contributeHibernateSessionSource(OrderedConfiguration<HibernateConfigurer> configuration,
+                                                        final CurrencyService currencyService) {
+        HibernateConfigurer configurer = new HibernateConfigurer() {
+            @Override
+            public void configure(org.hibernate.cfg.Configuration hbConfiguration) {
+                hbConfiguration.setInterceptor(new EntityServiceInjectionInterceptor(currencyService));
+            }
+        };
+        configuration.add("CurrencyService Interceptor", configurer);
+    }
+
+
 
     /**
      * This is a service definition, the service will be named TimingFilter. The interface,

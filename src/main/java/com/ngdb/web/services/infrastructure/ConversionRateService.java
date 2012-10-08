@@ -23,28 +23,17 @@ public class ConversionRateService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ConversionRateService.class);
 
-	private static final double EUROS_TO_DOLLARS_RATE = 1.2428;
-	private static final double DOLLARS_TO_EUROS_DATE = 0.804634696;
-
 	private static Map<CurrencyUnit, Double> conversionRates = new HashMap<CurrencyUnit, Double>();
 
 	private Date nextUpdate = new Date();
 
-	public double getEurosToDollarRate() {
-		reloadIfNeeded();
-		if (conversionRates.isEmpty()) {
-			return EUROS_TO_DOLLARS_RATE;
-		}
-		return 1 / conversionRates.get(EUR);
-	}
-
-	public double getDollarToEurosRate() {
-		reloadIfNeeded();
-		if (conversionRates.isEmpty()) {
-			return DOLLARS_TO_EUROS_DATE;
-		}
-		return conversionRates.get(EUR);
-	}
+    public double getRate(String from, String to) {
+        reloadIfNeeded();
+        if (conversionRates.isEmpty()) {
+            throw new UnavailableRatingException("Unavailable Rate "+from+" -> "+to);
+        }
+        return conversionRates.get(to) / conversionRates.get(from);
+    }
 
 	private void reloadIfNeeded() {
 		if (new Date().after(nextUpdate)) {
@@ -63,7 +52,7 @@ public class ConversionRateService {
 				insertConversionRate(matcher);
 			}
 		} catch (Exception e) {
-			LOG.error("Cannot retrieve conversion rates", e);
+			LOG.error("Cannot retrieve conversion rates, "+e.getMessage());
 		}
 	}
 
@@ -77,7 +66,7 @@ public class ConversionRateService {
 		}
 	}
 
-	private String getLastRates() throws MalformedURLException, IOException {
+	private String getLastRates() throws IOException {
 		URL url = new URL("http://openexchangerates.org/latest.json");
 		URLConnection openConnection = url.openConnection();
 		return new String(ByteStreams.toByteArray(openConnection.getInputStream()));

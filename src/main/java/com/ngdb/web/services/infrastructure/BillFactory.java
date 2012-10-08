@@ -50,24 +50,24 @@ public class BillFactory {
         bill.append("--------------------------------------\n\n");
 
         for (ShopItem shopItem : shopItems) {
-            insertArticleLine(bill, shopItem);
+            insertArticleLine(bill, shopItem, seller.getPreferedCurrency());
             order.addShopItem(shopItem);
         }
 
         return bill.toString();
     }
 
-    private void insertArticleLine(StringBuilder bill, ShopItem shopItem) {
+    private void insertArticleLine(StringBuilder bill, ShopItem shopItem, String currency) {
         Article article = shopItem.getArticle();
         String platform = article.getPlatformShortName();
         String origin = article.getOriginTitle();
         String title = shopItem.getTitle();
-        Double priceInDollars = shopItem.getPriceInDollars();
+        String price = shopItem.getPriceAsStringIn(currency);
         String details = shopItem.getDetails();
 
         bill.append(title).append(" (").append(platform).append(" / ").append(origin).append(")\n");
         bill.append("http://www.neogeodb.com/").append(article.getViewPage()).append("/").append(article.getId()).append("\n");
-        bill.append("Quantity: 1   Condition: ").append(shopItem.getState().getTitle()).append("   Price: $").append(priceInDollars).append("\n");
+        bill.append("Quantity: 1   Condition: ").append(shopItem.getState().getTitle()).append("   Price: ").append(price).append("\n");
         if(details != null) {
             bill.append("Description: ").append(details).append("\n\n");
         }

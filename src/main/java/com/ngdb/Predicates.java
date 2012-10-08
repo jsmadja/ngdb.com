@@ -38,34 +38,4 @@ public class Predicates {
         }
     };
 
-    public static class PlatformPredicate implements Predicate<Article> {
-        private String platformShortName;
-
-        public PlatformPredicate(Platform platform) {
-            this.platformShortName = platform.getShortName();
-        }
-
-        @Override
-        public boolean apply(Article article) {
-            String platform = article.getPlatformShortName();
-            return platformShortName.equalsIgnoreCase(platform);
-        }
-
-    }
-
-    public static class OriginPredicate implements Predicate<Article> {
-        private String originTitle;
-
-        public OriginPredicate(Origin origin) {
-            this.originTitle = origin.getTitle();
-        }
-
-        @Override
-        public boolean apply(Article article) {
-            String origin = article.getOriginTitle();
-            return originTitle.equalsIgnoreCase(origin);
-        }
-
-    }
-
 }

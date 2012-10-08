@@ -1,12 +1,12 @@
 package com.ngdb.entities;
 
 import com.google.common.base.Predicate;
-import com.ngdb.ForumCode;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.services.MailService;
 import com.ngdb.web.services.infrastructure.CurrentUser;
+import com.ngdb.web.services.infrastructure.UnavailableRatingException;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
@@ -118,25 +118,16 @@ public class Market {
         session.delete(shopItem);
     }
 
-    public String getPriceOf(ShopItem shopItem) {
-        String preferedCurrency = currentUser.getPreferedCurrency();
-        return getPriceOf(shopItem, preferedCurrency);
-    }
-
-    private String getPriceOf(ShopItem shopItem, String preferedCurrency) {
-        if ("USD".equalsIgnoreCase(preferedCurrency)) {
-            return "$" + shopItem.getPriceInDollars();
+    public String getPriceForCurrentUser(ShopItem shopItem) {
+        if(currentUser.isAnonymous()) {
+            return shopItem.getPriceInCustomCurrency() + " "+shopItem.getCustomCurrency();
         }
-        if ("EUR".equalsIgnoreCase(preferedCurrency)) {
-            return shopItem.getPriceInEuros() + " €";
+        String preferredCurrency = currentUser.getPreferedCurrency();
+        try {
+            return shopItem.getPriceIn(preferredCurrency) + " "+ preferredCurrency;
+        }catch(UnavailableRatingException e) {
+            return shopItem.getPriceInCustomCurrency() + " "+shopItem.getCustomCurrency();
         }
-        if (shopItem.getPriceIn(preferedCurrency) != null) {
-            return shopItem.getPriceIn(preferedCurrency) + " " + preferedCurrency;
-        }
-        if (currentUser.isFrench()) {
-            return shopItem.getPriceInEuros() + " €";
-        }
-        return "$" + shopItem.getPriceInEuros();
     }
 
     public Set<User> findSellersOf(Article article) {
@@ -211,7 +202,7 @@ public class Market {
             put("articleOrigin", origin);
             put("articlePlatform", platform);
             put("description", shopItem.getDetails());
-            put("price", getPriceOf(shopItem, wisher.getPreferedCurrency()));
+            put("price", shopItem.getPriceAsStringIn(wisher.getPreferedCurrency()));
             put("state", shopItem.getState().getTitle());
             put("url", hostUrl + "market/"+user.getId()+"?platform=" + platform + "&origin=" + origin);
         }};

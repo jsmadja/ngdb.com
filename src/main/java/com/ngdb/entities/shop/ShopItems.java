@@ -21,6 +21,8 @@ import static java.lang.Double.MIN_VALUE;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ShopItems implements Iterable<ShopItem>{
 
+    private static final String consolidatedCurrency = "USD";
+
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private Set<ShopItem> shopItems;
 
@@ -40,6 +42,7 @@ public class ShopItems implements Iterable<ShopItem>{
         return shopItemsByState(state).size();
     }
 
+
     public double getAveragePriceInState(State state) {
         Collection<ShopItem> shopItems = shopItemsByState(state);
         if (shopItems.size() == 0) {
@@ -47,7 +50,7 @@ public class ShopItems implements Iterable<ShopItem>{
         }
         double sum = 0;
         for (ShopItem shopItem : shopItems) {
-            sum += shopItem.getPriceInDollars();
+            sum += shopItem.getPriceIn(consolidatedCurrency);
         }
         return sum / shopItems.size();
     }
@@ -55,7 +58,7 @@ public class ShopItems implements Iterable<ShopItem>{
     public double getMaxPriceInState(State state) {
         Double max = MIN_VALUE;
         for (ShopItem shopItem : shopItemsByState(state)) {
-            max = Math.max(max, shopItem.getPriceInDollars());
+            max = Math.max(max, shopItem.getPriceIn(consolidatedCurrency));
         }
         if (max.equals(MIN_VALUE)) {
             return 0;
@@ -66,7 +69,7 @@ public class ShopItems implements Iterable<ShopItem>{
     public double getMinPriceInState(State state) {
         Double min = MAX_VALUE;
         for (ShopItem shopItem : shopItemsByState(state)) {
-            min = Math.min(min, shopItem.getPriceInDollars());
+            min = Math.min(min, shopItem.getPriceIn(consolidatedCurrency));
         }
         if (min.equals(MAX_VALUE)) {
             return 0;

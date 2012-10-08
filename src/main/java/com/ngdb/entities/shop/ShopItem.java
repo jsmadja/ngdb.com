@@ -5,6 +5,8 @@ import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.article.element.ShopItemPictures;
 import com.ngdb.entities.reference.State;
 import com.ngdb.entities.user.User;
+import com.ngdb.web.services.infrastructure.CurrencyService;
+import com.ngdb.web.services.infrastructure.UnavailableRatingException;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -55,13 +57,12 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
 
     private Boolean sold = false;
 
-    private Double priceInDollars;
-
-    private Double priceInEuros;
-
     private Double priceInCustomCurrency;
 
     private String customCurrency;
+
+    @Transient
+    private CurrencyService currencyService;
 
     @Embedded
     private PotentialBuyers potentialBuyers;
@@ -166,26 +167,10 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
 
     @Override
     public String toString() {
-        return format("{0} by {1} for ${2} ({3}e)", getArticle().getTitle(), seller.getLogin(), getPriceInDollars(), getPriceInEuros());
+        return format("{0} by {1} for {2} {3})", getArticle().getTitle(), seller.getLogin(), getCustomCurrency(), getPriceInCustomCurrency());
     }
 
-    public void setPriceInDollars(Double priceInDollars) {
-        this.priceInDollars = priceInDollars;
-    }
-
-    public Double getPriceInDollars() {
-        return priceInDollars;
-    }
-
-    public void setPriceInEuros(Double priceInEuros) {
-        this.priceInEuros = priceInEuros;
-    }
-
-    public Double getPriceInEuros() {
-        return priceInEuros;
-    }
-
-    public void removePicture(Picture picture) {
+   public void removePicture(Picture picture) {
         pictures.remove(picture);
     }
 
@@ -221,7 +206,18 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
         if (currency.equalsIgnoreCase(customCurrency)) {
             return priceInCustomCurrency;
         }
-        return null;
+        return currencyService.fromToRate(priceInCustomCurrency, customCurrency, currency);
+    }
+
+    public String getPriceAsStringIn(String currency) {
+        if (currency.equalsIgnoreCase(customCurrency)) {
+            return priceInCustomCurrency+" "+customCurrency;
+        }
+        try {
+            return currencyService.fromToRate(priceInCustomCurrency, customCurrency, currency)+ " "+currency;
+        }catch(UnavailableRatingException e) {
+            return priceInCustomCurrency + " "+customCurrency;
+        }
     }
 
     public void setOrder(ShopOrder shopOrder) {
@@ -230,5 +226,9 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
 
     public Collection<User> getWishers() {
         return article.getWishers();
+    }
+
+    public void setCurrencyService(CurrencyService currencyService) {
+        this.currencyService = currencyService;
     }
 }

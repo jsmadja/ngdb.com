@@ -99,7 +99,7 @@ public class Menu {
     }
 
 	public String getPrice() {
-		return market.getPriceOf(shopItem);
+		return market.getPriceForCurrentUser(shopItem);
 	}
 
 }

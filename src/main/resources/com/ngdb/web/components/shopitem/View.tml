@@ -40,11 +40,7 @@
                         <b>${message:common.Price} : </b>
                     </td>
                     <td>
-                        <t:if test="shopItem.priceInCustomCurrency">
-                            ${shopItem.customCurrency} ${shopItem.priceInCustomCurrency} /
-                        </t:if>
-                        $${shopItem.priceInDollars} or ${shopItem.priceInEuros} €
-
+                        ${shopItem.customCurrency} ${shopItem.priceInCustomCurrency}
                     </td>
                 </tr>
                 <tr>

@@ -47,13 +47,12 @@ public class Basket {
     }
 
     public String getTotalPrice() {
-        double totalInDollars = 0;
-        double totalInEuros = 0;
+        double total = 0;
+        String preferredCurrency = currentUser.getPreferedCurrency();
         for (ShopItem item : getBasket()) {
-            totalInDollars+=item.getPriceInDollars();
-            totalInEuros+=item.getPriceInEuros();
+            total+=item.getPriceIn(preferredCurrency);
         }
-        return "$"+totalInDollars;
+        return preferredCurrency +" "+total;
     }
 
     @CommitAfter

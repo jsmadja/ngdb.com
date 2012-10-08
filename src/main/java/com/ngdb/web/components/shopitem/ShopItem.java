@@ -52,7 +52,7 @@ public class ShopItem {
 	}
 
 	public String getPrice() {
-		return market.getPriceOf(shopItem);
+		return market.getPriceForCurrentUser(shopItem);
 	}
 
 	public String getTitle() {

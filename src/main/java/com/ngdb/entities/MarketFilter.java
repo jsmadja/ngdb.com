@@ -42,7 +42,7 @@ public class MarketFilter extends AbstractFilter {
         }
         Criteria criteria = session.createCriteria(ShopItem.class).add(eq("sold", false));
         criteria = addUserFilter(criteria);
-        return criteria.add(in("article.id", articles)).addOrder(asc("priceInDollars")).list();
+        return criteria.add(in("article.id", articles)).addOrder(asc("priceInCustomCurrency")).list();
     }
 
     private Criteria addPlatformCriteria(Criteria criteria, Platform platform) {

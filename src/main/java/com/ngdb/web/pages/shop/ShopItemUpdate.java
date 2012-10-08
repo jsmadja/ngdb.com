@@ -43,15 +43,6 @@ public class ShopItemUpdate {
     @Persist
     @Property
     @Validate("required")
-    private Double priceInDollars;
-
-    @Persist
-    @Property
-    @Validate("required")
-    private Double priceInEuros;
-
-    @Persist
-    @Property
     private Double priceInCustomCurrency;
 
     @Persist
@@ -84,18 +75,6 @@ public class ShopItemUpdate {
     @Inject
     private Request request;
 
-    @Inject
-    private ComponentResources componentResources;
-
-    @InjectComponent
-    private Zone priceZone;
-
-    @Property
-    private String suggestedPriceInEuros;
-
-    @Property
-    private String suggestedPriceInDollars;
-
     @Persist
     @Property
     private List<UploadedFile> pictures;
@@ -116,8 +95,6 @@ public class ShopItemUpdate {
     boolean onActivate(ShopItem shopItem) {
         this.shopItem = shopItem;
         this.details = shopItem.getDetails();
-        this.priceInDollars = shopItem.getPriceInDollars();
-        this.priceInEuros = shopItem.getPriceInEuros();
         this.state = shopItem.getState();
         this.shopItem.updateModificationDate();
         this.storedPictures = shopItem.getPictures().all();
@@ -140,8 +117,6 @@ public class ShopItemUpdate {
     @DiscardAfter
     public Object onSuccess() {
         shopItem.setDetails(details);
-        shopItem.setPriceInDollars(priceInDollars);
-        shopItem.setPriceInEuros(priceInEuros);
         shopItem.setState(state);
         shopItem.setPriceInCustomCurrency(priceInCustomCurrency);
         shopItem.setCustomCurrency(customCurrency);
@@ -159,26 +134,8 @@ public class ShopItemUpdate {
     }
 
     public SelectModel getCustomCurrencies() {
-        Collection<String> currencies = currencyService.allCurrenciesWithout("USD", "EUR");
+        Collection<String> currencies = currencyService.allCurrencies();
         return new CustomCurrenciesList(currencies);
-    }
-
-    public Object onDollarsChanged() {
-        String priceToConvert = request.getParameter("param");
-        if (priceToConvert != null) {
-            priceInDollars = PriceUtils.stringPriceToDouble(priceToConvert);
-            suggestedPriceInEuros = "Suggested EUR price ~ " + currencyService.fromDollarsToEuros(priceInDollars) + " €";
-        }
-        return request.isXHR() ? priceZone.getBody() : null;
-    }
-
-    public Object onEurosChanged() {
-        String priceToConvert = request.getParameter("param");
-        if (priceToConvert != null) {
-            priceInEuros = PriceUtils.stringPriceToDouble(priceToConvert);
-            suggestedPriceInDollars = "Suggested USD price ~ $" + currencyService.fromEurosToDollars(priceInEuros);
-        }
-        return request.isXHR() ? priceZone.getBody() : null;
     }
 
     @CommitAfter
