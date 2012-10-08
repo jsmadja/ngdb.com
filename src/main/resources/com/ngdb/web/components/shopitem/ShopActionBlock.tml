@@ -18,7 +18,7 @@
                     <div class="btn-group pull-right">
                         <a class="btn dropdown-toggle pull-right" data-toggle="dropdown"
                             href="#">
-                            ${message:common.action}
+                            ${message:common.Actions}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
