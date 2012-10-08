@@ -45,6 +45,9 @@
                         model="model"
                         row="shopItem"
                         class="table table-striped table-bordered table-condensed" >
+                    <p:priceHeader>${message:common.Price}</p:priceHeader>
+                    <p:titleHeader>${message:common.Article}</p:titleHeader>
+                    <p:detailsHeader>${message:common.Details}</p:detailsHeader>
                     <p:thumbnailColumnHeader></p:thumbnailColumnHeader>
                     <p:thumbnailColumnCell>
                         <t:jquery.dialogajaxlink t:id="link1" t:dialog="shopItemDialog" t:zone="shopItemZone" t:context="shopItem" >
