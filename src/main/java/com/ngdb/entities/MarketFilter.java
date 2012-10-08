@@ -41,6 +41,7 @@ public class MarketFilter extends AbstractFilter {
             return new ArrayList<ShopItem>();
         }
         Criteria criteria = session.createCriteria(ShopItem.class).add(eq("sold", false));
+        criteria = addArticleCriteria(criteria, filteredArticle);
         criteria = addUserFilter(criteria);
         return criteria.add(in("article.id", articles)).addOrder(asc("priceInCustomCurrency")).list();
     }
@@ -57,6 +58,13 @@ public class MarketFilter extends AbstractFilter {
             return criteria;
         }
         return criteria.add(eq("originTitle", origin.getTitle()));
+    }
+
+    private Criteria addArticleCriteria(Criteria criteria, Article article) {
+        if(article == null) {
+            return criteria;
+        }
+        return criteria.add(eq("article", article));
     }
 
     private Criteria createArticleCriteria() {
