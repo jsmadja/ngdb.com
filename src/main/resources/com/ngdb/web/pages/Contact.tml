@@ -20,7 +20,7 @@
                 <t:if test="anonymous">
                     <div class="control-group">
                         <t:label for="title" class="control-label">
-                            <b>${message:contact.nameoremail}</b> <span class="star">*</span>
+                            <b>${message:contact.email}</b> <span class="star">*</span>
                         </t:label>
                         <div class="controls">
                             <t:textfield value="from" t:id="from" />
@@ -35,16 +35,6 @@
                         <t:textarea rows="6" value="comment" t:id="comment" style="width:60%" />
                     </div>
                 </div>
-                <t:if test="anonymous">
-                    <div class="control-group">
-                        <t:label for="captcha" class="control-label">
-                            <b>${message:contact.captcha}</b> <span class="star">*</span>
-                        </t:label>
-                        <div class="controls">
-                            <t:textfield value="captcha" t:id="captcha" />
-                        </div>
-                    </div>
-                </t:if>
                 <div class="form-actions">
                     <button class="btn btn-primary" type="submit">${message:common.Submit}</button>
                 </div>

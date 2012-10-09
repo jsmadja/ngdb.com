@@ -26,14 +26,11 @@ public class Contact {
     private String title;
 
     @Property
-    private String captcha;
-
-    @Property
     @Validate("required")
     private String comment;
 
     @Property
-    @Validate("required")
+    @Validate("required,email")
     private String from;
 
     @Persist
@@ -56,12 +53,6 @@ public class Contact {
     @Inject
     private Messages messages;
 
-    @InjectComponent
-    private Form contactForm;
-
-    @InjectComponent("captcha")
-    private TextField captchaField;
-
     private static final Logger LOG = LoggerFactory.getLogger(Contact.class);
 
     public void onActivate() {
@@ -77,17 +68,6 @@ public class Contact {
         this.title = title;
         this.id = id;
         return true;
-    }
-
-    @SetupRender
-    public void init() {
-        captcha = "";
-    }
-
-    public void onValidate() {
-        if(isAnonymous() && !"fury".equalsIgnoreCase(captcha)) {
-            contactForm.recordError(captchaField, messages.get("contact.error.captcha"));
-        }
     }
 
     public Object onSuccess() {
