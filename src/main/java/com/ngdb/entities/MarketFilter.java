@@ -93,6 +93,7 @@ public class MarketFilter extends AbstractFilter {
         }
         Criteria criteria = createShopItemCriteria().setProjection(countDistinct("id"));
         criteria = addUserFilter(criteria);
+        criteria = addSoldFilter(criteria);
         return ((Long)criteria.add(in("article.id", articles)).uniqueResult()).intValue();
     }
 
@@ -108,6 +109,7 @@ public class MarketFilter extends AbstractFilter {
         }
         Criteria criteria = createShopItemCriteria().setProjection(countDistinct("id"));
         criteria = addUserFilter(criteria);
+        criteria = addSoldFilter(criteria);
         criteria = criteria.add(in("article.id", articlesInThisPlatform));
         return ((Long)criteria.uniqueResult()).intValue();
     }
@@ -116,6 +118,11 @@ public class MarketFilter extends AbstractFilter {
         if(filteredUser != null) {
             criteria = criteria.add(eq("seller", filteredUser));
         }
+        return criteria;
+    }
+
+    private Criteria addSoldFilter(Criteria criteria) {
+        criteria = criteria.add(eq("sold", false));
         return criteria;
     }
 
