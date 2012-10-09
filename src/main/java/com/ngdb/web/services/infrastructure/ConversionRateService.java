@@ -23,14 +23,23 @@ public class ConversionRateService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ConversionRateService.class);
 
-	private static Map<CurrencyUnit, Double> conversionRates = new HashMap<CurrencyUnit, Double>();
+	private static Map<String, Double> conversionRates = new HashMap<String, Double>();
 
 	private Date nextUpdate = new Date();
 
     public double getRate(String from, String to) {
+        if(from.equalsIgnoreCase(to)) {
+            return 1;
+        }
         reloadIfNeeded();
         if (conversionRates.isEmpty()) {
             throw new UnavailableRatingException("Unavailable Rate "+from+" -> "+to);
+        }
+        if("USD".equalsIgnoreCase(from)) {
+            return conversionRates.get(to);
+        }
+        if("USD".equalsIgnoreCase(to)) {
+            return 1/conversionRates.get(from);
         }
         return conversionRates.get(to) / conversionRates.get(from);
     }
@@ -46,7 +55,7 @@ public class ConversionRateService {
 		try {
 			String content = getLastRates();
 			conversionRates.clear();
-			Pattern conversionRatesPattern = Pattern.compile("\"([A-Z]{3})\": ([0-9].*[0-9]*),");
+			Pattern conversionRatesPattern = Pattern.compile("\"([A-Z]{3})\": ([0-9]+\\.*[0-9]*),");
 			Matcher matcher = conversionRatesPattern.matcher(content);
 			while (matcher.find()) {
 				insertConversionRate(matcher);
@@ -60,7 +69,7 @@ public class ConversionRateService {
 		try {
 			CurrencyUnit currency = CurrencyUnit.of(matcher.group(1));
 			Double conversionRateToDollar = Double.valueOf(matcher.group(2));
-			conversionRates.put(currency, conversionRateToDollar);
+			conversionRates.put(currency.getCode(), conversionRateToDollar);
 		} catch (IllegalCurrencyException e) {
 			System.err.println(e.getMessage());
 		}

@@ -167,7 +167,7 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
 
     @Override
     public String toString() {
-        return format("{0} by {1} for {2} {3})", getArticle().getTitle(), seller.getLogin(), getCustomCurrency(), getPriceInCustomCurrency());
+        return format("{0} by {1} for {2} {3}", getArticle().getTitle(), seller.getLogin(), getCustomCurrency(), getPriceInCustomCurrency());
     }
 
    public void removePicture(Picture picture) {

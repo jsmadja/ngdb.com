@@ -15,6 +15,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 import java.math.BigInteger;
@@ -40,6 +42,8 @@ public class Market {
     private CurrentUser currentUser;
 
     private static Cache cache;
+
+    private static final Logger LOG = LoggerFactory.getLogger(Market.class);
 
     static {
         CacheManager create = CacheManager.create();
@@ -126,6 +130,7 @@ public class Market {
         try {
             return shopItem.getPriceIn(preferredCurrency) + " "+ preferredCurrency;
         }catch(UnavailableRatingException e) {
+            LOG.warn(e.getMessage());
             return shopItem.getPriceInCustomCurrency() + " "+shopItem.getCustomCurrency();
         }
     }
