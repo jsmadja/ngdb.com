@@ -11,7 +11,7 @@
 			</tr>
 		</t:loop>
         <span style="display:none" itemprop="review" itemscope="" itemtype="http://data-vocabulary.org/Review-aggregate">
-              <span itemprop="rating">${article.AverageMarkAsDouble}</span> <span itemprop="votes">${article.reviews.count()}</span> reviews
+              <span itemprop="rating">${averageMarkAsDouble}</span> <span itemprop="votes">${reviewsCount}</span> reviews
         </span>
         <t:if test="user?.contributor">
             <t:form t:id="reviewForm" id="reviewForm" t:autofocus="false">

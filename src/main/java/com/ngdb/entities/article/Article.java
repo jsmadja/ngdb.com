@@ -362,18 +362,7 @@ public abstract class Article implements Comparable<Article>, Serializable{
         return Integer.toString((sum / reviews.count()) / 2);
     }
 
-    public double getAverageMarkAsDouble() {
-        if (!getHasReviews()) {
-            return 0;
-        }
-        int sum = 0;
-        for (Review review : reviews) {
-            sum += review.getMarkInPercent();
-        }
-        return (sum / reviews.count()) / 20;
-    }
-
-    public boolean getHasReviews() {
+   public boolean getHasReviews() {
         if(reviews == null) {
             return false;
         }
