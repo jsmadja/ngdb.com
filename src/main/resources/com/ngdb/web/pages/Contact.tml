@@ -1,47 +1,53 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<div class="page-header">
-		<h1 class="black-bar rounded-bar big-bar">Contact</h1>
+		<h1 class="black-bar rounded-bar big-bar">${message:contact.title}</h1>
 	</div>
     <div class="row-fluid">
         <div class="span12 well" style="padding-left:5px">
             <t:if test="message">
 				<div class="alert alert-info">${message}</div>
 			</t:if>
-			<t:form t:id="contactForm" class="form-horizontal">
+			<t:form t:id="contactForm">
 				<t:errors />
-				<div class="control-group">
-					<fieldset>
-						<div class="control-group">
-							<t:label for="title" class="control-label">
-								<b>Title</b><span class="star">*</span>
-							</t:label>
-							<div class="controls">
-								<t:textfield value="title" t:id="title" />
-							</div>
-						</div>
-						<t:if test="anonymous">
-							<div class="control-group">
-								<t:label for="title" class="control-label">
-									<b>Your name or email</b> <span class="star">*</span>
-								</t:label>
-								<div class="controls">
-									<t:textfield value="from" t:id="from" />
-								</div>
-							</div>
-						</t:if>
-						<div class="control-group">
-							<t:label for="comment" class="control-label">
-								<b>Comment</b> <span class="star">*</span>
-							</t:label>
-							<div class="controls">
-								<t:textarea rows="6" value="comment" t:id="comment" style="width:60%" />
-							</div>
-						</div>
-						<div class="form-actions">
-							<button class="btn btn-primary" type="submit">Submit</button>
-						</div>
-					</fieldset>
-				</div>
+                <div class="control-group">
+                    <t:label for="title" class="control-label">
+                        <b>${message:common.Title}</b><span class="star">*</span>
+                    </t:label>
+                    <div class="controls">
+                        <t:textfield value="title" t:id="title" />
+                    </div>
+                </div>
+                <t:if test="anonymous">
+                    <div class="control-group">
+                        <t:label for="title" class="control-label">
+                            <b>${message:contact.nameoremail}</b> <span class="star">*</span>
+                        </t:label>
+                        <div class="controls">
+                            <t:textfield value="from" t:id="from" />
+                        </div>
+                    </div>
+                </t:if>
+                <div class="control-group">
+                    <t:label for="comment" class="control-label">
+                        <b>${message:contact.comment}</b> <span class="star">*</span>
+                    </t:label>
+                    <div class="controls">
+                        <t:textarea rows="6" value="comment" t:id="comment" style="width:60%" />
+                    </div>
+                </div>
+                <t:if test="anonymous">
+                    <div class="control-group">
+                        <t:label for="captcha" class="control-label">
+                            <b>${message:contact.captcha}</b> <span class="star">*</span>
+                        </t:label>
+                        <div class="controls">
+                            <t:textfield value="captcha" t:id="captcha" />
+                        </div>
+                    </div>
+                </t:if>
+                <div class="form-actions">
+                    <button class="btn btn-primary" type="submit">${message:common.Submit}</button>
+                </div>
 			</t:form>
 		</div>
 	</div>

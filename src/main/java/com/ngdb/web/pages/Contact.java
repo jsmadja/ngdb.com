@@ -4,18 +4,29 @@ import com.ngdb.entities.Population;
 import com.ngdb.web.services.MailService;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.commons.lang.StringUtils;
+import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.beaneditor.Validate;
+import org.apache.tapestry5.corelib.components.Form;
+import org.apache.tapestry5.corelib.components.TextField;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.apache.commons.lang.StringUtils.isNotBlank;
+import static org.apache.commons.lang.StringUtils.isNotEmpty;
 
 public class Contact {
 
     @Property
     @Validate("required")
     private String title;
+
+    @Property
+    private String captcha;
 
     @Property
     @Validate("required")
@@ -42,6 +53,15 @@ public class Contact {
     @Inject
     private CurrentUser currentUser;
 
+    @Inject
+    private Messages messages;
+
+    @InjectComponent
+    private Form contactForm;
+
+    @InjectComponent("captcha")
+    private TextField captchaField;
+
     private static final Logger LOG = LoggerFactory.getLogger(Contact.class);
 
     public void onActivate() {
@@ -59,8 +79,19 @@ public class Contact {
         return true;
     }
 
+    @SetupRender
+    public void init() {
+        captcha = "";
+    }
+
+    public void onValidate() {
+        if(isAnonymous() && !"fury".equalsIgnoreCase(captcha)) {
+            contactForm.recordError(captchaField, messages.get("contact.error.captcha"));
+        }
+    }
+
     public Object onSuccess() {
-        if (StringUtils.isNotEmpty(comment)) {
+        if (isNotBlank(comment)) {
             String body = "[CONTACT] " + comment + " - ";
             if (id != null) {
                 body += " article #" + id + ", ";
