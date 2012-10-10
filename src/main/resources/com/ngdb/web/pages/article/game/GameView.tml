@@ -59,17 +59,20 @@
 
                 <t:article.fileBlock article="game" />
 
-                <p>
-                    <span style="font-size:8pt"><i>${message:common.lastedit} <t:common.date value="${game.modificationDate}"/></i></span>
-					<t:pagelink class="pull-right label label-important" page="contact" context="[game.title, game.id]">
-						<i class="icon-flag icon-white"></i>
-                        ${message:common.somethingswrong}
-					</t:pagelink>
-				</p>
-
                 <t:article.history article="game" />
 
+                <t:article.related game="game" />
+
+                <p style="margin-top:10px">
+                    <span style="font-size:8pt"><i>${message:common.lastedit} <t:common.date value="${game.modificationDate}"/></i></span>
+                    <t:pagelink class="pull-right label label-important" page="contact" context="[game.title, game.id]">
+                        <i class="icon-flag icon-white"></i>
+                        ${message:common.somethingswrong}
+                    </t:pagelink>
+                </p>
+
                 <t:article.commentBlock article="game" />
+
 			</div>
 		</div>
 	</t:if>

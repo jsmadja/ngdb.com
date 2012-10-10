@@ -44,6 +44,10 @@ public class ArticleFactory {
         return allGames().add(eq("ngh", ngh)).list();
     }
 
+    public Collection<Game> findAllGamesLightByNgh(String ngh) {
+        return transform(allGames().setProjection(lightProjection()).add(eq("ngh", ngh)).list(), toGame);
+    }
+
     public long getNumGames() {
         return findAllGamesLight().size();
     }
@@ -53,12 +57,16 @@ public class ArticleFactory {
     }
 
     public Collection<Game> findAllGamesLight() {
+        List<Object[]> list = allGames().setProjection(lightProjection()).list();
+        return transform(list, toGame);
+    }
+
+    private ProjectionList lightProjection() {
         ProjectionList projectionList = projectionList();
         for(String property: asList("id", "title", "originTitle", "platformShortName", "publisher", "coverUrl")) {
             projectionList.add(property(property));
         }
-        List<Object[]> list = allGames().setProjection(projectionList).list();
-        return transform(list, toGame);
+        return projectionList;
     }
 
     private Criteria allGames() {
