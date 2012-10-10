@@ -71,7 +71,7 @@ public class ShopItems {
     }
 
     public JSONObject getParams() {
-        return new JSONObject("width", "750", "modal", "false", "dialogClass", "dialog-edition", "zIndex", "1002", "title", "Buy this item");
+        return new JSONObject("width", "750", "modal", "false", "dialogClass", "dialog-edition", "zIndex", "1002");
     }
 
     public String getPrice() {
