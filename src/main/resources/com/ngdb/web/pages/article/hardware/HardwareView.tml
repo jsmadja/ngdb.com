@@ -11,7 +11,7 @@
 				</t:if>
 				<br/>
 				<t:article.gallery article="hardware" />
-                <t:article.articleStats article="game" />
+                <t:article.articleStats article="hardware" />
             </div>
 			<div class="span9">
 				<div class="page-header">
