@@ -1,0 +1,26 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+    <table style="width:100%">
+        <tr>
+            <td>${message:common.Collection}:</td>
+            <td>
+                <b>${collectionRank}</b>
+            </td>
+            <td>
+                (${article.ownersCount})
+            </td>
+        </tr>
+        <tr>
+            <td>${message:common.Wishlist}:</td>
+            <td>
+                <b>${wishRank}</b>
+            </td>
+            <td>
+                (${article.wishersCount})
+            </td>
+        </tr>
+    </table>
+    <t:if test="buyable">
+    <br/>
+    <t:pageLink page="market" context="[byArticle,article]"><b>${article.availableCopyCount}</b> ${message:history.viewinmarket}</t:pageLink>
+    </t:if>
+</div>

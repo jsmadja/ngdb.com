@@ -206,7 +206,11 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
         if (currency.equalsIgnoreCase(customCurrency)) {
             return priceInCustomCurrency;
         }
-        return currencyService.fromToRate(priceInCustomCurrency, customCurrency, currency);
+        try {
+            return currencyService.fromToRate(priceInCustomCurrency, customCurrency, currency);
+        }catch(UnavailableRatingException e) {
+            return priceInCustomCurrency;
+        }
     }
 
     public String getPriceAsStringIn(String currency) {

@@ -1,32 +1,7 @@
 <div class="history" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
-	<br/>
-	<table style="width:100%">
-		<tr>
-			<td>${message:common.Collection}:</td>
-			<td>
-				<b>${collectionRank}</b>
-			</td>
-			<td>
-				(${article.ownersCount})
-			</td>
-		</tr>
-		<tr>
-			<td>${message:common.Wishlist}:</td>
-			<td>
-				<b>${wishRank}</b>
-			</td>
-			<td>
-				(${article.wishersCount})
-			</td>
-		</tr>
-	</table>
-	<t:if test="buyable">
-		<br/>
-		<t:pageLink page="market" context="[byArticle,article]"><b>${article.availableCopyCount}</b> ${message:history.viewinmarket}</t:pageLink>
-	</t:if>
 	<t:if test="notEmpty">
-		<br/>
-		<table style="text-align:center; width:100%">
+        <h3>${message:history.title}</h3>
+        <table class="table table-striped table-bordered table-condensed">
 			<tr>
 				<td></td>
 				<td><b>${message:history.quantity}</b></td>

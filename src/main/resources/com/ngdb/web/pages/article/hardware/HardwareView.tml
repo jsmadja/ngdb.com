@@ -10,10 +10,9 @@
 					</div>
 				</t:if>
 				<br/>
-				<t:article.history article="hardware" />
-				<br/>
 				<t:article.gallery article="hardware" />
-			</div>
+                <t:article.articleStats article="game" />
+            </div>
 			<div class="span9">
 				<div class="page-header">
 					<h1 class="header">${hardware.title} 
@@ -48,8 +47,10 @@
                         ${message:common.somethingswrong}
 					</t:pagelink>
 				</p>
-				
-				<t:article.commentBlock article="hardware" />
+
+                <t:article.history article="hardware" />
+
+                <t:article.commentBlock article="hardware" />
 			</div>
 		</div>
 	</t:if>

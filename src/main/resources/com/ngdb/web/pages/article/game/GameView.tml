@@ -20,8 +20,8 @@
                         <span itemprop="identifier" content="${game.upc}">${game.upc}</span>
 					</div>
 				</t:if>
-				<t:article.history article="game" />
 				<br/>
+                <t:article.articleStats article="game" />
 				<t:article.gallery article="game" />
 			</div>
 			<div class="span9">
@@ -66,8 +66,10 @@
                         ${message:common.somethingswrong}
 					</t:pagelink>
 				</p>
-				
-				<t:article.commentBlock article="game" />
+
+                <t:article.history article="game" />
+
+                <t:article.commentBlock article="game" />
 			</div>
 		</div>
 	</t:if>
