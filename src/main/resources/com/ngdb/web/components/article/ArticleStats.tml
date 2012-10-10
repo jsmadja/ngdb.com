@@ -1,4 +1,4 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" style="width:140px;margin-right:auto;margin-left:auto;margin-bottom:15px">
     <table style="width:100%">
         <tr>
             <td>${message:common.Collection}:</td>
