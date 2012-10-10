@@ -13,7 +13,7 @@
             <div class="tabbable">
 
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_1" data-toggle="tab">${message:contribute.missingcovers} (${missingCoverArticles.size()})</a></li>
+                    <li><a href="#tab_1" data-toggle="tab">${message:contribute.missingcovers} (${missingCoverArticles.size()})</a></li>
                     <li><a href="#tab_2" data-toggle="tab">${message:contribute.missingupc} (${missingUPCArticles.size()})</a></li>
                     <li><a href="#tab_3" data-toggle="tab">${message:contribute.missingtags} (${missingTagArticles.size()})</a></li>
                     <li><a href="#tab_4" data-toggle="tab">${message:contribute.missingreviews} (${missingReviewArticles.size()})</a></li>
