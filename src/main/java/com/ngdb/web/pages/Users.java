@@ -39,7 +39,8 @@ public class Users {
         this.users = population.findEverybody();
         model = beanModelSource.createDisplayModel(User.class, messages);
         model.get("login").sortable(true);
-        model.get("creationDate").sortable(true);
+        model.get("creationDate").label(messages.get("members.creationDate")).sortable(true);
+        model.get("lastLoginDate").label(messages.get("members.lastLoginDate")).sortable(true);
         model.include("login", "creationDate", "lastLoginDate");
     }
 

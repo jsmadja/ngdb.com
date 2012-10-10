@@ -1,51 +1,33 @@
 package com.ngdb.web.pages.user;
 
-import com.ngdb.entities.Market;
-import com.ngdb.entities.WishBox;
-import com.ngdb.entities.article.Article;
-import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.User;
-import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
-
-import java.util.List;
-import java.util.Set;
 
 public class UserView {
 
-    @Persist
+    @Property
     private User user;
 
-    @Property
-    private Wish wish;
-
-    @Property
-    private Article article;
-
-    @Property
-    private User seller;
-
     @Inject
-    private Market market;
-
-    @Inject
-    private WishBox wishBox;
+    private Messages messages;
 
     void onActivate(User user) {
         this.user = user;
     }
 
-    public User getUser() {
-        return user;
+    public String getCollectionLabel() {
+        return messages.format("member.collectionLabel", user.getLogin());
     }
 
-    public Set<User> getSellers() {
-        return market.findSellersOf(wish.getArticle());
+    public String getShopLabel() {
+        return messages.format("member.shopLabel", user.getLogin());
     }
 
-    public List<Wish> getWishes() {
-        return wishBox.findAllOf(user);
+    public String getWishLabel() {
+        return messages.format("member.wishLabel", user.getLogin());
     }
 
 }

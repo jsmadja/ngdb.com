@@ -1,53 +1,18 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-	xmlns:p="tapestry:parameter">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<t:if test="user">
-
         <div class="user">
 			<div class="page-header">
 				<h1 class="black-bar rounded-bar big-bar">${user.login}</h1>
 			</div>
-
 			<p>
-				<t:pageLink page="museum" context="${user.id}">Click here to see
-					${user.login}'s collection</t:pageLink>
+				<t:pageLink page="museum" context="user">${collectionLabel}</t:pageLink>
 			</p>
-
             <p>
-                <t:pageLink page="market" context="${user.id}">Click here to see
-                    ${user.login}'s shop</t:pageLink>
+                <t:pageLink page="market" context="user">${shopLabel}</t:pageLink>
             </p>
-			
-			<h2>${user.login}'s wish list</h2>
-			<t:grid pagerPosition="BOTH"
-                    inPlace="true"
-                    source="wishes"
-                    row="wish"
-                    rowsPerPage="10"
-				    include="title,wishDate"
-                    reorder="title"
-                    add="sellers"
-                    class="table table-striped table-bordered table-condensed">
-				<p:titleHeader>Article</p:titleHeader>
-				<p:titleCell>
-					<img src="/img/flags/${wish.article.originTitle}.png" alt="${wish.article.originTitle}" />
-                    <span class="subtitle"><span class="platformLabel">${wish.article.platformShortName}</span></span>
-                    <t:pageLink page="${wish.article.viewPage}" context="wish.article">
-						${wish.article.title}
-                    </t:pageLink>
-				</p:titleCell>
-				<p:sellersHeader>
-					Sellers
-				</p:sellersHeader>
-				<p:sellersCell>
-					<t:loop source="sellers" value="seller">
-						<t:pageLink page="user/userView" context="${seller.id}"> ${seller.login} </t:pageLink>
-					</t:loop>
-				</p:sellersCell>
-				<p:wishDateHeader>
-					Wish date
-				</p:wishDateHeader>
-			</t:grid>
-
+            <p>
+                <a href="/wishbox/byUser/${user.id}" title="${wishLabel}">${wishLabel}</a>
+            </p>
 		</div>
 	</t:if>
 </t:layout>
