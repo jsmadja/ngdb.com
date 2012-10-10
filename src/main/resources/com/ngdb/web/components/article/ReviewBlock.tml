@@ -1,5 +1,8 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
-	<table width="100%">
+	<t:if test="reviews">
+        <h3>${message:review.title}</h3>
+    </t:if>
+    <table width="100%">
 		<t:loop source="reviews" value="review">
 			<tr>
 				<td width="50%">
