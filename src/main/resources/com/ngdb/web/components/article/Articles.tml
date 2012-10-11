@@ -41,6 +41,10 @@
                     class="table table-striped table-bordered table-condensed"
                     rowsPerPage="15"
                     row="article">
+                <p:titleHeader>${message:common.Title}</p:titleHeader>
+                <p:originHeader>${message:common.Origin}</p:originHeader>
+                <p:platformHeader>${message:common.Platform}</p:platformHeader>
+                <p:actionHeader>${message:common.Actions}</p:actionHeader>
                 <p:titleCell>
                     <t:pageLink page="${article.viewPage}" context="[article.id,article.suffix]">${article.title}</t:pageLink>
                 </p:titleCell>
