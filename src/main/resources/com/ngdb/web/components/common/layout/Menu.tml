@@ -41,7 +41,7 @@
                 <ul class="events events-list">
                     <t:loop value="update" source="updates">
                         <li style="margin-bottom:10px;line-height:12px;padding:5px">
-                            <t:pageLink page="user/UserView" context="update.user"><b>${update.user}</b></t:pageLink> ${update.message} <t:pageLink page="${update.article.viewPage}" context="update.article"><b>${update.article}</b></t:pageLink> ${update.lastUpdateDate}
+                            <t:pageLink page="user/UserView" context="update.user"><b>${update.user}</b></t:pageLink> ${updateMessage} <t:pageLink page="${update.article.viewPage}" context="update.article"><b>${update.article}</b></t:pageLink> ${lastUpdateDate}
                         </li>
                     </t:loop>
                 </ul>

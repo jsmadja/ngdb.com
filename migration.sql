@@ -1,5 +1,12 @@
-UPDATE ShopItem SET customCurrency = null WHERE priceInCustomCurrency is null; 
-UPDATE ShopItem SET customCurrency = "EUR" WHERE priceInCustomCurrency is null;
-UPDATE ShopItem SET priceInCustomCurrency = priceInEuros WHERE priceInCustomCurrency is null;
-
-ALTER TABLE `ngdb`.`shopitem` DROP COLUMN `priceInEuros` , DROP COLUMN `priceInDollars` ;
+update ArticleAction set message='add_a_new_tag_on' where message='added a new tag on';
+update ArticleAction set message='added_a_new_tag_on' where message='added a tag on';
+update ArticleAction set message='left_a_comment_on' where message='left a comment on';
+update ArticleAction set message='added_a_new_review_on' where message='added a new review on';
+update ArticleAction set message='add_a_new_review_on' where message='added a review on';
+update ArticleAction set message='added_a_new_property_on' where message='added a new property on';
+update ArticleAction set message='added_a_new_property_on' where message='added a property on';
+update ArticleAction set message='added_a_new_file_on' where message='added a new file on';
+update ArticleAction set message='added_in_his_collection' where message='added in his collection';
+update ArticleAction set message='removed_from_his_collection' where message='removed from his collection';
+update ArticleAction set message='added_in_his_wishlist' where message='added in his wishlist';
+update ArticleAction set message='removed_from_his_wishlist' where message='removed from his wishlist';

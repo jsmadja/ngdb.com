@@ -17,23 +17,23 @@ public class ActionLogger {
     private Session session;
 
     public void addTagAction(User user, Article article) {
-        createAction(user, article, "added a new tag on");
+        createAction(user, article, "added_a_new_tag_on");
     }
 
     public void addCommentAction(User user, Article article) {
-        createAction(user, article, "left a comment on");
+        createAction(user, article, "left_a_comment_on");
     }
 
     public void addReviewAction(User user, Article article) {
-        createAction(user, article, "added a new review on");
+        createAction(user, article, "added_a_new_review_on");
     }
 
     public void addPropertyAction(User user, Article article) {
-        createAction(user, article, "added a new property on");
+        createAction(user, article, "added_a_new_property_on");
     }
 
     public void addFileAction(User user, Article article) {
-        createAction(user, article, "added a new file on");
+        createAction(user, article, "added_a_new_file_on");
     }
 
     public void addEditAction(User user, Article article) {
@@ -57,18 +57,18 @@ public class ActionLogger {
     }
 
     public void addArticleInCollectionAction(User user, Article article) {
-        createAction(user, article, "added in his collection");
+        createAction(user, article, "added_in_his_collection");
     }
 
     public void removeArticleFromCollectionAction(User user, Article article) {
-        createAction(user, article, "removed from his collection");
+        createAction(user, article, "removed_from_his_collection");
     }
 
     public void addArticleInWishlistAction(User user, Article article) {
-        createAction(user, article, "added in his wishlist");
+        createAction(user, article, "added_in_his_wishlist");
     }
 
     public void removeArticleFromWishlistAction(User user, Article article) {
-        createAction(user, article, "removed from his wishlist");
+        createAction(user, article, "removed_from_his_wishlist");
     }
 }

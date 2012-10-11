@@ -49,8 +49,8 @@ public class ArticleAction extends AbstractEntity implements Comparable<ArticleA
         this.message = message;
     }
 
-    public String getLastUpdateDate() {
-        return new PrettyTime(Locale.UK).format(getCreationDate());
+    public String getLastUpdateDate(Locale locale) {
+        return new PrettyTime(locale).format(getCreationDate());
     }
 
     @Override

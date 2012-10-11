@@ -6,8 +6,10 @@ import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.web.pages.Index;
 import com.ngdb.web.pages.article.game.GameView;
 import com.ngdb.web.pages.article.hardware.HardwareView;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.Request;
@@ -44,6 +46,9 @@ public class Menu {
 
     @Property
     private ArticleAction update;
+
+    @Inject
+    private Messages messages;
 
     private static boolean goEmpty = false;
 
@@ -101,5 +106,13 @@ public class Menu {
 	public String getPrice() {
 		return market.getPriceForCurrentUser(shopItem);
 	}
+
+    public String getUpdateMessage() {
+        return messages.get("whatsnew."+update.getMessage());
+    }
+
+    public String getLastUpdateDate() {
+        return update.getLastUpdateDate(request.getLocale());
+    }
 
 }
