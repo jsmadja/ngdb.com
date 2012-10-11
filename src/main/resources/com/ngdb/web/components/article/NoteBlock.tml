@@ -18,7 +18,7 @@
 							placeholder="property name" style="width:96%" />
 					</td>
 					<td>
-						<t:textfield value="text" t:id="text" style="width:75%" />
+						<t:textfield value="text" t:id="text" style="width:70%" />
 						<button class="btn btn-primary pull-right btn-mini" type="submit">${message:note.addnote}</button>
 					</td>
 				</tr>

@@ -1,20 +1,20 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" style="width:140px;margin-right:auto;margin-left:auto;margin-bottom:15px">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" style="margin-bottom:15px">
     <table style="width:100%">
         <tr>
             <td>${message:common.Collection}:</td>
-            <td>
+            <td style="text-align:right">
                 <b>${collectionRank}</b>
             </td>
-            <td>
+            <td style="text-align:right">
                 (${article.ownersCount})
             </td>
         </tr>
         <tr>
             <td>${message:common.Wishlist}:</td>
-            <td>
+            <td style="text-align:right">
                 <b>${wishRank}</b>
             </td>
-            <td>
+            <td style="text-align:right">
                 (${article.wishersCount})
             </td>
         </tr>

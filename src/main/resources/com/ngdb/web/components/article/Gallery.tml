@@ -1,9 +1,13 @@
-<div class="gallery" t:type="jQuery/Gallery" t:params="params" t:selector="a[rel^=gal]" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<div class="gallery" t:type="jQuery/Gallery" t:params="params" t:selector="a[rel^=gal_article]" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<t:if test="pictures">
-		<t:loop source="pictures" value="picture">
+        <t:loop source="pictures" value="picture">
 		    <a href="${message:image.host.url}${picture.url}" 
-		    	id="image" rel="gal">
-		    	<img src="${message:image.host.url}${smallPictureUrl}" width="70" height="70" style="margin-left:2px;border-radius:5px" />
+		    	id="image" rel="gal_article">
+		    	<img alt="picture"
+                     src="${message:image.host.url}${smallPictureUrl}"
+                     width="73"
+                     height="73"
+                     style="margin-left:2px;border-radius:5px" />
 		    </a>
 		</t:loop>
 	</t:if>

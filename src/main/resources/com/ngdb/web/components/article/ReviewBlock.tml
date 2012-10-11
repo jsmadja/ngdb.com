@@ -2,31 +2,31 @@
 	<t:if test="reviews">
         <h3>${message:review.title}</h3>
     </t:if>
-    <table width="100%">
+    <span style="display:none" itemprop="review" itemscope="" itemtype="http://data-vocabulary.org/Review-aggregate">
+              <span itemprop="rating">${averageMarkAsDouble}</span> <span itemprop="votes">${reviewsCount}</span> reviews
+    </span>
+    <table class="table table-bordered table-condensed">
 		<t:loop source="reviews" value="review">
 			<tr>
-				<td width="50%">
+				<td colspan="2">
 					<a href="${review.url}" target="blank">${review.label}</a>
 				</td>
-				<td colspan="2">
+				<td>
 					<t:OutputRaw value="${stars}" />
 				</td>
 			</tr>
 		</t:loop>
-        <span style="display:none" itemprop="review" itemscope="" itemtype="http://data-vocabulary.org/Review-aggregate">
-              <span itemprop="rating">${averageMarkAsDouble}</span> <span itemprop="votes">${reviewsCount}</span> reviews
-        </span>
         <t:if test="user?.contributor">
             <t:form t:id="reviewForm" id="reviewForm" t:autofocus="false">
                 <tr>
                     <td>
-                        <t:textfield value="label" t:id="label" placeholder="label" style="width:95%" />
+                        <t:textfield style="width:100px" value="label" t:id="label" placeholder="label" />
                     </td>
                     <td>
-                        <t:textfield value="url" t:id="url" style="width:80%" placeholder="http://www." />
+                        <t:textfield value="url" t:id="url" placeholder="http://www." />
                     </td>
                     <td>
-                        <t:textfield value="mark" t:id="mark" placeholder="7/10, 67%, ..." style="width:80%"/>
+                        <t:textfield style="width:100px" value="mark" t:id="mark" placeholder="7/10, 67%, ..."/>
                     </td>
                     <td>
                         <button class="btn btn-mini btn-primary pull-right" type="submit">${message:review.addreview}</button>
