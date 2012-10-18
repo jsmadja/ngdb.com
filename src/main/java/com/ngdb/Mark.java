@@ -77,7 +77,7 @@ public class Mark {
         } else if (nativeValue.contains("/")) {
             Double numerator = Double.valueOf(nativeValue.split("/")[0]);
             Double denominator = Double.valueOf(nativeValue.split("/")[1]);
-            return (int) ((numerator / denominator) * 100);
+            return (int) ((numerator / denominator) * 50)+50;
         }
         return 0;
     }

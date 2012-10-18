@@ -49,6 +49,11 @@ public class MarkTest {
     }
 
     @Test
+    public void should_transform_mark_on_5_in_percent() {
+        assertThat(new Mark("2/5").getAsPercent()).isEqualTo(70);
+    }
+
+    @Test
     public void should_transform_to_percent() {
         assertThat(new Mark("0").getAsPercent()).isEqualTo(0);
         assertThat(new Mark("50%").getAsPercent()).isEqualTo(50);
