@@ -47,7 +47,8 @@ public class ReviewBlock {
     @Inject
     private Registry registry;
 
-    private List<Review> reviews = new ArrayList<Review>();
+    @Property
+    private Set<Review> reviews;
 
     void onActivate() {
         suggestions.addAll(registry.findAllTags());
@@ -55,34 +56,42 @@ public class ReviewBlock {
 
     @SetupRender
     void init() {
-        Game game = (Game)article;
-        List<Game> games = articleFactory.findAllGamesByNgh(game.getNgh());
-        for(Game linkedGame:games) {
-            reviews.addAll(linkedGame.getReviews().all());
+        reviews = loadReviews();
+    }
+
+    private Set<Review> loadReviews() {
+        if (article.isGame()) {
+            Game game = (Game) article;
+            Set<Review> reviews = new TreeSet<Review>(game.getReviews().all());
+            List<Game> relatedGames = articleFactory.findAllGamesByNgh(game.getNgh());
+            for (Game relatedGame : relatedGames) {
+                reviews.addAll(relatedGame.getReviews().all());
+            }
+            return reviews;
         }
+        return article.getReviews().all();
     }
 
     public double getAverageMarkAsDouble() {
         if(!article.isGame()) {
             return 0;
         }
-        List<Review> reviews = allReviews();
         if (reviews.isEmpty()) {
             return 0;
         }
-        int sum = 0;
+        double sum = 0;
         for (Review review : reviews) {
-            sum += review.getMarkInPercent();
+            int markInPercent = review.getMarkInPercent();
+            markInPercent -= 50;
+            if(markInPercent > 0) {
+                sum += (markInPercent/10);
+            }
         }
-        return (sum / reviews.size()) / 20;
+        return sum / reviews.size();
     }
 
     public int getReviewsCount() {
-        return allReviews().size();
-    }
-
-    private List<Review> allReviews() {
-        return reviews;
+        return reviews.size();
     }
 
     @CommitAfter
@@ -95,19 +104,6 @@ public class ReviewBlock {
 
     public User getUser() {
         return currentUser.getUser();
-    }
-
-    public Set<Review> getReviews() {
-        if (article.isGame()) {
-            Game game = (Game) article;
-            Set<Review> reviews = new TreeSet<Review>(game.getReviews().all());
-            List<Game> relatedGames = articleFactory.findAllGamesByNgh(game.getNgh());
-            for (Game relatedGame : relatedGames) {
-                reviews.addAll(relatedGame.getReviews().all());
-            }
-            return reviews;
-        }
-        return article.getReviews().all();
     }
 
     public String getStars() {
