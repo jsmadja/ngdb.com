@@ -15,32 +15,32 @@ public class ReviewTest {
 
     @Test
     public void should_convert_percent_in_stars() {
-        assertEquals("45", toStars("90%"));
+        assertEquals("40", toStars("90%"));
 
         assertEquals("00", toStars("0%"));
-        assertEquals("10", toStars("20%"));
-        assertEquals("20", toStars("40%"));
-        assertEquals("30", toStars("60%"));
-        assertEquals("40", toStars("80%"));
-        assertEquals("40", toStars("81%"));
-        assertEquals("40", toStars("82%"));
-        assertEquals("40", toStars("83%"));
-        assertEquals("40", toStars("84%"));
-        assertEquals("40", toStars("85%"));
-        assertEquals("40", toStars("86%"));
-        assertEquals("40", toStars("87%"));
-        assertEquals("40", toStars("88%"));
-        assertEquals("40", toStars("89%"));
-        assertEquals("45", toStars("90%"));
-        assertEquals("45", toStars("91%"));
-        assertEquals("45", toStars("92%"));
-        assertEquals("45", toStars("93%"));
-        assertEquals("45", toStars("94%"));
-        assertEquals("50", toStars("95%"));
-        assertEquals("50", toStars("96%"));
-        assertEquals("50", toStars("97%"));
-        assertEquals("50", toStars("98%"));
-        assertEquals("50", toStars("99%"));
+        assertEquals("00", toStars("20%"));
+        assertEquals("00", toStars("40%"));
+        assertEquals("10", toStars("60%"));
+        assertEquals("30", toStars("80%"));
+        assertEquals("30", toStars("81%"));
+        assertEquals("30", toStars("82%"));
+        assertEquals("30", toStars("83%"));
+        assertEquals("30", toStars("84%"));
+        assertEquals("35", toStars("85%"));
+        assertEquals("35", toStars("86%"));
+        assertEquals("35", toStars("87%"));
+        assertEquals("35", toStars("88%"));
+        assertEquals("35", toStars("89%"));
+        assertEquals("40", toStars("90%"));
+        assertEquals("40", toStars("91%"));
+        assertEquals("40", toStars("92%"));
+        assertEquals("40", toStars("93%"));
+        assertEquals("40", toStars("94%"));
+        assertEquals("45", toStars("95%"));
+        assertEquals("45", toStars("96%"));
+        assertEquals("45", toStars("97%"));
+        assertEquals("45", toStars("98%"));
+        assertEquals("45", toStars("99%"));
         assertEquals("50", toStars("100%"));
     }
 
@@ -54,12 +54,8 @@ public class ReviewTest {
         assertEquals("50", toStars("5/5"));
 
         assertEquals("10", toStars("2/10"));
-        assertEquals("15", toStars("2.5/10"));
+        assertEquals("25", toStars("5/10"));
         assertEquals("50", toStars("10/10"));
-
-        assertEquals("45", toStars("9/10"));
-        assertEquals("15", toStars("1/3"));
-
     }
 
     @Test

@@ -83,7 +83,7 @@ public class Mark {
     }
 
     public String getStars() {
-        String mark = getStarsAsDouble()+"";
+        String mark = toString();
         if (mark.length() == 1) {
             mark = "0" + mark;
         }

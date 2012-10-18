@@ -360,7 +360,7 @@ public abstract class Article implements Comparable<Article>, Serializable{
         for (Review review : reviews) {
             sum += review.getMarkInPercent();
         }
-        return Integer.toString((sum / reviews.count()) / 2);
+        return (sum / reviews.count())+"%";
     }
 
    public boolean getHasReviews() {

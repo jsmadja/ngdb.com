@@ -13,7 +13,7 @@ public class ArticleTest {
         Game game = new Game();
         game.addReview(new Review("neo", "http:", "3/5", game));
         String averageMark = game.getAverageMark();
-        assertEquals("30", averageMark);
+        assertEquals("60%", averageMark);
 
     }
 

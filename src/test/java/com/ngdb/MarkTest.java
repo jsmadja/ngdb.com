@@ -28,6 +28,8 @@ public class MarkTest {
 
     @Test
     public void should_transform_to_string() {
+        assertThat(new Mark("85%").toString()).isEqualTo("35");
+        assertThat(new Mark("88%").toString()).isEqualTo("35");
         assertThat(new Mark("0").toString()).isEqualTo("00");
         assertThat(new Mark("50%").toString()).isEqualTo("00");
         assertThat(new Mark("51%").toString()).isEqualTo("00");
