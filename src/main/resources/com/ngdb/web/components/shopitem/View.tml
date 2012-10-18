@@ -48,7 +48,7 @@
                         <b>${message:common.State} : </b>
                     </td>
                     <td>
-                        <t:OutputRaw value="${stars}" />
+                        <t:OutputRaw value="${shopItem.stars}" />
                     </td>
                 </tr>
                 <tr>

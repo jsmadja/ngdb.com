@@ -68,7 +68,7 @@
                             ${message:shopitem.forsaleby} <t:pageLink page="user/UserView" context="shopItem.seller">${shopItem.seller.login}</t:pageLink>
                         </p>
                         <p>
-                            <t:OutputRaw value="${stars}" />
+                            <t:OutputRaw value="${shopitem.stars}" />
                         </p>
                     </p:titleCell>
                     <p:priceCell>

@@ -1,6 +1,5 @@
 package com.ngdb.web.components.shopitem;
 
-import com.ngdb.StarsUtil;
 import com.ngdb.entities.Market;
 import com.ngdb.web.pages.Index;
 import org.apache.tapestry5.annotations.*;
@@ -104,10 +103,6 @@ public class ShopItems {
             return Index.class;
         }
         return shopItemZone;
-    }
-
-    public String getStars() {
-        return StarsUtil.getStars(shopItem);
     }
 
 }

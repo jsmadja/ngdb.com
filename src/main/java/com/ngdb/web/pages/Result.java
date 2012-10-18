@@ -2,10 +2,8 @@ package com.ngdb.web.pages;
 
 import com.google.common.base.Predicate;
 import com.ngdb.Comparators;
-import com.ngdb.Predicates;
-import com.ngdb.StarsUtil;
-import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.Registry;
+import com.ngdb.entities.Reviewer;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.reference.Origin;
@@ -19,7 +17,6 @@ import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,12 +45,6 @@ public class Result {
     private CurrentUser currentUser;
 
     @Inject
-    private ArticleFactory articleFactory;
-
-    @Inject
-    private Session session;
-
-    @Inject
     private ReferenceService referenceService;
 
     @Inject
@@ -61,6 +52,9 @@ public class Result {
 
     @Inject
     private Registry registry;
+
+    @Inject
+    private Reviewer reviewer;
 
     private static final Logger LOG = LoggerFactory.getLogger(Result.class);
 
@@ -122,7 +116,7 @@ public class Result {
     }
 
     public String getStars() {
-        return StarsUtil.getStars(result, session, articleFactory);
+        return reviewer.getStarsOf(result);
     }
 
     public String getByPublisher() {

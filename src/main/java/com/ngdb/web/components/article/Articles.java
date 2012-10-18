@@ -1,14 +1,12 @@
 package com.ngdb.web.components.article;
 
-import com.ngdb.StarsUtil;
-import com.ngdb.entities.ArticleFactory;
+import com.ngdb.entities.Reviewer;
+import com.ngdb.entities.article.Article;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.hibernate.Session;
-import com.ngdb.entities.article.Article;
 
 import java.util.Collection;
 
@@ -21,12 +19,6 @@ public class Articles {
     @Property
     private Article article;
 
-    @Inject
-    private ArticleFactory articleFactory;
-
-    @Inject
-    private Session session;
-
     @Persist
     @Property
     private boolean thumbnailMode;
@@ -38,6 +30,9 @@ public class Articles {
     @Persist
     @Property
     private boolean tableMode;
+
+    @Inject
+    private Reviewer reviewer;
 
     @SetupRender
     void init() {
@@ -65,7 +60,7 @@ public class Articles {
     }
 
     public String getStars() {
-        return StarsUtil.getStars(article, session, articleFactory);
+        return reviewer.getStarsOf(article);
     }
 
 }

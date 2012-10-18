@@ -10,17 +10,15 @@ import com.ngdb.web.services.infrastructure.UnavailableRatingException;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.ocpsoft.pretty.time.PrettyTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Locale;
-import java.util.Set;
 
 import static java.text.MessageFormat.format;
 import static javax.persistence.FetchType.LAZY;
+import static org.apache.commons.lang.StringUtils.repeat;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -170,13 +168,13 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
         return format("{0} by {1} for {2} {3}", getArticle().getTitle(), seller.getLogin(), getCustomCurrency(), getPriceInCustomCurrency());
     }
 
-   public void removePicture(Picture picture) {
+    public void removePicture(Picture picture) {
         pictures.remove(picture);
     }
 
     @Override
     public int compareTo(ShopItem shopItem) {
-        if(shopItem == null || shopItem.article == null) {
+        if (shopItem == null || shopItem.article == null) {
             return 0;
         }
         return article.getTitle().compareToIgnoreCase(shopItem.article.getTitle());
@@ -208,19 +206,19 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
         }
         try {
             return currencyService.fromToRate(priceInCustomCurrency, customCurrency, currency);
-        }catch(UnavailableRatingException e) {
+        } catch (UnavailableRatingException e) {
             return priceInCustomCurrency;
         }
     }
 
     public String getPriceAsStringIn(String currency) {
         if (currency.equalsIgnoreCase(customCurrency)) {
-            return priceInCustomCurrency+" "+customCurrency;
+            return priceInCustomCurrency + " " + customCurrency;
         }
         try {
-            return currencyService.fromToRate(priceInCustomCurrency, customCurrency, currency)+ " "+currency;
-        }catch(UnavailableRatingException e) {
-            return priceInCustomCurrency + " "+customCurrency;
+            return currencyService.fromToRate(priceInCustomCurrency, customCurrency, currency) + " " + currency;
+        } catch (UnavailableRatingException e) {
+            return priceInCustomCurrency + " " + customCurrency;
         }
     }
 
@@ -234,5 +232,26 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
 
     public void setCurrencyService(CurrencyService currencyService) {
         this.currencyService = currencyService;
+    }
+
+    public String getStars() {
+        final int MAX_CONDITION = 9;
+        int id = getState().getId().intValue();
+        String conditionTitle = getState().getTitle();
+        int condition = MAX_CONDITION - id + 1;
+        String stars = "";
+
+        stars += repeat(star(conditionTitle), condition);
+        stars += repeat(greystar(conditionTitle), MAX_CONDITION - condition);
+
+        return stars;
+    }
+
+    private String star(String conditionTitle) {
+        return format("<img title='{0}' width='15px' src='/img/stars/star.png'>", conditionTitle);
+    }
+
+    private String greystar(String conditionTitle) {
+        return format("<img title='{0}' width='15px' src='/img/stars/grey_star.png'>", conditionTitle);
     }
 }

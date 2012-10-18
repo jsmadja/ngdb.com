@@ -13,10 +13,6 @@ import org.hibernate.search.annotations.Store;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import java.math.BigDecimal;
-
-import static java.math.RoundingMode.HALF_UP;
-import static org.apache.commons.lang.StringUtils.remove;
 
 @Entity
 @Indexed
@@ -71,5 +67,13 @@ public class Review extends AbstractEntity implements Comparable<Review> {
             return getLabel().compareTo(review.getLabel());
         }
         return review.getMark().compareToIgnoreCase(getMark());
+    }
+
+    public double getMarkOn5() {
+        return new Mark(mark).getStarsAsDouble();
+    }
+
+    public String getMarkAsStars() {
+        return new Mark(mark).getStars();
     }
 }
