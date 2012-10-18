@@ -31,4 +31,9 @@ public class Hardware extends Article {
         return "article/hardware/hardwareView";
     }
 
+    @Override
+    public String getUpdatePage() {
+        return "article/hardware/hardwareUpdate";
+    }
+
 }

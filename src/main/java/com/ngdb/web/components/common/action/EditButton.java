@@ -21,11 +21,8 @@ public class EditButton {
     private CurrentUser currentUser;
 
 	public String getUpdatePage() {
-		if (article instanceof Game) {
-			return "article/game/gameUpdate";
-		}
-		return "article/hardware/hardwareUpdate";
-	}
+		return article.getUpdatePage();
+    }
 
     public boolean getCanEdit() {
         return currentUser.isContributor();

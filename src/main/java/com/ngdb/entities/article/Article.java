@@ -350,6 +350,7 @@ public abstract class Article implements Comparable<Article>, Serializable{
     public abstract boolean isAccessory();
 
     public abstract String getViewPage();
+    public abstract String getUpdatePage();
 
     public String getAverageMark() {
         if (!getHasReviews()) {
@@ -420,4 +421,5 @@ public abstract class Article implements Comparable<Article>, Serializable{
             }
         }));
     }
+
 }

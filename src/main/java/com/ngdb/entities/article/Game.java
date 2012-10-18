@@ -73,4 +73,9 @@ public class Game extends Article implements Serializable {
         return "article/game/gameView";
     }
 
+    @Override
+    public String getUpdatePage() {
+        return "article/game/gameUpdate";
+    }
+
 }

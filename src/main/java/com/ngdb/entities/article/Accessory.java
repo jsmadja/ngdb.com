@@ -31,4 +31,9 @@ public class Accessory extends Article implements Serializable {
     public String getViewPage() {
         return "article/accessory/accessoryView";
     }
+
+    @Override
+    public String getUpdatePage() {
+        return "article/accessory/accessoryUpdate";
+    }
 }
