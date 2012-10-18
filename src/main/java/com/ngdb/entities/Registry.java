@@ -16,9 +16,6 @@ import static org.hibernate.criterion.Projections.property;
 public class Registry {
 
     @Inject
-    private ArticleFactory articleFactory;
-
-    @Inject
     private Session session;
 
     public Collection<String> findAllTags() {

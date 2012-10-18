@@ -37,10 +37,6 @@ public class ArticleCollection {
         collection.remove(collectionObjectToRemove);
     }
 
-    public Collection<Article> getArticles() {
-        return transform(collection, fromCollectionObjectToArticle);
-    }
-
     public int getNumArticles() {
         return collection.size();
     }

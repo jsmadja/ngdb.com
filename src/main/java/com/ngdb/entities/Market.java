@@ -13,7 +13,6 @@ import net.sf.ehcache.Element;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,14 +47,6 @@ public class Market {
     static {
         CacheManager create = CacheManager.create();
         cache = create.getCache("index.random.shopitem");
-    }
-
-    public List<ShopItem> findAllItemsForSale() {
-        return allShopItems().add(eq("sold", false)).list();
-    }
-
-    private Criteria allShopItems() {
-        return session.createCriteria(ShopItem.class);
     }
 
     public List<ShopItem> findRandomForSaleItems(int count) {
@@ -133,17 +124,6 @@ public class Market {
             LOG.warn(e.getMessage());
             return shopItem.getPriceInCustomCurrency() + " "+shopItem.getCustomCurrency();
         }
-    }
-
-    public Set<User> findSellersOf(Article article) {
-        Set<User> sellers = new TreeSet<User>();
-        List<ShopItem> allItemsForSale = findAllItemsForSale();
-        for (ShopItem shopItem : allItemsForSale) {
-            if (shopItem.getArticle().getId().equals(article.getId())) {
-                sellers.add(shopItem.getSeller());
-            }
-        }
-        return sellers;
     }
 
     public long getNumGamesForSale() {

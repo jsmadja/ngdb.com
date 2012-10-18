@@ -55,10 +55,6 @@ public class Basket implements Serializable, Iterable<ShopItem> {
         return preferredCurrency +" "+sum;
     }
 
-    public void removeFromBasket(ShopItem shopItem) {
-        shopItems.remove(shopItem);
-    }
-
     @Override
     public Iterator<ShopItem> iterator() {
         return shopItems.iterator();

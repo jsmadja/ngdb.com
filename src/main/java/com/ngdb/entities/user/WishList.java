@@ -38,11 +38,6 @@ public class WishList implements Iterable<Wish> {
         return wishes.iterator();
     }
 
-    public Collection<Wish> getWishes() {
-        Collections.sort(wishes);
-        return Collections.unmodifiableList(wishes);
-    }
-
     void addInWishList(Wish wish) {
         wishes.add(wish);
     }

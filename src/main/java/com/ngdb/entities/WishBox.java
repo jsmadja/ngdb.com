@@ -52,11 +52,4 @@ public class WishBox {
     public long findNumHardwares() {
         return findNum("Hardware");
     }
-
-    public List<Wish> findAllOf(User user) {
-        List<Wish> list = session.createCriteria(Wish.class).
-                add(eq("wisher", user)).
-                addOrder(desc("creationDate")).list();
-        return list;
-    }
 }
