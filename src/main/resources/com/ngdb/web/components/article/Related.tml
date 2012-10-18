@@ -1,32 +1,11 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 
-    <style type="text/css">
-        .jcarousel-skin-tango .jcarousel-container-horizontal {
-            min-width: 100%;
-            border:1px solid #DDD;
-            background-color:#F9F9F9;
-            padding:5px 0px 5px 0px;
-        }
-
-        #myComplexCarousel div {
-            padding-left: 45px;
-        }
-
-        .jcarousel-skin-tango .jcarousel-prev-horizontal {
-            top:25px;
-        }
-
-        .jcarousel-skin-tango .jcarousel-next-horizontal {
-            top:25px;
-        }
-    </style>
-
     <t:if test="relatedGames">
         <h3>${message:related.title}</h3>
-        <t:jquery.carousel t:params="complexParams" t:clientId="myComplexCarousel">
-            <t:loop value="relatedGame" source="relatedGames">
-                <t:jquery.carouselItem t:alt="${relatedGame.title} ${relatedGame.platformShortName} ${relatedGame.originTitle} " t:imageSource="${host}${relatedGame.cover.urlSmall}" t:context="${relatedGame.id}" t:page="${relatedGame.viewPage}" />
-            </t:loop>
-        </t:jquery.carousel>
+        <t:loop value="relatedGame" source="relatedGames">
+            <span style="display:inline-block">
+                <t:article.thumbnail article="relatedGame" size="literal:medium" width="150" />
+            </span>
+        </t:loop>
     </t:if>
 </div>

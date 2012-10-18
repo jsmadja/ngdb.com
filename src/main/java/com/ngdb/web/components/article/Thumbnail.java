@@ -15,7 +15,11 @@ public class Thumbnail {
 	@Parameter
 	private String size;
 
-	@Property
+    @Property
+    @Parameter
+    private Integer width;
+
+    @Property
 	@Parameter
 	private boolean noClick;
 
