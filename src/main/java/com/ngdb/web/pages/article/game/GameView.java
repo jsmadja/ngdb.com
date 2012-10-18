@@ -86,4 +86,8 @@ public class GameView {
         return game.getUpc() != null && !"0000000000000".equals(game.getUpc());
     }
 
+    public boolean getShowMegs() {
+        return game.getMegaCount() != null && game.getMegaCount() > 0;
+    }
+
 }
