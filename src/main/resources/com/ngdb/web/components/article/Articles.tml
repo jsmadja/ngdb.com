@@ -35,28 +35,25 @@
         <t:if test="gridMode">
             <t:grid source="articles"
                     inPlace="true"
-                    include="title"
-                    add="origin,platform,action"
+                    include="title,originTitle,platformShortName,actions"
                     pagerPosition="BOTH"
+                    model="model"
                     class="table table-striped table-bordered table-condensed"
                     rowsPerPage="15"
                     row="article">
-                <p:titleHeader>${message:common.Title}</p:titleHeader>
-                <p:originHeader>${message:common.Origin}</p:originHeader>
-                <p:platformHeader>${message:common.Platform}</p:platformHeader>
                 <p:actionHeader>${message:common.Actions}</p:actionHeader>
                 <p:titleCell>
                     <t:pageLink page="${article.viewPage}" context="[article.id,article.suffix]">${article.title}</t:pageLink>
                 </p:titleCell>
-                <p:originCell>
+                <p:originTitleCell>
                     <img src="/img/flags/${article.originTitle}.png" alt="${article.originTitle}" />
-                </p:originCell>
-                <p:platformCell>
+                </p:originTitleCell>
+                <p:platformShortNameCell>
                     <span class="platformLabel">${article.platformShortName}</span>
-                </p:platformCell>
-                <p:actionCell>
+                </p:platformShortNameCell>
+                <p:actionsCell>
                     <t:article.actionBlock article="article" asButton="true" />
-                </p:actionCell>
+                </p:actionsCell>
             </t:grid>
             <p:else>
                 <t:grid id="resultTable"

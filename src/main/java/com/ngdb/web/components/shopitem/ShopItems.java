@@ -61,11 +61,10 @@ public class ShopItems {
             onActionFromTableMode();
         }
         model = beanModelSource.createDisplayModel(com.ngdb.entities.shop.ShopItem.class, messages);
-        model.get("title").sortable(true);
-        model.add("price", null);
-        model.add("actions", null);
-        model.add("thumbnailColumn", null);
-        model.get("price").sortable(true);
+        model.get("title").label(messages.get("common.Title")).sortable(true);
+        model.addEmpty("price").label(messages.get("common.Price")).sortable(true);
+        model.addEmpty("actions");
+        model.addEmpty("thumbnailColumn");
         model.include("thumbnailColumn", "title", "details", "price", "actions");
     }
 

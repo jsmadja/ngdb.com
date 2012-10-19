@@ -2,11 +2,15 @@ package com.ngdb.web.components.article;
 
 import com.ngdb.entities.Reviewer;
 import com.ngdb.entities.article.Article;
+import com.ngdb.entities.shop.ShopItem;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
+import org.apache.tapestry5.beaneditor.BeanModel;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.BeanModelSource;
 
 import java.util.Collection;
 
@@ -34,8 +38,25 @@ public class Articles {
     @Inject
     private Reviewer reviewer;
 
+    @Persist
+    @Property
+    private BeanModel<Article> model;
+
+    @Inject
+    private Messages messages;
+
+    @Inject
+    private BeanModelSource beanModelSource;
+
     @SetupRender
     void init() {
+        model = beanModelSource.createDisplayModel(Article.class, messages);
+        model.get("title").label(messages.get("common.Title")).sortable(true);
+        model.get("originTitle").label(messages.get("common.Origin")).sortable(true);
+        model.get("platformShortName").label(messages.get("common.Platform")).sortable(true);
+        model.addEmpty("actions").label(messages.get("common.Actions"));
+        model.include("title", "originTitle", "platformShortName", "actions");
+
         if(!thumbnailMode && !gridMode && !tableMode) {
             onActionFromTableMode();
         }
