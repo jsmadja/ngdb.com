@@ -92,11 +92,11 @@ public class ReviewTest {
     @Test
     public void should_convert_in_percent() {
         assertEquals(100, new Review("neogeokult", "http://url", "5/5", null).getMarkInPercent());
-        assertEquals(80, new Review("neogeokult", "http://url", "4/5", null).getMarkInPercent());
-        assertEquals(60, new Review("neogeokult", "http://url", "3/5", null).getMarkInPercent());
-        assertEquals(40, new Review("neogeokult", "http://url", "2/5", null).getMarkInPercent());
-        assertEquals(20, new Review("neogeokult", "http://url", "1/5", null).getMarkInPercent());
-        assertEquals(0, new Review("neogeokult", "http://url", "0/5", null).getMarkInPercent());
+        assertEquals(90, new Review("neogeokult", "http://url", "4/5", null).getMarkInPercent());
+        assertEquals(80, new Review("neogeokult", "http://url", "3/5", null).getMarkInPercent());
+        assertEquals(70, new Review("neogeokult", "http://url", "2/5", null).getMarkInPercent());
+        assertEquals(60, new Review("neogeokult", "http://url", "1/5", null).getMarkInPercent());
+        assertEquals(50, new Review("neogeokult", "http://url", "0/5", null).getMarkInPercent());
     }
 
     @Test
