@@ -2,9 +2,10 @@ package com.ngdb.web.pages;
 
 import com.ngdb.entities.Registry;
 import com.ngdb.entities.Top100Item;
-import com.ngdb.entities.article.Article;
+import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.web.model.Top100List;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.*;
@@ -27,15 +28,12 @@ public class Top100 {
     @Property
     private Top100Item topItem;
 
-    @Inject
-    private ReferenceService referenceService;
-
     @Persist
     @Property
-    private Integer top100;
+    private String top100;
 
     @Persist
-    private Integer currentTop100;
+    private String currentTop100;
 
     @Inject
     private AjaxResponseRenderer ajaxResponseRenderer;
@@ -53,23 +51,27 @@ public class Top100 {
     @Property
     private BeanModel<Top100Item> model;
 
-    private final static Collection<String> tops = new ArrayList<String>();
+    private final Collection<String> tops = new ArrayList<String>();
 
     @Persist
     private long oldCount;
 
-    static {
-        tops.add("Top 100 - Collection - AES");
-        tops.add("Top 100 - Collection - MVS");
-        tops.add("Top 100 - Collection - NGCD");
-        tops.add("Top 100 - Collection - NGP");
-        tops.add("Top 100 - Collection - NGPC");
-        tops.add("Top 100 - Collection - H64");
-    }
+    @Inject
+    private ReferenceService referenceService;
 
     void onActivate() {
         oldCount = Long.MIN_VALUE;
-        currentTop100 = 0;
+        List<Platform> platforms = referenceService.getPlatforms();
+        for (Platform platform : platforms) {
+            tops.add("Top 100 - Collection - "+platform.getShortName());
+        }
+        for (Platform platform : platforms) {
+            tops.add("Top 100 - Wishlist - "+platform.getShortName());
+        }
+        tops.add("Top 100 - Rating");
+        tops.add("Top 100 - Recently sold");
+        tops.add("Top 100 - Recently in shop");
+        currentTop100 = tops.iterator().next();
     }
 
     @SetupRender
@@ -85,25 +87,27 @@ public class Top100 {
 
     public Collection<Top100Item> getTopItems() {
         Collection<Top100Item> top100ItemList = new ArrayList<Top100Item>();
-        switch (currentTop100) {
-            case 0:
-                top100ItemList = registry.findTop100OfGamesInCollectionByPlatform(referenceService.findPlatformByName("AES"));
-                break;
-            case 1:
-                top100ItemList = registry.findTop100OfGamesInCollectionByPlatform(referenceService.findPlatformByName("MVS"));
-                break;
-            case 2:
-                top100ItemList = registry.findTop100OfGamesInCollectionByPlatform(referenceService.findPlatformByName("NGCD"));
-                break;
-            case 3:
-                top100ItemList = registry.findTop100OfGamesInCollectionByPlatform(referenceService.findPlatformByName("NGP"));
-                break;
-            case 4:
-                top100ItemList = registry.findTop100OfGamesInCollectionByPlatform(referenceService.findPlatformByName("NGPC"));
-                break;
-            case 5:
-                top100ItemList = registry.findTop100OfGamesInCollectionByPlatform(referenceService.findPlatformByName("H64"));
-                break;
+
+        Platform platform = null;
+        if(StringUtils.countMatches(currentTop100, "-") == 2) {
+            String platformName = currentTop100.split("-")[2].trim();
+            platform = referenceService.findPlatformByName(platformName);
+        }
+        top100ItemList = listGames(top100ItemList, platform);
+        return top100ItemList;
+    }
+
+    private Collection<Top100Item> listGames(Collection<Top100Item> top100ItemList, Platform platform) {
+        if(currentTop100.contains("Collection")) {
+            top100ItemList = registry.findTop100OfGamesInCollection(platform);
+        } else if(currentTop100.contains("Wishlist")) {
+            top100ItemList = registry.findTop100OfGamesInWishlist(platform);
+        } else if(currentTop100.contains("Rating")) {
+            top100ItemList = registry.findTop100OfGamesWithRating();
+        } else if(currentTop100.contains("Recently sold")) {
+            top100ItemList = registry.findTop100OfGamesRecentlySold();
+        } else if(currentTop100.contains("Recently in shop")) {
+            top100ItemList = registry.findTop100OfGamesRecentlyInShop();
         }
         return top100ItemList;
     }
@@ -113,8 +117,8 @@ public class Top100 {
     }
 
     @OnEvent(component = "top100", value = EventConstants.VALUE_CHANGED)
-    public void onSelectFromTop100(int id) {
-        this.currentTop100 = id;
+    public void onSelectFromTop100(String currentTop100) {
+        this.currentTop100 = currentTop100;
         ajaxResponseRenderer.addRender(top100Zone);
     }
 

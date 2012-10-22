@@ -15,10 +15,8 @@ public class Top100List extends ModelList {
 
     public Top100List(Collection<String> tops) {
         List<OptionModel> options = CollectionFactory.newList();
-        int i = 0;
         for (String top : tops) {
-            options.add(new OptionModelImpl(top, i));
-            i++;
+            options.add(new OptionModelImpl(top, top));
         }
         selectModel = new SelectModelImpl(null, options);
     }

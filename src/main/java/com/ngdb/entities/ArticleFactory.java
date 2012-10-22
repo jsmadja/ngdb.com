@@ -5,6 +5,7 @@ import com.ngdb.entities.article.Accessory;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.Hardware;
+import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
 import org.apache.commons.lang.math.RandomUtils;
@@ -14,6 +15,7 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.ResultTransformer;
 
 import javax.annotation.Nullable;
@@ -21,11 +23,14 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import static com.google.common.collect.Collections2.transform;
 import static java.util.Arrays.asList;
 import static org.hibernate.criterion.Projections.*;
 import static org.hibernate.criterion.Restrictions.eq;
+import static org.hibernate.criterion.Restrictions.isNotEmpty;
 import static org.hibernate.criterion.Restrictions.isNotNull;
 
 public class ArticleFactory {
@@ -59,6 +64,10 @@ public class ArticleFactory {
 
     public List<Game> findAllGames() {
         return allGames().list();
+    }
+
+    public List<Game> findAllGamesWithReviews() {
+        return allGames().add(isNotEmpty("reviews.reviews")).list();
     }
 
     public Collection<Game> findAllGamesLight() {
@@ -101,4 +110,9 @@ public class ArticleFactory {
         }
     };
 
+    public Set<Review> findAllReviewOfNgh(String ngh) {
+        String sql = "SELECT * FROM Review WHERE article_id IN (SELECT id FROM Game WHERE ngh = '" + ngh + "')";
+        SQLQuery query = session.createSQLQuery(sql).addEntity(Review.class);
+        return new TreeSet<Review>(query.list());
+    }
 }

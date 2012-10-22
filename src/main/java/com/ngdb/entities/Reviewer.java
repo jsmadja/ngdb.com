@@ -25,23 +25,18 @@ public class Reviewer {
     public Set<Review> reviewsOf(Article article) {
         if (article.isGame()) {
             Game game = (Game) article;
-            Set<Review> reviews = new TreeSet<Review>(game.getReviews().all());
-            List<Game> relatedGames = articleFactory.findAllGamesByNgh(game.getNgh());
-            for (Game relatedGame : relatedGames) {
-                reviews.addAll(relatedGame.getReviews().all());
-            }
-            return reviews;
+            return articleFactory.findAllReviewOfNgh(game.getNgh());
         }
         return article.getReviews().all();
     }
 
-    public double getAverageMarkOf(Article article) {
+    public Double getAverageMarkOf(Article article) {
         Collection<Review> reviews = reviewsOf(article);
         if(!article.isGame()) {
-            return 0;
+            return 0D;
         }
         if (reviews.isEmpty()) {
-            return 0;
+            return 0D;
         }
         double sum = 0;
         for (Review review : reviews) {

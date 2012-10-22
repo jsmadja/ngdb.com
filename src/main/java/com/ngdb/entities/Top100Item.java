@@ -5,10 +5,10 @@ public class Top100Item {
     private Long id;
     private String title;
     private String originTitle;
-    private long count;
+    private String count;
     private String rank;
 
-    public Top100Item(Long id, String title, String originTitle, long count, String rank) {
+    public Top100Item(Long id, String title, String originTitle, String count, String rank) {
         this.id = id;
         this.title = title;
         this.originTitle = originTitle;
@@ -28,7 +28,7 @@ public class Top100Item {
         return originTitle;
     }
 
-    public long getCount() {
+    public String getCount() {
         return count;
     }
 
