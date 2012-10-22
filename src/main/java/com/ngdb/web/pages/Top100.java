@@ -59,7 +59,8 @@ public class Top100 {
     @Inject
     private ReferenceService referenceService;
 
-    void onActivate() {
+    @SetupRender
+    void init() {
         oldCount = Long.MIN_VALUE;
         List<Platform> platforms = referenceService.getPlatforms();
         for (Platform platform : platforms) {
@@ -72,10 +73,7 @@ public class Top100 {
         tops.add("Top 100 - Recently sold");
         tops.add("Top 100 - Recently in shop");
         currentTop100 = tops.iterator().next();
-    }
 
-    @SetupRender
-    void init() {
         model = beanModelSource.createDisplayModel(Top100Item.class, messages);
         model.get("title").label(messages.get("common.Title")).sortable(true);
         model.get("originTitle").label(messages.get("common.Origin")).sortable(true);
