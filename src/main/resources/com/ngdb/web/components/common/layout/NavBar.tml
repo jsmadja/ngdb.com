@@ -17,6 +17,7 @@
                     <li><a href="/market?display-all=true">${message:nav.market}</a></li>
                     <li><a href="/museum?display-all=true">${message:nav.museum}</a></li>
                     <li><a href="/users">${message:nav.members}</a></li>
+                    <li><a href="/top100">${message:nav.top100}</a></li>
                 </ul>
             </div>
 
