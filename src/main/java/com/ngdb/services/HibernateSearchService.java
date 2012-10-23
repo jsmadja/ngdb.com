@@ -1,6 +1,7 @@
 package com.ngdb.services;
 
 import com.ngdb.entities.article.Game;
+import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.search.Query;
 import org.apache.tapestry5.hibernate.HibernateSessionManager;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -49,7 +50,9 @@ public class HibernateSearchService {
     }
 
     public String normalize(String string) {
-        return removeDiacriticalMarks(string.trim().toLowerCase());
+        string = string.trim().toLowerCase();
+        string = StringUtils.remove(string, ", the");
+        return removeDiacriticalMarks(string);
     }
 
     private String removeDiacriticalMarks(String string) {
