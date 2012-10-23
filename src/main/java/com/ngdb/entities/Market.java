@@ -13,6 +13,7 @@ import net.sf.ehcache.Element;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -192,5 +193,11 @@ public class Market {
             put("url", hostUrl + "market/"+user.getId()+"?platform=" + platform + "&origin=" + origin);
         }};
         mailService.sendMail(wisher, "new_shopitem", "Your dream comes true, you could buy "+shopItem.getTitle(), params);
+    }
+
+    public ShopItem getLastShopItemForSaleOf(Long articleId) {
+        String sql = "SELECT * FROM ShopItem WHERE sold = 0 AND article_id = " + articleId + " ORDER BY modification_date DESC";
+        SQLQuery query = session.createSQLQuery(sql).addEntity(ShopItem.class);
+        return (ShopItem) query.list().get(0);
     }
 }

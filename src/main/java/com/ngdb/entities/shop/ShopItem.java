@@ -10,6 +10,8 @@ import com.ngdb.web.services.infrastructure.UnavailableRatingException;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.joda.money.CurrencyUnit;
+import org.joda.money.Money;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,6 +21,7 @@ import java.util.Date;
 import static java.text.MessageFormat.format;
 import static javax.persistence.FetchType.LAZY;
 import static org.apache.commons.lang.StringUtils.repeat;
+import static org.joda.money.CurrencyUnit.of;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -165,7 +168,11 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
 
     @Override
     public String toString() {
-        return format("{0} by {1} for {2} {3}", getArticle().getTitle(), seller.getLogin(), getCustomCurrency(), getPriceInCustomCurrency());
+        return format("{0} by {1} for {2} {3}", getArticle().getTitle(), seller.getLogin(), customCurrency, priceInCustomCurrency);
+    }
+
+    public String getPriceAsString() {
+        return format("{0} {1}", priceInCustomCurrency, of(customCurrency).getSymbol());
     }
 
     public void removePicture(Picture picture) {

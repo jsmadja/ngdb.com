@@ -2,10 +2,11 @@ package com.ngdb.web.pages;
 
 import com.ngdb.entities.Registry;
 import com.ngdb.entities.Top100Item;
+import com.ngdb.entities.Top100ShopItem;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
+import com.ngdb.web.Filter;
 import com.ngdb.web.model.Top100List;
-import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.*;
@@ -28,6 +29,9 @@ public class Top100 {
     @Property
     private Top100Item topItem;
 
+    @Property
+    private Top100ShopItem topShopItem;
+
     @Persist
     @Property
     private String top100;
@@ -47,77 +51,148 @@ public class Top100 {
     @Inject
     private BeanModelSource beanModelSource;
 
-    @Persist
-    @Property
-    private BeanModel<Top100Item> model;
-
     private final Collection<String> tops = new ArrayList<String>();
 
-    @Persist
-    private long oldCount;
+    @Inject
+    private com.ngdb.entities.Market market;
 
     @Inject
     private ReferenceService referenceService;
 
     @SetupRender
     void init() {
-        oldCount = Long.MIN_VALUE;
+        tops.clear();
         List<Platform> platforms = referenceService.getPlatforms();
         for (Platform platform : platforms) {
-            tops.add("Top 100 - Collection - "+platform.getShortName());
+            tops.add("Collection - "+platform.getShortName());
         }
+        tops.add("-");
         for (Platform platform : platforms) {
-            tops.add("Top 100 - Wishlist - "+platform.getShortName());
+            tops.add("Wishlist - "+platform.getShortName());
         }
-        tops.add("Top 100 - Rating");
-        tops.add("Top 100 - Recently sold");
-        tops.add("Top 100 - Recently in shop");
+        tops.add("-");
+        tops.add("Rating");
+        tops.add("-");
+        for (Platform platform : platforms) {
+            tops.add("Recently sold - "+platform.getShortName());
+        }
+        tops.add("-");
+        for (Platform platform : platforms) {
+            tops.add("Recently in shop - "+platform.getShortName());
+        }
         currentTop100 = tops.iterator().next();
+    }
 
-        model = beanModelSource.createDisplayModel(Top100Item.class, messages);
+    @OnEvent(component = "top100", value = EventConstants.VALUE_CHANGED)
+    public void onSelectFromTop100(String currentTop100) {
+        if(isNotSeparator(currentTop100)) {
+            this.currentTop100 = currentTop100;
+            ajaxResponseRenderer.addRender(top100Zone);
+        }
+    }
+
+    public BeanModel<Top100Item> getArticleModel() {
+        BeanModel<Top100Item> model = beanModelSource.createDisplayModel(Top100Item.class, messages);
         model.get("title").label(messages.get("common.Title")).sortable(true);
         model.get("originTitle").label(messages.get("common.Origin")).sortable(true);
         model.get("rank").label(messages.get("common.Rank")).sortable(true);
         model.get("count").label(messages.get("common.Count")).sortable(true);
         model.include("rank", "title", "count", "originTitle");
         model.reorder("rank", "count", "title", "originTitle");
+        if(isRatingTop100()) {
+            model.get("count").label(messages.get("common.Mark"));
+            model.exclude("originTitle");
+        }
+        return model;
+    }
+
+    public BeanModel<Top100ShopItem> getShopItemModel() {
+        BeanModel<Top100ShopItem> model = beanModelSource.createDisplayModel(Top100ShopItem.class, messages);
+        model.get("title").label(messages.get("common.Title")).sortable(true);
+        model.get("originTitle").label(messages.get("common.Origin")).sortable(true);
+        model.get("price").label(messages.get("common.Price"));
+        model.include("price", "title", "originTitle");
+        model.reorder("price", "title", "originTitle");
+        return model;
     }
 
     public Collection<Top100Item> getTopItems() {
-        Collection<Top100Item> top100ItemList = new ArrayList<Top100Item>();
-
-        Platform platform = null;
-        if(StringUtils.countMatches(currentTop100, "-") == 2) {
-            String platformName = currentTop100.split("-")[2].trim();
-            platform = referenceService.findPlatformByName(platformName);
-        }
-        top100ItemList = listGames(top100ItemList, platform);
-        return top100ItemList;
+        Platform platform = getPlatform();
+        return listGames(platform);
     }
 
-    private Collection<Top100Item> listGames(Collection<Top100Item> top100ItemList, Platform platform) {
-        if(currentTop100.contains("Collection")) {
-            top100ItemList = registry.findTop100OfGamesInCollection(platform);
-        } else if(currentTop100.contains("Wishlist")) {
-            top100ItemList = registry.findTop100OfGamesInWishlist(platform);
-        } else if(currentTop100.contains("Rating")) {
-            top100ItemList = registry.findTop100OfGamesWithRating();
-        } else if(currentTop100.contains("Recently sold")) {
-            top100ItemList = registry.findTop100OfGamesRecentlySold();
-        } else if(currentTop100.contains("Recently in shop")) {
-            top100ItemList = registry.findTop100OfGamesRecentlyInShop();
+    private Platform getPlatform() {
+        Platform platform = null;
+        if(currentTop100.contains("-")) {
+            String platformName = currentTop100.split("-")[1].trim();
+            platform = referenceService.findPlatformByName(platformName);
         }
-        return top100ItemList;
+        return platform;
+    }
+
+    public Collection<Top100ShopItem> getTopShopItems() {
+        Collection<Top100ShopItem> top100ShopItems = new ArrayList<Top100ShopItem>();
+        Platform platform = getPlatform();
+        if(isRecentlySoldTop100()) {
+            top100ShopItems = registry.findTop100OfGamesRecentlySold(platform);
+        } else if(isRecentlyInShopTop100()) {
+            top100ShopItems = registry.findTop100OfGamesRecentlyInShop(platform);
+        }
+        return top100ShopItems;
+    }
+
+    private Collection<Top100Item> listGames(Platform platform) {
+        if(isCollectionTop100()) {
+            return registry.findTop100OfGamesInCollection(platform);
+        } else if(isWishlistTop100()) {
+            return registry.findTop100OfGamesInWishlist(platform);
+        } else if(isRatingTop100()) {
+            return registry.findTop100OfGamesWithRating();
+        }
+        throw new IllegalStateException("Invalid Top100 selection");
+    }
+
+    public String getCount() {
+        if(isRecentlyInShopTop100()) {
+            return market.getLastShopItemForSaleOf(topItem.getId()).getPriceAsString();
+        }
+        return topItem.getCount();
+    }
+
+    private boolean isRecentlyInShopTop100() {
+        return currentTop100.contains("Recently in shop");
+    }
+
+    private boolean isRecentlySoldTop100() {
+        return currentTop100.contains("Recently sold");
+    }
+
+    private boolean isRatingTop100() {
+        return currentTop100.contains("Rating");
+    }
+
+    private boolean isWishlistTop100() {
+        return currentTop100.contains("Wishlist");
+    }
+
+    private boolean isCollectionTop100() {
+        return currentTop100.contains("Collection");
     }
 
     public SelectModel getTop100List() {
         return new Top100List(tops);
     }
 
-    @OnEvent(component = "top100", value = EventConstants.VALUE_CHANGED)
-    public void onSelectFromTop100(String currentTop100) {
-        this.currentTop100 = currentTop100;
-        ajaxResponseRenderer.addRender(top100Zone);
+    private boolean isNotSeparator(String currentTop100) {
+        return !"-".equals(currentTop100);
+    }
+
+    public boolean isShopItemTop() {
+        return isRecentlyInShopTop100() || isRecentlySoldTop100();
+    }
+
+    public String getByArticle() {
+        return Filter.byArticle.name();
     }
 
 }

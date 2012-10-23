@@ -136,13 +136,24 @@ public class Registry {
         };
     }
 
-    public Collection<Top100Item> findTop100OfGamesRecentlySold() {
-        String sqlQuery = "SELECT id, title, origin_title, 0 FROM Game WHERE id IN (SELECT article_id FROM ShopItem WHERE sold = 1 ORDER BY MODIFICATION_DATE)";
-        return findTop100OfGames(sqlQuery);
+    public Collection<Top100ShopItem> findTop100OfGamesRecentlySold(Platform platform) {
+        return findTop100OfGamesRecentlyInMarket(platform, true);
     }
 
-    public Collection<Top100Item> findTop100OfGamesRecentlyInShop() {
-        String sqlQuery = "SELECT id, title, origin_title, 0 FROM Game WHERE id IN (SELECT article_id FROM ShopItem WHERE sold = 0 ORDER BY MODIFICATION_DATE)";
-        return findTop100OfGames(sqlQuery);
+    public Collection<Top100ShopItem> findTop100OfGamesRecentlyInShop(Platform platform) {
+        return findTop100OfGamesRecentlyInMarket(platform, false);
     }
+
+    private Collection<Top100ShopItem> findTop100OfGamesRecentlyInMarket(Platform platform, boolean sold) {
+        int flag = sold?1:0;
+        String sqlQuery = "SELECT g.id, g.title, g.origin_title, si.customCurrency, si.priceInCustomCurrency, si.id FROM ShopItem si, Game g WHERE si.article_id = g.id AND sold = "+flag+" AND g.platform_short_name = '"+platform.getShortName()+"' ORDER BY si.MODIFICATION_DATE DESC";
+        return findTop100OfShopItems(sqlQuery);
+    }
+
+    private Collection<Top100ShopItem> findTop100OfShopItems(String sqlQuery) {
+        Query query = session.createSQLQuery(sqlQuery);
+        query = query.setResultTransformer(new Top100ShopItemResultTransformer());
+        return query.setMaxResults(100).list();
+    }
+
 }
