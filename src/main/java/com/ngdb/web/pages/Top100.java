@@ -62,6 +62,21 @@ public class Top100 {
     void init() {
         tops.clear();
         List<Platform> platforms = referenceService.getPlatforms();
+
+        for (Platform platform : platforms) {
+            if(market.getNumGamesSold(platform) > 0) {
+                tops.add("Recently sold - "+platform.getShortName());
+            }
+        }
+        tops.add("-");
+        for (Platform platform : platforms) {
+            if(market.getNumGamesForSale(platform) > 0) {
+                tops.add("Recently in shop - "+platform.getShortName());
+            }
+        }
+        tops.add("-");
+        tops.add("Rating");
+        tops.add("-");
         for (Platform platform : platforms) {
             tops.add("Collection - "+platform.getShortName());
         }
@@ -69,17 +84,9 @@ public class Top100 {
         for (Platform platform : platforms) {
             tops.add("Wishlist - "+platform.getShortName());
         }
-        tops.add("-");
-        tops.add("Rating");
-        tops.add("-");
-        for (Platform platform : platforms) {
-            tops.add("Recently sold - "+platform.getShortName());
+        if(currentTop100 == null) {
+            currentTop100 = tops.iterator().next();
         }
-        tops.add("-");
-        for (Platform platform : platforms) {
-            tops.add("Recently in shop - "+platform.getShortName());
-        }
-        currentTop100 = tops.iterator().next();
     }
 
     @OnEvent(component = "top100", value = EventConstants.VALUE_CHANGED)

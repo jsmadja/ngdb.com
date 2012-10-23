@@ -2,6 +2,7 @@ package com.ngdb.entities;
 
 import com.google.common.base.Predicate;
 import com.ngdb.entities.article.Article;
+import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.services.MailService;
@@ -131,6 +132,21 @@ public class Market {
         return getNumAll("Game");
     }
 
+
+    public long getNumGamesForSale(Platform platform) {
+        String platformeName = platform.getShortName();
+        String gameQuery = "SELECT id FROM Game WHERE platform_short_name = '"+ platformeName +"'";
+        String sqlQuery = "SELECT COUNT(id) FROM ShopItem WHERE sold = 0 AND article_id IN ("+gameQuery+")";
+        return ((BigInteger) session.createSQLQuery(sqlQuery).uniqueResult()).longValue();
+    }
+
+    public long getNumGamesSold(Platform platform) {
+        String platformeName = platform.getShortName();
+        String gameQuery = "SELECT id FROM Game WHERE platform_short_name = '"+ platformeName +"'";
+        String sqlQuery = "SELECT COUNT(id) FROM ShopItem WHERE sold = 1 AND article_id IN ("+gameQuery+")";
+        return ((BigInteger) session.createSQLQuery(sqlQuery).uniqueResult()).longValue();
+    }
+
     public long getNumHardwaresForSale() {
         return getNumAll("Hardware");
     }
@@ -200,4 +216,5 @@ public class Market {
         SQLQuery query = session.createSQLQuery(sql).addEntity(ShopItem.class);
         return (ShopItem) query.list().get(0);
     }
+
 }
