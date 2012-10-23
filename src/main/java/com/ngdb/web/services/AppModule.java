@@ -125,6 +125,7 @@ public class AppModule {
         binder.bind(CheckoutService.class);
         binder.bind(HibernateSearchService.class);
         binder.bind(Reviewer.class);
+        binder.bind(Charts.class);
     }
 
     public static VelocityEngine buildVelocityEngine() {

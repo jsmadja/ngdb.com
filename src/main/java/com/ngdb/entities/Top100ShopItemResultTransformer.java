@@ -19,8 +19,9 @@ public class Top100ShopItemResultTransformer implements ResultTransformer {
         String currency = tuple[3].toString();
         Double amount = (Double)tuple[4];
         long shopItemId = ((BigInteger) tuple[5]).longValue();
+        long sellerId = ((BigInteger) tuple[6]).longValue();
         String price =  format("{0} {1}", amount, of(currency).getSymbol());
-        return new Top100ShopItem(id, title, platform, price, shopItemId);
+        return new Top100ShopItem(id, title, platform, price, shopItemId, sellerId);
     }
 
     @Override

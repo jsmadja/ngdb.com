@@ -1539,6 +1539,12 @@ table {
   padding: 4px 5px;
 }
 
+.table-ultra-condensed th,
+.table-ultra-condensed td {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
 .table-bordered {
   border: 1px solid #dddddd;
   border-collapse: separate;

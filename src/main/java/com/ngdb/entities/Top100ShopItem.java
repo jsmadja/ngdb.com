@@ -7,13 +7,15 @@ public class Top100ShopItem {
     private Long articleId;
     private String title;
     private String originTitle;
+    private Long sellerId;
 
-    public Top100ShopItem(Long articleId, String title, String originTitle, String price, Long shopItemId) {
+    public Top100ShopItem(Long articleId, String title, String originTitle, String price, Long shopItemId, long sellerId) {
         this.articleId = articleId;
         this.title = title;
         this.originTitle = originTitle;
         this.price = price;
         this.shopItemId = shopItemId;
+        this.sellerId = sellerId;
     }
 
     public String getPrice() {
@@ -34,5 +36,9 @@ public class Top100ShopItem {
 
     public String getOriginTitle() {
         return originTitle;
+    }
+
+    public Long getSellerId() {
+        return sellerId;
     }
 }

@@ -1,8 +1,6 @@
 package com.ngdb.web.pages;
 
-import com.ngdb.entities.Registry;
-import com.ngdb.entities.Top100Item;
-import com.ngdb.entities.Top100ShopItem;
+import com.ngdb.entities.*;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.web.Filter;
@@ -17,14 +15,12 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.BeanModelSource;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class Top100 {
 
     @Inject
-    private Registry registry;
+    private Charts charts;
 
     @Property
     private Top100Item topItem;
@@ -58,6 +54,9 @@ public class Top100 {
 
     @Inject
     private ReferenceService referenceService;
+
+    @Inject
+    private Population population;
 
     @SetupRender
     void init() {
@@ -111,8 +110,9 @@ public class Top100 {
         model.get("title").label(messages.get("common.Title")).sortable(true);
         model.get("originTitle").label(messages.get("common.Origin")).sortable(true);
         model.get("price").label(messages.get("common.Price"));
-        model.include("price", "title", "originTitle");
-        model.reorder("price", "title", "originTitle");
+        model.get("sellerId").label(messages.get("common.Seller"));
+        model.include("price", "title", "originTitle", "sellerId");
+        model.reorder("price", "title", "originTitle", "sellerId");
         return model;
     }
 
@@ -134,20 +134,20 @@ public class Top100 {
         Collection<Top100ShopItem> top100ShopItems = new ArrayList<Top100ShopItem>();
         Platform platform = getPlatform();
         if(isRecentlySoldTop100()) {
-            top100ShopItems = registry.findTop100OfGamesRecentlySold(platform);
+            top100ShopItems = charts.findTop100OfGamesRecentlySold(platform);
         } else if(isRecentlyInShopTop100()) {
-            top100ShopItems = registry.findTop100OfGamesRecentlyInShop(platform);
+            top100ShopItems = charts.findTop100OfGamesRecentlyInShop(platform);
         }
         return top100ShopItems;
     }
 
     private Collection<Top100Item> listGames(Platform platform) {
         if(isCollectionTop100()) {
-            return registry.findTop100OfGamesInCollection(platform);
+            return charts.findTop100OfGamesInCollection(platform);
         } else if(isWishlistTop100()) {
-            return registry.findTop100OfGamesInWishlist(platform);
+            return charts.findTop100OfGamesInWishlist(platform);
         } else if(isRatingTop100()) {
-            return registry.findTop100OfGamesWithRating();
+            return charts.findTop100OfGamesWithRating();
         }
         throw new IllegalStateException("Invalid Top100 selection");
     }
@@ -193,6 +193,11 @@ public class Top100 {
 
     public String getByArticle() {
         return Filter.byArticle.name();
+    }
+
+    public String getSeller() {
+        Long sellerId = topShopItem.getSellerId();
+        return population.getNameOf(sellerId);
     }
 
 }

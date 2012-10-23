@@ -31,6 +31,8 @@ public class Population {
     @Symbol("host.url")
     private String host;
 
+    private static Map<Long, String> userNames = new HashMap<Long, String>();
+
     public User findById(Long id) {
         return (User) session.load(User.class, id);
     }
@@ -76,4 +78,10 @@ public class Population {
         mailService.sendMail(user, "reset_password", params);
     }
 
+    public String getNameOf(Long userId) {
+        if(userNames.get(userId) == null) {
+            userNames.put(userId, findById(userId).getLogin());
+        }
+        return userNames.get(userId);
+    }
 }
