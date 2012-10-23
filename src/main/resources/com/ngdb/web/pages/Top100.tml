@@ -33,6 +33,7 @@
                             row="topShopItem"
                             rowsPerPage="100"
                             model="shopItemModel"
+                            inPlace="true"
                             class="table table-striped table-bordered table-ultra-condensed">
                         <p:sellerIdCell>
                             <t:pageLink page="market" context="topShopItem.sellerId">${seller}</t:pageLink>
@@ -50,6 +51,7 @@
                                 row="topItem"
                                 rowsPerPage="100"
                                 model="articleModel"
+                                inPlace="true"
                                 class="table table-striped table-bordered table-ultra-condensed">
                             <p:titleCell>
                                 <t:pageLink page="article/game/gameview" context="topItem.id">${topItem.title}</t:pageLink>
