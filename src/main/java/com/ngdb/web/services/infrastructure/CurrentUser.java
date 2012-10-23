@@ -354,6 +354,10 @@ public class CurrentUser {
         return currency;
     }
 
+    public String getPreferedCurrencyAsSymbol() {
+        return CurrencyUnit.of(getPreferedCurrency()).getSymbol();
+    }
+
     private String getCurrencyOf(Locale locale) {
         if(locale == null) {
             return null;
@@ -382,4 +386,5 @@ public class CurrentUser {
         }
         return user.getId().equals(getUserId());
     }
+
 }

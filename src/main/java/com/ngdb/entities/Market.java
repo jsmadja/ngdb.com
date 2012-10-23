@@ -116,14 +116,14 @@ public class Market {
 
     public String getPriceForCurrentUser(ShopItem shopItem) {
         if(currentUser.isAnonymous()) {
-            return shopItem.getPriceInCustomCurrency() + " "+shopItem.getCustomCurrency();
+            return shopItem.getPriceInCustomCurrency() + " "+shopItem.getCustomCurrencyAsSymbol();
         }
         String preferredCurrency = currentUser.getPreferedCurrency();
         try {
-            return shopItem.getPriceIn(preferredCurrency) + " "+ preferredCurrency;
+            return shopItem.getPriceIn(preferredCurrency) + " "+ currentUser.getPreferedCurrencyAsSymbol();
         }catch(UnavailableRatingException e) {
             LOG.warn(e.getMessage());
-            return shopItem.getPriceInCustomCurrency() + " "+shopItem.getCustomCurrency();
+            return shopItem.getPriceInCustomCurrency() + " "+shopItem.getCustomCurrencyAsSymbol();
         }
     }
 

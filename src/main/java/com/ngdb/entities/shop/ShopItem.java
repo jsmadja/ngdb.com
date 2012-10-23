@@ -261,4 +261,8 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
     private String greystar(String conditionTitle) {
         return format("<img title='{0}' width='15px' src='/img/stars/grey_star.png'>", conditionTitle);
     }
+
+    public String getCustomCurrencyAsSymbol() {
+        return CurrencyUnit.of(customCurrency).getSymbol();
+    }
 }

@@ -76,9 +76,14 @@ public class ConversionRateService {
 	}
 
 	private String getLastRates() throws IOException {
-		URL url = new URL("http://openexchangerates.org/latest.json");
+        String openexchangeratesAppId = isProductionServer() ? "233ef39741bd4b09aaa16e660da2d5bf" : "";
+		URL url = new URL("http://openexchangerates.org/latest.json?app_id="+openexchangeratesAppId);
 		URLConnection openConnection = url.openConnection();
 		return new String(ByteStreams.toByteArray(openConnection.getInputStream()));
 	}
+
+    private boolean isProductionServer() {
+        return "true".equalsIgnoreCase(System.getProperty("production"));
+    }
 
 }

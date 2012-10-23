@@ -39,8 +39,4 @@ public class Layout {
         return userSession.getUser();
     }
 
-    public boolean isProductionServer() {
-        return "true".equalsIgnoreCase(System.getProperty("production"));
-    }
-
 }
