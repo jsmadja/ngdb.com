@@ -108,11 +108,15 @@ public class Charts {
                 String title = input.getTitle();
                 String originTitle = input.getOriginTitle();
                 Double mark = marks.get(input.getNgh());
-
-                if (mark.equals(oldMark)) {
-                    rank = ".";
+                if(mark == null) {
+                    rank = "";
+                    mark = Double.MAX_VALUE;
                 } else {
-                    rank = idx.toString() + ".";
+                    if (mark.equals(oldMark)) {
+                        rank = ".";
+                    } else {
+                        rank = idx.toString() + ".";
+                    }
                 }
                 idx++;
                 oldMark = mark;
