@@ -17,6 +17,10 @@ public class Mark {
         }
     }
 
+    public Mark(double value) {
+        this.starsAsDouble = value;
+    }
+
     private double convertQuotients() {
         String sup = nativeValue.split("/")[0];
         sup = sup.replace(',','.');

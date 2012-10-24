@@ -1,5 +1,6 @@
 package com.ngdb.web.pages;
 
+import com.ngdb.Mark;
 import com.ngdb.entities.*;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
@@ -181,7 +182,15 @@ public class Top100 {
         if(isRecentlyInShopTop100()) {
             return market.getLastShopItemForSaleOf(topItem.getId()).getPriceAsString();
         }
-        return topItem.getCount();
+        String count = topItem.getCount();
+        if(isRatingTop100()) {
+            return asStars(Double.parseDouble(count));
+        }
+        return count;
+    }
+
+    private String asStars(double mark) {
+        return new Mark(mark).getStars();
     }
 
     private boolean isRecentlyInShopTop100() {

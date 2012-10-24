@@ -20,7 +20,7 @@
             <style type="text/css">
                 td.rank {width: 55px; text-align:right;vertical-align:middle;}
                 td.price {width: 55px; text-align:right;vertical-align:middle;}
-                td.count {width: 75px; text-align:right;vertical-align:middle;}
+                td.count {width: 120px; text-align:right;vertical-align:middle;}
                 td.originTitle {width: 70px; text-align:center;vertical-align:middle;}
                 td.title {vertical-align:middle;}
                 td.state {vertical-align:middle;}
@@ -65,7 +65,7 @@
                                 <img src="/img/flags/${topItem.originTitle}.png" alt="${topItem.originTitle}" />
                             </p:originTitleCell>
                             <p:countCell>
-                                ${count}
+                                <t:outputraw value="${count}" />
                             </p:countCell>
                         </t:grid>
                     </p:else>
