@@ -69,27 +69,18 @@ public class Charts {
         sort(filteredGames, new Comparator<Game>() {
             @Override
             public int compare(Game game1, Game game2) {
-                Double mark1 = getMark1(game1);
-                Double mark2 = getMark2(game2);
+                Double mark1 = getMark(game1);
+                Double mark2 = getMark(game2);
                 return mark2.compareTo(mark1);
             }
 
-            private Double getMark2(Game game2) {
-                Double mark2 = reviewer.getAverageMarkOf(game2);
-                if(mark2 == null) {
-                    mark2 = reviewer.getAverageMarkOf(game2);
-                    marks.put(game2.getNgh(), mark2);
+            private Double getMark(Game game) {
+                Double mark = marks.get(game.getNgh());
+                if(mark == null) {
+                    mark= reviewer.getAverageMarkOf(game);
+                    marks.put(game.getNgh(), mark);
                 }
-                return mark2;
-            }
-
-            private Double getMark1(Game game1) {
-                Double mark1 = marks.get(game1.getNgh());
-                if(mark1 == null) {
-                    mark1= reviewer.getAverageMarkOf(game1);
-                    marks.put(game1.getNgh(), mark1);
-                }
-                return mark1;
+                return mark;
             }
         });
         return filteredGames;
@@ -109,7 +100,8 @@ public class Charts {
                 Double mark = marks.get(input.getNgh());
                 if(mark == null) {
                     rank = "";
-                    mark = Double.MAX_VALUE;
+                    System.err.println("Pas de note pour "+title+" (ngh:"+input.getNgh()+")");
+                    mark = 0D;
                 } else {
                     if (mark.equals(oldMark)) {
                         rank = ".";
