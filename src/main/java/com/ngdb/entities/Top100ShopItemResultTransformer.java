@@ -1,9 +1,11 @@
 package com.ngdb.entities;
 
 import org.hibernate.transform.ResultTransformer;
+import org.joda.time.DateMidnight;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 import static java.text.MessageFormat.format;
@@ -21,7 +23,9 @@ public class Top100ShopItemResultTransformer implements ResultTransformer {
         long shopItemId = ((BigInteger) tuple[5]).longValue();
         long sellerId = ((BigInteger) tuple[6]).longValue();
         String price =  format("{0} {1}", amount, of(currency).getSymbol());
-        return new Top100ShopItem(id, title, platform, price, shopItemId, sellerId);
+        String state = tuple[7].toString();
+        Date saleDate = (Date)tuple[8];
+        return new Top100ShopItem(id, title, platform, price, shopItemId, sellerId, state, saleDate);
     }
 
     @Override

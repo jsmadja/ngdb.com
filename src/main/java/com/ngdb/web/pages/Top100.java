@@ -5,6 +5,7 @@ import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.web.Filter;
 import com.ngdb.web.model.Top100List;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.*;
@@ -14,6 +15,9 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.BeanModelSource;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
+import org.joda.time.DateMidnight;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.*;
 
@@ -118,10 +122,24 @@ public class Top100 {
         model.get("originTitle").label(messages.get("common.Origin")).sortable(true);
         model.get("price").label(messages.get("common.Price"));
         model.get("sellerId").label(messages.get("common.Seller"));
-        model.include("price", "title", "originTitle", "sellerId");
-        model.reorder("price", "title", "originTitle", "sellerId");
+        model.get("state").label(messages.get("common.State"));
+        if(isRecentlySoldTop100()) {
+            model.get("saleDate").label(messages.get("common.SaleDate"));
+        } else {
+            model.get("saleDate").label(messages.get("common.ForSaleDate"));
+        }
+        model.include("saleDate", "price", "title", "originTitle", "sellerId", "state");
+        model.reorder("saleDate", "price", "title", "originTitle", "state", "sellerId");
         return model;
     }
+
+    public String getSaleDateFormatted() {
+        Date saleDate = topShopItem.getSaleDate();
+        return DateTimeFormat.forPattern("dd/MM/yyyy").withLocale(currentUser.getLocale()).print(saleDate.getTime());
+    }
+
+    @Inject
+    private CurrentUser currentUser;
 
     public Collection<Top100Item> getTopItems() {
         Platform platform = getPlatform();

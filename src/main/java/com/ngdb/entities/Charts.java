@@ -39,7 +39,7 @@ public class Charts {
     private Collection<Top100Item> findTop100OfGames(String sqlQuery) {
         Query query = session.createSQLQuery(sqlQuery);
         query = query.setResultTransformer(new Top100ItemResultTransformer());
-        return query.setMaxResults(100).list();
+        return query.list();
     }
 
     public Collection<Top100Item> findTop100OfGamesWithRating() {
@@ -47,8 +47,7 @@ public class Charts {
         List<Game> allGamesWithReviews = articleFactory.findAllGamesWithReviews();
         Collection<Game> games = filterByNGH(allGamesWithReviews);
         List<Game> filteredGames = new ArrayList<Game>(orderByAverageMark(marks, games));
-        List<Game> sublist = filteredGames.subList(0, filteredGames.size() > 100 ? 100 : filteredGames.size());
-        Collection<Top100Item> transform = transform(sublist, fromGameToTop100Item(marks));
+        Collection<Top100Item> transform = transform(filteredGames, fromGameToTop100Item(marks));
         return transform;
     }
 
@@ -132,14 +131,14 @@ public class Charts {
 
     private Collection<Top100ShopItem> findTop100OfGamesRecentlyInMarket(Platform platform, boolean sold) {
         int flag = sold?1:0;
-        String sqlQuery = "SELECT g.id, g.title, g.origin_title, si.customCurrency, si.priceInCustomCurrency, si.id, si.seller_id FROM ShopItem si, Game g WHERE si.article_id = g.id AND sold = "+flag+" AND g.platform_short_name = '"+platform.getShortName()+"' ORDER BY si.MODIFICATION_DATE DESC";
+        String sqlQuery = "SELECT g.id, g.title, g.origin_title, si.customCurrency, si.priceInCustomCurrency, si.id, si.seller_id, s.title state_title, si.modification_date FROM State s, ShopItem si, Game g WHERE s.id = si.state_id AND si.article_id = g.id AND sold = "+flag+" AND g.platform_short_name = '"+platform.getShortName()+"' ORDER BY si.MODIFICATION_DATE DESC";
         return findTop100OfShopItems(sqlQuery);
     }
 
     private Collection<Top100ShopItem> findTop100OfShopItems(String sqlQuery) {
         Query query = session.createSQLQuery(sqlQuery);
         query = query.setResultTransformer(new Top100ShopItemResultTransformer());
-        return query.setMaxResults(100).list();
+        return query.list();
     }
 
 }

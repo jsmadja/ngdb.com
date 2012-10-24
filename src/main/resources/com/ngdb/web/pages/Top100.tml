@@ -23,6 +23,8 @@
                 td.count {width: 75px; text-align:right;vertical-align:middle;}
                 td.originTitle {width: 70px; text-align:center;vertical-align:middle;}
                 td.title {vertical-align:middle;}
+                td.state {vertical-align:middle;}
+                td.saleDate {vertical-align:middle;}
                 td.sellerId {vertical-align:middle;}
             </style>
 
@@ -44,6 +46,9 @@
                         <p:originTitleCell>
                             <img src="/img/flags/${topShopItem.originTitle}.png" alt="${topShopItem.originTitle}" />
                         </p:originTitleCell>
+                        <p:saleDateCell>
+                            ${saleDateFormatted}
+                        </p:saleDateCell>
                     </t:grid>
                     <p:else>
                         <t:grid t:id="top100Table"

@@ -387,4 +387,7 @@ public class CurrentUser {
         return user.getId().equals(getUserId());
     }
 
+    public Locale getLocale() {
+        return request.getLocale();
+    }
 }
