@@ -1,7 +1,10 @@
 package com.ngdb.web.pages;
 
 import com.ngdb.Mark;
-import com.ngdb.entities.*;
+import com.ngdb.entities.Charts;
+import com.ngdb.entities.Population;
+import com.ngdb.entities.Top100Item;
+import com.ngdb.entities.Top100ShopItem;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.web.Filter;
@@ -16,11 +19,12 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.BeanModelSource;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
-import org.joda.time.DateMidnight;
 import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 public class Top100 {
 
@@ -122,6 +126,7 @@ public class Top100 {
         model.get("title").label(messages.get("common.Title")).sortable(true);
         model.get("originTitle").label(messages.get("common.Origin")).sortable(true);
         model.get("price").label(messages.get("common.Price"));
+        model.get("currency").label("");
         model.get("sellerId").label(messages.get("common.Seller"));
         model.get("state").label(messages.get("common.State"));
         if(isRecentlySoldTop100()) {
@@ -129,8 +134,8 @@ public class Top100 {
         } else {
             model.get("saleDate").label(messages.get("common.ForSaleDate"));
         }
-        model.include("saleDate", "price", "title", "originTitle", "sellerId", "state");
-        model.reorder("saleDate", "price", "title", "originTitle", "state", "sellerId");
+        model.include("saleDate", "price", "currency", "title", "originTitle", "sellerId", "state");
+        model.reorder("saleDate", "price", "currency", "title", "originTitle", "state", "sellerId");
         return model;
     }
 

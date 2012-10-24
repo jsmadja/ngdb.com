@@ -24,7 +24,8 @@
                 td.originTitle {width: 70px; text-align:center;vertical-align:middle;}
                 td.title {vertical-align:middle;}
                 td.state {vertical-align:middle;}
-                td.saleDate {vertical-align:middle;}
+                td.saleDate {vertical-align:middle;width:120px;}
+                td.currency {vertical-align:middle;width:40px;text-align:center;}
                 td.sellerId {vertical-align:middle;}
             </style>
 
