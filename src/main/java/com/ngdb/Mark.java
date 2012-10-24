@@ -18,7 +18,7 @@ public class Mark {
     }
 
     public Mark(double value) {
-        this.starsAsDouble = value;
+        this.starsAsDouble = round(value);
     }
 
     private double convertQuotients() {

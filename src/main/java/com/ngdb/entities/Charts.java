@@ -47,8 +47,7 @@ public class Charts {
         List<Game> allGamesWithReviews = articleFactory.findAllGamesWithReviews();
         Collection<Game> games = filterByNGH(allGamesWithReviews);
         List<Game> filteredGames = new ArrayList<Game>(orderByAverageMark(marks, games));
-        Collection<Top100Item> transform = transform(filteredGames, fromGameToTop100Item(marks));
-        return transform;
+        return transform(filteredGames, fromGameToTop100Item(marks));
     }
 
     private Collection<Game> filterByNGH(Collection<Game> games) {
