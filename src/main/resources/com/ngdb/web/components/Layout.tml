@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <t:if test="title">
-    	<title>NeoGeo Database - ${title}</title>
+    	<title>Neo·Geo Database - ${title}</title>
     	<p:else>
     		<title>www.neogeodb.com</title>
     	</p:else>
@@ -13,7 +13,7 @@
     <t:if test="description">
       <meta name="description" content="${description}" />
       <p:else>
-        <meta name="description" content="neogeodb.com - The NeoGeo Database - Collections, Wishlists, Marketplace of many formats (AES/MVS/CD/NGP/NGPC/H64)" />
+        <meta name="description" content="neogeodb.com - The Neo·Geo Database - Collections, Wishlists, Marketplace of many formats (AES/MVS/CD/NGP/NGPC/H64)" />
       </p:else>
     </t:if>
     <meta name="keywords" content="NeoGeo, NeoGeo games, NeoGeo videogames, NeoGeo MVS, NeoGeo AES, arcade, retro video games, retro videogames, SNK, Playmore, SNK Playmore, pocket color, price guides, neogeo, mvs, aes, neogeocd, arcade, fighting, shoot, sell, buy, database, list, listing, japanese games, shop, market, retro, retrogaming, snk, snkp, snkplaymore" />
