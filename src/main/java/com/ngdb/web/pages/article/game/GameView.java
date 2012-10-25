@@ -71,8 +71,15 @@ public class GameView {
     }
 
     public String getNgh() {
-        return StringUtils.isNumeric(game.getNgh()) ? "NGH " + game.getNgh() : game.getNgh();
-    }
+        String ngh = game.getNgh();
+        if(StringUtils.isBlank(ngh)) {
+            return "";
+        }
+        if(ngh.startsWith("NGH::")) {
+            return "";
+        }
+        return StringUtils.isNumeric(ngh) ? "NGH " + ngh : ngh;
+    }g
 
     public User getUser() {
         return currentUser.getUser();
