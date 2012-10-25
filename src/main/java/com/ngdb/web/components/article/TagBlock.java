@@ -10,11 +10,16 @@ import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.Filter;
 import com.ngdb.web.services.infrastructure.CurrentUser;
+import org.apache.tapestry5.EventConstants;
+import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.TextField;
+import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import java.util.*;
 
@@ -50,12 +55,19 @@ public class TagBlock {
     @Inject
     private ActionLogger actionLogger;
 
+    @Inject
+    private AjaxResponseRenderer ajaxResponseRenderer;
+
+    @InjectComponent
+    private Zone tagZone;
+
     void onActivate() {
         suggestions.addAll(registry.findAllTags());
     }
 
     @CommitAfter
-    public void onSuccess() {
+    @OnEvent(value = EventConstants.SUCCESS, component = "tagForm")
+    public void onSuccessFromTagForm() {
         if (isNotBlank(search)) {
             Set<String> tags = extractTags();
             for (String tag : tags) {
@@ -63,6 +75,8 @@ public class TagBlock {
             }
             actionLogger.addTagAction(getUser(), article);
         }
+        ajaxResponseRenderer.addRender(tagZone);
+        this.search = "";
     }
 
     private void addTag(String tag) {

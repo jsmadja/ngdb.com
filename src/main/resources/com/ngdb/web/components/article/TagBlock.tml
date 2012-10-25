@@ -1,13 +1,15 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
-	<t:if test="tags">
-		<t:loop source="tags" value="tag">
-			<t:pageLink page="museum" context="[byTag, tag.name]" class="badge badge-info" style="margin-right:3px">${tag.name} </t:pageLink>
-		</t:loop>
-	</t:if>
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" style="display:block">
+	<t:zone id="tagZone" t:id="tagZone">
+        <t:if test="tags">
+            <t:loop source="tags" value="tag">
+                <t:pageLink page="museum" context="[byTag, tag.name]" class="badge badge-info" style="display:inline-block;margin-right:3px;margin-bottom:2px">${tag.name} </t:pageLink>
+            </t:loop>
+        </t:if>
+    </t:zone>
 	<t:if test="!hideForm">
 		<t:if test="user?.contributor">
-			<t:form t:id="tagForm" id="tagForm" t:autofocus="false" style="height:10px;margin:none;margin-bottom:10px;display:inline-block">
-				<t:textfield value="search" t:id="search" t:mixins="jquery/Autocomplete" style="width:100px" placeholder="${message:tag.addtag}" />
+			<t:form zone="tagZone" t:id="tagForm" id="tagForm" t:autofocus="false" style="height:10px;margin:none;margin-bottom:10px;display:inline-block">
+				<t:textfield value="search" t:id="search" t:mixins="jquery/Autocomplete" style="width:100px;margin-top:5px" placeholder="${message:tag.addtag}" />
 			</t:form>
 		</t:if>
 	</t:if>
