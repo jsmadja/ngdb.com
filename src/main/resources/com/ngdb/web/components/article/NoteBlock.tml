@@ -1,28 +1,35 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<br/>
-	<table class="${cssClass}" style="font-size:8pt">
-		<t:if test="notes">
-			<t:loop source="notes" value="note">
-				<tr>
-					<td><b>${note.name}</b></td>
-					<td>${note.text}</td>
-				</tr>
-			</t:loop>
-		</t:if>
-		<t:if test="user?.contributor">
-			<t:form t:id="noteForm" id="noteForm" t:autofocus="false"
-				style="height:10px;margin:none;">
-				<tr>
-					<td>
-						<t:textfield value="name" t:id="name" t:mixins="jquery/Autocomplete"
-							placeholder="property name" style="width:96%" />
-					</td>
-					<td>
-						<t:textfield value="text" t:id="text" style="width:70%" />
-						<button class="btn btn-primary pull-right btn-mini" type="submit">${message:note.addnote}</button>
-					</td>
-				</tr>
-			</t:form>
-		</t:if>
-	</table>
+    <t:if test="notes">
+        <t:zone t:id="noteZone" id="noteZone">
+            <table class="${cssClass}" style="font-size:8pt">
+                <t:loop source="notes" value="note">
+                    <tr>
+                        <td><b>${note.name}</b></td>
+                        <td>${note.text}</td>
+                    </tr>
+                </t:loop>
+            </table>
+        </t:zone>
+    </t:if>
+    <t:if test="user?.contributor">
+        <table class="${cssClass}" style="font-size:8pt">
+            <t:form t:id="noteForm"
+                    id="noteForm"
+                    t:autofocus="false"
+                    zone="noteZone"
+                    style="height:10px;margin:none;">
+                <tr>
+                    <td>
+                        <t:textfield value="name" t:id="name" t:mixins="jquery/Autocomplete"
+                            placeholder="property name" style="width:96%" />
+                    </td>
+                    <td>
+                        <t:textfield value="text" t:id="text" style="width:70%" />
+                        <button class="btn btn-primary pull-right btn-mini" type="submit">${message:note.addnote}</button>
+                    </td>
+                </tr>
+            </t:form>
+        </table>
+    </t:if>
 </div>

@@ -6,11 +6,12 @@ import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.services.infrastructure.CurrentUser;
-import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.annotations.SetupRender;
+import org.apache.tapestry5.EventConstants;
+import org.apache.tapestry5.annotations.*;
+import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import java.util.Collection;
 import java.util.Set;
@@ -50,6 +51,12 @@ public class ReviewBlock {
     @Inject
     private Reviewer reviewer;
 
+    @Inject
+    private AjaxResponseRenderer ajaxResponseRenderer;
+
+    @InjectComponent
+    private Zone reviewZone;
+
     void onActivate() {
         suggestions.addAll(registry.findAllTags());
     }
@@ -68,11 +75,13 @@ public class ReviewBlock {
     }
 
     @CommitAfter
-    public void onSuccess() {
+    @OnEvent(value = EventConstants.SUCCESS, component = "reviewForm")
+    public void onSuccessFromReviewForm() {
         if (isNotBlank(label) && isNotBlank(url) && isNotBlank(mark)) {
             article.updateModificationDate();
             currentUser.addReviewOn(article, label, url, mark);
         }
+        ajaxResponseRenderer.addRender(reviewZone);
     }
 
     public User getUser() {

@@ -8,11 +8,12 @@ import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.services.infrastructure.CurrentUser;
-import org.apache.tapestry5.annotations.OnEvent;
-import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.EventConstants;
+import org.apache.tapestry5.annotations.*;
+import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 import java.util.*;
 
@@ -44,19 +45,27 @@ public class NoteBlock {
 	@Inject
 	private Registry registry;
 
+    @Inject
+    private AjaxResponseRenderer ajaxResponseRenderer;
+
+    @InjectComponent
+    private Zone noteZone;
+
 	void onActivate() {
 		suggestionsName.addAll(registry.findAllPropertyNames());
 	}
 
-	@CommitAfter
-	public void onSuccess() {
-		if (isNotBlank(name) && isNotBlank(text)) {
+    @CommitAfter
+    @OnEvent(value = EventConstants.SUCCESS, component = "noteForm")
+    public void onSuccessFromNoteForm() {
+        if (isNotBlank(name) && isNotBlank(text)) {
             article.updateModificationDate();
             currentUser.addPropertyOn(article, name, text);
-		}
-	}
+        }
+        ajaxResponseRenderer.addRender(noteZone);
+    }
 
-	public User getUser() {
+    public User getUser() {
 		return currentUser.getUser();
 	}
 

@@ -7,12 +7,13 @@ import com.ngdb.entities.article.element.File;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.FileService;
-import org.apache.tapestry5.annotations.DiscardAfter;
-import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.EventConstants;
+import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.beaneditor.Validate;
+import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.apache.tapestry5.upload.services.UploadedFile;
 
 import java.util.*;
@@ -51,15 +52,24 @@ public class FileBlock {
     @Inject
     private FileService fileService;
 
+    @Inject
+    private AjaxResponseRenderer ajaxResponseRenderer;
+
+    @InjectComponent
+    private Zone fileZone;
+
+
     @CommitAfter
     @DiscardAfter
-	public void onSuccess() {
+    @OnEvent(value = EventConstants.SUCCESS, component = "fileForm")
+    public void onSuccessFromFileForm() {
         if(this.file != null) {
             fileService.store(this.file, article, name, type);
         }
         if(this.url != null) {
             fileService.store(this.url, article, name, type);
         }
+        ajaxResponseRenderer.addRender(fileZone);
     }
 
     public User getUser() {

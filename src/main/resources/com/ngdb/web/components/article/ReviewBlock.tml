@@ -1,23 +1,37 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
-	<t:if test="reviews">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+    <t:if test="reviews">
         <h3>${message:review.title}</h3>
+        <p:else>
+            <t:if test="user?.contributor">
+                <h3>${message:review.title}</h3>
+            </t:if>
+        </p:else>
     </t:if>
+
     <span style="display:none" itemprop="review" itemscope="" itemtype="http://data-vocabulary.org/Review-aggregate">
-              <span itemprop="rating">${averageMarkAsDouble}</span> <span itemprop="votes">${reviewsCount}</span> reviews
+        <span itemprop="rating">${averageMarkAsDouble}</span> <span itemprop="votes">${reviewsCount}</span> reviews
     </span>
-    <table class="table table-bordered table-condensed">
-		<t:loop source="reviews" value="review">
-			<tr>
-				<td colspan="2">
-					<a href="${review.url}" target="blank">${review.label}</a>
-				</td>
-				<td>
-					<t:OutputRaw value="${stars}" />
-				</td>
-			</tr>
-		</t:loop>
-        <t:if test="user?.contributor">
-            <t:form t:id="reviewForm" id="reviewForm" t:autofocus="false">
+    <t:zone t:id="reviewZone" id="reviewZone">
+        <table class="table table-bordered table-condensed">
+            <t:loop source="reviews" value="review">
+                <tr>
+                    <td colspan="2">
+                        <a href="${review.url}" target="blank">${review.label}</a>
+                    </td>
+                    <td>
+                        <t:OutputRaw value="${stars}" />
+                    </td>
+                </tr>
+            </t:loop>
+        </table>
+    </t:zone>
+
+    <t:if test="user?.contributor">
+        <t:form t:id="reviewForm"
+                id="reviewForm"
+                t:autofocus="false"
+                zone="reviewZone">
+            <table class="table table-bordered table-condensed">
                 <tr>
                     <td>
                         <t:textfield style="width:100px" value="label" t:id="label" placeholder="label" />
@@ -32,7 +46,7 @@
                         <button class="btn btn-mini btn-primary pull-right" type="submit">${message:review.addreview}</button>
                     </td>
                 </tr>
-            </t:form>
-		</t:if>
-	</table>
+            </table>
+        </t:form>
+    </t:if>
 </div>

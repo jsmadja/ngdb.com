@@ -75,8 +75,8 @@ public class TagBlock {
             }
             actionLogger.addTagAction(getUser(), article);
         }
-        ajaxResponseRenderer.addRender(tagZone);
         this.search = "";
+        ajaxResponseRenderer.addRender(tagZone);
     }
 
     private void addTag(String tag) {

@@ -79,7 +79,7 @@ public class GameView {
             return "";
         }
         return StringUtils.isNumeric(ngh) ? "NGH " + ngh : ngh;
-    }g
+    }
 
     public User getUser() {
         return currentUser.getUser();

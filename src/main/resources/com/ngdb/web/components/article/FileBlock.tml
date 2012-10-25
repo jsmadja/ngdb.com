@@ -1,43 +1,54 @@
-<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<br/>
-	<table class="${cssClass}" style="font-size:8pt">
-		<t:if test="files">
-            <h3>${message:file.title}</h3>
-            <t:loop source="files" value="resourceFile">
-                <tr>
-                    <td width="15%"><b>${resourceFile.type}</b></td>
-                    <td><a href="${resourceFile.url}" target="blank">${resourceFile.name}</a></td>
-                </tr>
-            </t:loop>
-		</t:if>
-		<t:if test="user?.contributor">
-			<t:form t:id="fileForm"
-                    id="fileForm"
-                    t:autofocus="false">
-				<tr>
-                    <td>
-                        <t:select style="width:120px" model="types" value="type" t:id="type" blankLabel="NEVER" />
-                    </td>
-                    <td>
-						<t:textfield value="name" t:id="name" style="width:90%" placeholder="name" />
-                        <p>
-                            <input t:type="upload"
-                                   t:id="file"
-                                   t:value="file">
-                                ${message:file.uploadfile}
-                            </input>
-                        </p>
-                        <p>
-                            <t:textfield value="url" t:id="url" style="width:80%" placeholder="http://www." />
-                        </p>
-                    </td>
-					<td>
-                        <p>
-                            <button class="btn btn-primary pull-right btn-mini" type="submit">${message:file.addfile}</button>
-                        </p>
-                    </td>
-				</tr>
-			</t:form>
-		</t:if>
-	</table>
+    <t:zone t:id="fileZone" id="fileZone">
+        <table class="${cssClass}" style="font-size:8pt">
+            <t:if test="files">
+                <h3>${message:file.title}</h3>
+                <t:loop source="files" value="resourceFile">
+                    <tr>
+                        <td width="15%"><b>${resourceFile.type}</b></td>
+                        <td><a href="${resourceFile.url}" target="blank">${resourceFile.name}</a></td>
+                    </tr>
+                </t:loop>
+                <p:else>
+                    <t:if test="user?.contributor">
+                        <h3>${message:file.title}</h3>
+                    </t:if>
+                </p:else>
+            </t:if>
+        </table>
+    </t:zone>
+    <t:if test="user?.contributor">
+        <t:form t:id="fileForm"
+                id="fileForm"
+                t:autofocus="false"
+                zone="fileZone"
+                >
+            <table class="${cssClass}" style="font-size:8pt">
+            <tr>
+                <td>
+                    <t:select style="width:120px" model="types" value="type" t:id="type" blankLabel="NEVER" />
+                </td>
+                <td>
+                    <t:textfield value="name" t:id="name" style="width:90%" placeholder="name" />
+                    <p>
+                        <input t:type="upload"
+                               t:id="file"
+                               t:value="file">
+                            ${message:file.uploadfile}
+                        </input>
+                    </p>
+                    <p>
+                        <t:textfield value="url" t:id="url" style="width:80%" placeholder="http://www." />
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        <button class="btn btn-primary pull-right btn-mini" type="submit">${message:file.addfile}</button>
+                    </p>
+                </td>
+            </tr>
+            </table>
+        </t:form>
+    </t:if>
 </div>
