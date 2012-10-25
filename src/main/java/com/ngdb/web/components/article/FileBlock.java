@@ -58,7 +58,6 @@ public class FileBlock {
     @InjectComponent
     private Zone fileZone;
 
-
     @CommitAfter
     @DiscardAfter
     @OnEvent(value = EventConstants.SUCCESS, component = "fileForm")

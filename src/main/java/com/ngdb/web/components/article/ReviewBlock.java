@@ -31,8 +31,6 @@ public class ReviewBlock {
     @Inject
     private CurrentUser currentUser;
 
-    private Collection<String> suggestions = new TreeSet<String>();
-
     @Property
     private String label;
 
@@ -45,9 +43,6 @@ public class ReviewBlock {
     @Inject
     private Registry registry;
 
-    @Property
-    private Set<Review> reviews;
-
     @Inject
     private Reviewer reviewer;
 
@@ -57,21 +52,12 @@ public class ReviewBlock {
     @InjectComponent
     private Zone reviewZone;
 
-    void onActivate() {
-        suggestions.addAll(registry.findAllTags());
-    }
-
-    @SetupRender
-    void init() {
-        reviews = reviewer.reviewsOf(article);
+    public Set<Review> getReviews() {
+        return reviewer.reviewsOf(article);
     }
 
     public double getAverageMarkAsDouble() {
         return reviewer.getAverageMarkOf(article);
-    }
-
-    public int getReviewsCount() {
-        return reviews.size();
     }
 
     @CommitAfter

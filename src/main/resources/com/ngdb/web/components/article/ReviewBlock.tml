@@ -9,7 +9,7 @@
     </t:if>
 
     <span style="display:none" itemprop="review" itemscope="" itemtype="http://data-vocabulary.org/Review-aggregate">
-        <span itemprop="rating">${averageMarkAsDouble}</span> <span itemprop="votes">${reviewsCount}</span> reviews
+        <span itemprop="rating">${averageMarkAsDouble}</span> <span itemprop="votes">${reviews.size()}</span> reviews
     </span>
     <t:zone t:id="reviewZone" id="reviewZone">
         <table class="table table-bordered table-condensed">
