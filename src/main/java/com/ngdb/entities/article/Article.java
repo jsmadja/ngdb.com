@@ -342,7 +342,11 @@ public abstract class Article implements Comparable<Article>, Serializable{
         for (String s : toReplace) {
             title = title.replaceAll(s, "-");
         }
-        return title+"-"+getPlatformShortName()+"-"+getOriginTitle();
+        title += "-"+getPlatformShortName()+"-"+getOriginTitle();
+        while(title.contains("--")) {
+            title = title.replaceAll("--", "-");
+        }
+        return title;
     }
 
     public abstract boolean isGame();
