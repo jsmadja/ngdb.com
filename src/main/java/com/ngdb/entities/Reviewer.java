@@ -4,9 +4,11 @@ import com.ngdb.Mark;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Review;
+import com.ngdb.services.Cacher;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 
+import java.net.CacheRequest;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -22,6 +24,9 @@ public class Reviewer {
     @Inject
     private Session session;
 
+    @Inject
+    private Cacher cacher;
+
     public Set<Review> reviewsOf(Article article) {
         if (article.isGame()) {
             Game game = (Game) article;
@@ -31,6 +36,19 @@ public class Reviewer {
     }
 
     public Double getAverageMarkOf(Article article) {
+        if(cacher.hasAverageMarkOf(article)) {
+            return cacher.getAverageMarkOf(article);
+        }
+        Double averageMark = computeAverageMarkOf(article);
+        cacher.setAverageMarkOf(article, averageMark);
+        return averageMark;
+    }
+
+    private Game game(Game article) {
+        return (Game)article;
+    }
+
+    private Double computeAverageMarkOf(Article article) {
         Collection<Review> reviews = reviewsOf(article);
         if(!article.isGame()) {
             return 0D;
@@ -63,6 +81,16 @@ public class Reviewer {
             }
         }
         return ZERO.getStars();
+    }
+
+    public void addReview(Article article, String source, String url, String mark) {
+        Review review = new Review(source, url, mark, article);
+        session.persist(review);
+        article = (Article) session.load(Article.class, article.getId());
+        article.addReview(review);
+        if(article.isGame()) {
+            cacher.invalidateAverageMarkOf((Game)article);
+        }
     }
 
 }

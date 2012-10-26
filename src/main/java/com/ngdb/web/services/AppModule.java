@@ -3,6 +3,7 @@ package com.ngdb.web.services;
 import com.ngdb.entities.*;
 import com.ngdb.entities.Registry;
 import com.ngdb.entities.reference.ReferenceService;
+import com.ngdb.services.Cacher;
 import com.ngdb.services.HibernateSearchService;
 import com.ngdb.web.services.infrastructure.*;
 import org.apache.tapestry5.SymbolConstants;
@@ -126,6 +127,7 @@ public class AppModule {
         binder.bind(HibernateSearchService.class);
         binder.bind(Reviewer.class);
         binder.bind(Charts.class);
+        binder.bind(Cacher.class);
     }
 
     public static VelocityEngine buildVelocityEngine() {

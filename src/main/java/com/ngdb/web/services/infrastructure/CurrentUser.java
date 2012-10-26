@@ -2,6 +2,7 @@ package com.ngdb.web.services.infrastructure;
 
 import com.ngdb.entities.ActionLogger;
 import com.ngdb.entities.Population;
+import com.ngdb.entities.Reviewer;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Comment;
 import com.ngdb.entities.article.element.Note;
@@ -61,6 +62,9 @@ public class CurrentUser {
 
     @Inject
     private CookieSource cookieSource;
+
+    @Inject
+    private Reviewer reviewer;
 
     private static final Logger LOG = LoggerFactory.getLogger(CurrentUser.class);
 
@@ -295,9 +299,7 @@ public class CurrentUser {
     }
 
     public void addReviewOn(Article article, String label, String url, String mark) {
-        Review review = new Review(label, url, mark, article);
-        session.persist(review);
-        getArticleFromDb(article).addReview(review);
+        reviewer.addReview(article, label, url, mark);
         actionLogger.addReviewAction(getUser(), article);
     }
 

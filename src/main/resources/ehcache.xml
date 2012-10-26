@@ -27,6 +27,8 @@
     <cache name="index.random.shopitem" maxElementsInMemory="3"
            eternal="false" timeToLiveSeconds="86400" overflowToDisk="false" />
 
+    <cache name="average.marks.of.games" eternal="true" />
+
     <cache name="com.ngdb.entities.article.Article"
 		maxElementsInMemory="2000" eternal="false" timeToIdleSeconds="120"
 		timeToLiveSeconds="120" overflowToDisk="false" />
