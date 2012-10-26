@@ -76,6 +76,7 @@ public class Mark {
         if (nativeValue == null) {
             return 0;
         }
+        nativeValue = nativeValue.replace(',','.');
         if (nativeValue.contains("%")) {
             return Integer.valueOf(remove(nativeValue, '%'));
         } else if (nativeValue.contains("/")) {
