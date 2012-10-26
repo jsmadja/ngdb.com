@@ -30,6 +30,7 @@
     <cache name="average.marks.of.games" eternal="true" />
     <cache name="reviews.of.games" eternal="true" />
     <cache name="ranks.of.articles" eternal="true" />
+    <cache name="wishranks.of.articles" eternal="true" />
     <cache name="covers.of.articles" eternal="true" />
     <cache name="covers.of.shopitems" eternal="true" />
     <cache name="barcodes" eternal="true" />

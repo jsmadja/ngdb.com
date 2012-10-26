@@ -14,13 +14,14 @@ import java.util.Set;
 public class Cacher {
 
     private static Cache averageMarksOfGames, reviewsOfGames, ranksOfArticles, coversOfArticles, coversOfShopItems,
-    barcodes;
+    barcodes, wishRanksOfArticles;
 
     static {
         CacheManager cacheManager = CacheManager.create();
         averageMarksOfGames = cacheManager.getCache("average.marks.of.games");
         reviewsOfGames = cacheManager.getCache("reviews.of.games");
         ranksOfArticles = cacheManager.getCache("ranks.of.articles");
+        wishRanksOfArticles = cacheManager.getCache("wishranks.of.articles");
         coversOfArticles = cacheManager.getCache("covers.of.articles");
         coversOfShopItems = cacheManager.getCache("covers.of.shopitems");
         barcodes = cacheManager.getCache("barcodes");
@@ -44,6 +45,10 @@ public class Cacher {
 
     public boolean hasRankOf(Article article) {
         return ranksOfArticles.isKeyInCache(keyFrom(article));
+    }
+
+    public boolean hasWishRankOf(Article article) {
+        return wishRanksOfArticles.isKeyInCache(keyFrom(article));
     }
 
     public boolean hasCoverOf(Article article) {
@@ -76,6 +81,10 @@ public class Cacher {
         ranksOfArticles.put(new Element(keyFrom(article), rank));
     }
 
+    public void setWishRankOf(Article article, int rank) {
+        wishRanksOfArticles.put(new Element(keyFrom(article), rank));
+    }
+
     public void setCoverOf(Article article, Picture picture) {
         coversOfArticles.put(new Element(keyFrom(article), picture));
     }
@@ -100,6 +109,10 @@ public class Cacher {
 
     public int getRankOf(Article article) {
         return (Integer) ranksOfArticles.get(keyFrom(article)).getValue();
+    }
+
+    public int getWishRankOf(Article article) {
+        return (Integer) wishRanksOfArticles.get(keyFrom(article)).getValue();
     }
 
     public Picture getCoverOf(Article article) {
@@ -130,6 +143,10 @@ public class Cacher {
 
     public void invalidateRanks() {
         ranksOfArticles.removeAll();
+    }
+
+    public void invalidateWishRanks() {
+        wishRanksOfArticles.removeAll();
     }
 
     public void invalidateCoverOf(Article article) {

@@ -1,9 +1,6 @@
 package com.ngdb.web.services.infrastructure;
 
-import com.ngdb.entities.ActionLogger;
-import com.ngdb.entities.Museum;
-import com.ngdb.entities.Population;
-import com.ngdb.entities.Reviewer;
+import com.ngdb.entities.*;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Comment;
 import com.ngdb.entities.article.element.Note;
@@ -69,6 +66,9 @@ public class CurrentUser {
 
     @Inject
     private Museum museum;
+
+    @Inject
+    private WishBox wishbox;
 
     private static final Logger LOG = LoggerFactory.getLogger(CurrentUser.class);
 
@@ -223,12 +223,14 @@ public class CurrentUser {
     public void wish(Article article) {
         Wish wish = getUserFromDb().addToWishes(article);
         session.merge(wish);
+        wishbox.invalidateRanks();
         actionLogger.addArticleInWishlistAction(getUser(), article);
     }
 
     public void unwish(Article article) {
         User userFromDb = getUserFromDb();
         userFromDb.removeFromWishes(article);
+        wishbox.invalidateRanks();
         actionLogger.removeArticleFromWishlistAction(getUser(), article);
     }
 
