@@ -1,5 +1,6 @@
 package com.ngdb.web.services;
 
+import com.ngdb.Barcoder;
 import com.ngdb.entities.*;
 import com.ngdb.entities.Registry;
 import com.ngdb.entities.reference.ReferenceService;
@@ -128,6 +129,7 @@ public class AppModule {
         binder.bind(Reviewer.class);
         binder.bind(Charts.class);
         binder.bind(Cacher.class);
+        binder.bind(Barcoder.class);
     }
 
     public static VelocityEngine buildVelocityEngine() {

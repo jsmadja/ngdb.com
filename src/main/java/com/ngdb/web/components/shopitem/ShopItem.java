@@ -1,9 +1,11 @@
 package com.ngdb.web.components.shopitem;
 
 import com.ngdb.entities.Market;
+import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.pages.Index;
 import com.ngdb.web.services.infrastructure.CurrentUser;
+import com.ngdb.web.services.infrastructure.PictureService;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Parameter;
@@ -39,12 +41,16 @@ public class ShopItem {
     @Inject
     private AjaxResponseRenderer ajaxResponseRenderer;
 
+    @Inject
+    private PictureService pictureService;
+
     public JSONObject getParams() {
         return new JSONObject("width", "750", "modal", "false", "dialogClass", "dialog-edition", "zIndex", "1002");
     }
 
     public String getShopItemMainPicture() {
-		return shopItem.getMainPicture().getUrl("medium");
+        Picture cover = pictureService.getCoverOf(shopItem);
+        return cover.getUrl("medium");
 	}
 
 	public User getUser() {

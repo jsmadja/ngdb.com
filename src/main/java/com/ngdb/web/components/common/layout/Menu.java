@@ -2,12 +2,14 @@ package com.ngdb.web.components.common.layout;
 
 import com.ngdb.entities.ActionLogger;
 import com.ngdb.entities.article.ArticleAction;
+import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.web.pages.Index;
-import com.ngdb.web.pages.article.game.GameView;
-import com.ngdb.web.pages.article.hardware.HardwareView;
-import com.ngdb.web.services.infrastructure.CurrentUser;
-import org.apache.tapestry5.annotations.*;
+import com.ngdb.web.services.infrastructure.PictureService;
+import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.annotations.OnEvent;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -29,17 +31,8 @@ public class Menu {
 	@Property
 	private ShopItem shopItem;
 
-	@Property
-	private Long forSaleCount;
-
 	@Inject
 	private com.ngdb.entities.Market market;
-
-    @InjectPage
-    private GameView gameView;
-
-    @InjectPage
-    private HardwareView hardwareView;
 
     @Inject
     private ActionLogger actionLogger;
@@ -61,6 +54,9 @@ public class Menu {
     @Inject
     private AjaxResponseRenderer ajaxResponseRenderer;
 
+    @Inject
+    private PictureService pictureService;
+
     public JSONObject getParams() {
         return new JSONObject("width", "750", "modal", "false", "dialogClass", "dialog-edition", "zIndex", "1002");
     }
@@ -69,10 +65,8 @@ public class Menu {
 	void onInit() {
         if(goEmpty) {
             this.shopItems = new ArrayList<ShopItem>();
-            this.forSaleCount = 0L;
         } else {
             this.shopItems = market.findRandomForSaleItems(6);
-            this.forSaleCount = market.getNumForSaleItems();
         }
 	}
 
@@ -113,6 +107,11 @@ public class Menu {
 
     public String getLastUpdateDate() {
         return update.getLastUpdateDate(request.getLocale());
+    }
+
+    public String getShopItemCover() {
+        Picture cover = pictureService.getCoverOf(shopItem);
+        return cover.getUrlSmall();
     }
 
 }

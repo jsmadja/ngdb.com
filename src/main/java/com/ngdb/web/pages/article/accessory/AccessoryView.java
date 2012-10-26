@@ -1,6 +1,6 @@
 package com.ngdb.web.pages.article.accessory;
 
-import com.ngdb.BarcodeUtil;
+import com.ngdb.Barcoder;
 import com.ngdb.entities.article.Accessory;
 import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Review;
@@ -8,6 +8,7 @@ import com.ngdb.entities.article.element.Tag;
 import com.ngdb.web.Filter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
 
 public class AccessoryView {
 
@@ -28,6 +29,9 @@ public class AccessoryView {
 
     @Property
     private Note note;
+
+    @Inject
+    private Barcoder barcoder;
 
     public void onActivate(Accessory accessory) {
         this.accessory = accessory;
@@ -66,7 +70,7 @@ public class AccessoryView {
     }
 
     public String getUpc() {
-        return BarcodeUtil.toBarcodeBase64Image(accessory.getUpc());
+        return barcoder.toBarcodeBase64Image(accessory.getUpc());
     }
 
     public boolean getShowUpc() {

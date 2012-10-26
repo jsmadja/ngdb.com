@@ -2,6 +2,7 @@ package com.ngdb.web.components.shopitem;
 
 import com.ngdb.entities.Market;
 import com.ngdb.web.pages.Index;
+import com.ngdb.web.services.infrastructure.PictureService;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.beaneditor.BeanModel;
 import org.apache.tapestry5.corelib.components.Zone;
@@ -55,6 +56,9 @@ public class ShopItems {
     @Inject
     private PropertyConduitSource propertyConduitSource;
 
+    @Inject
+    private PictureService pictureService;
+
     @SetupRender
     void init() {
         if(!thumbnailMode && !tableMode) {
@@ -87,7 +91,7 @@ public class ShopItems {
     }
 
     public String getShopItemMainPictureSmall() {
-        return shopItem.getMainPicture().getUrlSmall();
+        return pictureService.getCoverOf(shopItem).getUrlSmall();
     }
 
     @OnEvent(component = "link1", value = ACTION)

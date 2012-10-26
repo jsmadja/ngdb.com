@@ -2,6 +2,7 @@ package com.ngdb.web.components.shopitem;
 
 import com.ngdb.entities.user.User;
 import com.ngdb.web.services.infrastructure.CurrentUser;
+import com.ngdb.web.services.infrastructure.PictureService;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
@@ -18,6 +19,9 @@ public class View {
 
     @Property
     private String message;
+
+    @Inject
+    private PictureService pictureService;
 
     @SetupRender
     void onRender() {
@@ -37,7 +41,7 @@ public class View {
         if(shopItem == null) {
             return "";
         }
-        return shopItem.getMainPicture().getUrl("medium");
+        return pictureService.getCoverOf(shopItem).getUrl("medium");
     }
 
 }

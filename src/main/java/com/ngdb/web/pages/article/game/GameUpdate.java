@@ -1,5 +1,6 @@
 package com.ngdb.web.pages.article.game;
 
+import com.ngdb.Barcoder;
 import com.ngdb.entities.ActionLogger;
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.article.Game;
@@ -119,6 +120,9 @@ public class GameUpdate {
     @Inject
     private FileService fileService;
 
+    @Inject
+    private Barcoder barcoder;
+
     public void onActivate(Game game) {
         this.game = game;
         if (pictures == null) {
@@ -174,6 +178,7 @@ public class GameUpdate {
         if (isEditMode()) {
             game = this.game;
             game.updateModificationDate();
+            barcoder.invalidate(this.ean);
         }
         game.setDetails(details);
         game.setOrigin(origin);
@@ -213,6 +218,7 @@ public class GameUpdate {
     Object onActionFromDeletePicture(Picture picture) {
         game.removePicture(picture);
         pictureService.delete(picture);
+        pictureService.invalidateCoverOf(game);
         this.storedPictures = game.getPictures().all();
         return this;
     }

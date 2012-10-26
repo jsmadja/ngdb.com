@@ -28,6 +28,11 @@
            eternal="false" timeToLiveSeconds="86400" overflowToDisk="false" />
 
     <cache name="average.marks.of.games" eternal="true" />
+    <cache name="reviews.of.games" eternal="true" />
+    <cache name="ranks.of.articles" eternal="true" />
+    <cache name="covers.of.articles" eternal="true" />
+    <cache name="covers.of.shopitems" eternal="true" />
+    <cache name="barcodes" eternal="true" />
 
     <cache name="com.ngdb.entities.article.Article"
 		maxElementsInMemory="2000" eternal="false" timeToIdleSeconds="120"

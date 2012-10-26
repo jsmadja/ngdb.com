@@ -55,6 +55,7 @@ public class Administration {
 
     private void deleteArticle() {
         Article article = articleFactory.findById(articleId);
+        pictureService.invalidateCoverOf(article);
         ArticlePictures pictures = article.getPictures();
         for (Picture picture : pictures) {
             pictureService.delete(picture);

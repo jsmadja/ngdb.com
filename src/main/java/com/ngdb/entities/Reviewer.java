@@ -28,9 +28,14 @@ public class Reviewer {
     private Cacher cacher;
 
     public Set<Review> reviewsOf(Article article) {
+        if(cacher.hasReviewsOf(article)) {
+            return cacher.getReviewsOf(article);
+        }
         if (article.isGame()) {
             Game game = (Game) article;
-            return articleFactory.findAllReviewOfNgh(game.getNgh());
+            Set<Review> reviews = articleFactory.findAllReviewOfNgh(game.getNgh());
+            cacher.setReviewsOf(article, reviews);
+            return reviews;
         }
         return article.getReviews().all();
     }
@@ -42,10 +47,6 @@ public class Reviewer {
         Double averageMark = computeAverageMarkOf(article);
         cacher.setAverageMarkOf(article, averageMark);
         return averageMark;
-    }
-
-    private Game game(Game article) {
-        return (Game)article;
     }
 
     private Double computeAverageMarkOf(Article article) {
@@ -88,9 +89,8 @@ public class Reviewer {
         session.persist(review);
         article = (Article) session.load(Article.class, article.getId());
         article.addReview(review);
-        if(article.isGame()) {
-            cacher.invalidateAverageMarkOf((Game)article);
-        }
+        cacher.invalidateAverageMarkOf(article);
+        cacher.invalidateReviewsOf(article);
     }
 
 }

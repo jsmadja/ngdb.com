@@ -1,6 +1,6 @@
 package com.ngdb.web.pages.article.game;
 
-import com.ngdb.BarcodeUtil;
+import com.ngdb.Barcoder;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.user.User;
@@ -25,6 +25,9 @@ public class GameView {
 
     @Inject
     private CurrentUser currentUser;
+
+    @Inject
+    private Barcoder barcoder;
 
     public void onActivate(Game game) {
         this.game = game;
@@ -86,7 +89,7 @@ public class GameView {
     }
 
     public String getUpc() {
-        return BarcodeUtil.toBarcodeBase64Image(game.getUpc());
+        return barcoder.toBarcodeBase64Image(game.getUpc());
     }
 
     public boolean getShowUpc() {

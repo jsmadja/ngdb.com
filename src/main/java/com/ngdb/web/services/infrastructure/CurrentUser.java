@@ -1,6 +1,7 @@
 package com.ngdb.web.services.infrastructure;
 
 import com.ngdb.entities.ActionLogger;
+import com.ngdb.entities.Museum;
 import com.ngdb.entities.Population;
 import com.ngdb.entities.Reviewer;
 import com.ngdb.entities.article.Article;
@@ -65,6 +66,9 @@ public class CurrentUser {
 
     @Inject
     private Reviewer reviewer;
+
+    @Inject
+    private Museum museum;
 
     private static final Logger LOG = LoggerFactory.getLogger(CurrentUser.class);
 
@@ -183,12 +187,14 @@ public class CurrentUser {
     public void addToCollection(Article article) {
         CollectionObject collectionObject = getUserFromDb().addInCollection(article);
         session.merge(collectionObject);
+        museum.invalidateRanks();
         actionLogger.addArticleInCollectionAction(getUser(), article);
     }
 
     public void removeFromCollection(Article article) {
         User userFromDb = getUserFromDb();
         userFromDb.removeFromCollection(article);
+        museum.invalidateRanks();
         actionLogger.removeArticleFromCollectionAction(getUser(), article);
     }
 

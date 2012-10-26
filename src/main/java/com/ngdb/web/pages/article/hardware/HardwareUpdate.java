@@ -1,5 +1,6 @@
 package com.ngdb.web.pages.article.hardware;
 
+import com.ngdb.Barcoder;
 import com.ngdb.entities.ActionLogger;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.element.Picture;
@@ -89,6 +90,9 @@ public class HardwareUpdate {
     @Inject
     private ActionLogger actionLogger;
 
+    @Inject
+    private Barcoder barcoder;
+
     public void onActivate(Hardware hardware) {
         this.hardware = hardware;
         if (pictures == null) {
@@ -134,6 +138,7 @@ public class HardwareUpdate {
         if (isEditMode()) {
             hardware = this.hardware;
             hardware.updateModificationDate();
+            barcoder.invalidate(this.ean);
         }
         hardware.setDetails(details);
         hardware.setOrigin(origin);
@@ -167,6 +172,7 @@ public class HardwareUpdate {
 
     @CommitAfter
     Object onActionFromDeletePicture(Picture picture) {
+        pictureService.invalidateCoverOf(hardware);
         hardware.removePicture(picture);
         pictureService.delete(picture);
         this.storedPictures = hardware.getPictures().all();

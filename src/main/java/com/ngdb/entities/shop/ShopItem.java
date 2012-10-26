@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import static java.text.MessageFormat.format;
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
 import static org.apache.commons.lang.StringUtils.repeat;
 import static org.joda.money.CurrencyUnit.of;
@@ -48,7 +49,7 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
     @OneToOne
     private State state;
 
-    @ManyToOne(optional = false, fetch = LAZY)
+    @ManyToOne(optional = false, fetch = EAGER)
     private Article article;
 
     @ManyToOne(optional = true, fetch = LAZY)

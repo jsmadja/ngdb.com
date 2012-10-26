@@ -13,6 +13,7 @@ import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.user.User;
 import com.ngdb.web.Filter;
 import com.ngdb.web.services.infrastructure.CurrentUser;
+import com.ngdb.web.services.infrastructure.PictureService;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.OnEvent;
@@ -78,6 +79,9 @@ public class Market {
 
     @Inject
     private Session session;
+
+    @Inject
+    private PictureService pictureService;
 
     @OnEvent(EventConstants.ACTIVATE)
     void init() {
@@ -246,7 +250,7 @@ public class Market {
 
     public String getForumCode() {
         Collection<ShopItem> shopItems = filter.getShopItems();
-        return ForumCode.asVBulletinCode(shopItems);
+        return ForumCode.asVBulletinCode(shopItems, pictureService);
     }
 
     public String getGameSelected() {

@@ -1,5 +1,6 @@
 package com.ngdb.web.pages.article.accessory;
 
+import com.ngdb.Barcoder;
 import com.ngdb.entities.ActionLogger;
 import com.ngdb.entities.article.Accessory;
 import com.ngdb.entities.article.element.Picture;
@@ -89,6 +90,9 @@ public class AccessoryUpdate {
     @Inject
     private ActionLogger actionLogger;
 
+    @Inject
+    private Barcoder barcoder;
+
     public void onActivate(Accessory accessory) {
         this.accessory = accessory;
         if (pictures == null) {
@@ -134,6 +138,7 @@ public class AccessoryUpdate {
         if (isEditMode()) {
             accessory = this.accessory;
             accessory.updateModificationDate();
+            barcoder.invalidate(this.ean);
         }
         accessory.setDetails(details);
         accessory.setOrigin(origin);
@@ -167,6 +172,7 @@ public class AccessoryUpdate {
 
     @CommitAfter
     Object onActionFromDeletePicture(Picture picture) {
+        pictureService.invalidateCoverOf(accessory);
         accessory.removePicture(picture);
         pictureService.delete(picture);
         this.storedPictures = accessory.getPictures().all();

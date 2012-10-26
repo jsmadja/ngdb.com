@@ -141,6 +141,7 @@ public class ShopItemUpdate {
     @CommitAfter
     Object onActionFromDeletePicture(Picture picture) {
         shopItem.removePicture(picture);
+        pictureService.invalidateCoverOf(shopItem);
         pictureService.delete(picture);
         this.storedPictures = shopItem.getPictures().all();
         return this;

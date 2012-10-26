@@ -1,9 +1,12 @@
 package com.ngdb.web.services.infrastructure;
 
 import com.ngdb.entities.article.Article;
+import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.shop.ShopItem;
+import com.ngdb.services.Cacher;
 import org.apache.commons.io.FileUtils;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.upload.services.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,21 +27,27 @@ public class PictureService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(PictureService.class);
 
-	public Picture store(UploadedFile uploadedFile, Article article) {
+    @Inject
+    private Cacher cacher;
+
+    public Picture store(UploadedFile uploadedFile, Article article) {
 		try {
 			Picture picture = createPictureFromUploadedFile(uploadedFile, article);
 			picture.setArticle(article);
+            cacher.invalidateCoverOf(article);
 			return picture;
 		} catch (IOException e) {
 			LOG.warn("Cannot create picture with name '" + uploadedFile.getFileName() + "' for article " + article.getId(), e);
 		}
-		return Picture.EMPTY;
+        cacher.invalidateCoverOf(article);
+        return Picture.EMPTY;
 	}
 
 	public Picture store(UploadedFile uploadedFile, ShopItem shopItem) {
 		try {
 			Picture picture = createPictureFromUploadedFile(uploadedFile, shopItem);
 			picture.setShopItem(shopItem);
+            cacher.invalidateCoverOf(shopItem);
 			return picture;
 		} catch (IOException e) {
 			LOG.warn("Cannot create picture with name '" + uploadedFile.getFileName() + "' for article " + shopItem.getId(), e);
@@ -109,4 +118,22 @@ public class PictureService {
         }
     }
 
+    public void invalidateCoverOf(Article article) {
+        cacher.invalidateCoverOf(article);
+    }
+
+    public void invalidateCoverOf(ShopItem shopItem) {
+        cacher.invalidateCoverOf(shopItem);
+    }
+
+    public Picture getCoverOf(ShopItem shopItem) {
+        Picture cover;
+        if(cacher.hasCoverOf(shopItem)) {
+            cover = cacher.getCoverOf(shopItem);
+        } else {
+            cover = shopItem.getMainPicture();
+            cacher.setCoverOf(shopItem, cover);
+        }
+        return cover;
+    }
 }

@@ -1,7 +1,6 @@
 package com.ngdb.web.pages.article.hardware;
 
-import com.ngdb.BarcodeUtil;
-import com.ngdb.entities.article.Game;
+import com.ngdb.Barcoder;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Review;
@@ -9,6 +8,7 @@ import com.ngdb.entities.article.element.Tag;
 import com.ngdb.web.Filter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
 
 public class HardwareView {
 
@@ -29,6 +29,9 @@ public class HardwareView {
 
     @Property
     private Note note;
+
+    @Inject
+    private Barcoder barcoder;
 
     public void onActivate(Hardware hardware) {
         this.hardware = hardware;
@@ -66,7 +69,7 @@ public class HardwareView {
     }
 
     public String getUpc() {
-        return BarcodeUtil.toBarcodeBase64Image(hardware.getUpc());
+        return barcoder.toBarcodeBase64Image(hardware.getUpc());
     }
 
     public boolean getShowUpc() {

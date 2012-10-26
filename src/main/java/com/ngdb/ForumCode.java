@@ -1,7 +1,9 @@
 package com.ngdb;
 
 import com.ngdb.entities.article.Article;
+import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.shop.ShopItem;
+import com.ngdb.web.services.infrastructure.PictureService;
 
 import java.util.Collection;
 import java.util.List;
@@ -10,17 +12,17 @@ import static java.lang.String.format;
 
 public class ForumCode {
 
-    public static String asVBulletinCode(Collection<ShopItem> shopItems) {
+    public static String asVBulletinCode(Collection<ShopItem> shopItems, PictureService pictureService) {
         StringBuilder sb = new StringBuilder();
 
         for (ShopItem shopItem : shopItems) {
-            insertShopItem(sb, shopItem);
+            insertShopItem(sb, shopItem, pictureService.getCoverOf(shopItem));
             sb.append("\n\n");
         }
         return sb.toString();
     }
 
-    private static void insertShopItem(StringBuilder sb, ShopItem shopItem) {
+    private static void insertShopItem(StringBuilder sb, ShopItem shopItem, Picture cover) {
         Article article = shopItem.getArticle();
         Double price = shopItem.getPriceInCustomCurrency();
         String details = shopItem.getDetails();
@@ -30,7 +32,7 @@ public class ForumCode {
         String url = "http://neogeodb.com/shop/itemview/" + id;
         String origin = article.getOriginTitle();
         String originImageUrl = "http://neogeodb.com/img/flags/" + origin + ".png";
-        String imageUrl = "http://www.neogeodb.com" + shopItem.getMainPicture().getUrlSmall();
+        String imageUrl = "http://www.neogeodb.com" + cover.getUrlSmall();
         String customCurrency = shopItem.getCustomCurrency();
 
         sb.append(format("[IMG]%s[/IMG] [URL=%s]%s[/URL] - [B][COLOR=Red]%s[/COLOR][/B] - [B][COLOR=SeaGreen]%s %s[/COLOR][/B]", originImageUrl, url, title, state, customCurrency,price));
