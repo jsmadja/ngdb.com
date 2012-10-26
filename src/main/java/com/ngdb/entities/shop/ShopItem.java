@@ -49,7 +49,7 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
     @OneToOne
     private State state;
 
-    @ManyToOne(optional = false, fetch = EAGER)
+    @ManyToOne(optional = false, fetch = LAZY)
     private Article article;
 
     @ManyToOne(optional = true, fetch = LAZY)
