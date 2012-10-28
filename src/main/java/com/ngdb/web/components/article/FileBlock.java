@@ -52,12 +52,6 @@ public class FileBlock {
     @Inject
     private FileService fileService;
 
-    @Inject
-    private AjaxResponseRenderer ajaxResponseRenderer;
-
-    @InjectComponent
-    private Zone fileZone;
-
     @CommitAfter
     @DiscardAfter
     @OnEvent(value = EventConstants.SUCCESS, component = "fileForm")
@@ -68,7 +62,6 @@ public class FileBlock {
         if(this.url != null) {
             fileService.store(this.url, article, name, type);
         }
-        ajaxResponseRenderer.addRender(fileZone);
     }
 
     public User getUser() {

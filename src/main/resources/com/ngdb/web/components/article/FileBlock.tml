@@ -1,28 +1,25 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<br/>
-    <t:zone t:id="fileZone" id="fileZone">
-        <table class="${cssClass}" style="font-size:8pt">
-            <t:if test="files">
-                <h3>${message:file.title}</h3>
-                <t:loop source="files" value="resourceFile">
-                    <tr>
-                        <td width="15%"><b>${resourceFile.type}</b></td>
-                        <td><a href="${resourceFile.url}" target="blank">${resourceFile.name}</a></td>
-                    </tr>
-                </t:loop>
-                <p:else>
-                    <t:if test="user?.contributor">
-                        <h3>${message:file.title}</h3>
-                    </t:if>
-                </p:else>
-            </t:if>
-        </table>
-    </t:zone>
+    <table class="${cssClass}" style="font-size:8pt">
+        <t:if test="files">
+            <h3>${message:file.title}</h3>
+            <t:loop source="files" value="resourceFile">
+                <tr>
+                    <td width="15%"><b>${resourceFile.type}</b></td>
+                    <td><a href="${resourceFile.url}" target="blank">${resourceFile.name}</a></td>
+                </tr>
+            </t:loop>
+            <p:else>
+                <t:if test="user?.contributor">
+                    <h3>${message:file.title}</h3>
+                </t:if>
+            </p:else>
+        </t:if>
+    </table>
     <t:if test="user?.contributor">
         <t:form t:id="fileForm"
                 id="fileForm"
                 t:autofocus="false"
-                zone="fileZone"
                 >
             <table class="${cssClass}" style="font-size:8pt">
             <tr>
