@@ -4,6 +4,7 @@ import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.services.Cacher;
+import com.ngdb.web.services.infrastructure.PictureService;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -31,16 +32,13 @@ public class Thumbnail {
 	private boolean center;
 
     @Inject
+    private PictureService pictureService;
+
+    @Inject
     private Cacher cacher;
 
 	public String getUrl() {
-        Picture cover;
-        if(cacher.hasCoverOf(article)) {
-            cover = cacher.getCoverOf(article);
-        } else {
-            cover = article.getCover();
-            cacher.setCoverOf(article, cover);
-        }
+        Picture cover = pictureService.getCoverOf(article);
         if (size == null) {
 			return cover.getUrl();
 		}

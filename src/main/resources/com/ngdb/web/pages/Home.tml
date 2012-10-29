@@ -1,0 +1,115 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+    <head>
+        <meta charset="utf-8" />
+        <title>Neo·Geo Database</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="author" content="Takou - Anzymus" />
+        <meta name="description" content="neogeodb.com - The Neo·Geo Database - Collections, Wishlists, Marketplace of many formats (AES/MVS/CD/NGP/NGPC/H64)" />
+        <meta name="keywords" content="NeoGeo, NeoGeo games, NeoGeo videogames, NeoGeo MVS, NeoGeo AES, arcade, retro video games, retro videogames, SNK, Playmore, SNK Playmore, pocket color, price guides, neogeo, mvs, aes, neogeocd, arcade, fighting, shoot, sell, buy, database, list, listing, japanese games, shop, market, retro, retrogaming, snk, snkp, snkplaymore" />
+
+        <link href="/css/bootstrap.css" rel="stylesheet" />
+        <style type="text/css">
+            html {
+                color:#757C82;
+                background-color:black;
+            }
+            body {
+                margin-left:auto;
+                margin-right:auto;
+                background-color:black;
+            }
+
+            .home-thumbnail {
+                margin-right:0px;
+                margin-left:0px;
+            }
+
+        </style>
+        <link href="/css/bootstrap-responsive.css" rel="stylesheet" />
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <!-- Le fav and touch icons -->
+        <link rel="shortcut icon" href="/ico/favicon.ico" />
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/ico/apple-touch-icon-144-precomposed.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/ico/apple-touch-icon-114-precomposed.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/ico/apple-touch-icon-72-precomposed.png" />
+        <link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-57-precomposed.png" />
+
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-942617-10']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </head>
+
+    <body>
+        <div class="container-fluid">
+            <t:zone t:id="resultZone" id="resultZone" update="show">
+                <div style="margin-right:auto;margin-left:auto">
+                    <t:form t:id="searchForm" t:autofocus="true" zone="resultZone" style="margin-right:auto;margin-left:auto;width:400px">
+                        <input t:type="textfield" t:mixins="jquery/bind" t:id="search" value="search"
+                               bind.event="onChange"
+                               bind.eventType="onChange"
+                               bind.zone="resultZone" style="height:40px;width:100%;font-size:18pt;" />
+
+
+                    </t:form>
+                    <p style="color: white;font-size: 12pt;margin-left: auto;margin-right: auto;width: 100px;">
+                        <t:if test="hasResult">
+                            ${count} results
+                        </t:if>
+                    </p>
+                </div>
+                <div style="margin-top:200px;position:fixed;width:100%">
+                    <p class="orange neogeo" style="font-size:70pt;font-weight:bold;width:30%;margin-right:auto;margin-left:auto">
+                        NEO·GEO
+                    </p>
+                    <p style="font-size:20pt;margin-top:44px;width:28%;margin-right:auto;margin-left:auto" class="blue">
+                        Learn, Buy and Sell your games
+                    </p>
+                </div>
+                <div style="position:relative">
+                    <t:loop value="platform" source="platforms">
+                        <t:if test="games">
+                            <h2 class="orange neogeo" style="font-size:12pt;margin-left:5%">${platform.name.toUpperCase()}</h2>
+                            <div style="width:90%;margin-right:auto;margin-left:auto">
+                                <t:loop value="game" source="games">
+                                    <t:if test="game.hasCover()">
+                                        <t:pageLink page="${game.viewPage}" class="home-thumbnail" style="display:inline-block" context="[game.id,game.suffix]">
+                                            <img width="${width}px" height="${height}px" src="${message:image.host.url}${url}" alt="${game.title} ${game.originTitle} ${game.platformShortName}" title="${game.title} ${game.originTitle} ${game.platformShortName}" />
+                                        </t:pageLink>
+                                    </t:if>
+                                </t:loop>
+                            </div>
+                        </t:if>
+                    </t:loop>
+                </div>
+            </t:zone>
+        </div>
+
+        <script src="/js/jquery.js"></script>
+        <script src="/js/bootstrap-transition.js"></script>
+        <script src="/js/bootstrap-alert.js"></script>
+        <script src="/js/bootstrap-modal.js"></script>
+        <script src="/js/bootstrap-dropdown.js"></script>
+        <script src="/js/bootstrap-scrollspy.js"></script>
+        <script src="/js/bootstrap-tab.js"></script>
+        <script src="/js/bootstrap-tooltip.js"></script>
+        <script src="/js/bootstrap-popover.js"></script>
+        <script src="/js/bootstrap-button.js"></script>
+        <script src="/js/bootstrap-collapse.js"></script>
+        <script src="/js/bootstrap-carousel.js"></script>
+        <script src="/js/bootstrap-typeahead.js"></script>
+    </body>
+
+</html>

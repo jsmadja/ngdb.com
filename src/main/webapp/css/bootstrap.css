@@ -5295,3 +5295,7 @@ TABLE.t-data-grid THEAD TR TH {
 #colorbox {
     z-index:1000000;
 }
+
+.neogeo {
+    font-family:Times new roman;
+}

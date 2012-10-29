@@ -38,4 +38,27 @@ public class Comparators {
             return 0;
         }
     };
+
+    public static Comparator<Game> gamesByNghTitlePlatformOrigin = new Comparator<Game>() {
+        @Override
+        public int compare(Game a1, Game a2) {
+            String ngh1 = a1.getNgh();
+            String ngh2 = a2.getNgh();
+            if(ngh1 != null && ngh2 != null) {
+                if(ngh1.compareToIgnoreCase(ngh2) != 0) {
+                    return ngh1.compareToIgnoreCase(ngh2);
+                }
+            }
+            if (a1.getTitle().compareToIgnoreCase(a2.getTitle()) != 0) {
+                return a1.getTitle().compareToIgnoreCase(a2.getTitle());
+            }
+            if (a1.getPlatformShortName().compareTo(a2.getPlatformShortName()) != 0) {
+                return a1.getPlatformShortName().compareTo(a2.getPlatformShortName());
+            }
+            if (a1.getOriginTitle().compareTo(a2.getOriginTitle()) != 0) {
+                return a1.getOriginTitle().compareTo(a2.getOriginTitle());
+            }
+            return 0;
+        }
+    };
 }

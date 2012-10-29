@@ -136,4 +136,15 @@ public class PictureService {
         }
         return cover;
     }
+
+    public Picture getCoverOf(Article article) {
+        Picture cover;
+        if(cacher.hasCoverOf(article)) {
+            cover = cacher.getCoverOf(article);
+        } else {
+            cover = article.getCover();
+            cacher.setCoverOf(article, cover);
+        }
+        return cover;
+    }
 }
