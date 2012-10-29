@@ -164,7 +164,7 @@ public class AppModule {
     public static void adviseExceptionHandler(MethodAdviceReceiver receiver) throws SecurityException, NoSuchMethodException {
         MethodAdvice advice = new MethodAdvice() {
 
-            private final String[] toReplace = {":", ",", "&", " ", "!", "\\(", "\\)", "'", "~"};
+            private final String[] toReplace = {"Â", ":", ",", "&", " "," ", "!", "\\(", "\\)", "'", "~"};
 
             public void advise(Invocation invocation) {
                 try {
