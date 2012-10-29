@@ -11,17 +11,28 @@
         <style type="text/css">
             html {
                 color:#757C82;
-                background-color:black;
+                background-color:#363636;
+                font-family: Helvetica,Arial,sans-serif;
             }
             body {
+                background-color:#363636;
                 margin-left:auto;
                 margin-right:auto;
-                background-color:black;
             }
 
             .home-thumbnail {
-                margin-right:0px;
-                margin-left:0px;
+                margin-right:5px;
+                margin-left:5px;
+                vertical-align:top;
+                display:inline-block;
+            }
+
+            .title {
+                text-align:center;
+                color:#222;
+                font-size:12px;
+                font-weight:bold;
+                width:150px;
             }
 
         </style>
@@ -70,28 +81,35 @@
                         </t:if>
                     </p>
                 </div>
-                <div style="margin-top:200px;position:fixed;width:100%">
-                    <p class="orange neogeo" style="font-size:70pt;font-weight:bold;width:30%;margin-right:auto;margin-left:auto">
-                        NEO·GEO
-                    </p>
-                    <p style="font-size:20pt;margin-top:44px;width:28%;margin-right:auto;margin-left:auto" class="blue">
-                        Learn, Buy and Sell your games
-                    </p>
-                </div>
-                <div style="position:relative">
+                <t:if test="!hasResult">
+                    <div style="margin-top:200px;position:fixed;width:100%">
+                        <p class="orange neogeo" style="font-size:70pt;font-weight:bold;width:30%;margin-right:auto;margin-left:auto">
+                            NEO·GEO
+                        </p>
+                        <p style="font-size:20pt;margin-top:44px;width:28%;margin-right:auto;margin-left:auto" class="blue">
+                            Learn, Buy and Sell your games
+                        </p>
+                    </div>
+                </t:if>
+                <div style="margin-top:10px;width:75%;background-color:#e9e9e9;margin-left:auto;margin-right:auto">
                     <t:loop value="platform" source="platforms">
-                        <t:if test="games">
-                            <h2 class="orange neogeo" style="font-size:12pt;margin-left:5%">${platform.name.toUpperCase()}</h2>
-                            <div style="width:90%;margin-right:auto;margin-left:auto">
-                                <t:loop value="game" source="games">
-                                    <t:if test="game.hasCover()">
-                                        <t:pageLink page="${game.viewPage}" class="home-thumbnail" style="display:inline-block" context="[game.id,game.suffix]">
-                                            <img width="${width}px" height="${height}px" src="${message:image.host.url}${url}" alt="${game.title} ${game.originTitle} ${game.platformShortName}" title="${game.title} ${game.originTitle} ${game.platformShortName}" />
-                                        </t:pageLink>
-                                    </t:if>
-                                </t:loop>
-                            </div>
-                        </t:if>
+                        <div style="position:relative;background-color:white;width:95%;margin-left:auto;margin-right:auto;margin-bottom:10px">
+                            <t:if test="games">
+                                <h2 style="font-size:14px;padding-left:20px;font-weight:bold;border-bottom:1px dotted #DDD;margin-bottom:20px">${platform.name.toUpperCase()}</h2>
+                                <div style="width:98%;margin-right:auto;margin-left:auto">
+                                    <t:loop value="game" source="games">
+                                        <t:if test="game.hasCover()">
+                                            <t:pageLink page="${game.viewPage}" class="home-thumbnail" context="[game.id,game.suffix]">
+                                                <img width="${width}px" height="${height}px" src="${message:image.host.url}${url}" alt="${game.title} ${game.originTitle} ${game.platformShortName}" title="${game.title} ${game.originTitle} ${game.platformShortName}" />
+                                                <p class="title">
+                                                    ${game.title}
+                                                </p>
+                                            </t:pageLink>
+                                        </t:if>
+                                    </t:loop>
+                                </div>
+                            </t:if>
+                        </div>
                     </t:loop>
                 </div>
             </t:zone>
