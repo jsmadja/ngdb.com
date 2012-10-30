@@ -3,6 +3,7 @@ package com.ngdb.services;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Comment;
+import com.ngdb.entities.article.element.File;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.shop.ShopItem;
@@ -15,7 +16,7 @@ import java.util.Set;
 public class Cacher {
 
     private static Cache averageMarksOfGames, reviewsOfGames, ranksOfArticles, coversOfArticles, coversOfShopItems,
-    barcodes, wishRanksOfArticles, commentsOfArticles;
+    barcodes, wishRanksOfArticles, commentsOfArticles, filesOfArticles;
 
     static {
         CacheManager cacheManager = CacheManager.create();
@@ -26,6 +27,7 @@ public class Cacher {
         coversOfArticles = cacheManager.getCache("covers.of.articles");
         coversOfShopItems = cacheManager.getCache("covers.of.shopitems");
         commentsOfArticles = cacheManager.getCache("comments.of.articles");
+        filesOfArticles = cacheManager.getCache("files.of.articles");
         barcodes = cacheManager.getCache("barcodes");
     }
 
@@ -72,6 +74,13 @@ public class Cacher {
         return commentsOfArticles.isKeyInCache(keyFrom(article));
     }
 
+    public boolean hasFilesOf(Article article) {
+        if(article.isGame()) {
+            return filesOfArticles.isKeyInCache(nghKeyFrom(article));
+        }
+        return filesOfArticles.isKeyInCache(keyFrom(article));
+    }
+
     // --- set
 
     public void setAverageMarkOf(Article article, Double averageMark) {
@@ -114,6 +123,14 @@ public class Cacher {
         }
     }
 
+    public void setFilesOf(Article article, Set<File> files) {
+        if(article.isGame()) {
+            filesOfArticles.put(new Element(nghKeyFrom(article), files));
+        } else {
+            filesOfArticles.put(new Element(keyFrom(article), files));
+        }
+    }
+
     // --- get
 
     public Double getAverageMarkOf(Article article) {
@@ -129,6 +146,13 @@ public class Cacher {
             return (Set<Comment>) commentsOfArticles.get(nghKeyFrom(article)).getValue();
         }
         return (Set<Comment>) commentsOfArticles.get(keyFrom(article)).getValue();
+    }
+
+    public Set<File> getFilesOf(Article article) {
+        if(article.isGame()) {
+            return (Set<File>) filesOfArticles.get(nghKeyFrom(article)).getValue();
+        }
+        return (Set<File>) filesOfArticles.get(keyFrom(article)).getValue();
     }
 
     public int getRankOf(Article article) {
@@ -197,6 +221,16 @@ public class Cacher {
                 commentsOfArticles.remove(nghKeyFrom(article));
             } else {
                 commentsOfArticles.remove(keyFrom(article));
+            }
+        }
+    }
+
+    public void invalidateFilesOf(Article article) {
+        if(hasFilesOf(article)) {
+            if(article.isGame()) {
+                filesOfArticles.remove(nghKeyFrom(article));
+            } else {
+                filesOfArticles.remove(keyFrom(article));
             }
         }
     }

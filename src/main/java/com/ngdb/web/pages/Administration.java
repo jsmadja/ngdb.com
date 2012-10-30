@@ -68,7 +68,7 @@ public class Administration {
         }
         Files files = article.getFiles();
         for (File file : files) {
-            fileService.delete(file);
+            fileService.delete(file, article);
         }
         session.delete(article);
         session.flush();

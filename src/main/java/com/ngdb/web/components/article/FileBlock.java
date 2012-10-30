@@ -69,16 +69,7 @@ public class FileBlock {
 	}
 
 	public Collection<File> getFiles() {
-		if (article.isGame()) {
-            Game game = (Game) article;
-            Set<File> files = new TreeSet<File>(game.getFiles().all());
-            List<Game> relatedGames = articleFactory.findAllGamesByNgh(game.getNgh());
-            for (Game relatedGame : relatedGames) {
-                files.addAll(relatedGame.getFiles().all());
-            }
-            return files;
-        }
-        return article.getFiles().all();
+		return fileService.getFilesOf(article);
     }
 
     public Collection<String> getTypes() {

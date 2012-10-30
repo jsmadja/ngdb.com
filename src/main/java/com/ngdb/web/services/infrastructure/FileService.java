@@ -1,7 +1,10 @@
 package com.ngdb.web.services.infrastructure;
 
+import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.article.Article;
+import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.File;
+import com.ngdb.services.Cacher;
 import org.apache.commons.io.FileUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.upload.services.UploadedFile;
@@ -11,6 +14,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import static com.google.common.io.ByteStreams.toByteArray;
 import static com.google.common.io.Files.createParentDirs;
@@ -26,7 +33,11 @@ public class FileService {
     @Inject
     private CurrentUser currentUser;
 
-    private static final Logger LOG = LoggerFactory.getLogger(FileService.class);
+    @Inject
+    private ArticleFactory articleFactory;
+
+    @Inject
+    private Cacher cacher;
 
     public File store(UploadedFile uploadedFile, Article article, String name, String type) {
 		try {
@@ -49,6 +60,7 @@ public class FileService {
         article.addFile(file);
         file = (File) session.merge(file);
         currentUser.addFile(article);
+        cacher.invalidateFilesOf(article);
         return file;
     }
 
@@ -63,8 +75,9 @@ public class FileService {
         return new File(parentFolder + fileName);
     }
 
-	public void delete(File file) {
+	public void delete(File file, Article article) {
         try {
+            cacher.invalidateFilesOf(article);
             java.io.File ioFile = new java.io.File(file.getUrl());
             FileUtils.forceDelete(ioFile);
             java.io.File parent = ioFile.getParentFile();
@@ -76,4 +89,22 @@ public class FileService {
         }
 	}
 
+    public Collection<File> getFilesOf(Article article) {
+        if(cacher.hasFilesOf(article)) {
+            return cacher.getFilesOf(article);
+        }
+        Set<File> files;
+        if (article.isGame()) {
+            Game game = (Game) article;
+            files = new TreeSet<File>(game.getFiles().all());
+            List<Game> relatedGames = articleFactory.findAllGamesByNgh(game.getNgh());
+            for (Game relatedGame : relatedGames) {
+                files.addAll(relatedGame.getFiles().all());
+            }
+        } else {
+            files = article.getFiles().all();
+        }
+        cacher.setFilesOf(article, files);
+        return files;
+    }
 }
