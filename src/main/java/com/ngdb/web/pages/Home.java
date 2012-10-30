@@ -60,27 +60,14 @@ public class Home {
 
     private List<Game> games = new ArrayList<Game>();
 
-    void onActivate() {
-        platforms = referenceService.getPlatforms();
-    }
-
-    @OnEvent("provideCompletions")
-    List<String> autoComplete(String partial) {
-        this.search = partial;
-        ajaxResponseRenderer.addRender(resultZone);
-        return EMPTY;
-    }
-
-    @OnEvent(value=EventConstants.VALUE_CHANGED, component = "search")
-    public Object onValueChanged(String value) {
-        this.search = value;
-        return resultZone.getBody();
-    }
-
     @Inject
     private Request request;
 
     private static List<String> EMPTY = new ArrayList<String>();
+
+    void onActivate() {
+        platforms = referenceService.getPlatforms();
+    }
 
     @OnEvent(component = "searchForm", value = EventConstants.SUCCESS)
     public void onSuccessFromSearchForm() {
