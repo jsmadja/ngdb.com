@@ -33,6 +33,7 @@
     <cache name="wishranks.of.articles" eternal="true" statistics="true" />
     <cache name="covers.of.articles" eternal="true" statistics="true" />
     <cache name="covers.of.shopitems" eternal="true" statistics="true" />
+    <cache name="comments.of.articles" eternal="true" statistics="true" />
     <cache name="barcodes" eternal="true" statistics="true" />
 
     <cache name="com.ngdb.entities.article.Article" statistics="true"

@@ -2,6 +2,7 @@ package com.ngdb.services;
 
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
+import com.ngdb.entities.article.element.Comment;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.shop.ShopItem;
@@ -14,7 +15,7 @@ import java.util.Set;
 public class Cacher {
 
     private static Cache averageMarksOfGames, reviewsOfGames, ranksOfArticles, coversOfArticles, coversOfShopItems,
-    barcodes, wishRanksOfArticles;
+    barcodes, wishRanksOfArticles, commentsOfArticles;
 
     static {
         CacheManager cacheManager = CacheManager.create();
@@ -24,6 +25,7 @@ public class Cacher {
         wishRanksOfArticles = cacheManager.getCache("wishranks.of.articles");
         coversOfArticles = cacheManager.getCache("covers.of.articles");
         coversOfShopItems = cacheManager.getCache("covers.of.shopitems");
+        commentsOfArticles = cacheManager.getCache("comments.of.articles");
         barcodes = cacheManager.getCache("barcodes");
     }
 
@@ -63,6 +65,13 @@ public class Cacher {
         return barcodes.isKeyInCache(ean);
     }
 
+    public boolean hasCommentsOf(Article article) {
+        if(article.isGame()) {
+            return commentsOfArticles.isKeyInCache(nghKeyFrom(article));
+        }
+        return commentsOfArticles.isKeyInCache(keyFrom(article));
+    }
+
     // --- set
 
     public void setAverageMarkOf(Article article, Double averageMark) {
@@ -97,6 +106,14 @@ public class Cacher {
         barcodes.put(new Element(ean, barcode));
     }
 
+    public void setCommentsOf(Article article, Set<Comment> comments) {
+        if(article.isGame()) {
+            commentsOfArticles.put(new Element(nghKeyFrom(article), comments));
+        } else {
+            commentsOfArticles.put(new Element(keyFrom(article), comments));
+        }
+    }
+
     // --- get
 
     public Double getAverageMarkOf(Article article) {
@@ -105,6 +122,13 @@ public class Cacher {
 
     public Set<Review> getReviewsOf(Article article) {
         return (Set<Review>) reviewsOfGames.get(nghKeyFrom(article)).getValue();
+    }
+
+    public Set<Comment> getCommentsOf(Article article) {
+        if(article.isGame()) {
+            return (Set<Comment>) commentsOfArticles.get(nghKeyFrom(article)).getValue();
+        }
+        return (Set<Comment>) commentsOfArticles.get(keyFrom(article)).getValue();
     }
 
     public int getRankOf(Article article) {
@@ -164,6 +188,16 @@ public class Cacher {
     public void invalidateBarcode(String ean) {
         if(hasBarcodeOf(ean)) {
             barcodes.remove(ean);
+        }
+    }
+
+    public void invalidateCommentsOf(Article article) {
+        if(hasCommentsOf(article)) {
+            if(article.isGame()) {
+                commentsOfArticles.remove(nghKeyFrom(article));
+            } else {
+                commentsOfArticles.remove(keyFrom(article));
+            }
         }
     }
 

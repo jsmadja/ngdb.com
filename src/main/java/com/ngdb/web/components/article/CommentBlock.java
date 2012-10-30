@@ -5,6 +5,7 @@ import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Comment;
 import com.ngdb.entities.user.User;
+import com.ngdb.services.Cacher;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -36,10 +37,14 @@ public class CommentBlock {
     @Inject
     private ArticleFactory articleFactory;
 
+    @Inject
+    private Cacher cacher;
+
     @CommitAfter
     public void onSuccess() {
         if (isNotBlank(commentText)) {
             currentUser.addCommentOn(article, commentText);
+            cacher.invalidateCommentsOf(article);
         }
     }
 
@@ -52,17 +57,30 @@ public class CommentBlock {
     }
 
     public Collection<Comment> getComments() {
+        if(cacher.hasCommentsOf(article)) {
+            return cacher.getCommentsOf(article);
+        }
+        Set<Comment> comments = gatherAllComments();
+        cacher.setCommentsOf(article, comments);
+        return comments;
+    }
+
+    private Set<Comment> gatherAllComments() {
         Set<Comment> comments;
         if (article.isGame()) {
-            Game game = (Game) article;
-            comments = new TreeSet<Comment>(game.getComments().all());
-            List<Game> relatedGames = articleFactory.findAllGamesByNgh(game.getNgh());
-            for (Game relatedGame : relatedGames) {
-                comments.addAll(relatedGame.getComments().all());
-            }
-            return comments;
+            comments = gatherCommentsOfRelatedGames();
         } else {
             comments = new TreeSet<Comment>(article.getComments().all());
+        }
+        return comments;
+    }
+
+    private Set<Comment> gatherCommentsOfRelatedGames() {
+        Game game = (Game) article;
+        Set<Comment> comments = new TreeSet<Comment>(game.getComments().all());
+        List<Game> relatedGames = articleFactory.findAllGamesByNgh(game.getNgh());
+        for (Game relatedGame : relatedGames) {
+            comments.addAll(relatedGame.getComments().all());
         }
         return comments;
     }
