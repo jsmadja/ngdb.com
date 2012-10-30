@@ -2,13 +2,11 @@ package com.ngdb.entities.article;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
-import com.google.common.collect.Collections2;
 import com.ngdb.entities.article.element.*;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
 import com.ngdb.entities.reference.State;
-import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.ShopItems;
 import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.CollectionObject;
@@ -36,14 +34,14 @@ import static com.google.common.collect.Collections2.transform;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @AnalyzerDefs({
-    @AnalyzerDef(name = "noaccent",
-        tokenizer = @TokenizerDef(factory = SentenceTokenizerFactory.class),
-        filters = {
-            @TokenFilterDef(factory = LowerCaseFilterFactory.class),
-            @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class)
-        })
+        @AnalyzerDef(name = "noaccent",
+                tokenizer = @TokenizerDef(factory = SentenceTokenizerFactory.class),
+                filters = {
+                        @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+                        @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class)
+                })
 })
-public abstract class Article implements Comparable<Article>, Serializable{
+public abstract class Article implements Comparable<Article>, Serializable {
 
     private static final int MAX_DETAIL_LENGTH = 1024;
 
@@ -170,10 +168,7 @@ public abstract class Article implements Comparable<Article>, Serializable{
         return files;
     }
 
-    public boolean hasFiles() {
-        return files.getCount() > 0;
-    }
-
+    // utilise dans ArticleStats
     public Set<User> getOwners() {
         Set<User> users = new HashSet<User>();
         for (CollectionObject owner : owners) {
@@ -191,7 +186,7 @@ public abstract class Article implements Comparable<Article>, Serializable{
     }
 
     public Picture getCover() {
-        if(coverUrl == null) {
+        if (coverUrl == null) {
             return Picture.EMPTY;
         }
         return new Picture(coverUrl);
@@ -265,10 +260,6 @@ public abstract class Article implements Comparable<Article>, Serializable{
         return title;
     }
 
-    public Collection<ShopItem> getShopItemsForSale() {
-        return shopItems.getShopItemsForSale();
-    }
-
     public boolean hasShopItemInState(State state) {
         return shopItems.hasShopItemInState(state);
     }
@@ -302,7 +293,7 @@ public abstract class Article implements Comparable<Article>, Serializable{
     }
 
     public void addReview(Review review) {
-        if(reviews == null) {
+        if (reviews == null) {
             reviews = new Reviews();
         }
         reviews.add(review);
@@ -342,18 +333,21 @@ public abstract class Article implements Comparable<Article>, Serializable{
         for (String s : toReplace) {
             title = title.replaceAll(s, "-");
         }
-        title += "-"+getPlatformShortName()+"-"+getOriginTitle();
-        while(title.contains("--")) {
+        title += "-" + getPlatformShortName() + "-" + getOriginTitle();
+        while (title.contains("--")) {
             title = title.replaceAll("--", "-");
         }
         return title;
     }
 
     public abstract boolean isGame();
+
     public abstract boolean isHardware();
+
     public abstract boolean isAccessory();
 
     public abstract String getViewPage();
+
     public abstract String getUpdatePage();
 
     public String getAverageMark() {
@@ -364,11 +358,11 @@ public abstract class Article implements Comparable<Article>, Serializable{
         for (Review review : reviews) {
             sum += review.getMarkInPercent();
         }
-        return (sum / reviews.count())+"%";
+        return (sum / reviews.count()) + "%";
     }
 
-   public boolean getHasReviews() {
-        if(reviews == null) {
+    public boolean getHasReviews() {
+        if (reviews == null) {
             return false;
         }
         return reviews.count() > 0;
@@ -376,13 +370,6 @@ public abstract class Article implements Comparable<Article>, Serializable{
 
     public void addFile(File file) {
         files.add(file);
-    }
-
-    public boolean hasTags() {
-        if(tags == null) {
-            return false;
-        }
-        return tags.count() > 0;
     }
 
     public String getOriginTitle() {

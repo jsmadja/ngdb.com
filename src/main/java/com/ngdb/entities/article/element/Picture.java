@@ -99,8 +99,8 @@ public class Picture extends AbstractEntity implements Comparable<Picture> {
 
     @Override
     public boolean equals(Object o) {
-        if(o instanceof Picture) {
-            Picture p = (Picture)o;
+        if (o instanceof Picture) {
+            Picture p = (Picture) o;
             return url.equals(p.url);
         }
         return false;

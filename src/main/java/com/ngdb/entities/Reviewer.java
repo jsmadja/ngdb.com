@@ -65,23 +65,8 @@ public class Reviewer {
     }
 
     public String getStarsOf(Article article) {
-        if(article.isGame()) {
-            Game result = (Game) session.load(Game.class, article.getId());
-            if (result.getHasReviews()) {
-                String mark = result.getAverageMark();
-                return new Mark(mark).getStars();
-            } else {
-                String ngh = result.getNgh();
-                List<Game> games = articleFactory.findAllGamesByNgh(ngh);
-                for (Game game : games) {
-                    if (game.getHasReviews()) {
-                        String mark = game.getAverageMark();
-                        return new Mark(mark).getStars();
-                    }
-                }
-            }
-        }
-        return ZERO.getStars();
+        Double averageMarkOf = getAverageMarkOf(article);
+        return new Mark(averageMarkOf).getStars();
     }
 
     public void addReview(Article article, String source, String url, String mark) {

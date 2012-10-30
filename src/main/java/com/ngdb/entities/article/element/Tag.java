@@ -19,54 +19,54 @@ import javax.persistence.ManyToOne;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Tag extends AbstractEntity implements Comparable<Tag> {
 
-	@Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     @Field(analyzer = @Analyzer(definition = "noaccent"), store = Store.YES)
     private String name;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	private Article article;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Article article;
 
-	/* package */Tag() {
-	}
+    /* package */Tag() {
+    }
 
-	public Tag(String name, Article article) {
-		this.name = name;
-		this.article = article;
-	}
+    public Tag(String name, Article article) {
+        this.name = name;
+        this.article = article;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Article getArticle() {
-		return article;
-	}
+    public Article getArticle() {
+        return article;
+    }
 
-	@Override
-	public String toString() {
-		return name;
-	}
+    @Override
+    public String toString() {
+        return name;
+    }
 
-	@Override
-	public int compareTo(Tag tag) {
-		return name.compareToIgnoreCase(tag.name);
-	}
+    @Override
+    public int compareTo(Tag tag) {
+        return name.compareToIgnoreCase(tag.name);
+    }
 
-	public boolean hasName(String name) {
-		return this.name.equalsIgnoreCase(name);
-	}
+    public boolean hasName(String name) {
+        return this.name.equalsIgnoreCase(name);
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof Tag) {
-			return ((Tag) obj).hasName(name);
-		}
-		return false;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Tag) {
+            return ((Tag) obj).hasName(name);
+        }
+        return false;
+    }
 
-	@Override
-	public int hashCode() {
-		return name.hashCode();
-	}
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
 
 }

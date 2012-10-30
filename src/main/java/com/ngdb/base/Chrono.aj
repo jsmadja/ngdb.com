@@ -17,7 +17,7 @@ public aspect Chrono {
             Object method = thisJoinPointStaticPart.getSignature();
             long end = System.currentTimeMillis();
             long duration = end - start;
-            if(duration > 50)
+            if(duration > 10)
                 prefix = "SLOW METHOD";
             if(duration > 500)
                 prefix = "VERY SLOW METHOD";

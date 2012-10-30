@@ -54,7 +54,7 @@ public class Note extends AbstractEntity implements Comparable<Note> {
     @Override
     public int compareTo(Note note) {
         int comp = name.compareToIgnoreCase(note.name);
-        if(comp != 0) {
+        if (comp != 0) {
             return comp;
         }
         return text.compareToIgnoreCase(note.text);

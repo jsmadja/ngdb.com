@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 @Entity
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class File  extends AbstractEntity implements Comparable<File> {
+public class File extends AbstractEntity implements Comparable<File> {
 
     @Column(nullable = false)
     @Field(analyzer = @Analyzer(definition = "noaccent"), store = Store.YES)

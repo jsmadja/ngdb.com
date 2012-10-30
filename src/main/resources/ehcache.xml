@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache>
 
-	<diskStore path="java.io.tmpdir" />
+	<diskStore path="/tmp/ngdb_cache" />
 	
 	<defaultCache maxElementsInMemory="2000" eternal="false"
 		timeToIdleSeconds="300" timeToLiveSeconds="120" overflowToDisk="true"
-		statistics="true" />
+		statistics="true"  />
 
 	<cache name="org.hibernate.cache.StandardQueryCache"
 		maxElementsInMemory="100000" eternal="false" timeToIdleSeconds="1200"

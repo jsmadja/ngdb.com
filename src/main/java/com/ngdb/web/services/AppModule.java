@@ -79,20 +79,16 @@ public class AppModule {
         return new RequestFilter() {
             public boolean service(Request request, Response response, RequestHandler handler)
                     throws IOException {
-                long startTime = System.currentTimeMillis();
+            long startTime = System.currentTimeMillis();
 
-                try {
-                    // The reponsibility of a filter is to invoke the corresponding method
-                    // in the handler. When you chain multiple filters together, each filter
-                    // received a handler that is a bridge to the next filter.
-
-                    return handler.service(request, response);
-                } finally {
-                    long elapsed = System.currentTimeMillis() - startTime;
-                    if(elapsed > 200) {
-                        logger.info(String.format("Request "+request.getPath()+",  time: %d ms", elapsed));
-                    }
+            try {
+                return handler.service(request, response);
+            } finally {
+                long elapsed = System.currentTimeMillis() - startTime;
+                if(elapsed > 200) {
+                    logger.info(String.format("Request "+request.getPath()+",  time: %d ms", elapsed));
                 }
+            }
             }
         };
     }
@@ -100,10 +96,6 @@ public class AppModule {
     public void contributeRequestHandler(OrderedConfiguration<RequestFilter> configuration,
                                          @Local
                                          RequestFilter filter) {
-        // Each contribution to an ordered configuration has a name, When necessary, you may
-        // set constraints to precisely control the invocation order of the contributed filter
-        // within the pipeline.
-
         configuration.add("Timing", filter);
     }
 
@@ -163,9 +155,7 @@ public class AppModule {
     @Match("ContextPathEncoder")
     public static void adviseExceptionHandler(MethodAdviceReceiver receiver) throws SecurityException, NoSuchMethodException {
         MethodAdvice advice = new MethodAdvice() {
-
             private final String[] toReplace = {"Â", ":", ",", "&", " "," ", "!", "\\(", "\\)", "'", "~"};
-
             public void advise(Invocation invocation) {
                 try {
                     String param = (String) invocation.getParameter(0);
@@ -183,6 +173,5 @@ public class AppModule {
         Method method = ContextPathEncoder.class.getMethod("decodePath", String.class);
         receiver.adviseMethod(method, advice);
     }
-
 
 }

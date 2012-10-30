@@ -5,7 +5,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Embeddable;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -49,7 +52,7 @@ public class Tags implements Iterable<Tag> {
 
     @Override
     public String toString() {
-        if(tags == null) {
+        if (tags == null) {
             return "";
         }
         return Arrays.toString(tags.toArray());
