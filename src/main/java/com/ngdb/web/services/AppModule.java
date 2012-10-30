@@ -89,7 +89,7 @@ public class AppModule {
                     return handler.service(request, response);
                 } finally {
                     long elapsed = System.currentTimeMillis() - startTime;
-                    if(elapsed > 2000) {
+                    if(elapsed > 200) {
                         logger.info(String.format("Request "+request.getPath()+",  time: %d ms", elapsed));
                     }
                 }

@@ -108,22 +108,22 @@ public class Home {
     }
 
     public int getCount() {
-        return games.size();
+        return getGames().size();
     }
 
     public int getWidth() {
-        return 150;
+        return 200;
     }
 
     public int getHeight() {
         String platformShortName = game.getPlatformShortName();
         if(platformShortName.equals("AES")) {
-            return 180;
+            return 250;
         }
         if(platformShortName.equals("MVS")) {
-            return 90;
+            return 120;
         }
-        return 150;
+        return 200;
     }
 
 }
