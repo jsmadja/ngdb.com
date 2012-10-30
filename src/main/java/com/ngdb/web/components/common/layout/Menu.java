@@ -4,6 +4,7 @@ import com.ngdb.entities.ActionLogger;
 import com.ngdb.entities.article.ArticleAction;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.shop.ShopItem;
+import com.ngdb.services.Cacher;
 import com.ngdb.web.pages.Index;
 import com.ngdb.web.services.infrastructure.PictureService;
 import org.apache.tapestry5.annotations.Component;
@@ -56,6 +57,9 @@ public class Menu {
 
     @Inject
     private PictureService pictureService;
+
+    @Inject
+    private Cacher cacher;
 
     public JSONObject getParams() {
         return new JSONObject("width", "750", "modal", "false", "dialogClass", "dialog-edition", "zIndex", "1002");
@@ -112,6 +116,15 @@ public class Menu {
     public String getShopItemCover() {
         Picture cover = pictureService.getCoverOf(shopItem);
         return cover.getUrlSmall();
+    }
+
+    public String getTitle() {
+        if(cacher.hasTitleOf(shopItem)) {
+            return cacher.getTitleOf(shopItem);
+        }
+        String title = shopItem.getTitle();
+        cacher.setTitleOf(shopItem, title);
+        return title;
     }
 
 }

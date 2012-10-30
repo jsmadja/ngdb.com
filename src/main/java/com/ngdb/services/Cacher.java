@@ -16,7 +16,7 @@ import java.util.Set;
 public class Cacher {
 
     private static Cache averageMarksOfGames, reviewsOfGames, ranksOfArticles, coversOfArticles, coversOfShopItems,
-    barcodes, wishRanksOfArticles, commentsOfArticles, filesOfArticles;
+    barcodes, wishRanksOfArticles, commentsOfArticles, filesOfArticles, titlesOfShopItems;
 
     static {
         CacheManager cacheManager = CacheManager.create();
@@ -29,6 +29,7 @@ public class Cacher {
         commentsOfArticles = cacheManager.getCache("comments.of.articles");
         filesOfArticles = cacheManager.getCache("files.of.articles");
         barcodes = cacheManager.getCache("barcodes");
+        titlesOfShopItems = cacheManager.getCache("titles.of.shopitems");
     }
 
     // --- has
@@ -61,6 +62,10 @@ public class Cacher {
 
     public boolean hasCoverOf(ShopItem shopItem) {
         return coversOfShopItems.isKeyInCache(keyFrom(shopItem));
+    }
+
+    public boolean hasTitleOf(ShopItem shopItem) {
+        return titlesOfShopItems.isKeyInCache(keyFrom(shopItem));
     }
 
     public boolean hasBarcodeOf(String ean) {
@@ -109,6 +114,10 @@ public class Cacher {
 
     public void setCoverOf(ShopItem shopItem, Picture picture) {
         coversOfShopItems.put(new Element(keyFrom(shopItem), picture));
+    }
+
+    public void setTitleOf(ShopItem shopItem, String title) {
+        titlesOfShopItems.put(new Element(keyFrom(shopItem), title));
     }
 
     public void setBarcodeOf(String ean, String barcode) {
@@ -169,6 +178,10 @@ public class Cacher {
 
     public Picture getCoverOf(ShopItem shopItem) {
         return (Picture) coversOfShopItems.get(keyFrom(shopItem)).getValue();
+    }
+
+    public String getTitleOf(ShopItem shopItem) {
+        return titlesOfShopItems.get(keyFrom(shopItem)).getValue().toString();
     }
 
     public String getBarcodeOf(String ean) {
