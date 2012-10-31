@@ -75,7 +75,7 @@ public class MarketFilter extends AbstractFilter {
         if(isFilteredByHardwares()) {
             clazz = Hardware.class;
         }
-        return session.createCriteria(clazz).setProjection(id());
+        return session.createCriteria(clazz).setCacheable(true).setProjection(id());
     }
 
     public int getNumShopItemsInThisOrigin(Origin origin) {
@@ -127,7 +127,7 @@ public class MarketFilter extends AbstractFilter {
     }
 
     private Criteria createShopItemCriteria() {
-        return session.createCriteria(ShopItem.class);
+        return session.createCriteria(ShopItem.class).setCacheable(true);
     }
 
     private boolean isFilteredByAnUserWithoutShopItems() {
