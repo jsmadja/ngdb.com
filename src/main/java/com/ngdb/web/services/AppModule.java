@@ -97,11 +97,13 @@ public class AppModule {
         };
     }
 
+    /*
     public void contributeRequestHandler(OrderedConfiguration<RequestFilter> configuration,
                                          @Local
                                          RequestFilter filter) {
         configuration.add("Timing", filter);
     }
+    */
 
     public static void bind(ServiceBinder binder) {
         binder.bind(CurrentUser.class);
