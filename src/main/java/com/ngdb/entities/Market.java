@@ -70,7 +70,7 @@ public class Market {
             int randomIdx = RandomUtils.nextInt(forSaleItems.size());
             if (ids.add(randomIdx)) {
                 ShopItem shopItem = forSaleItems.get(randomIdx);
-                //shopItem = (ShopItem) session.load(ShopItem.class, shopItem.getId());
+                shopItem = (ShopItem) session.load(ShopItem.class, shopItem.getId());
                 randomItems.add(shopItem);
             }
         }
