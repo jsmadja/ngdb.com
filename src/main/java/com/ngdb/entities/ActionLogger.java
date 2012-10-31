@@ -3,11 +3,13 @@ package com.ngdb.entities;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.ArticleAction;
 import com.ngdb.entities.user.User;
+import com.ngdb.services.Cacher;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 
 import java.util.Collection;
+import java.util.List;
 
 import static org.hibernate.criterion.Order.desc;
 
@@ -15,6 +17,9 @@ public class ActionLogger {
 
     @Inject
     private Session session;
+
+    @Inject
+    private Cacher cacher;
 
     public void addTagAction(User user, Article article) {
         createAction(user, article, "added_a_new_tag_on");
@@ -41,6 +46,7 @@ public class ActionLogger {
     }
 
     private void createAction(User user, Article article, String message) {
+        cacher.invalidateLastActions();
         ArticleAction articleAction = new ArticleAction();
         articleAction.setArticle(article);
         articleAction.setUser(user);
@@ -49,11 +55,16 @@ public class ActionLogger {
     }
 
     public Collection<ArticleAction> listLastActions() {
+        if(cacher.hasLastActions()) {
+            return cacher.getLastActions();
+        }
         Criteria criteria = session.createCriteria(ArticleAction.class).
                 setMaxResults(12).
                 addOrder(desc("creationDate")).
                 setCacheable(true);
-        return criteria.list();
+        List actions = criteria.list();
+        cacher.setLastActions(actions);
+        return actions;
     }
 
     public void addArticleInCollectionAction(User user, Article article) {

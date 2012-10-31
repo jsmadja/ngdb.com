@@ -1,6 +1,7 @@
 package com.ngdb.services;
 
 import com.ngdb.entities.article.Article;
+import com.ngdb.entities.article.ArticleAction;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Comment;
 import com.ngdb.entities.article.element.File;
@@ -11,12 +12,17 @@ import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Cacher {
 
     private static Cache averageMarksOfGames, reviewsOfGames, ranksOfArticles, coversOfArticles, coversOfShopItems,
     barcodes, wishRanksOfArticles, commentsOfArticles, filesOfArticles, titlesOfShopItems;
+
+    private static Collection<ArticleAction> lastActions = new HashSet<ArticleAction>();
 
     static {
         CacheManager cacheManager = CacheManager.create();
@@ -86,6 +92,10 @@ public class Cacher {
         return filesOfArticles.isKeyInCache(keyFrom(article));
     }
 
+    public boolean hasLastActions() {
+        return !lastActions.isEmpty();
+    }
+
     // --- set
 
     public void setAverageMarkOf(Article article, Double averageMark) {
@@ -140,6 +150,10 @@ public class Cacher {
         }
     }
 
+    public void setLastActions(Collection<ArticleAction> lastActions) {
+        this.lastActions = lastActions;
+    }
+
     // --- get
 
     public Double getAverageMarkOf(Article article) {
@@ -186,6 +200,10 @@ public class Cacher {
 
     public String getBarcodeOf(String ean) {
         return barcodes.get(ean).getValue().toString();
+    }
+
+    public Collection<ArticleAction> getLastActions() {
+        return lastActions;
     }
 
     // --- invalidate
@@ -246,6 +264,10 @@ public class Cacher {
                 filesOfArticles.remove(keyFrom(article));
             }
         }
+    }
+
+    public void invalidateLastActions() {
+        lastActions.clear();
     }
 
     // --- key
