@@ -1,5 +1,7 @@
 package com.ngdb.entities;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import com.ngdb.entities.article.Accessory;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
@@ -7,12 +9,16 @@ import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.shop.Wish;
+import com.ngdb.entities.user.WishList;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import static com.google.common.collect.Collections2.filter;
 import static org.hibernate.criterion.Order.desc;
 import static org.hibernate.criterion.Projections.countDistinct;
 import static org.hibernate.criterion.Projections.id;
@@ -30,20 +36,36 @@ public class WishBoxFilter extends AbstractFilter {
         clear();
     }
 
-    public List<Wish> getWishes() {
+    public Collection<Article> getWishedArticles() {
         if(isFilteredByAnUserWithoutWishes()) {
-            return new ArrayList<Wish>();
+            return new ArrayList<Article>();
         }
+
         Criteria articleCriteria = createArticleCriteria();
         articleCriteria = addPlatformCriteria(articleCriteria, filteredPlatform);
         articleCriteria = addOriginCriteria(articleCriteria, filteredOrigin);
-        List<Long> articles = articleCriteria.list();
+        articleCriteria = addUserCriteria(articleCriteria);
+        List<Article> articles = articleCriteria.list();
         if(articles.isEmpty()) {
-            return new ArrayList<Wish>();
+            return new ArrayList<Article>();
         }
-        Criteria criteria = session.createCriteria(Wish.class);
-        criteria = addUserFilter(criteria);
-        return criteria.add(in("article.id", articles)).addOrder(desc("modificationDate")).list();
+
+        return articles;
+    }
+
+    private Criteria addUserCriteria(Criteria articleCriteria) {
+        List<Long> wishedArticleIds = new ArrayList<Long>();
+        if(filteredUser != null) {
+            final WishList wishList = filteredUser.getWishList();
+            for (Wish wish : wishList) {
+                wishedArticleIds.add(wish.getArticleId());
+            }
+        }
+
+        if(!wishedArticleIds.isEmpty()) {
+            articleCriteria.add(in("id", wishedArticleIds));
+        }
+        return articleCriteria;
     }
 
     private Criteria addUserFilter(Criteria criteria) {
@@ -54,6 +76,17 @@ public class WishBoxFilter extends AbstractFilter {
     }
 
     private Criteria createArticleCriteria() {
+        Class<? extends Article> clazz = Accessory.class;
+        if(isFilteredByGames()) {
+            clazz = Game.class;
+        }
+        if(isFilteredByHardwares()) {
+            clazz = Hardware.class;
+        }
+        return session.createCriteria(clazz);
+    }
+
+    private Criteria createArticleIdCriteria() {
         Class<? extends Article> clazz = Accessory.class;
         if(isFilteredByGames()) {
             clazz = Game.class;
@@ -86,7 +119,7 @@ public class WishBoxFilter extends AbstractFilter {
         if(isFilteredByAnUserWithoutWishes()) {
             return 0;
         }
-        Criteria articleCriteria = createArticleCriteria();
+        Criteria articleCriteria = createArticleIdCriteria();
         if (filteredPlatform != null) {
             articleCriteria = addPlatformCriteria(articleCriteria, filteredPlatform);
         }
@@ -108,7 +141,7 @@ public class WishBoxFilter extends AbstractFilter {
         if(isFilteredByAnUserWithoutWishes()) {
             return 0;
         }
-        Criteria articleCriteria = createArticleCriteria();
+        Criteria articleCriteria = createArticleIdCriteria();
         articleCriteria = addPlatformCriteria(articleCriteria, platform);
         List articlesInThisPlatform = articleCriteria.list();
         if(articlesInThisPlatform.isEmpty()) {

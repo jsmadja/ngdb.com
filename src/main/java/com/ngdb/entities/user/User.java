@@ -202,4 +202,10 @@ public class User extends AbstractEntity implements Comparable<User> {
         shopOrders.add(shopOrder);
     }
 
+    public WishList getWishList() {
+        if(wishList == null) {
+            wishList = new WishList();
+        }
+        return wishList;
+    }
 }

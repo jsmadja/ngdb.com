@@ -37,6 +37,10 @@ import java.util.ResourceBundle;
 @SubModule({SecurityModule.class})
 public class AppModule {
 
+    public static void contributeApplicationDefaults(MappedConfiguration<String, Object> configuration) {
+        configuration.add(HibernateSymbols.ENTITY_SESSION_STATE_PERSISTENCE_STRATEGY_ENABLED, "true");
+    }
+
     public static void contributeFactoryDefaults(MappedConfiguration<String, Object> configuration) {
         String version = ResourceBundle.getBundle("ngdb").getString("version");
         configuration.override(SymbolConstants.SUPPORTED_LOCALES, "en,fr");

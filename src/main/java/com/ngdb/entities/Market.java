@@ -57,7 +57,7 @@ public class Market {
         Set<Integer> ids = new HashSet<Integer>();
 
         if(currentUser.isLogged()) {
-            User user = currentUser.getUserFromDb();
+            User user = currentUser.getUser();
             forSaleItems.removeAll(user.getBasket().all());
             forSaleItems.removeAll(user.getShop().all());
         }

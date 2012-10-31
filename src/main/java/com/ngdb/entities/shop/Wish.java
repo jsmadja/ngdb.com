@@ -79,6 +79,14 @@ public class Wish implements Comparable<Wish> {
         return new PrettyTime(Locale.UK).format(getCreationDate());
     }
 
+    public WishId getWishId() {
+        return id;
+    }
+
+    public Long getArticleId() {
+        return id.articleId;
+    }
+
     @Embeddable
     private static class WishId implements Serializable {
 

@@ -64,7 +64,7 @@ public class Profile {
 
     @CommitAfter
     public void onSuccess() {
-        User user = currentUser.getUserFromDb();
+        User user = currentUser.getUser();
         user.setPreferedCurrency(preferedCurrency);
         user.setEmail(email);
         user.setCountry(country);

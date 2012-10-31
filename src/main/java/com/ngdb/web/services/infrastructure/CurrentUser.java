@@ -4,7 +4,6 @@ import com.ngdb.entities.*;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Comment;
 import com.ngdb.entities.article.element.Note;
-import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.shop.Wish;
@@ -127,7 +126,7 @@ public class CurrentUser {
     }
 
     public void refresh() {
-        store(User.class, getUserFromDb());
+        store(User.class, getUser());
     }
 
     public User getUser() {
@@ -188,14 +187,14 @@ public class CurrentUser {
     }
 
     public void addToCollection(Article article) {
-        CollectionObject collectionObject = getUserFromDb().addInCollection(article);
+        CollectionObject collectionObject = getUser().addInCollection(article);
         session.merge(collectionObject);
         museum.invalidateRanks();
         actionLogger.addArticleInCollectionAction(getUser(), article);
     }
 
     public void removeFromCollection(Article article) {
-        User userFromDb = getUserFromDb();
+        User userFromDb = getUser();
         userFromDb.removeFromCollection(article);
         museum.invalidateRanks();
         actionLogger.removeArticleFromCollectionAction(getUser(), article);
@@ -226,14 +225,14 @@ public class CurrentUser {
     }
 
     public void wish(Article article) {
-        Wish wish = getUserFromDb().addToWishes(article);
+        Wish wish = getUser().addToWishes(article);
         session.merge(wish);
         wishbox.invalidateRanks();
         actionLogger.addArticleInWishlistAction(getUser(), article);
     }
 
     public void unwish(Article article) {
-        User userFromDb = getUserFromDb();
+        User userFromDb = getUser();
         userFromDb.removeFromWishes(article);
         wishbox.invalidateRanks();
         actionLogger.removeArticleFromWishlistAction(getUser(), article);
@@ -252,12 +251,8 @@ public class CurrentUser {
         return ((BigInteger)session.createSQLQuery(queryString).uniqueResult()).intValue();
     }
 
-    public User getUserFromDb() {
-        return ((User) session.load(User.class, getUser().getId()));
-    }
-
     public int getNumArticlesInWishList() {
-        return getUserFromDb().getNumArticlesInWishList();
+        return getUser().getNumArticlesInWishList();
     }
 
     public long getNumArticlesInShop() {
@@ -294,7 +289,7 @@ public class CurrentUser {
     }
 
     public boolean canBuy(ShopItem shopItem) {
-        boolean currentUserIsPotentialBuyer = isLogged() && shopItem.isNotInBasketOf(getUserFromDb());
+        boolean currentUserIsPotentialBuyer = isLogged() && shopItem.isNotInBasketOf(getUser());
         boolean currentUserIsNotTheSeller = !isSeller(shopItem);
         return currentUserIsNotTheSeller && currentUserIsPotentialBuyer;
     }
@@ -385,11 +380,11 @@ public class CurrentUser {
     }
 
     public long getNumArticlesInBasket() {
-        return getUserFromDb().getBasket().getNumArticles();
+        return getUser().getBasket().getNumArticles();
     }
 
     public void checkout() {
-        checkoutService.checkout(getUserFromDb());
+        checkoutService.checkout(getUser());
     }
 
     public boolean equalsThis(User user) {

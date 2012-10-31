@@ -22,7 +22,7 @@ public class WishList implements Iterable<Wish> {
     @OneToMany(mappedBy = "wisher", orphanRemoval = true)
     private List<Wish> wishes;
 
-    boolean contains(Article article) {
+    public boolean contains(Article article) {
         for (Wish wish : wishes) {
             Long searchId = article.getId();
             Long idInWishList = wish.getArticle().getId();

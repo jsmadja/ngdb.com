@@ -42,7 +42,7 @@ public class Basket {
     }
 
     public Collection<ShopItem> getBasket() {
-        User user = currentUser.getUserFromDb();
+        User user = currentUser.getUser();
         return user.getBasket().all();
     }
 
@@ -57,7 +57,7 @@ public class Basket {
 
     @CommitAfter
     Object onActionFromRemove(ShopItem shopItem) {
-        market.removeFromBasket(currentUser.getUserFromDb(), shopItem);
+        market.removeFromBasket(currentUser.getUser(), shopItem);
         return Basket.class;
     }
 

@@ -2,6 +2,7 @@ package com.ngdb.web.pages;
 
 import com.google.common.collect.Collections2;
 import com.ngdb.Functions;
+import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.Population;
 import com.ngdb.entities.WishBoxFilter;
 import com.ngdb.entities.article.Article;
@@ -17,6 +18,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 import org.hibernate.Session;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -75,8 +77,11 @@ public class WishBox {
     }
 
     public Collection<Article> getWishes() {
-        return Collections2.transform(filter.getWishes(), Functions.fromWishToArticle);
+        return filter.getWishedArticles();
     }
+
+    @Inject
+    private ArticleFactory articleFactory;
 
     public String getMainPictureUrl() {
         wish = (Wish) session.load(Wish.class, wish.getId());

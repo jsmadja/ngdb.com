@@ -26,7 +26,7 @@ public class View {
     @SetupRender
     void onRender() {
         if(shopItem != null && currentUser.isLogged()) {
-            User potentialBuyer = currentUser.getUserFromDb();
+            User potentialBuyer = currentUser.getUser();
             if (currentUser.isAnonymous()) {
                 this.message = "You have to register to buy this item.";
             } else if (currentUser.isSeller(shopItem)) {
