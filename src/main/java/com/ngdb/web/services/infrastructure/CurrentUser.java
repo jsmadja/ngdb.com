@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import static org.apache.commons.lang.StringUtils.defaultString;
+import static org.hibernate.criterion.Projections.countDistinct;
 import static org.hibernate.criterion.Restrictions.eq;
 
 public class CurrentUser {
@@ -166,22 +167,24 @@ public class CurrentUser {
         if (isAnonymous()) {
             return false;
         }
-        return session.createCriteria(CollectionObject.class).
+        return ((Long)session.createCriteria(CollectionObject.class).
                 add(eq("owner", getUser())).
                 add(eq("article", article)).
+                setProjection(Projections.countDistinct("id")).
                 setCacheable(true).
-                list().isEmpty();
+                uniqueResult()) == 0;
     }
 
     public boolean canRemoveFromCollection(Article article) {
         if (isAnonymous()) {
             return false;
         }
-        return session.createCriteria(CollectionObject.class).
+        return ((Long)session.createCriteria(CollectionObject.class).
                 add(eq("owner", getUser())).
                 add(eq("article", article)).
+                setProjection(Projections.countDistinct("id")).
                 setCacheable(true).
-                uniqueResult() != null;
+                uniqueResult()) != 0;
     }
 
     public void addToCollection(Article article) {
@@ -202,22 +205,24 @@ public class CurrentUser {
         if (isAnonymous()) {
             return false;
         }
-        return session.createCriteria(Wish.class).
+        return ((Long)session.createCriteria(Wish.class).
                 add(eq("wisher", getUser())).
                 add(eq("article", article)).
+                setProjection(countDistinct("id")).
                 setCacheable(true).
-                list().isEmpty();
+                uniqueResult()) == 0;
     }
 
     public boolean canUnwish(Article article) {
         if (isAnonymous()) {
             return false;
         }
-        return session.createCriteria(Wish.class).
+        return ((Long)session.createCriteria(Wish.class).
                 add(eq("wisher", getUser())).
                 add(eq("article", article)).
+                setProjection(countDistinct("id")).
                 setCacheable(true).
-                uniqueResult() != null;
+                uniqueResult()) != 0;
     }
 
     public void wish(Article article) {
