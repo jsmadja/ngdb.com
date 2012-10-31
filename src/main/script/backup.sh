@@ -16,6 +16,13 @@ cp -rf /ngdb $dir/ngdb
 cd $dir
 find . -name "*_wm*" -type d -exec rm -v {} \;
 
+echo "configuration files backup ..."
+mkdir -p $dir/conf
+mkdir $dir/conf/cron
+
+cp /etc/cron.daily/suppressions_images_foireuses.sh $dir/conf/cron
+
+
 echo "compressing files ..."
 tar -zcf $filename.tar.gz *
 
