@@ -1,7 +1,7 @@
 <span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
 	xmlns:p="tapestry:parameter" class="shop_item">
 
-    <t:jquery.dialog t:clientId="myDialog" t:params="params">
+    <t:jquery.dialog t:clientId="myDialog" t:params="params" style="display:none">
         <t:zone t:id="myZone" id="myZone">
             <t:shopitem.view t:shopItem="shopItem" />
         </t:zone>
