@@ -328,7 +328,7 @@ public abstract class Article implements Comparable<Article>, Serializable {
     }
 
     public String getSuffix() {
-        String[] toReplace = {",", "&", "/", " ", "!", "\\(", "\\)", "'", "~"};
+        String[] toReplace = {"·", ",", "&", "/", " ", "!", "\\(", "\\)", "'", "~"};
         String title = getTitle();
         for (String s : toReplace) {
             title = title.replaceAll(s, "-");
