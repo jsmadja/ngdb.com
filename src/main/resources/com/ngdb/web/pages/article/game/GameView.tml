@@ -26,12 +26,12 @@
                 <t:article.articleStats article="game" />
 				<t:article.gallery article="game" />
 			</div>
-			<div class="span9">
+			<div class="span9" style="margin-left:4%">
 				<div class="page-header">
 					<h1 class="header"><span itemprop="name">${game.title}</span>
-						<span style="font-size:15px">
+						<span style="font-size:12px">
 							<t:if test="game.releaseDate">
-								(<t:pagelink page="museum" context="[byReleaseDate,game.releaseDate]">${game.releaseDate}</t:pagelink>)
+								<t:pagelink page="museum" context="[byReleaseDate,game.releaseDate]">${game.releaseDate}</t:pagelink>
 							</t:if>
 							 <t:pagelink page="museum" context="[byOrigin,game.originTitle]"><img style="margin-bottom:5px" src="/img/flags/${game.originTitle}.png" alt="${game.originTitle}" /></t:pagelink>
 						</span>

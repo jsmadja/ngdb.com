@@ -63,13 +63,15 @@
     <div class="container-fluid">
       <div class="row-fluid">
           <t:if test="showLeftContent">
+            <div class="span9">
+                <div style="margin-left:10px">
+                    <t:body />
+                </div>
+            </div>
             <div class="span3">
                 <t:common.layout.menu />
             </div>
-            <div class="span9" style="margin-left:1%">
-                <t:body />
-            </div>
-            <p:else>
+              <p:else>
                 <div class="span12">
                     <t:body />
                 </div>
