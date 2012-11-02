@@ -58,7 +58,6 @@ public class FileService {
         file.setType(type);
         file.setArticle(article);
         article.addFile(file);
-        file = (File) session.merge(file);
         currentUser.addFile(article);
         cacher.invalidateFilesOf(article);
         return file;
