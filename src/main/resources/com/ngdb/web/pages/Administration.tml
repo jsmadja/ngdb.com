@@ -35,18 +35,19 @@
                 </td>
                 <td>
                     <div style="display:block" >
+                        <t:zone id="${zoneId}" t:id="tagZone">
                             <t:if test="tags">
                                 <t:loop source="tags" value="tag">
                                     <span class="badge badge-info" style="display:inline-block;margin-right:3px;margin-bottom:2px">${tag.name} </span>
                                 </t:loop>
                             </t:if>
-                            <t:form
+                            <t:form zone="${zoneId}"
                                     t:id="tagForm"
                                     context="game"
                                     style="height:10px;margin:none;margin-bottom:10px;display:inline-block">
                                 <t:textfield value="search" t:id="search" style="width:100px" />
-                                <input type="submit" value="add"/>
                             </t:form>
+                        </t:zone>
                     </div>
                 </td>
             </tr>

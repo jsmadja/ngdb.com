@@ -69,51 +69,15 @@ public class Administration {
     @Inject
     private AjaxResponseRenderer ajaxResponseRenderer;
 
-    /*
     @InjectComponent
     private Zone tagZone;
-    */
-    
+
     @Property
     private String search;
 
     @SetupRender
     public void init() {
-        this.games = articleFactory.findAllGames();
-        List<Game> nonConsistentTagGames = new ArrayList<Game>();
-        sort(games, new Comparator<Game>() {
-            @Override
-            public int compare(Game game1, Game game2) {
-                String ngh1 = game1.getNgh();
-                String ngh2 = game2.getNgh();
-                if (ngh1 == null || ngh2 == null || ngh1.equalsIgnoreCase(ngh2)) {
-                    return game1.getId().compareTo(game2.getId());
-                }
-                return ngh1.compareToIgnoreCase(ngh2);
-            }
-        });
-        String oldNgh = null;
-        Tags oldTags = null;
-        for (Game _game1: games) {
-            String currentNgh = _game1.getNgh();
-            Tags currentTags = _game1.getTags();
-            if(currentTags.isEmpty()) {
-                nonConsistentTagGames.add(_game1);
-            } else {
-                if(oldNgh != null && currentNgh != null) {
-                    if(oldNgh.equalsIgnoreCase(currentNgh)) {
-                        if(!oldTags.isEqualTo(currentTags)) {
-                            nonConsistentTagGames.add(_game1);
-                        }
-                    }
-                } else {
-                    nonConsistentTagGames.add(_game1);
-                }
-            }
-            oldNgh = currentNgh;
-            oldTags = currentTags;
-        }
-        this.games = nonConsistentTagGames;
+        this.games = articleFactory.retrieveGamesToTag();
     }
 
     public Set<Tag> getTags() {
@@ -155,9 +119,10 @@ public class Administration {
     @CommitAfter
     @OnEvent(value = EventConstants.SUCCESS, component = "tagForm")
     public void onSuccessFromTagForm(Game game) {
+        this.game = game;
         game.updateModificationDate();
         currentUser.addTagOn(game, search);
-        //ajaxResponseRenderer.addRender(createZoneIdFrom(game), tagZone.getBody());
+        ajaxResponseRenderer.addRender(createZoneIdFrom(game), tagZone.getBody());
     }
 
     public String getZoneId() {

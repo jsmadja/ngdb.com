@@ -61,4 +61,16 @@ public class Comparators {
             return 0;
         }
     };
+    public static Comparator<Game> compareByNghOrId = new Comparator<Game>() {
+        @Override
+        public int compare(Game game1, Game game2) {
+            String ngh1 = game1.getNgh();
+            String ngh2 = game2.getNgh();
+            if (ngh1 == null || ngh2 == null || ngh1.equalsIgnoreCase(ngh2)) {
+                return game1.getId().compareTo(game2.getId());
+            }
+            return ngh1.compareToIgnoreCase(ngh2);
+        }
+    };
+
 }

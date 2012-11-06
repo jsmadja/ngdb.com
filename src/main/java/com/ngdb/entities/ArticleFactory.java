@@ -1,11 +1,13 @@
 package com.ngdb.entities;
 
 import com.google.common.base.Function;
+import com.ngdb.Comparators;
 import com.ngdb.entities.article.Accessory;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.element.Review;
+import com.ngdb.entities.article.element.Tags;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
 import org.apache.commons.lang.math.RandomUtils;
@@ -21,13 +23,12 @@ import org.hibernate.transform.ResultTransformer;
 import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 import static com.google.common.collect.Collections2.transform;
+import static com.ngdb.Comparators.compareByNghOrId;
 import static java.util.Arrays.asList;
+import static java.util.Collections.sort;
 import static org.hibernate.criterion.Projections.*;
 import static org.hibernate.criterion.Restrictions.eq;
 import static org.hibernate.criterion.Restrictions.isNotEmpty;
@@ -115,4 +116,34 @@ public class ArticleFactory {
         SQLQuery query = session.createSQLQuery(sql).addEntity(Review.class);
         return new TreeSet<Review>(query.list());
     }
+
+    public List<Game> retrieveGamesToTag() {
+        List<Game> games = findAllGames();
+        sort(games, compareByNghOrId);
+        String oldNgh = null;
+        Tags oldTags = null;
+        List<Game> nonConsistentTagGames = new ArrayList<Game>();
+        for (Game game:games) {
+            String currentNgh = game.getNgh();
+            Tags currentTags = game.getTags();
+            if(currentTags.isEmpty()) {
+                nonConsistentTagGames.add(game);
+            } else {
+                if(oldNgh != null && currentNgh != null) {
+                    if(oldNgh.equalsIgnoreCase(currentNgh)) {
+                        if(!oldTags.isEqualTo(currentTags)) {
+                            nonConsistentTagGames.add(game);
+                        }
+                    }
+                } else {
+                    nonConsistentTagGames.add(game);
+                }
+            }
+            oldNgh = currentNgh;
+            oldTags = currentTags;
+        }
+        return nonConsistentTagGames;
+    }
+
+
 }
