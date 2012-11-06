@@ -23,5 +23,33 @@
                 </t:form>
             </td>
         </tr>
+        <tr>
+        <td colspan="2">
+            <b>Tag helper</b>
+        </td>
+        </tr>
+        <t:loop source="games" value="game">
+            <tr>
+                <td>
+                    ${game.title}
+                </td>
+                <td>
+                    <div style="display:block" >
+                            <t:if test="tags">
+                                <t:loop source="tags" value="tag">
+                                    <span class="badge badge-info" style="display:inline-block;margin-right:3px;margin-bottom:2px">${tag.name} </span>
+                                </t:loop>
+                            </t:if>
+                            <t:form
+                                    t:id="tagForm"
+                                    context="game"
+                                    style="height:10px;margin:none;margin-bottom:10px;display:inline-block">
+                                <t:textfield value="search" t:id="search" style="width:100px" />
+                                <input type="submit" value="add"/>
+                            </t:form>
+                    </div>
+                </td>
+            </tr>
+        </t:loop>
     </table>
 </t:layout>

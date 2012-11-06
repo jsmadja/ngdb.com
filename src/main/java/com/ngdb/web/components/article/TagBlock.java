@@ -67,7 +67,8 @@ public class TagBlock {
 
     @CommitAfter
     @OnEvent(value = EventConstants.SUCCESS, component = "tagForm")
-    public void onSuccessFromTagForm() {
+    public void onSuccessFromTagForm(Article article) {
+        this.article = article;
         if (isNotBlank(search)) {
             Set<String> tags = extractTags();
             for (String tag : tags) {

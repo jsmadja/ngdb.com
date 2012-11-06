@@ -11,8 +11,9 @@
                         t:id="tagForm"
                         id="tagForm"
                         t:autofocus="false"
+                        context="article"
                         style="height:10px;margin:none;margin-bottom:10px;display:inline-block">
-                    <t:textfield value="search" t:id="search" t:mixins="jquery/Autocomplete" style="width:100px;margin-top:5px" placeholder="${message:tag.addtag}" />
+                    <t:textfield value="search" t:id="search" t:mixins="jquery/Autocomplete" style="width:100px" placeholder="${message:tag.addtag}" />
                 </t:form>
             </t:if>
         </t:if>

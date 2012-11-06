@@ -42,6 +42,15 @@ public class Tags implements Iterable<Tag> {
         return false;
     }
 
+    public boolean contains(Tag _tag) {
+        for (Tag tag : tags) {
+            if (tag.hasName(_tag.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void add(Tag tag) {
         tags.add(tag);
     }
@@ -56,5 +65,21 @@ public class Tags implements Iterable<Tag> {
             return "";
         }
         return Arrays.toString(tags.toArray());
+    }
+
+    public boolean isEqualTo(Tags currentTags) {
+        if(count() != currentTags.count()) {
+            return false;
+        }
+        for (Tag currentTag : currentTags) {
+            if(!contains(currentTag)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isEmpty() {
+        return tags.isEmpty();
     }
 }
