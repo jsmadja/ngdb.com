@@ -45,7 +45,7 @@
                                     t:id="tagForm"
                                     context="game"
                                     style="height:10px;margin:none;margin-bottom:10px;display:inline-block">
-                                <t:textfield value="search" t:id="search" style="width:100px" />
+                                <t:textfield value="search" t:mixins="jquery/Autocomplete" t:id="search" style="width:100px" />
                             </t:form>
                         </t:zone>
                     </div>

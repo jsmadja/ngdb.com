@@ -1,6 +1,10 @@
 package com.ngdb.web.pages;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.ngdb.TagSplitter;
 import com.ngdb.entities.ArticleFactory;
+import com.ngdb.entities.Registry;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.*;
@@ -23,11 +27,9 @@ import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+import static com.google.common.collect.Collections2.filter;
 import static java.util.Collections.sort;
 import static org.apache.commons.lang.StringUtils.isNotBlank;
 
@@ -75,6 +77,15 @@ public class Administration {
     @Property
     private String search;
 
+    @Inject
+    private Registry registry;
+
+    private Collection<String> suggestions = new TreeSet<String>();
+
+    void onActivate() {
+        suggestions.addAll(registry.findAllTags());
+    }
+
     @SetupRender
     public void init() {
         this.games = articleFactory.retrieveGamesToTag();
@@ -121,7 +132,11 @@ public class Administration {
     public void onSuccessFromTagForm(Game game) {
         this.game = game;
         game.updateModificationDate();
-        currentUser.addTagOn(game, search);
+        Set<String> tags = new TagSplitter().extractTags(search);
+        for (String tag : tags) {
+            currentUser.addTagOn(game, tag);
+        }
+        this.search = null;
         ajaxResponseRenderer.addRender(createZoneIdFrom(game), tagZone.getBody());
     }
 
@@ -131,6 +146,21 @@ public class Administration {
 
     private String createZoneIdFrom(Game game) {
         return "tagZone_"+ game.getId().toString();
+    }
+
+    @OnEvent("provideCompletions")
+    List<String> autoCompete(String partial) {
+        if (suggestions.isEmpty()) {
+            onActivate();
+        }
+        final String filterLowerCase = partial.toLowerCase();
+        suggestions = filter(suggestions, new Predicate<String>() {
+            @Override
+            public boolean apply(String input) {
+                return input.toLowerCase().startsWith(filterLowerCase);
+            }
+        });
+        return new ArrayList<String>(suggestions);
     }
 
 }

@@ -2,6 +2,7 @@ package com.ngdb.web.components.article;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
+import com.ngdb.TagSplitter;
 import com.ngdb.entities.ActionLogger;
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.Registry;
@@ -70,7 +71,7 @@ public class TagBlock {
     public void onSuccessFromTagForm(Article article) {
         this.article = article;
         if (isNotBlank(search)) {
-            Set<String> tags = extractTags();
+            Set<String> tags = new TagSplitter().extractTags(search);
             for (String tag : tags) {
                 addTag(tag);
             }
@@ -85,18 +86,6 @@ public class TagBlock {
             article.updateModificationDate();
             currentUser.addTagOn(article, tag);
         }
-    }
-
-    private Set<String> extractTags() {
-        Set<String> tags = new TreeSet<String>();
-        String[] split = search.split(",");
-        for (String tagsSplitByVirgule : split) {
-            String[] tagsToAdd = tagsSplitByVirgule.split(";");
-            for (String tag : tagsToAdd) {
-                tags.add(tag.trim());
-            }
-        }
-        return tags;
     }
 
     public User getUser() {
