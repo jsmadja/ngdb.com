@@ -1,7 +1,7 @@
 package com.ngdb.web.pages;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
 import com.ngdb.TagSplitter;
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.Registry;
@@ -31,7 +31,6 @@ import java.util.*;
 
 import static com.google.common.collect.Collections2.filter;
 import static java.util.Collections.sort;
-import static org.apache.commons.lang.StringUtils.isNotBlank;
 
 @RequiresUser
 public class Administration {
@@ -138,6 +137,10 @@ public class Administration {
         }
         this.search = null;
         ajaxResponseRenderer.addRender(createZoneIdFrom(game), tagZone.getBody());
+    }
+
+    public String getJoinedTags() {
+        return Joiner.on(", ").join(game.getTags());
     }
 
     public String getZoneId() {

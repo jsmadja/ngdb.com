@@ -45,9 +45,9 @@ public class AppModule {
         String version = ResourceBundle.getBundle("ngdb").getString("version");
         configuration.override(SymbolConstants.SUPPORTED_LOCALES, "en,fr");
         configuration.override(SymbolConstants.APPLICATION_VERSION, version);
-        configuration.override(HibernateSymbols.EARLY_START_UP, true);
-        configuration.override(SymbolConstants.COMBINE_SCRIPTS, true);
-        configuration.override(SymbolConstants.MINIFICATION_ENABLED, true);
+    //    configuration.override(HibernateSymbols.EARLY_START_UP, true);
+    //    configuration.override(SymbolConstants.COMBINE_SCRIPTS, true);
+    //    configuration.override(SymbolConstants.MINIFICATION_ENABLED, true);
     }
 
     public static void contributeComponentMessagesSource(AssetSource assetSource, OrderedConfiguration<Resource> configuration) {

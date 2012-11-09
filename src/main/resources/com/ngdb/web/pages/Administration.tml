@@ -1,4 +1,4 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" showLeftContent="false">
     <h1 class="black-bar rounded-bar big-bar">${message:administration.title}</h1>
     <table class="table table-striped table-bordered table-condensed">
         <tr><td><b>${message:administration.deletearticle}</b></td>
@@ -49,6 +49,9 @@
                             </t:form>
                         </t:zone>
                     </div>
+                </td>
+                <td>
+                    ${joinedTags}
                 </td>
             </tr>
         </t:loop>
