@@ -91,7 +91,7 @@ public class ShopItemCreate {
     boolean onActivate(Article article) {
         this.article = article;
         this.state = referenceService.findStateByTitle("Used");
-        if(currentUser.isAnonymous()) {
+        if (currentUser.isAnonymous()) {
             this.customCurrency = "USD";
         } else {
             this.customCurrency = currentUser.getPreferedCurrency();

@@ -27,12 +27,12 @@ public class Charts {
     private Reviewer reviewer;
 
     public Collection<Top100Item> findTop100OfGamesInCollection(Platform platform) {
-        String sqlQuery = "SELECT g.id, g.title, g.origin_title, COUNT(co.article_id) FROM CollectionObject co, ngdb.Game g WHERE g.id = co.article_id AND g.platform_short_name = '"+platform.getShortName()+"' GROUP BY co.article_id ORDER BY COUNT(co.article_id) DESC";
+        String sqlQuery = "SELECT g.id, g.title, g.origin_title, COUNT(co.article_id) FROM CollectionObject co, ngdb.Game g WHERE g.id = co.article_id AND g.platform_short_name = '" + platform.getShortName() + "' GROUP BY co.article_id ORDER BY COUNT(co.article_id) DESC";
         return findTop100OfGames(sqlQuery);
     }
 
     public Collection<Top100Item> findTop100OfGamesInWishlist(Platform platform) {
-        String sqlQuery = "SELECT g.id, g.title, g.origin_title, COUNT(w.article_id) FROM Wish w, ngdb.Game g WHERE g.id = w.article_id AND g.platform_short_name = '"+platform.getShortName()+"' GROUP BY w.article_id ORDER BY COUNT(w.article_id) DESC";
+        String sqlQuery = "SELECT g.id, g.title, g.origin_title, COUNT(w.article_id) FROM Wish w, ngdb.Game g WHERE g.id = w.article_id AND g.platform_short_name = '" + platform.getShortName() + "' GROUP BY w.article_id ORDER BY COUNT(w.article_id) DESC";
         return findTop100OfGames(sqlQuery);
     }
 
@@ -76,8 +76,8 @@ public class Charts {
 
             private Double getMark(Game game) {
                 Double mark = marks.get(game.getNgh());
-                if(mark == null) {
-                    mark= reviewer.getAverageMarkOf(game);
+                if (mark == null) {
+                    mark = reviewer.getAverageMarkOf(game);
                     marks.put(game.getNgh(), mark);
                 }
                 return mark;
@@ -98,9 +98,9 @@ public class Charts {
                 String title = input.getTitle();
                 String originTitle = input.getOriginTitle();
                 Double mark = marks.get(input.getNgh());
-                if(mark == null) {
+                if (mark == null) {
                     rank = "";
-                    System.err.println("Pas de note pour "+title+" (ngh:"+input.getNgh()+")");
+                    System.err.println("Pas de note pour " + title + " (ngh:" + input.getNgh() + ")");
                     mark = 0D;
                 } else {
                     if (mark.equals(oldMark)) {
@@ -125,8 +125,8 @@ public class Charts {
     }
 
     private Collection<Top100ShopItem> findTop100OfGamesRecentlyInMarket(Platform platform, boolean sold) {
-        int flag = sold?1:0;
-        String sqlQuery = "SELECT g.id, g.title, g.origin_title, si.customCurrency, si.priceInCustomCurrency, si.id, si.seller_id, s.title state_title, si.modification_date FROM State s, ShopItem si, Game g WHERE s.id = si.state_id AND si.article_id = g.id AND sold = "+flag+" AND g.platform_short_name = '"+platform.getShortName()+"' ORDER BY si.MODIFICATION_DATE DESC";
+        int flag = sold ? 1 : 0;
+        String sqlQuery = "SELECT g.id, g.title, g.origin_title, si.customCurrency, si.priceInCustomCurrency, si.id, si.seller_id, s.title state_title, si.modification_date FROM State s, ShopItem si, Game g WHERE s.id = si.state_id AND si.article_id = g.id AND sold = " + flag + " AND g.platform_short_name = '" + platform.getShortName() + "' ORDER BY si.MODIFICATION_DATE DESC";
         return findTop100OfShopItems(sqlQuery);
     }
 

@@ -157,6 +157,7 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
 
     public void sold() {
         this.sold = true;
+        updateModificationDate();
     }
 
     public boolean hasNoPicture() {
@@ -220,7 +221,7 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
     }
 
     public String getPriceAsStringIn(String currency) {
-        if (currency.equalsIgnoreCase(customCurrency)) {
+        if (currency == null || currency.equalsIgnoreCase(customCurrency)) {
             return priceInCustomCurrency + " " + customCurrency;
         }
         try {

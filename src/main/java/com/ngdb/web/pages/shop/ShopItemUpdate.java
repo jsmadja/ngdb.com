@@ -1,6 +1,5 @@
 package com.ngdb.web.pages.shop;
 
-import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.reference.State;
@@ -11,14 +10,10 @@ import com.ngdb.web.pages.Market;
 import com.ngdb.web.services.infrastructure.CurrencyService;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.PictureService;
-import org.apache.commons.lang.CharUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresUser;
-import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.beaneditor.Validate;
-import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
@@ -31,8 +26,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-
-import static org.apache.commons.lang.StringUtils.remove;
 
 @RequiresUser
 public class ShopItemUpdate {
