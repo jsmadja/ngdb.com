@@ -43,7 +43,7 @@
                             <t:pageLink page="market" context="topShopItem.sellerId">${seller}</t:pageLink>
                         </p:sellerIdCell>
                         <p:titleCell>
-                            <t:pageLink page="market" context="[byArticle,topShopItem.articleId]">${topShopItem.title}</t:pageLink>
+                            <t:pageLink page="article/game/gameview" context="topShopItem.articleId">${topShopItem.title}</t:pageLink>
                         </p:titleCell>
                         <p:originTitleCell>
                             <img src="/img/flags/${topShopItem.originTitle}.png" alt="${topShopItem.originTitle}" />
