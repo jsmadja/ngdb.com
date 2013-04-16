@@ -5168,9 +5168,12 @@ TABLE.t-data-grid THEAD TR TH {
 
 .big-bar {
     font-size: 24pt;
-	padding-bottom: 12px;
+	  padding-bottom: 12px;
     padding-left: 10px;
     padding-top: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .small-bar, .platformLabel, .price-label {
