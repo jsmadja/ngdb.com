@@ -76,7 +76,7 @@ public class Museum {
             onActivate();
             return true;
         }
-        filter = new MuseumFilter(articleFactory, session);
+        this.filter = new MuseumFilter(articleFactory, session);
         Filter filter = Filter.valueOf(Filter.class, filterName);
         switch (filter) {
         case byOrigin:

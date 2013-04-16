@@ -101,6 +101,7 @@ public class MuseumFilter extends AbstractFilter {
         criteria = addPublisherFilter(criteria);
         criteria = addTagFilter(criteria);
         criteria = addUserFilter(criteria);
+        criteria = addReleaseDateFilter(criteria);
         return criteria.addOrder(asc("title")).list();
     }
 
@@ -184,6 +185,13 @@ public class MuseumFilter extends AbstractFilter {
         if(filteredUser != null) {
             List<CollectionObject> articles = session.createCriteria(CollectionObject.class).setProjection(distinct(property("id.articleId"))).add(eq("owner", filteredUser)).list();
             criteria = criteria.add(in("id", articles));
+        }
+        return criteria;
+    }
+
+    private Criteria addReleaseDateFilter(Criteria criteria) {
+        if(filteredReleaseDate != null) {
+            criteria = criteria.add(eq("releaseDate", filteredReleaseDate));
         }
         return criteria;
     }
