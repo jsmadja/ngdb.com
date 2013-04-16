@@ -3,6 +3,7 @@ package com.ngdb.web.components.article;
 import com.ngdb.entities.Reviewer;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.shop.ShopItem;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -48,6 +49,9 @@ public class Articles {
     @Inject
     private BeanModelSource beanModelSource;
 
+    @Inject
+    private CurrentUser currentUser;
+
     @SetupRender
     void init() {
         model = beanModelSource.createDisplayModel(Article.class, messages);
@@ -55,8 +59,12 @@ public class Articles {
         model.get("originTitle").label(messages.get("common.Origin")).sortable(true);
         model.get("platformShortName").label(messages.get("common.Platform")).sortable(true);
         model.addEmpty("actions").label(messages.get("common.Actions"));
-        model.include("title", "originTitle", "platformShortName", "actions");
 
+        if(currentUser.isAnonymous()) {
+            model.include("title", "originTitle", "platformShortName");
+        } else {
+            model.include("title", "originTitle", "platformShortName", "actions");
+        }
         if(!thumbnailMode && !gridMode && !tableMode) {
             onActionFromTableMode();
         }

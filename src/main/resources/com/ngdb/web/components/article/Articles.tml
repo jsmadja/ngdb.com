@@ -35,7 +35,6 @@
         <t:if test="gridMode">
             <t:grid source="articles"
                     inPlace="true"
-                    include="title,originTitle,platformShortName,actions"
                     pagerPosition="BOTH"
                     model="model"
                     class="table table-striped table-bordered table-condensed"
