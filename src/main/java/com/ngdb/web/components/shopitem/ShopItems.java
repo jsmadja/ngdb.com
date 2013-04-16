@@ -2,6 +2,7 @@ package com.ngdb.web.components.shopitem;
 
 import com.ngdb.entities.Market;
 import com.ngdb.web.pages.Index;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.PictureService;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.beaneditor.BeanModel;
@@ -59,6 +60,9 @@ public class ShopItems {
     @Inject
     private PictureService pictureService;
 
+    @Inject
+    private CurrentUser currentUser;
+
     @SetupRender
     void init() {
         if(!thumbnailMode && !tableMode) {
@@ -69,7 +73,11 @@ public class ShopItems {
         model.addEmpty("price").label(messages.get("common.Price")).sortable(true);
         model.addEmpty("actions");
         model.addEmpty("thumbnailColumn");
-        model.include("thumbnailColumn", "title", "details", "price", "actions");
+        if(currentUser.isAnonymous()) {
+            model.include("thumbnailColumn", "title", "details", "price");
+        } else {
+            model.include("thumbnailColumn", "title", "details", "price", "actions");
+        }
     }
 
     public JSONObject getParams() {
