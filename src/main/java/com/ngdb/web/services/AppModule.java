@@ -45,7 +45,7 @@ public class AppModule {
         String version = ResourceBundle.getBundle("ngdb").getString("version");
         configuration.override(SymbolConstants.SUPPORTED_LOCALES, "en,fr");
         configuration.override(SymbolConstants.APPLICATION_VERSION, version);
-    //    configuration.override(HibernateSymbols.EARLY_START_UP, true);
+        configuration.override(HibernateSymbols.EARLY_START_UP, true);
     //    configuration.override(SymbolConstants.COMBINE_SCRIPTS, true);
     //    configuration.override(SymbolConstants.MINIFICATION_ENABLED, true);
     }
@@ -69,41 +69,6 @@ public class AppModule {
         };
         configuration.add("CurrencyService Interceptor", configurer);
     }
-
-
-
-    /**
-     * This is a service definition, the service will be named TimingFilter. The interface,
-     * RequestFilter, is used within the RequestHandler service pipeline, which is built from the
-     * RequestHandler service configuration. Tapestry IoC is responsible for passing in an
-     * appropriate Log instance. Requests for static resources are handled at a higher level, so
-     * this filter will only be invoked for Tapestry related requests.
-     */
-    public RequestFilter buildTimingFilter(final Logger logger) {
-        return new RequestFilter() {
-            public boolean service(Request request, Response response, RequestHandler handler)
-                    throws IOException {
-            long startTime = System.currentTimeMillis();
-
-            try {
-                return handler.service(request, response);
-            } finally {
-                long elapsed = System.currentTimeMillis() - startTime;
-                if (elapsed > 1) {
-                    logger.info(String.format("Request "+request.getPath()+",  time: %d ms", elapsed));
-                }
-            }
-            }
-        };
-    }
-
-    /*
-    public void contributeRequestHandler(OrderedConfiguration<RequestFilter> configuration,
-                                         @Local
-                                         RequestFilter filter) {
-        configuration.add("Timing", filter);
-    }
-    */
 
     public static void bind(ServiceBinder binder) {
         binder.bind(CurrentUser.class);

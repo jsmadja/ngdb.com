@@ -123,6 +123,13 @@ public abstract class AbstractFilter {
 
     public void filterByArticle(Article article) {
         this.filteredArticle = article;
+        if(article.isHardware()) {
+            filterByHardwares();
+        } else if (article.isAccessory()) {
+            filterByAccessories();
+        } else {
+            filterByGames();
+        }
     }
 
     public void filterByPublisher(Publisher publisher) {
