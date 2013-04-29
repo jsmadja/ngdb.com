@@ -1,9 +1,6 @@
 package com.ngdb.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class News {
@@ -14,6 +11,7 @@ public class News {
 
     private String language;
 
+    @Column(nullable = false, length = 1024)
     private String description;
 
     @Override
