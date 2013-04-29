@@ -13,6 +13,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.tapestry5.internal.services.CookieSource;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.ioc.services.ThreadLocale;
 import org.apache.tapestry5.services.ApplicationStateManager;
 import org.apache.tapestry5.services.Cookies;
 import org.apache.tapestry5.services.Request;
@@ -69,6 +70,9 @@ public class CurrentUser {
 
     @Inject
     private WishBox wishbox;
+
+    @Inject
+    private ThreadLocale threadLocale;
 
     private static final Logger LOG = LoggerFactory.getLogger(CurrentUser.class);
 
@@ -398,6 +402,6 @@ public class CurrentUser {
     }
 
     public Locale getLocale() {
-        return request.getLocale();
+        return threadLocale.getLocale();
     }
 }

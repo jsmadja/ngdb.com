@@ -5,12 +5,7 @@
 	</div>
 
     <div class="alert alert-info" style="margin-top:20px">
-        <b>${message:index.month}</b> :
-        <ul>
-            <li>${message:index.item1}</li>
-            <li>${message:index.item2}</li>
-            <li>${message:index.item3}</li>
-        </ul>
+        <t:outputRaw value="htmlNews" />
         <p>
             ${message:index.disclaimer} <a href="/contact">${message:index.contactform}</a>.
         </p>
