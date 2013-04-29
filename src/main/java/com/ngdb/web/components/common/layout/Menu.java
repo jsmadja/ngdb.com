@@ -6,6 +6,7 @@ import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.services.Cacher;
 import com.ngdb.web.pages.Index;
+import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.PictureService;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.OnEvent;
@@ -14,6 +15,7 @@ import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.ioc.services.ThreadLocale;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
@@ -21,6 +23,7 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 
 import static org.apache.tapestry5.EventConstants.ACTION;
 
@@ -60,6 +63,12 @@ public class Menu {
 
     @Inject
     private Cacher cacher;
+
+    @Inject
+    private CurrentUser currentUser;
+
+    @Inject
+    private ThreadLocale threadLocale;
 
     public JSONObject getParams() {
         return new JSONObject("width", "750", "modal", "false", "dialogClass", "dialog-edition", "zIndex", "1002");
@@ -110,7 +119,8 @@ public class Menu {
     }
 
     public String getLastUpdateDate() {
-        return update.getLastUpdateDate(request.getLocale());
+        Locale locale = threadLocale.getLocale();
+        return update.getLastUpdateDate(locale);
     }
 
     public String getShopItemCover() {
