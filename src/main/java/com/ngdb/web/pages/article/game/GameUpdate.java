@@ -59,6 +59,9 @@ public class GameUpdate {
     private String ngh;
 
     @Property
+    private String playlist;
+
+    @Property
     private String ean;
 
     @Property
@@ -149,6 +152,7 @@ public class GameUpdate {
             this.ean = null;
             this.imdbId = null;
             this.reference = null;
+            this.playlist = null;
         } else {
             this.publisher = game.getPublisher();
             this.platform = referenceService.findPlatformByName(game.getPlatformShortName());
@@ -163,6 +167,7 @@ public class GameUpdate {
             this.imdbId = game.getImdbId();
             this.reference = game.getReference();
             this.storedPictures = game.getPictures().all();
+            this.playlist = articleFactory.findPlaylistOf(game);
         }
     }
 
@@ -191,6 +196,7 @@ public class GameUpdate {
         game.setUpc(ean);
         game.setImdbId(imdbId);
         game.setReference(reference);
+        game.setPlaylist(playlist);
         game = (Game) session.merge(game);
         if (this.mainPicture != null) {
             Picture picture = pictureService.store(mainPicture, game);

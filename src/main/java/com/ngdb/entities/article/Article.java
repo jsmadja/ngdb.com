@@ -94,6 +94,9 @@ public abstract class Article implements Comparable<Article>, Serializable {
     @Column(name = "cover_url", nullable = true)
     private String coverUrl;
 
+    @Column(name = "playlist", nullable = true)
+    private String playlist;
+
     @Embedded
     @IndexedEmbedded
     private Reviews reviews;
@@ -411,6 +414,14 @@ public abstract class Article implements Comparable<Article>, Serializable {
                 return input.getWisher();
             }
         }));
+    }
+
+    public String getPlaylist() {
+        return playlist;
+    }
+
+    public void setPlaylist(String playlist) {
+        this.playlist = playlist;
     }
 
 }

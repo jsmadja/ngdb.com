@@ -1,6 +1,7 @@
 package com.ngdb.web.pages.article.game;
 
 import com.ngdb.Barcoder;
+import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.user.User;
@@ -28,6 +29,9 @@ public class GameView {
 
     @Inject
     private Barcoder barcoder;
+
+    @Inject
+    private ArticleFactory articleFactory;
 
     public void onActivate(Game game) {
         this.game = game;
@@ -98,6 +102,10 @@ public class GameView {
 
     public boolean getShowMegs() {
         return game.getMegaCount() != null && game.getMegaCount() > 0;
+    }
+
+    public String getPlaylist() {
+        return articleFactory.findPlaylistOf(game);
     }
 
 }

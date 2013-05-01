@@ -78,6 +78,14 @@
                                 <t:textfield value="megaCount" t:id="megaCount" />
                             </div>
                         </div>
+                      <div class="control-group">
+                        <t:label for="playlist" class="control-label">
+                          <b>Playlist</b>
+                        </t:label>
+                        <div class="controls">
+                          <t:textfield value="playlist" t:id="playlist" />
+                        </div>
+                      </div>
                     </div>
 
                     <div class="span6 well">

@@ -1,82 +1,100 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" title="${game?.title}" description="${game?.title} ${game?.platformShortName} ${game?.originTitle}">
-	<t:if test="game">
-        <span itemprop="site_name" style="display:none">neogeodb</span>
-        <div class="row-fluid show-grid article" itemscope="" itemtype="http://data-vocabulary.org/Product">
-            <div class="span3">
-				<t:article.thumbnail article="game" noClick="true" center="true" size="literal:medium" />
-				<br/>
-                <t:if test="showMegs">
-                    <div style="text-align: center; border-style: solid; border-color: red; width: 90px;margin-right:auto;margin-left:auto">
-                        <p style="color: red; font-weight: bold;font-size: 27pt;margin-bottom:0px;margin-top:15px;text-shadow:0.05em 0.05em 0.05em #000">
-                            ${game.megaCount}
-                        </p>
-                        <br/>
-                        <span style="font-size: 21pt; font-weight: bold;">
-                            MEGS
-                        </span>
-                    </div>
-                </t:if>
-				<t:if test="showUpc">
-					<div style="text-align:center;margin-top:10px;width:101px;margin-left:auto;margin-right:auto;">
-						<img src="data:image/gif;base64,${upc}" alt="${game.upc}" />
-                        <span itemprop="identifier" content="${game.upc}">${game.upc}</span>
-					</div>
-				</t:if>
-				<br/>
-                <t:article.articleStats article="game" />
-				<t:article.gallery article="game" />
-			</div>
-			<div class="span9" style="margin-left:4%">
-				<div class="page-header">
-					<h1 class="header"><span itemprop="name">${game.title}</span>
-						<t:article.actionBlock article="game" />
-					</h1>
-					<div class="subtitle">
-						#${game.id}
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+          title="${game?.title}"
+          description="${game?.title} ${game?.platformShortName} ${game?.originTitle}">
+  <t:if test="game">
+    <span itemprop="site_name" style="display:none">neogeodb</span>
+    <div class="row-fluid show-grid article" itemscope="" itemtype="http://data-vocabulary.org/Product">
+      <div class="span3">
+        <t:article.thumbnail article="game" noClick="true" center="true" size="literal:medium"/>
+        <br/>
+        <t:if test="showMegs">
+          <div
+              style="text-align: center; border-style: solid; border-color: red; width: 90px;margin-right:auto;margin-left:auto">
+            <p style="color: red; font-weight: bold;font-size: 27pt;margin-bottom:0px;margin-top:15px;text-shadow:0.05em 0.05em 0.05em #000">
+              ${game.megaCount}
+            </p>
+            <br/>
+                <span style="font-size: 21pt; font-weight: bold;">
+                    MEGS
+                </span>
+          </div>
+        </t:if>
+        <t:if test="showUpc">
+          <div style="text-align:center;margin-top:10px;width:101px;margin-left:auto;margin-right:auto;">
+            <img src="data:image/gif;base64,${upc}" alt="${game.upc}"/>
+            <span itemprop="identifier" content="${game.upc}">${game.upc}</span>
+          </div>
+        </t:if>
+        <br/>
+        <t:article.articleStats article="game"/>
+        <t:article.gallery article="game"/>
+      </div>
+      <div class="span9" style="margin-left:4%">
+        <div class="page-header">
+          <h1 class="header"><span itemprop="name">${game.title}</span>
+            <t:article.actionBlock article="game"/>
+          </h1>
+          <div class="subtitle">
+            #${game.id}
                         <span style="font-size:12px">
 							<t:if test="game.releaseDate">
-                                <t:pagelink page="museum" context="[byReleaseDate,game.releaseDate]">${game.releaseDate}</t:pagelink>
-                            </t:if>
-							 <t:pagelink page="museum" context="[byOrigin,game.originTitle]"><img style="margin-bottom:5px" src="/img/flags/${game.originTitle}.png" alt="${game.originTitle}" /></t:pagelink>
+                <t:pagelink page="museum" context="[byReleaseDate,game.releaseDate]">${game.releaseDate}</t:pagelink>
+              </t:if>
+							 <t:pagelink page="museum" context="[byOrigin,game.originTitle]">
+                 <img style="margin-bottom:5px"
+                  src="/img/flags/${game.originTitle}.png"
+                  alt="${game.originTitle}"/>
+               </t:pagelink>
 						</span>
-                        <t:pageLink page="museum" context="[byPlatform,game.platformShortName]"><span class="platformLabel" itemprop="category">${game.platformShortName}</span></t:pageLink><t:pagelink page="museum" context="[byNgh,game.ngh]">${ngh}</t:pagelink> <t:if test="game.reference"><span style="margin-right:5px;">${game.reference}</span> </t:if> <t:pagelink page="museum" context="[byPublisher,game.publisher]"> <span style="margin-left:0px" itemprop="brand">${game.publisher?.name}</span> </t:pagelink>
-						<t:if test="game.imdbId">
-							<a href="http://www.imdb.com/title/${game.imdbId}" target="blank"><img src="/img/imdb.gif" width="35px"/></a>
-						</t:if>
-					</div>
-				</div>
-				
-				<t:article.tagBlock article="game" hideForm="false"/>
-				
-				<t:article.noteBlock article="game" />
-				
-				<t:if test="${game.details}">
-					<h3>Details</h3>
-					<p itemprop="description">
-						<t:OutputRaw value="${game.details}"/>
-					</p>
-					<hr />
-				</t:if>
-				
-				<t:article.reviewBlock article="game" />
+            <t:pageLink page="museum" context="[byPlatform,game.platformShortName]">
+              <span class="platformLabel" itemprop="category">${game.platformShortName}</span>
+            </t:pageLink>
+            <t:pagelink page="museum" context="[byNgh,game.ngh]">${ngh}</t:pagelink>
+            <t:if test="game.reference"><span style="margin-right:5px;">${game.reference}</span></t:if>
+            <t:pagelink page="museum" context="[byPublisher,game.publisher]"><span style="margin-left:0px"
+                                                                                   itemprop="brand">${game.publisher?.name}</span>
+            </t:pagelink>
+            <t:if test="game.imdbId">
+              <a href="http://www.imdb.com/title/${game.imdbId}" target="blank"><img src="/img/imdb.gif" width="35px"/></a>
+            </t:if>
+          </div>
+        </div>
 
-                <t:article.fileBlock article="game" />
+        <t:article.tagBlock article="game" hideForm="false"/>
 
-                <t:article.history article="game" />
+        <t:article.noteBlock article="game"/>
 
-                <t:article.related game="game" />
+        <t:if test="${game.details}">
+          <h3>Details</h3>
+          <p itemprop="description">
+            <t:OutputRaw value="${game.details}"/>
+          </p>
+          <hr/>
+        </t:if>
+        <t:if test="${playlist}">
+          <iframe width="560"
+                  height="315"
+                  src="${playlist}"
+                  style="margin-bottom: 15px;"
+                  frameborder="0">
+          </iframe>
+        </t:if>
 
-                <p style="margin-top:10px">
-                    <span style="font-size:8pt"><i>${message:common.lastedit} <t:common.date value="${game.modificationDate}"/></i></span>
-                    <t:pagelink class="pull-right label label-important" page="contact" context="[game.title, game.id]">
-                        <i class="icon-flag icon-white"></i>
-                        ${message:common.somethingswrong}
-                    </t:pagelink>
-                </p>
-
-                <t:article.commentBlock article="game" />
-
-			</div>
-		</div>
-	</t:if>
+        <t:article.reviewBlock article="game"/>
+        <t:article.fileBlock article="game"/>
+        <t:article.history article="game"/>
+        <t:article.related game="game"/>
+        <p style="margin-top:10px">
+          <span style="font-size:8pt"><i>${message:common.lastedit}
+            <t:common.date value="${game.modificationDate}"/>
+          </i></span>
+          <t:pagelink class="pull-right label label-important" page="contact" context="[game.title, game.id]">
+            <i class="icon-flag icon-white"></i>
+            ${message:common.somethingswrong}
+          </t:pagelink>
+        </p>
+        <t:article.commentBlock article="game"/>
+      </div>
+    </div>
+  </t:if>
 </t:layout>

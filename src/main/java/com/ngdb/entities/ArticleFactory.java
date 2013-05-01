@@ -55,6 +55,16 @@ public class ArticleFactory {
         return allGames().add(eq("ngh", ngh)).list();
     }
 
+    public String findPlaylistOf(Game game) {
+        List<Game> games = findAllGamesByNgh(game.getNgh());
+        for (Game g : games) {
+            if(g.getPlaylist() != null) {
+                return g.getPlaylist();
+            }
+        }
+        return null;
+    }
+
     public Collection<Game> findAllGamesLightByNgh(String ngh) {
         return transform(allGames().setProjection(lightProjection()).add(eq("ngh", ngh)).list(), toGame);
     }
