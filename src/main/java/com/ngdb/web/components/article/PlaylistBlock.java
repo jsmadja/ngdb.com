@@ -45,12 +45,14 @@ public class PlaylistBlock {
 
     private void insertPlaylistContentIn(List<Note> notes) throws IOException {
         String playlistUrl = article.getPlaylist();
-        String playlistId = getPlaylistIdOf(playlistUrl);
-        List<Video> videos = fetchVideosOf(playlistId);
-        for (Video video : videos) {
-            String label = "<a href='http://www.youtube.com/watch?v=" + video.id + "'>" + video.title + "</a>";
-            String value = "<a href='" + video.uploader.uploaderUrl + "'>" + video.uploader.displayName + "</a>";
-            notes.add(new Note(label, value, article));
+        if (playlistUrl != null) {
+            String playlistId = getPlaylistIdOf(playlistUrl);
+            List<Video> videos = fetchVideosOf(playlistId);
+            for (Video video : videos) {
+                String label = "<a href='http://www.youtube.com/watch?v=" + video.id + "'>" + video.title + "</a>";
+                String value = "<a href='" + video.uploader.uploaderUrl + "'>" + video.uploader.displayName + "</a>";
+                notes.add(new Note(label, value, article));
+            }
         }
     }
 
@@ -154,8 +156,8 @@ public class PlaylistBlock {
     }
 
     public String getPlaylist() {
-        if(article.isGame()) {
-            return articleFactory.findPlaylistOf((Game)article);
+        if (article.isGame()) {
+            return articleFactory.findPlaylistOf((Game) article);
         }
         return null;
     }
