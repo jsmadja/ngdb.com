@@ -104,8 +104,4 @@ public class GameView {
         return game.getMegaCount() != null && game.getMegaCount() > 0;
     }
 
-    public String getPlaylist() {
-        return articleFactory.findPlaylistOf(game);
-    }
-
 }

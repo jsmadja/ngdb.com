@@ -71,15 +71,7 @@
           </p>
           <hr/>
         </t:if>
-        <t:if test="${playlist}">
-          <iframe width="560"
-                  height="315"
-                  src="${playlist}"
-                  style="margin-bottom: 15px;"
-                  frameborder="0">
-          </iframe>
-        </t:if>
-
+        <t:article.playlistBlock article="game"/>
         <t:article.reviewBlock article="game"/>
         <t:article.fileBlock article="game"/>
         <t:article.history article="game"/>

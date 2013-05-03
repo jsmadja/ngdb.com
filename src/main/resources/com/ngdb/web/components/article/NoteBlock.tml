@@ -5,8 +5,8 @@
             <table class="${cssClass}" style="font-size:8pt">
                 <t:loop source="notes" value="note">
                     <tr>
-                        <td><b>${note.name}</b></td>
-                        <td>${note.text}</td>
+                        <td><b><t:outputraw value="note.name"/></b></td>
+                        <td><t:outputraw value="note.text"/></td>
                     </tr>
                 </t:loop>
             </table>

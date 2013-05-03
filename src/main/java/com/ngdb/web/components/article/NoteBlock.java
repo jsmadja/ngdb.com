@@ -2,6 +2,7 @@ package com.ngdb.web.components.article;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
+import com.google.common.io.ByteStreams;
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.Registry;
 import com.ngdb.entities.article.Article;
@@ -13,8 +14,15 @@ import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.json.JSONArray;
+import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.*;
 
 import static org.apache.commons.lang.StringUtils.isNotBlank;
@@ -51,6 +59,8 @@ public class NoteBlock {
     @InjectComponent
     private Zone noteZone;
 
+    private static final Logger LOG = LoggerFactory.getLogger(NoteBlock.class);
+
 	void onActivate() {
 		suggestionsName.addAll(registry.findAllPropertyNames());
 	}
@@ -75,7 +85,7 @@ public class NoteBlock {
 		return notes;
 	}
 
-	@OnEvent("provideCompletions")
+    @OnEvent("provideCompletions")
 	List<String> autoCompete(String partial) {
 		if (suggestionsName.isEmpty()) {
 			onActivate();
