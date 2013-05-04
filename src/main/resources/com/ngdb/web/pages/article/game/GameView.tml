@@ -27,7 +27,6 @@
         </t:if>
         <br/>
         <t:article.articleStats article="game"/>
-        <t:article.gallery article="game"/>
       </div>
       <div class="span9" style="margin-left:4%">
         <div class="page-header">
@@ -63,7 +62,7 @@
         <t:article.tagBlock article="game" hideForm="false"/>
 
         <t:article.noteBlock article="game"/>
-
+        <t:article.gallery article="game"/>
         <t:if test="${game.details}">
           <h3>Details</h3>
           <p itemprop="description">

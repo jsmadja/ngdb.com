@@ -7,6 +7,9 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.json.JSONObject;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Gallery {
 
 	@Property
@@ -20,12 +23,14 @@ public class Gallery {
 		return new JSONObject("maxHeight", "600px");
 	}
 
-	public ArticlePictures getPictures() {
-		return article.getPictures();
+	public Set<Picture> getPictures() {
+        Set<Picture> pictures = new HashSet<Picture>(article.getPictures().all());
+        pictures.remove(article.getCover());
+        return pictures;
 	}
 
-	public String getSmallPictureUrl() {
-		return picture.getUrl("small");
+	public String getPictureUrl() {
+		return picture.getUrl("medium");
 	}
 
 }

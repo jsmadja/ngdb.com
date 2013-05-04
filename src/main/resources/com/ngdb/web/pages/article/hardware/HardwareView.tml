@@ -1,57 +1,68 @@
-<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" title="${hardware?.title}" description="${hardware?.title} ${hardware?.platformShortName} ${hardware?.originTitle}">
-	<t:if test="hardware">
-		<div class="row-fluid show-grid article">
-			<div class="span3">
-				<t:article.thumbnail center="true" article="hardware" noClick="true" size="literal:medium" />
-				<t:if test="showUpc">
-					<div style="text-align:center;margin-top:10px;width:101px">
-						<img src="data:image/gif;base64,${upc}" />
-						${hardware.upc}
-					</div>
-				</t:if>
-				<br/>
-				<t:article.gallery article="hardware" />
-                <t:article.articleStats article="hardware" />
-            </div>
-			<div class="span9">
-				<div class="page-header">
-					<h1 class="header">${hardware.title} 
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" title="${hardware?.title}"
+          description="${hardware?.title} ${hardware?.platformShortName} ${hardware?.originTitle}">
+  <t:if test="hardware">
+    <div class="row-fluid show-grid article">
+      <div class="span3">
+        <t:article.thumbnail center="true" article="hardware" noClick="true" size="literal:medium"/>
+        <t:if test="showUpc">
+          <div style="text-align:center;margin-top:10px;width:101px">
+            <img src="data:image/gif;base64,${upc}"/>
+            ${hardware.upc}
+          </div>
+        </t:if>
+        <br/>
+        <t:article.articleStats article="hardware"/>
+      </div>
+      <div class="span9">
+        <div class="page-header">
+          <h1 class="header">${hardware.title}
 						<span style="font-size:15px">
-							(<t:pagelink page="museum" context="[byReleaseDate,hardware.releaseDate]">${hardware.releaseDate}</t:pagelink>) <t:pagelink page="museum" context="[byOrigin,hardware.originTitle]"><img style="margin-bottom:5px" src="/img/flags/${hardware.originTitle}.png" alt="${hardware.originTitle}" /></t:pagelink>
+							(<t:pagelink page="museum"
+                           context="[byReleaseDate,hardware.releaseDate]">${hardware.releaseDate}</t:pagelink>) <t:pagelink
+                page="museum" context="[byOrigin,hardware.originTitle]"><img style="margin-bottom:5px"
+                                                                             src="/img/flags/${hardware.originTitle}.png"
+                                                                             alt="${hardware.originTitle}"/>
+            </t:pagelink>
 						</span>
-						<t:article.actionBlock article="hardware" />
-					</h1>
-					<div class="subtitle">
-						#${hardware.id}<t:pagelink page="museum" context="[byPlatform,hardware.platformShortName]"><span class="platformLabel">${hardware.platformShortName}</span></t:pagelink> <t:if test="hardware.reference">${hardware.reference}</t:if>
-					</div>
-				</div>
+            <t:article.actionBlock article="hardware"/>
+          </h1>
+          <div class="subtitle">
+            #${hardware.id}
+            <t:pagelink page="museum" context="[byPlatform,hardware.platformShortName]"><span
+                class="platformLabel">${hardware.platformShortName}</span></t:pagelink>
+            <t:if test="hardware.reference">${hardware.reference}</t:if>
+          </div>
+        </div>
 
-                <t:article.tagBlock article="hardware" />
+        <t:article.tagBlock article="hardware"/>
+        <t:article.noteBlock article="hardware"/>
+        <t:article.gallery article="hardware"/>
 
-                <t:article.noteBlock article="hardware" />
+        <t:if test="${hardware.details}">
+          <h3>Details</h3>
 
-                <t:if test="${hardware.details}">
-					<h3>Details</h3>
-					<p>
-						<t:OutputRaw value="${hardware.details}"/>
-					</p>
-					<hr />
-				</t:if>
+          <p>
+            <t:OutputRaw value="${hardware.details}"/>
+          </p>
+          <hr/>
+        </t:if>
 
-                <t:article.fileBlock article="hardware" />
+        <t:article.fileBlock article="hardware"/>
 
-                <p>
-                    <span style="font-size:8pt"><i>${message:common.lastedit} <t:common.date value="${hardware.modificationDate}"/></i></span>
-                    <t:pagelink class="pull-right label label-important" page="contact" context="[hardware.title, hardware.id]">
-						<i class="icon-flag icon-white"></i>
-                        ${message:common.somethingswrong}
-					</t:pagelink>
-				</p>
+        <p>
+          <span style="font-size:8pt"><i>${message:common.lastedit}
+            <t:common.date value="${hardware.modificationDate}"/>
+          </i></span>
+          <t:pagelink class="pull-right label label-important" page="contact" context="[hardware.title, hardware.id]">
+            <i class="icon-flag icon-white"></i>
+            ${message:common.somethingswrong}
+          </t:pagelink>
+        </p>
 
-                <t:article.history article="hardware" />
+        <t:article.history article="hardware"/>
 
-                <t:article.commentBlock article="hardware" />
-			</div>
-		</div>
-	</t:if>
+        <t:article.commentBlock article="hardware"/>
+      </div>
+    </div>
+  </t:if>
 </t:layout>
