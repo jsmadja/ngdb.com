@@ -11,8 +11,5 @@
                 </t:if>
             </ul>
 		</p>
-		<p style="font-size:10px">&copy;
-			neogeodb 2013 - version ${version}
-		</p>
 	</center>
 </footer>
