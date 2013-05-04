@@ -1,6 +1,6 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<div class="hero-unit">
-		<h1><span class="orange" style="font-family:Times new roman">NEO·GEO</span><span class="blue"> database</span> <span class="label label-important">BETA</span></h1>
+		<h1><span class="orange" style="font-family:Times new roman">NEO·GEO</span><span class="blue"> database</span></h1>
 		<p>Imagine a world where you can <span class="orange"><b>learn</b></span> about SNK, <span class="orange"><b>buy</b></span> and <span class="orange"><b>sell</b></span> your stuff with other people!</p>
 	</div>
 

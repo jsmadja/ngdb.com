@@ -83,7 +83,7 @@
     <div class="navbar navbar-fixed-top" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
         <div class="navbar-inner">
             <div class="container-fluid">
-                <a class="brand" href="/"><span class="orange" style="vertical-align:middle">neogeo</span><span class="blue" style="vertical-align:middle">db</span><span style="vertical-align:middle">.com</span> <span class="label label-important" style="vertical-align:middle">BETA</span></a>
+                <a class="brand" href="/"><span class="orange" style="vertical-align:middle">neogeo</span><span class="blue" style="vertical-align:middle">db</span><span style="vertical-align:middle">.com</span></a>
 
                 <div style="margin-right:auto;margin-left:auto">
                     <t:form t:id="searchForm" t:autofocus="true" zone="resultZone" style="margin-right:auto;margin-left:auto;width:400px">
