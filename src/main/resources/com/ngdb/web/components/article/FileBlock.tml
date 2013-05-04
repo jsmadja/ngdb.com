@@ -1,5 +1,4 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
-	<br/>
     <table class="${cssClass}" style="font-size:8pt">
         <t:if test="files">
             <h3>${message:file.title}</h3>
