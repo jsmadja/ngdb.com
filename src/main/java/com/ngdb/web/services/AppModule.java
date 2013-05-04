@@ -91,6 +91,8 @@ public class AppModule {
         binder.bind(Charts.class);
         binder.bind(Cacher.class);
         binder.bind(Barcoder.class);
+        binder.bind(YoutubePlaylistManager.class);
+        binder.bind(DailymotionPlaylistManager.class);
     }
 
     public static VelocityEngine buildVelocityEngine() {

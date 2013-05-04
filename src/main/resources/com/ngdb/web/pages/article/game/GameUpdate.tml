@@ -79,11 +79,19 @@
                             </div>
                         </div>
                       <div class="control-group">
-                        <t:label for="playlist" class="control-label">
-                          <b>Playlist</b>
+                        <t:label for="youtubePlaylist" class="control-label">
+                          <b>Youtube Playlist</b>
                         </t:label>
                         <div class="controls">
-                          <t:textfield value="playlist" t:id="playlist" />
+                          <t:textfield value="youtubePlaylist" t:id="youtubePlaylist" />
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <t:label for="dailymotionPlaylist" class="control-label">
+                          <b>Dailymotion Playlist</b>
+                        </t:label>
+                        <div class="controls">
+                          <t:textfield value="dailymotionPlaylist" t:id="dailymotionPlaylist" />
                         </div>
                       </div>
                     </div>

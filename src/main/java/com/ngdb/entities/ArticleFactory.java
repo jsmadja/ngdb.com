@@ -1,28 +1,21 @@
 package com.ngdb.entities;
 
 import com.google.common.base.Function;
-import com.ngdb.Comparators;
 import com.ngdb.entities.article.Accessory;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Tags;
-import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.transform.ResultTransformer;
 
 import javax.annotation.Nullable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.*;
 
 import static com.google.common.collect.Collections2.transform;
@@ -55,11 +48,21 @@ public class ArticleFactory {
         return allGames().add(eq("ngh", ngh)).list();
     }
 
-    public String findPlaylistOf(Game game) {
+    public String findYoutubePlaylistOf(Game game) {
         List<Game> games = findAllGamesByNgh(game.getNgh());
         for (Game g : games) {
-            if(g.getPlaylist() != null) {
-                return g.getPlaylist();
+            if(g.getYoutubePlaylist() != null) {
+                return g.getYoutubePlaylist();
+            }
+        }
+        return null;
+    }
+
+    public String findDailymotionPlaylistOf(Game game) {
+        List<Game> games = findAllGamesByNgh(game.getNgh());
+        for (Game g : games) {
+            if(g.getDailymotionPlaylist() != null) {
+                return g.getDailymotionPlaylist();
             }
         }
         return null;

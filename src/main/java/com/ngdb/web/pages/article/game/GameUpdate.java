@@ -59,7 +59,10 @@ public class GameUpdate {
     private String ngh;
 
     @Property
-    private String playlist;
+    private String youtubePlaylist;
+
+    @Property
+    private String dailymotionPlaylist;
 
     @Property
     private String ean;
@@ -152,7 +155,8 @@ public class GameUpdate {
             this.ean = null;
             this.imdbId = null;
             this.reference = null;
-            this.playlist = null;
+            this.youtubePlaylist = null;
+            this.dailymotionPlaylist = null;
         } else {
             this.publisher = game.getPublisher();
             this.platform = referenceService.findPlatformByName(game.getPlatformShortName());
@@ -167,7 +171,8 @@ public class GameUpdate {
             this.imdbId = game.getImdbId();
             this.reference = game.getReference();
             this.storedPictures = game.getPictures().all();
-            this.playlist = articleFactory.findPlaylistOf(game);
+            this.youtubePlaylist = articleFactory.findYoutubePlaylistOf(game);
+            this.dailymotionPlaylist = articleFactory.findDailymotionPlaylistOf(game);
         }
     }
 
@@ -196,7 +201,8 @@ public class GameUpdate {
         game.setUpc(ean);
         game.setImdbId(imdbId);
         game.setReference(reference);
-        game.setPlaylist(playlist);
+        game.setYoutubePlaylist(youtubePlaylist);
+        game.setDailymotionPlaylist(dailymotionPlaylist);
         game = (Game) session.merge(game);
         if (this.mainPicture != null) {
             Picture picture = pictureService.store(mainPicture, game);

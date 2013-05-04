@@ -94,8 +94,11 @@ public abstract class Article implements Comparable<Article>, Serializable {
     @Column(name = "cover_url", nullable = true)
     private String coverUrl;
 
-    @Column(name = "playlist", nullable = true)
-    private String playlist;
+    @Column(name = "youtube_playlist", nullable = true)
+    private String youtubePlaylist;
+
+    @Column(name = "dailymotion_playlist", nullable = true)
+    private String dailymotionPlaylist;
 
     @Embedded
     @IndexedEmbedded
@@ -416,12 +419,19 @@ public abstract class Article implements Comparable<Article>, Serializable {
         }));
     }
 
-    public String getPlaylist() {
-        return playlist;
+    public String getYoutubePlaylist() {
+        return youtubePlaylist;
     }
 
-    public void setPlaylist(String playlist) {
-        this.playlist = playlist;
+    public void setYoutubePlaylist(String youtubePlaylist) {
+        this.youtubePlaylist = youtubePlaylist;
     }
 
+    public String getDailymotionPlaylist() {
+        return dailymotionPlaylist;
+    }
+
+    public void setDailymotionPlaylist(String dailymotionPlaylist) {
+        this.dailymotionPlaylist = dailymotionPlaylist;
+    }
 }

@@ -1,30 +1,30 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
   <br/>
-  <t:if test="${playlist}">
+  <t:if test="${youtubePlaylist}">
     <iframe width="560"
             height="315"
-            src="${playlist}"
+            src="${youtubePlaylist}"
             style="margin-bottom: 15px;"
             frameborder="0">
     </iframe>
-    <t:if test="notes">
-      <h3>${message:common.Playlist}</h3>
-      <table class="${cssClass}" style="font-size:8pt">
+  </t:if>
+  <t:if test="notes">
+    <h3>${message:common.Playlist}</h3>
+    <table class="${cssClass}" style="font-size:8pt">
+      <tr>
+        <td>${message:common.Video}</td>
+        <td>${message:common.UploadedBy}</td>
+      </tr>
+      <t:loop source="notes" value="note">
         <tr>
-          <td>${message:common.Video}</td>
-          <td>${message:common.UploadedBy}</td>
+          <td>
+            <t:outputraw value="note.name"/>
+          </td>
+          <td>
+            <t:outputraw value="note.text"/>
+          </td>
         </tr>
-        <t:loop source="notes" value="note">
-          <tr>
-            <td>
-              <t:outputraw value="note.name"/>
-            </td>
-            <td>
-              <t:outputraw value="note.text"/>
-            </td>
-          </tr>
-        </t:loop>
-      </table>
-    </t:if>
+      </t:loop>
+    </table>
   </t:if>
 </div>
