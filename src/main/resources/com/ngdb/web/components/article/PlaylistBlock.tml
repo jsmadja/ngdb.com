@@ -1,5 +1,4 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
-  <br/>
   <t:if test="${youtubePlaylist}">
     <iframe width="560"
             height="315"
