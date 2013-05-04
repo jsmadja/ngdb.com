@@ -41,42 +41,6 @@
 }
 #colorbox {
 }
-#cboxTopLeft {
-    background: url("/images/controls.png") no-repeat scroll -100px 0 transparent;
-    height: 21px;
-    width: 21px;
-}
-#cboxTopRight {
-    background: url("/images/controls.png") no-repeat scroll -129px 0 transparent;
-    height: 21px;
-    width: 21px;
-}
-#cboxBottomLeft {
-    background: url("/images/controls.png") no-repeat scroll -100px -29px transparent;
-    height: 21px;
-    width: 21px;
-}
-#cboxBottomRight {
-    background: url("/images/controls.png") no-repeat scroll -129px -29px transparent;
-    height: 21px;
-    width: 21px;
-}
-#cboxMiddleLeft {
-    background: url("/images/controls.png") repeat-y scroll left top transparent;
-    width: 21px;
-}
-#cboxMiddleRight {
-    background: url("/images/controls.png") repeat-y scroll right top transparent;
-    width: 21px;
-}
-#cboxTopCenter {
-    background: url("/images/border.png") repeat-x scroll 0 0 transparent;
-    height: 21px;
-}
-#cboxBottomCenter {
-    background: url("/images/border.png") repeat-x scroll 0 -29px transparent;
-    height: 21px;
-}
 #cboxContent {
     background: none repeat scroll 0 0 #FFFFFF;
     overflow: hidden;
@@ -88,6 +52,13 @@
 #cboxLoadedContent {
     margin-bottom: 28px;
 }
+
+#cboxWrapper {
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 3px;
+}
+
 #cboxTitle {
     bottom: 4px;
     color: #949494;
@@ -220,42 +191,6 @@
     background: url("/images/overlay.png") repeat scroll 0 0 transparent;
 }
 #colorbox {
-}
-#cboxTopLeft {
-    background: url("/images/controls.png") no-repeat scroll -100px 0 transparent;
-    height: 21px;
-    width: 21px;
-}
-#cboxTopRight {
-    background: url("/images/controls.png") no-repeat scroll -129px 0 transparent;
-    height: 21px;
-    width: 21px;
-}
-#cboxBottomLeft {
-    background: url("/images/controls.png") no-repeat scroll -100px -29px transparent;
-    height: 21px;
-    width: 21px;
-}
-#cboxBottomRight {
-    background: url("/images/controls.png") no-repeat scroll -129px -29px transparent;
-    height: 21px;
-    width: 21px;
-}
-#cboxMiddleLeft {
-    background: url("/images/controls.png") repeat-y scroll left top transparent;
-    width: 21px;
-}
-#cboxMiddleRight {
-    background: url("/images/controls.png") repeat-y scroll right top transparent;
-    width: 21px;
-}
-#cboxTopCenter {
-    background: url("/images/border.png") repeat-x scroll 0 0 transparent;
-    height: 21px;
-}
-#cboxBottomCenter {
-    background: url("/images/border.png") repeat-x scroll 0 -29px transparent;
-    height: 21px;
 }
 #cboxContent {
     background: none repeat scroll 0 0 #FFFFFF;
