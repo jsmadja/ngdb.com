@@ -30,7 +30,7 @@ public class Gallery {
 	}
 
 	public String getPictureUrl() {
-		return picture.getUrl("medium");
+		return picture.getUrl("high");
 	}
 
 }
