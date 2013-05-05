@@ -1,7 +1,7 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
   <t:if test="${youtubePlaylist}">
     <iframe width="560"
-            height="315"
+            height="420"
             src="${youtubePlaylist}"
             style="margin-bottom: 15px;"
             frameborder="0">
