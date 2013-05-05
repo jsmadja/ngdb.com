@@ -11,8 +11,8 @@
     <h3>${message:common.Playlist}</h3>
     <table class="${cssClass}" style="font-size:8pt">
       <tr>
-        <td>${message:common.Video}</td>
-        <td>${message:common.UploadedBy}</td>
+        <td><b>${message:common.Video}</b></td>
+        <td><b>${message:common.UploadedBy}</b></td>
       </tr>
       <t:loop source="notes" value="note">
         <tr>
