@@ -4,10 +4,10 @@
      t:selector="a[rel^=gal_article]"
      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
   <t:if test="pictures">
-    <div style="overflow:auto; white-space: nowrap; margin-bottom: 15px;">
+    <div style="overflow:hidden; white-space: nowrap; margin-bottom: 15px;">
       <t:loop source="pictures" value="picture">
         <a href="${message:image.host.url}${picture.url}" id="image" rel="gal_article">
-          <img alt="picture" src="${message:image.host.url}${pictureUrl}" height="128" style="margin-right: 5px;"/>
+          <img alt="picture" src="${message:image.host.url}${pictureUrl}" height="128" style="margin-right: 3%;"/>
         </a>
       </t:loop>
     </div>
