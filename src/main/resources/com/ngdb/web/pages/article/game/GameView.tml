@@ -74,6 +74,7 @@
         <t:article.reviewBlock article="game"/>
         <t:article.fileBlock article="game"/>
         <t:article.history article="game"/>
+        <t:article.staff article="game"/>
         <t:article.related game="game"/>
         <p style="margin-top:10px">
           <span style="font-size:8pt"><i>${message:common.lastedit}

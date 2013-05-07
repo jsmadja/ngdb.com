@@ -2,6 +2,7 @@ package com.ngdb.entities.article;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
+import com.ngdb.entities.Staff;
 import com.ngdb.entities.article.element.*;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
@@ -125,6 +126,9 @@ public abstract class Article implements Comparable<Article>, Serializable {
 
     @Field(analyzer = @Analyzer(definition = "noaccent"), store = Store.YES)
     private String reference;
+
+    @Embedded
+    private Staff staff;
 
     Article() {
         this.creationDate = this.modificationDate = new Date();
@@ -433,5 +437,17 @@ public abstract class Article implements Comparable<Article>, Serializable {
 
     public void setDailymotionPlaylist(String dailymotionPlaylist) {
         this.dailymotionPlaylist = dailymotionPlaylist;
+    }
+
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public boolean hasStaff() {
+        return staff != null && !staff.isEmpty();
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
     }
 }

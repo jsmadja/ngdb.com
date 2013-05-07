@@ -1,8 +1,7 @@
 package com.ngdb.web.pages.article.game;
 
 import com.ngdb.Barcoder;
-import com.ngdb.entities.ActionLogger;
-import com.ngdb.entities.ArticleFactory;
+import com.ngdb.entities.*;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.Origin;
@@ -10,6 +9,7 @@ import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.user.User;
+import com.ngdb.services.StaffParser;
 import com.ngdb.web.model.OriginList;
 import com.ngdb.web.model.PlatformList;
 import com.ngdb.web.model.PublisherList;
@@ -28,10 +28,7 @@ import org.got5.tapestry5.jquery.JQueryEventConstants;
 import org.hibernate.Session;
 import org.joda.time.DateTime;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RequiresUser
 public class GameUpdate {
@@ -54,6 +51,9 @@ public class GameUpdate {
 
     @Property
     private String details;
+
+    @Property
+    private String staff;
 
     @Property
     private String ngh;
@@ -157,6 +157,7 @@ public class GameUpdate {
             this.reference = null;
             this.youtubePlaylist = null;
             this.dailymotionPlaylist = null;
+            this.staff = null;
         } else {
             this.publisher = game.getPublisher();
             this.platform = referenceService.findPlatformByName(game.getPlatformShortName());
@@ -203,7 +204,15 @@ public class GameUpdate {
         game.setReference(reference);
         game.setYoutubePlaylist(youtubePlaylist);
         game.setDailymotionPlaylist(dailymotionPlaylist);
-        game = (Game) session.merge(game);
+
+        if (staff != null) {
+            Staff newStaff = new StaffParser().createFrom(staff, game, session.createCriteria(Employee.class).list());
+            Collection<Employee> employees = newStaff.employees();
+            for (Employee employee : employees) {
+                session.saveOrUpdate(employee);
+            }
+        }
+
         if (this.mainPicture != null) {
             Picture picture = pictureService.store(mainPicture, game);
             game.setCover(picture);
@@ -220,6 +229,7 @@ public class GameUpdate {
                 }
             }
         }
+        game = (Game) session.merge(game);
         gameView.setGame(game);
         User user = currentUser.getUser();
         actionLogger.addEditAction(user, game);

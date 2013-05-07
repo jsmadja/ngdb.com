@@ -1,0 +1,13 @@
+<div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+	<t:if test="hasStaff">
+        <h3>${message:staff.title}</h3>
+        <table class="table table-striped table-bordered table-condensed">
+			<t:loop source="staff" value="participation" >
+				<tr>
+					<td>${participation.role}</td>
+					<td>${participation.employeeName}</td>
+				</tr>
+			</t:loop>
+		</table>
+	</t:if>
+</div>
