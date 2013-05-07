@@ -5,7 +5,7 @@
 			<t:loop source="staff" value="participation" >
 				<tr>
 					<td>${participation.role}</td>
-					<td>${participation.employeeName}</td>
+					<td><t:pagelink page="employeeView" context="participation.employee.id" >${participation.employeeName}</t:pagelink></td>
 				</tr>
 			</t:loop>
 		</table>

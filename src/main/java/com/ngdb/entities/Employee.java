@@ -43,4 +43,12 @@ public class Employee implements Serializable {
     public void addParticipation(Participation participation) {
         participations.add(participation);
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Set<Participation> getParticipations() {
+        return participations;
+    }
 }
