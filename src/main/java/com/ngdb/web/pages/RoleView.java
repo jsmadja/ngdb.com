@@ -1,15 +1,9 @@
 package com.ngdb.web.pages;
 
-import com.ngdb.entities.Employee;
 import com.ngdb.entities.Participation;
-import com.ngdb.entities.article.Article;
 import com.ngdb.services.SNK;
-import com.sun.jmx.snmp.SnmpUsmKeyHandler;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.beaneditor.BeanModel;
-import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.BeanModelSource;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,7 +11,7 @@ import java.util.List;
 public class RoleView {
 
     @Property
-    private Employee employee;
+    private String employee;
 
     @Property
     private Participation participation;
@@ -32,8 +26,12 @@ public class RoleView {
         this.role = role;
     }
 
-    public Collection<Employee> getEmployees() {
+    public Collection<String> getEmployees() {
         return snk.getEmployeesOfRole(role);
+    }
+
+    public List<Participation> getParticipations() {
+        return snk.getParticipationsOf(employee);
     }
 
 }

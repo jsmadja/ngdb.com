@@ -2,6 +2,7 @@ package com.ngdb.entities.article;
 
 import com.google.common.base.Function;
 import com.google.common.base.Objects;
+import com.ngdb.entities.Participation;
 import com.ngdb.entities.Staff;
 import com.ngdb.entities.article.element.*;
 import com.ngdb.entities.reference.Origin;
@@ -129,6 +130,10 @@ public abstract class Article implements Comparable<Article>, Serializable {
 
     @Embedded
     private Staff staff;
+
+    public void addParticipation(Participation participation) {
+        staff.add(participation);
+    }
 
     Article() {
         this.creationDate = this.modificationDate = new Date();

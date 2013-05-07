@@ -16,24 +16,22 @@ public class Participation {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
-    @ManyToOne(optional = false, fetch = LAZY, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH})
-    private Employee employee;
+    private String employee;
 
     private String role;
 
-    @ManyToOne(optional = false, fetch = LAZY)
+    @ManyToOne(optional = false, fetch = LAZY, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH})
     private Article article;
 
     Participation() {}
 
-    public Participation(Employee employee, String role, Article article) {
+    public Participation(String employee, String role, Article article) {
         this.employee = employee;
-        employee.addParticipation(this);
         this.role = role;
         this.article = article;
     }
 
-    public Employee getEmployee() {
+    public String getEmployee() {
         return employee;
     }
 
@@ -43,10 +41,6 @@ public class Participation {
 
     public Article getArticle() {
         return article;
-    }
-
-    public String getEmployeeName() {
-        return employee.getEmployeeName();
     }
 
     public void delete() {

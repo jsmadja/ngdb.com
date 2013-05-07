@@ -8,12 +8,12 @@
       <tr>
         <td>
           <t:pagelink page="employeeView" context="employee">
-            ${employee.employeeName}
+            ${employee}
           </t:pagelink>
         </td>
         <td>
           <ul style="list-style: none;">
-            <t:loop source="employee.participations" value="participation">
+            <t:loop source="participations" value="participation">
               <li>
                 <t:pagelink page="${participation.article.viewPage}"
                             context="[participation.article, participation.article.suffix]">

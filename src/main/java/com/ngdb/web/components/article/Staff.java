@@ -1,6 +1,5 @@
 package com.ngdb.web.components.article;
 
-import com.ngdb.entities.Employee;
 import com.ngdb.entities.article.Article;
 import com.ngdb.services.SNK;
 import org.apache.tapestry5.annotations.Parameter;
@@ -20,7 +19,7 @@ public class Staff {
     private String role;
 
     @Property
-    private Employee employee;
+    private String employee;
 
     private Collection<String> roles;
 
@@ -42,8 +41,8 @@ public class Staff {
         return roles;
     }
 
-    public List<Employee> getEmployees() {
-        List<Employee> employees = new ArrayList<Employee>(staff.employeesOfRole(role));
+    public List<String> getEmployees() {
+        List<String> employees = new ArrayList<String>(staff.employeesOfRole(role));
         Collections.sort(employees);
         return employees;
     }

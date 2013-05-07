@@ -14,8 +14,8 @@
           <tr>
             <td>
               <t:pagelink page="employeeView"
-                          context="employee.id">
-                ${employee.employeeName}
+                          context="employee">
+                ${employee}
               </t:pagelink>
             </td>
           </tr>

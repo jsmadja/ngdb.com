@@ -1,7 +1,10 @@
 package com.ngdb.web.pages.article.game;
 
 import com.ngdb.Barcoder;
-import com.ngdb.entities.*;
+import com.ngdb.entities.ActionLogger;
+import com.ngdb.entities.ArticleFactory;
+import com.ngdb.entities.Participation;
+import com.ngdb.entities.Staff;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.reference.Origin;
@@ -206,10 +209,9 @@ public class GameUpdate {
         game.setDailymotionPlaylist(dailymotionPlaylist);
 
         if (staff != null) {
-            Staff newStaff = new StaffParser().createFrom(staff, game, session.createCriteria(Employee.class).list());
-            Collection<Employee> employees = newStaff.employees();
-            for (Employee employee : employees) {
-                session.saveOrUpdate(employee);
+            List<Participation> participations = new StaffParser().createFrom(staff, game);
+            for (Participation participation : participations) {
+                session.merge(participation);
             }
         }
 

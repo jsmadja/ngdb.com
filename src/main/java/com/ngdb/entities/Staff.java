@@ -2,15 +2,11 @@ package com.ngdb.entities;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import com.ngdb.entities.article.Game;
-import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.OrderBy;
 import java.util.*;
 
 import static com.google.common.collect.Collections2.filter;
@@ -34,11 +30,11 @@ public class Staff implements Iterable<Participation> {
         return participations.iterator();
     }
 
-    public Collection<Employee> employees() {
-        return transform(participations, new Function<Participation, Employee>() {
+    public Collection<String> employees() {
+        return transform(participations, new Function<Participation, String>() {
             @Nullable
             @Override
-            public Employee apply(@Nullable Participation participation) {
+            public String apply(@Nullable Participation participation) {
                 return participation.getEmployee();
             }
         });
@@ -60,16 +56,16 @@ public class Staff implements Iterable<Participation> {
         return roles;
     }
 
-    public Collection<Employee> employeesOfRole(final String role) {
+    public Collection<String> employeesOfRole(final String role) {
         return transform(filter(participations, new Predicate<Participation>() {
             @Override
             public boolean apply(Participation participation) {
                 return participation.hasRole(role);
             }
-        }), new Function<Participation, Employee>() {
+        }), new Function<Participation, String>() {
             @Nullable
             @Override
-            public Employee apply(Participation input) {
+            public String apply(Participation input) {
                 return input.getEmployee();
             }
         });

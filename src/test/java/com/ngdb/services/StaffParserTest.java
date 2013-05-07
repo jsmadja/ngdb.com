@@ -1,14 +1,13 @@
 package com.ngdb.services;
 
-import com.ngdb.entities.Employee;
-import com.ngdb.entities.Staff;
+import com.ngdb.entities.Participation;
 import com.ngdb.entities.article.Game;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
+import java.util.List;
 
 import static com.google.common.io.ByteStreams.toByteArray;
 import static org.fest.assertions.Assertions.assertThat;
@@ -23,9 +22,9 @@ public class StaffParserTest {
         String content = new String(toByteArray(stream));
 
         Game game = Mockito.mock(Game.class);
-        Staff staff = staffParser.createFrom(content, game, new ArrayList<Employee>());
+        List<Participation> participations = staffParser.createFrom(content, game);
 
-        assertThat(staff.employees()).hasSize(52);
+        assertThat(participations).hasSize(52);
     }
 
 }

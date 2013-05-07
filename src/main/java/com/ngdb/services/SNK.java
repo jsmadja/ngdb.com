@@ -1,7 +1,6 @@
 package com.ngdb.services;
 
 import com.ngdb.entities.ArticleFactory;
-import com.ngdb.entities.Employee;
 import com.ngdb.entities.Participation;
 import com.ngdb.entities.Staff;
 import com.ngdb.entities.article.Article;
@@ -29,8 +28,8 @@ public class SNK {
         super();
     }
 
-    public Collection<Employee> getEmployeesOfRole(String role) {
-        return new TreeSet<Employee>(session.createCriteria(Participation.class).add(eq("role", role)).setProjection(distinct(property("employee"))).list());
+    public Collection<String> getEmployeesOfRole(String role) {
+        return new TreeSet<String>(session.createCriteria(Participation.class).add(eq("role", role)).setProjection(distinct(property("employee"))).list());
     }
 
     public Staff getStaffOf(Article article) {
@@ -45,5 +44,9 @@ public class SNK {
             }
         }
         return null;
+    }
+
+    public List<Participation> getParticipationsOf(String employee) {
+        return session.createCriteria(Participation.class).add(eq("employee", employee)).list();
     }
 }

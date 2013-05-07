@@ -1,9 +1,9 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<div class="page-header">
-		<h1 class="black-bar rounded-bar big-bar">${employee.employeeName}</h1>
+		<h1 class="black-bar rounded-bar big-bar">${employee}</h1>
 	</div>
 
-  <t:grid source="employee.participations" row="participation" model="model" class="table">
+  <t:grid source="participations" row="participation" model="model" class="table">
     <p:articleCell>
       <t:pagelink page="${participation.article.viewPage}" context="[participation.article,participation.article.suffix]">${participation.article}</t:pagelink>
     </p:articleCell>
