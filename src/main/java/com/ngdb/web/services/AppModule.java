@@ -6,6 +6,7 @@ import com.ngdb.entities.Registry;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.services.Cacher;
 import com.ngdb.services.HibernateSearchService;
+import com.ngdb.services.SNK;
 import com.ngdb.web.services.infrastructure.*;
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.hibernate.HibernateConfigurer;
@@ -93,6 +94,7 @@ public class AppModule {
         binder.bind(Barcoder.class);
         binder.bind(YoutubePlaylistManager.class);
         binder.bind(DailymotionPlaylistManager.class);
+        binder.bind(SNK.class);
     }
 
     public static VelocityEngine buildVelocityEngine() {

@@ -1,0 +1,30 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+  <div class="page-header">
+    <h1 class="black-bar rounded-bar big-bar">${role}</h1>
+  </div>
+
+  <table class="table">
+    <t:loop value="employee" source="employees">
+      <tr>
+        <td>
+          <t:pagelink page="employeeView" context="employee">
+            ${employee.employeeName}
+          </t:pagelink>
+        </td>
+        <td>
+          <ul style="list-style: none;">
+            <t:loop source="employee.participations" value="participation">
+              <li>
+                <t:pagelink page="${participation.article.viewPage}"
+                            context="[participation.article, participation.article.suffix]">
+                  ${participation.article}
+                </t:pagelink>
+              </li>
+            </t:loop>
+          </ul>
+        </td>
+      </tr>
+    </t:loop>
+  </table>
+
+</t:layout>

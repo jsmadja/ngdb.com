@@ -1,6 +1,7 @@
 package com.ngdb.entities;
 
 import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.ngdb.entities.article.Game;
 import org.hibernate.annotations.*;
@@ -11,6 +12,9 @@ import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.OrderBy;
 import java.util.*;
+
+import static com.google.common.collect.Collections2.filter;
+import static com.google.common.collect.Collections2.transform;
 
 @Embeddable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -31,7 +35,7 @@ public class Staff implements Iterable<Participation> {
     }
 
     public Collection<Employee> employees() {
-        return Collections2.transform(participations, new Function<Participation, Employee>() {
+        return transform(participations, new Function<Participation, Employee>() {
             @Nullable
             @Override
             public Employee apply(@Nullable Participation participation) {
@@ -46,5 +50,28 @@ public class Staff implements Iterable<Participation> {
 
     public void clear() {
         participations.clear();
+    }
+
+    public Collection<String> roles() {
+        Set<String> roles = new TreeSet<String>();
+        for (Participation participation : participations) {
+            roles.add(participation.getRole());
+        }
+        return roles;
+    }
+
+    public Collection<Employee> employeesOfRole(final String role) {
+        return transform(filter(participations, new Predicate<Participation>() {
+            @Override
+            public boolean apply(Participation participation) {
+                return participation.hasRole(role);
+            }
+        }), new Function<Participation, Employee>() {
+            @Nullable
+            @Override
+            public Employee apply(Participation input) {
+                return input.getEmployee();
+            }
+        });
     }
 }

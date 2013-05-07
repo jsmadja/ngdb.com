@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Employee implements Serializable {
+public class Employee implements Serializable, Comparable<Employee> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -50,5 +50,10 @@ public class Employee implements Serializable {
 
     public Set<Participation> getParticipations() {
         return participations;
+    }
+
+    @Override
+    public int compareTo(Employee employee) {
+        return this.employeeName.compareToIgnoreCase(employee.getEmployeeName());
     }
 }

@@ -52,4 +52,8 @@ public class Participation {
     public void delete() {
         this.employee = null;
     }
+
+    public boolean hasRole(String role) {
+        return this.role.equalsIgnoreCase(role);
+    }
 }

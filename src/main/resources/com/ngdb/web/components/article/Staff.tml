@@ -1,13 +1,26 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
-	<t:if test="hasStaff">
-        <h3>${message:staff.title}</h3>
-        <table class="table table-striped table-bordered table-condensed">
-			<t:loop source="staff" value="participation" >
-				<tr>
-					<td>${participation.role}</td>
-					<td><t:pagelink page="employeeView" context="participation.employee.id" >${participation.employeeName}</t:pagelink></td>
-				</tr>
-			</t:loop>
-		</table>
-	</t:if>
+  <t:if test="hasStaff">
+    <h3>${message:staff.title}</h3>
+    <t:loop value="role" source="roles">
+      <h4 style="margin-top: 10px;">
+        <t:pagelink page="roleView"
+                    context="role"
+                    style="color: black;">
+                    ${role}
+        </t:pagelink>
+      </h4>
+      <t:loop value="employee" source="employees">
+        <table>
+          <tr>
+            <td>
+              <t:pagelink page="employeeView"
+                          context="employee.id">
+                ${employee.employeeName}
+              </t:pagelink>
+            </td>
+          </tr>
+        </table>
+      </t:loop>
+    </t:loop>
+  </t:if>
 </div>

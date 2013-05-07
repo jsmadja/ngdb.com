@@ -2,13 +2,19 @@ package com.ngdb.web.pages;
 
 import com.ngdb.entities.Employee;
 import com.ngdb.entities.Participation;
+import com.ngdb.entities.article.Article;
+import com.ngdb.services.SNK;
+import com.sun.jmx.snmp.SnmpUsmKeyHandler;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.BeanModel;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.BeanModelSource;
 
-public class EmployeeView {
+import java.util.Collection;
+import java.util.List;
+
+public class RoleView {
 
     @Property
     private Employee employee;
@@ -17,20 +23,17 @@ public class EmployeeView {
     private Participation participation;
 
     @Property
-    private BeanModel<Participation> model;
+    private String role;
 
     @Inject
-    private BeanModelSource beanModelSource;
+    private SNK snk;
 
-    @Inject
-    private Messages messages;
+    public void onActivate(String role) {
+        this.role = role;
+    }
 
-    public void onActivate(Employee employee) {
-        this.employee = employee;
-        model = beanModelSource.createDisplayModel(Participation.class, messages);
-        model.addEmpty("article").sortable(true);
-        model.addEmpty("date").sortable(true);
-        model.include("article", "role", "date");
+    public Collection<Employee> getEmployees() {
+        return snk.getEmployeesOfRole(role);
     }
 
 }
