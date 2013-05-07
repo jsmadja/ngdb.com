@@ -1,5 +1,5 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
-  <t:if test="hasStaff">
+  <t:if test="staff">
     <h3>${message:staff.title}</h3>
     <t:loop value="role" source="roles">
       <h4 style="margin-top: 10px;">

@@ -18,7 +18,7 @@
                 <t:pagelink page="${participation.article.viewPage}"
                             context="[participation.article, participation.article.suffix]">
                   ${participation.article}
-                </t:pagelink>
+                </t:pagelink> ${participation.article.releaseDate}
               </li>
             </t:loop>
           </ul>

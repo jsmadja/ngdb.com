@@ -1,11 +1,12 @@
 package com.ngdb.web.components.article;
 
 import com.ngdb.entities.Employee;
-import com.ngdb.entities.Participation;
 import com.ngdb.entities.article.Article;
+import com.ngdb.services.SNK;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
+import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.*;
 
@@ -23,17 +24,16 @@ public class Staff {
 
     private Collection<String> roles;
 
+    @Inject
+    private SNK snk;
+
+    @Property
+    private com.ngdb.entities.Staff staff;
+
     @SetupRender
     public void init() {
-        roles = getStaff().roles();
-    }
-
-    public com.ngdb.entities.Staff getStaff() {
-        return article.getStaff();
-    }
-
-    public boolean getHasStaff() {
-        return article.hasStaff();
+        staff = snk.getStaffOf(article);
+        roles = staff.roles();
     }
 
     public Collection<String> getRoles() {
@@ -41,17 +41,9 @@ public class Staff {
     }
 
     public List<Employee> getEmployees() {
-        List<Employee> employees = new ArrayList<Employee>(employees());
+        List<Employee> employees = new ArrayList<Employee>(staff.employeesOfRole(role));
         Collections.sort(employees);
         return employees;
-    }
-
-    private Collection<Employee> employees() {
-        return getStaff().employeesOfRole(role);
-    }
-
-    public String getComma() {
-        return (getEmployees().indexOf(employee)+1) == getEmployees().size() ? "" : ", ";
     }
 
 }

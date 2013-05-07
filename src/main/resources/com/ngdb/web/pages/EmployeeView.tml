@@ -7,6 +7,13 @@
     <p:articleCell>
       <t:pagelink page="${participation.article.viewPage}" context="[participation.article,participation.article.suffix]">${participation.article}</t:pagelink>
     </p:articleCell>
+    <p:roleCell>
+      <t:pagelink page="roleView"
+                  context="participation.role"
+                  style="color: black;">
+        ${participation.role}
+      </t:pagelink>
+    </p:roleCell>
     <p:dateCell>
       ${participation.article.releaseDate}
     </p:dateCell>
