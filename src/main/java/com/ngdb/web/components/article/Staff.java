@@ -33,7 +33,9 @@ public class Staff {
     @SetupRender
     public void init() {
         staff = snk.getStaffOf(article);
-        roles = staff.roles();
+        if(staff != null) {
+            roles = staff.roles();
+        }
     }
 
     public Collection<String> getRoles() {
