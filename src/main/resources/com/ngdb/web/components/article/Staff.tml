@@ -1,26 +1,28 @@
 <div xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
   <t:if test="staff">
     <h3>${message:staff.title}</h3>
+    <div style="block;">
     <t:loop value="role" source="roles">
-      <h4 style="margin-top: 10px;">
-        <t:pagelink page="roleView"
-                    context="role"
-                    style="color: black;">
-                    ${role}
-        </t:pagelink>
-      </h4>
-      <t:loop value="employee" source="employees">
-        <table>
-          <tr>
-            <td>
+      <div style="display: inline-block; vertical-align: top; width: 50%;">
+        <h4 style="margin-top: 10px;">
+          <t:pagelink page="roleView"
+                      context="role"
+                      style="color: black;">
+            ${role}
+          </t:pagelink>
+        </h4>
+        <ul style="margin-left: 0px;">
+          <t:loop value="employee" source="employees">
+            <li style="list-style: none;">
               <t:pagelink page="employeeView"
                           context="employee">
                 ${employee}
               </t:pagelink>
-            </td>
-          </tr>
-        </table>
-      </t:loop>
+            </li>
+          </t:loop>
+        </ul>
+      </div>
     </t:loop>
+    </div>
   </t:if>
 </div>
