@@ -147,4 +147,17 @@ public class AppModule {
         receiver.adviseMethod(method, advice);
     }
 
+    public RequestFilter buildNavigationFilter() {
+        return new RequestFilter() {
+            public boolean service(Request request, Response response, RequestHandler handler) throws IOException {
+                Session session = request.getSession(false);
+                if (session != null) {
+                    String url = request.getPath();
+                    session.setAttribute("derniere-page-visitee", url);
+                }
+                return handler.service(request, response);
+            }
+        };
+    }
+
 }
