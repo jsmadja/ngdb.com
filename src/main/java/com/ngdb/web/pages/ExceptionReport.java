@@ -38,8 +38,8 @@ public class ExceptionReport implements ExceptionReporter {
 
         String page = recupererDernierePageVisitee();
 
-        String body = page + NEW_LINE + NEW_LINE + enjoliverStacktrace(genererStackTrace(exception));
-        mailService.sendMail("anzymus@neogeodb.com", body, "Une erreur est survenur sur neogeodb");
+        String body = page + NEW_LINE + NEW_LINE + genererStackTrace(exception);
+        mailService.sendMail("julien.smadja@gmail.com", body, "Une erreur est survenue sur neogeodb");
     }
 
     String enjoliverStacktrace(String stacktrace) {
