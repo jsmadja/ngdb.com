@@ -186,7 +186,10 @@ public class ShopItem implements Comparable<ShopItem>, Serializable {
         if (shopItem == null || shopItem.article == null) {
             return 0;
         }
-        return article.getTitle().compareToIgnoreCase(shopItem.article.getTitle());
+        if(shopItem.article != null) {
+            return article.getTitle().compareToIgnoreCase(shopItem.article.getTitle());
+        }
+        return 0;
     }
 
     public boolean hasCover() {
