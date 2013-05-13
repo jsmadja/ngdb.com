@@ -70,4 +70,5 @@ public class Staff implements Iterable<Participation> {
             }
         });
     }
+
 }

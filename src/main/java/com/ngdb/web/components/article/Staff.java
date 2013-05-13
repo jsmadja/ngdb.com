@@ -1,5 +1,6 @@
 package com.ngdb.web.components.article;
 
+import com.ngdb.entities.Participation;
 import com.ngdb.entities.article.Article;
 import com.ngdb.services.SNK;
 import org.apache.tapestry5.annotations.Parameter;
@@ -32,8 +33,8 @@ public class Staff {
     @SetupRender
     public void init() {
         staff = snk.getStaffOf(article);
-        if(staff != null) {
-            roles = staff.roles();
+        if (staff != null) {
+            roles = snk.orderStaffByEmployeeCount(article);
         }
     }
 
