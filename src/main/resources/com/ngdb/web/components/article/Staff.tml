@@ -3,7 +3,7 @@
     <h3>${message:staff.title}</h3>
     <div style="block;">
     <t:loop value="role" source="roles">
-      <div style="display: inline-block; vertical-align: top; width: 50%;">
+      <div style="display: inline-block; vertical-align: top; width: 33%;">
         <h4 style="margin-top: 10px;">
           <t:pagelink page="roleView"
                       context="role"

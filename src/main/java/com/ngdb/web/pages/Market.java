@@ -83,6 +83,9 @@ public class Market {
     @Inject
     private PictureService pictureService;
 
+    @Persist
+    private String forumCode;
+
     @OnEvent(EventConstants.ACTIVATE)
     void init() {
 
@@ -91,8 +94,15 @@ public class Market {
         params.put("title", "Export to forums");
     }
 
-    @OnEvent(component = "forumCodeLink", value = ACTION)
-    void onActionFromForumCodeLink() {
+    @OnEvent(component = "forumCodeVBulletinLink", value = ACTION)
+    void onActionFromForumCodeVBulletinLink() {
+        forumCode = ForumCode.asVBulletinCode(filter.getShopItems(), pictureService);
+        ajaxResponseRenderer.addRender(forumCodeZone);
+    }
+
+    @OnEvent(component = "forumCodePhpBBLink", value = ACTION)
+    void onActionFromForumCodePhpBBLink() {
+        forumCode = ForumCode.asPhpBBCode(filter.getShopItems(), pictureService);
         ajaxResponseRenderer.addRender(forumCodeZone);
     }
 
@@ -249,8 +259,7 @@ public class Market {
     }
 
     public String getForumCode() {
-        Collection<ShopItem> shopItems = filter.getShopItems();
-        return ForumCode.asVBulletinCode(shopItems, pictureService);
+        return forumCode;
     }
 
     public String getGameSelected() {

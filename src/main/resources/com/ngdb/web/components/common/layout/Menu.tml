@@ -18,7 +18,7 @@
                     <tr>
                         <td width="90px">
                             <t:jquery.dialogajaxlink t:id="link1" t:dialog="myDialog" t:zone="myZone" t:context="shopItem" >
-                                <img alt="${title}" style="margin-top:15px;margin-left:5px;border-radius:5px" src="${message:image.host.url}${shopItemCover}" title="${title}" />
+                                <img alt="${title}" style="margin-top:15px;margin-left:5px;" src="${message:image.host.url}${shopItemCover}" title="${title}" />
                             </t:jquery.dialogajaxlink>
                         </td>
                         <td align="center" style="vertical-align:bottom">
