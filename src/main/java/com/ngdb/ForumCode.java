@@ -27,19 +27,17 @@ public class ForumCode {
         String details = shopItem.getDetails();
         String title = shopItem.getTitle();
         String state = shopItem.getState().getTitle();
-        Long id = shopItem.getId();
-        String url = "http://neogeodb.com/shop/itemview/" + id;
         String origin = article.getOriginTitle();
         String originImageUrl = "http://neogeodb.com/img/flags/" + origin + ".png";
         String imageUrl = "http://www.neogeodb.com" + cover.getUrlSmall();
         String customCurrency = shopItem.getCustomCurrency();
 
-        sb.append(format("[IMG]%s[/IMG] [URL=%s]%s[/URL] - [B][COLOR=Red]%s[/COLOR][/B] - [B][COLOR=SeaGreen]%s %s[/COLOR][/B]", originImageUrl, url, title, state, customCurrency, price));
+        sb.append(format("[IMG]%s[/IMG] %s - [B][COLOR=Red]%s[/COLOR][/B] - [B][COLOR=SeaGreen]%s %s[/COLOR][/B]", originImageUrl, title, state, customCurrency, price));
         sb.append(format("\n[I]%s[/I]", details));
         if (shopItem.hasNoPicture() && shopItem.hasCover()) {
-            sb.append(format("\n[URL=%s][IMG]%s[/IMG][/URL]", url, "http://www.neogeodb.com" + article.getCover().getUrl("small")));
+            sb.append(format("\n[IMG]%s[/IMG]", "http://www.neogeodb.com" + article.getCover().getUrl("small")));
         } else {
-            sb.append(format("\n[URL=%s][IMG]%s[/IMG][/URL]", url, imageUrl));
+            sb.append(format("\n[IMG]%s[/IMG]", imageUrl));
         }
     }
 
@@ -59,19 +57,17 @@ public class ForumCode {
         String details = shopItem.getDetails();
         String title = shopItem.getTitle();
         String state = shopItem.getState().getTitle();
-        Long id = shopItem.getId();
-        String url = "http://neogeodb.com/shop/itemview/" + id;
         String origin = article.getOriginTitle();
         String originImageUrl = "http://neogeodb.com/img/flags/" + origin + ".png";
         String imageUrl = "http://www.neogeodb.com" + cover.getUrlSmall();
         String customCurrency = shopItem.getCustomCurrency();
 
-        sb.append(format("[img]%s[/img] [url=%s]%s[/url] - [b][color=red]%s[/color][/b] - [b][color=green]%s %s[/color][/b]", originImageUrl, url, title, state, customCurrency, price));
+        sb.append(format("[img]%s[/img] %s - [b][color=red]%s[/color][/b] - [b][color=green]%s %s[/color][/b]", originImageUrl, title, state, customCurrency, price));
         sb.append(format("\n[i]%s[/i]", details));
         if (shopItem.hasNoPicture() && shopItem.hasCover()) {
-            sb.append(format("\n[url=%s][img]%s[/img][/url]", url, "http://www.neogeodb.com" + article.getCover().getUrl("small")));
+            sb.append(format("\n[img]%s[/img]", "http://www.neogeodb.com" + article.getCover().getUrl("small")));
         } else {
-            sb.append(format("\n[url=%s][img]%s[/img][/url]", url, imageUrl));
+            sb.append(format("\n[url=%s][img]%s[/img][/url]", imageUrl, imageUrl));
         }
     }
 }
