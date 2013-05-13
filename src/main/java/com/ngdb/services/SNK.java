@@ -54,6 +54,6 @@ public class SNK {
     }
 
     public Collection<String> orderStaffByEmployeeCount(Article article) {
-        return session.createSQLQuery("SELECT role FROM participation WHERE article_id = "+article.getId()+" GROUP BY role ORDER BY count(role) ASC;").list();
+        return session.createSQLQuery("SELECT role FROM Participation WHERE article_id = "+article.getId()+" GROUP BY role ORDER BY count(role) ASC;").list();
     }
 }
