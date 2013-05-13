@@ -47,6 +47,10 @@ public class Picture extends AbstractEntity implements Comparable<Picture> {
         return getUrl("small");
     }
 
+    public String getUrlMedium() {
+        return getUrl("medium");
+    }
+
     public String getUrl(String size) {
         if (url == null) {
             return EMPTY.getUrl();
