@@ -39,25 +39,10 @@ public class ExceptionReport implements ExceptionReporter {
         String page = recupererDernierePageVisitee();
 
         String body = page + NEW_LINE + NEW_LINE + genererStackTrace(exception);
-        mailService.sendMail("julien.smadja@gmail.com", body, "Une erreur est survenue sur neogeodb");
-    }
-
-    String enjoliverStacktrace(String stacktrace) {
-        StringBuilder sb = new StringBuilder();
-        Scanner scanner = new Scanner(stacktrace);
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            Pattern p = Pattern.compile("Caused by: (.*)");
-            Matcher m = p.matcher(line);
-            if (m.matches()) {
-                String group = m.group();
-                line = "<span style='color:red;font-weight:bold;'>" + group + "</span>";
-            } else {
-                line = "<span style='margin-left:5px'>" + line + "</span>";
-            }
-            sb.append(line).append(NEW_LINE);
+        try {
+            mailService.sendMail("julien.smadja@gmail.com", body, "Une erreur est survenue sur neogeodb");
+        } catch (Exception e) {
         }
-        return sb.toString().trim();
     }
 
     private String genererStackTrace(Throwable exception) {

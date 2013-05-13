@@ -3,9 +3,9 @@
 		<h1 class="black-bar rounded-bar big-bar">${employee}</h1>
 	</div>
 
-  <t:grid source="participations" row="participation" model="model" class="table">
+  <t:grid inPlace="true" source="participations" row="participation" class="table" model="model">
     <p:articleCell>
-      <t:pagelink page="${participation.article.viewPage}" context="[participation.article,participation.article.suffix]">${participation.article}</t:pagelink>
+      <t:pagelink page="${viewPage}" context="[article,article.suffix]">${article}</t:pagelink>
     </p:articleCell>
     <p:roleCell>
       <t:pagelink page="roleView"
@@ -15,7 +15,7 @@
       </t:pagelink>
     </p:roleCell>
     <p:dateCell>
-      ${participation.article.releaseDate}
+      ${article.releaseDate}
     </p:dateCell>
   </t:grid>
 	
