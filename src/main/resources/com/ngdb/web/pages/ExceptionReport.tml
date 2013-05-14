@@ -1,5 +1,8 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
-    <div style="margin-left:auto;margin-right:auto;width:300px">
-        	${message:error.message}
-    </div>
+  <div style="margin-left:auto;margin-right:auto;width:80%">
+    <p>
+      <t:outputraw value="${message:error.message}"/>
+    </p>
+    <img src="/images/gameover.jpg" alt="error"/>
+  </div>
 </t:layout>

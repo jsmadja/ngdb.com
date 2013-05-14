@@ -346,6 +346,9 @@ public abstract class Article implements Comparable<Article>, Serializable {
         String[] toReplace = {"·", ",", "&", "/", " ", "!", "\\(", "\\)", "'", "~"};
         String title = getTitle();
         for (String s : toReplace) {
+            if(title == null) {
+                title = "";
+            }
             title = title.replaceAll(s, "-");
         }
         title += "-" + getPlatformShortName() + "-" + getOriginTitle();

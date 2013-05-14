@@ -8,6 +8,7 @@ import com.ngdb.entities.article.Game;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.transform.ResultTransformer;
 
 import java.util.Collection;
@@ -15,8 +16,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 import static org.hibernate.criterion.Order.asc;
-import static org.hibernate.criterion.Projections.distinct;
-import static org.hibernate.criterion.Projections.property;
+import static org.hibernate.criterion.Projections.*;
 import static org.hibernate.criterion.Restrictions.eq;
 
 public class SNK {
@@ -55,5 +55,11 @@ public class SNK {
 
     public Collection<String> orderStaffByEmployeeCount(Article article) {
         return session.createSQLQuery("SELECT role FROM Participation WHERE article_id = "+article.getId()+" GROUP BY role ORDER BY count(role) ASC;").list();
+    }
+
+    public Long getNumEmployees() {
+        return (Long) session.createCriteria(Participation.class).
+                setProjection(countDistinct("employee")).
+                uniqueResult();
     }
 }
