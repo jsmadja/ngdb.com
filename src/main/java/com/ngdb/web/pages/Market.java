@@ -1,16 +1,16 @@
 package com.ngdb.web.pages;
 
-import com.ngdb.ForumCode;
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.MarketFilter;
 import com.ngdb.entities.Population;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
-import com.ngdb.entities.reference.Publisher;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.entities.user.User;
+import com.ngdb.forum.PhpBBCode;
+import com.ngdb.forum.VBulletinCode;
 import com.ngdb.web.Filter;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.PictureService;
@@ -23,7 +23,6 @@ import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONObject;
-import org.apache.tapestry5.services.ContextPathEncoder;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.hibernate.Session;
@@ -96,13 +95,13 @@ public class Market {
 
     @OnEvent(component = "forumCodeVBulletinLink", value = ACTION)
     void onActionFromForumCodeVBulletinLink() {
-        forumCode = ForumCode.asVBulletinCode(filter.getShopItems(), pictureService);
+        forumCode = new VBulletinCode(filter.getShopItems(), pictureService).generateCode();
         ajaxResponseRenderer.addRender(forumCodeZone);
     }
 
     @OnEvent(component = "forumCodePhpBBLink", value = ACTION)
     void onActionFromForumCodePhpBBLink() {
-        forumCode = ForumCode.asPhpBBCode(filter.getShopItems(), pictureService);
+        forumCode = new PhpBBCode(filter.getShopItems(), pictureService).generateCode();
         ajaxResponseRenderer.addRender(forumCodeZone);
     }
 
@@ -127,14 +126,14 @@ public class Market {
         filter = new MarketFilter(market, session);
         Filter filter = Filter.valueOf(Filter.class, filterName);
         switch (filter) {
-        case byUser:
-            User user = population.findById(Long.valueOf(value));
-            this.filter.filterByUser(user);
-            break;
-        case byArticle:
-            Article article = articleFactory.findById(Long.valueOf(value));
-            this.filter.filterByArticle(article);
-            break;
+            case byUser:
+                User user = population.findById(Long.valueOf(value));
+                this.filter.filterByUser(user);
+                break;
+            case byArticle:
+                Article article = articleFactory.findById(Long.valueOf(value));
+                this.filter.filterByArticle(article);
+                break;
         }
         return true;
     }
@@ -263,15 +262,15 @@ public class Market {
     }
 
     public String getGameSelected() {
-        return filter.isFilteredByGames() ? "selected":"";
+        return filter.isFilteredByGames() ? "selected" : "";
     }
 
     public String getHardwareSelected() {
-        return filter.isFilteredByHardwares() ? "selected":"";
+        return filter.isFilteredByHardwares() ? "selected" : "";
     }
 
     public String getAccessorySelected() {
-        return filter.isFilteredByAccessories() ? "selected":"";
+        return filter.isFilteredByAccessories() ? "selected" : "";
     }
 
     public String getFilterUrl() {
@@ -279,7 +278,7 @@ public class Market {
     }
 
     public String getTitle() {
-        return messages.format("market.usermarket",username);
+        return messages.format("market.usermarket", username);
     }
 
 }
