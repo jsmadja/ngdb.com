@@ -9,6 +9,7 @@ import com.ngdb.entities.article.element.Tag;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.entities.user.User;
+import com.ngdb.services.SNK;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -39,6 +40,9 @@ public class Stats {
     @Inject
     private ArticleFactory articleFactory;
 
+    @Inject
+    private SNK snk;
+
     @Property
     private Long wishListCount;
 
@@ -60,27 +64,34 @@ public class Stats {
 
     @Property
     private Article mostForSaleArticle;
+
     @Property
     private Long mostForSaleArticleCount;
 
     @Property
     private User biggestCollectionner;
+
     @Property
     private Long biggestCollectionnerCount;
 
     @Property
     private User biggestWisher;
+
     @Property
     private Long biggestWisherCount;
 
     @Inject
     private ReferenceService referenceService;
 
+    @Property
+    private Long employeeCount;
+
     @SetupRender
     public void init() {
         this.userCount = population.getNumUsers();
         this.wishListCount = wishBox.getNumWishes();
         this.soldCount = market.getNumSoldItems();
+        this.employeeCount = snk.getNumEmployees();
 
         EntityCount entityCount = entityCountQuery("SELECT article_id,COUNT(*) FROM CollectionObject GROUP BY article_id ORDER BY COUNT(*) DESC");
         this.mostOwnedArticle = articleFactory.findById(entityCount.entityId);
@@ -134,6 +145,20 @@ public class Stats {
         long numTotalGames = (Long) session.createCriteria(Game.class).setProjection(countDistinct("id")).uniqueResult();
         long numTagGames = (Long)session.createCriteria(Tag.class).setProjection(countDistinct("article")).uniqueResult();
         int percent = (int) ((numTagGames / (float) numTotalGames) * 100);
+        return progressBar(percent);
+    }
+
+    public String getStaffProgress() {
+        long numTotalGames = (Long) session.createCriteria(Game.class).setProjection(countDistinct("id")).uniqueResult();
+        long numStaffGames = ((BigInteger)session.createSQLQuery("SELECT count(id) FROM Game WHERE ngh in (SELECT ngh FROM Game WHERE id in (SELECT distinct article_id FROM Participation))").uniqueResult()).longValue();
+        int percent = (int) ((numStaffGames / (float) numTotalGames) * 100);
+        return progressBar(percent);
+    }
+
+    public String getVideoProgress() {
+        long numTotalGames = (Long) session.createCriteria(Game.class).setProjection(countDistinct("id")).uniqueResult();
+        long numVideoGames = ((BigInteger)session.createSQLQuery("SELECT count(id) FROM Game WHERE ngh in (SELECT ngh FROM Game WHERE id in (SELECT distinct id FROM Game WHERE youtube_playlist IS NOT NULL))").uniqueResult()).longValue();
+        int percent = (int) ((numVideoGames / (float) numTotalGames) * 100);
         return progressBar(percent);
     }
 
