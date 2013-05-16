@@ -29,15 +29,13 @@ tar -zcf $filename.tar.gz *
 rm -rf sql
 rm -rf ngdb
 
-echo "preparing cadaver input ..."
-sed s/__filename__/`date "+%Y_%m_%d"`.tar.gz/ <$home_script/cadaver.script > $home_script/cadaver.script.seded
-
-echo "uploading backup file to dumptruck ..."
-cadaver -t https://dav.dumptruck.goldenfrog.com/r/giganews.com < $home_script/cadaver.script.seded
+echo "uploading backup file ..."
+lftp fairlighthome:fairligh@ftp.chez.com -e "put $dir/$filename.tar.gz; quit;"
 
 echo "cleaning temp directory ..."
 rm -rf sql
 rm -rf ngdb
 rm -rf $home_script/cadaver.script.seded
+rm -rf $dir
 
 echo "backup done!"
