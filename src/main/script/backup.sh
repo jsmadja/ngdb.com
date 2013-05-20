@@ -21,7 +21,7 @@ mkdir -p $dir/conf
 mkdir $dir/conf/cron
 
 cp /etc/cron.daily/suppressions_images_foireuses.sh $dir/conf/cron
-
+cp /etc/apache2/mods-enabled/alias.conf $dir/conf
 
 echo "compressing files ..."
 tar -zcf $filename.tar.gz *
@@ -30,12 +30,11 @@ rm -rf sql
 rm -rf ngdb
 
 echo "uploading backup file ..."
-lftp fairlighthome:fairligh@ftp.chez.com -e "put $dir/$filename.tar.gz; quit;"
+lftp nmt:1234@kaddath.hd.free.fr -e "cd SATA_DISK; cd neogeodb; put $dir/$filename.tar.gz; quit;"
 
 echo "cleaning temp directory ..."
 rm -rf sql
 rm -rf ngdb
-rm -rf $home_script/cadaver.script.seded
 rm -rf $dir
 
 echo "backup done!"
