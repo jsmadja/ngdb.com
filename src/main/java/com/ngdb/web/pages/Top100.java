@@ -101,6 +101,7 @@ public class Top100 {
     @OnEvent(component = "top100", value = EventConstants.VALUE_CHANGED)
     public void onSelectFromTop100(String currentTop100) {
         if(isNotSeparator(currentTop100)) {
+            System.err.println("currentTop100: '"+currentTop100+"'");
             this.currentTop100 = currentTop100;
             ajaxResponseRenderer.addRender(top100Zone);
         }
