@@ -1,5 +1,7 @@
 package com.ngdb.web.pages;
 
+import com.google.common.base.Enums;
+import com.google.common.base.Optional;
 import com.google.common.collect.Collections2;
 import com.ngdb.Functions;
 import com.ngdb.entities.ArticleFactory;
@@ -66,12 +68,15 @@ public class WishBox {
             return true;
         }
         filter = new WishBoxFilter(wishBox, session);
-        Filter filter = Filter.valueOf(Filter.class, filterName);
-        switch (filter) {
-        case byUser:
-            User user = population.findById(Long.valueOf(value));
-            this.filter.filterByUser(user);
-            break;
+        Optional<Filter> optionalFilter = Enums.getIfPresent(Filter.class, filterName);
+        if(optionalFilter.isPresent()) {
+            Filter filter = optionalFilter.get();
+            switch (filter) {
+            case byUser:
+                User user = population.findById(Long.valueOf(value));
+                this.filter.filterByUser(user);
+                break;
+            }
         }
         return true;
     }
