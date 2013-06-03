@@ -7,6 +7,8 @@ import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.Hardware;
 import com.ngdb.entities.article.element.Review;
 import com.ngdb.entities.article.element.Tags;
+import com.ngdb.entities.reference.Origin;
+import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -23,9 +25,7 @@ import static com.ngdb.Comparators.compareByNghOrId;
 import static java.util.Arrays.asList;
 import static java.util.Collections.sort;
 import static org.hibernate.criterion.Projections.*;
-import static org.hibernate.criterion.Restrictions.eq;
-import static org.hibernate.criterion.Restrictions.isNotEmpty;
-import static org.hibernate.criterion.Restrictions.isNotNull;
+import static org.hibernate.criterion.Restrictions.*;
 
 public class ArticleFactory {
 
@@ -101,8 +101,14 @@ public class ArticleFactory {
         return session.createCriteria(Game.class).setCacheable(true);
     }
 
-    public Game getRandomGameWithMainPicture() {
-        List<Long> gamesWithMainPicture = session.createCriteria(Game.class).setProjection(id()).add(isNotNull("coverUrl")).add(eq("platformShortName", "AES")).setCacheable(true).list();
+    public Game getRandomGameWithMainPicture(Platform platform, Origin origin) {
+        List<Long> gamesWithMainPicture = session.createCriteria(Game.class).setProjection(id()).
+                add(isNotNull("coverUrl")).
+                add(eq("platformShortName", platform.getShortName())).
+                add(eq("originTitle", origin.getTitle())).
+                setCacheable(true).
+                list();
+        System.err.println(platform.getShortName()+" "+origin.getTitle()+" "+gamesWithMainPicture.size());
         int randomId = RandomUtils.nextInt(gamesWithMainPicture.size());
         Long randomGameId = gamesWithMainPicture.get(randomId);
         return (Game) session.load(Game.class, randomGameId);

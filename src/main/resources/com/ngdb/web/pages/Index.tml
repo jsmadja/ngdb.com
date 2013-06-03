@@ -13,18 +13,19 @@
 
 	<div class="row-fluid" style="margin-top:20px">
 		<div class="span4">
-            <t:pageLink page="${randomGame1.viewPage}" context="[randomGame1,randomGame1.suffix]">
-                <img class="thumbnail" style="height:280px" src="${message:image.host.url}${randomGame1MainPicture}" title="${randomGame1.title}" /></t:pageLink>
-  		</div>
+      <t:pageLink page="${game1.viewPage}" context="[game1,game1.suffix]">
+          <img class="thumbnail" src="${message:image.host.url}${game1.cover.urlMedium}" alt="${game1.title}" title="${game1.title}" />
+      </t:pageLink>
+    </div>
 		<div class="span4">
-            <t:pageLink page="${randomGame2.viewPage}" context="[randomGame2,randomGame2.suffix]">
-                <img class="thumbnail" style="height:280px;margin-left:auto;margin-right:auto" src="${message:image.host.url}${randomGame2MainPicture}" title="${randomGame2.title}" />
-            </t:pageLink>
+      <t:pageLink page="${game2.viewPage}" context="[game2,game2.suffix]">
+          <img class="thumbnail" style="margin-left:auto;margin-right:auto" src="${message:image.host.url}${game2.cover.urlMedium}" alt="${game2.title}" title="${game2.title}" />
+      </t:pageLink>
 		</div>
 		<div class="span4">
-            <t:pageLink page="${randomGame3.viewPage}" context="[randomGame3,randomGame3.suffix]">
-                <img class="thumbnail" style="height:280px;float:right" src="${message:image.host.url}${randomGame3MainPicture}" title="${randomGame3.title}" />
-            </t:pageLink>
+      <t:pageLink page="${game3.viewPage}" context="[game3,game3.suffix]">
+          <img class="thumbnail" style="float:right" src="${message:image.host.url}${game3.cover.urlMedium}" alt="${game3.title}" title="${game3.title}" />
+      </t:pageLink>
 		</div>
 	</div>
 

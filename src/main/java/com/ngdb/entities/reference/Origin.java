@@ -9,6 +9,8 @@ import javax.persistence.*;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Origin implements Comparable<Origin> {
 
+    public static final Origin USA = new Origin("USA");
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -47,13 +49,10 @@ public class Origin implements Comparable<Origin> {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Origin) {
-            return ((Origin) o).id.equals(id);
+        if(o == null) {
+            return false;
         }
-        return false;
+        return o instanceof Origin && title.equals(((Origin) o).getTitle());
     }
 
-    public Long getId() {
-        return id;
-    }
 }

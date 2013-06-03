@@ -4,109 +4,91 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.News;
-import com.ngdb.entities.Population;
-import com.ngdb.entities.WishBox;
 import com.ngdb.entities.article.Game;
+import com.ngdb.entities.reference.Origin;
+import com.ngdb.entities.reference.Platform;
+import com.ngdb.entities.reference.ReferenceService;
 import com.ngdb.web.services.infrastructure.CurrentUser;
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import static org.apache.commons.lang.math.RandomUtils.nextInt;
+
 public class Index {
-
-	@Inject
-	private WishBox wishBox;
-
-	@Inject
-	private Population population;
-
-	@Inject
-	private com.ngdb.entities.Market market;
 
     @Inject
     private ArticleFactory articleFactory;
 
-	private static Cache cache;
-
     @Property
-    private String randomGame1MainPicture;
-
-    @Property
-    private String randomGame2MainPicture;
-
-    @Property
-    private String randomGame3MainPicture;
-
-    private List<String> urls = new ArrayList<String>();
+    private Game game1, game2, game3;
 
     @Inject
     private CurrentUser currentUser;
 
-    static {
-		CacheManager create = CacheManager.create();
-		cache = create.getCache("index.random.games");
-	}
+    private static List<String> supportedLanguages = Lists.newArrayList("fr", "de");
 
-	@SetupRender
-	public void init() {
-	    randomGame1MainPicture = getRandomGame1().getCover().getUrl("medium");
-        urls.add(randomGame1MainPicture);
+    @Inject
+    private ReferenceService referenceService;
 
-        randomGame2MainPicture = getRandomGame2().getCover().getUrl("medium");
-        urls.add(randomGame2MainPicture);
+    @Inject
+    private Session session;
 
-        randomGame3MainPicture = getRandomGame3().getCover().getUrl("medium");
+    private List<Platform> platforms;
+
+    private List<Origin> origins;
+
+    void onActivate() {
+        platforms = referenceService.getPlatforms();
+        origins = referenceService.getOrigins();
     }
 
-	public Game getRandomGame1() {
-		return getRandomGameFromCache(1);
-	}
-
-	public Game getRandomGame2() {
-		return getRandomGameFromCache(2);
-	}
-
-	public Game getRandomGame3() {
-		return getRandomGameFromCache(3);
-	}
-
-	private Game getRandomGameFromCache(int index) {
-		Element elementInCache = cache.get(index);
-		if (elementInCache != null) {
-			return (Game) elementInCache.getValue();
-		}
-		Game randomGame = articleFactory.getRandomGameWithMainPicture();
-        String url = randomGame.getCover().getUrl("medium");
-        if(urls.contains(url)) {
-            return getRandomGameFromCache(index);
+    @SetupRender
+    public void init() {
+        Platform platform = platforms.get(nextInt(platforms.size()));
+        Origin origin = origins.get(nextInt(origins.size()));
+        if(origin.getTitle().equals("Korea")) {
+            origin = Origin.USA;
         }
-		Element element = new Element(index, randomGame);
-		cache.put(element);
-		return getRandomGameFromCache(index);
-	}
+
+        game1 = findRandomGame1(platform, origin);
+        game2 = findRandomGame2(platform, origin);
+        game3 = findRandomGame3(platform, origin);
+    }
+
+    private Game findRandomGame1(Platform platform, Origin origin) {
+        return articleFactory.getRandomGameWithMainPicture(platform, origin);
+    }
+
+    private Game findRandomGame2(Platform platform, Origin origin) {
+        Game game2 = articleFactory.getRandomGameWithMainPicture(platform, origin);
+        if (game2.equals(game1)) {
+            return findRandomGame2(platform, origin);
+        }
+        return game2;
+    }
+
+    private Game findRandomGame3(Platform platform, Origin origin) {
+        Game game3 = articleFactory.getRandomGameWithMainPicture(platform, origin);
+        if (game3.equals(game1) || game3.equals(game2)) {
+            return findRandomGame3(platform, origin);
+        }
+        return game3;
+    }
 
     public String getHtmlNews() {
         Locale locale = currentUser.getLocale();
         String userLanguage = locale.getLanguage();
-        if(!supportedLanguages.contains(userLanguage)) {
+        if (!supportedLanguages.contains(userLanguage)) {
             userLanguage = "en";
         }
         List<News> news = session.createCriteria(News.class).add(Restrictions.eq("language", userLanguage)).list();
         return Joiner.on("").join(news);
     }
-
-    private static List<String> supportedLanguages = Lists.newArrayList("fr", "de");
-
-    @Inject
-    private Session session;
 
 }

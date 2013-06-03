@@ -21,10 +21,7 @@
 	<cache name="search.all.suggestions" maxElementsInMemory="1"
 		eternal="false" timeToLiveSeconds="86400" overflowToDisk="false" statistics="true" />
 		
-	<cache name="index.random.games" maxElementsInMemory="3"
-		eternal="false" timeToLiveSeconds="86400" overflowToDisk="false" statistics="true" />
-
-    <cache name="index.random.shopitem" maxElementsInMemory="3"
+	<cache name="index.random.shopitem" maxElementsInMemory="3"
            eternal="false" timeToLiveSeconds="86400" overflowToDisk="false" statistics="true" />
 
     <cache name="average.marks.of.games" eternal="true" statistics="true" />
