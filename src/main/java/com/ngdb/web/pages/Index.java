@@ -71,7 +71,7 @@ public class Index {
 
     private Game findRandomGame2(Platform platform, Origin origin) {
         Game game2 = articleFactory.getRandomGameWithMainPicture(platform, origin);
-        if (game2.equals(game1)) {
+        if (game2.getId().equals(game1.getId())) {
             return findRandomGame2(platform, origin);
         }
         return game2;
@@ -79,7 +79,7 @@ public class Index {
 
     private Game findRandomGame3(Platform platform, Origin origin) {
         Game game3 = articleFactory.getRandomGameWithMainPicture(platform, origin);
-        if (game3.equals(game1) || game3.equals(game2)) {
+        if (game3.getId().equals(game1.getId()) || game3.getId().equals(game2.getId())) {
             return findRandomGame3(platform, origin);
         }
         return game3;
