@@ -16,6 +16,7 @@ import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -108,10 +109,17 @@ public class ArticleFactory {
                 add(eq("originTitle", origin.getTitle())).
                 setCacheable(true).
                 list();
-        System.err.println(platform.getShortName()+" "+origin.getTitle()+" "+gamesWithMainPicture.size());
         int randomId = RandomUtils.nextInt(gamesWithMainPicture.size());
         Long randomGameId = gamesWithMainPicture.get(randomId);
         return (Game) session.load(Game.class, randomGameId);
+    }
+
+    public Long findNumGames(Platform platform, Origin origin) {
+        return (Long) session.createCriteria(Game.class).setProjection(countDistinct("id")).
+                add(isNotNull("coverUrl")).
+                add(eq("platformShortName", platform.getShortName())).
+                add(eq("originTitle", origin.getTitle())).
+                setCacheable(true).uniqueResult();
     }
 
     private static Function<Object[], Game> toGame = new Function<Object[], Game>() {
@@ -163,6 +171,5 @@ public class ArticleFactory {
         }
         return nonConsistentTagGames;
     }
-
 
 }

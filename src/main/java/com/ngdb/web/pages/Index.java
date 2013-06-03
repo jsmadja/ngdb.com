@@ -52,13 +52,17 @@ public class Index {
     public void init() {
         Platform platform = platforms.get(nextInt(platforms.size()));
         Origin origin = origins.get(nextInt(origins.size()));
-        if(origin.getTitle().equals("Korea")) {
-            origin = Origin.USA;
+        if(hasMoreThanTwoGames(platform, origin)) {
+            game1 = findRandomGame1(platform, origin);
+            game2 = findRandomGame2(platform, origin);
+            game3 = findRandomGame3(platform, origin);
+        } else {
+            init();
         }
+    }
 
-        game1 = findRandomGame1(platform, origin);
-        game2 = findRandomGame2(platform, origin);
-        game3 = findRandomGame3(platform, origin);
+    private boolean hasMoreThanTwoGames(Platform platform, Origin origin) {
+        return articleFactory.findNumGames(platform, origin) > 2;
     }
 
     private Game findRandomGame1(Platform platform, Origin origin) {
