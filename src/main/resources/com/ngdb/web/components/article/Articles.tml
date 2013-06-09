@@ -68,7 +68,7 @@
                     <p:thumbnailColumnHeader></p:thumbnailColumnHeader>
                     <p:thumbnailColumnCell>
                         <t:pageLink page="${article.viewPage}" context="[article.id,article.suffix]">
-                            <img src="${message:image.host.url}${article.cover.urlSmall}" alt="${article.title}" title="${article.title}" />
+                            <img src="${message:image.host.url}${article.cover.urlSmall}" alt="${article.title}" title="${article.title}" width="${width}" />
                         </t:pageLink>
                     </p:thumbnailColumnCell>
                     <p:titleCell>

@@ -92,4 +92,11 @@ public class Articles {
         return reviewer.getStarsOf(article);
     }
 
+    public String getWidth() {
+        if(tableMode) {
+            return "90";
+        }
+        return "";
+    }
+
 }
