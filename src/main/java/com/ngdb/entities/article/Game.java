@@ -1,6 +1,7 @@
 package com.ngdb.entities.article;
 
 import com.ngdb.entities.Staff;
+import com.ngdb.entities.article.element.Picture;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.Analyzer;
@@ -80,4 +81,23 @@ public class Game extends Article implements Serializable {
         return "article/game/gameUpdate";
     }
 
+    public boolean isCD() {
+        return "NGCD".equalsIgnoreCase(getPlatformShortName());
+    }
+
+    public boolean isAES() {
+        return "AES".equalsIgnoreCase(getPlatformShortName());
+    }
+
+    public Picture getCover() {
+        if (coverUrl == null) {
+            if(isCD()) {
+                return Picture.EMPTY_CD;
+            }
+            if(isAES()) {
+                return Picture.EMPTY_AES;
+            }
+        }
+        return super.getCover();
+    }
 }

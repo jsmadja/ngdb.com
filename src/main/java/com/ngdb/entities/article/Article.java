@@ -94,7 +94,7 @@ public abstract class Article implements Comparable<Article>, Serializable {
     private ArticlePictures pictures;
 
     @Column(name = "cover_url", nullable = true)
-    private String coverUrl;
+    protected String coverUrl;
 
     @Column(name = "youtube_playlist", nullable = true)
     private String youtubePlaylist;

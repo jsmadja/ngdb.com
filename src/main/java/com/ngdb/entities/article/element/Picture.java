@@ -16,6 +16,8 @@ import java.io.File;
 public class Picture extends AbstractEntity implements Comparable<Picture> {
 
     public static final Picture EMPTY = new Picture("/ngdb/unknown.png");
+    public static final Picture EMPTY_CD = new Picture("/ngdb/CD_Wanted.jpg");
+    public static final Picture EMPTY_AES = new Picture("/ngdb/ROM_Wanted.jpg");
 
     @Column(nullable = false)
     private String url;
