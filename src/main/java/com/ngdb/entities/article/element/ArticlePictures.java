@@ -1,5 +1,6 @@
 package com.ngdb.entities.article.element;
 
+import com.ngdb.entities.article.Article;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -17,9 +18,12 @@ public class ArticlePictures implements Iterable<Picture> {
     @OneToMany(mappedBy = "article", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Picture> pictures;
 
+    @ManyToOne
+    private Article article;
+
     public Picture first() {
         if (pictures == null || pictures.isEmpty()) {
-            return Picture.EMPTY;
+            return article.getCover();
         }
         return pictures.iterator().next();
     }

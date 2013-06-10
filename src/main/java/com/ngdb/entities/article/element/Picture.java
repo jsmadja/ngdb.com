@@ -15,10 +15,6 @@ import java.io.File;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Picture extends AbstractEntity implements Comparable<Picture> {
 
-    public static final Picture EMPTY = new Picture("/ngdb/unknown.png");
-    public static final Picture EMPTY_CD = new Picture("/ngdb/CD_Wanted.jpg");
-    public static final Picture EMPTY_AES = new Picture("/ngdb/ROM_Wanted.jpg");
-
     @Column(nullable = false)
     private String url;
 
@@ -36,13 +32,18 @@ public class Picture extends AbstractEntity implements Comparable<Picture> {
     }
 
     public String getUrl() {
-        if (url == null) {
-            return EMPTY.getUrl();
-        }
         if (isWatermarked()) {
             return toWatermarkedUrl();
         }
         return url;
+    }
+
+    public static Picture emptyOfHardware() {
+        return new Picture("/ngdb/Hard_Wanted.jpg");
+    }
+
+    public static Picture emptyOf(String platformName) {
+        return new Picture("/ngdb/"+platformName+"_Wanted.jpg");
     }
 
     public String getUrlSmall() {
@@ -58,9 +59,6 @@ public class Picture extends AbstractEntity implements Comparable<Picture> {
     }
 
     public String getUrl(String size) {
-        if (url == null) {
-            return EMPTY.getUrl();
-        }
         if (isAvailableIn(size)) {
             return toSizeUrl(size);
         }
@@ -125,4 +123,7 @@ public class Picture extends AbstractEntity implements Comparable<Picture> {
         return url;
     }
 
+    public boolean isNotEmpty() {
+        return url != null;
+    }
 }

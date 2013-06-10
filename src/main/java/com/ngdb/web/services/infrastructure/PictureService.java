@@ -40,7 +40,7 @@ public class PictureService {
 			LOG.warn("Cannot create picture with name '" + uploadedFile.getFileName() + "' for article " + article.getId(), e);
 		}
         cacher.invalidateCoverOf(article);
-        return Picture.EMPTY;
+        return article.getCover();
 	}
 
 	public Picture store(UploadedFile uploadedFile, ShopItem shopItem) {
@@ -52,7 +52,7 @@ public class PictureService {
 		} catch (IOException e) {
 			LOG.warn("Cannot create picture with name '" + uploadedFile.getFileName() + "' for article " + shopItem.getId(), e);
 		}
-		return Picture.EMPTY;
+		return shopItem.getMainPicture();
 	}
 
 	private Picture createPictureFromUploadedFile(UploadedFile uploadedFile, Article article) throws IOException {

@@ -27,7 +27,7 @@
 
     <t:if test="thumbnailMode">
     <t:loop source="articles" value="article">
-        <span class="museum_item">
+        <span class="museum_item" style="max-width: 240px;">
             <t:article.thumbnail article="article" size="literal:medium" />
         </span>
     </t:loop>

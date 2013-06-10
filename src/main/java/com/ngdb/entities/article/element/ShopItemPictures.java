@@ -1,12 +1,10 @@
 package com.ngdb.entities.article.element;
 
+import com.ngdb.entities.shop.ShopItem;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -19,9 +17,12 @@ public class ShopItemPictures implements Iterable<Picture> {
     @OneToMany(mappedBy = "shopItem", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Picture> pictures;
 
+    @ManyToOne
+    private ShopItem shopItem;
+
     public Picture first() {
         if (pictures == null || pictures.isEmpty()) {
-            return Picture.EMPTY;
+            return shopItem.getMainPicture();
         }
         return pictures.iterator().next();
     }

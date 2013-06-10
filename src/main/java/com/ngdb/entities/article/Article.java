@@ -202,7 +202,10 @@ public abstract class Article implements Comparable<Article>, Serializable {
 
     public Picture getCover() {
         if (coverUrl == null) {
-            return Picture.EMPTY;
+            if(isGame()) {
+                return Picture.emptyOf(platformShortName);
+            }
+            return Picture.emptyOfHardware();
         }
         return new Picture(coverUrl);
     }
@@ -331,7 +334,7 @@ public abstract class Article implements Comparable<Article>, Serializable {
     }
 
     public boolean hasCover() {
-        return getCover() != Picture.EMPTY;
+        return getCover().isNotEmpty();
     }
 
     public void setUpc(String upc) {
@@ -458,4 +461,5 @@ public abstract class Article implements Comparable<Article>, Serializable {
     public void setStaff(Staff staff) {
         this.staff = staff;
     }
+
 }
