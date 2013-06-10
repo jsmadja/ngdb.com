@@ -5303,3 +5303,33 @@ TABLE.t-data-grid THEAD TR TH {
 .neogeo {
     font-family:Times new roman;
 }
+
+.thumbnail_medium_NGCD {
+  width: 250px;
+  height: 220px;
+}
+
+.thumbnail_medium_AES {
+  width: 250px;
+  height: 300px;
+}
+
+.thumbnail_medium_MVS {
+  width: 250px;
+  height: 150px;
+}
+
+.thumbnail_medium_H64 {
+  width: 250px;
+  height: 250px;
+}
+
+.thumbnail_medium_NGP {
+  width: 250px;
+  height: 250px;
+}
+
+.thumbnail_medium_NGPC {
+  width: 250px;
+  height: 250px;
+}

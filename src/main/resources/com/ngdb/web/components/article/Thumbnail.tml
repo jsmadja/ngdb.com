@@ -1,14 +1,14 @@
 <span xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 	<t:if test="noClick">
 		<t:if test="center">
-			<img itemprop="image" class="thumbnail" style="margin-left:auto;margin-right:auto;" width="${width}" src="${message:image.host.url}${url}" alt="${article.title} ${article.originTitle} ${article.platformShortName}" title="${article.title} ${article.originTitle} ${article.platformShortName}" />
+			<img itemprop="image" class="thumbnail ${styleClass}" style="margin-left:auto;margin-right:auto;" width="${width}" src="${message:image.host.url}${url}" alt="${article.title} ${article.originTitle} ${article.platformShortName}" title="${article.title} ${article.originTitle} ${article.platformShortName}" />
 			<p:else>
-				<img itemprop="image" class="thumbnail" src="${message:image.host.url}${url}" title="${article.title} ${article.originTitle} ${article.platformShortName}" />
+				<img itemprop="image" class="thumbnail ${styleClass}" src="${message:image.host.url}${url}" title="${article.title} ${article.originTitle} ${article.platformShortName}" />
 			</p:else>
 		</t:if>
 		<p:else>
 			<t:pageLink page="${article.viewPage}" context="[article.id,article.suffix]">
-				<img itemprop="image" class="thumbnail" width="${width}" src="${message:image.host.url}${url}" alt="${article.title} ${article.originTitle} ${article.platformShortName}" title="${article.title} ${article.originTitle} ${article.platformShortName}" />
+				<img itemprop="image" class="thumbnail ${styleClass}" width="${width}" src="${message:image.host.url}${url}" alt="${article.title} ${article.originTitle} ${article.platformShortName}" title="${article.title} ${article.originTitle} ${article.platformShortName}" />
 			</t:pageLink>
 		</p:else>
 	</t:if>

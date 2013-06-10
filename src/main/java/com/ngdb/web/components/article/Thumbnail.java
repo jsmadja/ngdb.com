@@ -15,7 +15,11 @@ public class Thumbnail {
 	@Parameter
 	private Article article;
 
-	@Property
+    @Property
+    @Parameter
+    private String styleClass;
+
+    @Property
 	@Parameter
 	private String size;
 

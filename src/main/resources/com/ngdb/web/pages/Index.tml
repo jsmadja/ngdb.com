@@ -14,17 +14,17 @@
   <ul style="margin: 0;">
     <li style="display: inline-block; width: 32%;">
       <t:pageLink page="${game1.viewPage}" context="[game1,game1.suffix]">
-        <img class="thumbnail" src="${message:image.host.url}${game1.cover.urlMedium}" alt="${game1.title}" title="${game1.title}" />
+        <img class="thumbnail thumbnail_medium_${game1.platformShortName}" src="${message:image.host.url}${game1.cover.urlMedium}" alt="${game1.title}" title="${game1.title}" />
       </t:pageLink>
     </li>
     <li style="display: inline-block; width: 32%; padding-right: 2%; padding-left: 2%;">
       <t:pageLink page="${game2.viewPage}" context="[game2,game2.suffix]">
-        <img class="thumbnail" src="${message:image.host.url}${game2.cover.urlMedium}" alt="${game2.title}" title="${game2.title}" />
+        <img class="thumbnail thumbnail_medium_${game2.platformShortName}" src="${message:image.host.url}${game2.cover.urlMedium}" alt="${game2.title}" title="${game2.title}" />
       </t:pageLink>
     </li>
     <li style="display: inline-block; width: 32%;">
       <t:pageLink page="${game3.viewPage}" context="[game3,game3.suffix]">
-        <img class="thumbnail" src="${message:image.host.url}${game3.cover.urlMedium}" alt="${game3.title}" title="${game3.title}" />
+        <img class="thumbnail thumbnail_medium_${game3.platformShortName}" src="${message:image.host.url}${game3.cover.urlMedium}" alt="${game3.title}" title="${game3.title}" />
       </t:pageLink>
     </li>
   </ul>

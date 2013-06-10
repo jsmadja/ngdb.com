@@ -27,8 +27,8 @@
 
     <t:if test="thumbnailMode">
     <t:loop source="articles" value="article">
-        <span class="museum_item" style="max-width: 240px;">
-            <t:article.thumbnail article="article" size="literal:medium" />
+        <span class="museum_item" style="margin-top: 15px; margin-right: 5px;">
+            <t:article.thumbnail article="article" size="literal:medium" styleClass="thumbnail_medium_${article.platformShortName}" />
         </span>
     </t:loop>
     <p:else>
