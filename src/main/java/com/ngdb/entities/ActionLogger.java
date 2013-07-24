@@ -59,7 +59,7 @@ public class ActionLogger {
             return cacher.getLastActions();
         }
         Criteria criteria = session.createCriteria(ArticleAction.class).
-                setMaxResults(10).
+                setMaxResults(5).
                 addOrder(desc("creationDate")).
                 setCacheable(true);
         List actions = criteria.list();
