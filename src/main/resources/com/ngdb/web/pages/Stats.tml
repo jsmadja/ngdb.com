@@ -19,7 +19,7 @@
       <tr><td>${message:stats.videoprogress}</td><td><t:outputRaw value="${videoProgress}"/></td></tr>
       <tr><td>${message:stats.coverprogress}</td><td><table><t:outputRaw value="${coverProgress}"/></table></td></tr>
       <tr><td>${message:stats.contributors}</td><td><ul><t:outputRaw value="${pictureContributors}"/></ul></td></tr>
-      <tr><td></td><td><div t:clientId="container2" t:type="MyOwnChart"/></td></tr>
+      <tr><td></td><td><t:charts.numgamesbyyearschart /></td></tr>
     </tbody>
 	</table>
 </t:layout>

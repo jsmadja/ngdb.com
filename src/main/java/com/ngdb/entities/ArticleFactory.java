@@ -17,6 +17,8 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.joda.time.DateMidnight;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -30,12 +32,12 @@ import static org.hibernate.criterion.Restrictions.*;
 
 public class ArticleFactory {
 
-	@Inject
-	private Session session;
+    @Inject
+    private Session session;
 
-	public Article findById(Long id) {
-		return (Article) session.load(Article.class, id);
-	}
+    public Article findById(Long id) {
+        return (Article) session.load(Article.class, id);
+    }
 
     public Long getNumAccessories() {
         return (Long) session.createCriteria(Accessory.class).setProjection(rowCount()).setCacheable(true).setCacheRegion("cacheCount").uniqueResult();
@@ -52,7 +54,7 @@ public class ArticleFactory {
     public String findYoutubePlaylistOf(Game game) {
         List<Game> games = findAllGamesByNgh(game.getNgh());
         for (Game g : games) {
-            if(g.getYoutubePlaylist() != null) {
+            if (g.getYoutubePlaylist() != null) {
                 return g.getYoutubePlaylist();
             }
         }
@@ -62,7 +64,7 @@ public class ArticleFactory {
     public String findDailymotionPlaylistOf(Game game) {
         List<Game> games = findAllGamesByNgh(game.getNgh());
         for (Game g : games) {
-            if(g.getDailymotionPlaylist() != null) {
+            if (g.getDailymotionPlaylist() != null) {
                 return g.getDailymotionPlaylist();
             }
         }
@@ -92,7 +94,7 @@ public class ArticleFactory {
 
     private ProjectionList lightProjection() {
         ProjectionList projectionList = projectionList();
-        for(String property: asList("id", "title", "originTitle", "platformShortName", "publisher", "coverUrl")) {
+        for (String property : asList("id", "title", "originTitle", "platformShortName", "publisher", "coverUrl")) {
             projectionList.add(property(property));
         }
         return projectionList;
@@ -131,7 +133,7 @@ public class ArticleFactory {
             game.setOriginTitle(input[2].toString());
             game.setPlatformShortName(input[3].toString());
             game.setPublisher((Publisher) input[4]);
-            if(input[5] != null) {
+            if (input[5] != null) {
                 game.setCover(input[5].toString());
             }
             return game;
@@ -150,15 +152,15 @@ public class ArticleFactory {
         String oldNgh = null;
         Tags oldTags = null;
         List<Game> nonConsistentTagGames = new ArrayList<Game>();
-        for (Game game:games) {
+        for (Game game : games) {
             String currentNgh = game.getNgh();
             Tags currentTags = game.getTags();
-            if(currentTags.isEmpty()) {
+            if (currentTags.isEmpty()) {
                 nonConsistentTagGames.add(game);
             } else {
-                if(oldNgh != null && currentNgh != null) {
-                    if(oldNgh.equalsIgnoreCase(currentNgh)) {
-                        if(!oldTags.isEqualTo(currentTags)) {
+                if (oldNgh != null && currentNgh != null) {
+                    if (oldNgh.equalsIgnoreCase(currentNgh)) {
+                        if (!oldTags.isEqualTo(currentTags)) {
                             nonConsistentTagGames.add(game);
                         }
                     }
@@ -172,4 +174,12 @@ public class ArticleFactory {
         return nonConsistentTagGames;
     }
 
+    public long getNumGamesForPlatformAndYear(final Platform platform, Integer year) {
+        Date startDate = new DateMidnight(year, 1, 1).toDate();
+        Date endDate = new DateMidnight(year, 12, 31).toDate();
+        return (Long) session.createCriteria(Game.class).setProjection(Projections.rowCount()).
+                add(Restrictions.eq("platformShortName", platform.getShortName())).
+                add(Restrictions.between("releaseDate", startDate, endDate)).
+                uniqueResult();
+    }
 }

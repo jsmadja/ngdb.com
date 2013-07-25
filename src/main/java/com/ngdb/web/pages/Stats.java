@@ -13,6 +13,8 @@ import com.ngdb.services.SNK;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.json.JSONArray;
+import org.apache.tapestry5.json.JSONObject;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 
@@ -136,34 +138,34 @@ public class Stats {
 
     public String getReviewProgress() {
         long numTotalGames = (Long) session.createCriteria(Game.class).setProjection(countDistinct("id")).uniqueResult();
-        long numReviewedGames = ((BigInteger)session.createSQLQuery("SELECT count(id) FROM Game WHERE ngh in (SELECT ngh FROM Game WHERE id in (SELECT distinct article_id FROM Review))").uniqueResult()).longValue();
+        long numReviewedGames = ((BigInteger) session.createSQLQuery("SELECT count(id) FROM Game WHERE ngh in (SELECT ngh FROM Game WHERE id in (SELECT distinct article_id FROM Review))").uniqueResult()).longValue();
         int percent = (int) ((numReviewedGames / (float) numTotalGames) * 100);
         return progressBar(percent);
     }
 
     public String getTagProgress() {
         long numTotalGames = (Long) session.createCriteria(Game.class).setProjection(countDistinct("id")).uniqueResult();
-        long numTagGames = (Long)session.createCriteria(Tag.class).setProjection(countDistinct("article")).uniqueResult();
+        long numTagGames = (Long) session.createCriteria(Tag.class).setProjection(countDistinct("article")).uniqueResult();
         int percent = (int) ((numTagGames / (float) numTotalGames) * 100);
         return progressBar(percent);
     }
 
     public String getStaffProgress() {
         long numTotalGames = (Long) session.createCriteria(Game.class).setProjection(countDistinct("id")).uniqueResult();
-        long numStaffGames = ((BigInteger)session.createSQLQuery("SELECT count(id) FROM Game WHERE ngh in (SELECT ngh FROM Game WHERE id in (SELECT distinct article_id FROM Participation))").uniqueResult()).longValue();
+        long numStaffGames = ((BigInteger) session.createSQLQuery("SELECT count(id) FROM Game WHERE ngh in (SELECT ngh FROM Game WHERE id in (SELECT distinct article_id FROM Participation))").uniqueResult()).longValue();
         int percent = (int) ((numStaffGames / (float) numTotalGames) * 100);
         return progressBar(percent);
     }
 
     public String getVideoProgress() {
         long numTotalGames = (Long) session.createCriteria(Game.class).setProjection(countDistinct("id")).uniqueResult();
-        long numVideoGames = ((BigInteger)session.createSQLQuery("SELECT count(id) FROM Game WHERE ngh in (SELECT ngh FROM Game WHERE id in (SELECT distinct id FROM Game WHERE youtube_playlist IS NOT NULL))").uniqueResult()).longValue();
+        long numVideoGames = ((BigInteger) session.createSQLQuery("SELECT count(id) FROM Game WHERE ngh in (SELECT ngh FROM Game WHERE id in (SELECT distinct id FROM Game WHERE youtube_playlist IS NOT NULL))").uniqueResult()).longValue();
         int percent = (int) ((numVideoGames / (float) numTotalGames) * 100);
         return progressBar(percent);
     }
 
     private String progressBar(int percent) {
-        return "<div class=\"progress\" style=\"width:100px\" ><div class=\"bar\" style=\"width: "+percent+"%;\"></div></div>";
+        return "<div class=\"progress\" style=\"width:100px\" ><div class=\"bar\" style=\"width: " + percent + "%;\"></div></div>";
     }
 
     public String getPictureContributors() {
@@ -184,7 +186,6 @@ public class Stats {
     class EntityCount {
         Long entityId;
         Long count;
-
         EntityCount(Object o) {
             Object[] data = (Object[]) o;
             entityId = ((BigInteger) data[0]).longValue();
