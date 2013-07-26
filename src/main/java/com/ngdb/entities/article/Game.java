@@ -78,4 +78,11 @@ public class Game extends Article implements Serializable {
         return "article/game/gameUpdate";
     }
 
+    public boolean isAES() {
+        return getPlatformShortName().equalsIgnoreCase("AES");
+    }
+
+    public boolean isJapanese() {
+        return getOriginTitle().equalsIgnoreCase("Japan");
+    }
 }

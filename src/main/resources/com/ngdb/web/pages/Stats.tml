@@ -5,21 +5,22 @@
 			<tr><th>${message:stats.statistic}</th><th>${message:stats.statisticvalue}</th></tr>
 		</thead>
 		<tbody>
-			<tr><td>${message:stats.wishes}</td><td>${wishListCount}</td></tr>
-      <tr><td>${message:stats.members}</td><td>${userCount}</td></tr>
-      <tr><td>${message:stats.employees}</td><td>${employeeCount}</td></tr>
-      <tr><td>${message:stats.mostownedarticle}</td><td>${mostOwnedArticle} (${mostOwnedArticleCount})</td></tr>
-      <tr><td>${message:stats.mostwishedarticle}</td><td>${mostWishedArticle} (${mostWishedArticleCount})</td></tr>
-      <tr><td>${message:stats.mostforsalearticle}</td><td>${mostForSaleArticle} (${mostForSaleArticleCount})</td></tr>
-      <tr><td>${message:stats.biggestowner}</td><td>${biggestCollectionner} (${biggestCollectionnerCount})</td></tr>
-      <tr><td>${message:stats.biggestwisher}</td><td>${biggestWisher} (${biggestWisherCount})</td></tr>
-      <tr><td>${message:stats.reviewprogress}</td><td><t:outputRaw value="${reviewProgress}"/></td></tr>
-      <tr><td>${message:stats.taggingprogress}</td><td><t:outputRaw value="${tagProgress}"/></td></tr>
-      <tr><td>${message:stats.staffingprogress}</td><td><t:outputRaw value="${staffProgress}"/></td></tr>
-      <tr><td>${message:stats.videoprogress}</td><td><t:outputRaw value="${videoProgress}"/></td></tr>
-      <tr><td>${message:stats.coverprogress}</td><td><table><t:outputRaw value="${coverProgress}"/></table></td></tr>
-      <tr><td>${message:stats.contributors}</td><td><ul><t:outputRaw value="${pictureContributors}"/></ul></td></tr>
-      <tr><td></td><td><t:charts.numgamesbyyearschart /></td></tr>
-    </tbody>
+		  <tr><td>${message:stats.wishes}</td><td>${wishListCount}</td></tr>
+          <tr><td>${message:stats.members}</td><td>${userCount}</td></tr>
+          <tr><td>${message:stats.employees}</td><td>${employeeCount}</td></tr>
+          <tr><td>${message:stats.mostownedarticle}</td><td>${mostOwnedArticle} (${mostOwnedArticleCount})</td></tr>
+          <tr><td>${message:stats.mostwishedarticle}</td><td>${mostWishedArticle} (${mostWishedArticleCount})</td></tr>
+          <tr><td>${message:stats.mostforsalearticle}</td><td>${mostForSaleArticle} (${mostForSaleArticleCount})</td></tr>
+          <tr><td>${message:stats.biggestowner}</td><td>${biggestCollectionner} (${biggestCollectionnerCount})</td></tr>
+          <tr><td>${message:stats.biggestwisher}</td><td>${biggestWisher} (${biggestWisherCount})</td></tr>
+          <tr><td>${message:stats.reviewprogress}</td><td><t:outputRaw value="${reviewProgress}"/></td></tr>
+          <tr><td>${message:stats.taggingprogress}</td><td><t:outputRaw value="${tagProgress}"/></td></tr>
+          <tr><td>${message:stats.staffingprogress}</td><td><t:outputRaw value="${staffProgress}"/></td></tr>
+          <tr><td>${message:stats.videoprogress}</td><td><t:outputRaw value="${videoProgress}"/></td></tr>
+          <tr><td>${message:stats.coverprogress}</td><td><table><t:outputRaw value="${coverProgress}"/></table></td></tr>
+          <tr><td>${message:stats.contributors}</td><td><ul><t:outputRaw value="${pictureContributors}"/></ul></td></tr>
+          <tr><td></td><td><t:charts.numgamesbyyearschart /></td></tr>
+          <tr><td></td><td><t:charts.averageaesmegcountbyyearschart /></td></tr>
+        </tbody>
 	</table>
 </t:layout>
