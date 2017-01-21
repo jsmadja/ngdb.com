@@ -31,20 +31,6 @@ file -i `find /ngdb/images/articles -type f` | grep -v "medium\|small\|high" | g
                 	convert ${IMAGE} -resize 40% ${NAME}_medium.${EXT}
 		fi
 	done
-
-file -i `find /ngdb/images/shop-items -type f` | grep -v "medium\|small\|high" | grep image | awk -F':' '{ print $1 }' | while read IMAGE
-        do
-                NAME=`echo $IMAGE | cut -f1 -d.`
-                EXT=`echo $IMAGE | cut -f2 -d.`
-                if [ -f ${NAME}_small.${EXT} ] ; then
-                        echo "skip $IMAGE"
-                else
-                        echo Watermarking $IMAGE
-                        composite -dissolve 40% \( $WM -resize $SCALE% \) "$IMAGE" "${NAME}_high.${EXT}"
-                        convert ${IMAGE} -resize 15% ${NAME}_small.${EXT}
-                        convert ${IMAGE} -resize 40% ${NAME}_medium.${EXT}
-                fi
-        done
 exit 0
 
 
