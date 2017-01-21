@@ -6,13 +6,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
-import java.util.Collection;
 import java.util.Set;
 
-import static com.google.common.collect.Collections2.filter;
-import static com.google.common.collect.Collections2.transform;
-import static com.ngdb.Functions.fromCollectionObjectToArticle;
-import static com.ngdb.Predicates.*;
 import static javax.persistence.FetchType.LAZY;
 
 @Embeddable

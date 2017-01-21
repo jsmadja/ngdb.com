@@ -7,20 +7,18 @@ import com.ngdb.entities.article.element.Comment;
 import com.ngdb.entities.article.element.File;
 import com.ngdb.entities.article.element.Picture;
 import com.ngdb.entities.article.element.Review;
-import com.ngdb.entities.shop.ShopItem;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Cacher {
 
-    private static Cache averageMarksOfGames, reviewsOfGames, ranksOfArticles, coversOfArticles, coversOfShopItems,
-    barcodes, wishRanksOfArticles, commentsOfArticles, filesOfArticles, titlesOfShopItems;
+    private static Cache averageMarksOfGames, reviewsOfGames, ranksOfArticles, coversOfArticles,
+            barcodes, wishRanksOfArticles, commentsOfArticles, filesOfArticles;
 
     private static Collection<ArticleAction> lastActions = new HashSet<ArticleAction>();
 
@@ -31,24 +29,22 @@ public class Cacher {
         ranksOfArticles = cacheManager.getCache("ranks.of.articles");
         wishRanksOfArticles = cacheManager.getCache("wishranks.of.articles");
         coversOfArticles = cacheManager.getCache("covers.of.articles");
-        coversOfShopItems = cacheManager.getCache("covers.of.shopitems");
         commentsOfArticles = cacheManager.getCache("comments.of.articles");
         filesOfArticles = cacheManager.getCache("files.of.articles");
         barcodes = cacheManager.getCache("barcodes");
-        titlesOfShopItems = cacheManager.getCache("titles.of.shopitems");
     }
 
     // --- has
 
     public boolean hasAverageMarkOf(Article article) {
-        if(!article.isGame()) {
+        if (!article.isGame()) {
             return false;
         }
         return averageMarksOfGames.isKeyInCache(nghKeyFrom(article));
     }
 
     public boolean hasReviewsOf(Article article) {
-        if(!article.isGame()) {
+        if (!article.isGame()) {
             return false;
         }
         return reviewsOfGames.isKeyInCache(nghKeyFrom(article));
@@ -66,27 +62,19 @@ public class Cacher {
         return coversOfArticles.isKeyInCache(keyFrom(article));
     }
 
-    public boolean hasCoverOf(ShopItem shopItem) {
-        return coversOfShopItems.isKeyInCache(keyFrom(shopItem));
-    }
-
-    public boolean hasTitleOf(ShopItem shopItem) {
-        return titlesOfShopItems.isKeyInCache(keyFrom(shopItem));
-    }
-
     public boolean hasBarcodeOf(String ean) {
         return barcodes.isKeyInCache(ean);
     }
 
     public boolean hasCommentsOf(Article article) {
-        if(article.isGame()) {
+        if (article.isGame()) {
             return commentsOfArticles.isKeyInCache(nghKeyFrom(article));
         }
         return commentsOfArticles.isKeyInCache(keyFrom(article));
     }
 
     public boolean hasFilesOf(Article article) {
-        if(article.isGame()) {
+        if (article.isGame()) {
             return filesOfArticles.isKeyInCache(nghKeyFrom(article));
         }
         return filesOfArticles.isKeyInCache(keyFrom(article));
@@ -99,13 +87,13 @@ public class Cacher {
     // --- set
 
     public void setAverageMarkOf(Article article, Double averageMark) {
-        if(article.isGame()) {
+        if (article.isGame()) {
             averageMarksOfGames.put(new Element(nghKeyFrom(article), averageMark));
         }
     }
 
     public void setReviewsOf(Article article, Set<Review> reviews) {
-        if(article.isGame()) {
+        if (article.isGame()) {
             reviewsOfGames.put(new Element(nghKeyFrom(article), reviews));
         }
     }
@@ -122,20 +110,12 @@ public class Cacher {
         coversOfArticles.put(new Element(keyFrom(article), picture));
     }
 
-    public void setCoverOf(ShopItem shopItem, Picture picture) {
-        coversOfShopItems.put(new Element(keyFrom(shopItem), picture));
-    }
-
-    public void setTitleOf(ShopItem shopItem, String title) {
-        titlesOfShopItems.put(new Element(keyFrom(shopItem), title));
-    }
-
     public void setBarcodeOf(String ean, String barcode) {
         barcodes.put(new Element(ean, barcode));
     }
 
     public void setCommentsOf(Article article, Set<Comment> comments) {
-        if(article.isGame()) {
+        if (article.isGame()) {
             commentsOfArticles.put(new Element(nghKeyFrom(article), comments));
         } else {
             commentsOfArticles.put(new Element(keyFrom(article), comments));
@@ -143,7 +123,7 @@ public class Cacher {
     }
 
     public void setFilesOf(Article article, Set<File> files) {
-        if(article.isGame()) {
+        if (article.isGame()) {
             filesOfArticles.put(new Element(nghKeyFrom(article), files));
         } else {
             filesOfArticles.put(new Element(keyFrom(article), files));
@@ -165,14 +145,14 @@ public class Cacher {
     }
 
     public Set<Comment> getCommentsOf(Article article) {
-        if(article.isGame()) {
+        if (article.isGame()) {
             return (Set<Comment>) commentsOfArticles.get(nghKeyFrom(article)).getValue();
         }
         return (Set<Comment>) commentsOfArticles.get(keyFrom(article)).getValue();
     }
 
     public Set<File> getFilesOf(Article article) {
-        if(article.isGame()) {
+        if (article.isGame()) {
             return (Set<File>) filesOfArticles.get(nghKeyFrom(article)).getValue();
         }
         return (Set<File>) filesOfArticles.get(keyFrom(article)).getValue();
@@ -190,14 +170,6 @@ public class Cacher {
         return (Picture) coversOfArticles.get(keyFrom(article)).getValue();
     }
 
-    public Picture getCoverOf(ShopItem shopItem) {
-        return (Picture) coversOfShopItems.get(keyFrom(shopItem)).getValue();
-    }
-
-    public String getTitleOf(ShopItem shopItem) {
-        return titlesOfShopItems.get(keyFrom(shopItem)).getValue().toString();
-    }
-
     public String getBarcodeOf(String ean) {
         return barcodes.get(ean).getValue().toString();
     }
@@ -209,13 +181,13 @@ public class Cacher {
     // --- invalidate
 
     public void invalidateAverageMarkOf(Article article) {
-        if(hasAverageMarkOf(article)) {
+        if (hasAverageMarkOf(article)) {
             averageMarksOfGames.remove(nghKeyFrom(article));
         }
     }
 
     public void invalidateReviewsOf(Article article) {
-        if(hasReviewsOf(article)) {
+        if (hasReviewsOf(article)) {
             reviewsOfGames.remove(nghKeyFrom((Game) article));
         }
     }
@@ -229,26 +201,20 @@ public class Cacher {
     }
 
     public void invalidateCoverOf(Article article) {
-        if(hasCoverOf(article)) {
+        if (hasCoverOf(article)) {
             coversOfArticles.remove(keyFrom(article));
         }
     }
 
-    public void invalidateCoverOf(ShopItem shopItem) {
-        if(hasCoverOf(shopItem)) {
-            coversOfShopItems.remove(keyFrom(shopItem));
-        }
-    }
-
     public void invalidateBarcode(String ean) {
-        if(hasBarcodeOf(ean)) {
+        if (hasBarcodeOf(ean)) {
             barcodes.remove(ean);
         }
     }
 
     public void invalidateCommentsOf(Article article) {
-        if(hasCommentsOf(article)) {
-            if(article.isGame()) {
+        if (hasCommentsOf(article)) {
+            if (article.isGame()) {
                 commentsOfArticles.remove(nghKeyFrom(article));
             } else {
                 commentsOfArticles.remove(keyFrom(article));
@@ -257,8 +223,8 @@ public class Cacher {
     }
 
     public void invalidateFilesOf(Article article) {
-        if(hasFilesOf(article)) {
-            if(article.isGame()) {
+        if (hasFilesOf(article)) {
+            if (article.isGame()) {
                 filesOfArticles.remove(nghKeyFrom(article));
             } else {
                 filesOfArticles.remove(keyFrom(article));
@@ -282,10 +248,6 @@ public class Cacher {
 
     private String keyFrom(Game game) {
         return game.getNgh();
-    }
-
-    private Long keyFrom(ShopItem shopItem) {
-        return shopItem.getId();
     }
 
 }

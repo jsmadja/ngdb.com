@@ -1,6 +1,5 @@
 package com.ngdb.entities.article;
 
-import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.ngdb.entities.Participation;
 import com.ngdb.entities.Staff;
@@ -8,9 +7,6 @@ import com.ngdb.entities.article.element.*;
 import com.ngdb.entities.reference.Origin;
 import com.ngdb.entities.reference.Platform;
 import com.ngdb.entities.reference.Publisher;
-import com.ngdb.entities.reference.State;
-import com.ngdb.entities.shop.ShopItems;
-import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.User;
 import com.ngdb.services.SentenceTokenizerFactory;
@@ -22,15 +18,11 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.*;
 
-import javax.annotation.Nullable;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import static com.google.common.collect.Collections2.transform;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -109,12 +101,6 @@ public abstract class Article implements Comparable<Article>, Serializable {
     @Embedded
     @IndexedEmbedded
     private Comments comments;
-
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
-    private Set<Wish> wishList;
-
-    @Embedded
-    private ShopItems shopItems;
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private Set<CollectionObject> owners;
@@ -202,7 +188,7 @@ public abstract class Article implements Comparable<Article>, Serializable {
 
     public Picture getCover() {
         if (coverUrl == null) {
-            if(isGame()) {
+            if (isGame()) {
                 return Picture.emptyOf(platformShortName);
             }
             return Picture.emptyOfHardware();
@@ -222,10 +208,6 @@ public abstract class Article implements Comparable<Article>, Serializable {
 
     public int getOwnersCount() {
         return owners.size();
-    }
-
-    public int getWishersCount() {
-        return wishList.size();
     }
 
     public Reviews getReviews() {
@@ -256,18 +238,6 @@ public abstract class Article implements Comparable<Article>, Serializable {
         return id;
     }
 
-    public boolean isBuyable() {
-        return getAvailableCopyCount() > 0;
-    }
-
-    public int getAvailableCopyCount() {
-        return shopItems.getAvailableCopyCount();
-    }
-
-    public ShopItems getShopItems() {
-        return shopItems;
-    }
-
     @Override
     public int compareTo(Article article) {
         return title.compareToIgnoreCase(StringUtils.defaultString(article.title));
@@ -276,26 +246,6 @@ public abstract class Article implements Comparable<Article>, Serializable {
     @Override
     public String toString() {
         return title;
-    }
-
-    public boolean hasShopItemInState(State state) {
-        return shopItems.hasShopItemInState(state);
-    }
-
-    public int getAvailableCopyInState(State state) {
-        return shopItems.getAvailableCopyInState(state);
-    }
-
-    public double getAveragePriceInState(State state) {
-        return shopItems.getAveragePriceInState(state);
-    }
-
-    public double getMaxPriceInState(State state) {
-        return shopItems.getMaxPriceInState(state);
-    }
-
-    public double getMinPriceInState(State state) {
-        return shopItems.getMinPriceInState(state);
     }
 
     public void setPlatform(Platform platform) {
@@ -349,7 +299,7 @@ public abstract class Article implements Comparable<Article>, Serializable {
         String[] toReplace = {"·", ",", "&", "/", " ", "!", "\\(", "\\)", "'", "~"};
         String title = getTitle();
         for (String s : toReplace) {
-            if(title == null) {
+            if (title == null) {
                 title = "";
             }
             title = title.replaceAll(s, "-");
@@ -423,15 +373,6 @@ public abstract class Article implements Comparable<Article>, Serializable {
 
     public Date getModificationDate() {
         return modificationDate;
-    }
-
-    public Collection<User> getWishers() {
-        return new HashSet<User>(transform(wishList, new Function<Wish, User>() {
-            @Override
-            public User apply(@Nullable Wish input) {
-                return input.getWisher();
-            }
-        }));
     }
 
     public String getYoutubePlaylist() {

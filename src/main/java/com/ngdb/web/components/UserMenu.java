@@ -7,40 +7,28 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 public class UserMenu {
 
-	@Inject
-	private CurrentUser currentUser;
+    @Inject
+    private CurrentUser currentUser;
 
-	public Long getUserId() {
-		return currentUser.getUserId();
-	}
-
-	public String getUsername() {
-		return currentUser.getUsername();
-	}
-
-	public User getUser() {
-		return currentUser.getUser();
-	}
-
-	Object onActionFromLogout() {
-		currentUser.logout();
-		return Index.class;
-	}
-
-	public int getNumArticlesInCollection() {
-		return currentUser.getNumArticlesInCollection();
-	}
-
-	public long getNumArticlesInShop() {
-		return currentUser.getNumArticlesInShop();
-	}
-
-    public long getNumArticlesInBasket() {
-        return currentUser.getNumArticlesInBasket();
+    public Long getUserId() {
+        return currentUser.getUserId();
     }
 
-	public int getNumArticlesInWishList() {
-		return currentUser.getNumArticlesInWishList();
-	}
+    public String getUsername() {
+        return currentUser.getUsername();
+    }
+
+    public User getUser() {
+        return currentUser.getUser();
+    }
+
+    Object onActionFromLogout() {
+        currentUser.logout();
+        return Index.class;
+    }
+
+    public int getNumArticlesInCollection() {
+        return currentUser.getNumArticlesInCollection();
+    }
 
 }

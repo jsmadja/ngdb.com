@@ -5,8 +5,6 @@ import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.element.Comment;
 import com.ngdb.entities.article.element.Note;
 import com.ngdb.entities.article.element.Tag;
-import com.ngdb.entities.shop.ShopItem;
-import com.ngdb.entities.shop.Wish;
 import com.ngdb.entities.user.CollectionObject;
 import com.ngdb.entities.user.User;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -54,9 +52,6 @@ public class CurrentUser {
     private ActionLogger actionLogger;
 
     @Inject
-    private CheckoutService checkoutService;
-
-    @Inject
     private Cookies cookies;
 
     @Inject
@@ -67,9 +62,6 @@ public class CurrentUser {
 
     @Inject
     private Museum museum;
-
-    @Inject
-    private WishBox wishbox;
 
     @Inject
     private ThreadLocale threadLocale;
@@ -204,48 +196,6 @@ public class CurrentUser {
         actionLogger.removeArticleFromCollectionAction(getUser(), article);
     }
 
-    public boolean canWish(Article article) {
-        if (isAnonymous()) {
-            return false;
-        }
-        return ((Long)session.createCriteria(Wish.class).
-                add(eq("wisher", getUser())).
-                add(eq("article", article)).
-                setProjection(countDistinct("id")).
-                setCacheable(true).
-                uniqueResult()) == 0;
-    }
-
-    public boolean canUnwish(Article article) {
-        if (isAnonymous()) {
-            return false;
-        }
-        return ((Long)session.createCriteria(Wish.class).
-                add(eq("wisher", getUser())).
-                add(eq("article", article)).
-                setProjection(countDistinct("id")).
-                setCacheable(true).
-                uniqueResult()) != 0;
-    }
-
-    public void wish(Article article) {
-        Wish wish = getUser().addToWishes(article);
-        session.merge(wish);
-        wishbox.invalidateRanks();
-        actionLogger.addArticleInWishlistAction(getUser(), article);
-    }
-
-    public void unwish(Article article) {
-        User userFromDb = getUser();
-        userFromDb.removeFromWishes(article);
-        wishbox.invalidateRanks();
-        actionLogger.removeArticleFromWishlistAction(getUser(), article);
-    }
-
-    public boolean canSell() {
-        return isLogged();
-    }
-
     public int getNumArticlesInCollection() {
         String queryString = "SELECT COUNT(*) FROM CollectionObject WHERE user_id = " + getUserId();
         return count(queryString);
@@ -253,49 +203,6 @@ public class CurrentUser {
 
     private int count(String queryString) {
         return ((BigInteger)session.createSQLQuery(queryString).uniqueResult()).intValue();
-    }
-
-    public int getNumArticlesInWishList() {
-        return getUser().getNumArticlesInWishList();
-    }
-
-    public long getNumArticlesInShop() {
-        return (Long)session.createCriteria(ShopItem.class).
-                setProjection(Projections.count("id")).
-                add(eq("seller", getUser())).
-                add(eq("sold", false)).
-                setCacheable(true).uniqueResult();
-    }
-
-    public boolean canMarkAsSold(ShopItem shopItem) {
-        if(isAnonymous()) {
-            return false;
-        }
-        return shopItem.getSeller().getId().equals(getUserId());
-    }
-
-    public boolean canRemove(ShopItem shopItem) {
-        if(isAnonymous()) {
-            return false;
-        }
-        return shopItem.getSeller().equals(getUser());
-    }
-
-    public boolean canEdit(ShopItem shopItem) {
-        return canMarkAsSold(shopItem);
-    }
-
-    public boolean isSeller(ShopItem shopItem) {
-        if (shopItem == null) {
-            return false;
-        }
-        return isLoggedUser(shopItem.getSeller());
-    }
-
-    public boolean canBuy(ShopItem shopItem) {
-        boolean currentUserIsPotentialBuyer = isLogged() && shopItem.isNotInBasketOf(getUser());
-        boolean currentUserIsNotTheSeller = !isSeller(shopItem);
-        return currentUserIsNotTheSeller && currentUserIsPotentialBuyer;
     }
 
     public void addCommentOn(Article article, String commentText) {
@@ -381,14 +288,6 @@ public class CurrentUser {
         } catch(Throwable t) {
             return CurrencyUnit.of(new Locale(locale.getLanguage(),locale.getLanguage())).getCode();
         }
-    }
-
-    public long getNumArticlesInBasket() {
-        return getUser().getBasket().getNumArticles();
-    }
-
-    public void checkout() {
-        checkoutService.checkout(getUser());
     }
 
     public boolean equalsThis(User user) {

@@ -13,10 +13,10 @@
     <t:if test="description">
       <meta name="description" content="${description}" />
       <p:else>
-        <meta name="description" content="neogeodb.com - The Neo·Geo Database - Collections, Wishlists, Marketplace of many formats (AES/MVS/CD/NGP/NGPC/H64)" />
+        <meta name="description" content="neogeodb.com - The Neo·Geo Database - Collections, of many formats (AES/MVS/CD/NGP/NGPC/H64)" />
       </p:else>
     </t:if>
-    <meta name="keywords" content="NeoGeo, NeoGeo games, NeoGeo videogames, NeoGeo MVS, NeoGeo AES, arcade, retro video games, retro videogames, SNK, Playmore, SNK Playmore, pocket color, price guides, neogeo, mvs, aes, neogeocd, arcade, fighting, shoot, sell, buy, database, list, listing, japanese games, shop, market, retro, retrogaming, snk, snkp, snkplaymore" />
+    <meta name="keywords" content="NeoGeo, NeoGeo games, NeoGeo videogames, NeoGeo MVS, NeoGeo AES, arcade, retro video games, retro videogames, SNK, Playmore, SNK Playmore, pocket color, neogeo, mvs, aes, neogeocd, arcade, fighting, shoot, database, list, listing, japanese games, retro, retrogaming, snk, snkp, snkplaymore" />
 
     <link href="/css/colorbox.css" rel="stylesheet" />
     <link href="/css/bootstrap.css" rel="stylesheet" />
@@ -62,21 +62,11 @@
     <t:common.layout.navbar />
     <div class="container-fluid">
       <div class="row-fluid">
-          <t:if test="showLeftContent">
-            <div class="span9">
-                <div style="margin-left:10px">
-                    <t:body />
-                </div>
+        <div class="span12">
+            <div style="margin-left:10px; margin-right:10px">
+                <t:body />
             </div>
-            <div class="span3">
-                <t:common.layout.menu />
-            </div>
-              <p:else>
-                <div class="span12">
-                    <t:body />
-                </div>
-            </p:else>
-          </t:if>
+        </div>
       </div>
       <hr />
       <t:common.layout.footer />

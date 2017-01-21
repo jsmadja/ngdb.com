@@ -13,16 +13,6 @@
                 <t:pageLink page="museum" context="user"><i class="icon-plus" /> ${message:usermenu.mycollection} (${numArticlesInCollection})</t:pageLink>
             </li>
             <li class="divider"></li>
-            <li>
-				<a href="/wishbox/byUser/${userId}"><i class="icon-heart" /> ${message:usermenu.mywishes} (${numArticlesInWishList})</a>
-			</li>
-			<li>
-				<a href="/market/byUser/${userId}"><i class="icon-share" /> ${message:usermenu.myshop} (${numArticlesInShop})</a>
-			</li>
-			<li>
-                <a href="/basket"><i class="icon-shopping-cart" /> ${message:usermenu.mybasket} (${numArticlesInBasket})</a>
-            </li>
-            <li class="divider"></li>
 			<li>
 				<t:actionLink t:id="logout" id="logout" >${message:usermenu.logout}</t:actionLink>
 			</li>

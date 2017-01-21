@@ -2,7 +2,6 @@ package com.ngdb.web.pages;
 
 import com.ngdb.entities.ArticleFactory;
 import com.ngdb.entities.Population;
-import com.ngdb.entities.WishBox;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Tag;
@@ -13,8 +12,6 @@ import com.ngdb.services.SNK;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.json.JSONArray;
-import org.apache.tapestry5.json.JSONObject;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 
@@ -28,13 +25,7 @@ import static org.hibernate.criterion.Restrictions.isNotNull;
 public class Stats {
 
     @Inject
-    private com.ngdb.entities.Market market;
-
-    @Inject
     private Population population;
-
-    @Inject
-    private WishBox wishBox;
 
     @Inject
     private Session session;
@@ -44,9 +35,6 @@ public class Stats {
 
     @Inject
     private SNK snk;
-
-    @Property
-    private Long wishListCount;
 
     @Property
     private Long userCount;
@@ -60,27 +48,10 @@ public class Stats {
     private Long mostOwnedArticleCount;
 
     @Property
-    private Article mostWishedArticle;
-    @Property
-    private Long mostWishedArticleCount;
-
-    @Property
-    private Article mostForSaleArticle;
-
-    @Property
-    private Long mostForSaleArticleCount;
-
-    @Property
     private User biggestCollectionner;
 
     @Property
     private Long biggestCollectionnerCount;
-
-    @Property
-    private User biggestWisher;
-
-    @Property
-    private Long biggestWisherCount;
 
     @Inject
     private ReferenceService referenceService;
@@ -91,30 +62,15 @@ public class Stats {
     @SetupRender
     public void init() {
         this.userCount = population.getNumUsers();
-        this.wishListCount = wishBox.getNumWishes();
-        this.soldCount = market.getNumSoldItems();
         this.employeeCount = snk.getNumEmployees();
 
         EntityCount entityCount = entityCountQuery("SELECT article_id,COUNT(*) FROM CollectionObject GROUP BY article_id ORDER BY COUNT(*) DESC");
         this.mostOwnedArticle = articleFactory.findById(entityCount.entityId);
         this.mostOwnedArticleCount = entityCount.count;
 
-        entityCount = entityCountQuery("SELECT article_id,COUNT(*) FROM Wish GROUP BY article_id ORDER BY COUNT(*) DESC");
-        this.mostWishedArticle = articleFactory.findById(entityCount.entityId);
-        this.mostWishedArticleCount = entityCount.count;
-
-        entityCount = entityCountQuery("SELECT article_id,COUNT(*) FROM ShopItem GROUP BY article_id ORDER BY COUNT(*) DESC");
-        this.mostForSaleArticle = articleFactory.findById(entityCount.entityId);
-        this.mostForSaleArticleCount = entityCount.count;
-
         entityCount = entityCountQuery("SELECT user_id,COUNT(*) FROM CollectionObject GROUP BY user_id ORDER BY COUNT(*) DESC");
         this.biggestCollectionner = population.findById(entityCount.entityId);
         this.biggestCollectionnerCount = entityCount.count;
-
-        entityCount = entityCountQuery("SELECT user_id,COUNT(*) FROM Wish GROUP BY user_id ORDER BY COUNT(*) DESC");
-        this.biggestWisher = population.findById(entityCount.entityId);
-        this.biggestWisherCount = entityCount.count;
-
     }
 
     public String getCoverProgress() {

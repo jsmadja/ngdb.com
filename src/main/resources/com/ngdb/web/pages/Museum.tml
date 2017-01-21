@@ -81,9 +81,6 @@
 
             <p>
                 <b>${numResults}</b> ${message:museum.results} <b><i><t:outputRaw value="${queryLabel}" /></i></b>
-                <span class="pull-right">
-                    <a href="${filterUrl}">${message:market.bookmarksearch}</a>
-                </span>
             </p>
             <t:article.articles articles="articles" />
         </div>

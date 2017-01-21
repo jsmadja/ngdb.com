@@ -31,11 +31,6 @@ public class Charts {
         return findTop100OfGames(sqlQuery);
     }
 
-    public Collection<Top100Item> findTop100OfGamesInWishlist(Platform platform) {
-        String sqlQuery = "SELECT g.id, g.title, g.origin_title, COUNT(w.article_id) FROM Wish w, ngdb.Game g WHERE g.id = w.article_id AND g.platform_short_name = '" + platform.getShortName() + "' GROUP BY w.article_id ORDER BY COUNT(w.article_id) DESC";
-        return findTop100OfGames(sqlQuery);
-    }
-
     private Collection<Top100Item> findTop100OfGames(String sqlQuery) {
         Query query = session.createSQLQuery(sqlQuery);
         query = query.setResultTransformer(new Top100ItemResultTransformer());
@@ -114,26 +109,6 @@ public class Charts {
                 return new Top100Item(id, title, originTitle, mark.toString(), rank);
             }
         };
-    }
-
-    public Collection<Top100ShopItem> findTop100OfGamesRecentlySold(Platform platform) {
-        return findTop100OfGamesRecentlyInMarket(platform, true);
-    }
-
-    public Collection<Top100ShopItem> findTop100OfGamesRecentlyInShop(Platform platform) {
-        return findTop100OfGamesRecentlyInMarket(platform, false);
-    }
-
-    private Collection<Top100ShopItem> findTop100OfGamesRecentlyInMarket(Platform platform, boolean sold) {
-        int flag = sold ? 1 : 0;
-        String sqlQuery = "SELECT g.id, g.title, g.origin_title, si.customCurrency, si.priceInCustomCurrency, si.id, si.seller_id, s.title state_title, si.modification_date FROM State s, ShopItem si, Game g WHERE s.id = si.state_id AND si.article_id = g.id AND sold = " + flag + " AND g.platform_short_name = '" + platform.getShortName() + "' ORDER BY si.MODIFICATION_DATE DESC";
-        return findTop100OfShopItems(sqlQuery);
-    }
-
-    private Collection<Top100ShopItem> findTop100OfShopItems(String sqlQuery) {
-        Query query = session.createSQLQuery(sqlQuery);
-        query = query.setResultTransformer(new Top100ShopItemResultTransformer());
-        return query.list();
     }
 
 }

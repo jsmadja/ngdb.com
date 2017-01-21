@@ -3,27 +3,7 @@
         <t:zone t:id="actionBlockZone" id="${zoneId}">
 			<t:if test="asButton">
 				<div class="btn-group">
-		  			<t:if test="buyable">
-						<t:pageLink t:id="buy" class="btn btn-warning" page="market" context="[byArticle, article]" title="${message:articleaction.viewitemsforsale}">
-							<i class="icon-shopping-cart icon-white"></i>
-						</t:pageLink>
-					</t:if>
-					<t:if test="sellable">
-						<t:pageLink t:id="sellButton" class="btn btn-success"  page="shop/shopItemCreate" context="article" title="${message:articleaction.sellyours}">
-							<i class="icon-share icon-white" />
-						</t:pageLink>
-					</t:if>
-					<t:if test="wishable">
-						<t:actionLink class="btn btn-success" zone="prop:zoneId" t:id="wish" context="article" title="${message:articleaction.addtowishlist}">
-							<i class="icon-heart icon-white" />
-						</t:actionLink>
-					</t:if>
-					<t:if test="unwishable">
-						<t:actionLink class="btn btn-danger" zone="prop:zoneId" t:id="unwish" context="article" title="${message:articleaction.removefromwishlist}">
-							<i class="icon-fire icon-white" />
-						</t:actionLink>				
-					</t:if>
-					<t:if test="addableToCollection">
+		  			<t:if test="addableToCollection">
 						<t:actionLink class="btn btn-success" zone="prop:zoneId" t:id="addToCollection" context="article" title="${message:articleaction.addtocollection}">
 							<i class="icon-plus icon-white" />
 						</t:actionLink>
@@ -44,34 +24,6 @@
 							<li>
 								<t:common.action.editButton article="article" asButton="false" />
 							</li>
-							<t:if test="buyable">
-								<li>
-									<t:pageLink t:id="buyLink" page="market" context="[byArticle, article]">
-										<i class="icon-shopping-cart"/> ${message:articleaction.viewitemsforsale}
-									</t:pageLink>
-								</li>
-							</t:if>
-							<t:if test="sellable">
-								<li>
-									<t:pageLink t:id="sell" page="shop/shopItemCreate" context="article">
-										<i class="icon-share" /> ${message:articleaction.sellyours}
-									</t:pageLink>
-								</li>
-							</t:if>
-							<t:if test="wishable">
-								<li>
-									<t:actionLink t:id="wishLink" context="article">
-										<i class="icon-heart" /> ${message:articleaction.addtowishlist}
-									</t:actionLink>
-								</li>
-							</t:if>
-							<t:if test="unwishable">
-								<li>
-									<t:actionLink t:id="unwishLink" context="article">
-										<i class="icon-fire" /> ${message:articleaction.removefromwishlist}
-									</t:actionLink>
-								</li>
-							</t:if>
 							<t:if test="addableToCollection">
 								<li>
 									<t:actionLink t:id="collectionLink" context="article" >

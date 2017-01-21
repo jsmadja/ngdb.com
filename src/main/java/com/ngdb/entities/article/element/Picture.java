@@ -2,7 +2,6 @@ package com.ngdb.entities.article.element;
 
 import com.ngdb.entities.AbstractEntity;
 import com.ngdb.entities.article.Article;
-import com.ngdb.entities.shop.ShopItem;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -20,9 +19,6 @@ public class Picture extends AbstractEntity implements Comparable<Picture> {
 
     @ManyToOne(optional = true)
     private Article article;
-
-    @ManyToOne(optional = true)
-    private ShopItem shopItem;
 
     Picture() {
     }
@@ -43,7 +39,7 @@ public class Picture extends AbstractEntity implements Comparable<Picture> {
     }
 
     public static Picture emptyOf(String platformName) {
-        return new Picture("/ngdb/"+platformName+"_Wanted.jpg");
+        return new Picture("/ngdb/" + platformName + "_Wanted.jpg");
     }
 
     public String getUrlSmall() {
@@ -89,10 +85,6 @@ public class Picture extends AbstractEntity implements Comparable<Picture> {
 
     public void setArticle(Article article) {
         this.article = article;
-    }
-
-    public void setShopItem(ShopItem shopItem) {
-        this.shopItem = shopItem;
     }
 
     @Override

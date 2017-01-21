@@ -1,9 +1,7 @@
 package com.ngdb.web.services.infrastructure;
 
 import com.ngdb.entities.article.Article;
-import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.Picture;
-import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.services.Cacher;
 import org.apache.commons.io.FileUtils;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -43,37 +41,14 @@ public class PictureService {
         return article.getCover();
 	}
 
-	public Picture store(UploadedFile uploadedFile, ShopItem shopItem) {
-		try {
-			Picture picture = createPictureFromUploadedFile(uploadedFile, shopItem);
-			picture.setShopItem(shopItem);
-            cacher.invalidateCoverOf(shopItem);
-			return picture;
-		} catch (IOException e) {
-			LOG.warn("Cannot create picture with name '" + uploadedFile.getFileName() + "' for article " + shopItem.getId(), e);
-		}
-		return shopItem.getMainPicture();
-	}
-
 	private Picture createPictureFromUploadedFile(UploadedFile uploadedFile, Article article) throws IOException {
 		InputStream fromStream = uploadedFile.getStream();
 		String pictureName = name() + "." + extension(uploadedFile.getFileName());
 		return createPicture(article, fromStream, pictureName);
 	}
 
-	private Picture createPictureFromUploadedFile(UploadedFile uploadedFile, ShopItem shopItem) throws IOException {
-		InputStream fromStream = uploadedFile.getStream();
-		String pictureName = name() + "." + extension(uploadedFile.getFileName());
-		return createPicture(shopItem, fromStream, pictureName);
-	}
-
 	private Picture createPicture(Article article, InputStream fromStream, String pictureName) throws IOException {
 		String parentFolder = ARTICLE_ROOT + article.getId() + "/";
-		return createPicture(fromStream, pictureName, parentFolder);
-	}
-
-	private Picture createPicture(ShopItem shopItem, InputStream fromStream, String pictureName) throws IOException {
-		String parentFolder = SHOP_ITEM_ROOT + shopItem.getId() + "/";
 		return createPicture(fromStream, pictureName, parentFolder);
 	}
 
@@ -120,21 +95,6 @@ public class PictureService {
 
     public void invalidateCoverOf(Article article) {
         cacher.invalidateCoverOf(article);
-    }
-
-    public void invalidateCoverOf(ShopItem shopItem) {
-        cacher.invalidateCoverOf(shopItem);
-    }
-
-    public Picture getCoverOf(ShopItem shopItem) {
-        Picture cover;
-        if(cacher.hasCoverOf(shopItem)) {
-            cover = cacher.getCoverOf(shopItem);
-        } else {
-            cover = shopItem.getMainPicture();
-            cacher.setCoverOf(shopItem, cover);
-        }
-        return cover;
     }
 
     public Picture getCoverOf(Article article) {

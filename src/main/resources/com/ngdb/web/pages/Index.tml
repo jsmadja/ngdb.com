@@ -1,17 +1,10 @@
 <t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 	<div class="hero-unit">
 		<h1><span class="orange" style="font-family:Times new roman">NEO·GEO</span><span class="blue"> database</span></h1>
-		<p>Imagine a world where you can <span class="orange"><b>learn</b></span> about SNK, <span class="orange"><b>buy</b></span> and <span class="orange"><b>sell</b></span> your stuff with other people!</p>
+		<p>Imagine a world where you can <span class="orange"><b>learn</b></span> about SNK.</p>
 	</div>
 
-    <div class="alert alert-info" style="margin-top:20px">
-        <t:outputRaw value="htmlNews" />
-        <p>
-            ${message:index.disclaimer} <a href="/contact">${message:index.contactform}</a>.
-        </p>
-    </div>
-
-  <ul style="margin: 0;">
+  <ul style="margin-top: 20px;">
     <li style="display: inline-block; width: 32%;">
       <t:pageLink page="${game1.viewPage}" context="[game1,game1.suffix]">
         <img class="thumbnail thumbnail_medium_${game1.platformShortName}" src="${message:image.host.url}${game1.cover.urlMedium}" alt="${game1.title}" title="${game1.title}" />

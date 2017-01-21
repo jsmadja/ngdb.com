@@ -1,7 +1,6 @@
 package com.ngdb.web.components.article;
 
 import com.ngdb.entities.Museum;
-import com.ngdb.entities.WishBox;
 import com.ngdb.entities.article.Article;
 import com.ngdb.web.Filter;
 import org.apache.tapestry5.annotations.Parameter;
@@ -17,19 +16,8 @@ public class ArticleStats {
     @Inject
     private Museum museum;
 
-    @Inject
-    private WishBox wishBox;
-
     public String getCollectionRank() {
         return asRankString(museum.getRankOf(article));
-    }
-
-    public String getWishRank() {
-        return asRankString(wishBox.getRankOf(article));
-    }
-
-    public int getNumAvailableCopy() {
-        return article.getAvailableCopyCount();
     }
 
     private String asRankString(int value) {
@@ -51,10 +39,6 @@ public class ArticleStats {
             default:
                 return value + "th";
         }
-    }
-
-    public boolean isBuyable() {
-        return getNumAvailableCopy() > 0;
     }
 
     public String getByArticle() {

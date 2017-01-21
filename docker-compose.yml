@@ -1,0 +1,14 @@
+version: "2"
+
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=ngdb
+      - MYSQL_USER=ngdb
+      - MYSQL_PASSWORD=ngdb
+    ports:
+      - 3306:3306
+  static:
+    image: nginx:latest

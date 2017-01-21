@@ -7,12 +7,6 @@
 			<p>
 				<t:pageLink page="museum" context="user">${collectionLabel}</t:pageLink>
 			</p>
-            <p>
-                <t:pageLink page="market" context="user">${shopLabel}</t:pageLink>
-            </p>
-            <p>
-                <a href="/wishbox/byUser/${user.id}" title="${wishLabel}">${wishLabel}</a>
-            </p>
 		</div>
 	</t:if>
 </t:layout>

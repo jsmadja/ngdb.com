@@ -2,10 +2,6 @@ package com.ngdb.entities.user;
 
 import com.ngdb.entities.AbstractEntity;
 import com.ngdb.entities.article.Article;
-import com.ngdb.entities.shop.Basket;
-import com.ngdb.entities.shop.ShopItem;
-import com.ngdb.entities.shop.ShopOrder;
-import com.ngdb.entities.shop.Wish;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -13,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
@@ -37,22 +32,10 @@ public class User extends AbstractEntity implements Comparable<User> {
     private String preferedCurrency;
 
     @Embedded
-    private WishList wishList;
-
-    @Embedded
     private ArticleCollection collection;
-
-    @Embedded
-    private Shop shop;
 
     @OneToMany(mappedBy = "user")
     private Set<Token> tokens;
-
-    @OneToMany(mappedBy = "buyer")
-    private Set<ShopOrder> shopOrders;
-
-    @Embedded
-    private Basket basket;
 
     @Column(name = "shop_policy")
     private String shopPolicy;
@@ -100,20 +83,6 @@ public class User extends AbstractEntity implements Comparable<User> {
         return collection;
     }
 
-    public Shop getShop() {
-        return shop;
-    }
-
-    public Wish addToWishes(Article article) {
-        Wish wish = new Wish(this, article);
-        wishList.addInWishList(wish);
-        return wish;
-    }
-
-    public void removeFromWishes(Article article) {
-        wishList.removeFromWishList(article);
-    }
-
     public CollectionObject addInCollection(Article article) {
         CollectionObject collectionObject = new CollectionObject(this, article);
         collection.addInCollection(collectionObject);
@@ -124,10 +93,6 @@ public class User extends AbstractEntity implements Comparable<User> {
         collection.removeFromCollection(article);
     }
 
-    public int getNumArticlesInWishList() {
-        return wishList.getNumWishes();
-    }
-
     @Override
     public int compareTo(User user) {
         return login.compareToIgnoreCase(user.getLogin());
@@ -135,18 +100,6 @@ public class User extends AbstractEntity implements Comparable<User> {
 
     public boolean isContributor() {
         return login.equalsIgnoreCase("anzymus") || login.equalsIgnoreCase("takou");
-    }
-
-    public int getNumWishedHardwares() {
-        return wishList.getNumWishedHardwares();
-    }
-
-    public int getNumWishedGames() {
-        return wishList.getNumWishedGames();
-    }
-
-    public long getNumWishedAccessories() {
-        return wishList.getNumWishedAccessories();
     }
 
     public Date getLastLoginDate() {
@@ -191,21 +144,5 @@ public class User extends AbstractEntity implements Comparable<User> {
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    public Basket getBasket() {
-        return basket;
-    }
-
-    public void addOrder(ShopOrder shopOrder) {
-        shopOrder.setBuyer(this);
-        shopOrders.add(shopOrder);
-    }
-
-    public WishList getWishList() {
-        if(wishList == null) {
-            wishList = new WishList();
-        }
-        return wishList;
     }
 }

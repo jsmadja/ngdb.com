@@ -22,12 +22,4 @@ public class UserView {
         return messages.format("member.collectionLabel", user.getLogin());
     }
 
-    public String getShopLabel() {
-        return messages.format("member.shopLabel", user.getLogin());
-    }
-
-    public String getWishLabel() {
-        return messages.format("member.wishLabel", user.getLogin());
-    }
-
-}
+ }

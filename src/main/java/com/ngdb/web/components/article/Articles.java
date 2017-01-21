@@ -2,7 +2,6 @@ package com.ngdb.web.components.article;
 
 import com.ngdb.entities.Reviewer;
 import com.ngdb.entities.article.Article;
-import com.ngdb.entities.shop.ShopItem;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;

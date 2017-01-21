@@ -14,114 +14,71 @@ import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 
 public class ActionBlock {
 
-	@Inject
-	private CurrentUser currentUser;
+    @Inject
+    private CurrentUser currentUser;
 
-	@Property
-	@Parameter(required = false)
-	private boolean asButton;
+    @Property
+    @Parameter(required = false)
+    private boolean asButton;
 
-	@Property
-	@Parameter
-	private Article article;
+    @Property
+    @Parameter
+    private Article article;
 
-	@Inject
-	private ArticleFactory articleFactory;
+    @Inject
+    private ArticleFactory articleFactory;
 
-	@Property
-	@Parameter
-	private String returnPage;
+    @Property
+    @Parameter
+    private String returnPage;
 
-	@Inject
-	private AjaxResponseRenderer ajaxResponseRenderer;
+    @Inject
+    private AjaxResponseRenderer ajaxResponseRenderer;
 
-	@InjectComponent
-	private Zone actionBlockZone;
+    @InjectComponent
+    private Zone actionBlockZone;
 
-	public boolean isAddableToCollection() {
-		return currentUser.canAddToCollection(article);
-	}
+    public boolean isAddableToCollection() {
+        return currentUser.canAddToCollection(article);
+    }
 
-	public boolean isRemoveableFromCollection() {
-		return currentUser.canRemoveFromCollection(article);
-	}
+    public boolean isRemoveableFromCollection() {
+        return currentUser.canRemoveFromCollection(article);
+    }
 
-	public boolean isBuyable() {
-		article = articleFactory.findById(article.getId());
-		return article.isBuyable();
-	}
+    public User getUser() {
+        return currentUser.getUser();
+    }
 
-	public boolean isSellable() {
-		return currentUser.canSell();
-	}
-
-	public boolean isWishable() {
-		return currentUser.canWish(article);
-	}
-
-	public boolean isUnwishable() {
-		return currentUser.canUnwish(article);
-	}
-
-	public User getUser() {
-		return currentUser.getUser();
-	}
-
-	@CommitAfter
-	void onActionFromAddToCollection(Article article) {
-		this.article = article;
-		currentUser.addToCollection(article);
+    @CommitAfter
+    void onActionFromAddToCollection(Article article) {
+        this.article = article;
+        currentUser.addToCollection(article);
         ajaxResponseRenderer.addRender(getZoneId(), actionBlockZone.getBody());
-	}
+    }
 
-	@CommitAfter
-	void onActionFromRemoveCollection(Article article) {
-		this.article = article;
-		currentUser.removeFromCollection(article);
-		ajaxResponseRenderer.addRender(actionBlockZone);
-	}
+    @CommitAfter
+    void onActionFromRemoveCollection(Article article) {
+        this.article = article;
+        currentUser.removeFromCollection(article);
+        ajaxResponseRenderer.addRender(actionBlockZone);
+    }
 
-	@CommitAfter
-	void onActionFromUnwish(Article article) {
-		this.article = article;
-		currentUser.unwish(article);
-		ajaxResponseRenderer.addRender(actionBlockZone);
-	}
+    @CommitAfter
+    Object onActionFromRemoveCollectionLink(Article article) {
+        currentUser.removeFromCollection(article);
+        return returnPage;
+    }
 
-	@CommitAfter
-	void onActionFromWish(Article article) {
-		this.article = article;
-		currentUser.wish(article);
-		ajaxResponseRenderer.addRender(actionBlockZone);
-	}
+    @CommitAfter
+    Object onActionFromCollectionLink(Article article) {
+        currentUser.addToCollection(article);
+        return returnPage;
+    }
 
-	@CommitAfter
-	Object onActionFromUnwishLink(Article article) {
-		currentUser.unwish(article);
-		return returnPage;
-	}
-
-	@CommitAfter
-	Object onActionFromRemoveCollectionLink(Article article) {
-		currentUser.removeFromCollection(article);
-		return returnPage;
-	}
-
-	@CommitAfter
-	Object onActionFromWishLink(Article article) {
-		currentUser.wish(article);
-		return returnPage;
-	}
-
-	@CommitAfter
-	Object onActionFromCollectionLink(Article article) {
-		currentUser.addToCollection(article);
-		return returnPage;
-	}
-
-	public String getZoneId() {
-		return "actionBlockZone_" + article.getId().toString();
-	}
+    public String getZoneId() {
+        return "actionBlockZone_" + article.getId().toString();
+    }
 
     public String getByArticle() {
         return "byArticle";

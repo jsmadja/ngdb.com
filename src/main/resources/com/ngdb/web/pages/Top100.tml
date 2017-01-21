@@ -30,49 +30,24 @@
             </style>
 
             <t:zone t:id="top100Zone" id="top100Zone">
-                <t:if test="ShopItemTop">
-                    <t:grid t:id="top100ShopTable"
-                            source="topShopItems"
-                            row="topShopItem"
-                            rowsPerPage="100"
-                            model="shopItemModel"
-                            inPlace="true"
-                            pagerPosition="BOTH"
-                            class="table table-striped table-bordered table-ultra-condensed">
-                        <p:sellerIdCell>
-                            <t:pageLink page="market" context="topShopItem.sellerId">${seller}</t:pageLink>
-                        </p:sellerIdCell>
-                        <p:titleCell>
-                            <t:pageLink page="article/game/gameview" context="topShopItem.articleId">${topShopItem.title}</t:pageLink>
-                        </p:titleCell>
-                        <p:originTitleCell>
-                            <img src="/img/flags/${topShopItem.originTitle}.png" alt="${topShopItem.originTitle}" />
-                        </p:originTitleCell>
-                        <p:saleDateCell>
-                            ${saleDateFormatted}
-                        </p:saleDateCell>
-                    </t:grid>
-                    <p:else>
-                        <t:grid t:id="top100Table"
-                                source="topItems"
-                                row="topItem"
-                                rowsPerPage="100"
-                                model="articleModel"
-                                inPlace="true"
-                                pagerPosition="BOTH"
-                                class="table table-striped table-bordered table-ultra-condensed">
-                            <p:titleCell>
-                                <t:pageLink page="article/game/gameview" context="topItem.id">${topItem.title}</t:pageLink>
-                            </p:titleCell>
-                            <p:originTitleCell>
-                                <img src="/img/flags/${topItem.originTitle}.png" alt="${topItem.originTitle}" />
-                            </p:originTitleCell>
-                            <p:countCell>
-                                <t:outputraw value="${count}" />
-                            </p:countCell>
-                        </t:grid>
-                    </p:else>
-                </t:if>
+                <t:grid t:id="top100Table"
+                        source="topItems"
+                        row="topItem"
+                        rowsPerPage="100"
+                        model="articleModel"
+                        inPlace="true"
+                        pagerPosition="BOTH"
+                        class="table table-striped table-bordered table-ultra-condensed">
+                    <p:titleCell>
+                        <t:pageLink page="article/game/gameview" context="topItem.id">${topItem.title}</t:pageLink>
+                    </p:titleCell>
+                    <p:originTitleCell>
+                        <img src="/img/flags/${topItem.originTitle}.png" alt="${topItem.originTitle}" />
+                    </p:originTitleCell>
+                    <p:countCell>
+                        <t:outputraw value="${count}" />
+                    </p:countCell>
+                </t:grid>
             </t:zone>
         </div>
     </div>

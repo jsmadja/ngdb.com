@@ -8,8 +8,6 @@ import com.ngdb.entities.Registry;
 import com.ngdb.entities.article.Article;
 import com.ngdb.entities.article.Game;
 import com.ngdb.entities.article.element.*;
-import com.ngdb.entities.shop.ShopItem;
-import com.ngdb.entities.shop.ShopItems;
 import com.ngdb.web.services.infrastructure.CurrentUser;
 import com.ngdb.web.services.infrastructure.FileService;
 import com.ngdb.web.services.infrastructure.PictureService;
@@ -30,7 +28,6 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 
 import static com.google.common.collect.Collections2.filter;
-import static java.util.Collections.sort;
 
 @RequiresUser
 public class Administration {
@@ -46,9 +43,6 @@ public class Administration {
 
     @Inject
     private ArticleFactory articleFactory;
-
-    @Inject
-    private com.ngdb.entities.Market market;
 
     @Inject
     private FileService fileService;
@@ -97,7 +91,7 @@ public class Administration {
     @CommitAfter
     @OnEvent(value = EventConstants.SUCCESS, component = "deleteAnArticleForm")
     public Object onSuccessFromDeleteAnArticleForm() {
-        if(currentUser.isContributor()) {
+        if (currentUser.isContributor()) {
             deleteArticle();
         }
         return this;
@@ -110,20 +104,13 @@ public class Administration {
         for (Picture picture : pictures) {
             pictureService.delete(picture);
         }
-        ShopItems shopItems = article.getShopItems();
-        for (ShopItem shopItem:shopItems) {
-            for (Picture picture:shopItem.getPictures()) {
-                pictureService.delete(picture);
-            }
-        }
         Files files = article.getFiles();
         for (File file : files) {
             fileService.delete(file, article);
         }
         session.delete(article);
         session.flush();
-        market.refresh();
-        LOG.info(currentUser.getUsername()+" has just deleted "+articleId);
+        LOG.info(currentUser.getUsername() + " has just deleted " + articleId);
     }
 
     @CommitAfter
@@ -148,7 +135,7 @@ public class Administration {
     }
 
     private String createZoneIdFrom(Game game) {
-        return "tagZone_"+ game.getId().toString();
+        return "tagZone_" + game.getId().toString();
     }
 
     @OnEvent("provideCompletions")

@@ -9,18 +9,5 @@
                 (${article.ownersCount})
             </td>
         </tr>
-        <tr>
-            <td>${message:common.Wishlist}:</td>
-            <td style="text-align:right">
-                <b>${wishRank}</b>
-            </td>
-            <td style="text-align:right">
-                (${article.wishersCount})
-            </td>
-        </tr>
     </table>
-    <t:if test="buyable">
-    <br/>
-    <t:pageLink page="market" context="[byArticle,article]"><b>${article.availableCopyCount}</b> ${message:history.viewinmarket}</t:pageLink>
-    </t:if>
 </div>

@@ -73,10 +73,8 @@ public class AppModule {
         binder.bind(CurrentUser.class);
         binder.bind(PictureService.class);
         binder.bind(FileService.class);
-        binder.bind(WishBox.class);
         binder.bind(Museum.class);
         binder.bind(ReferenceService.class);
-        binder.bind(Market.class);
         binder.bind(ArticleFactory.class);
         binder.bind(Population.class);
         binder.bind(Registry.class);
@@ -86,7 +84,6 @@ public class AppModule {
         binder.bind(CurrencyService.class);
         binder.bind(Suggestionner.class);
         binder.bind(ActionLogger.class);
-        binder.bind(CheckoutService.class);
         binder.bind(HibernateSearchService.class);
         binder.bind(Reviewer.class);
         binder.bind(Charts.class);
