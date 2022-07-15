@@ -11,7 +11,7 @@
         <url>git:ssh://git@github.com/jsmadja/ngdb.com.git</url>
     </scm>
     <properties>
-        <tapestry-release-version>5.3.2</tapestry-release-version>
+        <tapestry-release-version>5.8.2</tapestry-release-version>
         <tapestry-security-version>0.4.6</tapestry-security-version>
         <got5-release-version>3.2.1</got5-release-version>
         <mysql-release-version>5.1.17</mysql-release-version>
